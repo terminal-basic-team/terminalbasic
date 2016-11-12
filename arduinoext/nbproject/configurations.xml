@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="100">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="include" displayName="include" projectFiles="true">
+      <itemPath>include/_protocol.hpp</itemPath>
+      <itemPath>../arduinoext/include/arduino_logger.hpp</itemPath>
+      <itemPath>include/bcopy.hpp</itemPath>
+      <itemPath>../arduinoext/include/cps.hpp</itemPath>
+      <itemPath>include/cps_mosprotocol.hpp</itemPath>
+      <itemPath>include/cps_mosprotocol_arduino.hpp</itemPath>
+      <itemPath>include/helper.hpp</itemPath>
+      <itemPath>include/protocol.hpp</itemPath>
+      <itemPath>include/protocol_arduino.hpp</itemPath>
+      <itemPath>include/ringbuffer.hpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="src" displayName="src" projectFiles="true">
+      <itemPath>../arduinoext/src/arduino_logger.cpp</itemPath>
+      <itemPath>include/bcopy.cpp</itemPath>
+      <itemPath>src/cps_mosprotocol.cpp</itemPath>
+      <itemPath>src/cps_mosprotocol_arduino.cpp</itemPath>
+      <itemPath>src/protocol.cpp</itemPath>
+      <itemPath>src/protocol_arduino.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Файлы тестов"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+      <logicalFolder name="f1"
+                     displayName="ringbuffer"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/newsimpletest.cpp</itemPath>
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Важные файлы"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceRootList>
+    <Elem>include</Elem>
+    <Elem>src</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="3">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <standard>8</standard>
+          <incDir>
+            <pElem>include</pElem>
+            <pElem>../libarduinoemulator/include</pElem>
+            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino</pElem>
+          </incDir>
+          <commandLine>`pkg-config --cflags posixcpp`</commandLine>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+      <item path="../arduinoext/include/arduino_logger.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../arduinoext/include/cps.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../arduinoext/src/arduino_logger.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../libarduinoemulator"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../libarduinoemulator"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinoemulator.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerOptionItem>`pkg-config --libs posixcpp`</linkerOptionItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
+      <item path="include/_protocol.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/bcopy.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/bcopy.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/cps_mosprotocol.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/cps_mosprotocol_arduino.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/helper.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/protocol.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/protocol_arduino.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/ringbuffer.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/cps_mosprotocol.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/cps_mosprotocol_arduino.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/protocol.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/protocol_arduino.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Arduino_nano328" type="3">
+      <toolsSet>
+        <compilerSet>Arduino|GNU</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <standard>8</standard>
+          <incDir>
+            <pElem>include</pElem>
+            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino</pElem>
+            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/variants/eightanaloginputs</pElem>
+          </incDir>
+          <commandLine>-Os -Wextra -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega328p</commandLine>
+          <preprocessorList>
+            <Elem>ARDUINO=10612</Elem>
+            <Elem>ARDUINO_ARCH_AVR</Elem>
+            <Elem>ARDUINO_AVR_NANO</Elem>
+            <Elem>F_CPU=16000000L</Elem>
+          </preprocessorList>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+      <item path="../arduinoext/include/arduino_logger.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../arduinoext/include/cps.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../arduinoext/src/arduino_logger.cpp"
+            ex="false"
+            tool="1"
+            flavor2="8">
+      </item>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../libarduinoemulator"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../libarduinoemulator"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinoemulator.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerOptionItem>`pkg-config --libs posixcpp`</linkerOptionItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
+      <item path="include/_protocol.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/bcopy.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/bcopy.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/cps_mosprotocol.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/cps_mosprotocol_arduino.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/helper.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/protocol.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/protocol_arduino.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/ringbuffer.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/cps_mosprotocol.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/cps_mosprotocol_arduino.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/protocol.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/protocol_arduino.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Arduino_uno" type="3">
+      <toolsSet>
+        <compilerSet>Arduino|GNU</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <standard>8</standard>
+          <incDir>
+            <pElem>include</pElem>
+            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino</pElem>
+            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/variants/eightanaloginputs</pElem>
+          </incDir>
+          <commandLine>-Os -Wextra -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega328p</commandLine>
+          <preprocessorList>
+            <Elem>ARDUINO=10612</Elem>
+            <Elem>ARDUINO_ARCH_AVR</Elem>
+            <Elem>ARDUINO_AVR_UNO</Elem>
+            <Elem>F_CPU=16000000L</Elem>
+          </preprocessorList>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+      <item path="../arduinoext/include/arduino_logger.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../arduinoext/include/cps.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../arduinoext/src/arduino_logger.cpp"
+            ex="false"
+            tool="1"
+            flavor2="8">
+      </item>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../libarduinoemulator"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../libarduinoemulator"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinoemulator.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerOptionItem>`pkg-config --libs posixcpp`</linkerOptionItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
+      <item path="include/_protocol.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/bcopy.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/bcopy.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/cps_mosprotocol.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/cps_mosprotocol_arduino.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/helper.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/protocol.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/protocol_arduino.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/ringbuffer.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/cps_mosprotocol.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/cps_mosprotocol_arduino.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/protocol.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/protocol_arduino.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>

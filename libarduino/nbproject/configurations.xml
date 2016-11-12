@@ -1,0 +1,960 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="100">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="arduino" displayName="arduino" projectFiles="true">
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Arduino.h</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/CDC.cpp</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Client.h</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial.cpp</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial.h</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial0.cpp</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial1.cpp</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial2.cpp</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial3.cpp</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial_private.h</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/IPAddress.cpp</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/IPAddress.h</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/PluggableUSB.cpp</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/PluggableUSB.h</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Print.cpp</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Print.h</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Printable.h</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Server.h</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Stream.cpp</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Stream.h</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Tone.cpp</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/USBAPI.h</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/USBCore.cpp</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/USBCore.h</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/USBDesc.h</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Udp.h</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/WCharacter.h</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/WInterrupts.c</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/WMath.cpp</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/WString.cpp</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/WString.h</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/abi.cpp</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/binary.h</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/hooks.c</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/main.cpp</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/new.cpp</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/new.h</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring.c</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_analog.c</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_digital.c</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_private.h</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_pulse.c</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_shift.c</itemPath>
+    </logicalFolder>
+    <logicalFolder name="EEPROM" displayName="EEPROM" projectFiles="true">
+      <logicalFolder name="src" displayName="src" projectFiles="true">
+        <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/src/EEPROM.h</itemPath>
+      </logicalFolder>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/README.md</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/keywords.txt</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/library.properties</itemPath>
+    </logicalFolder>
+    <logicalFolder name="SoftwareSerial"
+                   displayName="SoftwareSerial"
+                   projectFiles="true">
+      <logicalFolder name="src" displayName="src" projectFiles="true">
+        <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src/SoftwareSerial.cpp</itemPath>
+        <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src/SoftwareSerial.h</itemPath>
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Файлы тестов"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Важные файлы"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+    <itemPath>_wiring_pulse.S</itemPath>
+  </logicalFolder>
+  <sourceRootList>
+    <Elem>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino</Elem>
+    <Elem>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM</Elem>
+    <Elem>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Nano328" type="3">
+      <toolsSet>
+        <compilerSet>Arduino|GNU</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>true</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <incDir>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs</pElem>
+          </incDir>
+          <commandLine>-Os -Wextra -std=gnu11 -ffunction-sections -fdata-sections -MMD -mmcu=atmega328p</commandLine>
+          <preprocessorList>
+            <Elem>ARDUINO=10612</Elem>
+            <Elem>ARDUINO_ARCH_AVR</Elem>
+            <Elem>ARDUINO_AVR_NANO</Elem>
+            <Elem>F_CPU=16000000L</Elem>
+          </preprocessorList>
+          <warningLevel>2</warningLevel>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs</pElem>
+            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src</pElem>
+          </incDir>
+          <commandLine>-Os -Wextra -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega328p</commandLine>
+          <preprocessorList>
+            <Elem>ARDUINO=10612</Elem>
+            <Elem>ARDUINO_ARCH_AVR</Elem>
+            <Elem>ARDUINO_AVR_NANO</Elem>
+            <Elem>F_CPU=16000000L</Elem>
+          </preprocessorList>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <archiverTool>
+          <output>${CND_DISTDIR}/${CND_CONF}/libarduino.a</output>
+        </archiverTool>
+      </compileType>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Arduino.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/CDC.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Client.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial0.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial1.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial2.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial3.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial_private.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/IPAddress.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/IPAddress.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/PluggableUSB.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/PluggableUSB.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Print.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Print.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Printable.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Server.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Stream.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Stream.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Tone.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/USBAPI.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/USBCore.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/USBCore.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/USBDesc.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Udp.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/WCharacter.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/WInterrupts.c"
+            ex="false"
+            tool="0"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/WMath.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/WString.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/WString.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/abi.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/binary.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/hooks.c"
+            ex="false"
+            tool="0"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/main.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/new.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/new.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring.c"
+            ex="false"
+            tool="0"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_analog.c"
+            ex="false"
+            tool="0"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_digital.c"
+            ex="false"
+            tool="0"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_private.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_pulse.c"
+            ex="false"
+            tool="0"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_shift.c"
+            ex="false"
+            tool="0"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/README.md"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/keywords.txt"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/library.properties"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/src/EEPROM.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src/SoftwareSerial.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src/SoftwareSerial.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="_wiring_pulse.S" ex="false" tool="0" flavor2="0">
+        <cTool>
+          <commandLine>-x assembler-with-cpp</commandLine>
+        </cTool>
+      </item>
+    </conf>
+    <conf name="Nano168" type="3">
+      <toolsSet>
+        <compilerSet>Arduino|GNU</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>true</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <incDir>
+            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino</pElem>
+            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/variants/eightanaloginputs</pElem>
+          </incDir>
+          <commandLine>-Os -Wextra -std=gnu11 -ffunction-sections -fdata-sections -MMD -mmcu=atmega168</commandLine>
+          <preprocessorList>
+            <Elem>ARDUINO=10612</Elem>
+            <Elem>ARDUINO_ARCH_AVR</Elem>
+            <Elem>ARDUINO_AVR_NANO</Elem>
+            <Elem>F_CPU=16000000L</Elem>
+          </preprocessorList>
+          <warningLevel>2</warningLevel>
+        </cTool>
+        <ccTool>
+          <developmentMode>0</developmentMode>
+          <incDir>
+            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino</pElem>
+            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/variants/eightanaloginputs</pElem>
+            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src</pElem>
+          </incDir>
+          <commandLine>-Os -Wextra -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega168 -fno-rtti</commandLine>
+          <preprocessorList>
+            <Elem>ARDUINO=10612</Elem>
+            <Elem>ARDUINO_ARCH_AVR</Elem>
+            <Elem>ARDUINO_AVR_NANO</Elem>
+            <Elem>F_CPU=16000000L</Elem>
+          </preprocessorList>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <archiverTool>
+          <output>${CND_DISTDIR}/${CND_CONF}/libarduino.a</output>
+        </archiverTool>
+      </compileType>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Arduino.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/CDC.cpp"
+            ex="false"
+            tool="1"
+            flavor2="9">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Client.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial.cpp"
+            ex="false"
+            tool="1"
+            flavor2="9">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial0.cpp"
+            ex="false"
+            tool="1"
+            flavor2="9">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial1.cpp"
+            ex="false"
+            tool="1"
+            flavor2="9">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial2.cpp"
+            ex="false"
+            tool="1"
+            flavor2="9">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial3.cpp"
+            ex="false"
+            tool="1"
+            flavor2="9">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial_private.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/IPAddress.cpp"
+            ex="false"
+            tool="1"
+            flavor2="9">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/IPAddress.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/PluggableUSB.cpp"
+            ex="false"
+            tool="1"
+            flavor2="9">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/PluggableUSB.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Print.cpp"
+            ex="false"
+            tool="1"
+            flavor2="9">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Print.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Printable.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Server.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Stream.cpp"
+            ex="false"
+            tool="1"
+            flavor2="9">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Stream.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Tone.cpp"
+            ex="false"
+            tool="1"
+            flavor2="9">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/USBAPI.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/USBCore.cpp"
+            ex="false"
+            tool="1"
+            flavor2="9">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/USBCore.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/USBDesc.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Udp.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/WCharacter.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/WInterrupts.c"
+            ex="false"
+            tool="0"
+            flavor2="9">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/WMath.cpp"
+            ex="false"
+            tool="1"
+            flavor2="9">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/WString.cpp"
+            ex="false"
+            tool="1"
+            flavor2="9">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/WString.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/abi.cpp"
+            ex="false"
+            tool="1"
+            flavor2="9">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/binary.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/hooks.c"
+            ex="false"
+            tool="0"
+            flavor2="9">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/main.cpp"
+            ex="false"
+            tool="1"
+            flavor2="9">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/new.cpp"
+            ex="false"
+            tool="1"
+            flavor2="9">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/new.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring.c"
+            ex="false"
+            tool="0"
+            flavor2="9">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_analog.c"
+            ex="false"
+            tool="0"
+            flavor2="9">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_digital.c"
+            ex="false"
+            tool="0"
+            flavor2="9">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_private.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_pulse.c"
+            ex="false"
+            tool="0"
+            flavor2="9">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_shift.c"
+            ex="false"
+            tool="0"
+            flavor2="9">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/README.md"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/keywords.txt"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/library.properties"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/src/EEPROM.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src/SoftwareSerial.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src/SoftwareSerial.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="_wiring_pulse.S" ex="false" tool="0" flavor2="9">
+        <cTool>
+          <commandLine>-x assembler-with-cpp</commandLine>
+        </cTool>
+      </item>
+    </conf>
+    <conf name="Uno" type="3">
+      <toolsSet>
+        <compilerSet>Arduino|GNU</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>true</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <incDir>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs</pElem>
+          </incDir>
+          <commandLine>-Os -Wextra -std=gnu11 -ffunction-sections -fdata-sections -MMD -mmcu=atmega328p</commandLine>
+          <preprocessorList>
+            <Elem>ARDUINO=10612</Elem>
+            <Elem>ARDUINO_ARCH_AVR</Elem>
+            <Elem>ARDUINO_AVR_UNO</Elem>
+            <Elem>F_CPU=16000000L</Elem>
+          </preprocessorList>
+          <warningLevel>2</warningLevel>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino</pElem>
+            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/variants/eightanaloginputs</pElem>
+            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src</pElem>
+          </incDir>
+          <commandLine>-Os -Wextra -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega328p</commandLine>
+          <preprocessorList>
+            <Elem>ARDUINO=10612</Elem>
+            <Elem>ARDUINO_ARCH_AVR</Elem>
+            <Elem>ARDUINO_AVR_UNO</Elem>
+            <Elem>F_CPU=16000000L</Elem>
+          </preprocessorList>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <archiverTool>
+          <output>${CND_DISTDIR}/${CND_CONF}/libarduino.a</output>
+        </archiverTool>
+      </compileType>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Arduino.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/CDC.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Client.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial0.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial1.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial2.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial3.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial_private.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/IPAddress.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/IPAddress.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/PluggableUSB.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/PluggableUSB.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Print.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Print.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Printable.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Server.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Stream.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Stream.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Tone.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/USBAPI.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/USBCore.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/USBCore.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/USBDesc.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Udp.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/WCharacter.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/WInterrupts.c"
+            ex="false"
+            tool="0"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/WMath.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/WString.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/WString.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/abi.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/binary.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/hooks.c"
+            ex="false"
+            tool="0"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/main.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/new.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/new.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring.c"
+            ex="false"
+            tool="0"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_analog.c"
+            ex="false"
+            tool="0"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_digital.c"
+            ex="false"
+            tool="0"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_private.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_pulse.c"
+            ex="false"
+            tool="0"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_shift.c"
+            ex="false"
+            tool="0"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/README.md"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/keywords.txt"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/library.properties"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/src/EEPROM.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src/SoftwareSerial.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src/SoftwareSerial.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="_wiring_pulse.S" ex="false" tool="0" flavor2="0">
+        <cTool>
+          <commandLine>-x assembler-with-cpp</commandLine>
+        </cTool>
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>

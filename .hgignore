@@ -1,0 +1,9 @@
+syntax: glob
+*.o
+*.a
+*.so
+*/private/*
+*.o.d
+*.hex
+*.bin
+*/dist/*

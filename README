@@ -1,0 +1,64 @@
+ucBASIC is a lightweight BASIC-like language interpreter for
+microcontroller-based systems.  It was inspired by the TinyBASIC port
+for popular 8-bit AVR uc boards.
+
+The language, which ucBASIC will support one day is:
+
+Lexems:
+ * COLON = ':'
+ * SEMI = ';'
+ * LT = '<'
+ * LTE = "<="
+ * GT = '>'
+ * GTE = ">="
+ * EQUALS = '='
+ * NE = "<>"
+ * MINUS = '-'
+ * PLUS = '+'
+ * STAR = '*'
+ * SLASH = '/'
+ * POW = '^'
+ * IDENT = [A-Z][A-Z0-9]*
+ * C_INTEGER = [0-9]+
+ * C_REAL = [0-9]+[.][0-9]*
+ * KW_DUMP = "DUMP"
+ * KW_END = "END"
+ * KW_FOR = "FOR"
+ * KW_FOR = "GOTO"
+ * KW_IF = "IF"
+ * KW_LET = "LET"
+ * KW_LIST = "LIST"
+ * KW_NEW = "NEW"
+ * KW_NEXT = "NEXT"
+ * KW_PRINT = "PRINT"
+ * KW_RUN = "RUN"
+ * KW_THEN = "THEN"
+ * KW_RUN = "TO"
+ 
+Grammar:
+ * TEXT = PROG_OPERATOR | PROG_OPERATOR TEXT
+ * PROG_OPERATOR = C_INTEGER OPERATOR | OPERATOR
+ * OPERATOR =
+ *	KW_END |
+ *	KW_RUN |
+ *	KW_LIST |
+ *	KW_NEW |
+ *	KW_DUMP |
+ *	KW_PRINT PRINT_LIST |
+ *	KW_IF EXPRESSION IF_STATEMENT |
+ *	ASSIGNMENT |
+ *	GOTO_STATEMENT
+ * ASSIGNMENT = KW_LET IMPLICIT_ASSIGNMENT | IMPLICIT_ASSIGNMENT
+ * IMPLICIT_ASSIGNMENT = IDENTIFIER EQUALS EXPRESSION
+ * EXPRESSION = SIMPLE_EXPRESSION | SIMPLE_EXPRESSION REL SIMPLE_EXPRESSION
+ * REL = LT | LTE | EQUALS | GT | GTE | NE
+ * SIMPLE_EXPRESSION = TERM | TERM ADD TERM
+ * ADD = PLUS MINUS KW_OR
+ * TERM = FACTOR | FACTOR MUL FACTOR
+ * MUL = STAR | SLASH | DIV | MOD | KW_AND
+ * FACTOR = FINAL | FINAL POW FINAL
+ * FINAL = IDENT | INTEGER | REAL | LPAREN EXPRESSION RPAREN | MINUS FINAL
+ * PRINT_LIST = EXPRESSION | EXPRESSION COMMA PRINT_LIST
+ * IF_STATEMENT = GOTO_STATEMEMNT | KW_THEN OPERATOR
+ * GOTO_STATEMENT = KW_GOTO C_INTEGER
+ 
