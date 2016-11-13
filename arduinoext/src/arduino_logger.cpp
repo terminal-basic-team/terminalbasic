@@ -38,16 +38,17 @@ _data(data), _size(size)
 {
 }
 
-size_t ByteArray::printTo(Print& p) const
+size_t
+ByteArray::printTo(Print& p) const
 {
 	size_t res = 0;
 	for (size_t i = 0; i < size();) {
 		size_t ii = i;
 
-		size_t addr = i + intptr_t(data());
-		while (addr <= 0x0FFF) {
+		size_t addr = i + uintptr_t(data());
+		while (addr <= 0x0FFFu) {
 			p.print('0');
-			addr <<= 8;
+			addr <<= 4u;
 		}
 		p.print(i + intptr_t(data()), HEX), p.print('(');
 		if (i < 0x0F)

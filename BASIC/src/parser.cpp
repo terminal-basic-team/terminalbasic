@@ -6,17 +6,19 @@
 #include "basic_interpreter_program.hpp"
 
 /*
- * TEXT = OPERATOR | PROG_OPERATOR
- * PROG_OPERATOR = C_INTEGER OPERATOR
+ * TEXT = OPERATORS | C_INTEGER OPERATORS
+ * OPERATORS = OPERATOR | OPERATOR COLON OPERATORS
  * OPERATOR = KW_END |
  *	KW_RUN |
  *	KW_LIST |
  *	KW_NEW |
  *	KW_DUMP |
+ *	KW_RETURN |
  *	KW_PRINT PRINT_LIST |
  *	KW_IF EXPRESSION IF_STATEMENT |
- *	ASSIGNMENT |
- *	GOTO_STATEMENT
+ *	ASSIGNMENT |TURN |
+ *	GOTO_STATEMENT |
+ *	KW_GOSUB INTEGER
  * ASSIGNMENT = KW_LET IMPLICIT_ASSIGNMENT | IMPLICIT_ASSIGNMENT
  * IMPLICIT_ASSIGNMENT = IDENTIFIER EQUALS EXPRESSION
  * EXPRESSION = SIMPLE_EXPRESSION | SIMPLE_EXPRESSION REL SIMPLE_EXPRESSION
@@ -40,7 +42,11 @@ void valueFromFrame(Parser::Value &v, const Interpreter::VariableFrame &f)
 	switch (f.type) {
 	case Interpreter::VariableFrame::INTEGER:
 		v.type = Parser::Value::INTEGER;
-		v.value.integer = f.getInt();
+		v.value.integer = f.get<Integer>();
+		break;
+	case Interpreter::VariableFrame::REAL:
+		v.type = Parser::Value::REAL;
+		v.value.real = f.get<Real>();
 	}
 }
 
@@ -50,7 +56,7 @@ type(INTEGER)
 	value.integer = 0;
 }
 
-Parser::Value::operator float() const
+Parser::Value::operator Real() const
 {
 	switch (type) {
 	case INTEGER:
@@ -374,13 +380,16 @@ Parser::parse(const char *s)
 	_lexer.init(s);
 	_error = NO_ERROR;
 
-	if (_lexer.getNext() && fOperator())
-		return true;
-	else {
-		if (_error == NO_ERROR)
-			_error = OPERATOR_EXPECTED;
-		return false;
-	}
+	Token t;
+	do {
+		if (!_lexer.getNext() || !fOperator()) {
+			if (_error == NO_ERROR)
+				_error = OPERATOR_EXPECTED;
+			return false;
+		}
+		t = _lexer.getToken();
+	} while (t == COLON);
+	return true;
 }
 
 bool
@@ -395,6 +404,23 @@ Parser::fOperator()
 		if (_mode == EXECUTE)
 			_interpreter.dump();
 		return true;
+	case KW_END:
+		if (_mode == EXECUTE)
+			_interpreter.end();
+		return true;
+	case KW_GOSUB:
+	{
+		Value v;
+		if (!_lexer.getNext() || !fExpression(v) || (v.type != Value::INTEGER)) {
+			_error = INTEGER_EXPRESSION_EXPECTED;
+			return false;
+		}
+		if (_mode == EXECUTE) {
+			_interpreter.pushReturnAddress();
+			_interpreter.gotoLine(v.value.integer);
+		}
+		return true;
+	}
 	case KW_IF:
 	{
 		Value v;
@@ -422,7 +448,7 @@ Parser::fOperator()
 		return true;
 	case KW_NEW:
 		if (_mode == EXECUTE)
-			_interpreter.list();
+			_interpreter.newProgram();
 		return true;
 	case KW_PRINT:
 		if (_lexer.getNext())
@@ -430,6 +456,10 @@ Parser::fOperator()
 				return false;
 		if (_mode == EXECUTE)
 			_interpreter.print('\n');
+		return true;
+	case KW_RETURN:
+		if (_mode == EXECUTE)
+			_interpreter.returnFromSub();
 		return true;
 	case KW_RUN:
 		if (_mode == EXECUTE)

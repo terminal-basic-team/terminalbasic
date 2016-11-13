@@ -173,6 +173,7 @@ bool Lexer::getNext()
 				return true;
 			case ' ':
 			case '\t':
+			case '\r':
 				next();
 				break;
 			default:
@@ -273,6 +274,18 @@ void Lexer::first_G()
 				pushSYM();
 				_token = KW_GOTO;
 				return;
+			}
+		case 'S':
+			pushSYM();
+			switch (SYM) {
+			case 'U':
+				pushSYM();
+				switch (SYM) {
+				case 'B':
+					pushSYM();
+					_token = KW_GOSUB;
+					return;
+				}
 			}
 		}
 	}
@@ -381,6 +394,26 @@ void Lexer::first_R()
 
 	next();
 	switch (SYM) {
+	case 'E':
+		pushSYM();
+		switch (SYM) {
+		case 'T':
+			pushSYM();
+			switch (SYM) {
+			case 'U':
+				pushSYM();
+				switch (SYM) {
+				case 'R':
+					pushSYM();
+					switch (SYM) {
+					case 'N':
+						pushSYM();
+						_token = KW_RETURN;
+						return;
+					}
+				}
+			}
+		}
 	case 'U':
 		pushSYM();
 		switch (SYM) {

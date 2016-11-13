@@ -1,9 +1,18 @@
 #include <string.h>
 #include <assert.h>
+#include "helper.hpp"
 
 #include "basic_interpreter.hpp"
 #include "basic_interpreter_program.hpp"
 #include "arduino_logger.hpp"
+
+#ifdef ARDUINO
+static int freeRam () {
+  extern int __heap_start, *__brkval; 
+  int v; 
+  return (int) &v - (__brkval == 0 ? (int) &__heap_start : (int) __brkval); 
+}
+#endif
 
 namespace BASIC
 {
@@ -36,6 +45,10 @@ void Interpreter::step()
 {
 	LOG_TRACE;
 
+#ifdef ARDUINO
+	_stream.print("FREE RAM ");
+	_stream.println(freeRam());
+#endif
 	switch (_state) {
 	case SHELL:
 	{
@@ -51,8 +64,7 @@ void Interpreter::step()
 		buf[read] = 0;
 		LOG(buf);
 		_lexer.init(buf);
-		bool end = _lexer.getNext();
-		if ((_lexer.getToken() == C_INTEGER) &&
+		if (_lexer.getNext() && (_lexer.getToken() == C_INTEGER) &&
 		    (_lexer.getValue().type == Parser::Value::INTEGER)) {
 			_program.addString(_lexer.getValue().value.integer,
 			    buf + _lexer.getPointer());
@@ -107,7 +119,7 @@ Interpreter::print(const Parser::Value &v)
 		_stream.print(v.value.string.string);
 		break;
 	default:
-		dynamicErrorPrint("INVALID VALUE TYPE");
+		dynamicError("INVALID VALUE TYPE");
 		break;
 	}
 }
@@ -132,7 +144,7 @@ Interpreter::gotoLine(Integer ln)
 	if (s != NULL) {
 		_program._current = _program.stringIndex(s);
 	} else {
-		dynamicErrorPrint("NO STRING NUMBER");
+		dynamicError("NO STRING NUMBER");
 		_stream.println(ln);
 	}
 }
@@ -141,6 +153,26 @@ void
 Interpreter::newProgram()
 {
 	_program.newProg();
+}
+
+void
+Interpreter::pushReturnAddress()
+{
+	_program._sp -= sizeof (Program::StackFrame);
+	Program::StackFrame *f = _program.stackFrameByIndex(_program._sp);
+	f->_type = Program::StackFrame::SUBPROGRAM_RETURN;
+	f->body.calleeIndex = _program._current;
+}
+
+void
+Interpreter::returnFromSub()
+{
+	Program::StackFrame *f = _program.stackFrameByIndex(_program._sp);
+	if (f != NULL) {
+		_program._current = f->body.calleeIndex;
+		_program._sp += sizeof (Program::StackFrame);
+	} else
+		dynamicError("RETURN NEEDS GOSUB");
 }
 
 Interpreter::Program::Program()
@@ -176,22 +208,11 @@ Interpreter::VariableFrame::set(const Integer &i)
 	*_U.i = i;
 }
 
-Integer
-Interpreter::VariableFrame::getInt() const
-{
-	union
-	{
-		const char *b;
-		const Integer *i;
-	} _U;
-	_U.b = bytes;
-	return *_U.i;
-}
-
 void
 Interpreter::Program::newProg()
 {
 	_first = 0, _last = 0, _current = _variablesEnd = 0;
+	_sp = PROGSIZE;
 	memset(_text, 0xFF, PROGSIZE);
 }
 
@@ -297,30 +318,48 @@ Interpreter::Program::variableByName(const char *name)
 		index += f->size();
 	}
 	return NULL;
+	}
+
+Interpreter::Program::StackFrame*
+Interpreter::Program::stackFrameByIndex(uint16_t index)
+{
+	if ((index>0) && (index < PROGSIZE))
+		return (reinterpret_cast<StackFrame*> (_text + index));
+	else
+		return (NULL);
 }
 
 void
 Interpreter::staticErrorPrint()
 {
-	_stream.print(ESTRING(STATIC));
+	char buf[16];
+	strcpy_P(buf, (PGM_P)pgm_read_word(&(ESTRING(STATIC))));
+	_stream.print(buf);
 	_stream.print(' ');
-	_stream.print(ESTRING(SEMANTIC));
+	strcpy_P(buf, (PGM_P)pgm_read_word(&(ESTRING(SEMANTIC))));
+	_stream.print(buf);
 	_stream.print(' ');
-	_stream.print(ESTRING(ERROR));
+	strcpy_P(buf, (PGM_P)pgm_read_word(&(ESTRING(ERROR))));
+	_stream.print(buf);
 	_stream.print(':');
 	_stream.println(int(_parser.getError()));
 }
 
 void
-Interpreter::dynamicErrorPrint(const char *text)
+Interpreter::dynamicError(const char *text)
 {
-	_stream.print(ESTRING(DYNAMIC));
+	char buf[16];
+	strcpy_P(buf, (PGM_P)pgm_read_word(&(ESTRING(DYNAMIC))));
+	_stream.print(buf);
 	_stream.print(' ');
-	_stream.print(ESTRING(SEMANTIC));
+	strcpy_P(buf, (PGM_P)pgm_read_word(&(ESTRING(SEMANTIC))));
+	_stream.print(buf);
 	_stream.print(' ');
-	_stream.print(ESTRING(ERROR));
+	strcpy_P(buf, (PGM_P)pgm_read_word(&(ESTRING(ERROR))));
+	_stream.print(buf);
 	_stream.print(':');
 	_stream.println(text);
+	_state = SHELL;
 }
 
 void
@@ -456,6 +495,12 @@ Interpreter::Program::insert(int num, const char *text)
 		return true;
 	} else
 		return false;
+	}
+
+void
+Interpreter::end()
+{
+	_state = SHELL;
 }
 
 void Interpreter::Program::reset()

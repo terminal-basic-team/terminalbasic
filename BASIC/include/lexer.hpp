@@ -57,12 +57,14 @@ enum Token : uint8_t
 	KW_END,
 	KW_FOR,
 	KW_GOTO,
+	KW_GOSUB,
 	KW_IF,
 	KW_LET,
 	KW_LIST,
 	KW_NEW,
 	KW_NEXT,
 	KW_PRINT,
+	KW_RETURN,
 	KW_RUN,
 	KW_THEN,
 	KW_TO,
@@ -138,6 +140,12 @@ operator<<(Logger &logger, Token tok)
 		break;
 	case KW_PRINT:
 		logger.log("KW_PRINT");
+		break;
+	case KW_GOSUB:
+		logger.log("KW_GOSUB");
+		break;
+	case KW_RETURN:
+		logger.log("KW_RETURN");
 		break;
 	case KW_FOR:
 		logger.log("KW_FOR");

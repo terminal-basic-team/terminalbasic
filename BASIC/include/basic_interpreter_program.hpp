@@ -20,6 +20,22 @@ public:
 		uint8_t size;
 		char text[];
 	};
+	
+	struct CPS_PACKED StackFrame
+	{
+		enum Type : uint8_t
+		{
+			SUBPROGRAM_RETURN
+		};
+		
+		uint8_t size() const;
+		
+		Type _type;
+		union CPS_PACKED
+		{
+			uint16_t calleeIndex;
+		} body;
+	};	
 
 	Program();
 	/**
@@ -63,12 +79,14 @@ public:
 	 */
 	VariableFrame *variableByIndex(uint16_t);
 	VariableFrame *variableByName(const char*);
+	
+	StackFrame *stackFrameByIndex(uint16_t index);
 
 	void addString(uint16_t, const char*);
 	bool insert(int, const char*);
 	char _text[PROGSIZE];
 private:
-	uint16_t _first, _last, _current, _variablesEnd;
+	uint16_t _first, _last, _current, _variablesEnd, _sp;
 };
 
 }

@@ -26,7 +26,19 @@ public:
 		};
 		uint8_t size() const;
 		void set(const Integer&);
-		Integer getInt() const;
+		
+		template <typename T>
+		T get() const
+		{
+			union
+			{
+				const char *b;
+				const T *i;
+			} _U;
+			_U.b = bytes;
+			return *_U.i;
+		}
+		
 		char name[4];
 		Type type;
 		char bytes[];
@@ -51,7 +63,14 @@ public:
 	void run();
 	// goto new line
 	void gotoLine(Integer);
+	// CLear program memory
 	void newProgram();
+	// save current line on stack
+	void pushReturnAddress();
+	
+	void returnFromSub();
+	
+	void end();
 	/**
 	 * @brief set a new value and possibly create new variable
 	 * @param name variable name
@@ -64,7 +83,7 @@ public:
 private:
 	enum ErrorStrings : uint8_t;
 	void staticErrorPrint();
-	void dynamicErrorPrint(const char*);
+	void dynamicError(const char*);
 	State	 _state;
 	Stream	&_stream;
 	Lexer	 _lexer;

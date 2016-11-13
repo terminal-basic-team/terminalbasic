@@ -51,7 +51,7 @@ public:
 
 		Value();
 		
-		operator float() const;
+		operator Real() const;
 		operator bool() const;
 		operator Integer() const;
 

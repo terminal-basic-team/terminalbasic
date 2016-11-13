@@ -6,6 +6,7 @@
 #ifdef ARDUINO
 #include <Arduino.h>
 
+
 inline void
 positiveLedBlink(size_t num = 1)
 {
@@ -35,6 +36,8 @@ negativeLedBlink(size_t num = 1)
 #define negativeLedBlink(a...)
 #define PGM_P const char*
 #define PROGMEM
+#define pgm_read_word(a) (*a)
+#define strcpy_P(a,b) strcpy(a,b)
 #endif
 
 #endif

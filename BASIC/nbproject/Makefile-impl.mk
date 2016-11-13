@@ -31,7 +31,7 @@ DEFAULTCONF=Debug
 CONF=${DEFAULTCONF}
 
 # All Configurations
-ALLCONFS=Debug Release Arduino_nano328 
+ALLCONFS=Debug Arduino_nano328 Copy_of_Arduino_UNO 
 
 
 # build

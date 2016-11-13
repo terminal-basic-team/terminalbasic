@@ -24,11 +24,11 @@
                     <type>1</type>
                 </confElem>
                 <confElem>
-                    <name>Release</name>
+                    <name>Arduino_nano328</name>
                     <type>1</type>
                 </confElem>
                 <confElem>
-                    <name>Arduino_nano328</name>
+                    <name>Copy_of_Arduino_UNO</name>
                     <type>1</type>
                 </confElem>
             </confList>
