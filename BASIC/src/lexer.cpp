@@ -174,6 +174,7 @@ bool Lexer::getNext()
 			case ' ':
 			case '\t':
 			case '\r':
+			case '\n':
 				next();
 				break;
 			default:

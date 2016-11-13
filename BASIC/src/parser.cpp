@@ -16,6 +16,8 @@
  *	KW_RETURN |
  *	KW_PRINT PRINT_LIST |
  *	KW_IF EXPRESSION IF_STATEMENT |
+ *	KW_FOR IMPLICIT_ASSIGNMENT KW_TO EXPRESSION |
+ *	KW_NEXT IDENT |
  *	ASSIGNMENT |TURN |
  *	GOTO_STATEMENT |
  *	KW_GOSUB INTEGER
@@ -408,10 +410,21 @@ Parser::fOperator()
 		if (_mode == EXECUTE)
 			_interpreter.end();
 		return true;
+	case KW_FOR:
+	{
+		if (!_lexer.getNext() || !fImplicitAssignment()) {
+			return false;
+		}
+		if (_lexer.getToken()!=KW_TO) {
+			return false;
+		}
+		return true;
+	}
 	case KW_GOSUB:
 	{
 		Value v;
-		if (!_lexer.getNext() || !fExpression(v) || (v.type != Value::INTEGER)) {
+		if (!_lexer.getNext() || !fExpression(v) || (v.type !=
+		    Value::INTEGER)) {
 			_error = INTEGER_EXPRESSION_EXPECTED;
 			return false;
 		}
@@ -441,7 +454,10 @@ Parser::fOperator()
 		return res;
 	}
 	case KW_LET:
-		return fImplicitAssignment();
+		if (!_lexer.getNext() || !fImplicitAssignment()) {
+			return false;
+		} else
+			return true;
 	case KW_LIST:
 		if (_mode == EXECUTE)
 			_interpreter.list();
@@ -478,7 +494,7 @@ Parser::fImplicitAssignment()
 {
 	LOG_TRACE;
 
-	if (!_lexer.getNext() || _lexer.getToken() != IDENT)
+	if (_lexer.getToken() != IDENT)
 		return false;
 
 	char buf[16];

@@ -45,13 +45,13 @@ void Interpreter::step()
 {
 	LOG_TRACE;
 
-#ifdef ARDUINO
-	_stream.print("FREE RAM ");
-	_stream.println(freeRam());
-#endif
 	switch (_state) {
 	case SHELL:
 	{
+#ifdef ARDUINO
+		_stream.print("FREE RAM ");
+		_stream.println(freeRam());
+#endif
 		_stream.println("READY");
 		char buf[STRINGSIZE];
 		memset(buf, 0xFF, sizeof (buf));

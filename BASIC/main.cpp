@@ -6,7 +6,7 @@ static BASIC::Interpreter basic(Serial, program);
 
 void setup()
 {
-	Serial.begin(2400);
+	Serial.begin(57600);
 	LOG_INIT(Serial);
 
 	LOG_TRACE;
