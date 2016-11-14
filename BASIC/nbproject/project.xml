@@ -28,7 +28,7 @@
                     <type>1</type>
                 </confElem>
                 <confElem>
-                    <name>Copy_of_Arduino_UNO</name>
+                    <name>Arduino_UNO</name>
                     <type>1</type>
                 </confElem>
             </confList>

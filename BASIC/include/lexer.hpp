@@ -6,6 +6,7 @@
 
 #include "arduino_logger.hpp"
 #include "parser.hpp"
+#include "basic_parser_value.hpp"
 #include "helper.hpp"
 
 namespace BASIC

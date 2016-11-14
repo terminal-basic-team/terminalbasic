@@ -25,7 +25,9 @@ public:
 			REAL_ARRAY
 		};
 		uint8_t size() const;
+		
 		void set(const Integer&);
+		void set(const Real&);
 		
 		template <typename T>
 		T get() const
@@ -67,8 +69,10 @@ public:
 	void newProgram();
 	// save current line on stack
 	void pushReturnAddress();
-	
+	// return from subprogram
 	void returnFromSub();
+	//
+	void pushForLoop(const char*, const Parser::Value&);
 	
 	void end();
 	/**
@@ -82,8 +86,7 @@ public:
 	Program &_program;
 private:
 	enum ErrorStrings : uint8_t;
-	void staticErrorPrint();
-	void dynamicError(const char*);
+	void dynamicError(const char* = NULL);
 	State	 _state;
 	Stream	&_stream;
 	Lexer	 _lexer;

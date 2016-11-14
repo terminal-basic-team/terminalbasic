@@ -5,10 +5,12 @@
       <itemPath>include/basic.hpp</itemPath>
       <itemPath>include/basic_interpreter.hpp</itemPath>
       <itemPath>include/basic_interpreter_program.hpp</itemPath>
+      <itemPath>include/basic_parser_value.hpp</itemPath>
       <itemPath>include/lexer.hpp</itemPath>
       <itemPath>include/parser.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="src" displayName="src" projectFiles="true">
+      <itemPath>src/basic_parser_value.cpp</itemPath>
       <itemPath>src/interpreter.cpp</itemPath>
       <itemPath>src/lexer.cpp</itemPath>
       <itemPath>src/parser.cpp</itemPath>
@@ -108,11 +110,15 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/lexer.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/parser.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/interpreter.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -190,11 +196,15 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/lexer.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/parser.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/interpreter.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -203,7 +213,7 @@
       <item path="src/parser.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
-    <conf name="Copy_of_Arduino_UNO" type="1">
+    <conf name="Arduino_UNO" type="1">
       <toolsSet>
         <compilerSet>Arduino|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
@@ -272,11 +282,15 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/lexer.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/parser.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/interpreter.cpp" ex="false" tool="1" flavor2="8">
       </item>

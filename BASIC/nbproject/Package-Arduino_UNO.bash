@@ -7,7 +7,7 @@
 # Macros
 TOP=`pwd`
 CND_PLATFORM=Arduino-Linux
-CND_CONF=Copy_of_Arduino_UNO
+CND_CONF=Arduino_UNO
 CND_DISTDIR=dist
 CND_BUILDDIR=build
 CND_DLIB_EXT=so

@@ -22,14 +22,14 @@ CND_ARTIFACT_PATH_Arduino_nano328=dist/Arduino_nano328/basic
 CND_PACKAGE_DIR_Arduino_nano328=dist/Arduino_nano328/Arduino-Linux/package
 CND_PACKAGE_NAME_Arduino_nano328=basic.tar
 CND_PACKAGE_PATH_Arduino_nano328=dist/Arduino_nano328/Arduino-Linux/package/basic.tar
-# Copy_of_Arduino_UNO configuration
-CND_PLATFORM_Copy_of_Arduino_UNO=Arduino-Linux
-CND_ARTIFACT_DIR_Copy_of_Arduino_UNO=dist/Copy_of_Arduino_UNO
-CND_ARTIFACT_NAME_Copy_of_Arduino_UNO=basic
-CND_ARTIFACT_PATH_Copy_of_Arduino_UNO=dist/Copy_of_Arduino_UNO/basic
-CND_PACKAGE_DIR_Copy_of_Arduino_UNO=dist/Copy_of_Arduino_UNO/Arduino-Linux/package
-CND_PACKAGE_NAME_Copy_of_Arduino_UNO=basic.tar
-CND_PACKAGE_PATH_Copy_of_Arduino_UNO=dist/Copy_of_Arduino_UNO/Arduino-Linux/package/basic.tar
+# Arduino_UNO configuration
+CND_PLATFORM_Arduino_UNO=Arduino-Linux
+CND_ARTIFACT_DIR_Arduino_UNO=dist/Arduino_UNO
+CND_ARTIFACT_NAME_Arduino_UNO=basic
+CND_ARTIFACT_PATH_Arduino_UNO=dist/Arduino_UNO/basic
+CND_PACKAGE_DIR_Arduino_UNO=dist/Arduino_UNO/Arduino-Linux/package
+CND_PACKAGE_NAME_Arduino_UNO=basic.tar
+CND_PACKAGE_PATH_Arduino_UNO=dist/Arduino_UNO/Arduino-Linux/package/basic.tar
 #
 # include compiler specific variables
 #

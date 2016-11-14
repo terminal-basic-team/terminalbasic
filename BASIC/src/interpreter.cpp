@@ -53,7 +53,7 @@ void Interpreter::step()
 		_stream.println(freeRam());
 #endif
 		_stream.println("READY");
-		char buf[STRINGSIZE];
+nextinput:	char buf[STRINGSIZE];
 		memset(buf, 0xFF, sizeof (buf));
 		size_t read;
 		do {
@@ -68,17 +68,16 @@ void Interpreter::step()
 		    (_lexer.getValue().type == Parser::Value::INTEGER)) {
 			_program.addString(_lexer.getValue().value.integer,
 			    buf + _lexer.getPointer());
+			goto nextinput;
 		} else if (!_parser.parse(buf))
-			staticErrorPrint();
+			dynamicError();
 		break;
 	}
 	case EXECUTE:
 		Program::String *s = _program.getString();
 		if (s != NULL) {
-			if (!_parser.parse(s->text)) {
-				staticErrorPrint();
-				_state = SHELL;
-			}
+			if (!_parser.parse(s->text))
+				dynamicError();
 		} else
 			_state = SHELL;
 	}
@@ -175,6 +174,11 @@ Interpreter::returnFromSub()
 		dynamicError("RETURN NEEDS GOSUB");
 }
 
+void Interpreter::pushForLoop(const char*, const Parser::Value &v)
+{
+
+}
+
 Interpreter::Program::Program()
 {
 	newProg();
@@ -192,6 +196,8 @@ Interpreter::VariableFrame::size() const
 		return sizeof (VariableFrame) + sizeof (bool);
 	case Parser::Value::STRING:
 		return sizeof (VariableFrame) + strlen(bytes) + 1;
+	default:
+		return sizeof (VariableFrame);
 	}
 }
 
@@ -206,6 +212,19 @@ Interpreter::VariableFrame::set(const Integer &i)
 	} _U;
 	_U.b = bytes;
 	*_U.i = i;
+}
+
+void
+Interpreter::VariableFrame::set(const Real &r)
+{
+	type = REAL;
+	union
+	{
+		char *b;
+		Real *r;
+	} _U;
+	_U.b = bytes;
+	*_U.r = r;
 }
 
 void
@@ -330,26 +349,13 @@ Interpreter::Program::stackFrameByIndex(uint16_t index)
 }
 
 void
-Interpreter::staticErrorPrint()
-{
-	char buf[16];
-	strcpy_P(buf, (PGM_P)pgm_read_word(&(ESTRING(STATIC))));
-	_stream.print(buf);
-	_stream.print(' ');
-	strcpy_P(buf, (PGM_P)pgm_read_word(&(ESTRING(SEMANTIC))));
-	_stream.print(buf);
-	_stream.print(' ');
-	strcpy_P(buf, (PGM_P)pgm_read_word(&(ESTRING(ERROR))));
-	_stream.print(buf);
-	_stream.print(':');
-	_stream.println(int(_parser.getError()));
-}
-
-void
 Interpreter::dynamicError(const char *text)
 {
 	char buf[16];
-	strcpy_P(buf, (PGM_P)pgm_read_word(&(ESTRING(DYNAMIC))));
+	if (text != NULL)
+		strcpy_P(buf, (PGM_P)pgm_read_word(&(ESTRING(DYNAMIC))));
+	else
+		strcpy_P(buf, (PGM_P)pgm_read_word(&(ESTRING(STATIC))));
 	_stream.print(buf);
 	_stream.print(' ');
 	strcpy_P(buf, (PGM_P)pgm_read_word(&(ESTRING(SEMANTIC))));
@@ -358,7 +364,10 @@ Interpreter::dynamicError(const char *text)
 	strcpy_P(buf, (PGM_P)pgm_read_word(&(ESTRING(ERROR))));
 	_stream.print(buf);
 	_stream.print(':');
-	_stream.println(text);
+	if (text != NULL) {
+		_stream.println(text);
+	} else
+		_stream.println(int(_parser.getError()));
 	_state = SHELL;
 }
 
@@ -397,6 +406,10 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 	switch (v.type) {
 	case Parser::Value::INTEGER:
 		f->set(v.value.integer);
+		break;
+	case Parser::Value::REAL:
+		f->set(v.value.real);
+		break;
 	}
 	if (insertFlag)
 		_program._variablesEnd += f->size();

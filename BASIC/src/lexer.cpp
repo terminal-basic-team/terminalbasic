@@ -503,9 +503,20 @@ void Lexer::decimalNumber()
 		}
 		switch (SYM) {
 		case '.':
+		{
 			_value.type = Parser::Value::REAL;
-			_value.value.real = float(_value.value.integer);
-			break;
+			_value.value.real = Real(_value.value.integer);
+			Real d = 1;
+			while (true) {
+				next();
+				if (isdigit(SYM)) {
+					d /= 10.f;
+					_value.value.real += Real(SYM-'0') *d;
+					continue;
+				} else
+					break;
+			}
+		}
 		default:
 			if (_value.type == Parser::Value::INTEGER)
 				_token = C_INTEGER;

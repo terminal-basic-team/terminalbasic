@@ -25,7 +25,7 @@ public:
 	{
 		enum Type : uint8_t
 		{
-			SUBPROGRAM_RETURN
+			SUBPROGRAM_RETURN, FOR_NEXT
 		};
 		
 		uint8_t size() const;
@@ -34,6 +34,11 @@ public:
 		union CPS_PACKED
 		{
 			uint16_t calleeIndex;
+			struct CPS_PACKED {
+				uint16_t calleeIndex;
+				char varName[4];
+				Parser::Value final;
+			} forFrame;
 		} body;
 	};	
 

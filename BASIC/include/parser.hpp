@@ -27,47 +27,7 @@ public:
 		THEN_OR_GOTO_EXPECTED
 	};
 
-	class CPS_PACKED Value
-	{
-	public:
-		enum Type : uint8_t
-		{
-			INTEGER, REAL, BOOLEAN, STRING
-		};
-		
-		struct CPS_PACKED String
-		{
-			uint8_t size;
-			char string[STRINGSIZE];
-		};
-		
-		union CPS_PACKED Body
-		{
-			Integer integer;
-			float real;
-			bool boolean;
-			String string;
-		};
-
-		Value();
-		
-		operator Real() const;
-		operator bool() const;
-		operator Integer() const;
-
-		bool operator<(const Value&) const;
-		bool operator==(const Value&) const;
-		bool operator>(const Value&) const;
-		Value &operator+=(const Value&);
-		Value &operator-=(const Value&);
-		Value &operator*=(const Value&);
-		Value &operator/=(const Value&);
-		Value &operator^=(const Value&);
-		void switchSign();
-		
-		Type type;
-		Body value;
-	};
+	class CPS_PACKED Value;
 
 	Parser(Lexer&, Interpreter&);
 
@@ -83,7 +43,7 @@ private:
 		SCAN = 0, EXECUTE
 	};
 	bool fOperator();
-	bool fImplicitAssignment();
+	bool fImplicitAssignment(char*);
 	bool fPrintList();
 	bool fExpression(Value&);
 	bool fSimpleExpression(Value&);
