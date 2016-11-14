@@ -32,30 +32,12 @@
  * FACTOR = FINAL | FINAL POW FINAL
  * FINAL = IDENT | INTEGER | REAL | LPAREN EXPRESSION RPAREN | MINUS FINAL
  * PRINT_LIST = EXPRESSION | EXPRESSION COMMA PRINT_LIST
- * IF_STATEMENT = GOTO_STATEMEMNT | KW_THEN OPERATOR
+ * IF_STATEMENT = GOTO_STATEMEMNT | KW_THEN OPERATORS
  * GOTO_STATEMENT = KW_GOTO C_INTEGER
  */
 
 namespace BASIC
 {
-
-void valueFromFrame(Parser::Value &v, const Interpreter::VariableFrame &f)
-{
-	switch (f.type) {
-	case Interpreter::VariableFrame::INTEGER:
-		v.type = Parser::Value::INTEGER;
-		v.value.integer = f.get<Integer>();
-		break;
-	case Interpreter::VariableFrame::REAL:
-		v.type = Parser::Value::REAL;
-		v.value.real = f.get<Real>();
-		break;
-	case Interpreter::VariableFrame::BOOLEAN:
-		v.type = Parser::Value::BOOLEAN;
-		v.value.boolean = f.get<bool>();
-		break;
-	}
-}
 
 Parser::Parser(Lexer &l, Interpreter &i) :
 _lexer(l), _interpreter(i), _mode(EXECUTE)
@@ -69,7 +51,13 @@ Parser::parse(const char *s)
 
 	_lexer.init(s);
 	_error = NO_ERROR;
+	
+	return fOperators();
+}
 
+bool
+Parser::fOperators()
+{
 	Token t;
 	do {
 		if (!_lexer.getNext() || !fOperator()) {
@@ -150,7 +138,7 @@ Parser::fOperator()
 	}
 	case KW_LET:
 	{
-		char vName[4];
+		char vName[VARSIZE];
 		if (!_lexer.getNext() || !fImplicitAssignment(vName)) {
 			return false;
 		} else
@@ -163,6 +151,13 @@ Parser::fOperator()
 	case KW_NEW:
 		if (_mode == EXECUTE)
 			_interpreter.newProgram();
+		return true;
+	case KW_NEXT:
+		char vName[VARSIZE];
+		if (!_lexer.getNext() || _lexer.getToken() != IDENT)
+			return false;
+		if (_mode == EXECUTE)
+			_interpreter.next(_lexer.id());
 		return true;
 	case KW_PRINT:
 		if (_lexer.getNext())
@@ -195,7 +190,7 @@ Parser::fImplicitAssignment(char *varName)
 	if (_lexer.getToken() != IDENT)
 		return false;
 
-	strcpy(varName, _lexer.getValue().value.string.string);
+	strcpy(varName, _lexer.id());
 	Value v;
 	if (_lexer.getNext() && (_lexer.getToken() == EQUALS) &&
 	    _lexer.getNext() && fExpression(v)) {
@@ -413,8 +408,8 @@ Parser::fFinal(Value &v)
 			return true;
 		case IDENT:
 			if (_mode == EXECUTE) {
-				valueFromFrame(v, _interpreter.getVariable(_lexer.getValue().
-				    value.string.string));
+				Interpreter::valueFromFrame(v,
+				    _interpreter.getVariable(_lexer.id()));
 			}
 			_lexer.getNext();
 			return true;
@@ -440,7 +435,7 @@ Parser::fIfStatement()
 	LOG(t);
 	switch (t) {
 	case KW_THEN:
-		if (_lexer.getNext() && fOperator())
+		if (fOperators())
 			return true;
 		break;
 	default:

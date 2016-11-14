@@ -82,43 +82,43 @@ bool Lexer::getNext()
 		} else
 			switch (SYM) {
 			case 'D':
-				_value.value.string.string[_valuePointer++] = SYM;
+				_id[_valuePointer++] = SYM;
 				first_D();
 				return true;
 			case 'E':
-				_value.value.string.string[_valuePointer++] = SYM;
+				_id[_valuePointer++] = SYM;
 				first_E();
 				return true;
 			case 'F':
-				_value.value.string.string[_valuePointer++] = SYM;
+				_id[_valuePointer++] = SYM;
 				first_F();
 				return true;
 			case 'G':
-				_value.value.string.string[_valuePointer++] = SYM;
+				_id[_valuePointer++] = SYM;
 				first_G();
 				return true;
 			case 'I':
-				_value.value.string.string[_valuePointer++] = SYM;
+				_id[_valuePointer++] = SYM;
 				first_I();
 				return true;
 			case 'L':
-				_value.value.string.string[_valuePointer++] = SYM;
+				_id[_valuePointer++] = SYM;
 				first_L();
 				return true;
 			case 'N':
-				_value.value.string.string[_valuePointer++] = SYM;
+				_id[_valuePointer++] = SYM;
 				first_N();
 				return true;
 			case 'P':
-				_value.value.string.string[_valuePointer++] = SYM;
+				_id[_valuePointer++] = SYM;
 				first_P();
 				return true;
 			case 'R':
-				_value.value.string.string[_valuePointer++] = SYM;
+				_id[_valuePointer++] = SYM;
 				first_R();
 				return true;
 			case 'T':
-				_value.value.string.string[_valuePointer++] = SYM;
+				_id[_valuePointer++] = SYM;
 				first_T();
 				return true;
 			case '=':
@@ -193,7 +193,7 @@ bool Lexer::getNext()
 void Lexer::pushSYM()
 {
 	if (_valuePointer < STRINGSIZE - 1)
-		_value.value.string.string[_valuePointer++] = SYM;
+		_id[_valuePointer++] = SYM;
 	next();
 }
 
@@ -538,7 +538,7 @@ void Lexer::ident()
 		pushSYM();
 	}
 	_value.type = Parser::Value::STRING;
-	_value.value.string.string[_valuePointer] = 0;
+	_id[_valuePointer] = 0;
 	_token = IDENT;
 }
 

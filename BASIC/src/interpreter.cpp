@@ -1,16 +1,20 @@
 #include <string.h>
 #include <assert.h>
+#include <bits/string2.h>
 #include "helper.hpp"
 
 #include "basic_interpreter.hpp"
 #include "basic_interpreter_program.hpp"
+#include "basic_parser_value.hpp"
 #include "arduino_logger.hpp"
 
 #ifdef ARDUINO
-static int freeRam () {
-  extern int __heap_start, *__brkval; 
-  int v; 
-  return (int) &v - (__brkval == 0 ? (int) &__heap_start : (int) __brkval); 
+
+static int freeRam()
+{
+	extern int __heap_start, *__brkval;
+	int v;
+	return (int) &v - (__brkval == 0 ? (int) &__heap_start : (int) __brkval);
 }
 #endif
 
@@ -36,6 +40,25 @@ PGM_P const Interpreter::_errorStrings[NUM_STRINGS] PROGMEM = {
 
 #define ESTRING(en) (_errorStrings[en])
 
+void
+Interpreter::valueFromFrame(Parser::Value &v, const Interpreter::VariableFrame &f)
+{
+	switch (f.type) {
+	case Interpreter::VariableFrame::INTEGER:
+		v.type = Parser::Value::INTEGER;
+		v.value.integer = f.get<Integer>();
+		break;
+	case Interpreter::VariableFrame::REAL:
+		v.type = Parser::Value::REAL;
+		v.value.real = f.get<Real>();
+		break;
+	case Interpreter::VariableFrame::BOOLEAN:
+		v.type = Parser::Value::BOOLEAN;
+		v.value.boolean = f.get<bool>();
+		break;
+	}
+}
+
 Interpreter::Interpreter(Stream &stream, Program &program) :
 _program(program), _state(SHELL), _stream(stream), _parser(_lexer, *this)
 {
@@ -53,7 +76,8 @@ void Interpreter::step()
 		_stream.println(freeRam());
 #endif
 		_stream.println("READY");
-nextinput:	char buf[STRINGSIZE];
+nextinput:
+		char buf[STRINGSIZE];
 		memset(buf, 0xFF, sizeof (buf));
 		size_t read;
 		do {
@@ -74,10 +98,11 @@ nextinput:	char buf[STRINGSIZE];
 		break;
 	}
 	case EXECUTE:
-		Program::String *s = _program.getString();
+		Program::String *s = _program.current();
 		if (s != NULL) {
 			if (!_parser.parse(s->text))
 				dynamicError();
+			_program.getString();
 		} else
 			_state = SHELL;
 	}
@@ -114,9 +139,9 @@ Interpreter::print(const Parser::Value &v)
 	case Parser::Value::INTEGER:
 		_stream.print(v.value.integer);
 		break;
-	case Parser::Value::STRING:
-		_stream.print(v.value.string.string);
-		break;
+		//case Parser::Value::STRING:
+		//	_stream.print(v.value.string.string);
+		//	break;
 	default:
 		dynamicError("INVALID VALUE TYPE");
 		break;
@@ -141,7 +166,7 @@ Interpreter::gotoLine(Integer ln)
 {
 	Program::String *s = _program.stringByNumber(ln);
 	if (s != NULL) {
-		_program._current = _program.stringIndex(s);
+		_program.jump(_program.stringIndex(s));
 	} else {
 		dynamicError("NO STRING NUMBER");
 		_stream.println(ln);
@@ -157,7 +182,8 @@ Interpreter::newProgram()
 void
 Interpreter::pushReturnAddress()
 {
-	_program._sp -= sizeof (Program::StackFrame);
+	_program._sp -= Program::StackFrame::size(
+	    Program::StackFrame::SUBPROGRAM_RETURN);
 	Program::StackFrame *f = _program.stackFrameByIndex(_program._sp);
 	f->_type = Program::StackFrame::SUBPROGRAM_RETURN;
 	f->body.calleeIndex = _program._current;
@@ -167,16 +193,60 @@ void
 Interpreter::returnFromSub()
 {
 	Program::StackFrame *f = _program.stackFrameByIndex(_program._sp);
-	if (f != NULL) {
+	if ((f != NULL) && (f->_type == Program::StackFrame::SUBPROGRAM_RETURN)) {
 		_program._current = f->body.calleeIndex;
-		_program._sp += sizeof (Program::StackFrame);
+		_program._sp += Program::StackFrame::size(
+		    Program::StackFrame::SUBPROGRAM_RETURN);
 	} else
 		dynamicError("RETURN NEEDS GOSUB");
 }
 
-void Interpreter::pushForLoop(const char*, const Parser::Value &v)
+void
+Interpreter::pushForLoop(const char *varName, const Parser::Value &v)
 {
+	Program::StackFrame *f = _program.stackFrameByIndex(_program._sp);
+	if ((f != NULL) && (f->_type == Program::StackFrame::FOR_NEXT) &&
+	    (strcmp(varName, f->body.forFrame.varName) == 0)) { // for iteration
+		setVariable(varName, f->body.forFrame.current);
+	} else {
+		_program._sp -= Program::StackFrame::size(
+		    Program::StackFrame::FOR_NEXT);
+		f = _program.stackFrameByIndex(_program._sp);
+		if (f == NULL)
+			dynamicError(varName);
+		f->_type = Program::StackFrame::FOR_NEXT;
+		f->body.forFrame.calleeIndex = _program._current;
+		f->body.forFrame.finalv = v;
+		f->body.forFrame.step = Parser::Value(Integer(1));
+		Parser::Value cur;
+		VariableFrame *vf = _program.variableByName(varName);
+		valueFromFrame(f->body.forFrame.current, *vf);
+		strcpy(f->body.forFrame.varName, varName);
+		setVariable(varName, f->body.forFrame.current);
+	}
+}
 
+void
+Interpreter::next(const char *varName)
+{
+	Program::StackFrame *f = _program.stackFrameByIndex(_program._sp);
+	if ((f != NULL) && (f->_type == Program::StackFrame::FOR_NEXT) &&
+	    (strcmp(f->body.forFrame.varName, varName) == 0)) {
+		if (f->body.forFrame.step > Parser::Value(Integer(0))) {
+			if (f->body.forFrame.current >= f->body.forFrame.finalv) {
+				_program._sp += Program::StackFrame::size(
+				    Program::StackFrame::FOR_NEXT);
+				return;
+			}
+		} else if (f->body.forFrame.current <= f->body.forFrame.finalv) {
+			_program._sp += Program::StackFrame::size(
+			    Program::StackFrame::FOR_NEXT);
+			return;
+		}
+		f->body.forFrame.current += f->body.forFrame.step;
+		_program.jump(f->body.forFrame.calleeIndex);
+	} else
+		dynamicError("INVALID NEXT");
 }
 
 Interpreter::Program::Program()
@@ -205,6 +275,7 @@ void
 Interpreter::VariableFrame::set(const Integer &i)
 {
 	type = INTEGER;
+
 	union
 	{
 		char *b;
@@ -218,6 +289,7 @@ void
 Interpreter::VariableFrame::set(const Real &r)
 {
 	type = REAL;
+
 	union
 	{
 		char *b;
@@ -230,7 +302,7 @@ Interpreter::VariableFrame::set(const Real &r)
 void
 Interpreter::Program::newProg()
 {
-	_first = 0, _last = 0, _current = _variablesEnd = 0;
+	_first = 0, _last = 0, _current = _variablesEnd = _jump = 0;
 	_sp = PROGSIZE;
 	memset(_text, 0xFF, PROGSIZE);
 }
@@ -238,6 +310,11 @@ Interpreter::Program::newProg()
 Interpreter::Program::String*
 Interpreter::Program::getString()
 {
+	if (_jump != 0) {
+		_current = _jump;
+		_jump = 0;
+		return current();
+	}
 	Program::String *result = current();
 	if (result != NULL) {
 		_current += result->size;
@@ -325,7 +402,7 @@ Interpreter::Program::variableByName(const char *name)
 		index = 1;
 	if (_variablesEnd == 0)
 		_variablesEnd = 1;
-	
+
 	for (VariableFrame *f = variableByIndex(index); (f != NULL) && (index <
 	    _variablesEnd);
 	    f = variableByIndex(index)) {
@@ -337,12 +414,12 @@ Interpreter::Program::variableByName(const char *name)
 		index += f->size();
 	}
 	return NULL;
-	}
+}
 
 Interpreter::Program::StackFrame*
 Interpreter::Program::stackFrameByIndex(uint16_t index)
 {
-	if ((index>0) && (index < PROGSIZE))
+	if ((index > 0) && (index < PROGSIZE))
 		return (reinterpret_cast<StackFrame*> (_text + index));
 	else
 		return (NULL);
@@ -353,15 +430,15 @@ Interpreter::dynamicError(const char *text)
 {
 	char buf[16];
 	if (text != NULL)
-		strcpy_P(buf, (PGM_P)pgm_read_word(&(ESTRING(DYNAMIC))));
+		strcpy_P(buf, (PGM_P) pgm_read_word(&(ESTRING(DYNAMIC))));
 	else
-		strcpy_P(buf, (PGM_P)pgm_read_word(&(ESTRING(STATIC))));
+		strcpy_P(buf, (PGM_P) pgm_read_word(&(ESTRING(STATIC))));
 	_stream.print(buf);
 	_stream.print(' ');
-	strcpy_P(buf, (PGM_P)pgm_read_word(&(ESTRING(SEMANTIC))));
+	strcpy_P(buf, (PGM_P) pgm_read_word(&(ESTRING(SEMANTIC))));
 	_stream.print(buf);
 	_stream.print(' ');
-	strcpy_P(buf, (PGM_P)pgm_read_word(&(ESTRING(ERROR))));
+	strcpy_P(buf, (PGM_P) pgm_read_word(&(ESTRING(ERROR))));
 	_stream.print(buf);
 	_stream.print(':');
 	if (text != NULL) {
@@ -508,7 +585,7 @@ Interpreter::Program::insert(int num, const char *text)
 		return true;
 	} else
 		return false;
-	}
+}
 
 void
 Interpreter::end()

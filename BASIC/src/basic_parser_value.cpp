@@ -11,6 +11,23 @@ type(INTEGER)
 	value.integer = 0;
 }
 
+Parser::Value::Value(Integer v) :
+type(INTEGER)
+{
+	value.integer = v;
+}
+
+Parser::Value::Value(float v) :
+type(REAL)
+{
+	value.real = v;
+}
+
+Parser::Parser::Value::Value(bool v)
+{
+
+}
+
 Parser::Value::operator Real() const
 {
 	switch (type) {
@@ -134,6 +151,18 @@ Parser::Value::operator>(const Value &rhs) const
 			return value.boolean > rhs.value.boolean;
 		}
 	}
+}
+
+bool
+operator>=(const Parser::Value &l, const Parser::Value &r)
+{
+	return (l.operator >(r) || l.operator ==(r));
+}
+
+bool
+operator<=(const Parser::Value &l, const Parser::Value &r)
+{
+	return (l.operator <(r) || l.operator ==(r));
 }
 
 Parser::Value&

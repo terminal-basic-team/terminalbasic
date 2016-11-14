@@ -207,6 +207,8 @@ public:
 	{
 		return _value;
 	}
+	
+	const char *id() const { return _id; }
 
 	size_t getPointer() const
 	{
@@ -241,6 +243,7 @@ private:
 	uint16_t _pointer;
 
 	Parser::Value _value;
+	char _id[STRINGSIZE];
 	size_t _valuePointer;
 
 	Token _token;

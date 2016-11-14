@@ -10,6 +10,7 @@ class Interpreter::Program
 {
 	friend class Interpreter;
 public:
+
 	/**
 	 * BASIC string
 	 * @return 
@@ -20,27 +21,37 @@ public:
 		uint8_t size;
 		char text[];
 	};
-	
+
 	struct CPS_PACKED StackFrame
 	{
+
 		enum Type : uint8_t
 		{
 			SUBPROGRAM_RETURN, FOR_NEXT
 		};
-		
-		uint8_t size() const;
-		
+
+		struct CPS_PACKED ForBody
+		{
+			uint16_t calleeIndex;
+			char varName[VARSIZE];
+			Parser::Value current;
+			Parser::Value step;
+			Parser::Value finalv;
+		};
+
+		static uint8_t size(Type);
+
 		Type _type;
+
 		union CPS_PACKED
 		{
 			uint16_t calleeIndex;
-			struct CPS_PACKED {
-				uint16_t calleeIndex;
-				char varName[4];
-				Parser::Value final;
-			} forFrame;
+			ForBody forFrame;
 		} body;
-	};	
+	};
+	
+	static_assert((sizeof (StackFrame::Type) + sizeof (StackFrame::ForBody))
+	    == sizeof (StackFrame), "bad size");
 
 	Program();
 	/**
@@ -55,6 +66,8 @@ public:
 	String *current() const;
 	String *first() const;
 	String *last() const;
+	
+	void jump(uint16_t newVal) { _jump = newVal; }
 
 	/**
 	 * @brief program string at given index
@@ -84,14 +97,14 @@ public:
 	 */
 	VariableFrame *variableByIndex(uint16_t);
 	VariableFrame *variableByName(const char*);
-	
+
 	StackFrame *stackFrameByIndex(uint16_t index);
 
 	void addString(uint16_t, const char*);
 	bool insert(int, const char*);
 	char _text[PROGSIZE];
 private:
-	uint16_t _first, _last, _current, _variablesEnd, _sp;
+	uint16_t _first, _last, _current, _variablesEnd, _sp, _jump;
 };
 
 }

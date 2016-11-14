@@ -10,9 +10,11 @@
 namespace BASIC
 {
 // Max size of the program strings and string constants/variables
-const size_t STRINGSIZE = 72;
+const uint8_t STRINGSIZE = 72;
 // Number of bytes for program text, variables and stack
 const size_t PROGSIZE = 256;
+// Number of characters in variable name
+const uint8_t VARSIZE = 4; 
 // integer type
 typedef int16_t Integer;
 // floating point type

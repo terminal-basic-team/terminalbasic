@@ -10,6 +10,7 @@
       <itemPath>include/parser.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="src" displayName="src" projectFiles="true">
+      <itemPath>src/basic_interpreter_program.cpp</itemPath>
       <itemPath>src/basic_parser_value.cpp</itemPath>
       <itemPath>src/interpreter.cpp</itemPath>
       <itemPath>src/lexer.cpp</itemPath>
@@ -118,6 +119,8 @@
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/interpreter.cpp" ex="false" tool="1" flavor2="0">
@@ -204,6 +207,8 @@
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/interpreter.cpp" ex="false" tool="1" flavor2="0">
@@ -289,6 +294,8 @@
       <item path="include/parser.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="0">
       </item>

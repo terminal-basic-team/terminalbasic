@@ -42,6 +42,7 @@ private:
 	{
 		SCAN = 0, EXECUTE
 	};
+	bool fOperators();
 	bool fOperator();
 	bool fImplicitAssignment(char*);
 	bool fPrintList();

@@ -41,10 +41,13 @@ public:
 			return *_U.i;
 		}
 		
-		char name[4];
+		char name[VARSIZE];
 		Type type;
 		char bytes[];
 	};
+	
+	static void valueFromFrame(Parser::Value &v,
+	    const Interpreter::VariableFrame &f);
 	
 	enum State
 	{
@@ -71,8 +74,10 @@ public:
 	void pushReturnAddress();
 	// return from subprogram
 	void returnFromSub();
-	//
+	// save for loop
 	void pushForLoop(const char*, const Parser::Value&);
+	// iterate for loop
+	void next(const char*);
 	
 	void end();
 	/**
