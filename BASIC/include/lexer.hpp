@@ -12,6 +12,16 @@
 namespace BASIC
 {
 
+enum class ASCII : uint8_t
+{
+	NUL = 0x00,
+	SOH = 0x01,
+	BEL = 0x07,
+	LF  = 0x0A,
+	CR  = 0x0D,
+	ESC = 0x1B
+};
+
 enum Token : uint8_t
 {
 	NOTOKENS = 0,
@@ -195,6 +205,7 @@ operator<<(Logger &logger, Token tok)
 class Lexer
 {
 public:
+	
 	void init(const char*);
 	bool getNext();
 

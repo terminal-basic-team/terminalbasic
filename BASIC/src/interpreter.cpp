@@ -75,7 +75,9 @@ void Interpreter::step()
 		_stream.print("FREE RAM ");
 		_stream.println(freeRam());
 #endif
-		_stream.println("READY");
+		_stream.print("\x1B[1m");
+		_stream.print("READY");
+		_stream.println("\x1B[0m");
 nextinput:
 		char buf[STRINGSIZE];
 		memset(buf, 0xFF, sizeof (buf));
@@ -571,7 +573,6 @@ Interpreter::Program::addString(uint16_t num, const char *text)
 			}
 		}
 	}
-
 }
 
 bool
