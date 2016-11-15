@@ -13,12 +13,13 @@ CP=cp
 GREP=grep
 NM=nm
 CCADMIN=CCadmin
-RANLIB=ranlib
+RANLIB=avr-gcc-ranlib
 CC=avr-gcc
 CCC=avr-g++
 CXX=avr-g++
 FC=gfortran
 AS=avr-as
+AR=avr-gcc-ar
 
 # Macros
 CND_PLATFORM=Arduino-Linux
@@ -64,11 +65,11 @@ OBJECTFILES= \
 
 
 # C Compiler Flags
-CFLAGS=-Os -Wextra -std=gnu11 -ffunction-sections -fdata-sections -MMD -mmcu=atmega328p
+CFLAGS=-Os -Wextra -std=gnu11 -ffunction-sections -fdata-sections -MMD -mmcu=atmega328p -flto
 
 # CC Compiler Flags
-CCFLAGS=-Os -Wextra -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega328p
-CXXFLAGS=-Os -Wextra -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega328p
+CCFLAGS=-Os -Wextra -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega328p -flto
+CXXFLAGS=-Os -Wextra -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega328p -flto
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -152,7 +153,7 @@ ${OBJECTDIR}/_ext/f54da836/USBCore.o: /opt/arduino-1.6.12/hardware/arduino/avr/c
 ${OBJECTDIR}/_ext/f54da836/WInterrupts.o: /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/WInterrupts.c nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/_ext/f54da836
 	${RM} "$@.d"
-	$(COMPILE.c) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_UNO -DF_CPU=16000000L -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/WInterrupts.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/WInterrupts.c
+	$(COMPILE.c) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/WInterrupts.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/WInterrupts.c
 
 ${OBJECTDIR}/_ext/f54da836/WMath.o: /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/WMath.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/_ext/f54da836
@@ -172,7 +173,7 @@ ${OBJECTDIR}/_ext/f54da836/abi.o: /opt/arduino-1.6.12/hardware/arduino/avr/cores
 ${OBJECTDIR}/_ext/f54da836/hooks.o: /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/hooks.c nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/_ext/f54da836
 	${RM} "$@.d"
-	$(COMPILE.c) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_UNO -DF_CPU=16000000L -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/hooks.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/hooks.c
+	$(COMPILE.c) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/hooks.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/hooks.c
 
 ${OBJECTDIR}/_ext/f54da836/main.o: /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/main.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/_ext/f54da836
@@ -187,27 +188,27 @@ ${OBJECTDIR}/_ext/f54da836/new.o: /opt/arduino-1.6.12/hardware/arduino/avr/cores
 ${OBJECTDIR}/_ext/f54da836/wiring.o: /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring.c nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/_ext/f54da836
 	${RM} "$@.d"
-	$(COMPILE.c) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_UNO -DF_CPU=16000000L -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/wiring.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring.c
+	$(COMPILE.c) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/wiring.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring.c
 
 ${OBJECTDIR}/_ext/f54da836/wiring_analog.o: /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_analog.c nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/_ext/f54da836
 	${RM} "$@.d"
-	$(COMPILE.c) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_UNO -DF_CPU=16000000L -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/wiring_analog.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_analog.c
+	$(COMPILE.c) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/wiring_analog.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_analog.c
 
 ${OBJECTDIR}/_ext/f54da836/wiring_digital.o: /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_digital.c nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/_ext/f54da836
 	${RM} "$@.d"
-	$(COMPILE.c) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_UNO -DF_CPU=16000000L -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/wiring_digital.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_digital.c
+	$(COMPILE.c) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/wiring_digital.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_digital.c
 
 ${OBJECTDIR}/_ext/f54da836/wiring_pulse.o: /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_pulse.c nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/_ext/f54da836
 	${RM} "$@.d"
-	$(COMPILE.c) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_UNO -DF_CPU=16000000L -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/wiring_pulse.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_pulse.c
+	$(COMPILE.c) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/wiring_pulse.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_pulse.c
 
 ${OBJECTDIR}/_ext/f54da836/wiring_shift.o: /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_shift.c nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/_ext/f54da836
 	${RM} "$@.d"
-	$(COMPILE.c) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_UNO -DF_CPU=16000000L -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/wiring_shift.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_shift.c
+	$(COMPILE.c) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/wiring_shift.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_shift.c
 
 ${OBJECTDIR}/_ext/d883fa1d/SoftwareSerial.o: /opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src/SoftwareSerial.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/_ext/d883fa1d
@@ -217,7 +218,7 @@ ${OBJECTDIR}/_ext/d883fa1d/SoftwareSerial.o: /opt/arduino-1.6.12/hardware/arduin
 ${OBJECTDIR}/_wiring_pulse.o: _wiring_pulse.S nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_UNO -DF_CPU=16000000L -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs -x assembler-with-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_wiring_pulse.o _wiring_pulse.S
+	$(COMPILE.c) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs -x assembler-with-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_wiring_pulse.o _wiring_pulse.S
 
 # Subprojects
 .build-subprojects:

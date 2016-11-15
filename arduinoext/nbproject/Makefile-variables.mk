@@ -30,6 +30,14 @@ CND_ARTIFACT_PATH_Arduino_uno=dist/Arduino_uno/Arduino-Linux/libarduinoext.a
 CND_PACKAGE_DIR_Arduino_uno=dist/Arduino_uno/Arduino-Linux/package
 CND_PACKAGE_NAME_Arduino_uno=arduinoext.tar
 CND_PACKAGE_PATH_Arduino_uno=dist/Arduino_uno/Arduino-Linux/package/arduinoext.tar
+# Arduino_mega2560 configuration
+CND_PLATFORM_Arduino_mega2560=Arduino-Linux
+CND_ARTIFACT_DIR_Arduino_mega2560=dist/Arduino_mega2560/Arduino-Linux
+CND_ARTIFACT_NAME_Arduino_mega2560=libarduinoext.a
+CND_ARTIFACT_PATH_Arduino_mega2560=dist/Arduino_mega2560/Arduino-Linux/libarduinoext.a
+CND_PACKAGE_DIR_Arduino_mega2560=dist/Arduino_mega2560/Arduino-Linux/package
+CND_PACKAGE_NAME_Arduino_mega2560=arduinoext.tar
+CND_PACKAGE_PATH_Arduino_mega2560=dist/Arduino_mega2560/Arduino-Linux/package/arduinoext.tar
 #
 # include compiler specific variables
 #

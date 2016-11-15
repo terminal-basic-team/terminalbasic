@@ -31,6 +31,10 @@
                     <name>Arduino_UNO</name>
                     <type>1</type>
                 </confElem>
+                <confElem>
+                    <name>Arduino_mega2560</name>
+                    <type>1</type>
+                </confElem>
             </confList>
             <formatting>
                 <project-formatting-style>false</project-formatting-style>

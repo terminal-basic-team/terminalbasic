@@ -35,21 +35,24 @@
 Package(Logger) {
 	public:
 
-	enum class format_t {
+	enum class format_t
+	{
 		bin = 2, dec = 10, oct = 8, hex = 16, endl
 	};
 
 	static void init(Stream&);
 
 	template<typename... Args>
-	    static void log(const Args&... args) {
+	    static void log(const Args&... args)
+	{
 		_log(args...);
 		_instance._stream->println();
 	}
 
 	private:
 
-	friend Logger &operator<<(Logger &logger, format_t formaat) {
+	friend Logger &operator<<(Logger &logger, format_t formaat)
+	{
 		logger._format = formaat;
 		return (logger);
 	}
@@ -75,24 +78,28 @@ Package(Logger) {
 	}
 
 	template<typename T>
-	    friend Logger &operator<<(Logger &logger, T * first) {
+	friend Logger &operator<<(Logger &logger, T * first)
+	{
 		logger._stream->print(intptr_t(first), 16);
 		return (logger);
 	}
 
 	template<typename T>
-	    friend Logger &operator<<(Logger &logger, T first) {
+	friend Logger &operator<<(Logger &logger, T first)
+	{
 		logger._stream->print(first);
 		return (logger);
 	}
 
 	template<typename T>
-	    static void _log(T first) {
+	static void _log(T first)
+	{
 		_instance << first;
 	}
 
 	template<typename T, typename... Args>
-	    static void _log(T first, const Args&... args) {
+	static void _log(T first, const Args&... args)
+	{
 		_log(first);
 		_instance._stream->print(" ");
 		_log(args...);
@@ -124,7 +131,7 @@ Package(Logger)
 	private:
 
 	template<typename T>
-	    friend Logger &operator<<(Logger &logger, T first)
+	friend Logger &operator<<(Logger &logger, T first)
 	{
 		return (logger);
 	}
@@ -138,11 +145,13 @@ public:
 
 	size_t printTo(Print& p) const override;
 
-	const uint8_t *data() const {
+	const uint8_t *data() const
+	{
 		return (_data);
 	}
 
-	size_t size() const {
+	size_t size() const
+	{
 		return (_size);
 	}
 private:

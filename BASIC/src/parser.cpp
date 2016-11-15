@@ -1,3 +1,21 @@
+/*
+ * ucBASIC is a lightweight BASIC-like language interpreter
+ * Copyright (C) 2016  Andrey V. Skvortsov <starling13@mail.ru>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include <math.h>
 #include <string.h>
 
@@ -8,23 +26,21 @@
 /*
  * TEXT = OPERATORS | C_INTEGER OPERATORS
  * OPERATORS = OPERATOR | OPERATOR COLON OPERATORS
- * OPERATOR = KW_END |
- *	KW_RUN |
- *	KW_LIST |
- *	KW_NEW |
- *	KW_DUMP |
+ * OPERATOR = COMMAND |
+ *      KW_END |
  *	KW_RETURN |
  *	KW_PRINT PRINT_LIST |
  *	KW_IF EXPRESSION IF_STATEMENT |
- *	KW_FOR IMPLICIT_ASSIGNMENT KW_TO EXPRESSION |
+ *	KW_FOR IMPLICIT_ASSIGNMENT KW_TO FOR_CONDS |
  *	KW_NEXT IDENT |
  *	ASSIGNMENT |TURN |
  *	GOTO_STATEMENT |
  *	KW_GOSUB INTEGER
+ * COMMAND = COM_DUMP | COM_LIST | COM_NEW | COM_RUN
  * ASSIGNMENT = KW_LET IMPLICIT_ASSIGNMENT | IMPLICIT_ASSIGNMENT
  * IMPLICIT_ASSIGNMENT = IDENTIFIER EQUALS EXPRESSION
  * EXPRESSION = SIMPLE_EXPRESSION | SIMPLE_EXPRESSION REL SIMPLE_EXPRESSION
- * REL = LT | LTE | EQUALS | GT | GTE | NE
+ * REL = LT | LTE | EQUALS | GT | GTE | NE | NEA
  * SIMPLE_EXPRESSION = TERM | TERM ADD TERM
  * ADD = PLUS MINUS KW_OR
  * TERM = FACTOR | FACTOR MUL FACTOR
@@ -34,6 +50,7 @@
  * PRINT_LIST = EXPRESSION | EXPRESSION COMMA PRINT_LIST
  * IF_STATEMENT = GOTO_STATEMEMNT | KW_THEN OPERATORS
  * GOTO_STATEMENT = KW_GOTO C_INTEGER
+ * FOR_CONDS = EXPRESSION | EXPRESSION KW_STEP EXPRESSION
  */
 
 namespace BASIC
@@ -78,10 +95,6 @@ Parser::fOperator()
 	Token t = _lexer.getToken();
 	LOG(t);
 	switch (t) {
-	case KW_DUMP:
-		if (_mode == EXECUTE)
-			_interpreter.dump();
-		return true;
 	case KW_END:
 		if (_mode == EXECUTE)
 			_interpreter.end();
@@ -144,14 +157,6 @@ Parser::fOperator()
 		} else
 			return true;
 	}
-	case KW_LIST:
-		if (_mode == EXECUTE)
-			_interpreter.list();
-		return true;
-	case KW_NEW:
-		if (_mode == EXECUTE)
-			_interpreter.newProgram();
-		return true;
 	case KW_NEXT:
 		char vName[VARSIZE];
 		if (!_lexer.getNext() || _lexer.getToken() != IDENT)
@@ -170,11 +175,9 @@ Parser::fOperator()
 		if (_mode == EXECUTE)
 			_interpreter.returnFromSub();
 		return true;
-	case KW_RUN:
-		if (_mode == EXECUTE)
-			_interpreter.run();
-		return true;
 	default:
+		if (fCommand())
+			return true;
 		if (fGotoStatement())
 			return true;
 		_error = OPERATOR_EXPECTED;
@@ -462,6 +465,37 @@ Parser::fGotoStatement()
 		return true;
 	} else
 		return false;
+}
+
+bool
+Parser::fCommand()
+{
+	Token t = _lexer.getToken();
+	LOG(t);
+	switch (t) {
+	case COM_DUMP:
+		if (_mode == EXECUTE)
+			_interpreter.dump();
+		_lexer.getNext();
+		return true;
+	case COM_LIST:
+		if (_mode == EXECUTE)
+			_interpreter.list();
+		_lexer.getNext();
+		return true;
+	case COM_NEW:
+		if (_mode == EXECUTE)
+			_interpreter.newProgram();
+		_lexer.getNext();
+		return true;
+	case COM_RUN:
+		if (_mode == EXECUTE)
+			_interpreter.run();
+		_lexer.getNext();
+		return true;
+	default:
+		return false;
+	}
 }
 
 }

@@ -1,22 +1,51 @@
+/*
+ * ucBASIC is a lightweight BASIC-like language interpreter
+ * Copyright (C) 2016  Andrey V. Skvortsov <starling13@mail.ru>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "lexer.hpp"
+#include "helper.hpp"
 
 #include <string.h>
 #include <ctype.h>
 
 /*
- * KW_DUMP = "DUMP"
+ * COM_DUMP = "DUMP"
+ * COM_LIST = "LIST"
+ * COM_NEW = "NEW"
+ * COM_RUN = "RUN"
+ * 
  * KW_END = "END"
  * KW_FOR = "FOR"
- * KW_FOR = "GOTO"
+ * KW_GOSUB = "GOSUB"
+ * KW_GOTO = "GOTO"
  * KW_IF = "IF"
  * KW_LET = "LET"
- * KW_LIST = "LIST"
- * KW_NEW = "NEW"
  * KW_NEXT = "NEXT"
  * KW_PRINT = "PRINT"
- * KW_RUN = "RUN"
+ * KW_RETURN = "RETURN"
+ * 
  * KW_THEN = "THEN"
- * KW_RUN = "TO"
+ * KW_TO = "TO"
+ * KW_STEP = "STEP"
+ * 
+ * OP_AND = "AND"
+ * OP_OR = "OR"
+ * OP_NOT = "NOT"
+ * 
  * COLON = ':'
  * SEMI = ';'
  * LT = '<'
@@ -25,6 +54,7 @@
  * GTE = ">="
  * EQUALS = '='
  * NE = "<>"
+ * NEA = "><"
  * MINUS = '-'
  * PLUS = '+'
  * STAR = '*'
@@ -39,20 +69,70 @@ namespace BASIC
 {
 
 const char sNOTOKENS[] PROGMEM = "NOTOKENS";
+
+const char sDUMP[] PROGMEM = "DUMP";
+const char sLIST[] PROGMEM = "LIST";
+const char sNEW[] PROGMEM = "NEW";
+const char sRUN[] PROGMEM = "RUN";
+
+const char sEND[] PROGMEM = "END";
+const char sFOR[] PROGMEM = "FOR";
+const char sGOSUB[] PROGMEM = "GOSUB";
+const char sGOTO[] PROGMEM = "GOTO";
+const char sIF[] PROGMEM = "IF";
+const char sLET[] PROGMEM = "LET";
+const char sNEXT[] PROGMEM = "NEXT";
+const char sPRINT[] PROGMEM = "PRINT";
+const char sRETURN[] PROGMEM = "RETURN";
+
+const char sTHEN[] PROGMEM = "THEN";
+const char sTO[] PROGMEM = "TO";
+const char sSTEP[] PROGMEM = "STEP";
+
 const char sIDENT[] PROGMEM = "IDENT";
 const char sEQUALS[] PROGMEM = "=";
 const char sCOLON[] PROGMEM = ":";
 const char sSEMI[] PROGMEM = ";";
 const char sLT[] PROGMEM = "<";
+const char sGT[] PROGMEM = ">";
+const char sLTE[] PROGMEM = "<=";
+const char sGTE[] PROGMEM = ">=";
+const char sNE[] PROGMEM = "<>";
+const char sNEA[] PROGMEM = "><";
+const char sCOMMA[] PROGMEM = ",";
+const char sPOW[] PROGMEM = "^";
 
 PGM_P const Lexer::tokenStrings[NUM_TOKENS] PROGMEM = {
 	sNOTOKENS,
+	
+	sDUMP,	sLIST,	sNEW,	sRUN,	
+	sEND,	sFOR,	sGOSUB,	sGOTO,	sIF,	sLET,	sNEXT,	sPRINT,	sRETURN,
+	sTHEN,	sTO,	sSTEP,
 	sIDENT,
 	sEQUALS,
 	sCOLON,
 	sSEMI,
-	sLT
+	sLT,
+	sGT,
+	sLTE,
+	sGTE,
+	sNE,
+	sNEA,
+	sCOLON,
+	sPOW,
 };
+
+#if ARDUINO_LOG
+Logger&
+operator<<(Logger &logger, Token tok)
+{
+	char buf[8];
+	strcpy_P(buf, (PGM_P) pgm_read_word(&(Lexer::tokenStrings[tok])));
+
+	logger.log(buf);
+	return (logger);
+}
+#endif
 
 #define SYM _string[_pointer]
 
@@ -81,10 +161,14 @@ bool Lexer::getNext()
 			return true;
 		} else
 			switch (SYM) {
+			case 'A':
+				_id[_valuePointer++] = SYM;
+				first_A();
+				return true;
 			case 'D':
 				_id[_valuePointer++] = SYM;
 				first_D();
-				return true;
+				return true;				
 			case 'E':
 				_id[_valuePointer++] = SYM;
 				first_E();
@@ -109,6 +193,10 @@ bool Lexer::getNext()
 				_id[_valuePointer++] = SYM;
 				first_N();
 				return true;
+			case 'O':
+				_id[_valuePointer++] = SYM;
+				first_O();
+				return true;
 			case 'P':
 				_id[_valuePointer++] = SYM;
 				first_P();
@@ -116,6 +204,10 @@ bool Lexer::getNext()
 			case 'R':
 				_id[_valuePointer++] = SYM;
 				first_R();
+				return true;
+			case 'S':
+				_id[_valuePointer++] = SYM;
+				first_S();
 				return true;
 			case 'T':
 				_id[_valuePointer++] = SYM;
@@ -181,9 +273,10 @@ bool Lexer::getNext()
 				if (isalpha(SYM)) {
 					pushSYM();
 					ident();
-					return true;
+				} else {
+					next();
+					_token = NOTOKENS;
 				}
-				_token = NOTOKENS;
 				return true;
 			}
 	}
@@ -202,7 +295,7 @@ void Lexer::next()
 	++_pointer;
 }
 
-void Lexer::first_E()
+void Lexer::first_A()
 {
 	_token = NOTOKENS;
 
@@ -212,8 +305,8 @@ void Lexer::first_E()
 		pushSYM();
 		switch (SYM) {
 		case 'D':
-			pushSYM();
-			_token = KW_END;
+			next();
+			_token = OP_AND;
 			return;
 		}
 	}
@@ -233,9 +326,28 @@ void Lexer::first_D()
 			pushSYM();
 			switch (SYM) {
 			case 'P':
-				_token = KW_DUMP;
+				next();
+				_token = COM_DUMP;
 				return;
 			}
+		}
+	}
+	ident();
+}
+
+void Lexer::first_E()
+{
+	_token = NOTOKENS;
+
+	next();
+	switch (SYM) {
+	case 'N':
+		pushSYM();
+		switch (SYM) {
+		case 'D':
+			next();
+			_token = KW_END;
+			return;
 		}
 	}
 	ident();
@@ -251,7 +363,7 @@ void Lexer::first_F()
 		pushSYM();
 		switch (SYM) {
 		case 'R':
-			pushSYM();
+			next();
 			_token = KW_FOR;
 			return;
 		}
@@ -272,7 +384,7 @@ void Lexer::first_G()
 			pushSYM();
 			switch (SYM) {
 			case 'O':
-				pushSYM();
+				next();
 				_token = KW_GOTO;
 				return;
 			}
@@ -283,7 +395,7 @@ void Lexer::first_G()
 				pushSYM();
 				switch (SYM) {
 				case 'B':
-					pushSYM();
+					next();
 					_token = KW_GOSUB;
 					return;
 				}
@@ -300,7 +412,7 @@ void Lexer::first_I()
 	next();
 	switch (SYM) {
 	case 'F':
-		pushSYM();
+		next();
 		_token = KW_IF;
 		return;
 	}
@@ -320,8 +432,8 @@ void Lexer::first_L()
 			pushSYM();
 			switch (SYM) {
 			case 'T':
-				pushSYM();
-				_token = KW_LIST;
+				next();
+				_token = COM_LIST;
 				return;
 			}
 		}
@@ -329,7 +441,7 @@ void Lexer::first_L()
 		pushSYM();
 		switch (SYM) {
 		case 'T':
-			pushSYM();
+			next();
 			_token = KW_LET;
 			return;
 		}
@@ -350,15 +462,29 @@ void Lexer::first_N()
 			pushSYM();
 			switch (SYM) {
 			case 'T':
-				pushSYM();
+				next();
 				_token = KW_NEXT;
 				return;
 			}
 		case 'W':
-			pushSYM();
-			_token = KW_NEW;
+			next();
+			_token = COM_NEW;
 			return;
 		}
+	}
+	ident();
+}
+
+void Lexer::first_O()
+{
+	_token = NOTOKENS;
+
+	next();
+	switch (SYM) {
+	case 'R':
+		next();
+		_token = OP_OR;
+		return;
 	}
 	ident();
 }
@@ -379,7 +505,7 @@ void Lexer::first_P()
 				pushSYM();
 				switch (SYM) {
 				case 'T':
-					pushSYM();
+					next();
 					_token = KW_PRINT;
 					return;
 				}
@@ -408,7 +534,7 @@ void Lexer::first_R()
 					pushSYM();
 					switch (SYM) {
 					case 'N':
-						pushSYM();
+						next();
 						_token = KW_RETURN;
 						return;
 					}
@@ -419,9 +545,31 @@ void Lexer::first_R()
 		pushSYM();
 		switch (SYM) {
 		case 'N':
-			pushSYM();
-			_token = KW_RUN;
+			next();
+			_token = COM_RUN;
 			return;
+		}
+	}
+	ident();
+}
+
+void Lexer::first_S()
+{
+	_token = NOTOKENS;
+
+	next();
+	switch (SYM) {
+	case 'T':
+		pushSYM();
+		switch (SYM) {
+		case 'E':
+			pushSYM();
+			switch (SYM) {
+			case 'P':
+				next();
+				_token = KW_STEP;
+				return;
+			}
 		}
 	}
 	ident();
@@ -440,7 +588,7 @@ void Lexer::first_T()
 			pushSYM();
 			switch (SYM) {
 			case 'N':
-				pushSYM();
+				next();
 				_token = KW_THEN;
 				return;
 			}
@@ -448,7 +596,7 @@ void Lexer::first_T()
 		}
 		break;
 	case 'O':
-		pushSYM();
+		next();
 		_token = KW_TO;
 		return;
 	}
@@ -481,6 +629,9 @@ void Lexer::fitst_GT()
 	switch (SYM) {
 	case '=':
 		_token = GTE;
+		break;
+	case '<':
+		_token = NEA;
 		break;
 	default:
 		return;
@@ -525,11 +676,6 @@ void Lexer::decimalNumber()
 			return;
 		}
 	}
-}
-
-void Lexer::realNumber()
-{
-
 }
 
 void Lexer::ident()

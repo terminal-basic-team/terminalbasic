@@ -2,9 +2,37 @@ ucBASIC is a lightweight BASIC-like language interpreter for
 microcontroller-based systems.  It was inspired by the TinyBASIC port
 for popular 8-bit AVR uc boards.
 
+Arduino mega 2560-like boards are primary target for this project.
+However the source code is not an arduino-ide sketch, but the set
+of Netbeans C/C++ IDE projects. Moreover projects depend on the
+arduino-ide and uses its toolchain.
+
 The language, which ucBASIC will support one day is:
 
 Lexems:
+ * COM_DUMP = "DUMP"
+ * COM_LIST = "LIST"
+ * COM_NEW = "NEW"
+ * COM_RUN = "RUN"
+ * 
+ * KW_END = "END"
+ * KW_FOR = "FOR"
+ * KW_GOSUB = "GOSUB"
+ * KW_GOTO = "GOTO"
+ * KW_IF = "IF"
+ * KW_LET = "LET"
+ * KW_NEXT = "NEXT"
+ * KW_PRINT = "PRINT"
+ * KW_RETURN = "RETURN"
+ * 
+ * KW_THEN = "THEN"
+ * KW_TO = "TO"
+ * KW_STEP = "STEP"
+ * 
+ * OP_AND = "AND"
+ * OP_OR = "OR"
+ * OP_NOT = "NOT"
+ * 
  * COLON = ':'
  * SEMI = ';'
  * LT = '<'
@@ -13,6 +41,7 @@ Lexems:
  * GTE = ">="
  * EQUALS = '='
  * NE = "<>"
+ * NEA = "><"
  * MINUS = '-'
  * PLUS = '+'
  * STAR = '*'
@@ -21,37 +50,26 @@ Lexems:
  * IDENT = [A-Z][A-Z0-9]*
  * C_INTEGER = [0-9]+
  * C_REAL = [0-9]+[.][0-9]*
- * KW_DUMP = "DUMP"
- * KW_END = "END"
- * KW_FOR = "FOR"
- * KW_FOR = "GOTO"
- * KW_IF = "IF"
- * KW_LET = "LET"
- * KW_LIST = "LIST"
- * KW_NEW = "NEW"
- * KW_NEXT = "NEXT"
- * KW_PRINT = "PRINT"
- * KW_RUN = "RUN"
- * KW_THEN = "THEN"
- * KW_RUN = "TO"
  
 Grammar:
- * TEXT = PROG_OPERATOR | PROG_OPERATOR TEXT
- * PROG_OPERATOR = C_INTEGER OPERATOR | OPERATOR
+ * TEXT = OPERATORS | C_INTEGER OPERATORS
+ * OPERATORS = OPERATOR | OPERATOR COLON OPERATORS
  * OPERATOR =
+ *	COMMAND |
  *	KW_END |
- *	KW_RUN |
- *	KW_LIST |
- *	KW_NEW |
- *	KW_DUMP |
+ *	KW_RETURN |
  *	KW_PRINT PRINT_LIST |
  *	KW_IF EXPRESSION IF_STATEMENT |
- *	ASSIGNMENT |
- *	GOTO_STATEMENT
+ *	KW_FOR IMPLICIT_ASSIGNMENT KW_TO FOR_CONDS |
+ *	KW_NEXT IDENT |
+ *	ASSIGNMENT |TURN |
+ *	GOTO_STATEMENT |
+ *	KW_GOSUB INTEGER
+ * COMMAND = COM_DUMP | COM_LIST | COM_NEW | COM_RUN
  * ASSIGNMENT = KW_LET IMPLICIT_ASSIGNMENT | IMPLICIT_ASSIGNMENT
  * IMPLICIT_ASSIGNMENT = IDENTIFIER EQUALS EXPRESSION
  * EXPRESSION = SIMPLE_EXPRESSION | SIMPLE_EXPRESSION REL SIMPLE_EXPRESSION
- * REL = LT | LTE | EQUALS | GT | GTE | NE
+ * REL = LT | LTE | EQUALS | GT | GTE | NE | NEA
  * SIMPLE_EXPRESSION = TERM | TERM ADD TERM
  * ADD = PLUS MINUS KW_OR
  * TERM = FACTOR | FACTOR MUL FACTOR
@@ -59,6 +77,6 @@ Grammar:
  * FACTOR = FINAL | FINAL POW FINAL
  * FINAL = IDENT | INTEGER | REAL | LPAREN EXPRESSION RPAREN | MINUS FINAL
  * PRINT_LIST = EXPRESSION | EXPRESSION COMMA PRINT_LIST
- * IF_STATEMENT = GOTO_STATEMEMNT | KW_THEN OPERATOR
+ * IF_STATEMENT = GOTO_STATEMEMNT | KW_THEN OPERATORS
  * GOTO_STATEMENT = KW_GOTO C_INTEGER
- 
+ * FOR_CONDS = EXPRESSION | EXPRESSION KW_STEP EXPRESSION

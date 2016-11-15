@@ -1,3 +1,21 @@
+/*
+ * ucBASIC is a lightweight BASIC-like language interpreter
+ * Copyright (C) 2016  Andrey V. Skvortsov <starling13@mail.ru>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #ifndef LEXER_HPP
 #define LEXER_HPP
 
@@ -25,6 +43,28 @@ enum class ASCII : uint8_t
 enum Token : uint8_t
 {
 	NOTOKENS = 0,
+	
+	// Commands
+	COM_DUMP,
+	COM_LIST,
+	COM_NEW,
+	COM_RUN,
+	
+	// Statements
+	KW_END,
+	KW_FOR,
+	KW_GOSUB,
+	KW_GOTO,
+	KW_IF,
+	KW_LET,
+	KW_NEXT,
+	KW_PRINT,
+	KW_RETURN,
+	// other keywords
+	KW_THEN,
+	KW_TO,
+	KW_STEP,
+	
 	IDENT,
 
 	// =
@@ -37,12 +77,14 @@ enum Token : uint8_t
 	LT,
 	// >
 	GT,
-	// <>
-	NE,
 	// <=
 	LTE,
 	// >=
 	GTE,
+	// <>
+	NE,
+	//  ><
+	NEA,
 	// ,
 	COMMA,
 	// ^
@@ -59,147 +101,21 @@ enum Token : uint8_t
 	STAR,
 	// /
 	SLASH,
+	
+	OP_AND,
+	OP_OR,
+	OP_NOT,
 
 	C_INTEGER,
 	C_REAL,
 	C_STRING,
-
-	KW_DUMP,
-	KW_END,
-	KW_FOR,
-	KW_GOTO,
-	KW_GOSUB,
-	KW_IF,
-	KW_LET,
-	KW_LIST,
-	KW_NEW,
-	KW_NEXT,
-	KW_PRINT,
-	KW_RETURN,
-	KW_RUN,
-	KW_THEN,
-	KW_TO,
 	    
 	NUM_TOKENS
 };
 
 #if ARDUINO_LOG
-
-inline Logger&
-operator<<(Logger &logger, Token tok)
-{
-	switch (tok) {
-	case NOTOKENS:
-		logger.log("NOTOKENS");
-		break;
-	case KW_END:
-		logger.log("KW_END");
-		break;
-	case IDENT:
-		logger.log("IDENT");
-		break;
-	case EQUALS:
-		logger.log("EQUALS");
-		break;
-	case COLON:
-		logger.log("COLON");
-		break;
-	case SLASH:
-		logger.log("SLASH");
-		break;
-	case SEMI:
-		logger.log("SEMI");
-		break;
-	case LT:
-		logger.log("LT");
-		break;
-	case LTE:
-		logger.log("LTE");
-		break;
-	case NE:
-		logger.log("NE");
-		break;
-	case GT:
-		logger.log("GT");
-		break;
-	case GTE:
-		logger.log("GTE");
-		break;
-	case C_INTEGER:
-		logger.log("C_INTEGER");
-		break;
-	case C_REAL:
-		logger.log("C_REAL");
-		break;
-	case C_STRING:
-		logger.log("C_STRING");
-		break;
-	case KW_RUN:
-		logger.log("KW_RUN");
-		break;
-	case KW_GOTO:
-		logger.log("KW_GOTO");
-		break;
-	case KW_DUMP:
-		logger.log("KW_DUMP");
-		break;
-	case KW_LIST:
-		logger.log("KW_LIST");
-		break;
-	case KW_LET:
-		logger.log("KW_LIST");
-		break;
-	case KW_PRINT:
-		logger.log("KW_PRINT");
-		break;
-	case KW_GOSUB:
-		logger.log("KW_GOSUB");
-		break;
-	case KW_RETURN:
-		logger.log("KW_RETURN");
-		break;
-	case KW_FOR:
-		logger.log("KW_FOR");
-		break;
-	case KW_TO:
-		logger.log("KW_TO");
-		break;
-	case KW_IF:
-		logger.log("KW_IF");
-		break;
-	case KW_NEXT:
-		logger.log("KW_NEXT");
-		break;
-	case KW_NEW:
-		logger.log("KW_NEXT");
-		break;
-	case KW_THEN:
-		logger.log("KW_THEN");
-		break;
-	case COMMA:
-		logger.log("COMMA");
-		break;
-	case POW:
-		logger.log("POW");
-		break;
-	case LPAREN:
-		logger.log("LPAREN");
-		break;
-	case RPAREN:
-		logger.log("RPAREN");
-		break;
-	case PLUS:
-		logger.log("PLUS");
-		break;
-	case MINUS:
-		logger.log("MINUS");
-		break;
-	case STAR:
-		logger.log("STAR");
-		break;
-	}
-	return (logger);
-}
+Logger&
+operator<<(Logger &logger, Token tok);
 #endif
 
 class Lexer
@@ -233,6 +149,7 @@ private:
 	void pushSYM();
 	void next();
 
+	void first_A();
 	void first_D();
 	void first_E();
 	void first_F();
@@ -240,14 +157,15 @@ private:
 	void first_I();
 	void first_L();
 	void first_N();
+	void first_O();
 	void first_P();
 	void first_R();
+	void first_S();
 	void first_T();
 
 	void fitst_LT();
 	void fitst_GT();
 	void decimalNumber();
-	void realNumber();
 	void ident();
 
 	const char *_string;

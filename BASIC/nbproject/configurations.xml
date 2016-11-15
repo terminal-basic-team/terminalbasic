@@ -306,5 +306,93 @@
       <item path="src/parser.cpp" ex="false" tool="1" flavor2="8">
       </item>
     </conf>
+    <conf name="Arduino_mega2560" type="1">
+      <toolsSet>
+        <compilerSet>Arduino|GNU</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>true</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <developmentMode>0</developmentMode>
+          <standard>8</standard>
+          <incDir>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/variants/mega</pElem>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/SoftwareSerial/src</pElem>
+            <pElem>include</pElem>
+            <pElem>../arduinoext/include</pElem>
+          </incDir>
+          <incFile>
+            <pElem>Arduino.h</pElem>
+          </incFile>
+          <commandLine>-O3 -Wextra -std=gnu++11 -fpermissive -fno-exceptions -fno-threadsafe-statics -MMD -mmcu=atmega2560 -ffunction-sections -fdata-sections -flto -fno-rtti</commandLine>
+          <preprocessorList>
+            <Elem>ARDUINO=10607</Elem>
+            <Elem>ARDUINO_ARCH_AVR</Elem>
+            <Elem>ARDUINO_AVR_MEGA2560</Elem>
+            <Elem>F_CPU=16000000L</Elem>
+          </preprocessorList>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <linkerTool>
+          <output>${CND_DISTDIR}/${CND_CONF}/basic</output>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../arduinoext"
+                            CT="3"
+                            CN="Arduino_mega2560"
+                            AC="true"
+                            BL="true"
+                            WD="../arduinoext"
+                            BC="${MAKE}  -f Makefile CONF=Arduino_mega2560"
+                            CC="${MAKE}  -f Makefile CONF=Arduino_mega2560 clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libarduinoext.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../libarduino"
+                            CT="3"
+                            CN="Mega_2560"
+                            AC="true"
+                            BL="true"
+                            WD="../libarduino"
+                            BC="${MAKE}  -f Makefile CONF=Mega_2560"
+                            CC="${MAKE}  -f Makefile CONF=Mega_2560 clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/libarduino.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+          </linkerLibItems>
+          <commandLine>-O3 -Wall -Wextra -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega2560</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_interpreter.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_interpreter_program.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/lexer.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/parser.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/interpreter.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/lexer.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/parser.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+    </conf>
   </confs>
 </configurationDescriptor>

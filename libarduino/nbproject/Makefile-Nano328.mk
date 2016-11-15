@@ -64,7 +64,7 @@ OBJECTFILES= \
 
 
 # C Compiler Flags
-CFLAGS=-Os -Wextra -std=gnu11 -ffunction-sections -fdata-sections -MMD -mmcu=atmega328p
+CFLAGS=-Os -Wextra -std=gnu11 -ffunction-sections -fdata-sections -MMD -mmcu=atmega328p -flto
 
 # CC Compiler Flags
 CCFLAGS=-Os -Wextra -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega328p
