@@ -72,6 +72,7 @@ private:
 	bool fIfStatement();
 	bool fCommand();
 	bool fGotoStatement();
+	bool fForConds();
 
 	ErrorCodes _error;
 	Lexer &_lexer;

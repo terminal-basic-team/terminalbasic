@@ -220,7 +220,8 @@ Interpreter::returnFromSub()
 }
 
 void
-Interpreter::pushForLoop(const char *varName, const Parser::Value &v)
+Interpreter::pushForLoop(const char *varName, const Parser::Value &v,
+    const Parser::Value &vStep)
 {
 	Program::StackFrame *f = _program.stackFrameByIndex(_program._sp);
 	if ((f != NULL) && (f->_type == Program::StackFrame::FOR_NEXT) &&
@@ -235,7 +236,7 @@ Interpreter::pushForLoop(const char *varName, const Parser::Value &v)
 		f->_type = Program::StackFrame::FOR_NEXT;
 		f->body.forFrame.calleeIndex = _program._current;
 		f->body.forFrame.finalv = v;
-		f->body.forFrame.step = Parser::Value(Integer(1));
+		f->body.forFrame.step = vStep;
 		Parser::Value cur;
 		VariableFrame *vf = _program.variableByName(varName);
 		valueFromFrame(f->body.forFrame.current, *vf);
@@ -250,18 +251,18 @@ Interpreter::next(const char *varName)
 	Program::StackFrame *f = _program.stackFrameByIndex(_program._sp);
 	if ((f != NULL) && (f->_type == Program::StackFrame::FOR_NEXT) &&
 	    (strcmp(f->body.forFrame.varName, varName) == 0)) {
+		f->body.forFrame.current += f->body.forFrame.step;
 		if (f->body.forFrame.step > Parser::Value(Integer(0))) {
-			if (f->body.forFrame.current >= f->body.forFrame.finalv) {
+			if (f->body.forFrame.current > f->body.forFrame.finalv) {
 				_program._sp += Program::StackFrame::size(
 				    Program::StackFrame::FOR_NEXT);
 				return;
 			}
-		} else if (f->body.forFrame.current <= f->body.forFrame.finalv) {
+		} else if (f->body.forFrame.current < f->body.forFrame.finalv) {
 			_program._sp += Program::StackFrame::size(
 			    Program::StackFrame::FOR_NEXT);
 			return;
 		}
-		f->body.forFrame.current += f->body.forFrame.step;
 		_program.jump(f->body.forFrame.calleeIndex);
 	} else
 		dynamicError("INVALID NEXT");

@@ -31,7 +31,7 @@
  *	KW_RETURN |
  *	KW_PRINT PRINT_LIST |
  *	KW_IF EXPRESSION IF_STATEMENT |
- *	KW_FOR IMPLICIT_ASSIGNMENT KW_TO FOR_CONDS |
+ *	KW_FOR FOR_CONDS |
  *	KW_NEXT IDENT |
  *	ASSIGNMENT |TURN |
  *	GOTO_STATEMENT |
@@ -50,7 +50,8 @@
  * PRINT_LIST = EXPRESSION | EXPRESSION COMMA PRINT_LIST
  * IF_STATEMENT = GOTO_STATEMEMNT | KW_THEN OPERATORS
  * GOTO_STATEMENT = KW_GOTO C_INTEGER
- * FOR_CONDS = EXPRESSION | EXPRESSION KW_STEP EXPRESSION
+ * FOR_CONDS = IMPLICIT_ASSIGNMENT KW_TO EXPRESSION |
+ *	IMPLICIT_ASSIGNMENT KW_TO EXPRESSION KW_STEP EXPRESSION
  */
 
 namespace BASIC
@@ -100,22 +101,7 @@ Parser::fOperator()
 			_interpreter.end();
 		return true;
 	case KW_FOR:
-	{
-		Value v;
-		char vName[4];
-		if (!_lexer.getNext() || !fImplicitAssignment(vName)) {
-			return false;
-		}
-		if (_lexer.getToken()!=KW_TO) {
-			return false;
-		}
-		if (!_lexer.getNext() || !fExpression(v)) {
-			return false;
-		}
-		if (_mode == EXECUTE)
-			_interpreter.pushForLoop(vName, v);
-		return true;
-	}
+		return fForConds();
 	case KW_GOSUB:
 	{
 		Value v;
@@ -158,7 +144,6 @@ Parser::fOperator()
 			return true;
 	}
 	case KW_NEXT:
-		char vName[VARSIZE];
 		if (!_lexer.getNext() || _lexer.getToken() != IDENT)
 			return false;
 		if (_mode == EXECUTE)
@@ -401,7 +386,6 @@ Parser::fFinal(Value &v)
 				return false;
 			if (_mode == EXECUTE)
 				v.switchSign();
-			_lexer.getNext();
 			return true;
 		case C_INTEGER:
 		case C_REAL:
@@ -496,6 +480,27 @@ Parser::fCommand()
 	default:
 		return false;
 	}
+}
+
+bool
+Parser::fForConds()
+{
+	Value v;
+	char vName[4];
+	if (!_lexer.getNext() || !fImplicitAssignment(vName) ||
+	    _lexer.getToken()!=KW_TO || !_lexer.getNext() ||
+	    !fExpression(v)) {
+		return false;
+	}
+	Value vStep(Integer(1));
+	if (_lexer.getToken() == KW_STEP && (!_lexer.getNext() ||
+	    !fExpression(vStep)))
+		return false;
+	
+	if (_mode == EXECUTE)
+		_interpreter.pushForLoop(vName, v, vStep);
+	
+	return true;
 }
 
 }
