@@ -115,6 +115,8 @@ public:
 	 */
 	VariableFrame *variableByIndex(uint16_t);
 	VariableFrame *variableByName(const char*);
+	
+	void insertVariable();
 
 	StackFrame *stackFrameByIndex(uint16_t index);
 

@@ -65,7 +65,8 @@ enum Token : uint8_t
 	KW_TO,
 	KW_STEP,
 	
-	IDENT,
+	REAL_IDENT,
+	INTEGER_IDENT,
 
 	// =
 	EQUALS,

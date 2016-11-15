@@ -291,31 +291,31 @@ Interpreter::VariableFrame::size() const
 }
 
 void
-Interpreter::VariableFrame::set(const Integer &i)
+Interpreter::VariableFrame::set(const Parser::Value &v)
 {
-	type = INTEGER;
-
-	union
+	switch (type) {
+	case INTEGER:
 	{
-		char *b;
-		Integer *i;
-	} _U;
-	_U.b = bytes;
-	*_U.i = i;
-}
-
-void
-Interpreter::VariableFrame::set(const Real &r)
-{
-	type = REAL;
-
-	union
+		union
+		{
+			char *b;
+			Integer *i;
+		} _U;
+		_U.b = bytes;
+		*_U.i = Integer(v);
+	}
+	break;
+	case REAL:
 	{
-		char *b;
-		Real *r;
-	} _U;
-	_U.b = bytes;
-	*_U.r = r;
+		union
+		{
+			char *b;
+			Real *r;
+		} _U;
+		_U.b = bytes;
+		*_U.r = Real(v);
+	}
+	}
 }
 
 void
@@ -487,11 +487,12 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 			break;
 		} else if (res < 0) {
 			uint16_t dist = 0;
-			switch (v.type) {
-			case Parser::Value::INTEGER:
+			if (endsWith(name, '%'))
 				dist = sizeof (VariableFrame) +
 				    sizeof (Integer);
-			}
+			else
+				dist = sizeof (VariableFrame) +
+				    sizeof (Real);
 			memmove(_program._text + index + dist,
 			    _program._text + index,
 			    _program._variablesEnd - index);
@@ -499,16 +500,16 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 		}
 		index += f->size();
 	}
-	switch (v.type) {
-	case Parser::Value::INTEGER:
-		f->set(v.value.integer);
-		break;
-	case Parser::Value::REAL:
-		f->set(v.value.real);
-		break;
-	}
-	if (insertFlag)
+
+	if (insertFlag) {
+		if (endsWith(name, '%'))
+			f->type = VariableFrame::INTEGER;
+		else
+			f->type = VariableFrame::REAL;
 		_program._variablesEnd += f->size();
+	}
+	
+	f->set(v);
 	strcpy(f->name, name);
 }
 

@@ -144,7 +144,7 @@ Parser::fOperator()
 			return true;
 	}
 	case KW_NEXT:
-		if (!_lexer.getNext() || _lexer.getToken() != IDENT)
+		if (!_lexer.getNext() || _lexer.getToken() != REAL_IDENT)
 			return false;
 		if (_mode == EXECUTE)
 			_interpreter.next(_lexer.id());
@@ -175,7 +175,8 @@ Parser::fImplicitAssignment(char *varName)
 {
 	LOG_TRACE;
 
-	if (_lexer.getToken() != IDENT)
+	if (!((_lexer.getToken() == REAL_IDENT) ||
+	      (_lexer.getToken() == INTEGER_IDENT)))
 		return false;
 
 	strcpy(varName, _lexer.id());
@@ -393,7 +394,8 @@ Parser::fFinal(Value &v)
 				v = _lexer.getValue();
 			_lexer.getNext();
 			return true;
-		case IDENT:
+		case REAL_IDENT:
+		case INTEGER_IDENT:
 			if (_mode == EXECUTE) {
 				Interpreter::valueFromFrame(v,
 				    _interpreter.getVariable(_lexer.id()));

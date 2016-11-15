@@ -44,9 +44,8 @@ public:
 		};
 		uint8_t size() const;
 		
-		void set(const Integer&);
-		void set(const Real&);
-		
+		void set(const Parser::Value&);
+
 		template <typename T>
 		T get() const
 		{

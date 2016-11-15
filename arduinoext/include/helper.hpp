@@ -2,10 +2,10 @@
 #define HELPER_HPP
 
 #include "cps.hpp"
+#include <string.h>
 
 #ifdef ARDUINO
 #include <Arduino.h>
-
 
 inline void
 positiveLedBlink(size_t num = 1)
@@ -41,5 +41,18 @@ negativeLedBlink(size_t num = 1)
 #endif
 
 #endif
+
+inline bool
+endsWith(const char *str, const char end)
+{
+	if (str == NULL)
+		return false;
+	if (end == 0)
+		return true;
+	if (str[strlen(str)] == end)
+		return true;
+	else
+		return false;
+}
 
 #endif /* HELPER_HPP */

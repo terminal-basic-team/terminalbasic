@@ -32,4 +32,10 @@ Interpreter::Program::StackFrame::size(Type t)
 	}
 }
 
+void
+Interpreter::Interpreter::Program::insertVariable()
+{
+	uint16_t dist;
+}
+
 }

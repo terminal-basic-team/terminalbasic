@@ -683,9 +683,13 @@ void Lexer::ident()
 	while (isalnum(SYM)) {
 		pushSYM();
 	}
+	if (SYM == '%') {
+		pushSYM();
+		_token = INTEGER_IDENT;
+	} else
+		_token = REAL_IDENT;
 	_value.type = Parser::Value::STRING;
 	_id[_valuePointer] = 0;
-	_token = IDENT;
 }
 
 }
