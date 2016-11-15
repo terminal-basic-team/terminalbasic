@@ -1,4 +1,4 @@
-#ifndef HELPER_HPP
+fa#ifndef HELPER_HPP
 #define HELPER_HPP
 
 #include "cps.hpp"
@@ -45,11 +45,11 @@ negativeLedBlink(size_t num = 1)
 inline bool
 endsWith(const char *str, const char end)
 {
-	if (str == NULL)
+	if (str == NULL || strlen(str)==0)
 		return false;
 	if (end == 0)
 		return true;
-	if (str[strlen(str)] == end)
+	if (str[strlen(str)-1] == end)
 		return true;
 	else
 		return false;
