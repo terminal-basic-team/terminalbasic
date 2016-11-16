@@ -112,6 +112,8 @@ public:
 	    const Parser::Value&);
 	// iterate for loop
 	void next(const char*);
+	// Input variable value
+	void input(const char*);
 	
 	void end();
 	/**
@@ -128,7 +130,16 @@ public:
 	
 	Program &_program;
 private:
+	enum TextAttr : uint8_t
+	{
+		NO_ATTR = 0,
+		BOLD = 0x1,
+		UNDERLINE = 0x2
+	};
+	class AttrKeeper;
 	enum ErrorStrings : uint8_t;
+	
+	void print(const char *, TextAttr=NO_ATTR);
 	void dynamicError(const char* = NULL);
 	State	 _state;
 	Stream	&_stream;

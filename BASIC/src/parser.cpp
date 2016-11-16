@@ -30,6 +30,7 @@
  * OPERATOR = COMMAND |
  *      KW_END |
  *	KW_RETURN |
+ *	KW_INPUT VAR |
  *	KW_PRINT PRINT_LIST |
  *	KW_IF EXPRESSION IF_STATEMENT |
  *	KW_FOR FOR_CONDS |
@@ -47,8 +48,8 @@
  * TERM = FACTOR | FACTOR MUL FACTOR
  * MUL = STAR | SLASH | DIV | MOD | KW_AND
  * FACTOR = FINAL | FINAL POW FINAL
- * FINAL = INTEGER_IDENT | REAL_IDENT | STRING_IDENT | C_INTEGER | C_REAL |
- *	C_STRING | LPAREN EXPRESSION RPAREN | MINUS FINAL
+ * FINAL = INTEGER_IDENT | REAL_IDENT | STRING_IDENT | VAR | LPAREN EXPRESSION RPAREN | MINUS FINAL
+ * VAR = C_INTEGER | C_REAL |C_STRING
  * PRINT_LIST = EXPRESSION | EXPRESSION COMMA PRINT_LIST
  * IF_STATEMENT = GOTO_STATEMEMNT | KW_THEN OPERATORS
  * GOTO_STATEMENT = KW_GOTO C_INTEGER
@@ -80,11 +81,14 @@ Parser::fOperators()
 {
 	Token t;
 	do {
-		if (!_lexer.getNext() || !fOperator()) {
-			if (_error == NO_ERROR)
-				_error = OPERATOR_EXPECTED;
-			return false;
-		}
+		if (_lexer.getNext()) {
+			if (!fOperator()) {
+				if (_error == NO_ERROR)
+					_error = OPERATOR_EXPECTED;
+				return false;
+			}
+		} else
+			return true;
 		t = _lexer.getToken();
 	} while (t == COLON);
 	return true;
@@ -137,6 +141,19 @@ Parser::fOperator()
 		_mode = EXECUTE;
 		return res;
 	}
+	case KW_INPUT:
+	{
+		char varName[VARSIZE];
+		Value v;
+		if (!_lexer.getNext() || !fVar(varName)) {
+			_error = EXPRESSION_EXPECTED;
+			return false;
+		}
+		if (_mode == EXECUTE)
+			_interpreter.input(varName);
+		_lexer.getNext();
+		return true;
+	}
 	case KW_LET:
 	{
 		char vName[VARSIZE];
@@ -178,12 +195,8 @@ Parser::fImplicitAssignment(char *varName)
 {
 	LOG_TRACE;
 
-	if ((_lexer.getToken() != REAL_IDENT) &&
-	    (_lexer.getToken() == INTEGER_IDENT) &&
-	    (_lexer.getToken() == STRING_IDENT))
+	if (!fVar(varName))
 		return false;
-
-	strcpy(varName, _lexer.id());
 	Value v;
 	if (_lexer.getNext() && (_lexer.getToken() == EQUALS) &&
 	    _lexer.getNext() && fExpression(v)) {
@@ -502,7 +515,7 @@ bool
 Parser::fForConds()
 {
 	Value v;
-	char vName[4];
+	char vName[VARSIZE];
 	if (!_lexer.getNext() || !fImplicitAssignment(vName) ||
 	    _lexer.getToken()!=KW_TO || !_lexer.getNext() ||
 	    !fExpression(v)) {
@@ -516,6 +529,17 @@ Parser::fForConds()
 	if (_mode == EXECUTE)
 		_interpreter.pushForLoop(vName, v, vStep);
 	
+	return true;
+}
+
+bool Parser::fVar(char *varName)
+{
+	if ((_lexer.getToken() != REAL_IDENT) &&
+	    (_lexer.getToken() == INTEGER_IDENT) &&
+	    (_lexer.getToken() == STRING_IDENT))
+		return false;
+
+	strcpy(varName, _lexer.id());
 	return true;
 }
 

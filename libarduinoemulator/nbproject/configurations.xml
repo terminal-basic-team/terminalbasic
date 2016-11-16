@@ -43,8 +43,8 @@
           <incDir>
             <pElem>include</pElem>
             <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino</pElem>
+            <pElem>../../posixcpp/include</pElem>
           </incDir>
-          <commandLine>`pkg-config --cflags posixcpp`</commandLine>
         </ccTool>
         <archiverTool>
         </archiverTool>

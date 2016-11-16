@@ -30,10 +30,10 @@
 // Weak empty variant initialization function.
 // May be redefined by variant files.
 
-static posix::io::PseudoTTY	tty1;
-static posix::io::PseudoTTY	tty2;
-EmulatorSerial	Serial1(tty1);
-EmulatorSerial	Serial2(tty2);
+//static posix::io::PseudoTTY	tty1;
+//static posix::io::PseudoTTY	tty2;
+PseudoTtySerial	Serial1;
+//EmulatorSerial	Serial2(tty2);
 
 StdioStream Serial(std::cin, std::cout);
 
@@ -53,11 +53,6 @@ int main(void) __attribute__((weak));
 int main(void)
 {
 	//init();
-	
-	tty1.get(); tty1.grant(); tty1.unlock();
-	std::cout << "Serial port: " << tty1.slaveName() << std::endl;
-	tty2.get(); tty2.grant(); tty2.unlock();
-	std::cout << "Serial port 1: " << tty2.slaveName() << std::endl;
 	
 	srand(time(NULL));
 

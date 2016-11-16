@@ -37,6 +37,27 @@ static int freeRam()
 namespace BASIC
 {
 
+class Interpreter::AttrKeeper
+{
+public:
+	explicit AttrKeeper(Interpreter &i, TextAttr a) :
+	_i(i), _a(a)
+	{
+		if (_a == NO_ATTR)
+			return;
+		if ((uint8_t(a) | uint8_t(BOLD)) != uint8_t(NO_ATTR))
+			_i._stream.print("\x1B[1m");
+	}
+	~AttrKeeper()
+	{
+		if (_a == NO_ATTR)
+			return;
+		_i._stream.print("\x1B[0m");
+	}
+private:
+	Interpreter &_i; TextAttr _a;
+};
+
 enum Interpreter::ErrorStrings : uint8_t
 {
 	STATIC = 0, DYNAMIC, ERROR, SEMANTIC, NUM_STRINGS
@@ -101,17 +122,17 @@ void Interpreter::step()
 	{
 #ifdef ARDUINO
 		_stream.print("FREE RAM ");
-		_stream.println(freeRam());
+		_stream.print(freeRam());
+		_stream.print('\n');
 #endif
-		_stream.print("\x1B[1m");
-		_stream.print("READY");
-		_stream.println("\x1B[0m");
+		print("READY", BOLD);
+		_stream.print('\n');
 nextinput:
 		char buf[STRINGSIZE];
 		memset(buf, 0xFF, sizeof (buf));
 		size_t read;
 		do {
-			read = _stream.readBytesUntil('\n', buf, 128);
+			read = _stream.readBytesUntil('\n', buf, sizeof (buf));
 		} while (read <= 0);
 		if (read >= STRINGSIZE)
 			read = STRINGSIZE - 1;
@@ -145,7 +166,12 @@ void Interpreter::list()
 
 	for (Program::String *s = _program.getString(); s != NULL;
 	    s = _program.getString()) {
-		_stream.print(s->number), _stream.println(s->text);
+		{
+			AttrKeeper a(*this, BOLD);
+			_stream.print(s->number);
+		}
+		_stream.print(s->text);
+		_stream.print('\n');
 	}
 }
 
@@ -153,7 +179,8 @@ void
 Interpreter::dump()
 {
 	ByteArray ba((uint8_t*) _program._text, PROGSIZE);
-	_stream.println(ba);
+	_stream.print(ba);
+	_stream.print('\n');
 }
 
 void
@@ -208,7 +235,8 @@ Interpreter::gotoLine(Integer ln)
 		_program.jump(_program.stringIndex(s));
 	} else {
 		dynamicError("NO STRING NUMBER");
-		_stream.println(ln);
+		_stream.print(ln);
+		_stream.print('\n');
 	}
 }
 
@@ -284,6 +312,33 @@ Interpreter::next(const char *varName)
 		_program.jump(f->body.forFrame.calleeIndex);
 	} else
 		dynamicError("INVALID NEXT");
+}
+
+void
+Interpreter::input(const char *varName)
+{
+	char buf[STRINGSIZE];
+	_stream.print('?');
+	uint8_t read = _stream.readBytesUntil('\n', buf, STRINGSIZE-1);
+	buf[read] = char(0);
+	Lexer l;
+	l.init(buf);
+	Parser::Value v(Integer(0));
+	if (l.getNext()) {
+		switch (l.getToken()) {
+		case C_INTEGER:
+		case C_REAL:
+			v = l.getValue();
+			break;
+		case C_STRING:
+		{
+			v = l.getValue();
+			uint16_t fri = pushString(l.id());
+		}
+			break;
+		}
+	}
+	setVariable(varName, v);
 }
 
 Interpreter::Program::Program()
@@ -445,6 +500,13 @@ Interpreter::Program::stackFrameByIndex(uint16_t index)
 		return (NULL);
 }
 
+void Interpreter::print(const char *text, TextAttr attr)
+{
+	AttrKeeper _a(*this, attr);
+	
+	_stream.print(text);
+}
+
 void
 Interpreter::dynamicError(const char *text)
 {
@@ -462,9 +524,12 @@ Interpreter::dynamicError(const char *text)
 	_stream.print(buf);
 	_stream.print(':');
 	if (text != NULL) {
-		_stream.println(text);
-	} else
-		_stream.println(int(_parser.getError()));
+		_stream.print(text);
+		_stream.print('\n');
+	} else {
+		_stream.print(int(_parser.getError()));
+		_stream.print('\n');
+	}
 	_state = SHELL;
 }
 
@@ -491,6 +556,9 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 			if (endsWith(name, '%'))
 				dist = sizeof (VariableFrame) +
 				    sizeof (Integer);
+			else if (endsWith(name, '$'))
+				dist = sizeof (VariableFrame) +
+				    STRINGSIZE;
 			else
 				dist = sizeof (VariableFrame) +
 				    sizeof (Real);

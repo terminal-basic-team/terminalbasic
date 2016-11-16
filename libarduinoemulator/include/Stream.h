@@ -3,6 +3,8 @@
 
 #include "Print.h"
 
+#include "posix_io_pseudotty.hpp"
+
 class Stream : public Print
 {
 public:
@@ -30,7 +32,7 @@ class EmulatorSerial : public Stream
 public:
 	EmulatorSerial(posix::io::TTY&);
 
-	void begin(uint32_t baud);
+	virtual void begin(uint32_t baud);
 	size_t readBytes(char*, size_t) override;
 
 	size_t write(uint8_t) override;
@@ -59,6 +61,15 @@ public:
 	int peek() override;;
 };
 
+class PseudoTtySerial : public EmulatorSerial
+{
+public:
+	PseudoTtySerial();
+	void begin(uint32_t) override;
+private:
+	posix::io::PseudoTTY _tty;
+};
+
 class StdioStream : public Stream
 {
 public:
@@ -81,7 +92,7 @@ public:
 };
 
 extern StdioStream Serial;
-extern EmulatorSerial Serial1;
+extern PseudoTtySerial Serial1;
 //extern EmulatorSerial Serial2;
 
 #endif

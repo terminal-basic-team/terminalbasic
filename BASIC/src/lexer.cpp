@@ -33,6 +33,7 @@
  * KW_GOSUB = "GOSUB"
  * KW_GOTO = "GOTO"
  * KW_IF = "IF"
+ * KW_INPUT = "INPUT"
  * KW_LET = "LET"
  * KW_NEXT = "NEXT"
  * KW_PRINT = "PRINT"
@@ -80,6 +81,7 @@ const char sFOR[] PROGMEM = "FOR";
 const char sGOSUB[] PROGMEM = "GOSUB";
 const char sGOTO[] PROGMEM = "GOTO";
 const char sIF[] PROGMEM = "IF";
+const char sINPUT[] PROGMEM = "INPUT";
 const char sLET[] PROGMEM = "LET";
 const char sNEXT[] PROGMEM = "NEXT";
 const char sPRINT[] PROGMEM = "PRINT";
@@ -106,8 +108,8 @@ PGM_P const Lexer::tokenStrings[NUM_TOKENS] PROGMEM = {
 	sNOTOKENS,
 	
 	sDUMP,	sLIST,	sNEW,	sRUN,	
-	sEND,	sFOR,	sGOSUB,	sGOTO,	sIF,	sLET,	sNEXT,	sPRINT,	sRETURN,
-	sTHEN,	sTO,	sSTEP,
+	sEND,	sFOR,	sGOSUB,	sGOTO,	sIF,	sINPUT,	sLET,	sNEXT,	sPRINT,
+	sRETURN,sTHEN,	sTO,	sSTEP,
 	sIDENT,
 	sEQUALS,
 	sCOLON,
@@ -418,6 +420,22 @@ void Lexer::first_I()
 		next();
 		_token = KW_IF;
 		return;
+	case 'N':
+		pushSYM();
+		switch (SYM) {
+		case 'P':
+			pushSYM();
+			switch (SYM) {
+			case 'U':
+				pushSYM();
+				switch (SYM) {
+				case 'T':
+					next();
+					_token = KW_INPUT;
+					return;
+				}
+			}
+		}
 	}
 	ident();
 }

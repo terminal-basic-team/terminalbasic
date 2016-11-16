@@ -14,8 +14,8 @@
       <itemPath>src/basic_parser_value.cpp</itemPath>
       <itemPath>src/interpreter.cpp</itemPath>
       <itemPath>src/lexer.cpp</itemPath>
-      <itemPath>src/main.cpp</itemPath>
       <itemPath>src/parser.cpp</itemPath>
+      <itemPath>src/ucbasic_main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Файлы ресурсов"
@@ -125,9 +125,9 @@
       </item>
       <item path="src/lexer.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/parser.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Arduino_nano328" type="1">
@@ -213,9 +213,9 @@
       </item>
       <item path="src/lexer.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/parser.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Arduino_UNO" type="1">
@@ -301,9 +301,9 @@
       </item>
       <item path="src/lexer.cpp" ex="false" tool="1" flavor2="8">
       </item>
-      <item path="src/main.cpp" ex="false" tool="1" flavor2="8">
-      </item>
       <item path="src/parser.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
     </conf>
     <conf name="Arduino_mega2560" type="1">
@@ -389,9 +389,9 @@
       </item>
       <item path="src/lexer.cpp" ex="false" tool="1" flavor2="8">
       </item>
-      <item path="src/main.cpp" ex="false" tool="1" flavor2="8">
-      </item>
       <item path="src/parser.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
     </conf>
   </confs>

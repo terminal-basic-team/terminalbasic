@@ -56,6 +56,7 @@ enum Token : uint8_t
 	KW_GOSUB,
 	KW_GOTO,
 	KW_IF,
+	KW_INPUT,
 	KW_LET,
 	KW_NEXT,
 	KW_PRINT,

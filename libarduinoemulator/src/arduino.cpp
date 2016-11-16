@@ -86,8 +86,6 @@ size_t Print::write(const uint8_t *buffer, size_t size)
   return n;
 }
 
-
-
 void EmulatorSerial::begin(uint32_t baud)
 {
 	_tty.setBaudRate(posix::io::TTY::baudRateFromInt(baud));
@@ -161,6 +159,31 @@ size_t  EmulatorSerial::write(uint8_t character)
 	posixcpp::ByteArray	ba(1);
 	ba[0] = character;
 	return (_tty.write(ba));
+}
+
+PseudoTtySerial::PseudoTtySerial() :
+    EmulatorSerial(_tty)
+{
+	_tty.get();
+	_tty.grant();
+	_tty.unlock();
+	std::cout << _tty.slaveName() << std::endl;
+}
+
+void PseudoTtySerial::begin(uint32_t baud)
+{
+	EmulatorSerial::begin(baud);
+	// trick to wait for slave side open
+	posix::io::TTY temp;
+	temp.setFileName(_tty.slaveName());
+	temp.setAccessMode(posix::io::AccessMode_t::READ_WRITE);
+	temp.setCustomFlags(O_NOCTTY);
+	temp.open();
+	temp.close();
+	posix::io::Events e(posix::io::Events_t::HANGUP), re;
+	do {
+		_tty.poll(e, re, 1E7);
+	} while (re.testFlag(posix::io::Events_t::HANGUP));
 }
 
 StdioStream::StdioStream(std::istream &istream, std::ostream &ostream) :
