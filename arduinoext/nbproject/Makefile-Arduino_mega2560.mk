@@ -126,7 +126,7 @@ ${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/newsimpletest.o ${OBJECTFILES:%.o=%_no
 ${TESTDIR}/tests/newsimpletest.o: tests/newsimpletest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_UNO -DF_CPU=16000000L -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/eightanaloginputs -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/newsimpletest.o tests/newsimpletest.cpp
+	$(COMPILE.cc) -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/newsimpletest.o tests/newsimpletest.cpp
 
 
 ${OBJECTDIR}/_ext/38f13fd/arduino_logger_nomain.o: ${OBJECTDIR}/_ext/38f13fd/arduino_logger.o ../arduinoext/src/arduino_logger.cpp 

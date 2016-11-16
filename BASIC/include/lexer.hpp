@@ -67,6 +67,11 @@ enum Token : uint8_t
 	
 	REAL_IDENT,
 	INTEGER_IDENT,
+	STRING_IDENT,
+	
+	C_INTEGER,
+	C_REAL,
+	C_STRING,
 
 	// =
 	EQUALS,
@@ -106,10 +111,6 @@ enum Token : uint8_t
 	OP_AND,
 	OP_OR,
 	OP_NOT,
-
-	C_INTEGER,
-	C_REAL,
-	C_STRING,
 	    
 	NUM_TOKENS
 };
@@ -168,6 +169,7 @@ private:
 	void fitst_GT();
 	void decimalNumber();
 	void ident();
+	void stringConst();
 
 	const char *_string;
 	uint16_t _pointer;

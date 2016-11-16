@@ -153,7 +153,6 @@ bool Lexer::getNext()
 
 	_valuePointer = 0;
 	while (SYM > 0) {
-		//LOG("Symbol:", SYM);
 		if (isdigit(SYM)) {
 			_value.type = Parser::Value::INTEGER;
 			_value.value.integer = SYM - '0';
@@ -262,6 +261,10 @@ bool Lexer::getNext()
 			case '^':
 				_token = POW;
 				next();
+				return true;
+			case '"':
+				next();
+				stringConst();
 				return true;
 			case ' ':
 			case '\t':
@@ -686,10 +689,27 @@ void Lexer::ident()
 	if (SYM == '%') {
 		pushSYM();
 		_token = INTEGER_IDENT;
+	} else if (SYM == '$') {
+		pushSYM();
+		_token = STRING_IDENT;
 	} else
 		_token = REAL_IDENT;
 	_value.type = Parser::Value::STRING;
 	_id[_valuePointer] = 0;
 }
+
+void Lexer::stringConst()
+{
+	_token = NOTOKENS;
+	
+	while (SYM != 0) {
+		pushSYM();
+		if (SYM == '"') {
+			_token = C_STRING;
+			return;
+		}
+	}
+}
+
 
 }

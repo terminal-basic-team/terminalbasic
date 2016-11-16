@@ -200,10 +200,10 @@ Interpreter::newProgram()
 void
 Interpreter::pushReturnAddress()
 {
-	_program._sp -= Program::StackFrame::size(
-	    Program::StackFrame::SUBPROGRAM_RETURN);
-	Program::StackFrame *f = _program.stackFrameByIndex(_program._sp);
-	f->_type = Program::StackFrame::SUBPROGRAM_RETURN;
+	Program::StackFrame *f = _program.push(Program::StackFrame::
+	    SUBPROGRAM_RETURN);
+	if (f == NULL)
+		dynamicError("CAN'T RETURN");
 	f->body.calleeIndex = _program._current;
 }
 
@@ -228,12 +228,9 @@ Interpreter::pushForLoop(const char *varName, const Parser::Value &v,
 	    (strcmp(varName, f->body.forFrame.varName) == 0)) { // for iteration
 		setVariable(varName, f->body.forFrame.current);
 	} else {
-		_program._sp -= Program::StackFrame::size(
-		    Program::StackFrame::FOR_NEXT);
-		f = _program.stackFrameByIndex(_program._sp);
+		f = _program.push(Program::StackFrame::FOR_NEXT);
 		if (f == NULL)
 			dynamicError(varName);
-		f->_type = Program::StackFrame::FOR_NEXT;
 		f->body.forFrame.calleeIndex = _program._current;
 		f->body.forFrame.finalv = v;
 		f->body.forFrame.step = vStep;
@@ -284,37 +281,39 @@ Interpreter::VariableFrame::size() const
 	case Parser::Value::BOOLEAN:
 		return sizeof (VariableFrame) + sizeof (bool);
 	case Parser::Value::STRING:
-		return sizeof (VariableFrame) + strlen(bytes) + 1;
+		return sizeof (VariableFrame) + STRINGSIZE;
 	default:
 		return sizeof (VariableFrame);
 	}
 }
 
 void
-Interpreter::VariableFrame::set(const Parser::Value &v)
+Interpreter::set(VariableFrame &f, const Parser::Value &v)
 {
-	switch (type) {
-	case INTEGER:
+	switch (f.type) {
+	case VariableFrame::INTEGER:
 	{
 		union
 		{
 			char *b;
 			Integer *i;
 		} _U;
-		_U.b = bytes;
+		_U.b = f.bytes;
 		*_U.i = Integer(v);
 	}
 	break;
-	case REAL:
+	case VariableFrame::REAL:
 	{
 		union
 		{
 			char *b;
 			Real *r;
 		} _U;
-		_U.b = bytes;
+		_U.b = f.bytes;
 		*_U.r = Real(v);
 	}
+	case VariableFrame::STRING:
+		break;
 	}
 }
 
@@ -413,28 +412,6 @@ Interpreter::Program::variableByIndex(uint16_t index)
 		return (NULL);
 }
 
-Interpreter::VariableFrame*
-Interpreter::Program::variableByName(const char *name)
-{
-	uint16_t index = variablesStart();
-	if (index == 0)
-		index = 1;
-	if (_variablesEnd == 0)
-		_variablesEnd = 1;
-
-	for (VariableFrame *f = variableByIndex(index); (f != NULL) && (index <
-	    _variablesEnd);
-	    f = variableByIndex(index)) {
-		int8_t res = strcmp(name, f->name);
-		if (res == 0) {
-			return f;
-		} else if (res < 0)
-			break;
-		index += f->size();
-	}
-	return NULL;
-}
-
 Interpreter::Program::StackFrame*
 Interpreter::Program::stackFrameByIndex(uint16_t index)
 {
@@ -509,7 +486,7 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 		_program._variablesEnd += f->size();
 	}
 	
-	f->set(v);
+	set(*f, v);
 	strcpy(f->name, name);
 }
 

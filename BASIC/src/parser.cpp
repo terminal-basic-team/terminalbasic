@@ -46,7 +46,8 @@
  * TERM = FACTOR | FACTOR MUL FACTOR
  * MUL = STAR | SLASH | DIV | MOD | KW_AND
  * FACTOR = FINAL | FINAL POW FINAL
- * FINAL = IDENT | INTEGER | REAL | LPAREN EXPRESSION RPAREN | MINUS FINAL
+ * FINAL = INTEGER_IDENT | REAL_IDENT | STRING_IDENT | C_INTEGER | C_REAL |
+ *	C_STRING | LPAREN EXPRESSION RPAREN | MINUS FINAL
  * PRINT_LIST = EXPRESSION | EXPRESSION COMMA PRINT_LIST
  * IF_STATEMENT = GOTO_STATEMEMNT | KW_THEN OPERATORS
  * GOTO_STATEMENT = KW_GOTO C_INTEGER
@@ -144,7 +145,8 @@ Parser::fOperator()
 			return true;
 	}
 	case KW_NEXT:
-		if (!_lexer.getNext() || _lexer.getToken() != REAL_IDENT)
+		if (!_lexer.getNext() || (_lexer.getToken() != REAL_IDENT &&
+		    _lexer.getToken() != INTEGER_IDENT))
 			return false;
 		if (_mode == EXECUTE)
 			_interpreter.next(_lexer.id());
@@ -394,6 +396,11 @@ Parser::fFinal(Value &v)
 				v = _lexer.getValue();
 			_lexer.getNext();
 			return true;
+		case C_STRING:
+			if (_mode == EXECUTE) {
+				
+			}
+			_lexer.getNext();
 		case REAL_IDENT:
 		case INTEGER_IDENT:
 			if (_mode == EXECUTE) {

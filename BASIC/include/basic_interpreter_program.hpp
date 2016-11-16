@@ -45,7 +45,7 @@ public:
 
 		enum Type : uint8_t
 		{
-			SUBPROGRAM_RETURN, FOR_NEXT
+			SUBPROGRAM_RETURN, FOR_NEXT, STRING
 		};
 
 		struct CPS_PACKED ForBody
@@ -65,11 +65,9 @@ public:
 		{
 			uint16_t calleeIndex;
 			ForBody forFrame;
+			char	string[STRINGSIZE];
 		} body;
 	};
-	
-	static_assert((sizeof (StackFrame::Type) + sizeof (StackFrame::ForBody))
-	    == sizeof (StackFrame), "bad size");
 
 	Program();
 	/**
@@ -119,6 +117,13 @@ public:
 	void insertVariable();
 
 	StackFrame *stackFrameByIndex(uint16_t index);
+	/**
+	 * @create new stack frame of given type and get its pointer
+	 * @param 
+	 * @param 
+	 * @return 
+	 */
+	StackFrame *push(StackFrame::Type);
 
 	void addString(uint16_t, const char*);
 	bool insert(int, const char*);

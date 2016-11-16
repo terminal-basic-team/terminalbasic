@@ -29,7 +29,41 @@ Interpreter::Program::StackFrame::size(Type t)
 		return sizeof (Type) + sizeof (uint16_t);
 	case FOR_NEXT:
 		return sizeof (Type) + sizeof (ForBody);
+	case STRING:
+		return sizeof (Type) + STRINGSIZE;
 	}
+}
+
+Interpreter::VariableFrame*
+Interpreter::Program::variableByName(const char *name)
+{
+	uint16_t index = variablesStart();
+	if (index == 0)
+		index = 1;
+	if (_variablesEnd == 0)
+		_variablesEnd = 1;
+
+	for (VariableFrame *f = variableByIndex(index); (f != NULL) && (index <
+	    _variablesEnd);
+	    f = variableByIndex(index)) {
+		int8_t res = strcmp(name, f->name);
+		if (res == 0) {
+			return f;
+		} else if (res < 0)
+			break;
+		index += f->size();
+	}
+	return NULL;
+}
+
+Interpreter::Program::StackFrame*
+Interpreter::Program::push(StackFrame::Type t)
+{
+	_sp -= StackFrame::size(t);
+	StackFrame *f = stackFrameByIndex(_sp);
+	if (f!=NULL)
+		f->_type = t;
+	return f;
 }
 
 void

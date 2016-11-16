@@ -27,24 +27,33 @@
 namespace BASIC
 {
 
+/**
+ * @brief Interpreter context object
+ */
 class Interpreter
 {
 public:
 	/**
-	 * Basic program memory
+	 * @brief BASIC program memory
 	 */
 	class Program;
-	
+	/**
+	 * @brief variable memory object
+	 */
 	struct CPS_PACKED VariableFrame
 	{
 		enum Type : uint8_t
 		{
-			INTEGER = 0, REAL, BOOLEAN, STRING, INTEGER_ARRAY,
-			REAL_ARRAY
+			INTEGER = 0,
+			REAL,
+			BOOLEAN,
+			STRING
 		};
+		/**
+		 * @brief size of the initialized frame
+		 * @return size in bytes
+		 */
 		uint8_t size() const;
-		
-		void set(const Parser::Value&);
 
 		template <typename T>
 		T get() const
@@ -65,6 +74,13 @@ public:
 	
 	static void valueFromFrame(Parser::Value &v,
 	    const Interpreter::VariableFrame &f);
+	
+	/**
+	 * @brief set value to initialized object
+	 * @param f frame to set to
+	 * @param v value to set
+	 */
+	void set(VariableFrame&, const Parser::Value&);
 	
 	enum State
 	{

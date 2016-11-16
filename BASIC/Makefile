@@ -60,7 +60,7 @@ build: .build-post
 .build-pre:
 # Add your pre 'build' code here...
 
-.build-post: .build-impl copy # program
+.build-post: .build-impl # copy # program
 
 # clean
 clean: .clean-post
