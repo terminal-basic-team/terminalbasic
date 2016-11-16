@@ -124,6 +124,7 @@ public:
 	 * @return 
 	 */
 	StackFrame *push(StackFrame::Type);
+	void pop();
 
 	void addString(uint16_t, const char*);
 	bool insert(int, const char*);

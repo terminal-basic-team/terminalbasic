@@ -18,6 +18,7 @@
 
 #include <math.h>
 #include <string.h>
+#include <algorithm>
 
 #include "parser.hpp"
 #include "basic_interpreter.hpp"
@@ -177,8 +178,9 @@ Parser::fImplicitAssignment(char *varName)
 {
 	LOG_TRACE;
 
-	if (!((_lexer.getToken() == REAL_IDENT) ||
-	      (_lexer.getToken() == INTEGER_IDENT)))
+	if ((_lexer.getToken() != REAL_IDENT) &&
+	    (_lexer.getToken() == INTEGER_IDENT) &&
+	    (_lexer.getToken() == STRING_IDENT))
 		return false;
 
 	strcpy(varName, _lexer.id());
@@ -398,13 +400,18 @@ Parser::fFinal(Value &v)
 			return true;
 		case C_STRING:
 			if (_mode == EXECUTE) {
-				
+				uint16_t fri = _interpreter.pushString(
+				    _lexer.id());
+				v.type = Value::Type::STRING;
+				v.value.stringFrame = fri;
 			}
 			_lexer.getNext();
+			return true;
 		case REAL_IDENT:
 		case INTEGER_IDENT:
+		case STRING_IDENT:
 			if (_mode == EXECUTE) {
-				Interpreter::valueFromFrame(v,
+				_interpreter.valueFromFrame(v,
 				    _interpreter.getVariable(_lexer.id()));
 			}
 			_lexer.getNext();

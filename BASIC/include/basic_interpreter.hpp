@@ -72,7 +72,7 @@ public:
 		char bytes[];
 	};
 	
-	static void valueFromFrame(Parser::Value &v,
+	void valueFromFrame(Parser::Value &v,
 	    const Interpreter::VariableFrame &f);
 	
 	/**
@@ -121,6 +121,10 @@ public:
 	 */
 	void setVariable(const char*, const Parser::Value&);
 	const VariableFrame &getVariable(const char*);
+	/**
+	 * @brief push string constant on the stack
+	 */
+	uint16_t pushString(const char*);
 	
 	Program &_program;
 private:

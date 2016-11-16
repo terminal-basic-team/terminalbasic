@@ -34,6 +34,14 @@ Interpreter::Program::StackFrame::size(Type t)
 	}
 }
 
+void
+Interpreter::Program::newProg()
+{
+	_first = _last = _current = _variablesEnd = _jump = 0;
+	_sp = PROGSIZE;
+	memset(_text, 0xFF, PROGSIZE);
+}
+
 Interpreter::VariableFrame*
 Interpreter::Program::variableByName(const char *name)
 {
@@ -64,6 +72,14 @@ Interpreter::Program::push(StackFrame::Type t)
 	if (f!=NULL)
 		f->_type = t;
 	return f;
+}
+
+void 
+Interpreter::Program::pop()
+{
+	StackFrame *f = stackFrameByIndex(_sp);
+	if (f!=NULL)
+		_sp += StackFrame::size(f->_type);
 }
 
 void

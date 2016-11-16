@@ -60,18 +60,30 @@ void
 Interpreter::valueFromFrame(Parser::Value &v, const Interpreter::VariableFrame &f)
 {
 	switch (f.type) {
-	case Interpreter::VariableFrame::INTEGER:
+	case VariableFrame::INTEGER:
 		v.type = Parser::Value::INTEGER;
 		v.value.integer = f.get<Integer>();
 		break;
-	case Interpreter::VariableFrame::REAL:
+	case VariableFrame::REAL:
 		v.type = Parser::Value::REAL;
 		v.value.real = f.get<Real>();
 		break;
-	case Interpreter::VariableFrame::BOOLEAN:
+	case VariableFrame::BOOLEAN:
 		v.type = Parser::Value::BOOLEAN;
 		v.value.boolean = f.get<bool>();
 		break;
+	case VariableFrame::STRING:
+	{
+		v.type = Parser::Value::STRING;
+		Program::StackFrame *fr =
+		    _program.push(Program::StackFrame::STRING);
+		if (fr == NULL) {
+			dynamicError("CAN'T ALLOCATE STRING FRAME");
+			return;
+		}
+		strcpy(fr->body.string, f.bytes);
+		break;
+	}
 	}
 }
 
@@ -157,9 +169,18 @@ Interpreter::print(const Parser::Value &v)
 	case Parser::Value::INTEGER:
 		_stream.print(v.value.integer);
 		break;
-		//case Parser::Value::STRING:
-		//	_stream.print(v.value.string.string);
-		//	break;
+	case Parser::Value::STRING:
+	{
+		Program::StackFrame *f =
+		    _program.stackFrameByIndex(_program._sp);
+		if (f == NULL || f->_type != Program::StackFrame::STRING) {
+			dynamicError("CAN'T FIND STRING FRAME");
+			return;
+		}
+		_stream.print(f->body.string);
+		_program.pop();
+		break;
+	}
 	default:
 		dynamicError("INVALID VALUE TYPE");
 		break;
@@ -313,16 +334,18 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 		*_U.r = Real(v);
 	}
 	case VariableFrame::STRING:
+	{
+		Program::StackFrame *fr =
+		    _program.stackFrameByIndex(_program._sp);
+		if (fr == NULL || fr->_type != Program::StackFrame::STRING) {
+			dynamicError("CAN'T FIND STRING FRAME");
+			return;
+		}
+		strcpy(f.bytes, fr->body.string);
+		_program.pop();
 		break;
 	}
-}
-
-void
-Interpreter::Program::newProg()
-{
-	_first = 0, _last = 0, _current = _variablesEnd = _jump = 0;
-	_sp = PROGSIZE;
-	memset(_text, 0xFF, PROGSIZE);
+	}
 }
 
 Interpreter::Program::String*
@@ -481,6 +504,8 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 	if (insertFlag) {
 		if (endsWith(name, '%'))
 			f->type = VariableFrame::INTEGER;
+		else if (endsWith(name, '$'))
+			f->type = VariableFrame::STRING;
 		else
 			f->type = VariableFrame::REAL;
 		_program._variablesEnd += f->size();
@@ -495,12 +520,24 @@ Interpreter::getVariable(const char *name)
 {
 	const VariableFrame *f = _program.variableByName(name);
 	if (f == NULL) {
-		Parser::Value v;
+		Parser::Value v(Integer(0));
 		setVariable(name, v);
 		f = _program.variableByName(name);
 		assert(f != 0);
 	}
 	return *f;
+}
+
+uint16_t
+Interpreter::pushString(const char *str)
+{
+	Program::StackFrame *f = _program.push(Program::StackFrame::STRING);
+	if (f == NULL) {
+		dynamicError("CAN'T ALLOCATE STRING");
+		return 0;
+	}
+	strcpy(f->body.string, str);
+	return (_program._sp);
 }
 
 void
@@ -573,7 +610,7 @@ Interpreter::Program::addString(uint16_t num, const char *text)
 bool
 Interpreter::Program::insert(int num, const char *text)
 {
-	if (_last < (PROGSIZE)) {
+	if (_last < _sp) {
 		String *cur = current();
 		cur->number = num;
 		cur->size = sizeof (String) + strlen(text) + 1;

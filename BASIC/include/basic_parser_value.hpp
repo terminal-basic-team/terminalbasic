@@ -44,7 +44,7 @@ public:
 		Integer integer;
 		float real;
 		bool boolean;
-		String string;
+		uint16_t stringFrame;
 	};
 
 	Value();
