@@ -36,11 +36,12 @@ void loop()
 {
 	LOG_TRACE;
 
-/*	char buf[72];
+	/*char buf[72];
 	size_t read = Serial.readBytesUntil('\n', buf, 72);
 	buf[read] = 0;
 	l.init(buf);
 	while (l.getNext())
+		Serial.println(int(l.getToken()));
 		LOG(l.getToken());*/
 	
 	basic.step();
