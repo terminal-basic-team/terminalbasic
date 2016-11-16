@@ -51,6 +51,7 @@ enum Token : uint8_t
 	COM_RUN,
 	
 	// Statements
+	KW_DIM,
 	KW_END,
 	KW_FOR,
 	KW_GOSUB,

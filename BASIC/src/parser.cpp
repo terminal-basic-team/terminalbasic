@@ -30,7 +30,7 @@
  * OPERATOR = COMMAND |
  *      KW_END |
  *	KW_RETURN |
- *	KW_INPUT VAR |
+ *	KW_INPUT VAR_LIST |
  *	KW_PRINT PRINT_LIST |
  *	KW_IF EXPRESSION IF_STATEMENT |
  *	KW_FOR FOR_CONDS |
@@ -48,8 +48,10 @@
  * TERM = FACTOR | FACTOR MUL FACTOR
  * MUL = STAR | SLASH | DIV | MOD | KW_AND
  * FACTOR = FINAL | FINAL POW FINAL
- * FINAL = INTEGER_IDENT | REAL_IDENT | STRING_IDENT | VAR | LPAREN EXPRESSION RPAREN | MINUS FINAL
+ * FINAL = INTEGER_IDENT | REAL_IDENT | STRING_IDENT | VAR |
+ *	LPAREN EXPRESSION RPAREN | MINUS FINAL
  * VAR = C_INTEGER | C_REAL |C_STRING
+ * VAR_LIST = VAR | VAR VAR_LIST
  * PRINT_LIST = EXPRESSION | EXPRESSION COMMA PRINT_LIST
  * IF_STATEMENT = GOTO_STATEMEMNT | KW_THEN OPERATORS
  * GOTO_STATEMENT = KW_GOTO C_INTEGER
@@ -143,16 +145,11 @@ Parser::fOperator()
 	}
 	case KW_INPUT:
 	{
-		char varName[VARSIZE];
-		Value v;
-		if (!_lexer.getNext() || !fVar(varName)) {
-			_error = EXPRESSION_EXPECTED;
+		if (!fVarList()) {
+			_error = VARIABLES_LIST_EXPECTED;
 			return false;
-		}
-		if (_mode == EXECUTE)
-			_interpreter.input(varName);
-		_lexer.getNext();
-		return true;
+		} else
+			return true;
 	}
 	case KW_LET:
 	{
@@ -532,7 +529,25 @@ Parser::fForConds()
 	return true;
 }
 
-bool Parser::fVar(char *varName)
+bool
+Parser::fVarList()
+{
+	Token t;
+	char varName[VARSIZE];
+	do {
+		if (!_lexer.getNext() || !fVar(varName))
+			return false;
+		if (_mode == EXECUTE)
+			_interpreter.input(varName);
+		if (!_lexer.getNext())
+			return true;
+		t = _lexer.getToken();
+	} while (t == COMMA);
+	return true;
+}
+
+bool
+Parser::fVar(char *varName)
 {
 	if ((_lexer.getToken() != REAL_IDENT) &&
 	    (_lexer.getToken() == INTEGER_IDENT) &&

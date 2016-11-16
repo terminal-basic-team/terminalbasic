@@ -42,7 +42,8 @@ public:
 		OPERATOR_EXPECTED,
 		EXPRESSION_EXPECTED,
 		INTEGER_EXPRESSION_EXPECTED,
-		THEN_OR_GOTO_EXPECTED
+		THEN_OR_GOTO_EXPECTED,
+		VARIABLES_LIST_EXPECTED
 	};
 
 	class CPS_PACKED Value;
@@ -74,6 +75,7 @@ private:
 	bool fGotoStatement();
 	bool fForConds();
 	bool fVar(char*);
+	bool fVarList();
 
 	ErrorCodes _error;
 	Lexer &_lexer;

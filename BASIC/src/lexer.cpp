@@ -28,6 +28,7 @@
  * COM_NEW = "NEW"
  * COM_RUN = "RUN"
  * 
+ * KW_DIM = "DIM"
  * KW_END = "END"
  * KW_FOR = "FOR"
  * KW_GOSUB = "GOSUB"
@@ -76,6 +77,7 @@ const char sLIST[] PROGMEM = "LIST";
 const char sNEW[] PROGMEM = "NEW";
 const char sRUN[] PROGMEM = "RUN";
 
+const char sDIM[] PROGMEM = "DIM";
 const char sEND[] PROGMEM = "END";
 const char sFOR[] PROGMEM = "FOR";
 const char sGOSUB[] PROGMEM = "GOSUB";
@@ -107,9 +109,11 @@ const char sPOW[] PROGMEM = "^";
 PGM_P const Lexer::tokenStrings[NUM_TOKENS] PROGMEM = {
 	sNOTOKENS,
 	
-	sDUMP,	sLIST,	sNEW,	sRUN,	
-	sEND,	sFOR,	sGOSUB,	sGOTO,	sIF,	sINPUT,	sLET,	sNEXT,	sPRINT,
-	sRETURN,sTHEN,	sTO,	sSTEP,
+	sDUMP,	sLIST,	sNEW,	sRUN,
+	
+	sDIM,	sEND,	sFOR,	sGOSUB,	sGOTO,	sIF,	sINPUT,	sLET,	sNEXT,
+	sPRINT,	sRETURN,sTHEN,	sTO,	sSTEP,
+	
 	sIDENT,
 	sEQUALS,
 	sCOLON,
@@ -314,6 +318,7 @@ void Lexer::first_A()
 			_token = OP_AND;
 			return;
 		}
+		break;
 	}
 	ident();
 }
@@ -324,6 +329,15 @@ void Lexer::first_D()
 
 	next();
 	switch (SYM) {
+	case 'I':
+		pushSYM();
+		switch (SYM) {
+		case 'M':
+			next();
+			_token = KW_DIM;
+			return;
+		}
+		break;
 	case 'U':
 		pushSYM();
 		switch (SYM) {
@@ -335,7 +349,9 @@ void Lexer::first_D()
 				_token = COM_DUMP;
 				return;
 			}
+			break;
 		}
+		break;
 	}
 	ident();
 }
@@ -354,6 +370,7 @@ void Lexer::first_E()
 			_token = KW_END;
 			return;
 		}
+		break;
 	}
 	ident();
 }
@@ -372,6 +389,7 @@ void Lexer::first_F()
 			_token = KW_FOR;
 			return;
 		}
+		break;
 	}
 	ident();
 }
@@ -393,6 +411,7 @@ void Lexer::first_G()
 				_token = KW_GOTO;
 				return;
 			}
+			break;
 		case 'S':
 			pushSYM();
 			switch (SYM) {
@@ -404,8 +423,11 @@ void Lexer::first_G()
 					_token = KW_GOSUB;
 					return;
 				}
+				break;
 			}
+			break;
 		}
+		break;
 	}
 	ident();
 }
@@ -457,7 +479,9 @@ void Lexer::first_L()
 				_token = COM_LIST;
 				return;
 			}
+			break;
 		}
+		break;
 	case 'E':
 		pushSYM();
 		switch (SYM) {
@@ -487,6 +511,7 @@ void Lexer::first_N()
 				_token = KW_NEXT;
 				return;
 			}
+			break;
 		case 'W':
 			next();
 			_token = COM_NEW;
@@ -559,9 +584,13 @@ void Lexer::first_R()
 						_token = KW_RETURN;
 						return;
 					}
+					break;
 				}
+				break;
 			}
+			break;
 		}
+		break;
 	case 'U':
 		pushSYM();
 		switch (SYM) {
