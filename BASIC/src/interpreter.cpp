@@ -333,6 +333,7 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 		_U.b = f.bytes;
 		*_U.r = Real(v);
 	}
+	break;
 	case VariableFrame::STRING:
 	{
 		Program::StackFrame *fr =
