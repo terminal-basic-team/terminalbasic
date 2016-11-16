@@ -37,7 +37,8 @@
  *	KW_NEXT IDENT |
  *	ASSIGNMENT |TURN |
  *	GOTO_STATEMENT |
- *	KW_GOSUB INTEGER
+ *	KW_GOSUB INTEGER |
+ *	KW_DIM ARRAYS_LIST
  * COMMAND = COM_DUMP | COM_LIST | COM_NEW | COM_RUN
  * ASSIGNMENT = KW_LET IMPLICIT_ASSIGNMENT | IMPLICIT_ASSIGNMENT
  * IMPLICIT_ASSIGNMENT = IDENTIFIER EQUALS EXPRESSION
@@ -48,15 +49,18 @@
  * TERM = FACTOR | FACTOR MUL FACTOR
  * MUL = STAR | SLASH | DIV | MOD | KW_AND
  * FACTOR = FINAL | FINAL POW FINAL
- * FINAL = INTEGER_IDENT | REAL_IDENT | STRING_IDENT | VAR |
+ * FINAL = C_INTEGER | C_REAL | C_STRING | VAR |
  *	LPAREN EXPRESSION RPAREN | MINUS FINAL
- * VAR = C_INTEGER | C_REAL |C_STRING
+ * VAR = REAL_IDENT | INTEGER_IDENT | STRING_IDENT
  * VAR_LIST = VAR | VAR VAR_LIST
  * PRINT_LIST = EXPRESSION | EXPRESSION COMMA PRINT_LIST
  * IF_STATEMENT = GOTO_STATEMEMNT | KW_THEN OPERATORS
  * GOTO_STATEMENT = KW_GOTO C_INTEGER
  * FOR_CONDS = IMPLICIT_ASSIGNMENT KW_TO EXPRESSION |
  *	IMPLICIT_ASSIGNMENT KW_TO EXPRESSION KW_STEP EXPRESSION
+ * ARRAYS_LIST = ARRAY | ARRAY ARRAYS_LIST
+ * ARRAY = VAR LPAREN DIMENSIONS RPAREN
+ * DIMENSIONS = C_INTEGER | C_INTEGER COMMA DIMENSIONS
  */
 
 namespace BASIC
@@ -104,6 +108,9 @@ Parser::fOperator()
 	Token t = _lexer.getToken();
 	LOG(t);
 	switch (t) {
+	case KW_DIM:
+		if (!_lexer.getNext() || !fArray())
+			return false;
 	case KW_END:
 		if (_mode == EXECUTE)
 			_interpreter.end();
@@ -417,15 +424,6 @@ Parser::fFinal(Value &v)
 			}
 			_lexer.getNext();
 			return true;
-		case REAL_IDENT:
-		case INTEGER_IDENT:
-		case STRING_IDENT:
-			if (_mode == EXECUTE) {
-				_interpreter.valueFromFrame(v,
-				    _interpreter.getVariable(_lexer.id()));
-			}
-			_lexer.getNext();
-			return true;
 		case LPAREN:
 			if (!_lexer.getNext() || !fExpression(v))
 				return false;
@@ -436,6 +434,17 @@ Parser::fFinal(Value &v)
 				return true;
 			}
 		default:
+		{
+			char varName[VARSIZE];
+			if (fVar(varName)) {
+				if (_mode == EXECUTE) {
+					_interpreter.valueFromFrame(v,
+						_interpreter.getVariable(varName));
+				}
+				_lexer.getNext();
+				return true;
+			}
+		}
 			return false;
 		}
 	}
@@ -555,6 +564,16 @@ Parser::fVar(char *varName)
 		return false;
 
 	strcpy(varName, _lexer.id());
+	return true;
+}
+
+bool
+Parser::fArray()
+{
+	char arrName[VARSIZE];
+	if (!fVar(arrName))
+		return false;
+	_lexer.getNext();
 	return true;
 }
 

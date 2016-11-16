@@ -76,6 +76,7 @@ private:
 	bool fForConds();
 	bool fVar(char*);
 	bool fVarList();
+	bool fArray();
 
 	ErrorCodes _error;
 	Lexer &_lexer;
