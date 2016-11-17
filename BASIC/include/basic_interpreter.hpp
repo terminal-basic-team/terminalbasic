@@ -42,13 +42,6 @@ public:
 	 */
 	struct CPS_PACKED VariableFrame
 	{
-		enum Type : uint8_t
-		{
-			INTEGER = 0,
-			REAL,
-			BOOLEAN,
-			STRING
-		};
 		/**
 		 * @brief size of the initialized frame
 		 * @return size in bytes

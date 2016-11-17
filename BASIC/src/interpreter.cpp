@@ -81,19 +81,19 @@ void
 Interpreter::valueFromFrame(Parser::Value &v, const Interpreter::VariableFrame &f)
 {
 	switch (f.type) {
-	case VariableFrame::INTEGER:
+	case INTEGER:
 		v.type = Parser::Value::INTEGER;
 		v.value.integer = f.get<Integer>();
 		break;
-	case VariableFrame::REAL:
+	case REAL:
 		v.type = Parser::Value::REAL;
 		v.value.real = f.get<Real>();
 		break;
-	case VariableFrame::BOOLEAN:
+	case BOOLEAN:
 		v.type = Parser::Value::BOOLEAN;
 		v.value.boolean = f.get<bool>();
 		break;
-	case VariableFrame::STRING:
+	case STRING:
 	{
 		v.type = Parser::Value::STRING;
 		Program::StackFrame *fr =
@@ -128,7 +128,7 @@ void Interpreter::step()
 		print("READY", BOLD);
 		_stream.print('\n');
 nextinput:
-		char buf[STRINGSIZE];
+		char buf[PROGSTRINGSIZE];
 		memset(buf, 0xFF, sizeof (buf));
 		size_t read;
 		do {
@@ -367,7 +367,7 @@ void
 Interpreter::set(VariableFrame &f, const Parser::Value &v)
 {
 	switch (f.type) {
-	case VariableFrame::INTEGER:
+	case INTEGER:
 	{
 		union
 		{
@@ -378,7 +378,7 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 		*_U.i = Integer(v);
 	}
 	break;
-	case VariableFrame::REAL:
+	case REAL:
 	{
 		union
 		{
@@ -572,11 +572,11 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 
 	if (insertFlag) {
 		if (endsWith(name, '%'))
-			f->type = VariableFrame::INTEGER;
+			f->type = INTEGER;
 		else if (endsWith(name, '$'))
-			f->type = VariableFrame::STRING;
+			f->type = STRING;
 		else
-			f->type = VariableFrame::REAL;
+			f->type = REAL;
 		_program._variablesEnd += f->size();
 	}
 	
