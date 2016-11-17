@@ -134,8 +134,8 @@ nextinput:
 		do {
 			read = _stream.readBytesUntil('\n', buf, sizeof (buf));
 		} while (read <= 0);
-		if (read >= STRINGSIZE)
-			read = STRINGSIZE - 1;
+		if (read >= PROGSTRINGSIZE)
+			read = PROGSTRINGSIZE - 1;
 		buf[read] = 0;
 		LOG(buf);
 		_lexer.init(buf);

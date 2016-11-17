@@ -27,7 +27,9 @@
  */
 namespace BASIC
 {
-// Max size of the program strings and string constants/variables
+// Max size of the program string
+const uint8_t PROGSTRINGSIZE = 64;
+// Max size of the string constants/variables
 const uint8_t STRINGSIZE = 32;
 // Number of bytes for program text, variables and stack
 const size_t PROGSIZE = 256;
