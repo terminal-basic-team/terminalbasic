@@ -73,23 +73,105 @@ Interpreter::Program::push(StackFrame::Type t)
 {
 	_sp -= StackFrame::size(t);
 	StackFrame *f = stackFrameByIndex(_sp);
-	if (f!=NULL)
+	if (f != NULL)
 		f->_type = t;
 	return f;
 }
 
-void 
+void
 Interpreter::Program::pop()
 {
 	StackFrame *f = stackFrameByIndex(_sp);
-	if (f!=NULL)
+	if (f != NULL)
 		_sp += StackFrame::size(f->_type);
 }
 
-void
-Interpreter::Interpreter::Program::insertVariable()
+Interpreter::ArrayFrame*
+Interpreter::Program::addArray(const char *name, uint8_t dim,
+    uint32_t num)
 {
-	uint16_t dist;
+	uint16_t index = arraysStart();
+	if (index == 0)
+		index = 1;
+	if (_arraysEnd == 0)
+		_arraysEnd = 1;
+
+	ArrayFrame *f;
+	for (f = arrayByIndex(index); (f != NULL) && (index <
+	    _arraysEnd);
+	    f = arrayByIndex(index)) {
+		int res = strcmp(name, f->name);
+		if (res == 0) {
+			break;
+		} else if (res < 0) {
+			uint16_t dist = 0;
+			if (endsWith(name, '%'))
+				dist = sizeof (ArrayFrame) +
+				sizeof (uint16_t)*dim + sizeof (Integer) * num;
+			//else if (endsWith(name, '$'))
+			//	dist = sizeof (VariableFrame) +
+			//	STRINGSIZE;
+			else // real
+				dist = sizeof (VariableFrame) +
+				sizeof (uint16_t)*dim + sizeof (Real) * num;
+			memmove(_text + index + dist,
+			    _text + index,
+			    _arraysEnd - index);
+			break;
+		}
+		index += f->size();
+	}
+}
+
+Interpreter::Program::StackFrame*
+Interpreter::Program::stackFrameByIndex(uint16_t index)
+{
+	if ((index > 0) && (index < PROGSIZE))
+		return (reinterpret_cast<StackFrame*> (_text + index));
+	else
+		return (NULL);
+}
+
+uint16_t
+Interpreter::Program::variablesStart() const
+{
+	if (_last == 0)
+		return 0;
+	else
+		return _last + last()->size;
+}
+
+uint16_t
+Interpreter::Program::arraysStart() const
+{
+	if (_variablesEnd == 0)
+		return 0;
+	else
+		return _variablesEnd;
+}
+
+Interpreter::ArrayFrame*
+Interpreter::Program::arrayByName(const char *name)
+{
+
+}
+
+Interpreter::VariableFrame*
+Interpreter::Program::variableByIndex(uint16_t index)
+{
+	if (index != 0)
+		return (reinterpret_cast<VariableFrame*> (_text + index));
+	else
+		return (NULL);
+}
+
+Interpreter::ArrayFrame*
+Interpreter::Program::arrayByIndex(uint16_t index)
+{
+	if (index != 0)
+		return (reinterpret_cast<ArrayFrame*> (_text + index));
+	else
+		return (NULL);
 }
 
 }

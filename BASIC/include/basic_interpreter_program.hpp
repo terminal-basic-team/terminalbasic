@@ -109,6 +109,7 @@ public:
 	uint16_t stringIndex(const String*) const;
 
 	uint16_t variablesStart() const;
+	uint16_t arraysStart() const;
 	/**
 	 * @brief get variable frame at a given index
 	 * @param index
@@ -117,18 +118,29 @@ public:
 	VariableFrame *variableByIndex(uint16_t);
 	VariableFrame *variableByName(const char*);
 	
-	void insertVariable();
+	ArrayFrame *arrayByIndex(uint16_t);
+	ArrayFrame *arrayByName(const char*);
+	/**
+	 * @brief Add new array frame
+	 * @param name name of the array (also defines type of the elements)
+	 * @param dim number of dimensions
+	 * @param num overall elements number
+	 * @return 
+	 */
+	ArrayFrame *addArray(const char*, uint8_t, uint32_t);
 
 	StackFrame *stackFrameByIndex(uint16_t index);
 	/**
-	 * @create new stack frame of given type and get its pointer
-	 * @param 
-	 * @param 
-	 * @return 
+	 * @brief create new stack frame of given type and get its pointer
+	 * @param type
 	 */
 	StackFrame *push(StackFrame::Type);
 	void pop();
-
+	/**
+	 * @brief Add new Program string
+	 * @param number
+	 * @param text
+	 */
 	void addString(uint16_t, const char*);
 	bool insert(int, const char*);
 	char _text[PROGSIZE];

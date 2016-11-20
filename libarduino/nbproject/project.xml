@@ -31,6 +31,10 @@
                     <name>Mega_2560</name>
                     <type>3</type>
                 </confElem>
+                <confElem>
+                    <name>Atmega_128</name>
+                    <type>3</type>
+                </confElem>
             </confList>
             <formatting>
                 <project-formatting-style>false</project-formatting-style>

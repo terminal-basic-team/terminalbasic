@@ -473,33 +473,6 @@ Interpreter::Program::stringIndex(const String *s) const
 	return (((char*) s) - _text);
 }
 
-uint16_t
-Interpreter::Program::variablesStart() const
-{
-	if (_last == 0)
-		return 0;
-	else
-		return _last + last()->size;
-}
-
-Interpreter::VariableFrame*
-Interpreter::Program::variableByIndex(uint16_t index)
-{
-	if (index != 0)
-		return (reinterpret_cast<VariableFrame*> (_text + index));
-	else
-		return (NULL);
-}
-
-Interpreter::Program::StackFrame*
-Interpreter::Program::stackFrameByIndex(uint16_t index)
-{
-	if ((index > 0) && (index < PROGSIZE))
-		return (reinterpret_cast<StackFrame*> (_text + index));
-	else
-		return (NULL);
-}
-
 void Interpreter::print(const char *text, TextAttr attr)
 {
 	AttrKeeper _a(*this, attr);
@@ -547,7 +520,7 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 	for (f = _program.variableByIndex(index); (f != NULL) && (index <
 	    _program._variablesEnd);
 	    f = _program.variableByIndex(index)) {
-		int8_t res = strcmp(name, f->name);
+		int res = strcmp(name, f->name);
 		if (res == 0) {
 			insertFlag = false;
 			break;
@@ -588,8 +561,17 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 void
 Interpreter::newArray(const char *name)
 {
-	_stream.print("Array: ");
-	_stream.println(name);
+	Program::StackFrame *f = _program.stackFrameByIndex(_program._sp);
+	if (f != NULL && f->_type == Program::StackFrame::ARRAY_DIMENSIONS) {
+		_program.pop();
+		uint8_t dimensions = f->body.arrayDimensions;
+		for (uint8_t dim = 0; dim<dimensions; ++dim) {
+			f = _program.stackFrameByIndex(_program._sp);
+			
+		}
+	};
+	
+	dynamicError("CAN'T DECLARE ARRAY");
 }
 
 const Interpreter::VariableFrame&
