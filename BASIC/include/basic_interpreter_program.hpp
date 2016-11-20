@@ -45,7 +45,8 @@ public:
 
 		enum Type : uint8_t
 		{
-			SUBPROGRAM_RETURN, FOR_NEXT, STRING
+			SUBPROGRAM_RETURN, FOR_NEXT, STRING, ARRAY_DIMENSION,
+			ARRAY_DIMENSIONS
 		};
 
 		struct CPS_PACKED ForBody
@@ -63,9 +64,11 @@ public:
 
 		union CPS_PACKED
 		{
-			uint16_t calleeIndex;
-			ForBody forFrame;
-			char	string[STRINGSIZE];
+			uint16_t	calleeIndex;
+			uint8_t		arrayDimensions;
+			uint16_t	arrayDimension;
+			ForBody		forFrame;
+			char		string[STRINGSIZE];
 		} body;
 	};
 
@@ -130,7 +133,7 @@ public:
 	bool insert(int, const char*);
 	char _text[PROGSIZE];
 private:
-	uint16_t _first, _last, _current, _variablesEnd, _sp, _jump;
+	uint16_t _first, _last, _current, _variablesEnd, _arraysEnd, _sp, _jump;
 };
 
 }

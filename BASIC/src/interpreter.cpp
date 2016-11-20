@@ -389,7 +389,7 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 		*_U.r = Real(v);
 	}
 	break;
-	case VariableFrame::STRING:
+	case STRING:
 	{
 		Program::StackFrame *fr =
 		    _program.stackFrameByIndex(_program._sp);
@@ -533,7 +533,7 @@ Interpreter::dynamicError(const char *text)
 	_state = SHELL;
 }
 
-void
+Interpreter::VariableFrame*
 Interpreter::setVariable(const char *name, const Parser::Value &v)
 {
 	uint16_t index = _program.variablesStart();
@@ -582,6 +582,14 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 	
 	set(*f, v);
 	strcpy(f->name, name);
+	return f;
+}
+
+void
+Interpreter::newArray(const char *name)
+{
+	_stream.print("Array: ");
+	_stream.println(name);
 }
 
 const Interpreter::VariableFrame&
@@ -590,8 +598,7 @@ Interpreter::getVariable(const char *name)
 	const VariableFrame *f = _program.variableByName(name);
 	if (f == NULL) {
 		Parser::Value v(Integer(0));
-		setVariable(name, v);
-		f = _program.variableByName(name);
+		f = setVariable(name, v);
 		assert(f != 0);
 	}
 	return *f;
@@ -606,6 +613,36 @@ Interpreter::pushString(const char *str)
 		return 0;
 	}
 	strcpy(f->body.string, str);
+	return (_program._sp);
+}
+
+uint16_t
+Interpreter::pushDimension(uint16_t dim)
+{
+	_stream.print("Dimension: ");
+	_stream.println(dim);
+	Program::StackFrame *f =
+	    _program.push(Program::StackFrame::ARRAY_DIMENSION);
+	if (f == NULL) {
+		dynamicError("CAN'T ALLOCATE ARRAY");
+		return 0;
+	}
+	f->body.arrayDimension = dim;
+	return (_program._sp);
+}
+
+uint16_t
+Interpreter::pushDimensions(uint8_t dim)
+{
+	_stream.print("Dimensions: ");
+	_stream.println(dim);
+	Program::StackFrame *f =
+	    _program.push(Program::StackFrame::ARRAY_DIMENSIONS);
+	if (f == NULL) {
+		dynamicError("CAN'T ALLOCATE ARRAY");
+		return 0;
+	}
+	f->body.arrayDimensions = dim;
 	return (_program._sp);
 }
 
@@ -698,6 +735,30 @@ Interpreter::end()
 void Interpreter::Program::reset()
 {
 	_current = _first;
+}
+
+uint16_t
+Interpreter::ArrayFrame::size() const
+{
+	uint16_t result = sizeof (Interpreter::ArrayFrame) +
+	    numDimensions * sizeof (uint16_t);
+	
+	uint16_t mul = 1;
+	
+	for (uint8_t i=0; i<numDimensions; ++i)
+		mul *= dimension[i];
+	
+	switch (type) {
+	case INTEGER:
+		mul *= sizeof (Integer); break;
+	case REAL:
+		mul *= sizeof (Real); break;
+	default:
+		mul = 1;
+	}
+	result += mul;
+	
+	return result;
 }
 
 }

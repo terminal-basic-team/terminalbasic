@@ -37,6 +37,15 @@ public:
 	 * @brief BASIC program memory
 	 */
 	class Program;
+	
+	enum Type : uint8_t
+	{
+		INTEGER = 0,
+		REAL,
+		BOOLEAN,
+		STRING
+	};
+	
 	/**
 	 * @brief variable memory object
 	 */
@@ -67,6 +76,16 @@ public:
 	
 	void valueFromFrame(Parser::Value &v,
 	    const Interpreter::VariableFrame &f);
+	
+	struct ArrayFrame
+	{
+		uint16_t size() const;
+		
+		char name[VARSIZE];
+		Type type;
+		uint8_t numDimensions;
+		uint16_t dimension[];
+	};
 	
 	/**
 	 * @brief set value to initialized object
@@ -114,13 +133,28 @@ public:
 	 * @param name variable name
 	 * @param v value to assign
 	 */
-	void setVariable(const char*, const Parser::Value&);
+	Interpreter::VariableFrame *setVariable(const char*,
+	    const Parser::Value&);
+	
+	void newArray(const char*);
 	const VariableFrame &getVariable(const char*);
 	/**
 	 * @brief push string constant on the stack
 	 */
 	uint16_t pushString(const char*);
-	
+	/**
+	 * @brief push the next array dimesion on the stack
+	 * @param 
+	 * @return 
+	 */
+	uint16_t pushDimension(uint16_t);
+	/**
+	 * @brief push the number of array dimesions on the stack
+	 * @param 
+	 * @return 
+	 */
+	uint16_t pushDimensions(uint8_t);
+
 	Program &_program;
 private:
 	enum TextAttr : uint8_t

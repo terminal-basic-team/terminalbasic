@@ -35,6 +35,7 @@ const uint8_t STRINGSIZE = 32;
 const size_t PROGSIZE = 256;
 // Number of characters in variable name
 const uint8_t VARSIZE = 4; 
+const uint8_t ARRAY_DIMENSIONS = 4;
 // integer type
 typedef int16_t Integer;
 // floating point type

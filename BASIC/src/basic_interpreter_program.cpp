@@ -31,13 +31,17 @@ Interpreter::Program::StackFrame::size(Type t)
 		return sizeof (Type) + sizeof (ForBody);
 	case STRING:
 		return sizeof (Type) + STRINGSIZE;
+	case ARRAY_DIMENSION:
+		return sizeof (Type) + sizeof (uint16_t);
+	case ARRAY_DIMENSIONS:
+		return sizeof (Type) + sizeof (uint8_t);
 	}
 }
 
 void
 Interpreter::Program::newProg()
 {
-	_first = _last = _current = _variablesEnd = _jump = 0;
+	_first = _last = _current = _variablesEnd = _arraysEnd = _jump = 0;
 	_sp = PROGSIZE;
 	memset(_text, 0xFF, PROGSIZE);
 }
@@ -48,8 +52,8 @@ Interpreter::Program::variableByName(const char *name)
 	uint16_t index = variablesStart();
 	if (index == 0)
 		index = 1;
-	if (_variablesEnd == 0)
-		_variablesEnd = 1;
+	//if (_variablesEnd == 0)
+	//	_variablesEnd = 1;
 
 	for (VariableFrame *f = variableByIndex(index); (f != NULL) && (index <
 	    _variablesEnd);

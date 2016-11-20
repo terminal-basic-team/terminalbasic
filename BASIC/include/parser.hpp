@@ -76,6 +76,7 @@ private:
 	bool fForConds();
 	bool fVar(char*);
 	bool fVarList();
+	bool fArrayList();
 	bool fArray();
 
 	ErrorCodes _error;

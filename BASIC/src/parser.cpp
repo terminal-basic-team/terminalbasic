@@ -109,8 +109,10 @@ Parser::fOperator()
 	LOG(t);
 	switch (t) {
 	case KW_DIM:
-		if (!_lexer.getNext() || !fArray())
+		if (!fArrayList())
 			return false;
+		else
+			return true;
 	case KW_END:
 		if (_mode == EXECUTE)
 			_interpreter.end();
@@ -568,11 +570,42 @@ Parser::fVar(char *varName)
 }
 
 bool
+Parser::fArrayList()
+{
+	Token t;
+	do {
+		if (!_lexer.getNext() || !fArray())
+			return false;
+		t = _lexer.getToken();
+	} while (t == COMMA);
+	return true;
+}
+
+bool
 Parser::fArray()
 {
 	char arrName[VARSIZE];
 	if (!fVar(arrName))
 		return false;
+	if (!_lexer.getNext() || _lexer.getToken() != LPAREN)
+		return false;
+	
+	Token t;
+	Parser::Value v;
+	uint8_t dimensions = 0;
+	do {
+		if (!_lexer.getNext() || !fExpression(v))
+			return false;
+		_interpreter.pushDimension(Integer(v));
+		++dimensions;
+	} while (_lexer.getToken() == COMMA);
+	
+	if (_lexer.getToken() != RPAREN)
+		return false;
+	
+	_interpreter.pushDimensions(dimensions);
+	_interpreter.newArray(arrName);
+
 	_lexer.getNext();
 	return true;
 }
