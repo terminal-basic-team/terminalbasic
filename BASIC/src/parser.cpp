@@ -18,7 +18,6 @@
 
 #include <math.h>
 #include <string.h>
-#include <algorithm>
 
 #include "parser.hpp"
 #include "basic_interpreter.hpp"

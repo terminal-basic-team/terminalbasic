@@ -60,7 +60,7 @@ build: .build-post
 .build-pre:
 # Add your pre 'build' code here...
 
-.build-post: .build-impl # copy # program
+.build-post: .build-impl copy program
 
 # clean
 clean: .clean-post
@@ -131,8 +131,12 @@ copy:
 	  "${CND_ARTIFACT_PATH_${CONF}}.bin"
 
 program:
-	${AVRDUDE} -C ${AVRDUDE_CONF} -v -c arduino -p m328p -P /dev/ttyUSB0 \
-	-U flash:w:"${CND_BASEDIR}/${CND_ARTIFACT_PATH_${CONF}}.hex":i
+	#${AVRDUDE} -C ${AVRDUDE_CONF} -v -c wiring -p atmega2560 -P /dev/ttyACM0 -b115200 \
+	#-U flash:w:"${CND_BASEDIR}/${CND_ARTIFACT_PATH_${CONF}}.hex":i
+	
+	#${AVRDUDE} -C ${AVRDUDE_CONF} -v -c arduino -p m328p -P /dev/ttyUSB0 \
+	#-U flash:w:"${CND_BASEDIR}/${CND_ARTIFACT_PATH_${CONF}}.hex":i
+	
 	#${AVRDUDE} -C ${AVRDUDE_CONF} -v -c usbasp -p m328p \
 	#-U flash:w:"${CND_BASEDIR}/${CND_ARTIFACT_PATH_${CONF}}.hex":i
 

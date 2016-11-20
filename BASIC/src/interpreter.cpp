@@ -47,6 +47,8 @@ public:
 			return;
 		if ((uint8_t(a) | uint8_t(BOLD)) != uint8_t(NO_ATTR))
 			_i._stream.print("\x1B[1m");
+		if ((uint8_t(a) | uint8_t(UNDERLINE)) != uint8_t(NO_ATTR))
+			_i._stream.print("\x1B[4m");
 	}
 	~AttrKeeper()
 	{
@@ -563,14 +565,27 @@ Interpreter::newArray(const char *name)
 {
 	Program::StackFrame *f = _program.stackFrameByIndex(_program._sp);
 	if (f != NULL && f->_type == Program::StackFrame::ARRAY_DIMENSIONS) {
-		_program.pop();
 		uint8_t dimensions = f->body.arrayDimensions;
+		_program.pop();
+		uint16_t size = 1;
+		uint16_t dimension[6];
 		for (uint8_t dim = 0; dim<dimensions; ++dim) {
 			f = _program.stackFrameByIndex(_program._sp);
-			
+			if (f != NULL && f->_type ==
+			    Program::StackFrame::ARRAY_DIMENSION) {
+				dimension[dim] = f->body.arrayDimension;
+				size *= dimension[dim];
+				_program.pop();
+			} else
+				goto error;
+		}
+		ArrayFrame *array = _program.addArray(name, dimensions, size);
+		if (array != NULL) {
+			for (uint8_t dim = 0; dim<dimensions; ++dim)
+				array->dimension[dim] = dimension[dim];
 		}
 	};
-	
+error:	
 	dynamicError("CAN'T DECLARE ARRAY");
 }
 
