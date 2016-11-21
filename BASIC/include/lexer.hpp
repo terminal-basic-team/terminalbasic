@@ -23,7 +23,7 @@
 #include <stdlib.h>
 
 #include "arduino_logger.hpp"
-#include "parser.hpp"
+#include "basic_parser.hpp"
 #include "basic_parser_value.hpp"
 #include "helper.hpp"
 
@@ -66,6 +66,7 @@ enum Token : uint8_t
 	KW_THEN,
 	KW_TO,
 	KW_STEP,
+	KW_VARS,
 	
 	REAL_IDENT,
 	INTEGER_IDENT,
@@ -166,6 +167,7 @@ private:
 	void first_R();
 	void first_S();
 	void first_T();
+	void first_V();
 
 	void fitst_LT();
 	void fitst_GT();

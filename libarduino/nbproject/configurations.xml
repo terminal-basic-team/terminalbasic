@@ -120,6 +120,8 @@
         </ccTool>
         <archiverTool>
           <output>${CND_DISTDIR}/${CND_CONF}/libarduino.a</output>
+          <commandlineTool>avr-gcc-ar</commandlineTool>
+          <ranlibTool>avr-gcc-ranlib</ranlibTool>
         </archiverTool>
       </compileType>
       <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Arduino.h"

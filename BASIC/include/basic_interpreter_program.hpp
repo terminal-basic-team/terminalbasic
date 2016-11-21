@@ -117,6 +117,7 @@ public:
 	 */
 	VariableFrame *variableByIndex(uint16_t);
 	VariableFrame *variableByName(const char*);
+	uint16_t variableIndex(VariableFrame*) const;
 	
 	ArrayFrame *arrayByIndex(uint16_t);
 	ArrayFrame *arrayByName(const char*);

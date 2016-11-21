@@ -5,9 +5,9 @@
       <itemPath>include/basic.hpp</itemPath>
       <itemPath>include/basic_interpreter.hpp</itemPath>
       <itemPath>include/basic_interpreter_program.hpp</itemPath>
+      <itemPath>include/basic_parser.hpp</itemPath>
       <itemPath>include/basic_parser_value.hpp</itemPath>
       <itemPath>include/lexer.hpp</itemPath>
-      <itemPath>include/parser.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="src" displayName="src" projectFiles="true">
       <itemPath>src/basic_interpreter_program.cpp</itemPath>
@@ -32,6 +32,7 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <itemPath>nbproject/launcher.properties</itemPath>
   </logicalFolder>
   <sourceRootList>
     <Elem>include</Elem>
@@ -111,11 +112,13 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/basic_parser.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lexer.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/parser.hpp" ex="false" tool="3" flavor2="0">
+      <item path="nbproject/launcher.properties" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -199,11 +202,13 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/basic_parser.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lexer.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/parser.hpp" ex="false" tool="3" flavor2="0">
+      <item path="nbproject/launcher.properties" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -287,11 +292,13 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/basic_parser.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lexer.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/parser.hpp" ex="false" tool="3" flavor2="0">
+      <item path="nbproject/launcher.properties" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -375,11 +382,13 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/basic_parser.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lexer.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/parser.hpp" ex="false" tool="3" flavor2="0">
+      <item path="nbproject/launcher.properties" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="8">
       </item>

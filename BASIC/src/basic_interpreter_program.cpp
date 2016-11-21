@@ -52,8 +52,6 @@ Interpreter::Program::variableByName(const char *name)
 	uint16_t index = variablesStart();
 	if (index == 0)
 		index = 1;
-	//if (_variablesEnd == 0)
-	//	_variablesEnd = 1;
 
 	for (VariableFrame *f = variableByIndex(index); (f != NULL) && (index <
 	    _variablesEnd);
@@ -66,6 +64,18 @@ Interpreter::Program::variableByName(const char *name)
 		index += f->size();
 	}
 	return NULL;
+}
+
+uint16_t
+Interpreter::Program::stringIndex(const String *s) const
+{
+	return (((char*) s) - _text);
+}
+
+uint16_t
+Interpreter::Program::variableIndex(VariableFrame *f) const
+{
+	return (((char*) f) - _text);
 }
 
 Interpreter::Program::StackFrame*
@@ -96,31 +106,34 @@ Interpreter::Program::addArray(const char *name, uint8_t dim,
 	if (_arraysEnd == 0)
 		_arraysEnd = 1;
 
-	ArrayFrame *f;
+	ArrayFrame *f = NULL;
 	for (f = arrayByIndex(index); (f != NULL) && (index <
 	    _arraysEnd);
 	    f = arrayByIndex(index)) {
 		int res = strcmp(name, f->name);
-		if (res == 0) {
-			break;
-		} else if (res < 0) {
-			uint16_t dist = 0;
-			if (endsWith(name, '%'))
-				dist = sizeof (ArrayFrame) +
-				sizeof (uint16_t)*dim + sizeof (Integer) * num;
-			//else if (endsWith(name, '$'))
-			//	dist = sizeof (VariableFrame) +
-			//	STRINGSIZE;
-			else // real
-				dist = sizeof (VariableFrame) +
-				sizeof (uint16_t)*dim + sizeof (Real) * num;
-			memmove(_text + index + dist,
-			    _text + index,
-			    _arraysEnd - index);
+		if (res == 0)
+			return NULL;
+		else if (res < 0) {
 			break;
 		}
 		index += f->size();
 	}
+	
+	if (f != NULL) {
+		f->numDimensions = dim;
+		if (endsWith(name, '%')) {
+			f->type = INTEGER;
+			num *= sizeof (Integer);
+		} else { // real
+			f->type = REAL;
+			num *= sizeof (Real);
+		}
+		uint16_t dist = sizeof (ArrayFrame) + sizeof (uint16_t)*dim + num;
+		memmove(_text + index + dist, _text + index, _arraysEnd - index);
+		_arraysEnd += dist;
+		strcpy(f->name, name);
+	}
+	return (f);
 }
 
 Interpreter::Program::StackFrame*
@@ -153,7 +166,6 @@ Interpreter::Program::arraysStart() const
 Interpreter::ArrayFrame*
 Interpreter::Program::arrayByName(const char *name)
 {
-
 }
 
 Interpreter::VariableFrame*

@@ -19,7 +19,7 @@
 #include <math.h>
 #include <string.h>
 
-#include "parser.hpp"
+#include "basic_parser.hpp"
 #include "basic_interpreter.hpp"
 #include "basic_interpreter_program.hpp"
 
@@ -38,7 +38,8 @@
  *	GOTO_STATEMENT |
  *	KW_GOSUB INTEGER |
  *	KW_DIM ARRAYS_LIST
- * COMMAND = COM_DUMP | COM_LIST | COM_NEW | COM_RUN
+ * COMMAND = COM_DUMP | COM_DUMP KW_VARS
+ *	COM_LIST | COM_NEW | COM_RUN
  * ASSIGNMENT = KW_LET IMPLICIT_ASSIGNMENT | IMPLICIT_ASSIGNMENT
  * IMPLICIT_ASSIGNMENT = IDENTIFIER EQUALS EXPRESSION
  * EXPRESSION = SIMPLE_EXPRESSION | SIMPLE_EXPRESSION REL SIMPLE_EXPRESSION
@@ -494,10 +495,16 @@ Parser::fCommand()
 	LOG(t);
 	switch (t) {
 	case COM_DUMP:
+	{
+		Interpreter::DumpMode mode = Interpreter::MEMORY;
+		if (_lexer.getNext() && _lexer.getToken() == KW_VARS) {
+			mode = Interpreter::VARS;
+			_lexer.getNext();
+		}
 		if (_mode == EXECUTE)
-			_interpreter.dump();
-		_lexer.getNext();
+			_interpreter.dump(mode);
 		return true;
+	}
 	case COM_LIST:
 		if (_mode == EXECUTE)
 			_interpreter.list();

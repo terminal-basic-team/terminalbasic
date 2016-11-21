@@ -21,7 +21,7 @@
 
 #include "basic.hpp"
 #include "lexer.hpp"
-#include "parser.hpp"
+#include "basic_parser.hpp"
 #include "helper.hpp"
 
 namespace BASIC
@@ -44,6 +44,25 @@ public:
 		REAL,
 		BOOLEAN,
 		STRING
+	};
+	
+	enum ErrorCodes : uint8_t
+	{
+		NO_ERROR = 0,
+		REDIMED_ARRAY,
+		STACK_FRAME_ALLOCATION,
+		ARRAY_DECLARATION,
+		STRING_FRAME_SEARCH,
+		INVALID_NEXT,
+		RETURN_WO_GOSUB,
+		NO_SUCH_STRING,
+		INVALID_VALUE_TYPE
+	};
+	
+	enum ErrorType : uint8_t
+	{
+		STATIC_ERROR, // syntax
+		DYNAMIC_ERROR // runtime
 	};
 	
 	/**
@@ -94,9 +113,14 @@ public:
 	 */
 	void set(VariableFrame&, const Parser::Value&);
 	
-	enum State
+	enum State : uint8_t
 	{
 		SHELL, EXECUTE
+	};
+	
+	enum DumpMode : uint8_t
+	{
+		MEMORY, VARS
 	};
 	
 	Interpreter(Stream&, Program&);
@@ -105,7 +129,7 @@ public:
 	// Output program memory
 	void list();
 	// Dump program memory
-	void dump();
+	void dump(DumpMode);
 	// print value
 	void print(const Parser::Value&);
 	void print(char);
@@ -167,7 +191,7 @@ private:
 	enum ErrorStrings : uint8_t;
 	
 	void print(const char *, TextAttr=NO_ATTR);
-	void dynamicError(const char* = NULL);
+	void raiseError(ErrorType, uint8_t=0);
 	State	 _state;
 	Stream	&_stream;
 	Lexer	 _lexer;

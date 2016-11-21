@@ -218,6 +218,10 @@ bool Lexer::getNext()
 				_id[_valuePointer++] = SYM;
 				first_T();
 				return true;
+			case 'V':
+				_id[_valuePointer++] = SYM;
+				first_V();
+				return true;
 			case '=':
 				_token = EQUALS;
 				next();
@@ -649,6 +653,30 @@ void Lexer::first_T()
 		next();
 		_token = KW_TO;
 		return;
+	}
+	ident();
+}
+
+void Lexer::first_V()
+{
+	_token = NOTOKENS;
+
+	next();
+	switch (SYM) {
+	case 'A':
+		pushSYM();
+		switch (SYM) {
+		case 'R':
+			pushSYM();
+			switch (SYM) {
+			case 'S':
+				next();
+				_token = KW_VARS;
+				return;
+			}
+			break;
+		}
+		break;
 	}
 	ident();
 }

@@ -13,12 +13,13 @@ CP=cp
 GREP=grep
 NM=nm
 CCADMIN=CCadmin
-RANLIB=ranlib
+RANLIB=avr-gcc-ranlib
 CC=avr-gcc
 CCC=avr-g++
 CXX=avr-g++
 FC=gfortran
 AS=avr-as
+AR=avr-gcc-ar
 
 # Macros
 CND_PLATFORM=Arduino-Linux

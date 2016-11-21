@@ -36,7 +36,7 @@ class Parser
 {
 public:
 
-	enum ErrorCodes
+	enum ErrorCodes : uint8_t
 	{
 		NO_ERROR = 0,
 		OPERATOR_EXPECTED,
@@ -57,7 +57,7 @@ public:
 		return _error;
 	}
 private:
-	enum Mode
+	enum Mode : uint8_t
 	{
 		SCAN = 0, EXECUTE
 	};

@@ -45,9 +45,9 @@ public:
 	{
 		if (_a == NO_ATTR)
 			return;
-		if ((uint8_t(a) | uint8_t(BOLD)) != uint8_t(NO_ATTR))
+		if ((uint8_t(a) & uint8_t(BOLD)) != uint8_t(NO_ATTR))
 			_i._stream.print("\x1B[1m");
-		if ((uint8_t(a) | uint8_t(UNDERLINE)) != uint8_t(NO_ATTR))
+		if ((uint8_t(a) & uint8_t(UNDERLINE)) != uint8_t(NO_ATTR))
 			_i._stream.print("\x1B[4m");
 	}
 	~AttrKeeper()
@@ -101,7 +101,7 @@ Interpreter::valueFromFrame(Parser::Value &v, const Interpreter::VariableFrame &
 		Program::StackFrame *fr =
 		    _program.push(Program::StackFrame::STRING);
 		if (fr == NULL) {
-			dynamicError("CAN'T ALLOCATE STRING FRAME");
+			raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
 			return;
 		}
 		strcpy(fr->body.string, f.bytes);
@@ -147,14 +147,14 @@ nextinput:
 			    buf + _lexer.getPointer());
 			goto nextinput;
 		} else if (!_parser.parse(buf))
-			dynamicError();
+			raiseError(STATIC_ERROR);
 		break;
 	}
 	case EXECUTE:
 		Program::String *s = _program.current();
 		if (s != NULL) {
 			if (!_parser.parse(s->text))
-				dynamicError();
+				raiseError(STATIC_ERROR);
 			_program.getString();
 		} else
 			_state = SHELL;
@@ -178,11 +178,34 @@ void Interpreter::list()
 }
 
 void
-Interpreter::dump()
+Interpreter::dump(DumpMode mode)
 {
-	ByteArray ba((uint8_t*) _program._text, PROGSIZE);
-	_stream.print(ba);
-	_stream.print('\n');
+	switch (mode) {
+	case MEMORY:
+	{
+		ByteArray ba((uint8_t*) _program._text, PROGSIZE);
+		_stream.print(ba);
+		_stream.print('\n');
+	}
+		break;
+	case VARS:
+	{
+		uint16_t index = _program.variablesStart();
+		if (index == 0)
+		    index = 1;
+		for (VariableFrame *f = _program.variableByIndex(index);
+		    (f != NULL) && (_program.variableIndex(f)<
+		    _program._variablesEnd); f = _program.variableByIndex(
+		    _program.variableIndex(f) + f->size())) {
+			_stream.print(f->name);
+			_stream.print(":\t");
+			Parser::Value v;
+			valueFromFrame(v, *f);
+			print(v);
+			_stream.println();
+		}
+	}
+	}
 }
 
 void
@@ -203,7 +226,7 @@ Interpreter::print(const Parser::Value &v)
 		Program::StackFrame *f =
 		    _program.stackFrameByIndex(_program._sp);
 		if (f == NULL || f->_type != Program::StackFrame::STRING) {
-			dynamicError("CAN'T FIND STRING FRAME");
+			raiseError(DYNAMIC_ERROR, STRING_FRAME_SEARCH);
 			return;
 		}
 		_stream.print(f->body.string);
@@ -211,7 +234,7 @@ Interpreter::print(const Parser::Value &v)
 		break;
 	}
 	default:
-		dynamicError("INVALID VALUE TYPE");
+		raiseError(DYNAMIC_ERROR, INVALID_VALUE_TYPE);
 		break;
 	}
 }
@@ -233,13 +256,10 @@ void
 Interpreter::gotoLine(Integer ln)
 {
 	Program::String *s = _program.stringByNumber(ln);
-	if (s != NULL) {
+	if (s != NULL)
 		_program.jump(_program.stringIndex(s));
-	} else {
-		dynamicError("NO STRING NUMBER");
-		_stream.print(ln);
-		_stream.print('\n');
-	}
+	else
+		raiseError(DYNAMIC_ERROR, NO_SUCH_STRING);
 }
 
 void
@@ -254,7 +274,7 @@ Interpreter::pushReturnAddress()
 	Program::StackFrame *f = _program.push(Program::StackFrame::
 	    SUBPROGRAM_RETURN);
 	if (f == NULL)
-		dynamicError("CAN'T RETURN");
+		raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
 	f->body.calleeIndex = _program._current;
 }
 
@@ -267,7 +287,7 @@ Interpreter::returnFromSub()
 		_program._sp += Program::StackFrame::size(
 		    Program::StackFrame::SUBPROGRAM_RETURN);
 	} else
-		dynamicError("RETURN NEEDS GOSUB");
+		raiseError(DYNAMIC_ERROR, RETURN_WO_GOSUB);
 }
 
 void
@@ -281,11 +301,11 @@ Interpreter::pushForLoop(const char *varName, const Parser::Value &v,
 	} else {
 		f = _program.push(Program::StackFrame::FOR_NEXT);
 		if (f == NULL)
-			dynamicError(varName);
+			raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
 		f->body.forFrame.calleeIndex = _program._current;
 		f->body.forFrame.finalv = v;
 		f->body.forFrame.step = vStep;
-		Parser::Value cur;
+
 		VariableFrame *vf = _program.variableByName(varName);
 		valueFromFrame(f->body.forFrame.current, *vf);
 		strcpy(f->body.forFrame.varName, varName);
@@ -301,7 +321,8 @@ Interpreter::next(const char *varName)
 	    (strcmp(f->body.forFrame.varName, varName) == 0)) {
 		f->body.forFrame.current += f->body.forFrame.step;
 		if (f->body.forFrame.step > Parser::Value(Integer(0))) {
-			if (f->body.forFrame.current > f->body.forFrame.finalv) {
+			if (f->body.forFrame.current >
+			    f->body.forFrame.finalv) {
 				_program._sp += Program::StackFrame::size(
 				    Program::StackFrame::FOR_NEXT);
 				return;
@@ -313,7 +334,7 @@ Interpreter::next(const char *varName)
 		}
 		_program.jump(f->body.forFrame.calleeIndex);
 	} else
-		dynamicError("INVALID NEXT");
+		raiseError(DYNAMIC_ERROR, INVALID_NEXT);
 }
 
 void
@@ -396,7 +417,7 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 		Program::StackFrame *fr =
 		    _program.stackFrameByIndex(_program._sp);
 		if (fr == NULL || fr->_type != Program::StackFrame::STRING) {
-			dynamicError("CAN'T FIND STRING FRAME");
+			raiseError(DYNAMIC_ERROR, STRING_FRAME_SEARCH);
 			return;
 		}
 		strcpy(f.bytes, fr->body.string);
@@ -469,12 +490,6 @@ Interpreter::Program::stringByNumber(uint16_t number, size_t index)
 	return (result);
 }
 
-uint16_t
-Interpreter::Program::stringIndex(const String *s) const
-{
-	return (((char*) s) - _text);
-}
-
 void Interpreter::print(const char *text, TextAttr attr)
 {
 	AttrKeeper _a(*this, attr);
@@ -483,12 +498,12 @@ void Interpreter::print(const char *text, TextAttr attr)
 }
 
 void
-Interpreter::dynamicError(const char *text)
+Interpreter::raiseError(ErrorType type, uint8_t errorCode)
 {
 	char buf[16];
-	if (text != NULL)
+	if (type != DYNAMIC_ERROR)
 		strcpy_P(buf, (PGM_P) pgm_read_word(&(ESTRING(DYNAMIC))));
-	else
+	else // STATIC_ERROR
 		strcpy_P(buf, (PGM_P) pgm_read_word(&(ESTRING(STATIC))));
 	_stream.print(buf);
 	_stream.print(' ');
@@ -498,12 +513,10 @@ Interpreter::dynamicError(const char *text)
 	strcpy_P(buf, (PGM_P) pgm_read_word(&(ESTRING(ERROR))));
 	_stream.print(buf);
 	_stream.print(':');
-	if (text != NULL) {
-		_stream.print(text);
-		_stream.print('\n');
-	} else {
-		_stream.print(int(_parser.getError()));
-		_stream.print('\n');
+	if (type == DYNAMIC_ERROR) {
+		_stream.println(errorCode);
+	} else { // STATIC_ERROR
+		_stream.println(int(_parser.getError()));
 	}
 	_state = SHELL;
 }
@@ -516,47 +529,42 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 		index = 1;
 	if (_program._variablesEnd == 0)
 		_program._variablesEnd = 1;
+	if (_program._arraysEnd == 0)
+		_program._arraysEnd = _program._variablesEnd;
 
 	VariableFrame *f;
-	bool insertFlag = true;
 	for (f = _program.variableByIndex(index); (f != NULL) && (index <
 	    _program._variablesEnd);
 	    f = _program.variableByIndex(index)) {
 		int res = strcmp(name, f->name);
 		if (res == 0) {
-			insertFlag = false;
 			break;
 		} else if (res < 0) {
-			uint16_t dist = 0;
-			if (endsWith(name, '%'))
-				dist = sizeof (VariableFrame) +
-				    sizeof (Integer);
-			else if (endsWith(name, '$'))
-				dist = sizeof (VariableFrame) +
-				    STRINGSIZE;
-			else
-				dist = sizeof (VariableFrame) +
-				    sizeof (Real);
-			memmove(_program._text + index + dist,
-			    _program._text + index,
-			    _program._variablesEnd - index);
 			break;
 		}
 		index += f->size();
 	}
 
-	if (insertFlag) {
-		if (endsWith(name, '%'))
+	if (f != NULL) {
+		uint16_t dist = sizeof (VariableFrame);
+		if (endsWith(name, '%')) {
 			f->type = INTEGER;
-		else if (endsWith(name, '$'))
+			dist += sizeof (Integer);
+		} else if (endsWith(name, '$')) {
 			f->type = STRING;
-		else
+			dist += STRINGSIZE;
+		} else {
 			f->type = REAL;
+			dist += sizeof (Real);
+		}
+		memmove(_program._text + index + dist, _program._text + index,
+		    _program._arraysEnd - index);
 		_program._variablesEnd += f->size();
+		_program._arraysEnd += f->size();
+		set(*f, v);
+		strcpy(f->name, name);
 	}
 	
-	set(*f, v);
-	strcpy(f->name, name);
 	return f;
 }
 
@@ -568,25 +576,30 @@ Interpreter::newArray(const char *name)
 		uint8_t dimensions = f->body.arrayDimensions;
 		_program.pop();
 		uint16_t size = 1;
-		uint16_t dimension[6];
+		uint16_t sp = _program._sp; // go on stack frames, containong dimesions
 		for (uint8_t dim = 0; dim<dimensions; ++dim) {
-			f = _program.stackFrameByIndex(_program._sp);
+			f = _program.stackFrameByIndex(sp);
 			if (f != NULL && f->_type ==
 			    Program::StackFrame::ARRAY_DIMENSION) {
-				dimension[dim] = f->body.arrayDimension;
-				size *= dimension[dim];
-				_program.pop();
+				size *= f->body.arrayDimension;
+				sp += f->size(Program::StackFrame::ARRAY_DIMENSION);
 			} else
 				goto error;
 		}
 		ArrayFrame *array = _program.addArray(name, dimensions, size);
-		if (array != NULL) {
-			for (uint8_t dim = 0; dim<dimensions; ++dim)
-				array->dimension[dim] = dimension[dim];
-		}
+		if (array != NULL) { // go on stack frames, containong dimesions once more
+				     // now popping
+			for (uint8_t dim = 0; dim<dimensions; ++dim) {
+				f = _program.stackFrameByIndex(_program._sp);
+				array->dimension[dim] = f->body.arrayDimension;
+				_program.pop();
+			}
+		} else
+			goto error;
 	};
+	return;
 error:	
-	dynamicError("CAN'T DECLARE ARRAY");
+	raiseError(DYNAMIC_ERROR, ARRAY_DECLARATION);
 }
 
 const Interpreter::VariableFrame&
@@ -606,7 +619,7 @@ Interpreter::pushString(const char *str)
 {
 	Program::StackFrame *f = _program.push(Program::StackFrame::STRING);
 	if (f == NULL) {
-		dynamicError("CAN'T ALLOCATE STRING");
+		raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
 		return 0;
 	}
 	strcpy(f->body.string, str);
@@ -616,12 +629,11 @@ Interpreter::pushString(const char *str)
 uint16_t
 Interpreter::pushDimension(uint16_t dim)
 {
-	_stream.print("Dimension: ");
 	_stream.println(dim);
 	Program::StackFrame *f =
 	    _program.push(Program::StackFrame::ARRAY_DIMENSION);
 	if (f == NULL) {
-		dynamicError("CAN'T ALLOCATE ARRAY");
+		raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
 		return 0;
 	}
 	f->body.arrayDimension = dim;
@@ -631,12 +643,11 @@ Interpreter::pushDimension(uint16_t dim)
 uint16_t
 Interpreter::pushDimensions(uint8_t dim)
 {
-	_stream.print("Dimensions: ");
 	_stream.println(dim);
 	Program::StackFrame *f =
 	    _program.push(Program::StackFrame::ARRAY_DIMENSIONS);
 	if (f == NULL) {
-		dynamicError("CAN'T ALLOCATE ARRAY");
+		raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
 		return 0;
 	}
 	f->body.arrayDimensions = dim;
@@ -647,41 +658,46 @@ void
 Interpreter::Program::addString(uint16_t num, const char *text)
 {
 	reset();
+	
+	const uint16_t strLen = sizeof (String) + strlen(text) + 1;
 
 	String *cur;
 	if (_last == 0) { // First string insertion
 		_first = 1;
 		_last = 1;
 		_current = 1;
-		uint16_t dist = sizeof (String) +
-		    strlen(text) + 1;
-		if (_variablesEnd != 0)
-			memmove(_text + dist + 1, _text + 1, _variablesEnd - 1);
+		uint16_t size = max(_variablesEnd, _arraysEnd);
+		if (size != 0)
+			memmove(_text + strLen + 1, _text + 1, size - 1);
 		insert(num, text);
 		_last = _current;
 		_variablesEnd = variablesStart() + _variablesEnd;
+		_arraysEnd += size;
+		if (_arraysEnd < _variablesEnd)
+			_arraysEnd = _variablesEnd;
 		return;
 	}
 	// Iterate over
 	for (cur = current(); cur != NULL; getString(), cur = current()) {
 		if ((_current == _last) && ((cur->number < num))) { // Last string
 			// add new string
-			uint16_t dist = sizeof (String) +
-			    strlen(text) + 1;
-			memmove(_text + variablesStart() + dist,
+			uint16_t size = max(_variablesEnd, _arraysEnd);
+			uint16_t dist = size - variablesStart();
+			memmove(_text + variablesStart() + strLen,
 			    _text + variablesStart(), dist);
 			_current = _last + cur->size;
 			insert(num, text);
 			_last = _current;
-			_variablesEnd += dist;
+			_variablesEnd += strLen;
+			_arraysEnd += strLen;
 			return;
 		} else { // Not last string
 			if (cur->number == num) { // Replace string
-				uint16_t newSize = sizeof (String) +
-				    strlen(text) + 1;
+				uint16_t newSize = strLen;
 				uint16_t curSize = cur->size;
 				int16_t dist = int16_t(newSize) - curSize;
-				uint16_t bytes2copy = _variablesEnd -
+				uint16_t size = max(_variablesEnd, _arraysEnd);
+				uint16_t bytes2copy = size -
 				    (_current + curSize);
 				memmove(_text + _current + newSize,
 				    _text + _current + curSize,
@@ -689,22 +705,21 @@ Interpreter::Program::addString(uint16_t num, const char *text)
 				if (_current != _last) {
 					_last += dist;
 					_variablesEnd += dist;
+					_arraysEnd += dist;
 				}
 				insert(num, text);
 				return;
 			} else if (cur->number > num) { // Insert before
 				_current = stringIndex(cur);
-				uint16_t dist = sizeof (String) +
-				    strlen(text) + 1;
-				uint16_t bytes2copy = _variablesEnd -
-				    (_current);
+				uint16_t dist = strLen;
+				uint16_t size = max(_variablesEnd, _arraysEnd);
+				uint16_t bytes2copy = size - _current;
 				memmove(_text + _current + dist,
 				    _text + _current, bytes2copy);
 				_last += dist, _variablesEnd += dist;
+				_arraysEnd += dist;
 				insert(num, text);
 				return;
-			} else {
-
 			}
 		}
 	}
