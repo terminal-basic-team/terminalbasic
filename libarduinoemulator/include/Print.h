@@ -38,16 +38,14 @@ public:
 	size_t print(int val, int base = DEC);
 	size_t print(long n, int base);
 	size_t print(double, int = 2);
-	size_t print(unsigned int val, int base = 10);
-	size_t print(long unsigned int val, int base = 10);
+	size_t print(unsigned int val, int base = DEC);
+	size_t print(long unsigned int val, int base = DEC);
 	uint16_t println(void);
 	
 	size_t println(const Printable&);
-
-	uint16_t println(int val);
-	
+	size_t println(int, int = DEC);
+	size_t println(unsigned int, int = DEC);
 	size_t println(const char[]);
-
 	virtual size_t write(uint8_t) = 0;
 	
 	size_t write(const uint8_t*, size_t);

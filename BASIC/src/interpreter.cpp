@@ -184,8 +184,14 @@ Interpreter::dump(DumpMode mode)
 	case MEMORY:
 	{
 		ByteArray ba((uint8_t*) _program._text, PROGSIZE);
-		_stream.print(ba);
-		_stream.print('\n');
+		_stream.println(ba);
+		_stream.print("Text end:\t");
+		_stream.println(unsigned(_program.variablesStart()),
+		    HEX);
+		_stream.print("Variables end:\t");
+		_stream.println(unsigned(_program._variablesEnd), HEX);
+		_stream.print("Arrays end:\t");
+		_stream.println(unsigned(_program._arraysEnd), HEX);
 	}
 		break;
 	case VARS:
@@ -501,7 +507,7 @@ void
 Interpreter::raiseError(ErrorType type, uint8_t errorCode)
 {
 	char buf[16];
-	if (type != DYNAMIC_ERROR)
+	if (type == DYNAMIC_ERROR)
 		strcpy_P(buf, (PGM_P) pgm_read_word(&(ESTRING(DYNAMIC))));
 	else // STATIC_ERROR
 		strcpy_P(buf, (PGM_P) pgm_read_word(&(ESTRING(STATIC))));
@@ -547,24 +553,27 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 
 	if (f != NULL) {
 		uint16_t dist = sizeof (VariableFrame);
+		Type t;
 		if (endsWith(name, '%')) {
-			f->type = INTEGER;
+			t = INTEGER;
 			dist += sizeof (Integer);
 		} else if (endsWith(name, '$')) {
-			f->type = STRING;
+			t = STRING;
 			dist += STRINGSIZE;
 		} else {
-			f->type = REAL;
+			t = REAL;
 			dist += sizeof (Real);
 		}
+		uint16_t len = _program._arraysEnd - index;
 		memmove(_program._text + index + dist, _program._text + index,
-		    _program._arraysEnd - index);
+		    len);
+		f->type = t;
 		_program._variablesEnd += f->size();
 		_program._arraysEnd += f->size();
 		set(*f, v);
 		strcpy(f->name, name);
 	}
-	
+
 	return f;
 }
 
@@ -629,7 +638,6 @@ Interpreter::pushString(const char *str)
 uint16_t
 Interpreter::pushDimension(uint16_t dim)
 {
-	_stream.println(dim);
 	Program::StackFrame *f =
 	    _program.push(Program::StackFrame::ARRAY_DIMENSION);
 	if (f == NULL) {
@@ -643,7 +651,6 @@ Interpreter::pushDimension(uint16_t dim)
 uint16_t
 Interpreter::pushDimensions(uint8_t dim)
 {
-	_stream.println(dim);
 	Program::StackFrame *f =
 	    _program.push(Program::StackFrame::ARRAY_DIMENSIONS);
 	if (f == NULL) {
@@ -671,8 +678,8 @@ Interpreter::Program::addString(uint16_t num, const char *text)
 			memmove(_text + strLen + 1, _text + 1, size - 1);
 		insert(num, text);
 		_last = _current;
-		_variablesEnd = variablesStart() + _variablesEnd;
-		_arraysEnd += size;
+		_variablesEnd += strLen;
+		_arraysEnd += strLen;
 		if (_arraysEnd < _variablesEnd)
 			_arraysEnd = _variablesEnd;
 		return;
@@ -702,11 +709,10 @@ Interpreter::Program::addString(uint16_t num, const char *text)
 				memmove(_text + _current + newSize,
 				    _text + _current + curSize,
 				    bytes2copy);
-				if (_current != _last) {
+				if (_current != _last)
 					_last += dist;
-					_variablesEnd += dist;
-					_arraysEnd += dist;
-				}
+				_variablesEnd += dist;
+				_arraysEnd += dist;
 				insert(num, text);
 				return;
 			} else if (cur->number > num) { // Insert before

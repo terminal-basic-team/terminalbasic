@@ -155,9 +155,18 @@ size_t Print::println(const Printable &p)
     return (print(p) + println());
 }
 
-uint16_t Print::println(int val)
+size_t Print::println(int num, int base)
 {
-    return (print(val) + print("\r\n"));
+  size_t n = print(num, base);
+  n += println();
+  return n;
+}
+
+size_t Print::println(unsigned int num, int base)
+{
+  size_t n = print(num, base);
+  n += println();
+  return n;
 }
 
 size_t Print::println(const char c[])
