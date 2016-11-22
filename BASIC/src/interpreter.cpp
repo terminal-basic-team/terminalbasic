@@ -211,6 +211,28 @@ Interpreter::dump(DumpMode mode)
 			_stream.println();
 		}
 	}
+		break;
+	case ARRAYS:
+	{
+		uint16_t index = _program._variablesEnd;
+		if (index == 0)
+		    index = 1;
+		for (ArrayFrame *f = _program.arrayByIndex(index);
+		    (f != NULL) && (_program.arrayIndex(f)<
+		    _program._arraysEnd); f = _program.arrayByIndex(
+		    _program.arrayIndex(f) + f->size())) {
+			_stream.print(f->name);
+			_stream.print('(');
+			_stream.print(f->dimension[0]);
+			for (uint8_t i=1; i<f->numDimensions; ++i) {
+				_stream.print(',');
+				_stream.print(f->dimension[i]);
+			}
+			_stream.print(')');
+			_stream.print(":\t");
+			_stream.println();
+		}
+	}
 	}
 }
 

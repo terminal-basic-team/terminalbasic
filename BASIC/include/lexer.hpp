@@ -63,6 +63,7 @@ enum Token : uint8_t
 	KW_PRINT,
 	KW_RETURN,
 	// other keywords
+	KW_ARRAYS,
 	KW_THEN,
 	KW_TO,
 	KW_STEP,

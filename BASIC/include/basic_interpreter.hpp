@@ -120,7 +120,7 @@ public:
 	
 	enum DumpMode : uint8_t
 	{
-		MEMORY, VARS
+		MEMORY, VARS, ARRAYS
 	};
 	
 	Interpreter(Stream&, Program&);

@@ -323,6 +323,30 @@ void Lexer::first_A()
 			return;
 		}
 		break;
+	case 'R':
+		pushSYM();
+		switch (SYM) {
+		case 'R':
+			pushSYM();
+			switch (SYM) {
+			case 'A':
+				pushSYM();
+				switch (SYM) {
+				case 'Y':
+					pushSYM();
+					switch (SYM) {
+					case 'S':
+						next();
+						_token = KW_ARRAYS;
+						return;
+					}
+					break;
+				}
+				break;
+			}
+			break;
+		}
+		break;
 	}
 	ident();
 }

@@ -497,9 +497,14 @@ Parser::fCommand()
 	case COM_DUMP:
 	{
 		Interpreter::DumpMode mode = Interpreter::MEMORY;
-		if (_lexer.getNext() && _lexer.getToken() == KW_VARS) {
-			mode = Interpreter::VARS;
-			_lexer.getNext();
+		if (_lexer.getNext()) {
+			if (_lexer.getToken() == KW_VARS) {
+				mode = Interpreter::VARS;
+				_lexer.getNext();
+			} else if (_lexer.getToken() == KW_ARRAYS) {
+				mode = Interpreter::ARRAYS;
+				_lexer.getNext();
+			}
 		}
 		if (_mode == EXECUTE)
 			_interpreter.dump(mode);

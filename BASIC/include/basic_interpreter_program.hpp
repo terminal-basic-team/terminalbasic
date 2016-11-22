@@ -121,6 +121,7 @@ public:
 	
 	ArrayFrame *arrayByIndex(uint16_t);
 	ArrayFrame *arrayByName(const char*);
+	uint16_t arrayIndex(ArrayFrame*) const;
 	/**
 	 * @brief Add new array frame
 	 * @param name name of the array (also defines type of the elements)

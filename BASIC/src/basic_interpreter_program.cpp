@@ -75,7 +75,13 @@ Interpreter::Program::stringIndex(const String *s) const
 uint16_t
 Interpreter::Program::variableIndex(VariableFrame *f) const
 {
-	return (((char*) f) - _text);
+	return (((char*)f) - _text);
+}
+
+uint16_t
+Interpreter::Program::arrayIndex(ArrayFrame *f) const
+{
+	return (((char*)f) - _text);
 }
 
 Interpreter::Program::StackFrame*
