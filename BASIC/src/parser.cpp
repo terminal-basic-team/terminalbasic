@@ -41,7 +41,7 @@
  * COMMAND = COM_DUMP | COM_DUMP KW_VARS
  *	COM_LIST | COM_NEW | COM_RUN
  * ASSIGNMENT = KW_LET IMPLICIT_ASSIGNMENT | IMPLICIT_ASSIGNMENT
- * IMPLICIT_ASSIGNMENT = IDENTIFIER EQUALS EXPRESSION
+ * IMPLICIT_ASSIGNMENT = VAR EQUALS EXPRESSION | VAR ARRAY EQUALS EXPRESSION
  * EXPRESSION = SIMPLE_EXPRESSION | SIMPLE_EXPRESSION REL SIMPLE_EXPRESSION
  * REL = LT | LTE | EQUALS | GT | GTE | NE | NEA
  * SIMPLE_EXPRESSION = TERM | TERM ADD TERM
@@ -49,7 +49,7 @@
  * TERM = FACTOR | FACTOR MUL FACTOR
  * MUL = STAR | SLASH | DIV | MOD | KW_AND
  * FACTOR = FINAL | FINAL POW FINAL
- * FINAL = C_INTEGER | C_REAL | C_STRING | VAR |
+ * FINAL = C_INTEGER | C_REAL | C_STRING | VAR | 
  *	LPAREN EXPRESSION RPAREN | MINUS FINAL
  * VAR = REAL_IDENT | INTEGER_IDENT | STRING_IDENT
  * VAR_LIST = VAR | VAR VAR_LIST
@@ -58,7 +58,7 @@
  * GOTO_STATEMENT = KW_GOTO C_INTEGER
  * FOR_CONDS = IMPLICIT_ASSIGNMENT KW_TO EXPRESSION |
  *	IMPLICIT_ASSIGNMENT KW_TO EXPRESSION KW_STEP EXPRESSION
- * ARRAYS_LIST = ARRAY | ARRAY ARRAYS_LIST
+ * ARRAYS_LIST = VAR ARRAY | VAR ARRAY ARRAYS_LIST
  * ARRAY = VAR LPAREN DIMENSIONS RPAREN
  * DIMENSIONS = C_INTEGER | C_INTEGER COMMA DIMENSIONS
  */
@@ -201,17 +201,35 @@ Parser::fImplicitAssignment(char *varName)
 {
 	LOG_TRACE;
 
-	if (!fVar(varName))
+	if (!fVar(varName) || !_lexer.getNext())
 		return false;
+	
+	uint8_t dimensions;
 	Value v;
-	if (_lexer.getNext() && (_lexer.getToken() == EQUALS) &&
-	    _lexer.getNext() && fExpression(v)) {
-		if (_mode == EXECUTE)
-			_interpreter.setVariable(varName, v);
-		return true;
+	if (_lexer.getToken() == LPAREN && fDimensions(dimensions)
+	    && _lexer.getToken() == RPAREN) {
+		_lexer.getNext();
+		if ((_lexer.getToken() == EQUALS) &&
+		    _lexer.getNext() && fExpression(v)) {
+			if (_mode == EXECUTE) {
+				_interpreter.setArrayElement(varName, v);
+				return true;
+			} else {
+				_error = EXPRESSION_EXPECTED;
+				return false;
+			}
+		}
 	} else {
-		_error = EXPRESSION_EXPECTED;
-		return false;
+		if ((_lexer.getToken() == EQUALS) &&
+		    _lexer.getNext() && fExpression(v)) {
+			if (_mode == EXECUTE) {
+				_interpreter.setVariable(varName, v);
+				return true;
+			} else {
+				_error = EXPRESSION_EXPECTED;
+				return false;
+			}
+		}
 	}
 }
 
@@ -439,11 +457,21 @@ Parser::fFinal(Value &v)
 		{
 			char varName[VARSIZE];
 			if (fVar(varName)) {
-				if (_mode == EXECUTE) {
-					_interpreter.valueFromFrame(v,
-						_interpreter.getVariable(varName));
+				if (_lexer.getNext() && _lexer.getToken() == LPAREN) {
+					uint8_t dimensions;
+					if (fDimensions(dimensions) &&
+					    _lexer.getToken() == RPAREN) {
+						if (_mode == EXECUTE)
+							_interpreter.valueFromArray(v,
+							    varName);
+						_lexer.getNext();
+					} else
+						return false;
+				} else {
+					if (_mode == EXECUTE)
+						_interpreter.valueFromFrame(v,
+						    _interpreter.getVariable(varName));
 				}
-				_lexer.getNext();
 				return true;
 			}
 		}
@@ -598,26 +626,31 @@ Parser::fArray()
 	char arrName[VARSIZE];
 	if (!fVar(arrName))
 		return false;
-	if (!_lexer.getNext() || _lexer.getToken() != LPAREN)
-		return false;
 	
-	Token t;
-	Parser::Value v;
-	uint8_t dimensions = 0;
-	do {
-		if (!_lexer.getNext() || !fExpression(v))
-			return false;
-		_interpreter.pushDimension(Integer(v));
-		++dimensions;
-	} while (_lexer.getToken() == COMMA);
-	
-	if (_lexer.getToken() != RPAREN)
+	uint8_t dimensions;
+	if (!_lexer.getNext() || _lexer.getToken() != LPAREN ||
+	    !fDimensions(dimensions) || _lexer.getToken() != RPAREN)
 		return false;
 	
 	_interpreter.pushDimensions(dimensions);
 	_interpreter.newArray(arrName);
 
 	_lexer.getNext();
+	return true;
+}
+
+bool
+Parser::fDimensions(uint8_t &dimensions)
+{
+	Token t;
+	Parser::Value v;
+	dimensions = 0;
+	do {
+		if (!_lexer.getNext() || !fExpression(v))
+			return false;
+		_interpreter.pushDimension(Integer(v));
+		++dimensions;
+	} while (_lexer.getToken() == COMMA);
 	return true;
 }
 

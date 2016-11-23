@@ -132,6 +132,8 @@ public:
 	ArrayFrame *addArray(const char*, uint8_t, uint32_t);
 
 	StackFrame *stackFrameByIndex(uint16_t index);
+	StackFrame *currentStackFrame();
+	
 	/**
 	 * @brief create new stack frame of given type and get its pointer
 	 * @param type

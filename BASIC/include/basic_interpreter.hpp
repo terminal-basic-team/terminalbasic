@@ -56,7 +56,8 @@ public:
 		INVALID_NEXT,
 		RETURN_WO_GOSUB,
 		NO_SUCH_STRING,
-		INVALID_VALUE_TYPE
+		INVALID_VALUE_TYPE,
+		NO_SUCH_ARRAY
 	};
 	
 	enum ErrorType : uint8_t
@@ -93,25 +94,39 @@ public:
 		char bytes[];
 	};
 	
-	void valueFromFrame(Parser::Value &v,
-	    const Interpreter::VariableFrame &f);
-	
 	struct ArrayFrame
 	{
 		uint16_t size() const;
+		
+		uint8_t *data()
+		{
+			return (reinterpret_cast<uint8_t*>(this+1) +
+			    sizeof (uint16_t)*numDimensions);
+		}
+		
+		const uint8_t *data() const
+		{
+			return (reinterpret_cast<const uint8_t*>(this+1) +
+			    sizeof (uint16_t)*numDimensions);
+		}
+		
+		template <typename T>
+		T get(uint16_t index) const
+		{
+			union
+			{
+				const uint8_t *b;
+				const T *i;
+			} _U;
+			_U.b = this->data();
+			return _U.i[index];
+		}
 		
 		char name[VARSIZE];
 		Type type;
 		uint8_t numDimensions;
 		uint16_t dimension[];
 	};
-	
-	/**
-	 * @brief set value to initialized object
-	 * @param f frame to set to
-	 * @param v value to set
-	 */
-	void set(VariableFrame&, const Parser::Value&);
 	
 	enum State : uint8_t
 	{
@@ -148,10 +163,20 @@ public:
 	    const Parser::Value&);
 	// iterate for loop
 	void next(const char*);
-	// Input variable value
+	/**
+	 * @breif Input variable
+	 * @param variable name
+	 */
 	void input(const char*);
 	
 	void end();
+	/**
+	 * @brief set value to initialized object
+	 * @param f frame to set to
+	 * @param v value to set
+	 */
+	void set(VariableFrame&, const Parser::Value&);
+	void set(ArrayFrame&, uint16_t, const Parser::Value&);
 	/**
 	 * @brief set a new value and possibly create new variable
 	 * @param name variable name
@@ -159,9 +184,16 @@ public:
 	 */
 	Interpreter::VariableFrame *setVariable(const char*,
 	    const Parser::Value&);
+	void setArrayElement(const char*, const Parser::Value&);
 	
 	void newArray(const char*);
 	const VariableFrame &getVariable(const char*);
+	
+	void valueFromFrame(Parser::Value &v,
+	    const Interpreter::VariableFrame &f);
+	
+	void valueFromArray(Parser::Value&, const char*);
+	
 	/**
 	 * @brief push string constant on the stack
 	 */
@@ -192,6 +224,9 @@ private:
 	
 	void print(const char *, TextAttr=NO_ATTR);
 	void raiseError(ErrorType, uint8_t=0);
+	
+	bool arrayElementIndex(ArrayFrame*, uint16_t&);
+	
 	State	 _state;
 	Stream	&_stream;
 	Lexer	 _lexer;

@@ -126,18 +126,21 @@ Interpreter::Program::addArray(const char *name, uint8_t dim,
 	}
 	
 	if (f != NULL) {
-		f->numDimensions = dim;
+		Type t;
 		if (endsWith(name, '%')) {
-			f->type = INTEGER;
+			t = INTEGER;
 			num *= sizeof (Integer);
 		} else { // real
-			f->type = REAL;
+			t = REAL;
 			num *= sizeof (Real);
 		}
 		uint16_t dist = sizeof (ArrayFrame) + sizeof (uint16_t)*dim + num;
 		memmove(_text + index + dist, _text + index, _arraysEnd - index);
-		_arraysEnd += dist;
+		f->type = t;
+		f->numDimensions = dim;
 		strcpy(f->name, name);
+		memset(f->data(), 0, num);
+		_arraysEnd += dist;
 	}
 	return (f);
 }
@@ -149,6 +152,12 @@ Interpreter::Program::stackFrameByIndex(uint16_t index)
 		return (reinterpret_cast<StackFrame*> (_text + index));
 	else
 		return (NULL);
+}
+
+Interpreter::Program::StackFrame*
+Interpreter::Program::currentStackFrame()
+{
+	return stackFrameByIndex(_sp);
 }
 
 uint16_t
@@ -172,6 +181,19 @@ Interpreter::Program::arraysStart() const
 Interpreter::ArrayFrame*
 Interpreter::Program::arrayByName(const char *name)
 {
+	uint16_t index = _variablesEnd;
+	if (index == 0)
+		index = 1;
+
+	for (ArrayFrame *f = arrayByIndex(index); (f != NULL) && (index <
+	    _arraysEnd); index += f->size(), f = arrayByIndex(index)) {
+		int8_t res = strcmp(name, f->name);
+		if (res == 0) {
+			return f;
+		} else if (res < 0)
+			break;
+	}
+	return NULL;
 }
 
 Interpreter::VariableFrame*

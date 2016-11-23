@@ -110,6 +110,33 @@ Interpreter::valueFromFrame(Parser::Value &v, const Interpreter::VariableFrame &
 	}
 }
 
+void
+Interpreter::valueFromArray(Parser::Value &v, const char *name)
+{
+	ArrayFrame *f = _program.arrayByName(name);
+	if (f == NULL) {
+		raiseError(DYNAMIC_ERROR, NO_SUCH_ARRAY);
+		return;
+	}
+	
+	uint16_t index;
+	if (!arrayElementIndex(f, index)) {
+		raiseError(DYNAMIC_ERROR, INVALID_VALUE_TYPE);
+		return;
+	}
+	
+	switch (f->type) {
+	case INTEGER:
+		v.type = Parser::Value::INTEGER;
+		v.value.integer = f->get<Integer>(index);
+		break;
+	case REAL:
+		v.type = Parser::Value::REAL;
+		v.value.real = f->get<Real>(index);
+		break;
+	}
+}
+
 Interpreter::Interpreter(Stream &stream, Program &program) :
 _program(program), _state(SHELL), _stream(stream), _parser(_lexer, *this)
 {
@@ -455,6 +482,35 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 	}
 }
 
+void
+Interpreter::set(ArrayFrame &f, uint16_t index, const Parser::Value &v)
+{
+	switch (f.type) {
+	case INTEGER:
+	{
+		union
+		{
+			uint8_t *b;
+			Integer *i;
+		} _U;
+		_U.b = f.data();
+		_U.i[index] = Integer(v);
+	}
+	break;
+	case REAL:
+	{
+		union
+		{
+			uint8_t *b;
+			Real *r;
+		} _U;
+		_U.b = f.data();
+		_U.r[index] = Real(v);
+	}
+	break;
+	};
+}
+
 Interpreter::Program::String*
 Interpreter::Program::getString()
 {
@@ -549,6 +605,25 @@ Interpreter::raiseError(ErrorType type, uint8_t errorCode)
 	_state = SHELL;
 }
 
+bool
+Interpreter::arrayElementIndex(ArrayFrame *f, uint16_t &index)
+{
+	index = 0;
+	uint16_t dim = f->numDimensions, mul = 1;
+	while (dim-- > 0) {
+		Program::StackFrame *sf = _program.currentStackFrame();
+		if (sf == NULL ||
+		    sf->_type != Program::StackFrame::ARRAY_DIMENSION ||
+		    sf->body.arrayDimension > f->dimension[dim]) {
+			return false;
+		}
+		index += mul*sf->body.arrayDimension;
+		mul *= f->dimension[dim]+1;
+		_program.pop();
+	};
+	return true;
+}
+
 Interpreter::VariableFrame*
 Interpreter::setVariable(const char *name, const Parser::Value &v)
 {
@@ -556,7 +631,8 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 	if (index == 0)
 		index = 1;
 	if (_program._variablesEnd == 0)
-		_program._variablesEnd = 1;
+		_program._variablesEnd = _program.variablesStart() != 0 ?
+			_program.variablesStart() : 1;
 	if (_program._arraysEnd == 0)
 		_program._arraysEnd = _program._variablesEnd;
 
@@ -566,7 +642,8 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 	    f = _program.variableByIndex(index)) {
 		int res = strcmp(name, f->name);
 		if (res == 0) {
-			break;
+			set(*f, v);
+			return f;
 		} else if (res < 0) {
 			break;
 		}
@@ -600,6 +677,24 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 }
 
 void
+Interpreter::setArrayElement(const char *name, const Parser::Value &v)
+{
+	ArrayFrame *f = _program.arrayByName(name);
+	if (f == NULL) {
+		raiseError(DYNAMIC_ERROR, NO_SUCH_ARRAY);
+		return;
+	}
+	
+	uint16_t index;
+	if (!arrayElementIndex(f, index)) {
+		raiseError(DYNAMIC_ERROR, INVALID_VALUE_TYPE);
+		return;
+	}
+	
+	set(*f, index, v);
+}
+
+void
 Interpreter::newArray(const char *name)
 {
 	Program::StackFrame *f = _program.stackFrameByIndex(_program._sp);
@@ -612,7 +707,7 @@ Interpreter::newArray(const char *name)
 			f = _program.stackFrameByIndex(sp);
 			if (f != NULL && f->_type ==
 			    Program::StackFrame::ARRAY_DIMENSION) {
-				size *= f->body.arrayDimension;
+				size *= f->body.arrayDimension+1;
 				sp += f->size(Program::StackFrame::ARRAY_DIMENSION);
 			} else
 				goto error;
@@ -620,7 +715,7 @@ Interpreter::newArray(const char *name)
 		ArrayFrame *array = _program.addArray(name, dimensions, size);
 		if (array != NULL) { // go on stack frames, containong dimesions once more
 				     // now popping
-			for (uint8_t dim = 0; dim<dimensions; ++dim) {
+			for (uint8_t dim = dimensions; dim-->0;) {
 				f = _program.stackFrameByIndex(_program._sp);
 				array->dimension[dim] = f->body.arrayDimension;
 				_program.pop();
@@ -692,6 +787,7 @@ Interpreter::Program::addString(uint16_t num, const char *text)
 
 	String *cur;
 	if (_last == 0) { // First string insertion
+		
 		_first = 1;
 		_last = 1;
 		_current = 1;
@@ -700,26 +796,22 @@ Interpreter::Program::addString(uint16_t num, const char *text)
 			memmove(_text + strLen + 1, _text + 1, size - 1);
 		insert(num, text);
 		_last = _current;
-		_variablesEnd += strLen;
-		_arraysEnd += strLen;
-		if (_arraysEnd < _variablesEnd)
-			_arraysEnd = _variablesEnd;
-		return;
+		goto finalize;
 	}
 	// Iterate over
 	for (cur = current(); cur != NULL; getString(), cur = current()) {
 		if ((_current == _last) && ((cur->number < num))) { // Last string
 			// add new string
 			uint16_t size = max(_variablesEnd, _arraysEnd);
-			uint16_t dist = size - variablesStart();
+			uint16_t dist = 0;
+			if (size > variablesStart())
+				dist = size - variablesStart();
 			memmove(_text + variablesStart() + strLen,
 			    _text + variablesStart(), dist);
 			_current = _last + cur->size;
 			insert(num, text);
 			_last = _current;
-			_variablesEnd += strLen;
-			_arraysEnd += strLen;
-			return;
+			goto finalize;
 		} else { // Not last string
 			if (cur->number == num) { // Replace string
 				uint16_t newSize = strLen;
@@ -733,24 +825,31 @@ Interpreter::Program::addString(uint16_t num, const char *text)
 				    bytes2copy);
 				if (_current != _last)
 					_last += dist;
-				_variablesEnd += dist;
-				_arraysEnd += dist;
 				insert(num, text);
-				return;
+				goto finalize;
 			} else if (cur->number > num) { // Insert before
 				_current = stringIndex(cur);
 				uint16_t dist = strLen;
 				uint16_t size = max(_variablesEnd, _arraysEnd);
+				size = max(variablesStart(), size);
 				uint16_t bytes2copy = size - _current;
 				memmove(_text + _current + dist,
 				    _text + _current, bytes2copy);
-				_last += dist, _variablesEnd += dist;
-				_arraysEnd += dist;
+				_last += dist;
 				insert(num, text);
+				goto finalize;
 				return;
 			}
 		}
 	}
+
+finalize:
+	if (_variablesEnd > 0)
+		_variablesEnd += strLen;
+	if (_arraysEnd > 0)
+		_arraysEnd += strLen;
+	if (_arraysEnd < _variablesEnd)
+		_arraysEnd = _variablesEnd;
 }
 
 bool
@@ -786,7 +885,7 @@ Interpreter::ArrayFrame::size() const
 	uint16_t mul = 1;
 	
 	for (uint8_t i=0; i<numDimensions; ++i)
-		mul *= dimension[i];
+		mul *= dimension[i]+1;
 	
 	switch (type) {
 	case INTEGER:

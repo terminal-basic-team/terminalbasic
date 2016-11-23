@@ -78,6 +78,7 @@ private:
 	bool fVarList();
 	bool fArrayList();
 	bool fArray();
+	bool fDimensions(uint8_t&);
 
 	ErrorCodes _error;
 	Lexer &_lexer;
