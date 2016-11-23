@@ -148,7 +148,9 @@ public:
 		return _pointer;
 	}
 	
+#if ARDUINO_LOG
 	static PGM_P const tokenStrings[NUM_TOKENS];
+#endif
 
 private:
 

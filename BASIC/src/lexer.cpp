@@ -70,6 +70,7 @@
 namespace BASIC
 {
 
+#if ARDINO_LOG
 const char sNOTOKENS[] PROGMEM = "NOTOKENS";
 
 const char sDUMP[] PROGMEM = "DUMP";
@@ -128,7 +129,6 @@ PGM_P const Lexer::tokenStrings[NUM_TOKENS] PROGMEM = {
 	sPOW,
 };
 
-#if ARDUINO_LOG
 Logger&
 operator<<(Logger &logger, Token tok)
 {

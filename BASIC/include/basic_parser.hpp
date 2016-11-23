@@ -77,7 +77,7 @@ private:
 	bool fVar(char*);
 	bool fVarList();
 	bool fArrayList();
-	bool fArray();
+	bool fArray(uint8_t&);
 	bool fDimensions(uint8_t&);
 
 	ErrorCodes _error;

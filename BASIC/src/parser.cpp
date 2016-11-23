@@ -201,34 +201,28 @@ Parser::fImplicitAssignment(char *varName)
 {
 	LOG_TRACE;
 
-	if (!fVar(varName) || !_lexer.getNext())
-		return false;
-	
-	uint8_t dimensions;
-	Value v;
-	if (_lexer.getToken() == LPAREN && fDimensions(dimensions)
-	    && _lexer.getToken() == RPAREN) {
-		_lexer.getNext();
-		if ((_lexer.getToken() == EQUALS) &&
-		    _lexer.getNext() && fExpression(v)) {
-			if (_mode == EXECUTE) {
-				_interpreter.setArrayElement(varName, v);
-				return true;
-			} else {
-				_error = EXPRESSION_EXPECTED;
+	if (fVar(varName) && _lexer.getNext()) {
+		uint8_t dimensions;
+		Value v;
+		bool array;
+		if (_lexer.getToken() == LPAREN) {
+			if (fArray(dimensions))
+				array = true;
+			else
 				return false;
-			}
-		}
-	} else {
-		if ((_lexer.getToken() == EQUALS) &&
-		    _lexer.getNext() && fExpression(v)) {
+		} else
+			array = false;
+		if ((_lexer.getToken() == EQUALS) && _lexer.getNext() &&
+			fExpression(v)) {
 			if (_mode == EXECUTE) {
-				_interpreter.setVariable(varName, v);
-				return true;
-			} else {
-				_error = EXPRESSION_EXPECTED;
-				return false;
+				if (array)
+					_interpreter.setArrayElement(varName, v);
+				else
+					_interpreter.setVariable(varName, v);
 			}
+			return true;
+		} else {
+			_error = EXPRESSION_EXPECTED;
 		}
 	}
 	return false;
@@ -456,21 +450,19 @@ Parser::fFinal(Value &v)
 		{
 			char varName[VARSIZE];
 			if (fVar(varName)) {
-				if (_lexer.getNext() && _lexer.getToken() == LPAREN) {
-					uint8_t dimensions;
-					if (fDimensions(dimensions) &&
-					    _lexer.getToken() == RPAREN) {
+				if (_lexer.getNext() && _lexer.getToken()==
+				    LPAREN) {
+					uint8_t dim;
+					if (fArray(dim)) {
 						if (_mode == EXECUTE)
 							_interpreter.valueFromArray(v,
 							    varName);
-						_lexer.getNext();
 					} else
 						return false;
-				} else {
+				} else
 					if (_mode == EXECUTE)
 						_interpreter.valueFromFrame(v,
 						    _interpreter.getVariable(varName));
-				}
 				return true;
 			}
 		}
@@ -611,28 +603,25 @@ bool
 Parser::fArrayList()
 {
 	Token t;
+	char arrName[VARSIZE];
+	uint8_t dimensions;
 	do {
-		if (!_lexer.getNext() || !fArray())
+		if (!_lexer.getNext() || !fVar(arrName) ||
+		    !_lexer.getNext() || !fArray(dimensions))
 			return false;
+		_interpreter.pushDimensions(dimensions);
+		_interpreter.newArray(arrName);
 		t = _lexer.getToken();
 	} while (t == COMMA);
 	return true;
 }
 
 bool
-Parser::fArray()
+Parser::fArray(uint8_t &dimensions)
 {
-	char arrName[VARSIZE];
-	if (!fVar(arrName))
-		return false;
-	
-	uint8_t dimensions;
-	if (!_lexer.getNext() || _lexer.getToken() != LPAREN ||
+	if (_lexer.getToken() != LPAREN ||
 	    !fDimensions(dimensions) || _lexer.getToken() != RPAREN)
 		return false;
-	
-	_interpreter.pushDimensions(dimensions);
-	_interpreter.newArray(arrName);
 
 	_lexer.getNext();
 	return true;

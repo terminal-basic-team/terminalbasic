@@ -823,6 +823,7 @@ Interpreter::Program::addLine(uint16_t num, const char *text)
 				uint16_t curSize = cur->size;
 				int16_t dist = int16_t(newSize) - curSize;
 				uint16_t size = max(_variablesEnd, _arraysEnd);
+				size = max(variablesStart(), size);
 				uint16_t bytes2copy = size -
 				    (_current + curSize);
 				memmove(_text + _current + newSize,

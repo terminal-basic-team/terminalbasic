@@ -190,7 +190,7 @@
               </makeArtifact>
             </linkerLibProjectItem>
           </linkerLibItems>
-          <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega328p</commandLine>
+          <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega328p -Wl,-Map,${CND_DISTDIR}/${CND_CONF}/basic.map</commandLine>
         </linkerTool>
       </compileType>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
