@@ -231,6 +231,7 @@ Parser::fImplicitAssignment(char *varName)
 			}
 		}
 	}
+	return false;
 }
 
 bool
@@ -437,10 +438,8 @@ Parser::fFinal(Value &v)
 			return true;
 		case C_STRING:
 			if (_mode == EXECUTE) {
-				uint16_t fri = _interpreter.pushString(
-				    _lexer.id());
+				_interpreter.pushString(_lexer.id());
 				v.type = Value::Type::STRING;
-				v.value.stringFrame = fri;
 			}
 			_lexer.getNext();
 			return true;
@@ -642,7 +641,6 @@ Parser::fArray()
 bool
 Parser::fDimensions(uint8_t &dimensions)
 {
-	Token t;
 	Parser::Value v;
 	dimensions = 0;
 	do {

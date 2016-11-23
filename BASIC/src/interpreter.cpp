@@ -170,7 +170,7 @@ nextinput:
 		_lexer.init(buf);
 		if (_lexer.getNext() && (_lexer.getToken() == C_INTEGER) &&
 		    (_lexer.getValue().type == Parser::Value::INTEGER)) {
-			_program.addString(_lexer.getValue().value.integer,
+			_program.addLine(_lexer.getValue().value.integer,
 			    buf + _lexer.getPointer());
 			goto nextinput;
 		} else if (!_parser.parse(buf))
@@ -411,9 +411,11 @@ Interpreter::input(const char *varName)
 		case C_STRING:
 		{
 			v = l.getValue();
-			uint16_t fri = pushString(l.id());
+			pushString(l.id());
 		}
 			break;
+		default:
+			raiseError(DYNAMIC_ERROR, INVALID_VALUE_TYPE);
 		}
 	}
 	setVariable(varName, v);
@@ -455,7 +457,7 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 		_U.b = f.bytes;
 		*_U.i = Integer(v);
 	}
-	break;
+		break;
 	case REAL:
 	{
 		union
@@ -466,7 +468,7 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 		_U.b = f.bytes;
 		*_U.r = Real(v);
 	}
-	break;
+		break;
 	case STRING:
 	{
 		Program::StackFrame *fr =
@@ -477,8 +479,10 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 		}
 		strcpy(f.bytes, fr->body.string);
 		_program.pop();
-		break;
 	}
+		break;
+	default:
+		raiseError(DYNAMIC_ERROR, INVALID_VALUE_TYPE);
 	}
 }
 
@@ -496,7 +500,7 @@ Interpreter::set(ArrayFrame &f, uint16_t index, const Parser::Value &v)
 		_U.b = f.data();
 		_U.i[index] = Integer(v);
 	}
-	break;
+		break;
 	case REAL:
 	{
 		union
@@ -507,7 +511,9 @@ Interpreter::set(ArrayFrame &f, uint16_t index, const Parser::Value &v)
 		_U.b = f.data();
 		_U.r[index] = Real(v);
 	}
-	break;
+		break;
+	default:
+		raiseError(DYNAMIC_ERROR, INVALID_VALUE_TYPE);
 	};
 }
 
@@ -740,16 +746,15 @@ Interpreter::getVariable(const char *name)
 	return *f;
 }
 
-uint16_t
+void
 Interpreter::pushString(const char *str)
 {
 	Program::StackFrame *f = _program.push(Program::StackFrame::STRING);
 	if (f == NULL) {
 		raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
-		return 0;
+		return;
 	}
 	strcpy(f->body.string, str);
-	return (_program._sp);
 }
 
 uint16_t
@@ -765,21 +770,20 @@ Interpreter::pushDimension(uint16_t dim)
 	return (_program._sp);
 }
 
-uint16_t
+void
 Interpreter::pushDimensions(uint8_t dim)
 {
 	Program::StackFrame *f =
 	    _program.push(Program::StackFrame::ARRAY_DIMENSIONS);
 	if (f == NULL) {
 		raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
-		return 0;
+		return;
 	}
 	f->body.arrayDimensions = dim;
-	return (_program._sp);
 }
 
 void
-Interpreter::Program::addString(uint16_t num, const char *text)
+Interpreter::Program::addLine(uint16_t num, const char *text)
 {
 	reset();
 	

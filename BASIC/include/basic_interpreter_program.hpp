@@ -141,11 +141,11 @@ public:
 	StackFrame *push(StackFrame::Type);
 	void pop();
 	/**
-	 * @brief Add new Program string
+	 * @brief Add new Program line
 	 * @param number
 	 * @param text
 	 */
-	void addString(uint16_t, const char*);
+	void addLine(uint16_t, const char*);
 	bool insert(int, const char*);
 	char _text[PROGSIZE];
 private:

@@ -197,7 +197,7 @@ public:
 	/**
 	 * @brief push string constant on the stack
 	 */
-	uint16_t pushString(const char*);
+	void pushString(const char*);
 	/**
 	 * @brief push the next array dimesion on the stack
 	 * @param 
@@ -206,10 +206,9 @@ public:
 	uint16_t pushDimension(uint16_t);
 	/**
 	 * @brief push the number of array dimesions on the stack
-	 * @param 
-	 * @return 
+	 * @param num number of dimensions
 	 */
-	uint16_t pushDimensions(uint8_t);
+	void pushDimensions(uint8_t);
 
 	Program &_program;
 private:

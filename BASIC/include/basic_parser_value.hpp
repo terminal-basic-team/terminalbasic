@@ -44,7 +44,6 @@ public:
 		Integer integer;
 		float real;
 		bool boolean;
-		uint16_t stringFrame;
 	};
 
 	Value();
