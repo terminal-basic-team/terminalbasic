@@ -110,7 +110,7 @@ Interpreter::Program::addArray(const char *name, uint8_t dim,
 	if (index == 0)
 		index = 1;
 	if (_arraysEnd == 0)
-		_arraysEnd = 1;
+		_arraysEnd = index;
 
 	ArrayFrame *f = NULL;
 	for (f = arrayByIndex(index); (f != NULL) && (index <
@@ -172,10 +172,11 @@ Interpreter::Program::variablesStart() const
 uint16_t
 Interpreter::Program::arraysStart() const
 {
-	if (_variablesEnd == 0)
+	uint16_t result = max(_variablesEnd, variablesStart());
+	if (result == 0)
 		return 0;
 	else
-		return _variablesEnd;
+		return result;
 }
 
 Interpreter::ArrayFrame*

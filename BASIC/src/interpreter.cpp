@@ -241,7 +241,8 @@ Interpreter::dump(DumpMode mode)
 		break;
 	case ARRAYS:
 	{
-		uint16_t index = _program._variablesEnd;
+		uint16_t index = max(_program._variablesEnd,
+		    _program.variablesStart());
 		if (index == 0)
 		    index = 1;
 		for (ArrayFrame *f = _program.arrayByIndex(index);
