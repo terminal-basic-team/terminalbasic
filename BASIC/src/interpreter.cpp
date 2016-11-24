@@ -83,20 +83,24 @@ PGM_P const Interpreter::_errorStrings[NUM_STRINGS] PROGMEM = {
 #define ESTRING(en) (_errorStrings[en])
 
 void
-Interpreter::valueFromFrame(Parser::Value &v, const Interpreter::VariableFrame &f)
+Interpreter::valueFromVar(Parser::Value &v, const char *varName)
 {
-	switch (f.type) {
+	const Interpreter::VariableFrame *f = getVariable(varName);
+	if (f == NULL)
+		return;
+	
+	switch (f->type) {
 	case INTEGER:
 		v.type = Parser::Value::INTEGER;
-		v.value.integer = f.get<Integer>();
+		v.value.integer = f->get<Integer>();
 		break;
 	case REAL:
 		v.type = Parser::Value::REAL;
-		v.value.real = f.get<Real>();
+		v.value.real = f->get<Real>();
 		break;
 	case BOOLEAN:
 		v.type = Parser::Value::BOOLEAN;
-		v.value.boolean = f.get<bool>();
+		v.value.boolean = f->get<bool>();
 		break;
 	case STRING:
 	{
@@ -107,7 +111,7 @@ Interpreter::valueFromFrame(Parser::Value &v, const Interpreter::VariableFrame &
 			raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
 			return;
 		}
-		strcpy(fr->body.string, f.bytes);
+		strcpy(fr->body.string, f->bytes);
 		break;
 	}
 	}
@@ -175,8 +179,11 @@ nextinput:
 		_lexer.init(buf);
 		if (_lexer.getNext() && (_lexer.getToken() == C_INTEGER) &&
 		    (_lexer.getValue().type == Parser::Value::INTEGER)) {
-			_program.addLine(_lexer.getValue().value.integer,
-			    buf + _lexer.getPointer());
+			if (!_program.addLine(_lexer.getValue().value.integer,
+			    buf + _lexer.getPointer())) {
+				raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
+				break;
+			}
 			goto nextinput;
 		} else if (!_parser.parse(buf))
 			raiseError(STATIC_ERROR);
@@ -221,6 +228,8 @@ Interpreter::dump(DumpMode mode)
 		_stream.println(unsigned(_program._variablesEnd), HEX);
 		_stream.print("Arrays end:\t");
 		_stream.println(unsigned(_program._arraysEnd), HEX);
+		_stream.print("Stack pointer:\t");
+		_stream.println(unsigned(_program._sp), HEX);
 	}
 		break;
 	case VARS:
@@ -233,7 +242,7 @@ Interpreter::dump(DumpMode mode)
 			_stream.print(f->name);
 			_stream.print(":\t");
 			Parser::Value v;
-			valueFromFrame(v, *f);
+			valueFromVar(v, f->name);
 			print(v);
 			_stream.println();
 		}
@@ -361,8 +370,7 @@ Interpreter::pushForLoop(const char *varName, const Parser::Value &v,
 		f->body.forFrame.finalv = v;
 		f->body.forFrame.step = vStep;
 
-		VariableFrame *vf = _program.variableByName(varName);
-		valueFromFrame(f->body.forFrame.current, *vf);
+		valueFromVar(f->body.forFrame.current, varName);
 		strcpy(f->body.forFrame.varName, varName);
 		setVariable(varName, f->body.forFrame.current);
 	}
@@ -616,9 +624,12 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 		t = REAL;
 		dist += sizeof (Real);
 	}
-	uint16_t len = _program._arraysEnd - index;
+	if (_program._arraysEnd >= _program._sp) {
+		raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
+		return NULL;
+	}
 	memmove(_program._text + index + dist, _program._text + index,
-	    len);
+	    _program._arraysEnd - index);
 	f->type = t;
 	strcpy(f->name, name);
 	_program._variablesEnd += f->size();
@@ -661,10 +672,12 @@ Interpreter::newArray(const char *name)
 			    Program::StackFrame::ARRAY_DIMENSION) {
 				size *= f->body.arrayDimension+1;
 				sp += f->size(Program::StackFrame::ARRAY_DIMENSION);
-			} else
-				goto error;
+			} else {
+				raiseError(DYNAMIC_ERROR, INTERNAL_ERROR);
+				return;
+			}
 		}
-		ArrayFrame *array = _program.addArray(name, dimensions, size);
+		ArrayFrame *array = addArray(name, dimensions, size);
 		if (array != NULL) { // go on stack frames, containong dimesions once more
 				     // now popping
 			for (uint8_t dim = dimensions; dim-->0;) {
@@ -673,23 +686,20 @@ Interpreter::newArray(const char *name)
 				_program.pop();
 			}
 		} else
-			goto error;
+			return;
 	};
 	return;
-error:	
-	raiseError(DYNAMIC_ERROR, ARRAY_DECLARATION);
 }
 
-const Interpreter::VariableFrame&
+const Interpreter::VariableFrame*
 Interpreter::getVariable(const char *name)
 {
 	const VariableFrame *f = _program.variableByName(name);
 	if (f == NULL) {
 		Parser::Value v(Integer(0));
 		f = setVariable(name, v);
-		assert(f != 0);
 	}
-	return *f;
+	return f;
 }
 
 void
@@ -756,6 +766,49 @@ Interpreter::ArrayFrame::size() const
 	result += mul;
 	
 	return result;
+}
+
+Interpreter::ArrayFrame*
+Interpreter::addArray(const char *name, uint8_t dim,
+    uint32_t num)
+{
+	uint16_t index = _program._variablesEnd;
+	ArrayFrame *f;
+	for (f = _program.arrayByIndex(index); f != NULL; index += f->size(),
+	    f = _program.arrayByIndex(index)) {
+		int res = strcmp(name, f->name);
+		if (res == 0) {
+			raiseError(DYNAMIC_ERROR, REDIMED_ARRAY);
+			return NULL;
+		} else if (res < 0)
+			break;
+	}
+
+	if (f == NULL)
+		f = reinterpret_cast<ArrayFrame*>(_program._text+index);
+	
+	Type t;
+	if (endsWith(name, '%')) {
+		t = INTEGER;
+		num *= sizeof (Integer);
+	} else { // real
+		t = REAL;
+		num *= sizeof (Real);
+	}
+	uint16_t dist = sizeof (ArrayFrame) + sizeof (uint16_t)*dim + num;
+	if (_program._arraysEnd + dist >= _program._sp) {
+		raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
+		return NULL;
+	}
+	memmove(_program._text + index + dist, _program._text + index,
+	    _program._arraysEnd - index);
+	f->type = t;
+	f->numDimensions = dim;
+	strcpy(f->name, name);
+	memset(f->data(), 0, num);
+	_program._arraysEnd += dist;
+
+	return (f);
 }
 
 }

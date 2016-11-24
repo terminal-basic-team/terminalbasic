@@ -57,7 +57,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=../arduinoext/dist/Debug/GNU-Linux/libarduinoext.a ../libarduinoemulator/dist/Debug/GNU-Linux/liblibarduinoemulator.a -Wl,-rpath,'../../posixcpp/posixcpp/../lib/Debug_dynamic' -L../../posixcpp/posixcpp/../lib/Debug_dynamic -lposixcpp
+LDLIBSOPTIONS=../arduinoext/dist/Debug/GNU-Linux/libarduinoext.a ../libarduinoemulator/dist/Debug/GNU-Linux/liblibarduinoemulator.a ../../posixcpp/posixcpp/dist/Debug_static/GNU-Linux/libposixcpp.a
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -67,7 +67,7 @@ ${CND_DISTDIR}/${CND_CONF}/basic: ../arduinoext/dist/Debug/GNU-Linux/libarduinoe
 
 ${CND_DISTDIR}/${CND_CONF}/basic: ../libarduinoemulator/dist/Debug/GNU-Linux/liblibarduinoemulator.a
 
-${CND_DISTDIR}/${CND_CONF}/basic: ../../posixcpp/posixcpp/../lib/Debug_dynamic/libposixcpp.so
+${CND_DISTDIR}/${CND_CONF}/basic: ../../posixcpp/posixcpp/dist/Debug_static/GNU-Linux/libposixcpp.a
 
 ${CND_DISTDIR}/${CND_CONF}/basic: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}
@@ -107,19 +107,17 @@ ${OBJECTDIR}/src/ucbasic_main.o: src/ucbasic_main.cpp nbproject/Makefile-${CND_C
 .build-subprojects:
 	cd ../arduinoext && ${MAKE}  -f Makefile CONF=Debug
 	cd ../libarduinoemulator && ${MAKE}  -f Makefile CONF=Debug
-	cd ../../posixcpp/posixcpp && ${MAKE}  -f Makefile CONF=Debug_dynamic
+	cd ../../posixcpp/posixcpp && ${MAKE}  -f Makefile CONF=Debug_static
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} -r ${CND_DISTDIR}/${CND_CONF}/libposixcpp.so
-	${RM} ${CND_DISTDIR}/${CND_CONF}/basic
 
 # Subprojects
 .clean-subprojects:
 	cd ../arduinoext && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../libarduinoemulator && ${MAKE}  -f Makefile CONF=Debug clean
-	cd ../../posixcpp/posixcpp && ${MAKE}  -f Makefile CONF=Debug_dynamic clean
+	cd ../../posixcpp/posixcpp && ${MAKE}  -f Makefile CONF=Debug_static clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

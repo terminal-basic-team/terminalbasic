@@ -90,14 +90,14 @@
             </linkerLibProjectItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../../posixcpp/posixcpp"
-                            CT="2"
-                            CN="Debug_dynamic"
-                            AC="true"
+                            CT="3"
+                            CN="Debug_static"
+                            AC="false"
                             BL="true"
                             WD="../../posixcpp/posixcpp"
-                            BC="${MAKE}  -f Makefile CONF=Debug_dynamic"
-                            CC="${MAKE}  -f Makefile CONF=Debug_dynamic clean"
-                            OP="../lib/${CND_CONF}/libposixcpp.${CND_DLIB_EXT}">
+                            BC="${MAKE}  -f Makefile CONF=Debug_static"
+                            CC="${MAKE}  -f Makefile CONF=Debug_static clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libposixcpp.a">
               </makeArtifact>
             </linkerLibProjectItem>
           </linkerLibItems>

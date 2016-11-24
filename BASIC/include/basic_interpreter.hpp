@@ -37,7 +37,9 @@ public:
 	 * @brief BASIC program memory
 	 */
 	class Program;
-	
+	/**
+	 * Variable type
+	 */
 	enum Type : uint8_t
 	{
 		INTEGER = 0,
@@ -45,10 +47,13 @@ public:
 		BOOLEAN,
 		STRING
 	};
-	
+	/**
+	 * Dynamic (runtime error codes)
+	 */
 	enum ErrorCodes : uint8_t
 	{
 		NO_ERROR = 0,
+		OUTTA_MEMORY,
 		REDIMED_ARRAY,
 		STACK_FRAME_ALLOCATION,
 		ARRAY_DECLARATION,
@@ -57,7 +62,8 @@ public:
 		RETURN_WO_GOSUB,
 		NO_SUCH_STRING,
 		INVALID_VALUE_TYPE,
-		NO_SUCH_ARRAY
+		NO_SUCH_ARRAY,
+		INTERNAL_ERROR = 255
 	};
 	
 	enum ErrorType : uint8_t
@@ -191,10 +197,9 @@ public:
 	void setArrayElement(const char*, const Parser::Value&);
 	
 	void newArray(const char*);
-	const VariableFrame &getVariable(const char*);
+	const VariableFrame *getVariable(const char*);
 	
-	void valueFromFrame(Parser::Value &v,
-	    const Interpreter::VariableFrame &f);
+	void valueFromVar(Parser::Value&, const char*);
 	
 	void valueFromArray(Parser::Value&, const char*);
 	
@@ -227,6 +232,14 @@ private:
 	
 	void print(const char *, TextAttr=NO_ATTR);
 	void raiseError(ErrorType, uint8_t=0);
+	/**
+	 * @brief Add new array frame
+	 * @param name name of the array (also defines type of the elements)
+	 * @param dim number of dimensions
+	 * @param num overall elements number
+	 * @return 
+	 */
+	ArrayFrame *addArray(const char*, uint8_t, uint32_t);
 	
 	bool arrayElementIndex(ArrayFrame*, uint16_t&);
 	

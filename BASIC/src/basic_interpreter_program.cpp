@@ -167,43 +167,6 @@ Interpreter::Program::pop()
 		_sp += StackFrame::size(f->_type);
 }
 
-Interpreter::ArrayFrame*
-Interpreter::Program::addArray(const char *name, uint8_t dim,
-    uint32_t num)
-{
-	uint16_t index = _variablesEnd;
-	ArrayFrame *f;
-	for (f = arrayByIndex(index); f != NULL; index += f->size(),
-	    f = arrayByIndex(index)) {
-		int res = strcmp(name, f->name);
-		if (res == 0)
-			return NULL;
-		else if (res < 0)
-			break;
-	}
-
-	if (f == NULL)
-		f = reinterpret_cast<ArrayFrame*>(_text+index);
-	
-	Type t;
-	if (endsWith(name, '%')) {
-		t = INTEGER;
-		num *= sizeof (Integer);
-	} else { // real
-		t = REAL;
-		num *= sizeof (Real);
-	}
-	uint16_t dist = sizeof (ArrayFrame) + sizeof (uint16_t)*dim + num;
-	memmove(_text + index + dist, _text + index, _arraysEnd - index);
-	f->type = t;
-	f->numDimensions = dim;
-	strcpy(f->name, name);
-	memset(f->data(), 0, num);
-	_arraysEnd += dist;
-
-	return (f);
-}
-
 Interpreter::Program::StackFrame*
 Interpreter::Program::stackFrameByIndex(uint16_t index)
 {
@@ -250,17 +213,16 @@ Interpreter::Program::arrayByIndex(uint16_t index)
 	return (reinterpret_cast<ArrayFrame*> (_text + index));
 }
 
-void
+bool
 Interpreter::Program::addLine(uint16_t num, const char *text)
 {
 	reset();
 
 	const uint16_t strLen = sizeof (String) + strlen(text) + 1;
 	
-	if (_textEnd == 0) { // First string insertion
-		insert(num, text);
-		return;
-	}
+	if (_textEnd == 0) // First string insertion
+		return insert(num, text);
+	
 	// Iterate over
 	String *cur;
 	for (cur = current(); _current<_textEnd; cur = current()) {
@@ -272,6 +234,8 @@ Interpreter::Program::addLine(uint16_t num, const char *text)
 			int16_t dist = int16_t(newSize) - curSize;
 			uint16_t bytes2copy = _arraysEnd -
 				    (_current + curSize);
+			if ((_arraysEnd+dist) >= _sp)
+				return false;
 			memmove(_text + _current + newSize,
 			    _text + _current + curSize, bytes2copy);
 			cur->number = num;
@@ -279,21 +243,23 @@ Interpreter::Program::addLine(uint16_t num, const char *text)
 			strcpy(cur->text, text);
 			_textEnd += dist, _variablesEnd += dist,
 			    _arraysEnd += dist;
-			return;
+			return true;
 		}
 		_current += cur->size;
 	}
-	insert(num, text);
-	return;
+	return insert(num, text);
 }
 
-void
+bool
 Interpreter::Program::insert(uint16_t num, const char *text)
 {
 	const uint8_t sl = strlen(text);
 	assert(sl < PROGSTRINGSIZE);
 	const uint16_t strLen = sizeof (String) + strlen(text) + 1;
 
+	if (_arraysEnd+strLen>=_sp)
+		return false;
+	
 	memmove(_text+_current+strLen, _text + _current,
 	    _arraysEnd-_current);
 
@@ -302,6 +268,7 @@ Interpreter::Program::insert(uint16_t num, const char *text)
 	cur->size = strLen;
 	strcpy(cur->text, text);
 	_textEnd+=strLen, _variablesEnd+=strLen, _arraysEnd+=strLen;
+	return true;
 }
 
 void Interpreter::Program::reset()

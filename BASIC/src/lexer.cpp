@@ -42,9 +42,11 @@
  * KW_PRINT = "PRINT"
  * KW_RETURN = "RETURN"
  * 
+ * KW_ARRAYS = "ARRAYS"
  * KW_THEN = "THEN"
  * KW_TO = "TO"
  * KW_STEP = "STEP"
+ * KW_VARS = "VARS"
  * 
  * OP_AND = "AND"
  * OP_OR = "OR"

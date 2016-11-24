@@ -118,14 +118,6 @@ public:
 	ArrayFrame *arrayByIndex(uint16_t);
 	ArrayFrame *arrayByName(const char*);
 	uint16_t arrayIndex(ArrayFrame*) const;
-	/**
-	 * @brief Add new array frame
-	 * @param name name of the array (also defines type of the elements)
-	 * @param dim number of dimensions
-	 * @param num overall elements number
-	 * @return 
-	 */
-	ArrayFrame *addArray(const char*, uint8_t, uint32_t);
 
 	StackFrame *stackFrameByIndex(uint16_t index);
 	StackFrame *currentStackFrame();
@@ -141,13 +133,13 @@ public:
 	 * @param number decimal line number
 	 * @param text
 	 */
-	void addLine(uint16_t, const char*);
+	bool addLine(uint16_t, const char*);
 	/**
 	 * @brief Insert line at current position
-	 * @param 
-	 * @param 
+	 * @param num line number
+	 * @param text line text
 	 */
-	void insert(uint16_t, const char*);
+	bool insert(uint16_t, const char*);
 	char _text[PROGSIZE];
 private:
 	uint16_t _textEnd, _current, _variablesEnd, _arraysEnd, _sp, _jump;
