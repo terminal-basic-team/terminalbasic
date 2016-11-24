@@ -25,8 +25,10 @@
 /*
  * COM_DUMP = "DUMP"
  * COM_LIST = "LIST"
+ * COM_LOAD = "LOAD"
  * COM_NEW = "NEW"
  * COM_RUN = "RUN"
+ * COM_SAVE = "SAVE"
  * 
  * KW_DIM = "DIM"
  * KW_END = "END"
@@ -75,8 +77,10 @@ const char sNOTOKENS[] PROGMEM = "NOTOKENS";
 
 const char sDUMP[] PROGMEM = "DUMP";
 const char sLIST[] PROGMEM = "LIST";
+const char sLOAD[] PROGMEM = "LOAD";
 const char sNEW[] PROGMEM = "NEW";
 const char sRUN[] PROGMEM = "RUN";
+const char sSAVE[] PROGMEM = "SAVE";
 
 const char sDIM[] PROGMEM = "DIM";
 const char sEND[] PROGMEM = "END";
@@ -110,7 +114,7 @@ const char sPOW[] PROGMEM = "^";
 PGM_P const Lexer::tokenStrings[NUM_TOKENS] PROGMEM = {
 	sNOTOKENS,
 	
-	sDUMP,	sLIST,	sNEW,	sRUN,
+	sDUMP,	sLIST, sLOAD,	sNEW,	sRUN,	sSAVE,
 	
 	sDIM,	sEND,	sFOR,	sGOSUB,	sGOTO,	sIF,	sINPUT,	sLET,	sNEXT,
 	sPRINT,	sRETURN,sTHEN,	sTO,	sSTEP,
@@ -518,6 +522,21 @@ void Lexer::first_L()
 			_token = KW_LET;
 			return;
 		}
+		break;
+	case 'O':
+		pushSYM();
+		switch (SYM) {
+		case 'A':
+			pushSYM();
+			switch (SYM) {
+			case 'D':
+				next();
+				_token = COM_LOAD;
+				return;
+			}
+			break;
+		}
+		break;
 	}
 	ident();
 }
@@ -637,6 +656,20 @@ void Lexer::first_S()
 
 	next();
 	switch (SYM) {
+	case 'A':
+		pushSYM();
+		switch (SYM) {
+		case 'V':
+			pushSYM();
+			switch (SYM) {
+			case 'E':
+				next();
+				_token = COM_SAVE;
+				return;
+			}
+			break;
+		}
+		break;
 	case 'T':
 		pushSYM();
 		switch (SYM) {

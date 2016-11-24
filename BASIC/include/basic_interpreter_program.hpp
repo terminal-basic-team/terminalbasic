@@ -87,7 +87,6 @@ public:
 	String *last() const;
 	
 	void jump(uint16_t newVal) { _jump = newVal; }
-
 	/**
 	 * @brief program string at given index
 	 * @param index
@@ -107,12 +106,9 @@ public:
 	 * @return index
 	 */
 	uint16_t stringIndex(const String*) const;
-
-	uint16_t variablesStart() const;
-	uint16_t arraysStart() const;
 	/**
 	 * @brief get variable frame at a given index
-	 * @param index
+	 * @param index basic memory address
 	 * @return pointer
 	 */
 	VariableFrame *variableByIndex(uint16_t);
@@ -142,14 +138,19 @@ public:
 	void pop();
 	/**
 	 * @brief Add new Program line
-	 * @param number
+	 * @param number decimal line number
 	 * @param text
 	 */
 	void addLine(uint16_t, const char*);
-	bool insert(int, const char*);
+	/**
+	 * @brief Insert line at current position
+	 * @param 
+	 * @param 
+	 */
+	void insert(uint16_t, const char*);
 	char _text[PROGSIZE];
 private:
-	uint16_t _first, _last, _current, _variablesEnd, _arraysEnd, _sp, _jump;
+	uint16_t _textEnd, _current, _variablesEnd, _arraysEnd, _sp, _jump;
 };
 
 }

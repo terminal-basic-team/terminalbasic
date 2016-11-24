@@ -3,6 +3,7 @@
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="include" displayName="include" projectFiles="true">
       <itemPath>include/Arduino.h</itemPath>
+      <itemPath>include/EEPROM.h</itemPath>
       <itemPath>include/Print.h</itemPath>
       <itemPath>include/Printable.h</itemPath>
       <itemPath>include/Stream.h</itemPath>
@@ -28,6 +29,7 @@
   <sourceRootList>
     <Elem>include</Elem>
     <Elem>src</Elem>
+    <Elem>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/src</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -50,6 +52,8 @@
         </archiverTool>
       </compileType>
       <item path="include/Arduino.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EEPROM.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/Print.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -89,6 +93,8 @@
         </archiverTool>
       </compileType>
       <item path="include/Arduino.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EEPROM.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/Print.cpp" ex="false" tool="1" flavor2="0">
       </item>

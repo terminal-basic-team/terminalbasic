@@ -163,6 +163,10 @@ public:
 	    const Parser::Value&);
 	// iterate for loop
 	void next(const char*);
+	
+	void save();
+	
+	void load();
 	/**
 	 * @breif Input variable
 	 * @param variable name

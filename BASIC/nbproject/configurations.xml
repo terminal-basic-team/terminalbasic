@@ -149,6 +149,7 @@
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/SoftwareSerial/src</pElem>
             <pElem>include</pElem>
             <pElem>../arduinoext/include</pElem>
+            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/src</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>
@@ -159,6 +160,7 @@
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_NANO</Elem>
             <Elem>F_CPU=16000000L</Elem>
+            <Elem>NDEBUG</Elem>
           </preprocessorList>
           <warningLevel>2</warningLevel>
         </ccTool>
@@ -329,6 +331,7 @@
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/SoftwareSerial/src</pElem>
             <pElem>include</pElem>
             <pElem>../arduinoext/include</pElem>
+            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/src</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>

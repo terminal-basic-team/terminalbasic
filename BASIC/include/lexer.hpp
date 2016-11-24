@@ -47,8 +47,10 @@ enum Token : uint8_t
 	// Commands
 	COM_DUMP,
 	COM_LIST,
+	COM_LOAD,
 	COM_NEW,
 	COM_RUN,
+	COM_SAVE,
 	
 	// Statements
 	KW_DIM,

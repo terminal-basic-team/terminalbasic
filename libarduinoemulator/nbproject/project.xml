@@ -12,6 +12,7 @@
             <sourceRootList>
                 <sourceRootElem>include</sourceRootElem>
                 <sourceRootElem>src</sourceRootElem>
+                <sourceRootElem>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/src</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>

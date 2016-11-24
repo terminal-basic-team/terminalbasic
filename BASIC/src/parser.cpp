@@ -534,6 +534,11 @@ Parser::fCommand()
 			_interpreter.list();
 		_lexer.getNext();
 		return true;
+	case COM_LOAD:
+		if (_mode == EXECUTE)
+			_interpreter.load();
+		_lexer.getNext();
+		return true;
 	case COM_NEW:
 		if (_mode == EXECUTE)
 			_interpreter.newProgram();
@@ -542,6 +547,11 @@ Parser::fCommand()
 	case COM_RUN:
 		if (_mode == EXECUTE)
 			_interpreter.run();
+		_lexer.getNext();
+		return true;
+	case COM_SAVE:
+		if (_mode == EXECUTE)
+			_interpreter.save();
 		_lexer.getNext();
 		return true;
 	default:

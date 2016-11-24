@@ -17,9 +17,75 @@
  */
 
 #include "basic_interpreter_program.hpp"
+#include <assert.h>
 
 namespace BASIC
 {
+
+Interpreter::Program::Program()
+{
+	newProg();
+}
+
+Interpreter::Program::String*
+Interpreter::Program::getString()
+{
+	if (_jump != 0) {
+		_current = _jump;
+		_jump = 0;
+		return current();
+	}
+	if (_current >= _textEnd)
+		return NULL;
+	else {
+		Program::String *result = current();
+		_current += result->size;
+		return result;
+	}
+}
+
+Interpreter::Program::String*
+Interpreter::Program::current() const
+{
+	return (stringByIndex(_current));
+}
+
+Interpreter::Program::String*
+Interpreter::Program::first() const
+{
+	return (stringByIndex(0));
+}
+
+Interpreter::Program::String*
+Interpreter::Program::last() const
+{
+	return (stringByIndex(_textEnd));
+}
+
+Interpreter::Program::String*
+Interpreter::Program::stringByIndex(uint16_t index) const
+{
+	return (const_cast<String*> (reinterpret_cast<const String*> (
+	    _text + index)));
+}
+
+Interpreter::Program::String*
+Interpreter::Program::stringByNumber(uint16_t number, size_t index)
+{
+	Program::String *result = NULL;
+
+	if (index <= _textEnd) {
+		_current = index;
+		for (String *cur = getString(); cur != NULL;
+		    cur = getString()) {
+			if (cur->number == number) {
+				result = cur;
+				break;
+			}
+		}
+	}
+	return (result);
+}
 
 uint8_t
 Interpreter::Program::StackFrame::size(Type t)
@@ -35,13 +101,15 @@ Interpreter::Program::StackFrame::size(Type t)
 		return sizeof (Type) + sizeof (uint16_t);
 	case ARRAY_DIMENSIONS:
 		return sizeof (Type) + sizeof (uint8_t);
+	default:
+		return 0;
 	}
 }
 
 void
 Interpreter::Program::newProg()
 {
-	_first = _last = _current = _variablesEnd = _arraysEnd = _jump = 0;
+	_textEnd = _current = _variablesEnd = _arraysEnd = _jump = 0;
 	_sp = PROGSIZE;
 	memset(_text, 0xFF, PROGSIZE);
 }
@@ -49,12 +117,9 @@ Interpreter::Program::newProg()
 Interpreter::VariableFrame*
 Interpreter::Program::variableByName(const char *name)
 {
-	uint16_t index = variablesStart();
-	if (index == 0)
-		index = 1;
+	uint16_t index = _textEnd;
 
-	for (VariableFrame *f = variableByIndex(index); (f != NULL) && (index <
-	    _variablesEnd);
+	for (VariableFrame *f = variableByIndex(index); f != NULL;
 	    f = variableByIndex(index)) {
 		int8_t res = strcmp(name, f->name);
 		if (res == 0) {
@@ -106,42 +171,36 @@ Interpreter::ArrayFrame*
 Interpreter::Program::addArray(const char *name, uint8_t dim,
     uint32_t num)
 {
-	uint16_t index = arraysStart();
-	if (index == 0)
-		index = 1;
-	if (_arraysEnd == 0)
-		_arraysEnd = index;
-
-	ArrayFrame *f = NULL;
-	for (f = arrayByIndex(index); (f != NULL) && (index <
-	    _arraysEnd);
+	uint16_t index = _variablesEnd;
+	ArrayFrame *f;
+	for (f = arrayByIndex(index); f != NULL; index += f->size(),
 	    f = arrayByIndex(index)) {
 		int res = strcmp(name, f->name);
 		if (res == 0)
 			return NULL;
-		else if (res < 0) {
+		else if (res < 0)
 			break;
-		}
-		index += f->size();
 	}
+
+	if (f == NULL)
+		f = reinterpret_cast<ArrayFrame*>(_text+index);
 	
-	if (f != NULL) {
-		Type t;
-		if (endsWith(name, '%')) {
-			t = INTEGER;
-			num *= sizeof (Integer);
-		} else { // real
-			t = REAL;
-			num *= sizeof (Real);
-		}
-		uint16_t dist = sizeof (ArrayFrame) + sizeof (uint16_t)*dim + num;
-		memmove(_text + index + dist, _text + index, _arraysEnd - index);
-		f->type = t;
-		f->numDimensions = dim;
-		strcpy(f->name, name);
-		memset(f->data(), 0, num);
-		_arraysEnd += dist;
+	Type t;
+	if (endsWith(name, '%')) {
+		t = INTEGER;
+		num *= sizeof (Integer);
+	} else { // real
+		t = REAL;
+		num *= sizeof (Real);
 	}
+	uint16_t dist = sizeof (ArrayFrame) + sizeof (uint16_t)*dim + num;
+	memmove(_text + index + dist, _text + index, _arraysEnd - index);
+	f->type = t;
+	f->numDimensions = dim;
+	strcpy(f->name, name);
+	memset(f->data(), 0, num);
+	_arraysEnd += dist;
+
 	return (f);
 }
 
@@ -160,34 +219,13 @@ Interpreter::Program::currentStackFrame()
 	return stackFrameByIndex(_sp);
 }
 
-uint16_t
-Interpreter::Program::variablesStart() const
-{
-	if (_last == 0)
-		return 0;
-	else
-		return _last + last()->size;
-}
-
-uint16_t
-Interpreter::Program::arraysStart() const
-{
-	uint16_t result = max(_variablesEnd, variablesStart());
-	if (result == 0)
-		return 0;
-	else
-		return result;
-}
-
 Interpreter::ArrayFrame*
 Interpreter::Program::arrayByName(const char *name)
 {
 	uint16_t index = _variablesEnd;
-	if (index == 0)
-		index = 1;
 
-	for (ArrayFrame *f = arrayByIndex(index); (f != NULL) && (index <
-	    _arraysEnd); index += f->size(), f = arrayByIndex(index)) {
+	for (ArrayFrame *f = arrayByIndex(index); f != NULL; index += f->size(),
+	    f = arrayByIndex(index)) {
 		int8_t res = strcmp(name, f->name);
 		if (res == 0) {
 			return f;
@@ -200,19 +238,75 @@ Interpreter::Program::arrayByName(const char *name)
 Interpreter::VariableFrame*
 Interpreter::Program::variableByIndex(uint16_t index)
 {
-	if (index != 0)
+	if (index < _variablesEnd)
 		return (reinterpret_cast<VariableFrame*> (_text + index));
 	else
-		return (NULL);
+		return NULL;
 }
 
 Interpreter::ArrayFrame*
 Interpreter::Program::arrayByIndex(uint16_t index)
 {
-	if (index != 0)
-		return (reinterpret_cast<ArrayFrame*> (_text + index));
-	else
-		return (NULL);
+	return (reinterpret_cast<ArrayFrame*> (_text + index));
+}
+
+void
+Interpreter::Program::addLine(uint16_t num, const char *text)
+{
+	reset();
+
+	const uint16_t strLen = sizeof (String) + strlen(text) + 1;
+	
+	if (_textEnd == 0) { // First string insertion
+		insert(num, text);
+		return;
+	}
+	// Iterate over
+	String *cur;
+	for (cur = current(); _current<_textEnd; cur = current()) {
+		if (num < cur->number) {
+			break;
+		} else if (num == cur->number) { // Replace string
+			uint16_t newSize = strLen;
+			uint16_t curSize = cur->size;
+			int16_t dist = int16_t(newSize) - curSize;
+			uint16_t bytes2copy = _arraysEnd -
+				    (_current + curSize);
+			memmove(_text + _current + newSize,
+			    _text + _current + curSize, bytes2copy);
+			cur->number = num;
+			cur->size = strLen;
+			strcpy(cur->text, text);
+			_textEnd += dist, _variablesEnd += dist,
+			    _arraysEnd += dist;
+			return;
+		}
+		_current += cur->size;
+	}
+	insert(num, text);
+	return;
+}
+
+void
+Interpreter::Program::insert(uint16_t num, const char *text)
+{
+	const uint8_t sl = strlen(text);
+	assert(sl < PROGSTRINGSIZE);
+	const uint16_t strLen = sizeof (String) + strlen(text) + 1;
+
+	memmove(_text+_current+strLen, _text + _current,
+	    _arraysEnd-_current);
+
+	String *cur = current();
+	cur->number = num;
+	cur->size = strLen;
+	strcpy(cur->text, text);
+	_textEnd+=strLen, _variablesEnd+=strLen, _arraysEnd+=strLen;
+}
+
+void Interpreter::Program::reset()
+{
+	_current = 0;
 }
 
 }

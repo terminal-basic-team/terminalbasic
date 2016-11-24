@@ -51,7 +51,6 @@
         <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/src/EEPROM.h</itemPath>
       </logicalFolder>
       <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/README.md</itemPath>
-      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/keywords.txt</itemPath>
       <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/library.properties</itemPath>
     </logicalFolder>
     <logicalFolder name="SoftwareSerial"
@@ -344,11 +343,6 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/keywords.txt"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/library.properties"
             ex="false"
             tool="3"
@@ -632,11 +626,6 @@
             flavor2="9">
       </item>
       <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/README.md"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/keywords.txt"
             ex="false"
             tool="3"
             flavor2="0">
@@ -925,11 +914,6 @@
             flavor2="0">
       </item>
       <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/README.md"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/keywords.txt"
             ex="false"
             tool="3"
             flavor2="0">
@@ -1223,11 +1207,6 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/keywords.txt"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/library.properties"
             ex="false"
             tool="3"
@@ -1511,11 +1490,6 @@
             flavor2="0">
       </item>
       <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/README.md"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/keywords.txt"
             ex="false"
             tool="3"
             flavor2="0">
