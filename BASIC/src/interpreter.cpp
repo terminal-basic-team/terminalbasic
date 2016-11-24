@@ -190,10 +190,11 @@ nextinput:
 		break;
 	}
 	case EXECUTE:
-		Program::String *s = _program.getString();
+		Program::String *s = _program.current();
 		if (s != NULL) {
 			if (!_parser.parse(s->text))
 				raiseError(STATIC_ERROR);
+			_program.getString();
 		} else
 			_state = SHELL;
 	}
@@ -386,13 +387,11 @@ Interpreter::next(const char *varName)
 		if (f->body.forFrame.step > Parser::Value(Integer(0))) {
 			if (f->body.forFrame.current >
 			    f->body.forFrame.finalv) {
-				_program._sp += Program::StackFrame::size(
-				    Program::StackFrame::FOR_NEXT);
+				_program.pop();
 				return;
 			}
 		} else if (f->body.forFrame.current < f->body.forFrame.finalv) {
-			_program._sp += Program::StackFrame::size(
-			    Program::StackFrame::FOR_NEXT);
+			_program.pop();
 			return;
 		}
 		_program.jump(f->body.forFrame.calleeIndex);
@@ -407,8 +406,11 @@ Interpreter::save()
 	EEPROMClass e;
 	e.update(0, (len<<8)>>8);
 	e.update(1, len>>8);
-	for (uint16_t p=0; p<_program._textEnd; ++p)
+	for (uint16_t p=0; p<_program._textEnd; ++p) {
 		e.update(p+2, _program._text[p]);
+		_stream.print('.');
+	}
+	_stream.println();
 }
 
 void Interpreter::load()
@@ -417,8 +419,11 @@ void Interpreter::load()
 	EEPROMClass e;
 	uint16_t len = uint16_t(e.read(0));
 	len |= uint16_t(e.read(1)) << 8;
-	for (uint16_t p=0; p<len; ++p)
+	for (uint16_t p=0; p<len; ++p) {
 		_program._text[p] = e.read(p+2);
+		_stream.print('.');
+	}
+	_stream.println();
 	_program._textEnd = _program._variablesEnd = _program._arraysEnd = len;
 }
 

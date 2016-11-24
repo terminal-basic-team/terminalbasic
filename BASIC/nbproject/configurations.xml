@@ -32,7 +32,6 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
-    <itemPath>nbproject/launcher.properties</itemPath>
   </logicalFolder>
   <sourceRootList>
     <Elem>include</Elem>
@@ -117,8 +116,6 @@
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lexer.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="nbproject/launcher.properties" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -210,8 +207,6 @@
       </item>
       <item path="include/lexer.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="nbproject/launcher.properties" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="0">
@@ -301,8 +296,6 @@
       </item>
       <item path="include/lexer.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="nbproject/launcher.properties" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="0">
@@ -391,8 +384,6 @@
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/lexer.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="nbproject/launcher.properties" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
