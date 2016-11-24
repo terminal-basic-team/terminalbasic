@@ -27,7 +27,7 @@
  */
 namespace BASIC
 {
-// Max size of the program string
+// Max size of the program line
 const uint8_t PROGSTRINGSIZE = 64;
 // Max size of the string constants/variables
 const uint8_t STRINGSIZE = 32;
@@ -35,7 +35,6 @@ const uint8_t STRINGSIZE = 32;
 const size_t PROGSIZE = 512;
 // Number of characters in variable name
 const uint8_t VARSIZE = 4; 
-const uint8_t ARRAY_DIMENSIONS = 4;
 // integer type
 typedef int16_t Integer;
 // floating point type

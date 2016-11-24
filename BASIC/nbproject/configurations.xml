@@ -241,6 +241,7 @@
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/SoftwareSerial/src</pElem>
             <pElem>include</pElem>
             <pElem>../arduinoext/include</pElem>
+            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/src</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>
