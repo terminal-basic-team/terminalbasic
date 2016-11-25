@@ -1255,12 +1255,13 @@
           <warningLevel>2</warningLevel>
         </cTool>
         <ccTool>
+          <developmentMode>0</developmentMode>
           <incDir>
             <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino</pElem>
-            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/variants/eightanaloginputs</pElem>
+            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/variants/atmega64_128</pElem>
             <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src</pElem>
           </incDir>
-          <commandLine>-Os -Wextra -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega128 -flto</commandLine>
+          <commandLine>-O3 -Wextra -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega128 -flto</commandLine>
           <preprocessorList>
             <Elem>ARDUINO=10612</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>

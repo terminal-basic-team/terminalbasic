@@ -38,6 +38,14 @@ CND_ARTIFACT_PATH_Arduino_mega2560=dist/Arduino_mega2560/basic
 CND_PACKAGE_DIR_Arduino_mega2560=dist/Arduino_mega2560/Arduino-Linux/package
 CND_PACKAGE_NAME_Arduino_mega2560=basic.tar
 CND_PACKAGE_PATH_Arduino_mega2560=dist/Arduino_mega2560/Arduino-Linux/package/basic.tar
+# Atmega_128 configuration
+CND_PLATFORM_Atmega_128=Arduino-Linux
+CND_ARTIFACT_DIR_Atmega_128=dist/Atmega_128
+CND_ARTIFACT_NAME_Atmega_128=basic
+CND_ARTIFACT_PATH_Atmega_128=dist/Atmega_128/basic
+CND_PACKAGE_DIR_Atmega_128=dist/Atmega_128/Arduino-Linux/package
+CND_PACKAGE_NAME_Atmega_128=basic.tar
+CND_PACKAGE_PATH_Atmega_128=dist/Atmega_128/Arduino-Linux/package/basic.tar
 #
 # include compiler specific variables
 #

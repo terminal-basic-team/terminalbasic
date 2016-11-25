@@ -398,5 +398,94 @@
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
     </conf>
+    <conf name="Atmega_128" type="1">
+      <toolsSet>
+        <compilerSet>Arduino|GNU</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>true</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <developmentMode>0</developmentMode>
+          <standard>8</standard>
+          <incDir>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/SoftwareSerial/src</pElem>
+            <pElem>include</pElem>
+            <pElem>../arduinoext/include</pElem>
+            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/src</pElem>
+            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/variants/atmega64_128</pElem>
+          </incDir>
+          <incFile>
+            <pElem>Arduino.h</pElem>
+          </incFile>
+          <commandLine>-O3 -Wextra -std=gnu++11 -fpermissive -fno-exceptions -fno-threadsafe-statics -MMD -mmcu=atmega128 -ffunction-sections -fdata-sections -flto</commandLine>
+          <preprocessorList>
+            <Elem>ARDUINO=10607</Elem>
+            <Elem>ARDUINO_ARCH_AVR</Elem>
+            <Elem>ARDUINO_AVR_UNO</Elem>
+            <Elem>F_CPU=16000000L</Elem>
+          </preprocessorList>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <linkerTool>
+          <output>${CND_DISTDIR}/${CND_CONF}/basic</output>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../arduinoext"
+                            CT="3"
+                            CN="Atmega_128"
+                            AC="false"
+                            BL="true"
+                            WD="../arduinoext"
+                            BC="${MAKE}  -f Makefile CONF=Atmega_128"
+                            CC="${MAKE}  -f Makefile CONF=Atmega_128 clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libarduinoext.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../libarduino"
+                            CT="3"
+                            CN="Atmega_128"
+                            AC="true"
+                            BL="true"
+                            WD="../libarduino"
+                            BC="${MAKE}  -f Makefile CONF=Atmega_128"
+                            CC="${MAKE}  -f Makefile CONF=Atmega_128 clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/libarduino.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+          </linkerLibItems>
+          <commandLine>-Wall -Wextra -O3 -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega128</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_interpreter.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_interpreter_program.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/basic_parser.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/lexer.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/interpreter.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/lexer.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/parser.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+    </conf>
   </confs>
 </configurationDescriptor>

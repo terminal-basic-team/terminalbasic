@@ -32,7 +32,15 @@ const uint8_t PROGSTRINGSIZE = 64;
 // Max size of the string constants/variables
 const uint8_t STRINGSIZE = 32;
 // Number of bytes for program text, variables and stack
-const size_t PROGSIZE = 512;
+#if defined (__AVR_ATmega1284__) || defined (__AVR_ATmega1284P__)
+const size_t PROGSIZE = 15360;
+#elif defined (__AVR_ATmega2560__)
+const size_t PROGSIZE = 7168;
+#elif defined (__AVR_ATmega128__) || defined (__AVR_ATmega128A__)
+const size_t PROGSIZE = 3072;
+#elif defined (__AVR_ATmega328__) || defined (__AVR_ATmega328P__)
+const size_t PROGSIZE = 1280;
+#endif
 // Number of characters in variable name
 const uint8_t VARSIZE = 4; 
 // integer type

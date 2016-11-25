@@ -149,6 +149,7 @@ Interpreter::valueFromArray(Parser::Value &v, const char *name)
 Interpreter::Interpreter(Stream &stream, Program &program) :
 _program(program), _state(SHELL), _stream(stream), _parser(_lexer, *this)
 {
+	_stream.setTimeout(10000L);
 }
 
 void Interpreter::step()
@@ -170,7 +171,7 @@ nextinput:
 		memset(buf, 0xFF, sizeof (buf));
 		size_t read;
 		do {
-			read = _stream.readBytesUntil('\n', buf, sizeof (buf));
+			read = _stream.readBytesUntil('\r', buf, sizeof (buf));
 		} while (read <= 0);
 		if (read >= PROGSTRINGSIZE)
 			read = PROGSTRINGSIZE - 1;
@@ -432,7 +433,7 @@ Interpreter::input(const char *varName)
 {
 	char buf[STRINGSIZE];
 	_stream.print('?');
-	uint8_t read = _stream.readBytesUntil('\n', buf, STRINGSIZE-1);
+	uint8_t read = _stream.readBytesUntil('\r', buf, STRINGSIZE-1);
 	buf[read] = char(0);
 	Lexer l;
 	l.init(buf);

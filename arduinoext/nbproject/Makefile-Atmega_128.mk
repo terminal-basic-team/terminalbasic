@@ -13,17 +13,18 @@ CP=cp
 GREP=grep
 NM=nm
 CCADMIN=CCadmin
-RANLIB=ranlib
+RANLIB=avr-gcc-ranlib
 CC=avr-gcc
 CCC=avr-g++
 CXX=avr-g++
 FC=gfortran
 AS=avr-as
+AR=avr-gcc-ar
 
 # Macros
 CND_PLATFORM=Arduino-Linux
 CND_DLIB_EXT=so
-CND_CONF=Arduino_nano328
+CND_CONF=Atmega_128
 CND_DISTDIR=dist
 CND_BUILDDIR=build
 
@@ -57,8 +58,8 @@ TESTOBJECTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=-Os -Wextra -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega328p
-CXXFLAGS=-Os -Wextra -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega328p
+CCFLAGS=-O3 -Wextra -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega128 -flto
+CXXFLAGS=-O3 -Wextra -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega128 -flto
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -79,35 +80,35 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libarduinoext.a: ${OBJECTFILES}
 	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libarduinoext.a ${OBJECTFILES} 
 	$(RANLIB) ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libarduinoext.a
 
-${OBJECTDIR}/_ext/38f13fd/arduino_logger.o: ../arduinoext/src/arduino_logger.cpp
+${OBJECTDIR}/_ext/38f13fd/arduino_logger.o: ../arduinoext/src/arduino_logger.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/_ext/38f13fd
 	${RM} "$@.d"
-	$(COMPILE.cc) -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_NANO -DF_CPU=16000000L -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/eightanaloginputs -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/38f13fd/arduino_logger.o ../arduinoext/src/arduino_logger.cpp
+	$(COMPILE.cc) -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_UNO -DF_CPU=16000000L -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/atmega64_128 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/38f13fd/arduino_logger.o ../arduinoext/src/arduino_logger.cpp
 
-${OBJECTDIR}/include/bcopy.o: include/bcopy.cpp
+${OBJECTDIR}/include/bcopy.o: include/bcopy.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/include
 	${RM} "$@.d"
-	$(COMPILE.cc) -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_NANO -DF_CPU=16000000L -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/eightanaloginputs -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/bcopy.o include/bcopy.cpp
+	$(COMPILE.cc) -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_UNO -DF_CPU=16000000L -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/atmega64_128 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/bcopy.o include/bcopy.cpp
 
-${OBJECTDIR}/src/cps_mosprotocol.o: src/cps_mosprotocol.cpp
+${OBJECTDIR}/src/cps_mosprotocol.o: src/cps_mosprotocol.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_NANO -DF_CPU=16000000L -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/eightanaloginputs -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/cps_mosprotocol.o src/cps_mosprotocol.cpp
+	$(COMPILE.cc) -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_UNO -DF_CPU=16000000L -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/atmega64_128 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/cps_mosprotocol.o src/cps_mosprotocol.cpp
 
-${OBJECTDIR}/src/cps_mosprotocol_arduino.o: src/cps_mosprotocol_arduino.cpp
+${OBJECTDIR}/src/cps_mosprotocol_arduino.o: src/cps_mosprotocol_arduino.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_NANO -DF_CPU=16000000L -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/eightanaloginputs -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/cps_mosprotocol_arduino.o src/cps_mosprotocol_arduino.cpp
+	$(COMPILE.cc) -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_UNO -DF_CPU=16000000L -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/atmega64_128 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/cps_mosprotocol_arduino.o src/cps_mosprotocol_arduino.cpp
 
-${OBJECTDIR}/src/protocol.o: src/protocol.cpp
+${OBJECTDIR}/src/protocol.o: src/protocol.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_NANO -DF_CPU=16000000L -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/eightanaloginputs -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/protocol.o src/protocol.cpp
+	$(COMPILE.cc) -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_UNO -DF_CPU=16000000L -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/atmega64_128 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/protocol.o src/protocol.cpp
 
-${OBJECTDIR}/src/protocol_arduino.o: src/protocol_arduino.cpp
+${OBJECTDIR}/src/protocol_arduino.o: src/protocol_arduino.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_NANO -DF_CPU=16000000L -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/eightanaloginputs -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/protocol_arduino.o src/protocol_arduino.cpp
+	$(COMPILE.cc) -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_UNO -DF_CPU=16000000L -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/atmega64_128 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/protocol_arduino.o src/protocol_arduino.cpp
 
 # Subprojects
 .build-subprojects:
@@ -125,7 +126,7 @@ ${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/newsimpletest.o ${OBJECTFILES:%.o=%_no
 ${TESTDIR}/tests/newsimpletest.o: tests/newsimpletest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_NANO -DF_CPU=16000000L -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/eightanaloginputs -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/newsimpletest.o tests/newsimpletest.cpp
+	$(COMPILE.cc) -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_UNO -DF_CPU=16000000L -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/atmega64_128 -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/newsimpletest.o tests/newsimpletest.cpp
 
 
 ${OBJECTDIR}/_ext/38f13fd/arduino_logger_nomain.o: ${OBJECTDIR}/_ext/38f13fd/arduino_logger.o ../arduinoext/src/arduino_logger.cpp 
@@ -136,7 +137,7 @@ ${OBJECTDIR}/_ext/38f13fd/arduino_logger_nomain.o: ${OBJECTDIR}/_ext/38f13fd/ard
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_NANO -DF_CPU=16000000L -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/eightanaloginputs -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/38f13fd/arduino_logger_nomain.o ../arduinoext/src/arduino_logger.cpp;\
+	    $(COMPILE.cc) -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_UNO -DF_CPU=16000000L -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/atmega64_128 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/38f13fd/arduino_logger_nomain.o ../arduinoext/src/arduino_logger.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/_ext/38f13fd/arduino_logger.o ${OBJECTDIR}/_ext/38f13fd/arduino_logger_nomain.o;\
 	fi
@@ -149,7 +150,7 @@ ${OBJECTDIR}/include/bcopy_nomain.o: ${OBJECTDIR}/include/bcopy.o include/bcopy.
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_NANO -DF_CPU=16000000L -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/eightanaloginputs -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/bcopy_nomain.o include/bcopy.cpp;\
+	    $(COMPILE.cc) -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_UNO -DF_CPU=16000000L -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/atmega64_128 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/bcopy_nomain.o include/bcopy.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/include/bcopy.o ${OBJECTDIR}/include/bcopy_nomain.o;\
 	fi
@@ -162,7 +163,7 @@ ${OBJECTDIR}/src/cps_mosprotocol_nomain.o: ${OBJECTDIR}/src/cps_mosprotocol.o sr
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_NANO -DF_CPU=16000000L -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/eightanaloginputs -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/cps_mosprotocol_nomain.o src/cps_mosprotocol.cpp;\
+	    $(COMPILE.cc) -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_UNO -DF_CPU=16000000L -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/atmega64_128 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/cps_mosprotocol_nomain.o src/cps_mosprotocol.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/cps_mosprotocol.o ${OBJECTDIR}/src/cps_mosprotocol_nomain.o;\
 	fi
@@ -175,7 +176,7 @@ ${OBJECTDIR}/src/cps_mosprotocol_arduino_nomain.o: ${OBJECTDIR}/src/cps_mosproto
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_NANO -DF_CPU=16000000L -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/eightanaloginputs -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/cps_mosprotocol_arduino_nomain.o src/cps_mosprotocol_arduino.cpp;\
+	    $(COMPILE.cc) -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_UNO -DF_CPU=16000000L -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/atmega64_128 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/cps_mosprotocol_arduino_nomain.o src/cps_mosprotocol_arduino.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/cps_mosprotocol_arduino.o ${OBJECTDIR}/src/cps_mosprotocol_arduino_nomain.o;\
 	fi
@@ -188,7 +189,7 @@ ${OBJECTDIR}/src/protocol_nomain.o: ${OBJECTDIR}/src/protocol.o src/protocol.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_NANO -DF_CPU=16000000L -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/eightanaloginputs -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/protocol_nomain.o src/protocol.cpp;\
+	    $(COMPILE.cc) -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_UNO -DF_CPU=16000000L -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/atmega64_128 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/protocol_nomain.o src/protocol.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/protocol.o ${OBJECTDIR}/src/protocol_nomain.o;\
 	fi
@@ -201,7 +202,7 @@ ${OBJECTDIR}/src/protocol_arduino_nomain.o: ${OBJECTDIR}/src/protocol_arduino.o 
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_NANO -DF_CPU=16000000L -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/eightanaloginputs -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/protocol_arduino_nomain.o src/protocol_arduino.cpp;\
+	    $(COMPILE.cc) -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_UNO -DF_CPU=16000000L -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/atmega64_128 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/protocol_arduino_nomain.o src/protocol_arduino.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/protocol_arduino.o ${OBJECTDIR}/src/protocol_arduino_nomain.o;\
 	fi
