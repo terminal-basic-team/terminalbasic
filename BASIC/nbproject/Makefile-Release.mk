@@ -23,7 +23,7 @@ AS=as
 # Macros
 CND_PLATFORM=GNU-Linux
 CND_DLIB_EXT=so
-CND_CONF=Debug
+CND_CONF=Release
 CND_DISTDIR=dist
 CND_BUILDDIR=build
 
@@ -59,17 +59,17 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=../arduinoext/dist/Debug/GNU-Linux/libarduinoext.a ../libarduinoemulator/dist/Debug/GNU-Linux/liblibarduinoemulator.a ../../posixcpp/posixcpp/dist/Debug_static/GNU-Linux/libposixcpp.a
+LDLIBSOPTIONS=../arduinoext/dist/Release/GNU-Linux/libarduinoext.a ../libarduinoemulator/dist/Release/GNU-Linux/liblibarduinoemulator.a ../../posixcpp/posixcpp/dist/Release_static/GNU-Linux/libposixcpp.a
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/basic
 
-${CND_DISTDIR}/${CND_CONF}/basic: ../arduinoext/dist/Debug/GNU-Linux/libarduinoext.a
+${CND_DISTDIR}/${CND_CONF}/basic: ../arduinoext/dist/Release/GNU-Linux/libarduinoext.a
 
-${CND_DISTDIR}/${CND_CONF}/basic: ../libarduinoemulator/dist/Debug/GNU-Linux/liblibarduinoemulator.a
+${CND_DISTDIR}/${CND_CONF}/basic: ../libarduinoemulator/dist/Release/GNU-Linux/liblibarduinoemulator.a
 
-${CND_DISTDIR}/${CND_CONF}/basic: ../../posixcpp/posixcpp/dist/Debug_static/GNU-Linux/libposixcpp.a
+${CND_DISTDIR}/${CND_CONF}/basic: ../../posixcpp/posixcpp/dist/Release_static/GNU-Linux/libposixcpp.a
 
 ${CND_DISTDIR}/${CND_CONF}/basic: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}
@@ -88,38 +88,38 @@ ${OBJECTDIR}/include/basic_math.o: include/basic_math.cpp nbproject/Makefile-${C
 ${OBJECTDIR}/src/basic_interpreter_program.o: src/basic_interpreter_program.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../arduino -Isrc -I../include -I../arduinoext/include -I../libarduinoemulator/include -Iinclude -I../../posixcpp/include -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/basic_interpreter_program.o src/basic_interpreter_program.cpp
+	$(COMPILE.cc) -O2 -Wall -s -I../arduino -Isrc -I../include -I../arduinoext/include -I../libarduinoemulator/include -Iinclude -I../../posixcpp/include -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/basic_interpreter_program.o src/basic_interpreter_program.cpp
 
 ${OBJECTDIR}/src/basic_parser_value.o: src/basic_parser_value.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../arduino -Isrc -I../include -I../arduinoext/include -I../libarduinoemulator/include -Iinclude -I../../posixcpp/include -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/basic_parser_value.o src/basic_parser_value.cpp
+	$(COMPILE.cc) -O2 -Wall -s -I../arduino -Isrc -I../include -I../arduinoext/include -I../libarduinoemulator/include -Iinclude -I../../posixcpp/include -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/basic_parser_value.o src/basic_parser_value.cpp
 
 ${OBJECTDIR}/src/interpreter.o: src/interpreter.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../arduino -Isrc -I../include -I../arduinoext/include -I../libarduinoemulator/include -Iinclude -I../../posixcpp/include -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/interpreter.o src/interpreter.cpp
+	$(COMPILE.cc) -O2 -Wall -s -I../arduino -Isrc -I../include -I../arduinoext/include -I../libarduinoemulator/include -Iinclude -I../../posixcpp/include -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/interpreter.o src/interpreter.cpp
 
 ${OBJECTDIR}/src/lexer.o: src/lexer.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../arduino -Isrc -I../include -I../arduinoext/include -I../libarduinoemulator/include -Iinclude -I../../posixcpp/include -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/lexer.o src/lexer.cpp
+	$(COMPILE.cc) -O2 -Wall -s -I../arduino -Isrc -I../include -I../arduinoext/include -I../libarduinoemulator/include -Iinclude -I../../posixcpp/include -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/lexer.o src/lexer.cpp
 
 ${OBJECTDIR}/src/parser.o: src/parser.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../arduino -Isrc -I../include -I../arduinoext/include -I../libarduinoemulator/include -Iinclude -I../../posixcpp/include -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/parser.o src/parser.cpp
+	$(COMPILE.cc) -O2 -Wall -s -I../arduino -Isrc -I../include -I../arduinoext/include -I../libarduinoemulator/include -Iinclude -I../../posixcpp/include -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/parser.o src/parser.cpp
 
 ${OBJECTDIR}/src/ucbasic_main.o: src/ucbasic_main.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../arduino -Isrc -I../include -I../arduinoext/include -I../libarduinoemulator/include -Iinclude -I../../posixcpp/include -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/ucbasic_main.o src/ucbasic_main.cpp
+	$(COMPILE.cc) -O2 -Wall -s -I../arduino -Isrc -I../include -I../arduinoext/include -I../libarduinoemulator/include -Iinclude -I../../posixcpp/include -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/ucbasic_main.o src/ucbasic_main.cpp
 
 # Subprojects
 .build-subprojects:
-	cd ../arduinoext && ${MAKE}  -f Makefile CONF=Debug
-	cd ../libarduinoemulator && ${MAKE}  -f Makefile CONF=Debug
-	cd ../../posixcpp/posixcpp && ${MAKE}  -f Makefile CONF=Debug_static
+	cd ../arduinoext && ${MAKE}  -f Makefile CONF=Release
+	cd ../libarduinoemulator && ${MAKE}  -f Makefile CONF=Release
+	cd ../../posixcpp/posixcpp && ${MAKE}  -f Makefile CONF=Release_static
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -127,9 +127,9 @@ ${OBJECTDIR}/src/ucbasic_main.o: src/ucbasic_main.cpp nbproject/Makefile-${CND_C
 
 # Subprojects
 .clean-subprojects:
-	cd ../arduinoext && ${MAKE}  -f Makefile CONF=Debug clean
-	cd ../libarduinoemulator && ${MAKE}  -f Makefile CONF=Debug clean
-	cd ../../posixcpp/posixcpp && ${MAKE}  -f Makefile CONF=Debug_static clean
+	cd ../arduinoext && ${MAKE}  -f Makefile CONF=Release clean
+	cd ../libarduinoemulator && ${MAKE}  -f Makefile CONF=Release clean
+	cd ../../posixcpp/posixcpp && ${MAKE}  -f Makefile CONF=Release_static clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

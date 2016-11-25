@@ -30,9 +30,9 @@ Interpreter::Program::Program()
 Interpreter::Program::String*
 Interpreter::Program::getString()
 {
-	if (_jump != 0) {
+	if (_jumpFlag) {
 		_current = _jump;
-		_jump = 0;
+		_jumpFlag = false;
 		return current();
 	}
 	if (_current >= _textEnd)
@@ -110,6 +110,7 @@ void
 Interpreter::Program::newProg()
 {
 	_textEnd = _current = _variablesEnd = _arraysEnd = _jump = 0;
+	_jumpFlag = false;
 	_sp = PROGSIZE;
 	memset(_text, 0xFF, PROGSIZE);
 }

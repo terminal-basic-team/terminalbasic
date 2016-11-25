@@ -159,13 +159,13 @@ void Interpreter::step()
 	switch (_state) {
 	case SHELL:
 	{
-#ifdef ARDUINO
-		_stream.print("FREE RAM ");
-		_stream.print(freeRam());
-		_stream.print('\n');
-#endif
+		{
+			AttrKeeper att(*this, BOLD);
+			_stream.print(PROGSIZE-_program._arraysEnd);
+		}
+		_stream.println(" BYTES AVAILABLE");
 		print("READY", BOLD);
-		_stream.print('\n');
+		_stream.println();
 nextinput:
 		char buf[PROGSTRINGSIZE];
 		memset(buf, 0xFF, sizeof (buf));
@@ -191,8 +191,8 @@ nextinput:
 		break;
 	}
 	case EXECUTE:
-		Program::String *s = _program.current();
-		if (s != NULL) {
+		if (_program._textEnd > 0) {
+			Program::String *s = _program.current();
 			if (!_parser.parse(s->text))
 				raiseError(STATIC_ERROR);
 			_program.getString();
@@ -210,8 +210,7 @@ void Interpreter::list()
 			AttrKeeper a(*this, BOLD);
 			_stream.print(s->number);
 		}
-		_stream.print(s->text);
-		_stream.print('\n');
+		_stream.println(s->text);
 	}
 }
 
@@ -253,12 +252,9 @@ Interpreter::dump(DumpMode mode)
 	case ARRAYS:
 	{
 		uint16_t index = _program._variablesEnd;
-		if (index == 0)
-		    index = 1;
 		for (ArrayFrame *f = _program.arrayByIndex(index);
-		    (f != NULL) && (_program.arrayIndex(f)<
-		    _program._arraysEnd); f = _program.arrayByIndex(
-		    _program.arrayIndex(f) + f->size())) {
+		    _program.arrayIndex(f)<_program._arraysEnd;
+		    f = _program.arrayByIndex(_program.arrayIndex(f) + f->size())) {
 			_stream.print(f->name);
 			_stream.print('(');
 			_stream.print(f->dimension[0]);

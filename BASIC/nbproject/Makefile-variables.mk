@@ -46,6 +46,14 @@ CND_ARTIFACT_PATH_Atmega_128=dist/Atmega_128/basic
 CND_PACKAGE_DIR_Atmega_128=dist/Atmega_128/Arduino-Linux/package
 CND_PACKAGE_NAME_Atmega_128=basic.tar
 CND_PACKAGE_PATH_Atmega_128=dist/Atmega_128/Arduino-Linux/package/basic.tar
+# Release configuration
+CND_PLATFORM_Release=GNU-Linux
+CND_ARTIFACT_DIR_Release=dist/Release
+CND_ARTIFACT_NAME_Release=basic
+CND_ARTIFACT_PATH_Release=dist/Release/basic
+CND_PACKAGE_DIR_Release=dist/Release/GNU-Linux/package
+CND_PACKAGE_NAME_Release=basic.tar
+CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux/package/basic.tar
 #
 # include compiler specific variables
 #

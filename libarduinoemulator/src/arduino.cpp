@@ -194,7 +194,7 @@ StdioStream::StdioStream(std::istream &istream, std::ostream &ostream) :
 size_t
 StdioStream::write(uint8_t byte)
 {
-    _ostream << byte << std::flush;
+	_ostream << byte << std::flush;
 }
 
 int
@@ -218,5 +218,8 @@ int StdioStream::peek()
 
 int StdioStream::read()
 {
-    return _istream.get();
+	int byte = _istream.get();
+	if (byte == '\n')
+		byte = '\r';
+	return byte;
 }

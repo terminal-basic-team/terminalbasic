@@ -86,7 +86,7 @@ public:
 	String *first() const;
 	String *last() const;
 	
-	void jump(uint16_t newVal) { _jump = newVal; }
+	void jump(uint16_t newVal) { _jump = newVal; _jumpFlag = true; }
 	/**
 	 * @brief program string at given index
 	 * @param index
@@ -143,6 +143,7 @@ public:
 	char _text[PROGSIZE];
 private:
 	uint16_t _textEnd, _current, _variablesEnd, _arraysEnd, _sp, _jump;
+	bool _jumpFlag;
 };
 
 }

@@ -3,14 +3,18 @@
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="include" displayName="include" projectFiles="true">
       <itemPath>include/basic.hpp</itemPath>
+      <itemPath>include/basic_functionblock.hpp</itemPath>
       <itemPath>include/basic_interpreter.hpp</itemPath>
       <itemPath>include/basic_interpreter_program.hpp</itemPath>
+      <itemPath>include/basic_math.hpp</itemPath>
       <itemPath>include/basic_parser.hpp</itemPath>
       <itemPath>include/basic_parser_value.hpp</itemPath>
       <itemPath>include/lexer.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="src" displayName="src" projectFiles="true">
+      <itemPath>include/basic_functionblock.cpp</itemPath>
       <itemPath>src/basic_interpreter_program.cpp</itemPath>
+      <itemPath>include/basic_math.cpp</itemPath>
       <itemPath>src/basic_parser_value.cpp</itemPath>
       <itemPath>src/interpreter.cpp</itemPath>
       <itemPath>src/lexer.cpp</itemPath>
@@ -100,9 +104,14 @@
               </makeArtifact>
             </linkerLibProjectItem>
           </linkerLibItems>
+          <commandLine>-static</commandLine>
         </linkerTool>
       </compileType>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_interpreter.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -110,6 +119,10 @@
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="include/basic_math.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/basic_math.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_parser.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -194,12 +207,20 @@
       </compileType>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_interpreter.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_interpreter_program.hpp"
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="include/basic_math.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/basic_math.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_parser.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -283,12 +304,20 @@
       </compileType>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_interpreter.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_interpreter_program.hpp"
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="include/basic_math.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/basic_math.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_parser.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -372,12 +401,20 @@
       </compileType>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_interpreter.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_interpreter_program.hpp"
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="include/basic_math.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/basic_math.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_parser.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -461,12 +498,122 @@
       </compileType>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_interpreter.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_interpreter_program.hpp"
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="include/basic_math.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/basic_math.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_parser.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/lexer.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/interpreter.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/lexer.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/parser.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>true</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+          <stripSymbols>true</stripSymbols>
+          <standard>8</standard>
+          <incDir>
+            <pElem>../arduino</pElem>
+            <pElem>src</pElem>
+            <pElem>../include</pElem>
+            <pElem>../arduinoext/include</pElem>
+            <pElem>../libarduinoemulator/include</pElem>
+            <pElem>include</pElem>
+            <pElem>../../posixcpp/include</pElem>
+            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino</pElem>
+          </incDir>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <linkerTool>
+          <output>${CND_DISTDIR}/${CND_CONF}/basic</output>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../arduinoext"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../arduinoext"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libarduinoext.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../libarduinoemulator"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../libarduinoemulator"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinoemulator.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../posixcpp/posixcpp"
+                            CT="3"
+                            CN="Release_static"
+                            AC="true"
+                            BL="true"
+                            WD="../../posixcpp/posixcpp"
+                            BC="${MAKE}  -f Makefile CONF=Release_static"
+                            CC="${MAKE}  -f Makefile CONF=Release_static clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libposixcpp.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+          </linkerLibItems>
+          <commandLine>-static</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_interpreter.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_interpreter_program.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/basic_math.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/basic_math.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_parser.hpp" ex="false" tool="3" flavor2="0">
       </item>

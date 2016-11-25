@@ -82,6 +82,14 @@
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
+          <stripSymbols>true</stripSymbols>
+          <standard>8</standard>
+          <incDir>
+            <pElem>include</pElem>
+            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino</pElem>
+            <pElem>../../posixcpp/include</pElem>
+          </incDir>
+          <warningLevel>2</warningLevel>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>

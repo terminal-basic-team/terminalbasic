@@ -13,6 +13,9 @@ public:
 	size_t readBytesUntil( char terminator, char *buffer, size_t length); // as readBytes with terminator character
 	size_t readBytesUntil( char terminator, uint8_t *buffer, size_t length) { return readBytesUntil(terminator, (char *)buffer, length); }
 	
+	void setTimeout(unsigned long timeout) { _timeout = timeout; }  // sets maximum milliseconds to wait for stream data, default is 1 second
+	unsigned long getTimeout(void) { return _timeout; }
+	
 	int timedRead();    // private method to read stream with timeout
 	virtual int available() = 0;
 	virtual int read() = 0;

@@ -46,6 +46,14 @@ CND_ARTIFACT_PATH_Atmega_128=dist/Atmega_128/Arduino-Linux/libarduinoext.a
 CND_PACKAGE_DIR_Atmega_128=dist/Atmega_128/Arduino-Linux/package
 CND_PACKAGE_NAME_Atmega_128=arduinoext.tar
 CND_PACKAGE_PATH_Atmega_128=dist/Atmega_128/Arduino-Linux/package/arduinoext.tar
+# Release configuration
+CND_PLATFORM_Release=GNU-Linux
+CND_ARTIFACT_DIR_Release=dist/Release/GNU-Linux
+CND_ARTIFACT_NAME_Release=libarduinoext.a
+CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux/libarduinoext.a
+CND_PACKAGE_DIR_Release=dist/Release/GNU-Linux/package
+CND_PACKAGE_NAME_Release=arduinoext.tar
+CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux/package/arduinoext.tar
 #
 # include compiler specific variables
 #

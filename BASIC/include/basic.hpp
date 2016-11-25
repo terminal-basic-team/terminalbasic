@@ -40,6 +40,8 @@ const size_t PROGSIZE = 7168;
 const size_t PROGSIZE = 3072;
 #elif defined (__AVR_ATmega328__) || defined (__AVR_ATmega328P__)
 const size_t PROGSIZE = 1280;
+#else
+const size_t PROGSIZE = 16600;
 #endif
 // Number of characters in variable name
 const uint8_t VARSIZE = 4; 
