@@ -57,6 +57,12 @@ public:
 			Parser::Value step;
 			Parser::Value finalv;
 		};
+		
+		struct CPS_PACKED GosubReturn
+		{
+			uint16_t calleeIndex;
+			uint8_t textPosition;
+		};
 
 		static uint8_t size(Type);
 
@@ -64,7 +70,7 @@ public:
 
 		union CPS_PACKED
 		{
-			uint16_t	calleeIndex;
+			GosubReturn	gosubReturn;
 			uint8_t		arrayDimensions;
 			uint16_t	arrayDimension;
 			ForBody		forFrame;
@@ -99,7 +105,7 @@ public:
 	 * @param index
 	 * @return string pointer or NULL if not found
 	 */
-	String *stringByNumber(uint16_t, size_t = 1);
+	String *stringByNumber(uint16_t, size_t = 0);
 	/**
 	 * @brief 
 	 * @param string pointer
@@ -144,6 +150,7 @@ public:
 private:
 	uint16_t _textEnd, _current, _variablesEnd, _arraysEnd, _sp, _jump;
 	bool _jumpFlag;
+	uint8_t _textPosition;
 };
 
 }

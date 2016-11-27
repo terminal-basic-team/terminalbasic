@@ -125,7 +125,7 @@ ${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/newsimpletest.o ${OBJECTFILES:%.o=%_no
 ${TESTDIR}/tests/newsimpletest.o: tests/newsimpletest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -Iinclude -I../libarduinoemulator/include -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/newsimpletest.o tests/newsimpletest.cpp
+	$(COMPILE.cc) -O2 -Wall -Iinclude -I../libarduinoemulator/include -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/newsimpletest.o tests/newsimpletest.cpp
 
 
 ${OBJECTDIR}/_ext/38f13fd/arduino_logger_nomain.o: ${OBJECTDIR}/_ext/38f13fd/arduino_logger.o ../arduinoext/src/arduino_logger.cpp 

@@ -92,7 +92,7 @@ Interpreter::Program::StackFrame::size(Type t)
 {
 	switch (t) {
 	case SUBPROGRAM_RETURN:
-		return sizeof (Type) + sizeof (uint16_t);
+		return sizeof (Type) + sizeof (GosubReturn);
 	case FOR_NEXT:
 		return sizeof (Type) + sizeof (ForBody);
 	case STRING:
@@ -111,6 +111,7 @@ Interpreter::Program::newProg()
 {
 	_textEnd = _current = _variablesEnd = _arraysEnd = _jump = 0;
 	_jumpFlag = false;
+	_textPosition = 0;
 	_sp = PROGSIZE;
 	memset(_text, 0xFF, PROGSIZE);
 }

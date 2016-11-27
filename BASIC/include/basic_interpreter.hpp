@@ -160,8 +160,11 @@ public:
 	void gotoLine(Integer);
 	// CLear program memory
 	void newProgram();
-	// save current line on stack
-	void pushReturnAddress();
+	/**
+	 * save current line on stack
+	 * @param text position
+	 */
+	void pushReturnAddress(uint8_t);
 	// return from subprogram
 	void returnFromSub();
 	// save for loop

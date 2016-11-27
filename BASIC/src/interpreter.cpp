@@ -331,13 +331,14 @@ Interpreter::newProgram()
 }
 
 void
-Interpreter::pushReturnAddress()
+Interpreter::pushReturnAddress(uint8_t textPosition)
 {
 	Program::StackFrame *f = _program.push(Program::StackFrame::
 	    SUBPROGRAM_RETURN);
 	if (f == NULL)
 		raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
-	f->body.calleeIndex = _program._current;
+	f->body.gosubReturn.calleeIndex = _program._current;
+	f->body.gosubReturn.textPosition = textPosition;
 }
 
 void
@@ -345,9 +346,8 @@ Interpreter::returnFromSub()
 {
 	Program::StackFrame *f = _program.stackFrameByIndex(_program._sp);
 	if ((f != NULL) && (f->_type == Program::StackFrame::SUBPROGRAM_RETURN)) {
-		_program._current = f->body.calleeIndex;
-		_program._sp += Program::StackFrame::size(
-		    Program::StackFrame::SUBPROGRAM_RETURN);
+		_program._current = f->body.gosubReturn.calleeIndex;
+		_program.pop();
 	} else
 		raiseError(DYNAMIC_ERROR, RETURN_WO_GOSUB);
 }

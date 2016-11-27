@@ -128,7 +128,7 @@ Parser::fOperator()
 			return false;
 		}
 		if (_mode == EXECUTE) {
-			_interpreter.pushReturnAddress();
+			_interpreter.pushReturnAddress(_lexer.getPointer());
 			_interpreter.gotoLine(v.value.integer);
 		}
 		return true;
