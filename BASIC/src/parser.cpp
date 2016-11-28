@@ -29,6 +29,7 @@
  * OPERATOR = COMMAND |
  *      KW_END |
  *	KW_RETURN |
+ *	KW_REM TEXT |
  *	KW_INPUT VAR_LIST |
  *	KW_PRINT PRINT_LIST |
  *	KW_IF EXPRESSION IF_STATEMENT |
@@ -183,6 +184,9 @@ Parser::fOperator()
 				return false;
 		if (_mode == EXECUTE)
 			_interpreter.print('\n');
+		return true;
+	case KW_REM:
+		while (_lexer.getNext());
 		return true;
 	case KW_RETURN:
 		if (_mode == EXECUTE)

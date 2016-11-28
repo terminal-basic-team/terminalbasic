@@ -63,6 +63,7 @@ enum Token : uint8_t
 	KW_LET,
 	KW_NEXT,
 	KW_PRINT,
+	KW_REM,
 	KW_RETURN,
 	// other keywords
 	KW_ARRAYS,

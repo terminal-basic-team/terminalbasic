@@ -94,6 +94,7 @@ const char sINPUT[] PROGMEM = "INPUT";
 const char sLET[] PROGMEM = "LET";
 const char sNEXT[] PROGMEM = "NEXT";
 const char sPRINT[] PROGMEM = "PRINT";
+const char sREM[] PROGMEM = "REM";
 const char sRETURN[] PROGMEM = "RETURN";
 
 const char sTHEN[] PROGMEM = "THEN";
@@ -119,7 +120,7 @@ PGM_P const Lexer::tokenStrings[NUM_TOKENS] PROGMEM = {
 	sDUMP,	sLIST, sLOAD,	sNEW,	sRUN,	sSAVE,
 	
 	sDIM,	sEND,	sFOR,	sGOSUB,	sGOTO,	sIF,	sINPUT,	sLET,	sNEXT,
-	sPRINT,	sRETURN,sTHEN,	sTO,	sSTEP,
+	sPRINT,	sREM,	sRETURN,sTHEN,	sTO,	sSTEP,
 	
 	sIDENT,
 	sEQUALS,
@@ -619,6 +620,10 @@ void Lexer::first_R()
 	case 'E':
 		pushSYM();
 		switch (SYM) {
+		case 'M':
+			next();
+			_token = KW_REM;
+			return;
 		case 'T':
 			pushSYM();
 			switch (SYM) {
