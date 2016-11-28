@@ -55,6 +55,8 @@ public:
 	explicit operator bool() const;
 	explicit operator Integer() const;
 
+	Value &operator-();
+	
 	bool operator<(const Value&) const;
 	bool operator==(const Value&) const;
 	bool operator>(const Value&) const;

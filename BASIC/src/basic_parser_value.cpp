@@ -90,6 +90,25 @@ Parser::Value::operator Integer() const
 	}
 }
 
+Parser::Value& 
+Parser::Value::operator-()
+{
+	switch (type) {
+	case INTEGER:
+		value.integer = -value.integer;
+		break;
+	case REAL:
+		value.real = -value.real;
+		break;
+	case BOOLEAN:
+		value.boolean = !value.boolean;
+		break;
+	default:
+		// undefined
+		break;
+	}
+}
+
 bool
 Parser::Value::operator<(const Value &rhs) const
 {

@@ -438,8 +438,12 @@ Interpreter::input(const char *varName)
 	Lexer l;
 	l.init(buf);
 	Parser::Value v(Integer(0));
-	if (l.getNext()) {
+	bool neg = false;
+n:	if (l.getNext()) {
 		switch (l.getToken()) {
+		case MINUS:
+			neg = true;
+			goto n;
 		case C_INTEGER:
 		case C_REAL:
 			v = l.getValue();
@@ -454,6 +458,8 @@ Interpreter::input(const char *varName)
 			raiseError(DYNAMIC_ERROR, INVALID_VALUE_TYPE);
 		}
 	}
+	if (neg)
+		v = -v;
 	setVariable(varName, v);
 }
 
