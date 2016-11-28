@@ -6,10 +6,10 @@
       <itemPath>include/basic_functionblock.hpp</itemPath>
       <itemPath>include/basic_interpreter.hpp</itemPath>
       <itemPath>include/basic_interpreter_program.hpp</itemPath>
+      <itemPath>include/basic_lexer.hpp</itemPath>
       <itemPath>include/basic_math.hpp</itemPath>
       <itemPath>include/basic_parser.hpp</itemPath>
       <itemPath>include/basic_parser_value.hpp</itemPath>
-      <itemPath>include/lexer.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="src" displayName="src" projectFiles="true">
       <itemPath>include/basic_functionblock.cpp</itemPath>
@@ -120,6 +120,8 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/basic_lexer.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_math.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/basic_math.hpp" ex="false" tool="3" flavor2="0">
@@ -127,8 +129,6 @@
       <item path="include/basic_parser.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/lexer.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -201,6 +201,7 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/libarduino.a">
               </makeArtifact>
             </linkerLibProjectItem>
+            <linkerLibStdlibItem>Mathematics</linkerLibStdlibItem>
           </linkerLibItems>
           <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega328p -Wl,-Map,${CND_DISTDIR}/${CND_CONF}/basic.map</commandLine>
         </linkerTool>
@@ -218,6 +219,8 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/basic_lexer.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_math.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/basic_math.hpp" ex="false" tool="3" flavor2="0">
@@ -225,8 +228,6 @@
       <item path="include/basic_parser.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/lexer.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -315,6 +316,8 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/basic_lexer.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_math.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/basic_math.hpp" ex="false" tool="3" flavor2="0">
@@ -322,8 +325,6 @@
       <item path="include/basic_parser.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/lexer.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -412,6 +413,8 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/basic_lexer.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_math.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/basic_math.hpp" ex="false" tool="3" flavor2="0">
@@ -419,8 +422,6 @@
       <item path="include/basic_parser.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/lexer.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -509,6 +510,8 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/basic_lexer.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_math.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/basic_math.hpp" ex="false" tool="3" flavor2="0">
@@ -516,8 +519,6 @@
       <item path="include/basic_parser.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/lexer.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -611,6 +612,8 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="include/basic_lexer.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_math.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/basic_math.hpp" ex="false" tool="3" flavor2="0">
@@ -618,8 +621,6 @@
       <item path="include/basic_parser.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/lexer.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="8">
       </item>

@@ -59,7 +59,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=../arduinoext/dist/Arduino_nano328/Arduino-Linux/libarduinoext.a ../libarduino/dist/Nano328/libarduino.a
+LDLIBSOPTIONS=../arduinoext/dist/Arduino_nano328/Arduino-Linux/libarduinoext.a ../libarduino/dist/Nano328/libarduino.a -lm
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}

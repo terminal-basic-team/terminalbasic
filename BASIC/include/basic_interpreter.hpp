@@ -20,7 +20,7 @@
 #define INTERPRETER_HPP
 
 #include "basic.hpp"
-#include "lexer.hpp"
+#include "basic_lexer.hpp"
 #include "basic_parser.hpp"
 #include "helper.hpp"
 

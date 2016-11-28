@@ -23,6 +23,16 @@
 namespace BASIC
 {
 
+static const char sABS[] PROGMEM = "ABS";
+static const char sCOS[] PROGMEM = "COS";
+static const char sPI[] PROGMEM = "PI";
+static const char sSIN[] PROGMEM = "SIN";
+static const char sSQRT[] PROGMEM = "SQRT";
+
+PGM_P const Math::funcStrings[NUM_FUNC] PROGMEM = {
+	sABS, sCOS, sPI, sSIN, sSQRT
+};
+
 Math::Math(FunctionBlock *next) :
 FunctionBlock(next)
 {
@@ -31,7 +41,7 @@ FunctionBlock(next)
 FunctionBlock::function
 Math::_getFunction(const char *name) const
 {
-	if (strcmp(name, "ABS") == 0)
+	if (strcmp_P(name, (PGM_P)pgm_read_word(&(funcStrings[F_ABS]))) == 0)
 		return func_abs;
 	else if (strcmp(name, "COS") == 0)
 		return func_cos;
@@ -48,31 +58,11 @@ Math::_getFunction(const char *name) const
 bool
 Math::func_abs(Interpreter &i)
 {
-	volatile int a;
-	return abs(a);
-}
-
-bool
-Math::func_cos(Interpreter &i)
-{
-	volatile float a;
-	return cos(a);
-}
-
-bool
-Math::func_sin(Interpreter&)
-{
-	volatile float a;
-	return sin(a);
-}
-
-bool
-Math::func_sqrt(Interpreter &i)
-{
 	Parser::Value v(Integer(0));
 	i.popValue(v);
 	if (v.type == Parser::Value::INTEGER || v.type == Parser::Value::REAL) {
-		v = Real(sqrt(Real(v)));
+		if (v < Parser::Value(Integer(0)))
+			v.switchSign();
 		i.pushValue(v);
 		return true;
 	} else
@@ -80,11 +70,57 @@ Math::func_sqrt(Interpreter &i)
 }
 
 bool
+Math::func_cos(Interpreter &i)
+{
+	return general_func(i, &cos_r);
+}
+
+bool
+Math::func_sin(Interpreter &i)
+{
+	return general_func(i, &sin_r);
+}
+
+bool
+Math::func_sqrt(Interpreter &i)
+{
+	return general_func(i, &sqrtf);
+}
+
+bool
 Math::func_pi(Interpreter &i)
 {
-	Parser::Value v(float(M_PI));
+	Parser::Value v(Real(M_PI));
 	i.pushValue(v);
 	return (true);
+}
+
+Real Math::sin_r(Real v)
+{
+	return sin(v);
+}
+
+Real Math::cos_r(Real v)
+{
+	return cos(v);
+}
+
+Real Math::sqrt_r(Real v)
+{
+	return sqrt(v);
+}
+
+bool
+Math::general_func(Interpreter &i, _func f)
+{
+	Parser::Value v(Integer(0));
+	i.popValue(v);
+	if (v.type == Parser::Value::INTEGER || v.type == Parser::Value::REAL) {
+		v = Real((*f)(Real(v)));
+		i.pushValue(v);
+		return true;
+	} else
+		return false;
 }
 
 }

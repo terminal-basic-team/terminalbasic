@@ -38,6 +38,7 @@ negativeLedBlink(size_t num = 1)
 #define PROGMEM
 #define pgm_read_word(a) (*a)
 #define strcpy_P(a,b) strcpy(a,b)
+#define strcmp_P(a,b) strcmp(a,b)
 #endif
 
 #endif

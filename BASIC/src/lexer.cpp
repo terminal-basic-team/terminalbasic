@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "lexer.hpp"
+#include "basic_lexer.hpp"
 #include "helper.hpp"
 
 #include <string.h>

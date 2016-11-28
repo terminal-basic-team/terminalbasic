@@ -32,12 +32,27 @@ public:
 // FunctionBlock interface
 protected:
 	FunctionBlock::function _getFunction(const char*) const override;
-	
+
+private:
 	static bool func_abs(Interpreter&);
 	static bool func_cos(Interpreter&);
 	static bool func_sin(Interpreter&);
 	static bool func_sqrt(Interpreter&);
 	static bool func_pi(Interpreter&);
+	
+	typedef Real (*_func)(Real);
+	
+	enum FuncNames : uint8_t
+	{
+		F_ABS = 0, F_COS, F_PI, F_SIN, F_SQRT, NUM_FUNC
+	};
+	
+	static bool general_func(Interpreter&, _func);
+	static Real sin_r(Real);
+	static Real cos_r(Real);
+	static Real sqrt_r(Real);
+	
+	static PGM_P const funcStrings[NUM_FUNC];
 };
 
 }
