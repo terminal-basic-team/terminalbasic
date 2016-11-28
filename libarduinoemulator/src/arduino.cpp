@@ -58,7 +58,7 @@ void analogWrite(uint8_t number, int value)
 }
 
 void digitalWrite(uint8_t, uint8_t)
-{    
+{
 }
 
 int digitalRead(uint8_t number)

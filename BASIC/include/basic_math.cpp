@@ -17,6 +17,8 @@
  */
 
 #include "basic_math.hpp"
+#include <math.h>
+#include <string.h>
 
 namespace BASIC
 {
@@ -29,6 +31,60 @@ FunctionBlock(next)
 FunctionBlock::function
 Math::_getFunction(const char *name) const
 {
+	if (strcmp(name, "ABS") == 0)
+		return func_abs;
+	else if (strcmp(name, "COS") == 0)
+		return func_cos;
+	else if (strcmp(name, "SIN") == 0)
+		return func_sin;
+	else if (strcmp(name, "SQRT") == 0)
+		return func_sqrt;
+	else if (strcmp(name, "PI") == 0)
+		return func_pi;
+	else
+		return NULL;
+}
+
+bool
+Math::func_abs(Interpreter &i)
+{
+	volatile int a;
+	return abs(a);
+}
+
+bool
+Math::func_cos(Interpreter &i)
+{
+	volatile float a;
+	return cos(a);
+}
+
+bool
+Math::func_sin(Interpreter&)
+{
+	volatile float a;
+	return sin(a);
+}
+
+bool
+Math::func_sqrt(Interpreter &i)
+{
+	Parser::Value v(Integer(0));
+	i.popValue(v);
+	if (v.type == Parser::Value::INTEGER || v.type == Parser::Value::REAL) {
+		v = Real(sqrt(Real(v)));
+		i.pushValue(v);
+		return true;
+	} else
+		return false;
+}
+
+bool
+Math::func_pi(Interpreter &i)
+{
+	Parser::Value v(float(M_PI));
+	i.pushValue(v);
+	return (true);
 }
 
 }

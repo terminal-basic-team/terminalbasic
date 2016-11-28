@@ -46,7 +46,7 @@ public:
 		enum Type : uint8_t
 		{
 			SUBPROGRAM_RETURN, FOR_NEXT, STRING, ARRAY_DIMENSION,
-			ARRAY_DIMENSIONS
+			ARRAY_DIMENSIONS, VALUE
 		};
 
 		struct CPS_PACKED ForBody
@@ -58,6 +58,7 @@ public:
 			Parser::Value step;
 			Parser::Value finalv;
 		};
+		static_assert (sizeof (ForBody) <= UINT8_MAX, "bad size");
 		
 		struct CPS_PACKED GosubReturn
 		{
@@ -76,6 +77,7 @@ public:
 			uint16_t	arrayDimension;
 			ForBody		forFrame;
 			char		string[STRINGSIZE];
+			Parser::Value	value;
 		} body;
 	};
 

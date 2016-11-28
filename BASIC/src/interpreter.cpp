@@ -146,8 +146,8 @@ Interpreter::valueFromArray(Parser::Value &v, const char *name)
 	}
 }
 
-Interpreter::Interpreter(Stream &stream, Program &program) :
-_program(program), _state(SHELL), _stream(stream), _parser(_lexer, *this)
+Interpreter::Interpreter(Stream &stream, Program &program, FunctionBlock *first) :
+_program(program), _state(SHELL), _stream(stream), _parser(_lexer, *this, first)
 {
 	_stream.setTimeout(10000L);
 }
@@ -357,26 +357,44 @@ void
 Interpreter::pushForLoop(const char *varName, uint8_t textPosition,
     const Parser::Value &v, const Parser::Value &vStep)
 {
-	Program::StackFrame */*f = _program.stackFrameByIndex(_program._sp);
-	if ((f != NULL) && (f->_type == Program::StackFrame::FOR_NEXT) &&
-	    (strcmp(varName, f->body.forFrame.varName) == 0)) { // for iteration
-		setVariable(varName, f->body.forFrame.current);
-	} else {*/
-		f = _program.push(Program::StackFrame::FOR_NEXT);
-		if (f == NULL)
-			raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
-		f->body.forFrame.calleeIndex = _program._current;
-		f->body.forFrame.textPosition = textPosition;
-		f->body.forFrame.finalv = v;
-		f->body.forFrame.step = vStep;
+	Program::StackFrame *f = _program.push(Program::StackFrame::FOR_NEXT);
+	if (f == NULL)
+		raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
+	f->body.forFrame.calleeIndex = _program._current;
+	f->body.forFrame.textPosition = _program._textPosition+textPosition;
+	f->body.forFrame.finalv = v;
+	f->body.forFrame.step = vStep;
 
-		valueFromVar(f->body.forFrame.current, varName);
-		strcpy(f->body.forFrame.varName, varName);
-		setVariable(varName, f->body.forFrame.current);
-	//}
+	valueFromVar(f->body.forFrame.current, varName);
+	strcpy(f->body.forFrame.varName, varName);
+	setVariable(varName, f->body.forFrame.current);
 }
 
 void
+Interpreter::pushValue(const Parser::Value &v)
+{
+	Program::StackFrame *f = _program.push(Program::StackFrame::
+	    VALUE);
+	if (f == NULL)
+		raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
+	f->body.value = v;
+}
+
+bool
+Interpreter::popValue(Parser::Value &v)
+{
+	Program::StackFrame *f = _program.stackFrameByIndex(_program._sp);
+	if ((f != NULL) && (f->_type == Program::StackFrame::VALUE)) {
+		v = f->body.value;
+		_program.pop();
+		return true;
+	} else {
+		raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
+		return false;
+	}
+}
+
+bool
 Interpreter::next(const char *varName)
 {
 	Program::StackFrame *f = _program.stackFrameByIndex(_program._sp);
@@ -387,17 +405,19 @@ Interpreter::next(const char *varName)
 			if (f->body.forFrame.current >
 			    f->body.forFrame.finalv) {
 				_program.pop();
-				return;
+				return true;
 			}
 		} else if (f->body.forFrame.current < f->body.forFrame.finalv) {
 			_program.pop();
-			return;
+			return true;
 		}
 		_program.jump(f->body.forFrame.calleeIndex);
 		_program._textPosition = f->body.forFrame.textPosition;
 		setVariable(f->body.forFrame.varName, f->body.forFrame.current);
 	} else
 		raiseError(DYNAMIC_ERROR, INVALID_NEXT);
+	
+	return false;
 }
 
 void

@@ -67,8 +67,8 @@
 namespace BASIC
 {
 
-Parser::Parser(Lexer &l, Interpreter &i) :
-_lexer(l), _interpreter(i), _mode(EXECUTE)
+Parser::Parser(Lexer &l, Interpreter &i, FunctionBlock *first) :
+_lexer(l), _interpreter(i), _mode(EXECUTE), _firstFB(first)
 {
 }
 
@@ -132,8 +132,8 @@ Parser::fOperator()
 		if (_mode == EXECUTE) {
 			_interpreter.pushReturnAddress(_lexer.getPointer());
 			_interpreter.gotoLine(v.value.integer);
-			_stopParse = true;
 		}
+		_stopParse = true;
 		return true;
 	}
 	case KW_IF:
@@ -176,7 +176,9 @@ Parser::fOperator()
 		    _lexer.getToken() != INTEGER_IDENT))
 			return false;
 		if (_mode == EXECUTE)
-			_interpreter.next(_lexer.id());
+			_stopParse = !_interpreter.next(_lexer.id());
+		if (!_stopParse)
+			_lexer.getNext();
 		return true;
 	case KW_PRINT:
 		if (_lexer.getNext())
@@ -455,23 +457,8 @@ Parser::fFinal(Value &v)
 		default:
 		{
 			char varName[VARSIZE];
-			if (fVar(varName)) {
-				if (_lexer.getNext() && _lexer.getToken()==
-				    LPAREN) {
-					uint8_t dim;
-					if (fArray(dim)) {
-						if (_mode == EXECUTE)
-							_interpreter.valueFromArray(v,
-							    varName);
-					} else
-						return false;
-				} else
-					if (_mode == EXECUTE) {
-						_interpreter.valueFromVar(v,
-						    varName);
-					}
-				return true;
-			}
+			if (fVar(varName))
+				return fIdentifierExpr(varName, v);
 		}
 			return false;
 		}
@@ -655,6 +642,48 @@ Parser::fDimensions(uint8_t &dimensions)
 		_interpreter.pushDimension(Integer(v));
 		++dimensions;
 	} while (_lexer.getToken() == COMMA);
+	return true;
+}
+
+bool
+Parser::fIdentifierExpr(const char *varName, Value &v)
+{
+	 // Identifier, var or func or array ?
+	if (_lexer.getNext() && _lexer.getToken()==
+	    LPAREN) { // (, array or function
+		FunctionBlock::function f;
+		if (_firstFB != NULL && (f=_firstFB->getFunction(varName))) { // function
+			Value arg;
+			do {
+				if (!_lexer.getNext())
+					return false;
+				else if (_lexer.getToken() == RPAREN)
+					break;
+				else {
+					if (!fExpression(arg))
+						return false;
+					_interpreter.pushValue(arg);
+				}
+			} while (_lexer.getToken() == COMMA);
+			
+			bool result = true;
+			if (_mode == EXECUTE) {
+				result = ((*f)(_interpreter));
+				if (!_interpreter.popValue(v))
+					return false;
+			}
+		} else { // No such function, array variable
+			uint8_t dim;
+			if (fArray(dim)) {
+				if (_mode == EXECUTE)
+					_interpreter.valueFromArray(v,
+					    varName);
+			} else
+				return false;
+		}
+	} else
+		if (_mode == EXECUTE)
+			_interpreter.valueFromVar(v, varName);
 	return true;
 }
 

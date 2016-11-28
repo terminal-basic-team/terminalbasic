@@ -842,13 +842,13 @@ void Lexer::stringConst()
 	_token = NOTOKENS;
 	
 	while (SYM != 0) {
-		pushSYM();
 		if (SYM == '"') {
 			next();
 			_token = C_STRING;
 			_id[_valuePointer] = 0;
 			return;
 		}
+		pushSYM();
 	}
 }
 

@@ -24,11 +24,13 @@
 namespace BASIC
 {
 
+class Interpreter;
+
 class FunctionBlock
 {
 public:
 
-	typedef void (*function)();
+	typedef bool (*function)(Interpreter&);
 	
 	function getFunction(const char*) const;
 	

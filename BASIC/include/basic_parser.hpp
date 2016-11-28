@@ -24,6 +24,7 @@
 
 #include "cps.hpp"
 #include "basic.hpp"
+#include "basic_functionblock.hpp"
 
 namespace BASIC
 {
@@ -48,7 +49,7 @@ public:
 
 	class CPS_PACKED Value;
 
-	Parser(Lexer&, Interpreter&);
+	Parser(Lexer&, Interpreter&, FunctionBlock* = NULL);
 
 	bool parse(const char*);
 
@@ -79,12 +80,14 @@ private:
 	bool fArrayList();
 	bool fArray(uint8_t&);
 	bool fDimensions(uint8_t&);
+	bool fIdentifierExpr(const char*, Value&);
 
 	ErrorCodes _error;
 	Lexer &_lexer;
 	Interpreter &_interpreter;
 	Mode	_mode;
 	bool	_stopParse;
+	FunctionBlock *_firstFB;
 };
 
 }

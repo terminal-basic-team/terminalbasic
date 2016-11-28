@@ -144,7 +144,7 @@ public:
 		MEMORY, VARS, ARRAYS
 	};
 	
-	Interpreter(Stream&, Program&);
+	Interpreter(Stream&, Program&, FunctionBlock* = NULL);
 	// Interpreter cycle: request a string or execute one operator
 	void step();
 	// Output program memory
@@ -170,8 +170,14 @@ public:
 	// save for loop
 	void pushForLoop(const char*, uint8_t, const Parser::Value&,
 	    const Parser::Value&);
-	// iterate for loop
-	void next(const char*);
+	void pushValue(const Parser::Value&);
+	bool popValue(Parser::Value&);
+	/**
+	 * @brief iterate over loop
+	 * @param varName loop variable name
+	 * @return loop end flag
+	 */
+	bool next(const char*);
 	
 	void save();
 	

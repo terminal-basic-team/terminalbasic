@@ -32,7 +32,12 @@ public:
 // FunctionBlock interface
 protected:
 	FunctionBlock::function _getFunction(const char*) const override;
-
+	
+	static bool func_abs(Interpreter&);
+	static bool func_cos(Interpreter&);
+	static bool func_sin(Interpreter&);
+	static bool func_sqrt(Interpreter&);
+	static bool func_pi(Interpreter&);
 };
 
 }

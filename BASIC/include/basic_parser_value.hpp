@@ -48,7 +48,7 @@ public:
 
 	Value();
 	explicit Value(Integer);
-	explicit Value(float);
+	Value(float);
 	explicit Value(bool);
 
 	explicit operator Real() const;

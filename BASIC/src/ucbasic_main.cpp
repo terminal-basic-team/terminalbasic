@@ -18,9 +18,11 @@
 
 #include "arduino_logger.hpp"
 #include "basic_interpreter_program.hpp"
+#include "basic_math.hpp"
 
+static BASIC::Math	mathBlock;
 static BASIC::Interpreter::Program program;
-static BASIC::Interpreter basic(Serial, program);
+static BASIC::Interpreter basic(Serial, program, &mathBlock);
 
 void setup()
 {

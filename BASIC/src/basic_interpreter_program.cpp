@@ -102,6 +102,8 @@ Interpreter::Program::StackFrame::size(Type t)
 		return sizeof (Type) + sizeof (uint16_t);
 	case ARRAY_DIMENSIONS:
 		return sizeof (Type) + sizeof (uint8_t);
+	case VALUE:
+		return sizeof (Type) + sizeof (Parser::Value);
 	default:
 		return 0;
 	}
@@ -155,6 +157,10 @@ Interpreter::Program::arrayIndex(ArrayFrame *f) const
 Interpreter::Program::StackFrame*
 Interpreter::Program::push(StackFrame::Type t)
 {
+	uint8_t s = StackFrame::size(t);
+	if ((_sp - s) < _arraysEnd)
+		return NULL;
+	
 	_sp -= StackFrame::size(t);
 	StackFrame *f = stackFrameByIndex(_sp);
 	if (f != NULL)
