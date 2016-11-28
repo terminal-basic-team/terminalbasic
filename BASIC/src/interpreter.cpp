@@ -191,9 +191,9 @@ nextinput:
 		break;
 	}
 	case EXECUTE:
-		if (_program._textEnd > 0) {
+		if (_program._current < _program._textEnd) {
 			Program::String *s = _program.current();
-			if (!_parser.parse(s->text))
+			if (!_parser.parse(s->text + _program._textPosition))
 				raiseError(STATIC_ERROR);
 			_program.getString();
 		} else
@@ -346,32 +346,34 @@ Interpreter::returnFromSub()
 {
 	Program::StackFrame *f = _program.stackFrameByIndex(_program._sp);
 	if ((f != NULL) && (f->_type == Program::StackFrame::SUBPROGRAM_RETURN)) {
-		_program._current = f->body.gosubReturn.calleeIndex;
+		_program.jump(f->body.gosubReturn.calleeIndex);
+		_program._textPosition = f->body.gosubReturn.textPosition;
 		_program.pop();
 	} else
 		raiseError(DYNAMIC_ERROR, RETURN_WO_GOSUB);
 }
 
 void
-Interpreter::pushForLoop(const char *varName, const Parser::Value &v,
-    const Parser::Value &vStep)
+Interpreter::pushForLoop(const char *varName, uint8_t textPosition,
+    const Parser::Value &v, const Parser::Value &vStep)
 {
-	Program::StackFrame *f = _program.stackFrameByIndex(_program._sp);
+	Program::StackFrame */*f = _program.stackFrameByIndex(_program._sp);
 	if ((f != NULL) && (f->_type == Program::StackFrame::FOR_NEXT) &&
 	    (strcmp(varName, f->body.forFrame.varName) == 0)) { // for iteration
 		setVariable(varName, f->body.forFrame.current);
-	} else {
+	} else {*/
 		f = _program.push(Program::StackFrame::FOR_NEXT);
 		if (f == NULL)
 			raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
 		f->body.forFrame.calleeIndex = _program._current;
+		f->body.forFrame.textPosition = textPosition;
 		f->body.forFrame.finalv = v;
 		f->body.forFrame.step = vStep;
 
 		valueFromVar(f->body.forFrame.current, varName);
 		strcpy(f->body.forFrame.varName, varName);
 		setVariable(varName, f->body.forFrame.current);
-	}
+	//}
 }
 
 void
@@ -392,6 +394,8 @@ Interpreter::next(const char *varName)
 			return;
 		}
 		_program.jump(f->body.forFrame.calleeIndex);
+		_program._textPosition = f->body.forFrame.textPosition;
+		setVariable(f->body.forFrame.varName, f->body.forFrame.current);
 	} else
 		raiseError(DYNAMIC_ERROR, INVALID_NEXT);
 }

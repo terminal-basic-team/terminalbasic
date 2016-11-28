@@ -84,6 +84,7 @@ private:
 	Lexer &_lexer;
 	Interpreter &_interpreter;
 	Mode	_mode;
+	bool	_stopParse;
 };
 
 }

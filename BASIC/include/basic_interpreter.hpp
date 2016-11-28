@@ -168,7 +168,7 @@ public:
 	// return from subprogram
 	void returnFromSub();
 	// save for loop
-	void pushForLoop(const char*, const Parser::Value&,
+	void pushForLoop(const char*, uint8_t, const Parser::Value&,
 	    const Parser::Value&);
 	// iterate for loop
 	void next(const char*);

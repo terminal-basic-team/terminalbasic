@@ -77,6 +77,7 @@ Parser::parse(const char *s)
 	LOG_TRACE;
 
 	_lexer.init(s);
+	_stopParse = false;
 	_error = NO_ERROR;
 	
 	return fOperators();
@@ -96,7 +97,7 @@ Parser::fOperators()
 		} else
 			return true;
 		t = _lexer.getToken();
-	} while (t == COLON);
+	} while (t == COLON && !_stopParse);
 	return true;
 }
 
@@ -130,6 +131,7 @@ Parser::fOperator()
 		if (_mode == EXECUTE) {
 			_interpreter.pushReturnAddress(_lexer.getPointer());
 			_interpreter.gotoLine(v.value.integer);
+			_stopParse = true;
 		}
 		return true;
 	}
@@ -576,7 +578,7 @@ Parser::fForConds()
 		return false;
 	
 	if (_mode == EXECUTE)
-		_interpreter.pushForLoop(vName, v, vStep);
+		_interpreter.pushForLoop(vName, _lexer.getPointer(), v, vStep);
 	
 	return true;
 }

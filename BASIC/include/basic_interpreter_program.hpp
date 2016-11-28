@@ -52,6 +52,7 @@ public:
 		struct CPS_PACKED ForBody
 		{
 			uint16_t calleeIndex;
+			uint8_t textPosition;
 			char varName[VARSIZE];
 			Parser::Value current;
 			Parser::Value step;

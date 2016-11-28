@@ -40,6 +40,7 @@ Interpreter::Program::getString()
 	else {
 		Program::String *result = current();
 		_current += result->size;
+		_textPosition = 0;
 		return result;
 	}
 }
