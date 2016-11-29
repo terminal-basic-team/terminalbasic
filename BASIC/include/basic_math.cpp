@@ -24,13 +24,17 @@ namespace BASIC
 {
 
 static const char sABS[] PROGMEM = "ABS";
+static const char sATN[] PROGMEM = "ATN";
 static const char sCOS[] PROGMEM = "COS";
+static const char sEXP[] PROGMEM = "EXP";
+static const char sLOG[] PROGMEM = "LOG";
 static const char sPI[] PROGMEM = "PI";
 static const char sSIN[] PROGMEM = "SIN";
-static const char sSQRT[] PROGMEM = "SQRT";
+static const char sSQR[] PROGMEM = "SQR";
+static const char sTAN[] PROGMEM = "TAN";
 
 PGM_P const Math::funcStrings[NUM_FUNC] PROGMEM = {
-	sABS, sCOS, sPI, sSIN, sSQRT
+	sABS, sATN, sCOS, sEXP, sLOG, sPI, sSIN, sSQR, sTAN
 };
 
 Math::Math(FunctionBlock *next) :
@@ -43,14 +47,22 @@ Math::_getFunction(const char *name) const
 {
 	if (strcmp_P(name, (PGM_P)pgm_read_word(&(funcStrings[F_ABS]))) == 0)
 		return func_abs;
-	else if (strcmp(name, "COS") == 0)
+	else if (strcmp_P(name, (PGM_P)pgm_read_word(&(funcStrings[F_ATN]))) == 0)
+		return func_atn;
+	else if (strcmp_P(name, (PGM_P)pgm_read_word(&(funcStrings[F_COS]))) == 0)
 		return func_cos;
-	else if (strcmp(name, "SIN") == 0)
+	else if (strcmp_P(name, (PGM_P)pgm_read_word(&(funcStrings[F_EXP]))) == 0)
+		return func_exp;
+	else if (strcmp_P(name, (PGM_P)pgm_read_word(&(funcStrings[F_LOG]))) == 0)
+		return func_log;
+	else if (strcmp_P(name, (PGM_P)pgm_read_word(&(funcStrings[F_SIN]))) == 0)
 		return func_sin;
-	else if (strcmp(name, "SQRT") == 0)
-		return func_sqrt;
-	else if (strcmp(name, "PI") == 0)
+	else if (strcmp_P(name, (PGM_P)pgm_read_word(&(funcStrings[F_SQR]))) == 0)
+		return func_sqr;
+	else if (strcmp_P(name, (PGM_P)pgm_read_word(&(funcStrings[F_PI]))) == 0)
 		return func_pi;
+	else if (strcmp_P(name, (PGM_P)pgm_read_word(&(funcStrings[F_TAN]))) == 0)
+		return func_tan;
 	else
 		return NULL;
 }
@@ -70,9 +82,27 @@ Math::func_abs(Interpreter &i)
 }
 
 bool
+Math::func_atn(Interpreter &i)
+{
+	return general_func(i, &atn_r);
+}
+
+bool
 Math::func_cos(Interpreter &i)
 {
 	return general_func(i, &cos_r);
+}
+
+bool
+Math::func_exp(Interpreter &i)
+{
+	return general_func(i, &exp_r);
+}
+
+bool
+Math::func_log(Interpreter &i)
+{
+	return general_func(i, &log_r);
 }
 
 bool
@@ -82,9 +112,9 @@ Math::func_sin(Interpreter &i)
 }
 
 bool
-Math::func_sqrt(Interpreter &i)
+Math::func_sqr(Interpreter &i)
 {
-	return general_func(i, &sqrtf);
+	return general_func(i, &sqr_r);
 }
 
 bool
@@ -95,19 +125,52 @@ Math::func_pi(Interpreter &i)
 	return (true);
 }
 
-Real Math::sin_r(Real v)
+bool
+Math::func_tan(Interpreter &i)
+{
+	return general_func(i, &tan_r);
+}
+
+Real
+Math::sin_r(Real v)
 {
 	return sin(v);
 }
 
-Real Math::cos_r(Real v)
+Real
+Math::cos_r(Real v)
 {
 	return cos(v);
 }
 
-Real Math::sqrt_r(Real v)
+Real
+Math::exp_r(Real v)
+{
+	return exp(v);
+}
+
+Real
+Math::log_r(Real v)
+{
+	return log(v);
+}
+
+Real
+Math::sqr_r(Real v)
 {
 	return sqrt(v);
+}
+
+Real
+Math::atn_r(Real v)
+{
+	return atan(v);
+}
+
+Real
+Math::tan_r(Real v)
+{
+	return tan(v);
 }
 
 bool

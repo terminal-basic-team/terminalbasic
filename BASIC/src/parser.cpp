@@ -594,8 +594,8 @@ bool
 Parser::fVar(char *varName)
 {
 	if ((_lexer.getToken() != REAL_IDENT) &&
-	    (_lexer.getToken() == INTEGER_IDENT) &&
-	    (_lexer.getToken() == STRING_IDENT))
+	    (_lexer.getToken() != INTEGER_IDENT) &&
+	    (_lexer.getToken() != STRING_IDENT))
 		return false;
 
 	strcpy(varName, _lexer.id());
@@ -668,15 +668,15 @@ Parser::fIdentifierExpr(const char *varName, Value &v)
 			bool result = true;
 			if (_mode == EXECUTE) {
 				result = ((*f)(_interpreter));
-				if (!_interpreter.popValue(v))
+				if (!_interpreter.popValue(v) || !result)
 					return false;
 			}
 		} else { // No such function, array variable
 			uint8_t dim;
 			if (fArray(dim)) {
-				if (_mode == EXECUTE)
-					_interpreter.valueFromArray(v,
-					    varName);
+				if (_mode == EXECUTE &&
+				    _interpreter.valueFromArray(v, varName))
+					return true;
 			} else
 				return false;
 		}

@@ -31,7 +31,7 @@ DEFAULTCONF=Debug
 CONF=${DEFAULTCONF}
 
 # All Configurations
-ALLCONFS=Debug Arduino_nano328 Arduino_UNO Arduino_mega2560 Atmega_128 Release 
+ALLCONFS=Debug Arduino_nano328 Arduino_UNO Arduino_mega2560 Atmega_128a Release 
 
 
 # build

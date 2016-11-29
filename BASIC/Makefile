@@ -54,13 +54,18 @@ AVRDUDE=${TOOLS}/bin/avrdude
 OBJCOPY=${TOOLS}/bin/avr-objcopy
 AVRDUDE_CONF=${TOOLS}/etc/avrdude.conf
 
+BUILD:=$(shell cat "./build-${CONF}")
+VERSION:=0.2.${BUILD}
+
 # build
 build: .build-post
 
 .build-pre:
-# Add your pre 'build' code here...
+	echo "#define VERSION \"${VERSION}\"" > "./include/version.h"
 
 .build-post: .build-impl # copy program
+	echo $(shell expr ${BUILD} + 1) ; \
+	echo $(shell expr ${BUILD} + 1) > "./build-${CONF}"
 
 # clean
 clean: .clean-post
@@ -133,10 +138,12 @@ copy: build
 program: copy
 	#${AVRDUDE} -D -C ${AVRDUDE_CONF} -v -c wiring -p atmega2560 -P /dev/ttyUSB0 -b115200 \
 	#    -U flash:w:"${CND_BASEDIR}/${CND_ARTIFACT_PATH_${CONF}}.hex":i
-	${AVRDUDE} -C ${AVRDUDE_CONF} -v -c arduino -p m328p -P /dev/ttyUSB0 \
-	-U flash:w:"${CND_BASEDIR}/${CND_ARTIFACT_PATH_${CONF}}.hex":i
+	#${AVRDUDE} -C ${AVRDUDE_CONF} -v -c arduino -p m328p -P /dev/ttyUSB0 \
+	#-U flash:w:"${CND_BASEDIR}/${CND_ARTIFACT_PATH_${CONF}}.hex":i
 	#${AVRDUDE} -C ${AVRDUDE_CONF} -v -c usbasp -p m328p \
 	#-U flash:w:"${CND_BASEDIR}/${CND_ARTIFACT_PATH_${CONF}}.hex":i
+	${AVRDUDE} -C ${AVRDUDE_CONF} -v -c usbasp -p m128 \
+	-U flash:w:"${CND_BASEDIR}/${CND_ARTIFACT_PATH_${CONF}}.hex":i
 
 # include project implementation makefile
 include nbproject/Makefile-impl.mk

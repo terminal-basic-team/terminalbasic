@@ -27,6 +27,7 @@
 #include "basic_interpreter_program.hpp"
 #include "basic_parser_value.hpp"
 #include "arduino_logger.hpp"
+#include "version.h"
 
 #ifdef ARDUINO
 static int freeRam()
@@ -117,19 +118,19 @@ Interpreter::valueFromVar(Parser::Value &v, const char *varName)
 	}
 }
 
-void
+bool
 Interpreter::valueFromArray(Parser::Value &v, const char *name)
 {
 	ArrayFrame *f = _program.arrayByName(name);
 	if (f == NULL) {
 		raiseError(DYNAMIC_ERROR, NO_SUCH_ARRAY);
-		return;
+		return false;
 	}
 	
 	uint16_t index;
 	if (!arrayElementIndex(f, index)) {
 		raiseError(DYNAMIC_ERROR, INVALID_VALUE_TYPE);
-		return;
+		return false;
 	}
 	
 	switch (f->type) {
@@ -143,7 +144,9 @@ Interpreter::valueFromArray(Parser::Value &v, const char *name)
 		break;
 	default:
 		raiseError(DYNAMIC_ERROR, INVALID_VALUE_TYPE);
+		return false;
 	}
+	return true;
 }
 
 Interpreter::Interpreter(Stream &stream, Program &program, FunctionBlock *first) :
@@ -152,18 +155,33 @@ _program(program), _state(SHELL), _stream(stream), _parser(_lexer, *this, first)
 	_stream.setTimeout(10000L);
 }
 
-void Interpreter::step()
+void
+Interpreter::init()
+{
+	{
+		AttrKeeper att(*this, BOLD);
+		_stream.print("ucBASIC");
+	}
+	_stream.print(" VERSION ");
+	{
+		AttrKeeper att(*this, BOLD);
+		_stream.println(VERSION);
+	}
+	{
+		AttrKeeper att(*this, BOLD);
+		_stream.print(PROGSIZE-_program._arraysEnd);
+	}
+	_stream.println(" BYTES AVAILABLE");
+}
+
+void
+Interpreter::step()
 {
 	LOG_TRACE;
 
 	switch (_state) {
 	case SHELL:
 	{
-		{
-			AttrKeeper att(*this, BOLD);
-			_stream.print(PROGSIZE-_program._arraysEnd);
-		}
-		_stream.println(" BYTES AVAILABLE");
 		print("READY", BOLD);
 		_stream.println();
 nextinput:
@@ -201,7 +219,8 @@ nextinput:
 	}
 }
 
-void Interpreter::list()
+void
+Interpreter::list()
 {
 	_program.reset();
 	for (Program::String *s = _program.getString(); s != NULL;

@@ -35,22 +35,32 @@ protected:
 
 private:
 	static bool func_abs(Interpreter&);
+	static bool func_atn(Interpreter&);
 	static bool func_cos(Interpreter&);
+	static bool func_exp(Interpreter&);
+	static bool func_log(Interpreter&);
 	static bool func_sin(Interpreter&);
-	static bool func_sqrt(Interpreter&);
+	static bool func_sqr(Interpreter&);
 	static bool func_pi(Interpreter&);
+	static bool func_tan(Interpreter&);
 	
 	typedef Real (*_func)(Real);
 	
 	enum FuncNames : uint8_t
 	{
-		F_ABS = 0, F_COS, F_PI, F_SIN, F_SQRT, NUM_FUNC
+		F_ABS = 0, F_ATN, F_COS, F_EXP, F_LOG, F_PI, F_SIN, F_SQR,
+		F_TAN, NUM_FUNC
 	};
 	
 	static bool general_func(Interpreter&, _func);
+	
+	static Real atn_r(Real);
 	static Real sin_r(Real);
 	static Real cos_r(Real);
-	static Real sqrt_r(Real);
+	static Real exp_r(Real);
+	static Real log_r(Real);
+	static Real sqr_r(Real);
+	static Real tan_r(Real);
 	
 	static PGM_P const funcStrings[NUM_FUNC];
 };

@@ -32,7 +32,7 @@
                     <type>3</type>
                 </confElem>
                 <confElem>
-                    <name>Atmega_128</name>
+                    <name>Atmega_128a</name>
                     <type>3</type>
                 </confElem>
             </confList>

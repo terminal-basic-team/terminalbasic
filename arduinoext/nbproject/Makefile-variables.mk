@@ -38,14 +38,14 @@ CND_ARTIFACT_PATH_Arduino_mega2560=dist/Arduino_mega2560/Arduino-Linux/libarduin
 CND_PACKAGE_DIR_Arduino_mega2560=dist/Arduino_mega2560/Arduino-Linux/package
 CND_PACKAGE_NAME_Arduino_mega2560=arduinoext.tar
 CND_PACKAGE_PATH_Arduino_mega2560=dist/Arduino_mega2560/Arduino-Linux/package/arduinoext.tar
-# Atmega_128 configuration
-CND_PLATFORM_Atmega_128=Arduino-Linux
-CND_ARTIFACT_DIR_Atmega_128=dist/Atmega_128/Arduino-Linux
-CND_ARTIFACT_NAME_Atmega_128=libarduinoext.a
-CND_ARTIFACT_PATH_Atmega_128=dist/Atmega_128/Arduino-Linux/libarduinoext.a
-CND_PACKAGE_DIR_Atmega_128=dist/Atmega_128/Arduino-Linux/package
-CND_PACKAGE_NAME_Atmega_128=arduinoext.tar
-CND_PACKAGE_PATH_Atmega_128=dist/Atmega_128/Arduino-Linux/package/arduinoext.tar
+# Atmega_128a configuration
+CND_PLATFORM_Atmega_128a=Arduino-Linux
+CND_ARTIFACT_DIR_Atmega_128a=dist/Atmega_128a/Arduino-Linux
+CND_ARTIFACT_NAME_Atmega_128a=libarduinoext.a
+CND_ARTIFACT_PATH_Atmega_128a=dist/Atmega_128a/Arduino-Linux/libarduinoext.a
+CND_PACKAGE_DIR_Atmega_128a=dist/Atmega_128a/Arduino-Linux/package
+CND_PACKAGE_NAME_Atmega_128a=arduinoext.tar
+CND_PACKAGE_PATH_Atmega_128a=dist/Atmega_128a/Arduino-Linux/package/arduinoext.tar
 # Release configuration
 CND_PLATFORM_Release=GNU-Linux
 CND_ARTIFACT_DIR_Release=dist/Release/GNU-Linux

@@ -24,7 +24,7 @@
 namespace BASIC
 {
 
-class Interpreter::Program
+class CPS_PACKED Interpreter::Program
 {
 	friend class Interpreter;
 public:

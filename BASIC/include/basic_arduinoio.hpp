@@ -16,29 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "arduino_logger.hpp"
-#include "basic_interpreter_program.hpp"
-#include "basic_math.hpp"
+#ifndef BASIC_ARDUINOIO_HPP
+#define BASIC_ARDUINOIO_HPP
 
-static BASIC::Math mathBlock;
-static BASIC::Interpreter::Program program;
-static BASIC::Interpreter basic(Serial, program, &mathBlock);
 
-void setup()
-{
-	Serial.begin(57600);
-	LOG_INIT(Serial);
 
-	LOG_TRACE;
-	
-	basic.init();
-}
-
-static BASIC::Lexer l;
-
-void loop()
-{
-	LOG_TRACE;
-
-	basic.step();
-}
+#endif

@@ -3,6 +3,7 @@
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="include" displayName="include" projectFiles="true">
       <itemPath>include/basic.hpp</itemPath>
+      <itemPath>include/basic_arduinoio.hpp</itemPath>
       <itemPath>include/basic_functionblock.hpp</itemPath>
       <itemPath>include/basic_interpreter.hpp</itemPath>
       <itemPath>include/basic_interpreter_program.hpp</itemPath>
@@ -109,6 +110,8 @@
       </compileType>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
@@ -208,6 +211,8 @@
       </compileType>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
@@ -304,6 +309,8 @@
         </linkerTool>
       </compileType>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -402,6 +409,8 @@
       </compileType>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
@@ -436,7 +445,7 @@
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
     </conf>
-    <conf name="Atmega_128" type="1">
+    <conf name="Atmega_128a" type="1">
       <toolsSet>
         <compilerSet>Arduino|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
@@ -457,12 +466,12 @@
           <incFile>
             <pElem>Arduino.h</pElem>
           </incFile>
-          <commandLine>-O3 -Wextra -std=gnu++11 -fpermissive -fno-exceptions -fno-threadsafe-statics -MMD -mmcu=atmega128 -ffunction-sections -fdata-sections -flto</commandLine>
+          <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -fno-threadsafe-statics -MMD -mmcu=atmega128a -ffunction-sections -fdata-sections -flto</commandLine>
           <preprocessorList>
             <Elem>ARDUINO=10607</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_UNO</Elem>
-            <Elem>F_CPU=16000000L</Elem>
+            <Elem>F_CPU=8000000L</Elem>
           </preprocessorList>
           <warningLevel>2</warningLevel>
         </ccTool>
@@ -472,32 +481,34 @@
             <linkerLibProjectItem>
               <makeArtifact PL="../arduinoext"
                             CT="3"
-                            CN="Atmega_128"
+                            CN="Atmega_128a"
                             AC="false"
                             BL="true"
                             WD="../arduinoext"
-                            BC="${MAKE}  -f Makefile CONF=Atmega_128"
-                            CC="${MAKE}  -f Makefile CONF=Atmega_128 clean"
+                            BC="${MAKE}  -f Makefile CONF=Atmega_128a"
+                            CC="${MAKE}  -f Makefile CONF=Atmega_128a clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libarduinoext.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../libarduino"
                             CT="3"
-                            CN="Atmega_128"
+                            CN="Atmega_128a"
                             AC="true"
                             BL="true"
                             WD="../libarduino"
-                            BC="${MAKE}  -f Makefile CONF=Atmega_128"
-                            CC="${MAKE}  -f Makefile CONF=Atmega_128 clean"
+                            BC="${MAKE}  -f Makefile CONF=Atmega_128a"
+                            CC="${MAKE}  -f Makefile CONF=Atmega_128a clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/libarduino.a">
               </makeArtifact>
             </linkerLibProjectItem>
           </linkerLibItems>
-          <commandLine>-Wall -Wextra -O3 -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega128</commandLine>
+          <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega128a</commandLine>
         </linkerTool>
       </compileType>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -541,7 +552,7 @@
       </toolsSet>
       <compileType>
         <ccTool>
-          <developmentMode>5</developmentMode>
+          <developmentMode>0</developmentMode>
           <stripSymbols>true</stripSymbols>
           <standard>8</standard>
           <incDir>
@@ -554,6 +565,7 @@
             <pElem>../../posixcpp/include</pElem>
             <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino</pElem>
           </incDir>
+          <commandLine>-O3 -march=pentium3 -mfpmath=sse</commandLine>
           <warningLevel>2</warningLevel>
         </ccTool>
         <linkerTool>
@@ -600,6 +612,8 @@
         </linkerTool>
       </compileType>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
       </item>

@@ -31,7 +31,7 @@ DEFAULTCONF=Nano328
 CONF=${DEFAULTCONF}
 
 # All Configurations
-ALLCONFS=Nano328 Nano168 Uno Mega_2560 Atmega_128 
+ALLCONFS=Nano328 Nano168 Uno Mega_2560 Atmega_128a 
 
 
 # build

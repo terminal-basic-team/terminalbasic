@@ -1233,7 +1233,7 @@
         </cTool>
       </item>
     </conf>
-    <conf name="Atmega_128" type="3">
+    <conf name="Atmega_128a" type="3">
       <toolsSet>
         <compilerSet>Arduino|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
@@ -1243,14 +1243,13 @@
         <cTool>
           <incDir>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
-            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs</pElem>
+            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/variants/atmega64_128</pElem>
           </incDir>
-          <commandLine>-Os -Wextra -std=gnu11 -ffunction-sections -fdata-sections -MMD -mmcu=atmega128 -flto</commandLine>
+          <commandLine>-Os -Wextra -std=gnu11 -ffunction-sections -fdata-sections -MMD -mmcu=atmega128a -flto</commandLine>
           <preprocessorList>
-            <Elem></Elem>
             <Elem>ARDUINO=10612</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
-            <Elem>F_CPU=16000000L</Elem>
+            <Elem>F_CPU=8000000L</Elem>
           </preprocessorList>
           <warningLevel>2</warningLevel>
         </cTool>
@@ -1261,11 +1260,11 @@
             <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/variants/atmega64_128</pElem>
             <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src</pElem>
           </incDir>
-          <commandLine>-O3 -Wextra -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega128 -flto</commandLine>
+          <commandLine>-Os -Wextra -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega128a -flto</commandLine>
           <preprocessorList>
             <Elem>ARDUINO=10612</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
-            <Elem>F_CPU=16000000L</Elem>
+            <Elem>F_CPU=8000000L</Elem>
           </preprocessorList>
           <warningLevel>2</warningLevel>
         </ccTool>

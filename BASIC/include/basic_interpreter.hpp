@@ -145,6 +145,7 @@ public:
 	};
 	
 	Interpreter(Stream&, Program&, FunctionBlock* = NULL);
+	void init();
 	// Interpreter cycle: request a string or execute one operator
 	void step();
 	// Output program memory
@@ -210,7 +211,7 @@ public:
 	
 	void valueFromVar(Parser::Value&, const char*);
 	
-	void valueFromArray(Parser::Value&, const char*);
+	bool valueFromArray(Parser::Value&, const char*);
 	
 	/**
 	 * @brief push string constant on the stack

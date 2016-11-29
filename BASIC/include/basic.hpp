@@ -44,7 +44,7 @@ const size_t PROGSIZE = 1280;
 const size_t PROGSIZE = 8192;
 #endif
 // Number of characters in variable name
-const uint8_t VARSIZE = 4; 
+const uint8_t VARSIZE = 6; 
 // integer type
 typedef int16_t Integer;
 // floating point type

@@ -446,7 +446,7 @@
       <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
-    <conf name="Atmega_128" type="3">
+    <conf name="Atmega_128a" type="3">
       <toolsSet>
         <compilerSet>Arduino|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
@@ -461,12 +461,12 @@
             <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino</pElem>
             <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/variants/atmega64_128</pElem>
           </incDir>
-          <commandLine>-O3 -Wextra -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega128 -flto</commandLine>
+          <commandLine>-Os -Wextra -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega128a -flto</commandLine>
           <preprocessorList>
             <Elem>ARDUINO=10612</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_UNO</Elem>
-            <Elem>F_CPU=16000000L</Elem>
+            <Elem>F_CPU=8000000L</Elem>
           </preprocessorList>
           <warningLevel>2</warningLevel>
         </ccTool>
@@ -557,14 +557,14 @@
       </toolsSet>
       <compileType>
         <ccTool>
-          <developmentMode>5</developmentMode>
+          <developmentMode>0</developmentMode>
           <standard>8</standard>
           <incDir>
             <pElem>include</pElem>
             <pElem>../libarduinoemulator/include</pElem>
             <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino</pElem>
           </incDir>
-          <commandLine>`pkg-config --cflags posixcpp`</commandLine>
+          <commandLine>`pkg-config --cflags posixcpp` -O3 -march=pentium3 -mfpmath=sse</commandLine>
           <warningLevel>2</warningLevel>
         </ccTool>
         <archiverTool>
