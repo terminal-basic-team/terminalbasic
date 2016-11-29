@@ -199,6 +199,11 @@ Parser::fOperator()
 			return true;
 		if (fGotoStatement())
 			return true;
+		{
+			char vName[VARSIZE];
+			if (fImplicitAssignment(vName))
+				return true;
+		}
 		_error = OPERATOR_EXPECTED;
 		return false;
 	}

@@ -14,12 +14,12 @@
     </logicalFolder>
     <logicalFolder name="src" displayName="src" projectFiles="true">
       <itemPath>include/basic_functionblock.cpp</itemPath>
+      <itemPath>src/basic_interpreter.cpp</itemPath>
       <itemPath>src/basic_interpreter_program.cpp</itemPath>
+      <itemPath>src/basic_lexer.cpp</itemPath>
       <itemPath>include/basic_math.cpp</itemPath>
+      <itemPath>src/basic_parser.cpp</itemPath>
       <itemPath>src/basic_parser_value.cpp</itemPath>
-      <itemPath>src/interpreter.cpp</itemPath>
-      <itemPath>src/lexer.cpp</itemPath>
-      <itemPath>src/parser.cpp</itemPath>
       <itemPath>src/ucbasic_main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -133,15 +133,15 @@
       </item>
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/interpreter.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/lexer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/parser.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -234,15 +234,15 @@
       </item>
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/interpreter.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/lexer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/parser.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -261,9 +261,9 @@
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/SoftwareSerial/src</pElem>
+            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/src</pElem>
             <pElem>include</pElem>
             <pElem>../arduinoext/include</pElem>
-            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/src</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>
@@ -333,15 +333,15 @@
       </item>
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
+      </item>
       <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="8">
+      </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/interpreter.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/lexer.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/parser.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -432,15 +432,15 @@
       </item>
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
+      </item>
       <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
+      <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="8">
+      </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/interpreter.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/lexer.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/parser.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -531,15 +531,15 @@
       </item>
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
+      </item>
       <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
+      <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="8">
+      </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/interpreter.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/lexer.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/parser.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -636,15 +636,15 @@
       </item>
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
+      </item>
       <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
+      <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="8">
+      </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/interpreter.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/lexer.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/parser.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>

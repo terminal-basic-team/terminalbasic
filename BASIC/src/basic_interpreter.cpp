@@ -181,33 +181,15 @@ Interpreter::step()
 
 	switch (_state) {
 	case SHELL:
-	{
 		print("READY", BOLD);
 		_stream.println();
-nextinput:
-		char buf[PROGSTRINGSIZE];
-		memset(buf, 0xFF, sizeof (buf));
-		size_t read;
-		do {
-			read = _stream.readBytesUntil('\r', buf, sizeof (buf));
-		} while (read <= 0);
-		if (read >= PROGSTRINGSIZE)
-			read = PROGSTRINGSIZE - 1;
-		buf[read] = 0;
-		LOG(buf);
-		_lexer.init(buf);
-		if (_lexer.getNext() && (_lexer.getToken() == C_INTEGER) &&
-		    (_lexer.getValue().type == Parser::Value::INTEGER)) {
-			if (!_program.addLine(_lexer.getValue().value.integer,
-			    buf + _lexer.getPointer())) {
-				raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
-				break;
-			}
-			goto nextinput;
-		} else if (!_parser.parse(buf))
-			raiseError(STATIC_ERROR);
+		_state = COLLECT_INPUT;
+		_inputPosition = 0;
+		memset(_inputBuffer, 0xFF, PROGSTRINGSIZE);
 		break;
-	}
+	case COLLECT_INPUT:
+		readInput();
+		break;
 	case EXECUTE:
 		if (_program._current < _program._textEnd) {
 			Program::String *s = _program.current();
@@ -593,7 +575,49 @@ Interpreter::set(ArrayFrame &f, uint16_t index, const Parser::Value &v)
 	};
 }
 
-void Interpreter::print(const char *text, TextAttr attr)
+void
+Interpreter::readInput()
+{
+	_stream.println(__PRETTY_FUNCTION__);
+	delay(500);
+nextinput:
+	int a = _stream.available();
+	if (a <= 0)
+		return;
+
+	const uint8_t availableSize = PROGSTRINGSIZE-1-_inputPosition;
+	a = min(a, availableSize);
+	
+	size_t read = _stream.readBytes(_inputBuffer+_inputPosition, a);
+	assert(read <= availableSize);
+	for (uint8_t i=_inputPosition; i<_inputPosition+read; ++i) {
+		char c = _inputBuffer[i];
+		switch (c) {
+		case '\r':
+			_inputBuffer[i] = 0;
+			break;
+		default:
+			continue;
+		}
+		break;
+	}
+	_stream.println(_inputBuffer);
+	/*LOG(buf);
+	_lexer.init(buf);
+	if (_lexer.getNext() && (_lexer.getToken() == C_INTEGER) &&
+	    (_lexer.getValue().type == Parser::Value::INTEGER)) {
+		if (!_program.addLine(_lexer.getValue().value.integer,
+		    buf + _lexer.getPointer())) {
+			raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
+			break;
+		}
+		goto nextinput;
+	} else if (!_parser.parse(buf))
+		raiseError(STATIC_ERROR);*/
+}
+
+void
+Interpreter::print(const char *text, TextAttr attr)
 {
 	AttrKeeper _a(*this, attr);
 	

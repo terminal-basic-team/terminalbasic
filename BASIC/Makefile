@@ -138,12 +138,12 @@ copy: build
 program: copy
 	#${AVRDUDE} -D -C ${AVRDUDE_CONF} -v -c wiring -p atmega2560 -P /dev/ttyUSB0 -b115200 \
 	#    -U flash:w:"${CND_BASEDIR}/${CND_ARTIFACT_PATH_${CONF}}.hex":i
-	#${AVRDUDE} -C ${AVRDUDE_CONF} -v -c arduino -p m328p -P /dev/ttyUSB0 \
-	#-U flash:w:"${CND_BASEDIR}/${CND_ARTIFACT_PATH_${CONF}}.hex":i
+	${AVRDUDE} -C ${AVRDUDE_CONF} -v -c arduino -p m328p -P /dev/ttyUSB0 \
+	-U flash:w:"${CND_BASEDIR}/${CND_ARTIFACT_PATH_${CONF}}.hex":i
 	#${AVRDUDE} -C ${AVRDUDE_CONF} -v -c usbasp -p m328p \
 	#-U flash:w:"${CND_BASEDIR}/${CND_ARTIFACT_PATH_${CONF}}.hex":i
-	${AVRDUDE} -C ${AVRDUDE_CONF} -v -c usbasp -p m128 \
-	-U flash:w:"${CND_BASEDIR}/${CND_ARTIFACT_PATH_${CONF}}.hex":i
+	#${AVRDUDE} -C ${AVRDUDE_CONF} -v -c usbasp -p m128 \
+	#-U flash:w:"${CND_BASEDIR}/${CND_ARTIFACT_PATH_${CONF}}.hex":i
 
 # include project implementation makefile
 include nbproject/Makefile-impl.mk

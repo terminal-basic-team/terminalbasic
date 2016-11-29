@@ -136,7 +136,7 @@ public:
 	
 	enum State : uint8_t
 	{
-		SHELL, EXECUTE
+		SHELL, COLLECT_INPUT, EXECUTE
 	};
 	
 	enum DumpMode : uint8_t
@@ -204,9 +204,22 @@ public:
 	 */
 	Interpreter::VariableFrame *setVariable(const char*,
 	    const Parser::Value&);
+	/**
+	 * @brief setarray element a given value with indexes on the stack
+	 * @param name array name
+	 * @param value value to set
+	 */
 	void setArrayElement(const char*, const Parser::Value&);
-	
+	/**
+	 * @brief create array
+	 * @param name array name
+	 */
 	void newArray(const char*);
+	/**
+	 * @brief get variable frame pointer (or create new one)
+	 * @param name variable name
+	 * @return frame pointer
+	 */
 	const VariableFrame *getVariable(const char*);
 	
 	void valueFromVar(Parser::Value&, const char*);
@@ -243,6 +256,10 @@ private:
 	void print(const char *, TextAttr=NO_ATTR);
 	void raiseError(ErrorType, uint8_t=0);
 	/**
+	 * @brief read and buffer one symbol
+	 */
+	void readInput();
+	/**
 	 * @brief Add new array frame
 	 * @param name name of the array (also defines type of the elements)
 	 * @param dim number of dimensions
@@ -258,6 +275,8 @@ private:
 	Lexer	 _lexer;
 	Parser	 _parser;
 	static PGM_P const _errorStrings[];
+	char _inputBuffer[PROGSTRINGSIZE];
+	uint8_t _inputPosition;
 };
 
 }
