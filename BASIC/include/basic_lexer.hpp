@@ -80,6 +80,14 @@ enum Token : uint8_t
 	C_REAL,
 	C_STRING,
 
+	// *
+	STAR,
+	// /
+	SLASH,
+	// +
+	PLUS,
+	// -
+	MINUS,
 	// =
 	EQUALS,
 	// :
@@ -106,14 +114,6 @@ enum Token : uint8_t
 	LPAREN,
 	// )
 	RPAREN,
-	// +
-	PLUS,
-	// -
-	MINUS,
-	// *
-	STAR,
-	// /
-	SLASH,
 	
 	OP_AND,
 	OP_OR,

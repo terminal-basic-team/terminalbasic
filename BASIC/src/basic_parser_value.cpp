@@ -286,7 +286,7 @@ Parser::Value&
 }
 
 Parser::Value&
-    Parser::Value::operator*=(const Value &rhs)
+Parser::Value::operator*=(const Value &rhs)
 {
 	switch (type) {
 	case INTEGER:

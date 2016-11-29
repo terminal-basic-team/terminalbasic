@@ -338,7 +338,7 @@ Interpreter::pushReturnAddress(uint8_t textPosition)
 	if (f == NULL)
 		raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
 	f->body.gosubReturn.calleeIndex = _program._current;
-	f->body.gosubReturn.textPosition = textPosition;
+	f->body.gosubReturn.textPosition = _program._textPosition+textPosition;
 }
 
 void

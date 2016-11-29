@@ -278,7 +278,6 @@ Parser::fExpression(Value &v)
 
 	while (true) {
 		Token t = _lexer.getToken();
-		LOG(t);
 		Value v2;
 		switch (t) {
 		case LT:
@@ -476,7 +475,7 @@ Parser::fIfStatement()
 			return true;
 		break;
 	default:
-		if (_lexer.getNext() && fGotoStatement())
+		if (fGotoStatement())
 			return true;
 		break;
 	}
@@ -657,15 +656,15 @@ Parser::fIdentifierExpr(const char *varName, Value &v)
 			do {
 				if (!_lexer.getNext())
 					return false;
-				else if (_lexer.getToken() == RPAREN)
+				else if (_lexer.getToken() == RPAREN) {
 					break;
-				else {
+				} else {
 					if (!fExpression(arg))
 						return false;
 					_interpreter.pushValue(arg);
 				}
 			} while (_lexer.getToken() == COMMA);
-			
+			_lexer.getNext();
 			bool result = true;
 			if (_mode == EXECUTE) {
 				result = ((*f)(_interpreter));

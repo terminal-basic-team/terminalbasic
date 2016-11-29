@@ -74,7 +74,7 @@
 namespace BASIC
 {
 
-#if ARDINO_LOG
+#if ARDUINO_LOG
 const char sNOTOKENS[] PROGMEM = "NOTOKENS";
 
 const char sDUMP[] PROGMEM = "DUMP";
@@ -97,11 +97,24 @@ const char sPRINT[] PROGMEM = "PRINT";
 const char sREM[] PROGMEM = "REM";
 const char sRETURN[] PROGMEM = "RETURN";
 
+const char sARRAYS[] PROGMEM = "ARRAYS";
 const char sTHEN[] PROGMEM = "THEN";
 const char sTO[] PROGMEM = "TO";
 const char sSTEP[] PROGMEM = "STEP";
+const char sVARS[] PROGMEM = "VARS";
 
-const char sIDENT[] PROGMEM = "IDENT";
+const char sREAL_IDENT[] PROGMEM = "REAL_IDENT";
+const char sINTEGER_IDENT[] PROGMEM = "INTEGER_IDENT";
+const char sSTRING_IDENT[] PROGMEM = "STRING_IDENT";
+
+const char sINTEGER[] PROGMEM = "C_INTEGER";
+const char sREAL[] PROGMEM = "C_REAL";
+const char sSTRING[] PROGMEM = "C_STRING";
+
+const char sSTAR[] PROGMEM = "*";
+const char sSLASH[] PROGMEM = "/";
+const char sPLUS[] PROGMEM = "+";
+const char sMINUS[] PROGMEM = "-";
 const char sEQUALS[] PROGMEM = "=";
 const char sCOLON[] PROGMEM = ":";
 const char sSEMI[] PROGMEM = ";";
@@ -120,9 +133,16 @@ PGM_P const Lexer::tokenStrings[NUM_TOKENS] PROGMEM = {
 	sDUMP,	sLIST, sLOAD,	sNEW,	sRUN,	sSAVE,
 	
 	sDIM,	sEND,	sFOR,	sGOSUB,	sGOTO,	sIF,	sINPUT,	sLET,	sNEXT,
-	sPRINT,	sREM,	sRETURN,sTHEN,	sTO,	sSTEP,
+	sPRINT,	sREM,	sRETURN,
 	
-	sIDENT,
+	sARRAYS,sTHEN,	sTO,	sSTEP,	sVARS,
+	
+	sREAL_IDENT,	sINTEGER_IDENT,	sSTRING_IDENT,
+	
+	sINTEGER,	sREAL,	sSTRING,
+	
+	sSTAR,	sSLASH,	sPLUS,	sMINUS,
+	
 	sEQUALS,
 	sCOLON,
 	sSEMI,
