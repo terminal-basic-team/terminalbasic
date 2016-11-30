@@ -52,28 +52,29 @@ public:
 	 */
 	enum ErrorCodes : uint8_t
 	{
-		NO_ERROR = 0,
-		OUTTA_MEMORY,
-		REDIMED_ARRAY,
-		STACK_FRAME_ALLOCATION,
-		ARRAY_DECLARATION,
-		STRING_FRAME_SEARCH,
-		INVALID_NEXT,
+		NO_ERROR = 0,		// Ok
+		OUTTA_MEMORY,		// Out of memory
+		REDIMED_ARRAY,		// Attempt to define existing array
+		STACK_FRAME_ALLOCATION,	// Unable to allocate stack frame
+		ARRAY_DECLARATION,	
+		STRING_FRAME_SEARCH,	// Missing string frame
+		INVALID_NEXT,		// 
 		RETURN_WO_GOSUB,
 		NO_SUCH_STRING,
 		INVALID_VALUE_TYPE,
 		NO_SUCH_ARRAY,
 		INTERNAL_ERROR = 255
 	};
-	
+	/**
+	 * Type of the occurederror
+	 */
 	enum ErrorType : uint8_t
 	{
 		STATIC_ERROR, // syntax
 		DYNAMIC_ERROR // runtime
 	};
-	
 	/**
-	 * @brief variable memory object
+	 * @brief variable memory frame
 	 */
 	struct CPS_PACKED VariableFrame
 	{
@@ -99,7 +100,9 @@ public:
 		Type type;
 		char bytes[];
 	};
-	
+	/**
+	 * Array memory frame
+	 */
 	struct ArrayFrame
 	{
 		uint16_t size() const;
@@ -133,27 +136,39 @@ public:
 		uint8_t numDimensions;
 		uint16_t dimension[];
 	};
-	
+	// Interpreter FSM state
 	enum State : uint8_t
 	{
-		SHELL, COLLECT_INPUT, EXECUTE
+		SHELL, PROGRAM_INPUT, COLLECT_INPUT, EXECUTE, VAR_INPUT
 	};
-	
+	// Memory dump modes
 	enum DumpMode : uint8_t
 	{
 		MEMORY, VARS, ARRAYS
 	};
+	// Terminal text attributes to use when printing
+	enum TextAttr : uint8_t
+	{
+		NO_ATTR = 0,
+		BOLD = 0x1,
+		UNDERLINE = 0x2
+	};
+	enum ProgMemStrings : uint8_t;
 	
 	Interpreter(Stream&, Program&, FunctionBlock* = NULL);
 	void init();
 	// Interpreter cycle: request a string or execute one operator
 	void step();
+	// Execute entered command (command or inputed program line)
+	void exec();
+	
+	void doInput();
 	// Output program memory
 	void list();
 	// Dump program memory
 	void dump(DumpMode);
 	// print value
-	void print(const Parser::Value&);
+	void print(const Parser::Value&, TextAttr=NO_ATTR);
 	void print(char);
 	// run program
 	void run();
@@ -244,21 +259,18 @@ public:
 
 	Program &_program;
 private:
-	enum TextAttr : uint8_t
-	{
-		NO_ATTR = 0,
-		BOLD = 0x1,
-		UNDERLINE = 0x2
-	};
 	class AttrKeeper;
-	enum ErrorStrings : uint8_t;
 	
 	void print(const char *, TextAttr=NO_ATTR);
+	void print(ProgMemStrings, TextAttr=NO_ATTR);
+	void print(Integer, TextAttr=NO_ATTR);
+	
 	void raiseError(ErrorType, uint8_t=0);
 	/**
 	 * @brief read and buffer one symbol
+	 * @return input finished flag
 	 */
-	void readInput();
+	bool readInput();
 	/**
 	 * @brief Add new array frame
 	 * @param name name of the array (also defines type of the elements)
@@ -274,9 +286,10 @@ private:
 	Stream	&_stream;
 	Lexer	 _lexer;
 	Parser	 _parser;
-	static PGM_P const _errorStrings[];
+	static PGM_P const _progmemStrings[];
 	char _inputBuffer[PROGSTRINGSIZE];
 	uint8_t _inputPosition;
+	char _inputVarName[VARSIZE];
 };
 
 }

@@ -81,7 +81,7 @@ public:
 		} body;
 	};
 
-	Program();
+	Program(uint16_t=PROGSIZE);
 	/**
 	 * Clear program memory
 	 */
@@ -149,7 +149,7 @@ public:
 	 * @param text line text
 	 */
 	bool insert(uint16_t, const char*);
-	char _text[PROGSIZE];
+	char *_text;
 private:
 	uint16_t _textEnd, _current, _variablesEnd, _arraysEnd, _sp, _jump;
 	bool _jumpFlag;

@@ -35,7 +35,7 @@
 //static posix::io::PseudoTTY	tty1;
 //static posix::io::PseudoTTY	tty2;
 PseudoTtySerial	Serial1;
-//EmulatorSerial	Serial2(tty2);
+PseudoTtySerial	Serial2;
 
 StdioStream Serial(std::cin, std::cout);
 

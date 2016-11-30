@@ -41,9 +41,10 @@ type(REAL)
 	value.real = v;
 }
 
-Parser::Parser::Value::Value(bool v)
+Parser::Value::Value(bool v) :
+type(BOOLEAN)
 {
-
+	value.boolean = v;
 }
 
 Parser::Value::operator Real() const
@@ -203,7 +204,7 @@ operator<=(const Parser::Value &l, const Parser::Value &r)
 }
 
 Parser::Value&
-    Parser::Value::operator+=(const Value &rhs)
+Parser::Value::operator+=(const Value &rhs)
 {
 	switch (type) {
 	case INTEGER:
@@ -244,7 +245,7 @@ Parser::Value&
 }
 
 Parser::Value&
-    Parser::Value::operator-=(const Value &rhs)
+Parser::Value::operator-=(const Value &rhs)
 {
 	switch (type) {
 	case INTEGER:
@@ -326,7 +327,7 @@ Parser::Value::operator*=(const Value &rhs)
 }
 
 Parser::Value&
-    Parser::Value::operator/=(const Value &rhs)
+Parser::Value::operator/=(const Value &rhs)
 {
 	value.real = float(*this) / float(rhs);
 	type = Value::REAL;
@@ -334,7 +335,7 @@ Parser::Value&
 }
 
 Parser::Value&
-    Parser::Value::operator^=(const Value &rhs)
+Parser::Value::operator^=(const Value &rhs)
 {
 	switch (type) {
 	case INTEGER:

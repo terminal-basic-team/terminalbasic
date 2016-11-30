@@ -64,24 +64,35 @@ private:
 	Interpreter &_i; TextAttr _a;
 };
 
-enum Interpreter::ErrorStrings : uint8_t
+enum Interpreter::ProgMemStrings : uint8_t
 {
-	STATIC = 0, DYNAMIC, ERROR, SEMANTIC, NUM_STRINGS
+	STATIC = 0, DYNAMIC, ERROR, SEMANTIC, READY, BYTES,
+	AVAILABLE, ucBASIC, S_VERSION, NUM_STRINGS
 };
 
 static const char strStatic[] PROGMEM = "STATIC";
 static const char strDynamic[] PROGMEM = "DYNAMIC";
 static const char strError[] PROGMEM = "ERROR";
 static const char strSemantic[] PROGMEM = "SEMANTIC";
+static const char strReady[] PROGMEM = "READY";
+static const char strBytes[] PROGMEM = "BYTES";
+static const char strAvailable[] PROGMEM = "AVAILABLE";
+static const char strucBASIC[] PROGMEM = "ucBASIC";
+static const char strVERSION[] PROGMEM = "VERSION";
 
-PGM_P const Interpreter::_errorStrings[NUM_STRINGS] PROGMEM = {
-	strStatic, // STATIC
-	strDynamic, // DYNAMAIC
-	strError, // ERROR
-	strSemantic, // SEMANTIC
+PGM_P const Interpreter::_progmemStrings[NUM_STRINGS] PROGMEM = {
+	strStatic,	// STATIC
+	strDynamic,	// DYNAMAIC
+	strError,	// ERROR
+	strSemantic,	// SEMANTIC
+	strReady,	// READY
+	strBytes,	// BYTES
+	strAvailable,	// AVAILABLE
+	strucBASIC,	// ucBASIC
+	strVERSION	// VERSION
 };
 
-#define ESTRING(en) (_errorStrings[en])
+#define ESTRING(en) (_progmemStrings[en])
 
 void
 Interpreter::valueFromVar(Parser::Value &v, const char *varName)
@@ -158,20 +169,11 @@ _program(program), _state(SHELL), _stream(stream), _parser(_lexer, *this, first)
 void
 Interpreter::init()
 {
-	{
-		AttrKeeper att(*this, BOLD);
-		_stream.print("ucBASIC");
-	}
-	_stream.print(" VERSION ");
-	{
-		AttrKeeper att(*this, BOLD);
-		_stream.println(VERSION);
-	}
-	{
-		AttrKeeper att(*this, BOLD);
-		_stream.print(PROGSIZE-_program._arraysEnd);
-	}
-	_stream.println(" BYTES AVAILABLE");
+	print(ucBASIC, BOLD);
+
+	print(S_VERSION), print(VERSION, BOLD), _stream.println();
+	print(PROGSIZE-_program._arraysEnd, BOLD);
+	print(BYTES), print(AVAILABLE), _stream.println();
 }
 
 void
@@ -180,15 +182,29 @@ Interpreter::step()
 	LOG_TRACE;
 
 	switch (_state) {
+	// waiting for user input command or program line
 	case SHELL:
-		print("READY", BOLD);
+	{
+		print(READY, BOLD);
 		_stream.println();
+	}
+		// fall through
+	// waiting for user input next program line
+	case PROGRAM_INPUT:
 		_state = COLLECT_INPUT;
 		_inputPosition = 0;
 		memset(_inputBuffer, 0xFF, PROGSTRINGSIZE);
 		break;
+	// collection input buffer
 	case COLLECT_INPUT:
-		readInput();
+		if (readInput())
+			exec();
+		break;
+	case VAR_INPUT:
+		if (readInput()) {
+			doInput();
+			_state = EXECUTE;
+		}
 		break;
 	case EXECUTE:
 		if (_program._current < _program._textEnd) {
@@ -199,6 +215,60 @@ Interpreter::step()
 		} else
 			_state = SHELL;
 	}
+}
+
+void
+Interpreter::exec()
+{
+	_lexer.init(_inputBuffer);
+	if (_lexer.getNext() && (_lexer.getToken() == C_INTEGER) &&
+	    (_lexer.getValue().type == Parser::Value::INTEGER)) {
+		if (!_program.addLine(_lexer.getValue().value.integer,
+		    _inputBuffer + _lexer.getPointer())) {
+			raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
+			_state = SHELL;
+			return;
+		} else
+			_state = PROGRAM_INPUT;
+	} else {
+		_state = SHELL;
+		if (!_parser.parse(_inputBuffer))
+			raiseError(STATIC_ERROR);
+	}
+}
+
+void
+Interpreter::doInput()
+{
+	Lexer l;
+	l.init(_inputBuffer);
+	Parser::Value v(Integer(0));
+	bool neg = false;
+n:	if (l.getNext()) {
+		switch (l.getToken()) {
+		case MINUS:
+			neg = true;
+			goto n;
+		case PLUS:
+			neg = false;
+			goto n;
+		case C_INTEGER:
+		case C_REAL:
+			v = l.getValue();
+			break;
+		case C_STRING:
+		{
+			v = l.getValue();
+			pushString(l.id());
+		}
+			break;
+		default:
+			raiseError(DYNAMIC_ERROR, INVALID_VALUE_TYPE);
+		}
+	}
+	if (neg)
+		v = -v;
+	setVariable(_inputVarName, v);
 }
 
 void
@@ -272,8 +342,10 @@ Interpreter::dump(DumpMode mode)
 }
 
 void
-Interpreter::print(const Parser::Value &v)
+Interpreter::print(const Parser::Value &v, TextAttr attr)
 {
+	AttrKeeper keeper(*this, attr);
+	
 	switch (v.type) {
 	case Parser::Value::BOOLEAN:
 		_stream.print(v.value.boolean);
@@ -300,6 +372,7 @@ Interpreter::print(const Parser::Value &v)
 		raiseError(DYNAMIC_ERROR, INVALID_VALUE_TYPE);
 		break;
 	}
+	_stream.print(' ');
 }
 
 void
@@ -452,36 +525,15 @@ void Interpreter::load()
 void
 Interpreter::input(const char *varName)
 {
-	char buf[STRINGSIZE];
 	_stream.print('?');
-	uint8_t read = _stream.readBytesUntil('\r', buf, STRINGSIZE-1);
-	buf[read] = char(0);
-	Lexer l;
-	l.init(buf);
-	Parser::Value v(Integer(0));
-	bool neg = false;
-n:	if (l.getNext()) {
-		switch (l.getToken()) {
-		case MINUS:
-			neg = true;
-			goto n;
-		case C_INTEGER:
-		case C_REAL:
-			v = l.getValue();
-			break;
-		case C_STRING:
-		{
-			v = l.getValue();
-			pushString(l.id());
-		}
-			break;
-		default:
-			raiseError(DYNAMIC_ERROR, INVALID_VALUE_TYPE);
-		}
-	}
-	if (neg)
-		v = -v;
-	setVariable(varName, v);
+	
+	strcpy(_inputVarName, varName);
+
+	_state = VAR_INPUT;
+	_program._textPosition += _lexer.getPointer();
+	
+	_inputPosition = 0;
+	memset(_inputBuffer, 0xFF, PROGSTRINGSIZE);
 }
 
 uint8_t
@@ -575,59 +627,64 @@ Interpreter::set(ArrayFrame &f, uint16_t index, const Parser::Value &v)
 	};
 }
 
-void
+bool
 Interpreter::readInput()
 {
-	_stream.println(__PRETTY_FUNCTION__);
-	delay(500);
-nextinput:
 	int a = _stream.available();
 	if (a <= 0)
-		return;
+		return false;
 
 	const uint8_t availableSize = PROGSTRINGSIZE-1-_inputPosition;
 	a = min(a, availableSize);
 	
 	size_t read = _stream.readBytes(_inputBuffer+_inputPosition, a);
 	assert(read <= availableSize);
-	for (uint8_t i=_inputPosition; i<_inputPosition+read; ++i) {
+	uint8_t end = _inputPosition+read;
+	for (uint8_t i=_inputPosition; i<end; ++i) {
 		char c = _inputBuffer[i];
 		switch (c) {
 		case '\r':
 			_inputBuffer[i] = 0;
-			break;
+			return true;
 		default:
+			++_inputPosition;
 			continue;
 		}
-		break;
 	}
-	_stream.println(_inputBuffer);
-	/*LOG(buf);
-	_lexer.init(buf);
-	if (_lexer.getNext() && (_lexer.getToken() == C_INTEGER) &&
-	    (_lexer.getValue().type == Parser::Value::INTEGER)) {
-		if (!_program.addLine(_lexer.getValue().value.integer,
-		    buf + _lexer.getPointer())) {
-			raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
-			break;
-		}
-		goto nextinput;
-	} else if (!_parser.parse(buf))
-		raiseError(STATIC_ERROR);*/
+	return false;
 }
 
 void
 Interpreter::print(const char *text, TextAttr attr)
 {
 	AttrKeeper _a(*this, attr);
-	
-	_stream.print(text);
+
+	_stream.print(text), _stream.print(' ');
+}
+
+void
+Interpreter::print(ProgMemStrings index, TextAttr attr)
+{
+	char buf[16];
+	strcpy_P(buf, (PGM_P) pgm_read_word(&(ESTRING(index))));
+
+	AttrKeeper _a(*this, attr);
+
+	_stream.print(buf),  _stream.print(' ');
+}
+
+void
+Interpreter::print(Integer i, TextAttr attr)
+{
+	AttrKeeper _a(*this, attr);
+
+	_stream.print(i), _stream.print(' ');
 }
 
 void
 Interpreter::raiseError(ErrorType type, uint8_t errorCode)
 {
-	char buf[16];
+	char buf[8];
 	if (type == DYNAMIC_ERROR)
 		strcpy_P(buf, (PGM_P) pgm_read_word(&(ESTRING(DYNAMIC))));
 	else // STATIC_ERROR

@@ -18,12 +18,16 @@
 
 #include "basic_interpreter_program.hpp"
 #include <assert.h>
+#include <stdlib.h>
 
 namespace BASIC
 {
 
-Interpreter::Program::Program()
+Interpreter::Program::Program(uint16_t progsize) :
+	_text(reinterpret_cast<char*>(malloc(progsize)))
 {
+	assert(_text != NULL);
+	
 	newProg();
 }
 

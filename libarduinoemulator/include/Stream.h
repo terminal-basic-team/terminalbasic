@@ -96,6 +96,6 @@ public:
 
 extern StdioStream Serial;
 extern PseudoTtySerial Serial1;
-//extern EmulatorSerial Serial2;
+extern PseudoTtySerial Serial2;
 
 #endif

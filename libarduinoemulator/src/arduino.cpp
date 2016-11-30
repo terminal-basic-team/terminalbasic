@@ -150,7 +150,6 @@ size_t EmulatorSerial::readBytes(char *buffer, size_t length)
 	} catch (std::exception &ex) {
 		std::cerr << ex.what() <<std::endl;
 	}
-	std::cout << ba << std::endl;
 	return (ba.size());
 }
 

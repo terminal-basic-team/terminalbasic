@@ -24,14 +24,20 @@ static BASIC::Math mathBlock;
 static BASIC::Interpreter::Program program;
 static BASIC::Interpreter basic(Serial, program, &mathBlock);
 
+//static BASIC::Interpreter::Program program2;
+//static BASIC::Interpreter basic2(Serial2, program2, &mathBlock);
+
 void setup()
 {
 	Serial.begin(57600);
+	//Serial1.begin(57600);
+	//Serial2.begin(57600);
 	LOG_INIT(Serial);
 
 	LOG_TRACE;
 	
 	basic.init();
+	//basic2.init();
 }
 
 static BASIC::Lexer l;
@@ -41,4 +47,5 @@ void loop()
 	LOG_TRACE;
 
 	basic.step();
+	//basic2.step();
 }
