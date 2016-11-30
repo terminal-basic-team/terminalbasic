@@ -310,7 +310,10 @@ bool Lexer::getNext()
 				next();
 				break;
 			default:
-				if (isalpha(SYM)) {
+				if (SYM >= 80) {
+					next();
+					_token = Token(SYM & 0x7F);
+				} else if (isalpha(SYM)) {
 					pushSYM();
 					ident();
 				} else {

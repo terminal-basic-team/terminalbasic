@@ -16,6 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * @file basic_math.hpp
+ * @brief Mathematical functions container
+ */
+
 #ifndef BASIC_MATH_HPP
 #define BASIC_MATH_HPP
 
@@ -32,11 +37,11 @@ public:
 // FunctionBlock interface
 protected:
 	FunctionBlock::function _getFunction(const char*) const override;
-
 private:
 	static bool func_abs(Interpreter&);
 	static bool func_atn(Interpreter&);
 	static bool func_cos(Interpreter&);
+	static bool func_cot(Interpreter&);
 	static bool func_exp(Interpreter&);
 	static bool func_log(Interpreter&);
 	static bool func_sin(Interpreter&);
@@ -44,19 +49,16 @@ private:
 	static bool func_pi(Interpreter&);
 	static bool func_tan(Interpreter&);
 	
-	typedef Real (*_func)(Real);
-	
 	enum FuncNames : uint8_t
 	{
-		F_ABS = 0, F_ATN, F_COS, F_EXP, F_LOG, F_PI, F_SIN, F_SQR,
-		F_TAN, NUM_FUNC
+		F_ABS = 0, F_ATN, F_COS, F_COT, F_EXP, F_LOG, F_PI, F_SIN,
+		F_SQR, F_TAN, NUM_FUNC
 	};
-	
-	static bool general_func(Interpreter&, _func);
 	
 	static Real atn_r(Real);
 	static Real sin_r(Real);
 	static Real cos_r(Real);
+	static Real cot_r(Real);
 	static Real exp_r(Real);
 	static Real log_r(Real);
 	static Real sqr_r(Real);

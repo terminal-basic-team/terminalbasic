@@ -26,6 +26,7 @@ namespace BASIC
 static const char sABS[] PROGMEM = "ABS";
 static const char sATN[] PROGMEM = "ATN";
 static const char sCOS[] PROGMEM = "COS";
+static const char sCOT[] PROGMEM = "COT";
 static const char sEXP[] PROGMEM = "EXP";
 static const char sLOG[] PROGMEM = "LOG";
 static const char sPI[] PROGMEM = "PI";
@@ -34,7 +35,7 @@ static const char sSQR[] PROGMEM = "SQR";
 static const char sTAN[] PROGMEM = "TAN";
 
 PGM_P const Math::funcStrings[NUM_FUNC] PROGMEM = {
-	sABS, sATN, sCOS, sEXP, sLOG, sPI, sSIN, sSQR, sTAN
+	sABS, sATN, sCOS, sCOT, sEXP, sLOG, sPI, sSIN, sSQR, sTAN
 };
 
 Math::Math(FunctionBlock *next) :
@@ -51,6 +52,8 @@ Math::_getFunction(const char *name) const
 		return func_atn;
 	else if (strcmp_P(name, (PGM_P)pgm_read_word(&(funcStrings[F_COS]))) == 0)
 		return func_cos;
+	else if (strcmp_P(name, (PGM_P)pgm_read_word(&(funcStrings[F_COT]))) == 0)
+		return func_cot;
 	else if (strcmp_P(name, (PGM_P)pgm_read_word(&(funcStrings[F_EXP]))) == 0)
 		return func_exp;
 	else if (strcmp_P(name, (PGM_P)pgm_read_word(&(funcStrings[F_LOG]))) == 0)
@@ -91,6 +94,12 @@ bool
 Math::func_cos(Interpreter &i)
 {
 	return general_func(i, &cos_r);
+}
+
+bool
+Math::func_cot(Interpreter &i)
+{
+	return general_func(i, &cot_r);
 }
 
 bool
@@ -144,6 +153,12 @@ Math::cos_r(Real v)
 }
 
 Real
+Math::cot_r(Real v)
+{
+	return Real(1) / tan(v);
+}
+
+Real
 Math::exp_r(Real v)
 {
 	return exp(v);
@@ -171,19 +186,6 @@ Real
 Math::tan_r(Real v)
 {
 	return tan(v);
-}
-
-bool
-Math::general_func(Interpreter &i, _func f)
-{
-	Parser::Value v(Integer(0));
-	i.popValue(v);
-	if (v.type == Parser::Value::INTEGER || v.type == Parser::Value::REAL) {
-		v = Real((*f)(Real(v)));
-		i.pushValue(v);
-		return true;
-	} else
-		return false;
 }
 
 }

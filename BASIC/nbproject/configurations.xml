@@ -13,6 +13,7 @@
       <itemPath>include/basic_parser_value.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="src" displayName="src" projectFiles="true">
+      <itemPath>include/basic_arduinoio.cpp</itemPath>
       <itemPath>include/basic_functionblock.cpp</itemPath>
       <itemPath>src/basic_interpreter.cpp</itemPath>
       <itemPath>src/basic_interpreter_program.cpp</itemPath>
@@ -109,6 +110,8 @@
         </linkerTool>
       </compileType>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -211,6 +214,8 @@
       </compileType>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
@@ -310,6 +315,8 @@
       </compileType>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
@@ -367,7 +374,7 @@
           <incFile>
             <pElem>Arduino.h</pElem>
           </incFile>
-          <commandLine>-O3 -Wextra -std=gnu++11 -fpermissive -fno-exceptions -fno-threadsafe-statics -MMD -mmcu=atmega2560 -ffunction-sections -fdata-sections -flto -fno-rtti</commandLine>
+          <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -fno-threadsafe-statics -MMD -mmcu=atmega2560 -ffunction-sections -fdata-sections -flto -fno-rtti</commandLine>
           <preprocessorList>
             <Elem>ARDUINO=10607</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
@@ -404,10 +411,12 @@
               </makeArtifact>
             </linkerLibProjectItem>
           </linkerLibItems>
-          <commandLine>-O3 -Wall -Wextra -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega2560</commandLine>
+          <commandLine>-Os -Wall -Wextra -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega2560</commandLine>
         </linkerTool>
       </compileType>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -507,6 +516,8 @@
         </linkerTool>
       </compileType>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -612,6 +623,8 @@
         </linkerTool>
       </compileType>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
       </item>

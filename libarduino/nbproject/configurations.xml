@@ -957,7 +957,7 @@
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/variants/mega</pElem>
           </incDir>
-          <commandLine>-O3 -Wextra -std=gnu11 -ffunction-sections -fdata-sections -MMD -mmcu=atmega2560 -flto</commandLine>
+          <commandLine>-Os -Wextra -std=gnu11 -ffunction-sections -fdata-sections -MMD -mmcu=atmega2560 -flto</commandLine>
           <preprocessorList>
             <Elem>ARDUINO=10612</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>

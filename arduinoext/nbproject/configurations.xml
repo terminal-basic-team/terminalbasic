@@ -358,7 +358,7 @@
             <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino</pElem>
             <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega</pElem>
           </incDir>
-          <commandLine>-O3 -Wextra -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega328p -flto -fno-rtti</commandLine>
+          <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega328p -flto -fno-rtti</commandLine>
           <preprocessorList>
             <Elem>ARDUINO=10612</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>

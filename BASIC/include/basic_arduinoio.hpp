@@ -16,9 +16,43 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * @file basic_arduinoio.hpp
+ * @brief Arduino io container
+ */
+
 #ifndef BASIC_ARDUINOIO_HPP
 #define BASIC_ARDUINOIO_HPP
 
+#include "basic_functionblock.hpp"
+#include "basic_interpreter.hpp"
 
+namespace BASIC
+{
+
+class ArduinoIO : public FunctionBlock
+{
+public:
+	explicit ArduinoIO(FunctionBlock* =NULL);
+// FunctionBlock interface
+protected:
+	FunctionBlock::function _getFunction(const char*) const override;
+
+private:
+	static bool func_aread(Interpreter&);
+	static bool func_aread_int(Interpreter&);
+	
+	enum FuncNames : uint8_t
+	{
+		F_AREAD = 0, F_AREAD_INT, NUM_FUNC
+	};
+	
+	static Real aread_r(Real);
+	static Integer aread_i(Integer);
+	
+	static PGM_P const funcStrings[NUM_FUNC];
+};
+
+}
 
 #endif

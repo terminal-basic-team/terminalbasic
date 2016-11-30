@@ -71,8 +71,7 @@ Parser::Value::operator bool() const
 	case BOOLEAN:
 		return value.boolean;
 	default:
-		// undefined
-		break;
+		return false;
 	}
 }
 
@@ -86,8 +85,7 @@ Parser::Value::operator Integer() const
 	case BOOLEAN:
 		return Integer(value.boolean);
 	default:
-		// undefined
-		break;
+		return Integer(0);
 	}
 }
 
@@ -108,6 +106,7 @@ Parser::Value::operator-()
 		// undefined
 		break;
 	}
+	return *this;
 }
 
 bool

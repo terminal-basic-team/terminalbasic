@@ -19,33 +19,40 @@
 #include "arduino_logger.hpp"
 #include "basic_interpreter_program.hpp"
 #include "basic_math.hpp"
+#include "basic_arduinoio.hpp"
 
 static BASIC::Math mathBlock;
-static BASIC::Interpreter::Program program;
-static BASIC::Interpreter basic(Serial, program, &mathBlock);
+static BASIC::ArduinoIO arduinoIo(&mathBlock);
 
-//static BASIC::Interpreter::Program program2;
-//static BASIC::Interpreter basic2(Serial2, program2, &mathBlock);
+static BASIC::Interpreter::Program program;
+static BASIC::Interpreter basic(Serial, program, &arduinoIo);
+
+static BASIC::Interpreter::Program program1;
+static BASIC::Interpreter basic1(Serial1, program, &arduinoIo);
+
+static BASIC::Interpreter::Program program2;
+static BASIC::Interpreter basic2(Serial2, program2, &arduinoIo);
 
 void setup()
 {
 	Serial.begin(57600);
-	//Serial1.begin(57600);
-	//Serial2.begin(57600);
+	Serial1.begin(57600);
+	Serial2.begin(57600);
+	
 	LOG_INIT(Serial);
 
 	LOG_TRACE;
 	
 	basic.init();
-	//basic2.init();
+	basic1.init();
+	basic2.init();
 }
-
-static BASIC::Lexer l;
 
 void loop()
 {
 	LOG_TRACE;
-
+	
 	basic.step();
-	//basic2.step();
+	basic1.step();
+	basic2.step();
 }

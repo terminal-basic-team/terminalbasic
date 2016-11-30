@@ -256,6 +256,8 @@ public:
 	 * @param num number of dimensions
 	 */
 	void pushDimensions(uint8_t);
+	
+	void strConcat(Parser::Value&, Parser::Value&);
 
 	Program &_program;
 private:
@@ -264,6 +266,7 @@ private:
 	void print(const char *, TextAttr=NO_ATTR);
 	void print(ProgMemStrings, TextAttr=NO_ATTR);
 	void print(Integer, TextAttr=NO_ATTR);
+
 	
 	void raiseError(ErrorType, uint8_t=0);
 	/**

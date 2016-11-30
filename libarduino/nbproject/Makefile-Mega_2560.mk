@@ -65,7 +65,7 @@ OBJECTFILES= \
 
 
 # C Compiler Flags
-CFLAGS=-O3 -Wextra -std=gnu11 -ffunction-sections -fdata-sections -MMD -mmcu=atmega2560 -flto
+CFLAGS=-Os -Wextra -std=gnu11 -ffunction-sections -fdata-sections -MMD -mmcu=atmega2560 -flto
 
 # CC Compiler Flags
 CCFLAGS=-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -flto -mmcu=atmega2560 -fno-rtti

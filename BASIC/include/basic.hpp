@@ -35,7 +35,8 @@ const uint8_t STRINGSIZE = 32;
 #if defined (__AVR_ATmega1284__) || defined (__AVR_ATmega1284P__)
 const size_t PROGSIZE = 15360;
 #elif defined (__AVR_ATmega2560__)
-const size_t PROGSIZE = 7168;
+//const size_t PROGSIZE = 7168;
+const size_t PROGSIZE = 2048;
 #elif defined (__AVR_ATmega128__) || defined (__AVR_ATmega128A__)
 const size_t PROGSIZE = 3072;
 #elif defined (__AVR_ATmega328__) || defined (__AVR_ATmega328P__)
@@ -44,7 +45,7 @@ const size_t PROGSIZE = 1280;
 const size_t PROGSIZE = 8192;
 #endif
 // Number of characters in variable name
-const uint8_t VARSIZE = 6; 
+const uint8_t VARSIZE = 8; 
 // integer type
 typedef int16_t Integer;
 // floating point type

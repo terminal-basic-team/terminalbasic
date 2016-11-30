@@ -871,6 +871,26 @@ Interpreter::pushDimensions(uint8_t dim)
 }
 
 void
+Interpreter::strConcat(Parser::Value &v1, Parser::Value &v2)
+{
+	Program::StackFrame *f = _program.currentStackFrame();
+	if (f != NULL || f->_type == Program::StackFrame::STRING) {
+		_program.pop();
+		Program::StackFrame *ff = _program.currentStackFrame();
+		if (ff != NULL || ff->_type == Program::StackFrame::STRING) {
+			uint8_t l1 = strlen(ff->body.string);
+			uint8_t l2 = strlen(f->body.string);
+			if (l1+l2 >= STRINGSIZE)
+				l2 = STRINGSIZE-l1-1;
+			strncpy(ff->body.string+l1, f->body.string, l2);
+			ff->body.string[l1+l2] = 0;
+		} else
+			raiseError(DYNAMIC_ERROR, STRING_FRAME_SEARCH);
+	} else
+		raiseError(DYNAMIC_ERROR, STRING_FRAME_SEARCH);
+}
+
+void
 Interpreter::end()
 {
 	_state = SHELL;

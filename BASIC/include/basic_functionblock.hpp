@@ -20,6 +20,7 @@
 #define BASIC_FUNCTIONBLOCK_HPP
 
 #include <stdlib.h>
+#include "basic.hpp"
 
 namespace BASIC
 {
@@ -38,8 +39,31 @@ public:
 	
 protected:
 	
+	typedef Real (*_funcReal)(Real);
+	typedef Integer (*_funcInteger)(Integer);
+	
 	explicit FunctionBlock(FunctionBlock* =NULL);
+	/**
+	 * @brief return pointer to the function of this block
+	 *   or NULL if no one
+	 * @param fName function name
+	 * @return function pointer
+	 */
 	virtual function _getFunction(const char*) const = 0;
+	/**
+	 * @brief general function wrapper with 1 Real argument
+	 * @param interpreter Interpreter object
+	 * @param func underlying function pointer
+	 * @return ok status
+	 */
+	static bool general_func(Interpreter&, _funcReal);
+	/**
+	 * @brief general function wrapper with 1 Real argument
+	 * @param interpreter Interpreter object
+	 * @param func underlying function pointer
+	 * @return ok status
+	 */
+	static bool general_func(Interpreter&, _funcInteger);
 	
 private:
 	FunctionBlock *_next;

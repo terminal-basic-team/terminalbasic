@@ -17,6 +17,9 @@
  */
 
 #include "basic_functionblock.hpp"
+#include "basic_parser.hpp"
+#include "basic_parser_value.hpp"
+#include "basic_interpreter.hpp"
 
 namespace BASIC
 {
@@ -34,6 +37,32 @@ FunctionBlock::getFunction(const char *name) const
 	    _next != NULL)
 		result = _next->getFunction(name);
 	return result;
+}
+
+bool
+FunctionBlock::general_func(Interpreter &i, _funcReal f)
+{
+	Parser::Value v(Real(0));
+	i.popValue(v);
+	if (v.type == Parser::Value::INTEGER || v.type == Parser::Value::REAL) {
+		v = (*f)(Real(v));
+		i.pushValue(v);
+		return true;
+	} else
+		return false;
+}
+
+bool
+FunctionBlock::general_func(Interpreter &i, _funcInteger f)
+{
+	Parser::Value v(Integer(0));
+	i.popValue(v);
+	if (v.type == Parser::Value::INTEGER || v.type == Parser::Value::REAL) {
+		v = (*f)(Integer(v));
+		i.pushValue(v);
+		return true;
+	} else
+		return false;
 }
 
 }

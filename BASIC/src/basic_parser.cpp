@@ -349,6 +349,9 @@ Parser::fSimpleExpression(Value &v)
 		switch (t) {
 		case PLUS:
 			if (_lexer.getNext() && fTerm(v2)) {
+				if (v.type == Value::STRING &&
+				    v2.type == Value::STRING)
+					_interpreter.strConcat(v,v2);
 				v += v2;
 				continue;
 			} else

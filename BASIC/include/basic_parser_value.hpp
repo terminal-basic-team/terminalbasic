@@ -47,7 +47,7 @@ public:
 	};
 
 	Value();
-	explicit Value(Integer);
+	Value(Integer);
 	Value(float);
 	explicit Value(bool);
 
