@@ -81,7 +81,10 @@ Parser::parse(const char *s)
 	_stopParse = false;
 	_error = NO_ERROR;
 	
-	return fOperators();
+	if (_lexer.getNext())
+		return fOperators();
+	else
+		return true;
 }
 
 bool
@@ -89,16 +92,15 @@ Parser::fOperators()
 {
 	Token t;
 	do {
-		if (_lexer.getNext()) {
-			if (!fOperator()) {
-				if (_error == NO_ERROR)
-					_error = OPERATOR_EXPECTED;
-				return false;
-			}
-		} else
-			return true;
+		if (!fOperator()) {
+			if (_error == NO_ERROR)
+				_error = OPERATOR_EXPECTED;
+			return false;
+		}
 		t = _lexer.getToken();
-	} while (t == COLON && !_stopParse);
+		if (t!=COLON || !_lexer.getNext())
+			break;
+	} while (!_stopParse);
 	return true;
 }
 
@@ -485,7 +487,7 @@ Parser::fIfStatement()
 					_interpreter.gotoLine(Integer(_lexer.getValue()));
 				_lexer.getNext();
 				return true;
-			} else if (fOperator())
+			} else if (fOperators())
 				return true;
 		}
 		break;
