@@ -479,8 +479,15 @@ Parser::fIfStatement()
 	LOG(t);
 	switch (t) {
 	case KW_THEN:
-		if (fOperators())
-			return true;
+		if (_lexer.getNext()) {
+			if (_lexer.getToken() == C_INTEGER) {
+				if (_mode == EXECUTE)
+					_interpreter.gotoLine(Integer(_lexer.getValue()));
+				_lexer.getNext();
+				return true;
+			} else if (fOperator())
+				return true;
+		}
 		break;
 	default:
 		if (fGotoStatement())
@@ -501,8 +508,10 @@ Parser::fGotoStatement()
 			_error = INTEGER_EXPRESSION_EXPECTED;
 			return false;
 		}
-		if (_mode == EXECUTE)
+		if (_mode == EXECUTE) {
 			_interpreter.gotoLine(v.value.integer);
+			_stopParse = true;
+		}
 		return true;
 	} else
 		return false;

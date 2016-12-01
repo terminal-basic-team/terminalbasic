@@ -23,6 +23,7 @@
 #include <ctype.h>
 
 /*
+ * COM_DATA = "DATA"
  * COM_DUMP = "DUMP"
  * COM_LIST = "LIST"
  * COM_LOAD = "LOAD"
@@ -77,6 +78,7 @@ namespace BASIC
 #if ARDUINO_LOG
 const char sNOTOKENS[] PROGMEM = "NOTOKENS";
 
+const char sDATA[] PROGMEM = "DATA";
 const char sDUMP[] PROGMEM = "DUMP";
 const char sLIST[] PROGMEM = "LIST";
 const char sLOAD[] PROGMEM = "LOAD";
@@ -130,7 +132,7 @@ const char sPOW[] PROGMEM = "^";
 PGM_P const Lexer::tokenStrings[NUM_TOKENS] PROGMEM = {
 	sNOTOKENS,
 	
-	sDUMP,	sLIST, sLOAD,	sNEW,	sRUN,	sSAVE,
+	sDATA,	sDUMP,	sLIST, sLOAD,	sNEW,	sRUN,	sSAVE,
 	
 	sDIM,	sEND,	sFOR,	sGOSUB,	sGOTO,	sIF,	sINPUT,	sLET,	sNEXT,
 	sPRINT,	sREM,	sRETURN,
@@ -310,7 +312,7 @@ bool Lexer::getNext()
 				next();
 				break;
 			default:
-				if (SYM >= 80) {
+				if (SYM >= 0x80) {
 					next();
 					_token = Token(SYM & 0x7F);
 				} else if (isalpha(SYM)) {
@@ -387,6 +389,20 @@ void Lexer::first_D()
 
 	next();
 	switch (SYM) {
+	case 'A':
+		pushSYM();
+		switch (SYM) {
+		case 'T':
+			pushSYM();
+			switch (SYM) {
+			case 'A':
+				next();
+				_token = COM_DATA;
+				return;
+			}
+			break;
+		}
+		break;
 	case 'I':
 		pushSYM();
 		switch (SYM) {

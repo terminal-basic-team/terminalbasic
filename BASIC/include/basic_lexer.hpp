@@ -45,6 +45,7 @@ enum Token : uint8_t
 	NOTOKENS = 0,
 	
 	// Commands
+	COM_DATA,
 	COM_DUMP,
 	COM_LIST,
 	COM_LOAD,
@@ -130,7 +131,7 @@ operator<<(Logger &logger, Token tok);
 class Lexer
 {
 public:
-	
+
 	void init(const char*);
 	bool getNext();
 
@@ -143,14 +144,14 @@ public:
 	{
 		return _value;
 	}
-	
+
 	const char *id() const { return _id; }
 
 	size_t getPointer() const
 	{
 		return _pointer;
 	}
-	
+
 #if ARDUINO_LOG
 	static PGM_P const tokenStrings[NUM_TOKENS];
 #endif
