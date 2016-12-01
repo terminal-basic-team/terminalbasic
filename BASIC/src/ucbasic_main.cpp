@@ -24,28 +24,57 @@
 static BASIC::Math mathBlock;
 static BASIC::ArduinoIO arduinoIo(&mathBlock);
 
-static BASIC::Interpreter::Program program;
+#ifdef BASIC_MULTITERMINAL
+static BASIC::Interpreter::Program program(BASIC::PROGRAMSIZE / 4);
 static BASIC::Interpreter basic(Serial, program, &arduinoIo);
-/*
-static BASIC::Interpreter::Program program1;
-static BASIC::Interpreter basic1(Serial1, program, &arduinoIo);
-
-static BASIC::Interpreter::Program program2;
+#ifdef HAVE_HWSERIAL1
+static BASIC::Interpreter::Program program1(BASIC::PROGRAMSIZE / 4);
+static BASIC::Interpreter basic1(Serial1, program1, &arduinoIo);
+#endif
+#ifdef HAVE_HWSERIAL2
+static BASIC::Interpreter::Program program2(BASIC::PROGRAMSIZE / 4);
 static BASIC::Interpreter basic2(Serial2, program2, &arduinoIo);
-*/
+#endif
+#ifdef HAVE_HWSERIAL3
+static BASIC::Interpreter::Program program3(BASIC::PROGRAMSIZE / 4);
+static BASIC::Interpreter basic3(Serial3, program3, &arduinoIo);
+#endif
+#else
+static BASIC::Interpreter::Program program(BASIC::PROGRAMSIZE / 4);
+static BASIC::Interpreter basic(Serial, program, &arduinoIo);
+#endif
+
 void setup()
 {
 	Serial.begin(57600);
-	//Serial1.begin(57600);
-	//Serial2.begin(57600);
-	
+#ifdef BASIC_MULTITERMINAL
+#ifdef HAVE_HWSERIAL1
+	Serial1.begin(57600);
+#endif
+#ifdef HAVE_HWSERIAL2
+	Serial2.begin(57600);
+#endif
+#ifdef HAVE_HWSERIAL3
+	Serial3.begin(57600);
+#endif
+#endif
+
 	LOG_INIT(Serial);
 
 	LOG_TRACE;
 	
 	basic.init();
-	//basic1.init();
-	//basic2.init();
+#ifdef BASIC_MULTITERMINAL
+#ifdef HAVE_HWSERIAL1
+	basic1.init();
+#endif
+#ifdef HAVE_HWSERIAL2
+	basic2.init();
+#endif
+#ifdef HAVE_HWSERIAL3
+	basic3.init();
+#endif
+#endif
 }
 
 void loop()
@@ -53,6 +82,15 @@ void loop()
 	LOG_TRACE;
 	
 	basic.step();
-	//basic1.step();
-	//basic2.step();
+#ifdef BASIC_MULTITERMINAL
+#ifdef HAVE_HWSERIAL1
+	basic1.step();
+#endif
+#ifdef HAVE_HWSERIAL2
+	basic2.step();
+#endif
+#ifdef HAVE_HWSERIAL3
+	basic3.step();
+#endif
+#endif
 }

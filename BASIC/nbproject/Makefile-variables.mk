@@ -54,6 +54,14 @@ CND_ARTIFACT_PATH_Release=dist/Release/basic
 CND_PACKAGE_DIR_Release=dist/Release/GNU-Linux/package
 CND_PACKAGE_NAME_Release=basic.tar
 CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux/package/basic.tar
+# Arduino_mega2560_mainframe configuration
+CND_PLATFORM_Arduino_mega2560_mainframe=Arduino-Linux
+CND_ARTIFACT_DIR_Arduino_mega2560_mainframe=dist/Arduino_mega2560_mainframe
+CND_ARTIFACT_NAME_Arduino_mega2560_mainframe=basic
+CND_ARTIFACT_PATH_Arduino_mega2560_mainframe=dist/Arduino_mega2560_mainframe/basic
+CND_PACKAGE_DIR_Arduino_mega2560_mainframe=dist/Arduino_mega2560_mainframe/Arduino-Linux/package
+CND_PACKAGE_NAME_Arduino_mega2560_mainframe=basic.tar
+CND_PACKAGE_PATH_Arduino_mega2560_mainframe=dist/Arduino_mega2560_mainframe/Arduino-Linux/package/basic.tar
 #
 # include compiler specific variables
 #

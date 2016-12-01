@@ -172,7 +172,7 @@ Interpreter::init()
 	print(ucBASIC, BOLD);
 
 	print(S_VERSION), print(VERSION, BOLD), _stream.println();
-	print(PROGSIZE-_program._arraysEnd, BOLD);
+	print(_program.programSize-_program._arraysEnd, BOLD);
 	print(BYTES), print(AVAILABLE), _stream.println();
 }
 
@@ -238,6 +238,12 @@ Interpreter::exec()
 }
 
 void
+Interpreter::cls()
+{
+	_stream.print("\x1B[2J"), _stream.print("\x1B[H");
+}
+
+void
 Interpreter::doInput()
 {
 	Lexer l;
@@ -291,7 +297,7 @@ Interpreter::dump(DumpMode mode)
 	switch (mode) {
 	case MEMORY:
 	{
-		ByteArray ba((uint8_t*) _program._text, PROGSIZE);
+		ByteArray ba((uint8_t*) _program._text, _program.programSize);
 		_stream.println(ba);
 		_stream.print("Text end:\t");
 		_stream.println(unsigned(_program._textEnd),

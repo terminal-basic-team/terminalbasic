@@ -24,6 +24,7 @@ namespace BASIC
 {
 
 static const char sABS[] PROGMEM = "ABS";
+static const char sACS[] PROGMEM = "ACS";
 static const char sATN[] PROGMEM = "ATN";
 static const char sCOS[] PROGMEM = "COS";
 static const char sCOT[] PROGMEM = "COT";
@@ -35,7 +36,7 @@ static const char sSQR[] PROGMEM = "SQR";
 static const char sTAN[] PROGMEM = "TAN";
 
 PGM_P const Math::funcStrings[NUM_FUNC] PROGMEM = {
-	sABS, sATN, sCOS, sCOT, sEXP, sLOG, sPI, sSIN, sSQR, sTAN
+	sABS, sACS, sATN, sCOS, sCOT, sEXP, sLOG, sPI, sSIN, sSQR, sTAN
 };
 
 Math::Math(FunctionBlock *next) :
@@ -48,6 +49,8 @@ Math::_getFunction(const char *name) const
 {
 	if (strcmp_P(name, (PGM_P)pgm_read_word(&(funcStrings[F_ABS]))) == 0)
 		return func_abs;
+	else if (strcmp_P(name, (PGM_P)pgm_read_word(&(funcStrings[F_ACS]))) == 0)
+		return func_acs;
 	else if (strcmp_P(name, (PGM_P)pgm_read_word(&(funcStrings[F_ATN]))) == 0)
 		return func_atn;
 	else if (strcmp_P(name, (PGM_P)pgm_read_word(&(funcStrings[F_COS]))) == 0)
@@ -82,6 +85,12 @@ Math::func_abs(Interpreter &i)
 		return true;
 	} else
 		return false;
+}
+
+bool
+Math::func_acs(Interpreter &i)
+{
+	return general_func(i, &acs_r);
 }
 
 bool
@@ -138,6 +147,12 @@ bool
 Math::func_tan(Interpreter &i)
 {
 	return general_func(i, &tan_r);
+}
+
+Real
+Math::acs_r(Real v)
+{
+	return acos(v);
 }
 
 Real

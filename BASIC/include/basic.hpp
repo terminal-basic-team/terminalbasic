@@ -33,16 +33,15 @@ const uint8_t PROGSTRINGSIZE = 64;
 const uint8_t STRINGSIZE = 32;
 // Number of bytes for program text, variables and stack
 #if defined (__AVR_ATmega1284__) || defined (__AVR_ATmega1284P__)
-const size_t PROGSIZE = 15360;
+const size_t PROGRAMSIZE = 15360;
 #elif defined (__AVR_ATmega2560__)
-//const size_t PROGSIZE = 7168;
-const size_t PROGSIZE = 2048;
+const size_t PROGRAMSIZE = 7168;
 #elif defined (__AVR_ATmega128__) || defined (__AVR_ATmega128A__)
-const size_t PROGSIZE = 3072;
+const size_t PROGRAMSIZE = 3072;
 #elif defined (__AVR_ATmega328__) || defined (__AVR_ATmega328P__)
-const size_t PROGSIZE = 1280;
+const size_t PROGRAMSIZE = 1280;
 #else
-const size_t PROGSIZE = 8192;
+const size_t PROGRAMSIZE = 8192;
 #endif
 // Number of characters in variable name
 const uint8_t VARSIZE = 8; 

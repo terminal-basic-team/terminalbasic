@@ -525,6 +525,11 @@ Parser::fCommand()
 	Token t = _lexer.getToken();
 	LOG(t);
 	switch (t) {
+	case COM_CLS:
+		if (_mode == EXECUTE)
+			_interpreter.cls();
+		_lexer.getNext();
+		return true;
 	case COM_DUMP:
 	{
 		Interpreter::DumpMode mode = Interpreter::MEMORY;

@@ -39,6 +39,7 @@ protected:
 	FunctionBlock::function _getFunction(const char*) const override;
 private:
 	static bool func_abs(Interpreter&);
+	static bool func_acs(Interpreter&);
 	static bool func_atn(Interpreter&);
 	static bool func_cos(Interpreter&);
 	static bool func_cot(Interpreter&);
@@ -51,10 +52,11 @@ private:
 	
 	enum FuncNames : uint8_t
 	{
-		F_ABS = 0, F_ATN, F_COS, F_COT, F_EXP, F_LOG, F_PI, F_SIN,
+		F_ABS = 0, F_ACS, F_ATN, F_COS, F_COT, F_EXP, F_LOG, F_PI, F_SIN,
 		F_SQR, F_TAN, NUM_FUNC
 	};
 	
+	static Real acs_r(Real);
 	static Real atn_r(Real);
 	static Real sin_r(Real);
 	static Real cos_r(Real);

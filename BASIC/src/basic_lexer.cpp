@@ -78,6 +78,7 @@ namespace BASIC
 #if ARDUINO_LOG
 const char sNOTOKENS[] PROGMEM = "NOTOKENS";
 
+const char sCLS[] PROGMEM = "CLS";
 const char sDATA[] PROGMEM = "DATA";
 const char sDUMP[] PROGMEM = "DUMP";
 const char sLIST[] PROGMEM = "LIST";
@@ -132,7 +133,7 @@ const char sPOW[] PROGMEM = "^";
 PGM_P const Lexer::tokenStrings[NUM_TOKENS] PROGMEM = {
 	sNOTOKENS,
 	
-	sDATA,	sDUMP,	sLIST, sLOAD,	sNEW,	sRUN,	sSAVE,
+	sCLS,	sDATA,	sDUMP,	sLIST, sLOAD,	sNEW,	sRUN,	sSAVE,
 	
 	sDIM,	sEND,	sFOR,	sGOSUB,	sGOTO,	sIF,	sINPUT,	sLET,	sNEXT,
 	sPRINT,	sREM,	sRETURN,
@@ -198,6 +199,10 @@ bool Lexer::getNext()
 			case 'A':
 				_id[_valuePointer++] = SYM;
 				first_A();
+				return true;
+			case 'C':
+				_id[_valuePointer++] = SYM;
+				first_C();
 				return true;
 			case 'D':
 				_id[_valuePointer++] = SYM;
@@ -377,6 +382,25 @@ void Lexer::first_A()
 				break;
 			}
 			break;
+		}
+		break;
+	}
+	ident();
+}
+
+void Lexer::first_C()
+{
+	_token = NOTOKENS;
+
+	next();
+	switch (SYM) {
+	case 'L':
+		pushSYM();
+		switch (SYM) {
+		case 'S':
+			next();
+			_token = COM_CLS;
+			return;
 		}
 		break;
 	}

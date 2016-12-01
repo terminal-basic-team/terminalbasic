@@ -45,6 +45,7 @@ enum Token : uint8_t
 	NOTOKENS = 0,
 	
 	// Commands
+	COM_CLS,
 	COM_DATA,
 	COM_DUMP,
 	COM_LIST,
@@ -162,6 +163,7 @@ private:
 	void next();
 
 	void first_A();
+	void first_C();
 	void first_D();
 	void first_E();
 	void first_F();

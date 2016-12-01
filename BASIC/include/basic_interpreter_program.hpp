@@ -81,7 +81,7 @@ public:
 		} body;
 	};
 
-	Program(uint16_t=PROGSIZE);
+	Program(uint16_t=PROGRAMSIZE);
 	/**
 	 * Clear program memory
 	 */
@@ -150,6 +150,7 @@ public:
 	 */
 	bool insert(uint16_t, const char*);
 	char *_text;
+	const uint16_t programSize;
 private:
 	uint16_t _textEnd, _current, _variablesEnd, _arraysEnd, _sp, _jump;
 	bool _jumpFlag;

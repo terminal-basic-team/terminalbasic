@@ -161,7 +161,7 @@ public:
 	void step();
 	// Execute entered command (command or inputed program line)
 	void exec();
-	
+	void cls();
 	void doInput();
 	// Output program memory
 	void list();

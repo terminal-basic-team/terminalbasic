@@ -24,7 +24,8 @@ namespace BASIC
 {
 
 Interpreter::Program::Program(uint16_t progsize) :
-	_text(reinterpret_cast<char*>(malloc(progsize)))
+	_text(reinterpret_cast<char*>(malloc(progsize))),
+	programSize(progsize)
 {
 	assert(_text != NULL);
 	
@@ -119,8 +120,8 @@ Interpreter::Program::newProg()
 	_textEnd = _current = _variablesEnd = _arraysEnd = _jump = 0;
 	_jumpFlag = false;
 	_textPosition = 0;
-	_sp = PROGSIZE;
-	memset(_text, 0xFF, PROGSIZE);
+	_sp = programSize;
+	memset(_text, 0xFF, programSize);
 }
 
 Interpreter::VariableFrame*
@@ -183,7 +184,7 @@ Interpreter::Program::pop()
 Interpreter::Program::StackFrame*
 Interpreter::Program::stackFrameByIndex(uint16_t index)
 {
-	if ((index > 0) && (index < PROGSIZE))
+	if ((index > 0) && (index < programSize))
 		return (reinterpret_cast<StackFrame*> (_text + index));
 	else
 		return (NULL);
