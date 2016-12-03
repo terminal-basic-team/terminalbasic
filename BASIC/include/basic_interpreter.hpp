@@ -30,13 +30,13 @@ namespace BASIC
 /**
  * @brief Interpreter context object
  */
-class Interpreter
+class CPS_PACKED Interpreter
 {
 public:
 	/**
 	 * @brief BASIC program memory
 	 */
-	class Program;
+	class CPS_PACKED Program;
 	/**
 	 * Variable type
 	 */

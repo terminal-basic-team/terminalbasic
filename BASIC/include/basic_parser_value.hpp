@@ -49,7 +49,7 @@ public:
 	Value();
 	Value(Integer);
 	Value(float);
-	explicit Value(bool);
+	Value(bool);
 
 	explicit operator Real() const;
 	explicit operator bool() const;

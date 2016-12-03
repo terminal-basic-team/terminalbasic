@@ -690,7 +690,7 @@ Interpreter::print(Integer i, TextAttr attr)
 void
 Interpreter::raiseError(ErrorType type, uint8_t errorCode)
 {
-	char buf[8];
+	char buf[16];
 	if (type == DYNAMIC_ERROR)
 		strcpy_P(buf, (PGM_P) pgm_read_word(&(ESTRING(DYNAMIC))));
 	else // STATIC_ERROR

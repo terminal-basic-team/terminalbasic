@@ -21,8 +21,10 @@
 
 #include <string.h>
 #include <ctype.h>
+#include <assert.h>
 
 /*
+ * COM_CLS = "CLS"
  * COM_DATA = "DATA"
  * COM_DUMP = "DUMP"
  * COM_LIST = "LIST"
@@ -175,23 +177,19 @@ operator<<(Logger &logger, Token tok)
 void Lexer::init(const char *string)
 {
 	LOG_TRACE;
+	assert(string != NULL);
 
-	_pointer = 0;
-	_token = NOTOKENS;
-
-	if (string != NULL)
-		_string = string;
+	_pointer = 0, _string = string;
 }
 
 bool Lexer::getNext()
 {
 	LOG_TRACE;
 
+	_token = NOTOKENS;
 	_valuePointer = 0;
 	while (SYM > 0) {
 		if (isdigit(SYM)) {
-			_value.type = Parser::Value::INTEGER;
-			_value.value.integer = SYM - '0';
 			decimalNumber();
 			return true;
 		} else
@@ -323,10 +321,8 @@ bool Lexer::getNext()
 				} else if (isalpha(SYM)) {
 					pushSYM();
 					ident();
-				} else {
+				} else
 					next();
-					_token = NOTOKENS;
-				}
 				return true;
 			}
 	}
@@ -347,8 +343,6 @@ void Lexer::next()
 
 void Lexer::first_A()
 {
-	_token = NOTOKENS;
-
 	next();
 	switch (SYM) {
 	case 'N':
@@ -390,8 +384,6 @@ void Lexer::first_A()
 
 void Lexer::first_C()
 {
-	_token = NOTOKENS;
-
 	next();
 	switch (SYM) {
 	case 'L':
@@ -409,8 +401,6 @@ void Lexer::first_C()
 
 void Lexer::first_D()
 {
-	_token = NOTOKENS;
-
 	next();
 	switch (SYM) {
 	case 'A':
@@ -456,8 +446,6 @@ void Lexer::first_D()
 
 void Lexer::first_E()
 {
-	_token = NOTOKENS;
-
 	next();
 	switch (SYM) {
 	case 'N':
@@ -475,8 +463,6 @@ void Lexer::first_E()
 
 void Lexer::first_F()
 {
-	_token = NOTOKENS;
-
 	next();
 	switch (SYM) {
 	case 'O':
@@ -494,8 +480,6 @@ void Lexer::first_F()
 
 void Lexer::first_G()
 {
-	_token = NOTOKENS;
-
 	next();
 	switch (SYM) {
 	case 'O':
@@ -532,8 +516,6 @@ void Lexer::first_G()
 
 void Lexer::first_I()
 {
-	_token = NOTOKENS;
-
 	next();
 	switch (SYM) {
 	case 'F':
@@ -562,8 +544,6 @@ void Lexer::first_I()
 
 void Lexer::first_L()
 {
-	_token = NOTOKENS;
-
 	next();
 	switch (SYM) {
 	case 'I':
@@ -609,8 +589,6 @@ void Lexer::first_L()
 
 void Lexer::first_N()
 {
-	_token = NOTOKENS;
-
 	next();
 	switch (SYM) {
 	case 'E':
@@ -636,8 +614,6 @@ void Lexer::first_N()
 
 void Lexer::first_O()
 {
-	_token = NOTOKENS;
-
 	next();
 	switch (SYM) {
 	case 'R':
@@ -650,8 +626,6 @@ void Lexer::first_O()
 
 void Lexer::first_P()
 {
-	_token = NOTOKENS;
-
 	next();
 	switch (SYM) {
 	case 'R':
@@ -676,8 +650,6 @@ void Lexer::first_P()
 
 void Lexer::first_R()
 {
-	_token = NOTOKENS;
-
 	next();
 	switch (SYM) {
 	case 'E':
@@ -722,8 +694,6 @@ void Lexer::first_R()
 
 void Lexer::first_S()
 {
-	_token = NOTOKENS;
-
 	next();
 	switch (SYM) {
 	case 'A':
@@ -758,8 +728,6 @@ void Lexer::first_S()
 
 void Lexer::first_T()
 {
-	_token = NOTOKENS;
-
 	next();
 	switch (SYM) {
 	case 'H':
@@ -786,8 +754,6 @@ void Lexer::first_T()
 
 void Lexer::first_V()
 {
-	_token = NOTOKENS;
-
 	next();
 	switch (SYM) {
 	case 'A':
@@ -810,8 +776,6 @@ void Lexer::first_V()
 
 void Lexer::fitst_LT()
 {
-	_token = LT;
-
 	next();
 	switch (SYM) {
 	case '=':
@@ -821,6 +785,7 @@ void Lexer::fitst_LT()
 		_token = NE;
 		break;
 	default:
+		_token = LT;
 		return;
 	}
 	next();
@@ -828,8 +793,6 @@ void Lexer::fitst_LT()
 
 void Lexer::fitst_GT()
 {
-	_token = GT;
-
 	next();
 	switch (SYM) {
 	case '=':
@@ -839,6 +802,7 @@ void Lexer::fitst_GT()
 		_token = NEA;
 		break;
 	default:
+		_token = GT;
 		return;
 	}
 	next();
@@ -848,8 +812,9 @@ void Lexer::decimalNumber()
 {
 	LOG_TRACE;
 
-	_token = NOTOKENS;
-
+	_value.type = Parser::Value::INTEGER;
+	_value.value.integer = SYM - '0';
+	
 	while (true) {
 		next();
 		if (isdigit(SYM)) {
@@ -902,8 +867,6 @@ void Lexer::ident()
 
 void Lexer::stringConst()
 {
-	_token = NOTOKENS;
-	
 	while (SYM != 0) {
 		if (SYM == '"') {
 			next();
@@ -914,6 +877,5 @@ void Lexer::stringConst()
 		pushSYM();
 	}
 }
-
 
 }

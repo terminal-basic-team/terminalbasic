@@ -23,7 +23,7 @@
 #include <inttypes.h>
 
 /**
- * @brief SImple BASIC language interpreter package
+ * @brief Simple BASIC language interpreter package
  */
 namespace BASIC
 {
@@ -33,13 +33,13 @@ const uint8_t PROGSTRINGSIZE = 64;
 const uint8_t STRINGSIZE = 32;
 // Number of bytes for program text, variables and stack
 #if defined (__AVR_ATmega1284__) || defined (__AVR_ATmega1284P__)
-const size_t PROGRAMSIZE = 15360;
+const size_t PROGRAMSIZE = 14848;
 #elif defined (__AVR_ATmega2560__)
 const size_t PROGRAMSIZE = 7168;
 #elif defined (__AVR_ATmega128__) || defined (__AVR_ATmega128A__)
 const size_t PROGRAMSIZE = 3072;
 #elif defined (__AVR_ATmega328__) || defined (__AVR_ATmega328P__)
-const size_t PROGRAMSIZE = 1280;
+const size_t PROGRAMSIZE = 1024;
 #else
 const size_t PROGRAMSIZE = 8192;
 #endif

@@ -29,14 +29,18 @@
 namespace BASIC
 {
 
-class Lexer;
+class CPS_PACKED Lexer;
+class CPS_PACKED Interpreter;
 
-class Interpreter;
-
-class Parser
+/**
+ * @brief Syntactic analyzer class
+ */
+class CPS_PACKED Parser
 {
 public:
-
+	/**
+	 * @brief Static semantic errors
+	 */
 	enum ErrorCodes : uint8_t
 	{
 		NO_ERROR = 0,
@@ -46,18 +50,31 @@ public:
 		THEN_OR_GOTO_EXPECTED,
 		VARIABLES_LIST_EXPECTED
 	};
-
+	
 	class CPS_PACKED Value;
-
+	/**
+	 * @brief constructor
+	 * @param lexer Lexical analyzer object refertence
+	 * @param interpreter Interpreter context object reference
+	 * @param module Pointer to the first module in chain
+	 */
 	Parser(Lexer&, Interpreter&, FunctionBlock* = NULL);
-
+	/**
+	 * @brief Parse a text string
+	 * @param str string to parse
+	 * @return successfull parsing flag
+	 */
 	bool parse(const char*);
-
-	ErrorCodes getError() const
-	{
-		return _error;
-	}
+	/**
+	 * @brief get last static error code
+	 * @return error code
+	 */
+	ErrorCodes getError() const { return _error; }
 private:
+	/**
+	 * Parser mode: syntax check or execute commands of the interpreter
+	 * context
+	 */
 	enum Mode : uint8_t
 	{
 		SCAN = 0, EXECUTE
@@ -81,12 +98,17 @@ private:
 	bool fArray(uint8_t&);
 	bool fDimensions(uint8_t&);
 	bool fIdentifierExpr(const char*, Value&);
-
+	// last static semantic error
 	ErrorCodes _error;
+	// lexical analyser object reference
 	Lexer &_lexer;
+	// interpreter context object reference
 	Interpreter &_interpreter;
+	// current mode
 	Mode	_mode;
+	// stop parsing string flag
 	bool	_stopParse;
+	// first module in chain reference
 	FunctionBlock *_firstFB;
 };
 

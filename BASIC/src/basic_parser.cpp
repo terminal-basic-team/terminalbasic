@@ -87,6 +87,9 @@ Parser::parse(const char *s)
 		return true;
 }
 
+/*
+ * OPERATORS = OPERATOR | OPERATOR COLON OPERATORS
+ */
 bool
 Parser::fOperators()
 {
@@ -104,6 +107,21 @@ Parser::fOperators()
 	return true;
 }
 
+/*
+ * OPERATOR = COMMAND |
+ *	KW_DIM ARRAYS_LIST |
+ *      KW_END |
+ *	KW_FOR FOR_CONDS |
+ *	KW_GOSUB EXPRESSION |
+ *	KW_IF EXPRESSION IF_STATEMENT |
+ *	KW_INPUT VAR_LIST |
+ *	KW_LET IMPLICIT_ASSIGNMENT |
+ *	KW_NEXT IDENT |
+ *	KW_PRINT | KW_PRINT PRINT_LIST |
+ *	KW_REM TEXT |
+ *	KW_RETURN |
+ *	GOTO_STATEMENT
+ */
 bool
 Parser::fOperator()
 {
@@ -113,37 +131,40 @@ Parser::fOperator()
 	LOG(t);
 	switch (t) {
 	case KW_DIM:
-		if (!fArrayList())
-			return false;
-		else
-			return true;
+		if (!_lexer.getNext())
+			return (false);
+		return (fArrayList());
 	case KW_END:
 		if (_mode == EXECUTE)
 			_interpreter.end();
-		return true;
+		break;
 	case KW_FOR:
-		return fForConds();
+		if (!_lexer.getNext())
+			return (false);
+		return (fForConds());
 	case KW_GOSUB:
 	{
+		// @TODO separate dynamic semantic check (integer expression
+		// type) from syntactic analyse
 		Value v;
 		if (!_lexer.getNext() || !fExpression(v) || (v.type !=
 		    Value::INTEGER)) {
 			_error = INTEGER_EXPRESSION_EXPECTED;
-			return false;
+			return (false);
 		}
 		if (_mode == EXECUTE) {
 			_interpreter.pushReturnAddress(_lexer.getPointer());
 			_interpreter.gotoLine(v.value.integer);
 		}
 		_stopParse = true;
-		return true;
+		break;
 	}
 	case KW_IF:
 	{
 		Value v;
 		if (!_lexer.getNext() || !fExpression(v)) {
 			_error = EXPRESSION_EXPECTED;
-			return false;
+			return (false);
 		}
 		bool res;
 		if (!bool(v))
@@ -155,60 +176,58 @@ Parser::fOperator()
 			res = false;
 		}
 		_mode = EXECUTE;
-		return res;
+		return (res);
 	}
 	case KW_INPUT:
 	{
 		if (!fVarList()) {
 			_error = VARIABLES_LIST_EXPECTED;
-			return false;
-		} else
-			return true;
+			return (false);
+		}
+		break;
 	}
 	case KW_LET:
 	{
 		char vName[VARSIZE];
-		if (!_lexer.getNext() || !fImplicitAssignment(vName)) {
-			return false;
-		} else
-			return true;
+		if (!_lexer.getNext() || !fImplicitAssignment(vName))
+			return (false);
+		break;
 	}
 	case KW_NEXT:
 		if (!_lexer.getNext() || (_lexer.getToken() != REAL_IDENT &&
 		    _lexer.getToken() != INTEGER_IDENT))
-			return false;
+			return (false);
 		if (_mode == EXECUTE)
 			_stopParse = !_interpreter.next(_lexer.id());
 		if (!_stopParse)
 			_lexer.getNext();
-		return true;
+		break;
 	case KW_PRINT:
 		if (_lexer.getNext())
 			if (!fPrintList())
 				return false;
 		if (_mode == EXECUTE)
 			_interpreter.print('\n');
-		return true;
+		break;
 	case KW_REM:
 		while (_lexer.getNext());
-		return true;
+		break;
 	case KW_RETURN:
 		if (_mode == EXECUTE)
 			_interpreter.returnFromSub();
-		return true;
+		break;
 	default:
-		if (fCommand())
-			return true;
-		if (fGotoStatement())
-			return true;
+		if (fCommand() || fGotoStatement())
+			break;
 		{
 			char vName[VARSIZE];
 			if (fImplicitAssignment(vName))
-				return true;
+				break;
 		}
 		_error = OPERATOR_EXPECTED;
-		return false;
+		return (false);
 	}
+	return (true);
 }
 
 bool
@@ -581,7 +600,7 @@ Parser::fForConds()
 {
 	Value v;
 	char vName[VARSIZE];
-	if (!_lexer.getNext() || !fImplicitAssignment(vName) ||
+	if (!fImplicitAssignment(vName) ||
 	    _lexer.getToken()!=KW_TO || !_lexer.getNext() ||
 	    !fExpression(v)) {
 		return false;
@@ -633,14 +652,18 @@ Parser::fArrayList()
 	char arrName[VARSIZE];
 	uint8_t dimensions;
 	do {
-		if (!_lexer.getNext() || !fVar(arrName) ||
+		if (!fVar(arrName) ||
 		    !_lexer.getNext() || !fArray(dimensions))
 			return false;
 		_interpreter.pushDimensions(dimensions);
 		_interpreter.newArray(arrName);
 		t = _lexer.getToken();
-	} while (t == COMMA);
-	return true;
+		if (t != COMMA)
+			return (true);
+		else
+			if (!_lexer.getNext())
+				return (false);
+	} while (true);
 }
 
 bool

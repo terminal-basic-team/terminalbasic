@@ -41,10 +41,11 @@ protected:
 private:
 	static bool func_aread(Interpreter&);
 	static bool func_aread_int(Interpreter&);
+	static bool func_dread(Interpreter&);
 	
 	enum FuncNames : uint8_t
 	{
-		F_AREAD = 0, F_AREAD_INT, NUM_FUNC
+		F_AREAD = 0, F_AREAD_INT, F_DREAD, NUM_FUNC
 	};
 	
 	static Real aread_r(Real);

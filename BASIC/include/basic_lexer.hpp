@@ -30,6 +30,9 @@
 namespace BASIC
 {
 
+/**
+ * @brief ASCII control characters
+ */
 enum class ASCII : uint8_t
 {
 	NUL = 0x00,
@@ -40,6 +43,9 @@ enum class ASCII : uint8_t
 	ESC = 0x1B
 };
 
+/**
+ * @brief lexical tokens
+ */
 enum Token : uint8_t
 {
 	NOTOKENS = 0,
@@ -129,34 +135,52 @@ Logger&
 operator<<(Logger &logger, Token tok);
 #endif
 
-class Lexer
+/**
+ * @brief Lexical analyzer class
+ * @param 
+ */
+class CPS_PACKED Lexer
 {
 public:
-
+	/**
+	 * @brief initialize lexer session
+	 * @param str string to extract tokens from
+	 */
 	void init(const char*);
+	/**
+	 * @brief continue lexical analyze for next token
+	 * @return string end flag
+	 */
 	bool getNext();
-
+	/**
+	 * @brief get last extracted token
+	 * @return last token
+	 */
 	Token getToken() const
 	{
 		return _token;
 	}
-
-	const Parser::Value &getValue() const
-	{
-		return _value;
-	}
-
+	/**
+	 * @brief get current value (numberm boolean...)
+	 * @return value, extracted from string
+	 */
+	const Parser::Value &getValue() const { return _value; }
+	/**
+	 * @brief get current string (identifier)
+	 * @return identifier string
+	 */
 	const char *id() const { return _id; }
-
-	size_t getPointer() const
-	{
-		return _pointer;
-	}
-
+	/**
+	 * @brief get analised string position
+	 * @return string position index
+	 */
+	size_t getPointer() const { return _pointer; }
 #if ARDUINO_LOG
+	/**
+	 * @brief token strings array
+	 */
 	static PGM_P const tokenStrings[NUM_TOKENS];
 #endif
-
 private:
 
 	void pushSYM();
@@ -180,17 +204,21 @@ private:
 
 	void fitst_LT();
 	void fitst_GT();
+	
 	void decimalNumber();
 	void ident();
 	void stringConst();
-
+	
+	// analyzed string
 	const char *_string;
-	uint16_t _pointer;
-
+	// analysed string position
+	uint8_t _pointer;
+	// current value
 	Parser::Value _value;
+	// current identifier string
 	char _id[STRINGSIZE];
-	size_t _valuePointer;
-
+	// identifier string pointer
+	uint8_t _valuePointer;
 	Token _token;
 };
 

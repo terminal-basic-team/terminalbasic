@@ -23,10 +23,11 @@ namespace BASIC
 {
 
 static const char sAREAD[] PROGMEM = "AREAD";
-static const char sAREAD_INT[] PROGMEM = "AREAD$";
+static const char sAREAD_INT[] PROGMEM = "AREAD%";
+static const char sDREAD[] PROGMEM = "DREAD";
 
 PGM_P const ArduinoIO::funcStrings[NUM_FUNC] PROGMEM = {
-	sAREAD, sAREAD_INT
+	sAREAD, sAREAD_INT, sDREAD
 };
 
 ArduinoIO::ArduinoIO(FunctionBlock *next) :
@@ -56,6 +57,19 @@ bool
 ArduinoIO::func_aread_int(Interpreter &i)
 {
 	return general_func(i, aread_i);
+}
+
+bool
+ArduinoIO::func_dread(Interpreter &i)
+{
+	Parser::Value v(Integer(0));
+	i.popValue(v);
+	if (v.type == Parser::Value::INTEGER || v.type == Parser::Value::REAL) {
+		v = bool(digitalRead(Integer(v)));
+		i.pushValue(v);
+		return true;
+	} else
+		return false;
 }
 
 Real

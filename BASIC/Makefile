@@ -63,7 +63,7 @@ build: .build-post
 .build-pre:
 	echo "#define VERSION \"${VERSION}\"" > "./include/version.h"
 
-.build-post: .build-impl # copy program
+.build-post: .build-impl copy
 	echo $(shell expr ${BUILD} + 1) ; \
 	echo $(shell expr ${BUILD} + 1) > "./build-${CONF}"
 
@@ -126,7 +126,7 @@ help: .help-post
 .help-post: .help-impl
 # Add your post 'help' code here...
 
-copy: build
+copy:
 	${OBJCOPY} -O ihex -j .eeprom --set-section-flags=.eeprom=alloc,load \
 	  --no-change-warnings --change-section-lma .eeprom=0 \
 	  "${CND_ARTIFACT_PATH_${CONF}}" "${CND_ARTIFACT_PATH_${CONF}}.eep"
@@ -135,12 +135,12 @@ copy: build
 	${OBJCOPY} -O binary -R .eeprom "${CND_ARTIFACT_PATH_${CONF}}" \
 	  "${CND_ARTIFACT_PATH_${CONF}}.bin"
 
-program: copy
-	${AVRDUDE} -D -C ${AVRDUDE_CONF} -v -c wiring -p atmega2560 \
-	  -P /dev/ttyACM0 -b115200 \
-	  -U flash:w:"${CND_BASEDIR}/${CND_ARTIFACT_PATH_${CONF}}.hex":i
-	#${AVRDUDE} -C ${AVRDUDE_CONF} -v -c arduino -p m328p -P /dev/ttyUSB0 \
-	#-U flash:w:"${CND_BASEDIR}/${CND_ARTIFACT_PATH_${CONF}}.hex":i
+program:
+	#${AVRDUDE} -D -C ${AVRDUDE_CONF} -v -c wiring -p atmega2560 \
+	#  -P /dev/ttyUSB0 -b115200 \
+	#  -U flash:w:"${CND_BASEDIR}/${CND_ARTIFACT_PATH_${CONF}}.hex":i
+	${AVRDUDE} -C ${AVRDUDE_CONF} -v -c arduino -p m328p -P /dev/ttyUSB0 \
+	-U flash:w:"${CND_BASEDIR}/${CND_ARTIFACT_PATH_${CONF}}.hex":i
 	#${AVRDUDE} -C ${AVRDUDE_CONF} -v -c usbasp -p m328p \
 	#-U flash:w:"${CND_BASEDIR}/${CND_ARTIFACT_PATH_${CONF}}.hex":i
 	#${AVRDUDE} -C ${AVRDUDE_CONF} -v -c usbasp -p m128 \

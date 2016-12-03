@@ -198,10 +198,11 @@ Interpreter::Program::currentStackFrame()
 
 Interpreter::ArrayFrame*
 Interpreter::Program::arrayByName(const char *name)
-{
+{	
 	uint16_t index = _variablesEnd;
 
-	for (ArrayFrame *f = arrayByIndex(index); f != NULL; index += f->size(),
+	for (ArrayFrame *f = arrayByIndex(index); index < _arraysEnd; 
+	    index += f->size(),
 	    f = arrayByIndex(index)) {
 		int8_t res = strcmp(name, f->name);
 		if (res == 0) {

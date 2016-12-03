@@ -25,22 +25,22 @@ static BASIC::Math mathBlock;
 static BASIC::ArduinoIO arduinoIo(&mathBlock);
 
 #ifdef BASIC_MULTITERMINAL
-static BASIC::Interpreter::Program program(BASIC::PROGRAMSIZE / 4);
+static BASIC::Interpreter::Program program(BASIC::PROGRAMSIZE / 5);
 static BASIC::Interpreter basic(Serial, program, &arduinoIo);
 #ifdef HAVE_HWSERIAL1
-static BASIC::Interpreter::Program program1(BASIC::PROGRAMSIZE / 4);
+static BASIC::Interpreter::Program program1(BASIC::PROGRAMSIZE / 5);
 static BASIC::Interpreter basic1(Serial1, program1, &arduinoIo);
 #endif
 #ifdef HAVE_HWSERIAL2
-static BASIC::Interpreter::Program program2(BASIC::PROGRAMSIZE / 4);
+static BASIC::Interpreter::Program program2(BASIC::PROGRAMSIZE / 5);
 static BASIC::Interpreter basic2(Serial2, program2, &arduinoIo);
 #endif
 #ifdef HAVE_HWSERIAL3
-static BASIC::Interpreter::Program program3(BASIC::PROGRAMSIZE / 4);
+static BASIC::Interpreter::Program program3(BASIC::PROGRAMSIZE / 5);
 static BASIC::Interpreter basic3(Serial3, program3, &arduinoIo);
 #endif
 #else
-static BASIC::Interpreter::Program program(BASIC::PROGRAMSIZE / 4);
+static BASIC::Interpreter::Program program(BASIC::PROGRAMSIZE);
 static BASIC::Interpreter basic(Serial, program, &arduinoIo);
 #endif
 
