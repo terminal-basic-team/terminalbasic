@@ -28,7 +28,7 @@
 namespace BASIC
 {
 // Max size of the program line
-const uint8_t PROGSTRINGSIZE = 64;
+const uint8_t PROGSTRINGSIZE = 80;
 // Max size of the string constants/variables
 const uint8_t STRINGSIZE = 32;
 // Number of bytes for program text, variables and stack
@@ -39,7 +39,7 @@ const size_t PROGRAMSIZE = 7168;
 #elif defined (__AVR_ATmega128__) || defined (__AVR_ATmega128A__)
 const size_t PROGRAMSIZE = 3072;
 #elif defined (__AVR_ATmega328__) || defined (__AVR_ATmega328P__)
-const size_t PROGRAMSIZE = 1024;
+const size_t PROGRAMSIZE = 900;
 #else
 const size_t PROGRAMSIZE = 8192;
 #endif

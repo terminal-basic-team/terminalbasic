@@ -67,7 +67,7 @@ private:
 enum Interpreter::ProgMemStrings : uint8_t
 {
 	STATIC = 0, DYNAMIC, ERROR, SEMANTIC, READY, BYTES,
-	AVAILABLE, ucBASIC, S_VERSION, NUM_STRINGS
+	AVAILABLE, ucBASIC, S_VERSION, S_END, S_TEXT, S_OF, NUM_STRINGS
 };
 
 static const char strStatic[] PROGMEM = "STATIC";
@@ -79,6 +79,9 @@ static const char strBytes[] PROGMEM = "BYTES";
 static const char strAvailable[] PROGMEM = "AVAILABLE";
 static const char strucBASIC[] PROGMEM = "ucBASIC";
 static const char strVERSION[] PROGMEM = "VERSION";
+static const char strEND[] PROGMEM = "END";
+static const char strTEXT[] PROGMEM = "TEXT";
+static const char strOF[] PROGMEM = "OF";
 
 PGM_P const Interpreter::_progmemStrings[NUM_STRINGS] PROGMEM = {
 	strStatic,	// STATIC
@@ -89,7 +92,10 @@ PGM_P const Interpreter::_progmemStrings[NUM_STRINGS] PROGMEM = {
 	strBytes,	// BYTES
 	strAvailable,	// AVAILABLE
 	strucBASIC,	// ucBASIC
-	strVERSION	// VERSION
+	strVERSION,	// VERSION
+        strEND,         // END
+        strTEXT,        // TEXT
+        strOF           // OF
 };
 
 #define ESTRING(en) (_progmemStrings[en])
@@ -207,7 +213,10 @@ Interpreter::step()
 		}
 		break;
 	case EXECUTE:
-		if (_program._current < _program._textEnd) {
+                char c = char(ASCII::NUL);
+                if (_stream.available() > 0)
+                    c = _stream.read();
+		if (_program._current < _program._textEnd && c != char(ASCII::EOT)) {
 			Program::String *s = _program.current();
 			if (!_parser.parse(s->text + _program._textPosition))
 				raiseError(STATIC_ERROR);
@@ -299,9 +308,8 @@ Interpreter::dump(DumpMode mode)
 	{
 		ByteArray ba((uint8_t*) _program._text, _program.programSize);
 		_stream.println(ba);
-		_stream.print("Text end:\t");
-		_stream.println(unsigned(_program._textEnd),
-		    HEX);
+		print(S_END), print(S_OF), print(S_TEXT), _stream.print('\t');
+		_stream.println(unsigned(_program._textEnd), HEX);
 		_stream.print("Variables end:\t");
 		_stream.println(unsigned(_program._variablesEnd), HEX);
 		_stream.print("Arrays end:\t");
@@ -649,12 +657,16 @@ Interpreter::readInput()
 	for (uint8_t i=_inputPosition; i<end; ++i) {
 		char c = _inputBuffer[i];
 		switch (c) {
-		case '\r':
+		case char(ASCII::BS):
+                        if (_inputPosition>0)
+                            --_inputPosition;
+                        break;
+		case char(ASCII::CR):
+                        _stream.write(char(ASCII::LF));
 			_inputBuffer[i] = 0;
 			return true;
 		default:
 			++_inputPosition;
-			continue;
 		}
 	}
 	return false;

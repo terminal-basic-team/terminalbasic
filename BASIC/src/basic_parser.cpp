@@ -206,8 +206,10 @@ Parser::fOperator()
 		if (_lexer.getNext())
 			if (!fPrintList())
 				return false;
-		if (_mode == EXECUTE)
-			_interpreter.print('\n');
+		if (_mode == EXECUTE) {
+			_interpreter.print('\r');
+                        _interpreter.print('\n');
+                }
 		break;
 	case KW_REM:
 		while (_lexer.getNext());
