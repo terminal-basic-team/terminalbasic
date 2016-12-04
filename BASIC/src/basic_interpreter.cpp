@@ -656,6 +656,7 @@ Interpreter::readInput()
 	uint8_t end = _inputPosition+read;
 	for (uint8_t i=_inputPosition; i<end; ++i) {
 		char c = _inputBuffer[i];
+                _stream.write(c);
 		switch (c) {
 		case char(ASCII::BS):
                         if (_inputPosition>0)
