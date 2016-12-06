@@ -15,7 +15,7 @@
    id="svg1306"
    sodipodi:version="0.32"
    inkscape:version="0.48.5 r10040"
-   sodipodi:docname="utilities-terminal.svg"
+   sodipodi:docname="terminal-basic.svg"
    inkscape:export-filename="/home/andreas/projekt/bild/tango/terminal4.png"
    inkscape:export-xdpi="240.00000"
    inkscape:export-ydpi="240.00000"
@@ -291,8 +291,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="16"
-     inkscape:cx="22.095991"
-     inkscape:cy="18.405498"
+     inkscape:cx="22.220991"
+     inkscape:cy="23.088113"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:grid-bbox="true"
@@ -353,7 +353,10 @@
      inkscape:groupmode="layer">
     <g
        id="g5022"
-       transform="matrix(2.454499e-2,0,0,2.086758e-2,46.14369,39.34109)">
+       transform="matrix(2.454499e-2,0,0,2.086758e-2,46.14369,39.34109)"
+       inkscape:export-filename="/home/starling13/STARLING_REPO/ucbasic/path2300.png"
+       inkscape:export-xdpi="133.39952"
+       inkscape:export-ydpi="133.39952">
       <rect
          y="-150.69685"
          x="-1559.2523"
@@ -380,7 +383,10 @@
        x="1.5026338"
        y="3.5015533"
        rx="4.8517075"
-       ry="4.8517079" />
+       ry="4.8517079"
+       inkscape:export-filename="/home/starling13/STARLING_REPO/ucbasic/path2300.png"
+       inkscape:export-xdpi="133.39952"
+       inkscape:export-ydpi="133.39952" />
     <rect
        style="opacity:1.0000000;fill:url(#linearGradient2204);fill-opacity:1.0000000;fill-rule:evenodd;stroke:url(#linearGradient4260);stroke-width:0.99495775;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-dashoffset:0.0000000;stroke-opacity:1.0000000"
        id="rect1314"
@@ -389,14 +395,20 @@
        x="5.4962788"
        y="7.4827089"
        rx="1.6452150"
-       ry="1.6452144" />
+       ry="1.6452144"
+       inkscape:export-filename="/home/starling13/STARLING_REPO/ucbasic/path2300.png"
+       inkscape:export-xdpi="133.39952"
+       inkscape:export-ydpi="133.39952" />
     <text
        xml:space="preserve"
        style="font-size:8px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:condensed;text-align:start;line-height:90%;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#acffac;fill-opacity:1;stroke:#4ab24a;font-family:Liberation Sans Narrow;-inkscape-font-specification:Liberation Sans Narrow Bold Condensed;stroke-opacity:1;stroke-width:0.20000000000000001;stroke-miterlimit:4;stroke-dasharray:none"
        x="8.6170101"
        y="16.545866"
        id="text3055"
-       sodipodi:linespacing="90%"><tspan
+       sodipodi:linespacing="90%"
+       inkscape:export-filename="/home/starling13/STARLING_REPO/ucbasic/path2300.png"
+       inkscape:export-xdpi="133.39952"
+       inkscape:export-ydpi="133.39952"><tspan
          sodipodi:role="line"
          id="tspan3057"
          x="8.6170101"
@@ -412,10 +424,16 @@
        d="m 9.069184,26.824024 0,-1.982631 4.328747,2.635894 0,1.204693 -4.328747,2.653186 0,-1.976741 3.355335,-1.203354 z m 9.10217,6.508191 0,-0.718533 -5.253087,0 0,-1.281467 5.253087,0"
        id="text1340"
        sodipodi:nodetypes="ccccccccccccc"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/starling13/STARLING_REPO/ucbasic/path2300.png"
+       inkscape:export-xdpi="133.39952"
+       inkscape:export-ydpi="133.39952" />
     <g
        id="g2286"
-       style="opacity:0.25568182">
+       style="opacity:0.25568182"
+       inkscape:export-filename="/home/starling13/STARLING_REPO/ucbasic/path2300.png"
+       inkscape:export-xdpi="133.39952"
+       inkscape:export-ydpi="133.39952">
       <path
          id="path1345"
          d="M 8.0152033,11.500361 L 39.994145,11.500361"
@@ -473,12 +491,18 @@
        x="2.5542557"
        y="4.5007114"
        rx="3.7910469"
-       ry="3.7910469" />
+       ry="3.7910469"
+       inkscape:export-filename="/home/starling13/STARLING_REPO/ucbasic/path2300.png"
+       inkscape:export-xdpi="133.39952"
+       inkscape:export-ydpi="133.39952" />
     <path
        sodipodi:nodetypes="ccccccc"
        style="opacity:0.53142856;fill:url(#linearGradient2673);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.25pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 7.625388,8 C 7.102102,8 6.05153,8.190188 6.05153,9.0259761 L 6.16958,25.542519 C 23.841567,24.579133 20.294433,17.286426 42,13.633318 L 41.937264,9.2913791 C 41.859002,8.1662868 41.397947,8.0594548 40.327115,8.066071 L 7.625388,8 z "
-       id="path2443" />
+       id="path2443"
+       inkscape:export-filename="/home/starling13/STARLING_REPO/ucbasic/path2300.png"
+       inkscape:export-xdpi="133.39952"
+       inkscape:export-ydpi="133.39952" />
     <rect
        style="opacity:0.71428573;fill:none;fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.9999992;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-dashoffset:0.0000000;stroke-opacity:1.0000000"
        id="rect1340"
@@ -487,7 +511,10 @@
        x="6.9894562"
        y="8.9805145"
        rx="0.11773217"
-       ry="0.11773217" />
+       ry="0.11773217"
+       inkscape:export-filename="/home/starling13/STARLING_REPO/ucbasic/path2300.png"
+       inkscape:export-xdpi="133.39952"
+       inkscape:export-ydpi="133.39952" />
     <rect
        style="opacity:1;fill:url(#radialGradient6453);fill-opacity:1;fill-rule:evenodd;stroke:url(#linearGradient5719);stroke-width:1.00000119;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect5025"
@@ -496,7 +523,10 @@
        x="35.485569"
        y="37.514935"
        rx="0.35819405"
-       ry="0.56022596" />
+       ry="0.56022596"
+       inkscape:export-filename="/home/starling13/STARLING_REPO/ucbasic/path2300.png"
+       inkscape:export-xdpi="133.39952"
+       inkscape:export-ydpi="133.39952" />
     <rect
        style="opacity:1;fill:#93d94c;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect6458"
@@ -505,7 +535,10 @@
        x="32"
        y="38"
        rx="0.56022543"
-       ry="0.56022543" />
+       ry="0.56022543"
+       inkscape:export-filename="/home/starling13/STARLING_REPO/ucbasic/path2300.png"
+       inkscape:export-xdpi="133.39952"
+       inkscape:export-ydpi="133.39952" />
     <path
        sodipodi:type="arc"
        style="opacity:1;color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible"
@@ -515,6 +548,8 @@
        sodipodi:rx="0.5625"
        sodipodi:ry="0.5625"
        d="M 28.875 38.75 A 0.5625 0.5625 0 1 1  27.75,38.75 A 0.5625 0.5625 0 1 1  28.875 38.75 z"
-       transform="translate(4.375000,-6.250000e-2)" />
+       transform="translate(4.375000,-6.250000e-2)"
+       inkscape:export-xdpi="133.39952"
+       inkscape:export-ydpi="133.39952" />
   </g>
 </svg>

@@ -10,6 +10,8 @@ arduino-ide and uses its toolchain.
 The language, which ucBASIC will support one day is:
 
 Lexems:
+ * COM_CLS = "CLS"
+ * COM_DATA = "DATA"
  * COM_DUMP = "DUMP"
  * COM_LIST = "LIST"
  * COM_LOAD = "LOAD"
