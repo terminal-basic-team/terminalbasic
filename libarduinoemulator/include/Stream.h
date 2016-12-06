@@ -77,7 +77,8 @@ class StdioStream : public Stream
 {
 public:
 	StdioStream(std::istream&, std::ostream&);
-	void begin(uint32_t baud) {}
+	void begin(uint32_t baud);
+	void end();
 	bool operator !() const
 	{
 		return false;

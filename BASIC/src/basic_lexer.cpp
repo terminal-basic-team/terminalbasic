@@ -22,6 +22,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <assert.h>
+#include <math.h>
 
 /*
  * COM_CLS = "CLS"
@@ -174,7 +175,8 @@ operator<<(Logger &logger, Token tok)
 
 #define SYM _string[_pointer]
 
-void Lexer::init(const char *string)
+void
+Lexer::init(const char *string)
 {
 	LOG_TRACE;
 	assert(string != NULL);
@@ -182,7 +184,8 @@ void Lexer::init(const char *string)
 	_pointer = 0, _string = string;
 }
 
-bool Lexer::getNext()
+bool
+Lexer::getNext()
 {
 	LOG_TRACE;
 
@@ -329,19 +332,22 @@ bool Lexer::getNext()
 	return false;
 }
 
-void Lexer::pushSYM()
+void
+Lexer::pushSYM()
 {
 	if (_valuePointer < STRINGSIZE - 1)
 		_id[_valuePointer++] = SYM;
 	next();
 }
 
-void Lexer::next()
+void
+Lexer::next()
 {
 	++_pointer;
 }
 
-void Lexer::first_A()
+void
+Lexer::first_A()
 {
 	next();
 	switch (SYM) {
@@ -382,7 +388,8 @@ void Lexer::first_A()
 	ident();
 }
 
-void Lexer::first_C()
+void
+Lexer::first_C()
 {
 	next();
 	switch (SYM) {
@@ -399,7 +406,8 @@ void Lexer::first_C()
 	ident();
 }
 
-void Lexer::first_D()
+void
+Lexer::first_D()
 {
 	next();
 	switch (SYM) {
@@ -444,7 +452,8 @@ void Lexer::first_D()
 	ident();
 }
 
-void Lexer::first_E()
+void
+Lexer::first_E()
 {
 	next();
 	switch (SYM) {
@@ -461,7 +470,8 @@ void Lexer::first_E()
 	ident();
 }
 
-void Lexer::first_F()
+void
+Lexer::first_F()
 {
 	next();
 	switch (SYM) {
@@ -478,7 +488,8 @@ void Lexer::first_F()
 	ident();
 }
 
-void Lexer::first_G()
+void
+Lexer::first_G()
 {
 	next();
 	switch (SYM) {
@@ -514,7 +525,8 @@ void Lexer::first_G()
 	ident();
 }
 
-void Lexer::first_I()
+void
+Lexer::first_I()
 {
 	next();
 	switch (SYM) {
@@ -542,7 +554,8 @@ void Lexer::first_I()
 	ident();
 }
 
-void Lexer::first_L()
+void
+Lexer::first_L()
 {
 	next();
 	switch (SYM) {
@@ -587,7 +600,8 @@ void Lexer::first_L()
 	ident();
 }
 
-void Lexer::first_N()
+void
+Lexer::first_N()
 {
 	next();
 	switch (SYM) {
@@ -612,7 +626,8 @@ void Lexer::first_N()
 	ident();
 }
 
-void Lexer::first_O()
+void
+Lexer::first_O()
 {
 	next();
 	switch (SYM) {
@@ -624,7 +639,8 @@ void Lexer::first_O()
 	ident();
 }
 
-void Lexer::first_P()
+void
+Lexer::first_P()
 {
 	next();
 	switch (SYM) {
@@ -648,7 +664,8 @@ void Lexer::first_P()
 	ident();
 }
 
-void Lexer::first_R()
+void
+Lexer::first_R()
 {
 	next();
 	switch (SYM) {
@@ -692,7 +709,8 @@ void Lexer::first_R()
 	ident();
 }
 
-void Lexer::first_S()
+void
+Lexer::first_S()
 {
 	next();
 	switch (SYM) {
@@ -726,7 +744,8 @@ void Lexer::first_S()
 	ident();
 }
 
-void Lexer::first_T()
+void
+Lexer::first_T()
 {
 	next();
 	switch (SYM) {
@@ -752,7 +771,8 @@ void Lexer::first_T()
 	ident();
 }
 
-void Lexer::first_V()
+void
+Lexer::first_V()
 {
 	next();
 	switch (SYM) {
@@ -774,7 +794,8 @@ void Lexer::first_V()
 	ident();
 }
 
-void Lexer::fitst_LT()
+void
+Lexer::fitst_LT()
 {
 	next();
 	switch (SYM) {
@@ -791,7 +812,8 @@ void Lexer::fitst_LT()
 	next();
 }
 
-void Lexer::fitst_GT()
+void
+Lexer::fitst_GT()
 {
 	next();
 	switch (SYM) {
@@ -808,7 +830,8 @@ void Lexer::fitst_GT()
 	next();
 }
 
-void Lexer::decimalNumber()
+void
+Lexer::decimalNumber()
 {
 	LOG_TRACE;
 
@@ -838,6 +861,16 @@ void Lexer::decimalNumber()
 					break;
 			}
 		}
+			break;
+		case 'E':
+		{
+			if (_value.type == Parser::Value::INTEGER)
+				_value = Real(_value);
+			if (!numberScale()) {
+				_token = NOTOKENS;
+				return;
+			}
+		}
 		default:
 			if (_value.type == Parser::Value::INTEGER)
 				_token = C_INTEGER;
@@ -848,7 +881,41 @@ void Lexer::decimalNumber()
 	}
 }
 
-void Lexer::ident()
+bool
+Lexer::numberScale()
+{
+	Integer scale(0);
+	bool sign = true;
+	
+	next();
+	if (SYM == '-') {
+		sign = false;
+		next();
+	}
+	if (isdigit(SYM)) {
+		scale += SYM - '0';
+		next();
+	} else
+		return false;
+	
+	while (true) {
+		if (isdigit(SYM)) {
+			scale *= Integer(10);
+			scale += SYM - '0';
+			next();
+			continue;
+		} else {
+			if (!sign)
+				scale = -scale;
+			Real pw = pow(Real(10), scale);
+			_value *= pw;
+			return true;
+		}
+	}
+}
+
+void
+Lexer::ident()
 {
 	while (isalnum(SYM)) {
 		pushSYM();
@@ -865,7 +932,8 @@ void Lexer::ident()
 	_id[_valuePointer] = 0;
 }
 
-void Lexer::stringConst()
+void
+Lexer::stringConst()
 {
 	while (SYM != 0) {
 		if (SYM == '"') {

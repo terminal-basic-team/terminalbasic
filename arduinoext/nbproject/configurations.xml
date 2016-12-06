@@ -5,10 +5,12 @@
       <itemPath>include/_protocol.hpp</itemPath>
       <itemPath>../arduinoext/include/arduino_logger.hpp</itemPath>
       <itemPath>include/bcopy.hpp</itemPath>
+      <itemPath>include/bytearray.hpp</itemPath>
       <itemPath>../arduinoext/include/cps.hpp</itemPath>
       <itemPath>include/cps_mosprotocol.hpp</itemPath>
       <itemPath>include/cps_mosprotocol_arduino.hpp</itemPath>
       <itemPath>include/helper.hpp</itemPath>
+      <itemPath>include/math.hpp</itemPath>
       <itemPath>include/protocol.hpp</itemPath>
       <itemPath>include/protocol_arduino.hpp</itemPath>
       <itemPath>include/ringbuffer.hpp</itemPath>
@@ -16,8 +18,10 @@
     <logicalFolder name="src" displayName="src" projectFiles="true">
       <itemPath>../arduinoext/src/arduino_logger.cpp</itemPath>
       <itemPath>include/bcopy.cpp</itemPath>
+      <itemPath>include/bytearray.cpp</itemPath>
       <itemPath>src/cps_mosprotocol.cpp</itemPath>
       <itemPath>src/cps_mosprotocol_arduino.cpp</itemPath>
+      <itemPath>include/math.cpp</itemPath>
       <itemPath>src/protocol.cpp</itemPath>
       <itemPath>src/protocol_arduino.cpp</itemPath>
     </logicalFolder>
@@ -113,6 +117,10 @@
       </item>
       <item path="include/bcopy.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/bytearray.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/bytearray.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/cps_mosprotocol.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/cps_mosprotocol_arduino.hpp"
@@ -121,6 +129,10 @@
             flavor2="0">
       </item>
       <item path="include/helper.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/math.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/math.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/protocol.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -214,6 +226,10 @@
       </item>
       <item path="include/bcopy.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/bytearray.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/bytearray.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/cps_mosprotocol.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/cps_mosprotocol_arduino.hpp"
@@ -222,6 +238,10 @@
             flavor2="0">
       </item>
       <item path="include/helper.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/math.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/math.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/protocol.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -317,6 +337,10 @@
       </item>
       <item path="include/bcopy.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/bytearray.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/bytearray.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/cps_mosprotocol.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/cps_mosprotocol_arduino.hpp"
@@ -325,6 +349,10 @@
             flavor2="0">
       </item>
       <item path="include/helper.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/math.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/math.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/protocol.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -420,6 +448,10 @@
       </item>
       <item path="include/bcopy.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/bytearray.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/bytearray.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/cps_mosprotocol.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/cps_mosprotocol_arduino.hpp"
@@ -428,6 +460,10 @@
             flavor2="0">
       </item>
       <item path="include/helper.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/math.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/math.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/protocol.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -523,6 +559,10 @@
       </item>
       <item path="include/bcopy.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/bytearray.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/bytearray.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/cps_mosprotocol.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/cps_mosprotocol_arduino.hpp"
@@ -531,6 +571,10 @@
             flavor2="0">
       </item>
       <item path="include/helper.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/math.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/math.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/protocol.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -618,6 +662,10 @@
       </item>
       <item path="include/bcopy.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/bytearray.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/bytearray.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/cps_mosprotocol.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/cps_mosprotocol_arduino.hpp"
@@ -626,6 +674,10 @@
             flavor2="0">
       </item>
       <item path="include/helper.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/math.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/math.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/protocol.hpp" ex="false" tool="3" flavor2="0">
       </item>

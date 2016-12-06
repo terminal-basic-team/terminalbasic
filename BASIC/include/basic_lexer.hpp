@@ -208,6 +208,7 @@ private:
 	void fitst_GT();
 	
 	void decimalNumber();
+	bool numberScale();
 	void ident();
 	void stringConst();
 	

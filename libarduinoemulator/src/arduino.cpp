@@ -190,6 +190,24 @@ StdioStream::StdioStream(std::istream &istream, std::ostream &ostream) :
 {
 }
 
+void StdioStream::begin(uint32_t)
+{
+	::termios TermConf;
+
+	::tcgetattr(STDIN_FILENO, &TermConf);
+	TermConf.c_lflag &= ~(ICANON | ECHO);
+	::tcsetattr(STDIN_FILENO, TCSANOW, &TermConf);
+}
+
+void StdioStream::end()
+{
+	::termios TermConf;
+
+	::tcgetattr(STDIN_FILENO, &TermConf);
+	TermConf.c_lflag |= (ICANON | ECHO);
+	::tcsetattr(STDIN_FILENO, TCSANOW, &TermConf);
+}
+
 size_t
 StdioStream::write(uint8_t byte)
 {

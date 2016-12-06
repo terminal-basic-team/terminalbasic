@@ -37,6 +37,7 @@ public:
 	 * @brief BASIC program memory
 	 */
 	class CPS_PACKED Program;
+	
 	/**
 	 * Variable type
 	 */
@@ -47,6 +48,7 @@ public:
 		BOOLEAN,
 		STRING
 	};
+	
 	/**
 	 * Dynamic (runtime error codes)
 	 */
@@ -65,6 +67,7 @@ public:
 		NO_SUCH_ARRAY,
 		INTERNAL_ERROR = 255
 	};
+	
 	/**
 	 * Type of the occurederror
 	 */
@@ -73,6 +76,7 @@ public:
 		STATIC_ERROR, // syntax
 		DYNAMIC_ERROR // runtime
 	};
+	
 	/**
 	 * @brief variable memory frame
 	 */
@@ -84,6 +88,11 @@ public:
 		 */
 		uint8_t size() const;
 
+		/**
+		 * @brief getValue from Variable frame
+		 * @param T value type
+		 * @return value
+		 */		
 		template <typename T>
 		T get() const
 		{
@@ -96,29 +105,49 @@ public:
 			return *_U.i;
 		}
 		
+		// Variable name
 		char name[VARSIZE];
+		// Variable type
 		Type type;
+		// Frame body
 		char bytes[];
 	};
+	
 	/**
 	 * Array memory frame
 	 */
 	struct ArrayFrame
 	{
+		/**
+		 * @brief get frame size in bytes
+		 * @return size
+		 */
 		uint16_t size() const;
 		
+		/**
+		 * @brief get array raw data pointer
+		 * @return pointer
+		 */
 		uint8_t *data()
 		{
 			return (reinterpret_cast<uint8_t*>(this+1) +
 			    sizeof (uint16_t)*numDimensions);
 		}
 		
+		/**
+		 * @brief Overloaded version
+		 */
 		const uint8_t *data() const
 		{
 			return (reinterpret_cast<const uint8_t*>(this+1) +
 			    sizeof (uint16_t)*numDimensions);
 		}
 		
+		/**
+		 * @brief get array value by raw index
+		 * @param index shift in array data
+		 * @return value
+		 */
 		template <typename T>
 		T get(uint16_t index) const
 		{
@@ -131,9 +160,13 @@ public:
 			return _U.i[index];
 		}
 		
+		// Array data
 		char name[VARSIZE];
+		// Array type
 		Type type;
+		// Number of dimensions
 		uint8_t numDimensions;
+		// dimensions values
 		uint16_t dimension[];
 	};
 	// Interpreter FSM state
@@ -155,7 +188,17 @@ public:
 	};
 	enum ProgMemStrings : uint8_t;
 	
-	Interpreter(Stream&, Program&, FunctionBlock* = NULL);
+	/**
+	 * @brief constructor
+	 * @param stream Boundary object for I/O
+	 * @param program Program object
+	 * @param firstModule First module in chain
+	 */
+	explicit Interpreter(Stream&, Program&, FunctionBlock* = NULL);
+	
+	/**
+	 * [re]initialize interpreter object
+	 */
 	void init();
 	// Interpreter cycle: request a string or execute one operator
 	void step();
@@ -170,6 +213,7 @@ public:
 	// print value
 	void print(const Parser::Value&, TextAttr=NO_ATTR);
 	void print(char);
+	void print(Real);
 	// run program
 	void run();
 	// goto new line
