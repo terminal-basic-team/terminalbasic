@@ -307,16 +307,23 @@ n:
 }
 
 void
-Interpreter::list()
+Interpreter::list(uint16_t start, uint16_t stop)
 {
 	_program.reset();
 	for (Program::String *s = _program.getString(); s != NULL;
 	    s = _program.getString()) {
+		if (s->number < start)
+			continue;
+		if (stop > 0 && s->number > stop)
+			break;
+		
 		{
 			AttrKeeper a(*this, BOLD);
 			_stream.print(s->number);
 		}
-		_stream.println(s->text);
+			
+		print(s->text);
+		_stream.println();
 	}
 }
 

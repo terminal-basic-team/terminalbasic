@@ -61,6 +61,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/f54da836/wiring_pulse.o \
 	${OBJECTDIR}/_ext/f54da836/wiring_shift.o \
 	${OBJECTDIR}/_ext/d883fa1d/SoftwareSerial.o \
+	${OBJECTDIR}/_ext/58edad8c/DefaultFonts.o \
+	${OBJECTDIR}/_ext/58edad8c/UTFT.o \
 	${OBJECTDIR}/_wiring_pulse.o
 
 
@@ -93,62 +95,62 @@ ${CND_DISTDIR}/${CND_CONF}/libarduino.a: ${OBJECTFILES}
 ${OBJECTDIR}/_ext/f54da836/CDC.o: /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/CDC.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/_ext/f54da836
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/CDC.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/CDC.cpp
+	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -I/opt/arduino-1.6.12/libraries/UTFT -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/CDC.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/CDC.cpp
 
 ${OBJECTDIR}/_ext/f54da836/HardwareSerial.o: /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/_ext/f54da836
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/HardwareSerial.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial.cpp
+	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -I/opt/arduino-1.6.12/libraries/UTFT -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/HardwareSerial.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial.cpp
 
 ${OBJECTDIR}/_ext/f54da836/HardwareSerial0.o: /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial0.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/_ext/f54da836
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/HardwareSerial0.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial0.cpp
+	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -I/opt/arduino-1.6.12/libraries/UTFT -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/HardwareSerial0.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial0.cpp
 
 ${OBJECTDIR}/_ext/f54da836/HardwareSerial1.o: /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial1.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/_ext/f54da836
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/HardwareSerial1.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial1.cpp
+	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -I/opt/arduino-1.6.12/libraries/UTFT -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/HardwareSerial1.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial1.cpp
 
 ${OBJECTDIR}/_ext/f54da836/HardwareSerial2.o: /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial2.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/_ext/f54da836
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/HardwareSerial2.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial2.cpp
+	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -I/opt/arduino-1.6.12/libraries/UTFT -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/HardwareSerial2.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial2.cpp
 
 ${OBJECTDIR}/_ext/f54da836/HardwareSerial3.o: /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial3.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/_ext/f54da836
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/HardwareSerial3.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial3.cpp
+	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -I/opt/arduino-1.6.12/libraries/UTFT -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/HardwareSerial3.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial3.cpp
 
 ${OBJECTDIR}/_ext/f54da836/IPAddress.o: /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/IPAddress.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/_ext/f54da836
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/IPAddress.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/IPAddress.cpp
+	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -I/opt/arduino-1.6.12/libraries/UTFT -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/IPAddress.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/IPAddress.cpp
 
 ${OBJECTDIR}/_ext/f54da836/PluggableUSB.o: /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/PluggableUSB.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/_ext/f54da836
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/PluggableUSB.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/PluggableUSB.cpp
+	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -I/opt/arduino-1.6.12/libraries/UTFT -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/PluggableUSB.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/PluggableUSB.cpp
 
 ${OBJECTDIR}/_ext/f54da836/Print.o: /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Print.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/_ext/f54da836
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/Print.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Print.cpp
+	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -I/opt/arduino-1.6.12/libraries/UTFT -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/Print.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Print.cpp
 
 ${OBJECTDIR}/_ext/f54da836/Stream.o: /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Stream.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/_ext/f54da836
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/Stream.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Stream.cpp
+	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -I/opt/arduino-1.6.12/libraries/UTFT -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/Stream.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Stream.cpp
 
 ${OBJECTDIR}/_ext/f54da836/Tone.o: /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Tone.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/_ext/f54da836
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/Tone.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Tone.cpp
+	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -I/opt/arduino-1.6.12/libraries/UTFT -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/Tone.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Tone.cpp
 
 ${OBJECTDIR}/_ext/f54da836/USBCore.o: /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/USBCore.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/_ext/f54da836
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/USBCore.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/USBCore.cpp
+	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -I/opt/arduino-1.6.12/libraries/UTFT -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/USBCore.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/USBCore.cpp
 
 ${OBJECTDIR}/_ext/f54da836/WInterrupts.o: /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/WInterrupts.c nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/_ext/f54da836
@@ -158,17 +160,17 @@ ${OBJECTDIR}/_ext/f54da836/WInterrupts.o: /opt/arduino-1.6.12/hardware/arduino/a
 ${OBJECTDIR}/_ext/f54da836/WMath.o: /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/WMath.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/_ext/f54da836
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/WMath.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/WMath.cpp
+	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -I/opt/arduino-1.6.12/libraries/UTFT -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/WMath.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/WMath.cpp
 
 ${OBJECTDIR}/_ext/f54da836/WString.o: /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/WString.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/_ext/f54da836
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/WString.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/WString.cpp
+	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -I/opt/arduino-1.6.12/libraries/UTFT -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/WString.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/WString.cpp
 
 ${OBJECTDIR}/_ext/f54da836/abi.o: /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/abi.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/_ext/f54da836
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/abi.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/abi.cpp
+	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -I/opt/arduino-1.6.12/libraries/UTFT -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/abi.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/abi.cpp
 
 ${OBJECTDIR}/_ext/f54da836/hooks.o: /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/hooks.c nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/_ext/f54da836
@@ -178,12 +180,12 @@ ${OBJECTDIR}/_ext/f54da836/hooks.o: /opt/arduino-1.6.12/hardware/arduino/avr/cor
 ${OBJECTDIR}/_ext/f54da836/main.o: /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/main.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/_ext/f54da836
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/main.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/main.cpp
+	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -I/opt/arduino-1.6.12/libraries/UTFT -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/main.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/main.cpp
 
 ${OBJECTDIR}/_ext/f54da836/new.o: /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/new.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/_ext/f54da836
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/new.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/new.cpp
+	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -I/opt/arduino-1.6.12/libraries/UTFT -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/new.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/new.cpp
 
 ${OBJECTDIR}/_ext/f54da836/wiring.o: /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring.c nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/_ext/f54da836
@@ -213,7 +215,17 @@ ${OBJECTDIR}/_ext/f54da836/wiring_shift.o: /opt/arduino-1.6.12/hardware/arduino/
 ${OBJECTDIR}/_ext/d883fa1d/SoftwareSerial.o: /opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src/SoftwareSerial.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/_ext/d883fa1d
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/d883fa1d/SoftwareSerial.o /opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src/SoftwareSerial.cpp
+	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -I/opt/arduino-1.6.12/libraries/UTFT -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/d883fa1d/SoftwareSerial.o /opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src/SoftwareSerial.cpp
+
+${OBJECTDIR}/_ext/58edad8c/DefaultFonts.o: /opt/arduino-1.6.12/libraries/UTFT/DefaultFonts.c nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/_ext/58edad8c
+	${RM} "$@.d"
+	$(COMPILE.c) -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_UNO -DF_CPU=16000000L -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I${ARDUINO_PATH}/hardware/arduino/avr/variants/mega -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/58edad8c/DefaultFonts.o /opt/arduino-1.6.12/libraries/UTFT/DefaultFonts.c
+
+${OBJECTDIR}/_ext/58edad8c/UTFT.o: /opt/arduino-1.6.12/libraries/UTFT/UTFT.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/_ext/58edad8c
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -I/opt/arduino-1.6.12/libraries/UTFT -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/58edad8c/UTFT.o /opt/arduino-1.6.12/libraries/UTFT/UTFT.cpp
 
 ${OBJECTDIR}/_wiring_pulse.o: _wiring_pulse.S nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}

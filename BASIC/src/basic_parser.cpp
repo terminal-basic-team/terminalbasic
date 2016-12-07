@@ -18,6 +18,7 @@
 
 #include <math.h>
 #include <string.h>
+#include <signal.h>
 
 #include "basic_parser.hpp"
 #include "basic_interpreter.hpp"
@@ -100,10 +101,19 @@ Parser::fOperators()
 				_error = OPERATOR_EXPECTED;
 			return false;
 		}
-		t = _lexer.getToken();
-		if (t!=COLON || !_lexer.getNext())
+		if (_stopParse)
 			break;
-	} while (!_stopParse);
+		t = _lexer.getToken();
+		if (t==COLON) {
+			if (_lexer.getNext())
+				continue;
+			else
+				break;
+		} else if (t==NOTOKENS)
+			break;
+		else
+			return false;
+	} while (true);
 	return true;
 }
 
@@ -137,6 +147,8 @@ Parser::fOperator()
 	case KW_END:
 		if (_mode == EXECUTE)
 			_interpreter.end();
+		_stopParse = true;
+		_lexer.getNext();
 		break;
 	case KW_FOR:
 		if (!_lexer.getNext())
@@ -215,8 +227,11 @@ Parser::fOperator()
 		while (_lexer.getNext());
 		break;
 	case KW_RETURN:
-		if (_mode == EXECUTE)
+		if (_mode == EXECUTE) {
 			_interpreter.returnFromSub();
+			_stopParse = true;
+		}
+		_lexer.getNext();
 		break;
 	default:
 		if (fCommand() || fGotoStatement())
@@ -568,9 +583,25 @@ Parser::fCommand()
 		return true;
 	}
 	case COM_LIST:
-		if (_mode == EXECUTE)
-			_interpreter.list();
+	{
+		uint16_t start = 1, stop = 0;
 		_lexer.getNext();
+		if (_lexer.getToken() == C_INTEGER) {
+			start = Integer(_lexer.getValue());
+			stop = start;
+			_lexer.getNext();
+		}
+		if (_lexer.getToken() == MINUS) {
+			if (!_lexer.getNext() || _lexer.getToken() != C_INTEGER) {
+				_error = INTEGER_EXPRESSION_EXPECTED;
+				return false;
+			}
+			stop = Integer(_lexer.getValue());
+			_lexer.getNext();
+		}
+		if (_mode == EXECUTE)
+			_interpreter.list(start, stop);
+	}
 		return true;
 	case COM_LOAD:
 		if (_mode == EXECUTE)

@@ -13,6 +13,7 @@
                 <sourceRootElem>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino</sourceRootElem>
                 <sourceRootElem>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM</sourceRootElem>
                 <sourceRootElem>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial</sourceRootElem>
+                <sourceRootElem>/opt/arduino-1.6.12/libraries/UTFT</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>

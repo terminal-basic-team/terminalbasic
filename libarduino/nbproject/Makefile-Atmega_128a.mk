@@ -61,6 +61,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/f54da836/wiring_pulse.o \
 	${OBJECTDIR}/_ext/f54da836/wiring_shift.o \
 	${OBJECTDIR}/_ext/d883fa1d/SoftwareSerial.o \
+	${OBJECTDIR}/_ext/58edad8c/DefaultFonts.o \
+	${OBJECTDIR}/_ext/58edad8c/UTFT.o \
 	${OBJECTDIR}/_wiring_pulse.o
 
 
@@ -214,6 +216,16 @@ ${OBJECTDIR}/_ext/d883fa1d/SoftwareSerial.o: /opt/arduino-1.6.12/hardware/arduin
 	${MKDIR} -p ${OBJECTDIR}/_ext/d883fa1d
 	${RM} "$@.d"
 	$(COMPILE.cc) -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DF_CPU=8000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/atmega64_128 -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/d883fa1d/SoftwareSerial.o /opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src/SoftwareSerial.cpp
+
+${OBJECTDIR}/_ext/58edad8c/DefaultFonts.o: /opt/arduino-1.6.12/libraries/UTFT/DefaultFonts.c nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/_ext/58edad8c
+	${RM} "$@.d"
+	$(COMPILE.c) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DF_CPU=8000000L -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/atmega64_128 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/58edad8c/DefaultFonts.o /opt/arduino-1.6.12/libraries/UTFT/DefaultFonts.c
+
+${OBJECTDIR}/_ext/58edad8c/UTFT.o: /opt/arduino-1.6.12/libraries/UTFT/UTFT.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/_ext/58edad8c
+	${RM} "$@.d"
+	$(COMPILE.cc) -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DF_CPU=8000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/atmega64_128 -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/58edad8c/UTFT.o /opt/arduino-1.6.12/libraries/UTFT/UTFT.cpp
 
 ${OBJECTDIR}/_wiring_pulse.o: _wiring_pulse.S nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}

@@ -208,7 +208,7 @@ public:
 	void cls();
 	void doInput();
 	// Output program memory
-	void list();
+	void list(uint16_t=1, uint16_t=0);
 	// Dump program memory
 	void dump(DumpMode);
 	// print value
