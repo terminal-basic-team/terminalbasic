@@ -39,7 +39,7 @@ const size_t PROGRAMSIZE = 7168;
 #elif defined (__AVR_ATmega128__) || defined (__AVR_ATmega128A__)
 const size_t PROGRAMSIZE = 3072;
 #elif defined (__AVR_ATmega328__) || defined (__AVR_ATmega328P__)
-const size_t PROGRAMSIZE = 900;
+const size_t PROGRAMSIZE = 512;
 #else
 const size_t PROGRAMSIZE = 8192;
 #endif

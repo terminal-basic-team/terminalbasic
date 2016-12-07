@@ -58,6 +58,8 @@ public:
 			_i._stream.print("\x1B[1m");
 		if ((uint8_t(a) & uint8_t(UNDERLINE)) != uint8_t(NO_ATTR))
 			_i._stream.print("\x1B[4m");
+		if ((uint8_t(a) & uint8_t(DIM)) != uint8_t(NO_ATTR))
+			_i._stream.print("\x1B[2m");
 	}
 
 	~AttrKeeper()
@@ -414,53 +416,14 @@ Interpreter::print(char v)
 void
 Interpreter::print(Real number)
 {
-	char buf[32];
-	ftoa(number, buf);
+	char buf[17];
+#ifdef ARDUINO
+	//::dtostre(number, buf, 9, DTOSTR_ALWAYS_SIGN);
+	::dtostrf(number, 12, 9, buf);
+#else
+	::sprintf(buf, "%f", number);
+#endif
 	print(buf);
-	
-	/*if (isnan(number))
-		print("nan");
-	if (isinf(number))
-		print("inf");
-
-	if (number >= math<Real>::maximum())
-		return print("ovf");
-	if (number <= -math<Real>::maximum())
-		return print("ovf");
-
-	// Handle negative numbers
-	if (number < 0.0) {
-		print('-');
-		number = -number;
-	}
-
-	Real integerPart, fractionalPart;
-	fractionalPart = ::modff(number, &integerPart);
-
-	while (integerPart > 0) {
-
-	}
-*/
-	// Extract the integer part of the number and print it
-	/*unsigned long int_part = (unsigned long)number;
-	double remainder = number - (double)int_part;
-	n += print(int_part);
-
-  // Print the decimal point, but only if there are digits beyond
-  if (digits > 0) {
-    n += print("."); 
-  }
-
-  // Extract digits from the remainder one at a time
-  while (digits-- > 0)
-  {
-    remainder *= 10.0;
-    unsigned int toPrint = (unsigned int)(remainder);
-    n += print(toPrint);
-    remainder -= toPrint; 
-  } 
-  
-  return n;*/
 }
 
 void

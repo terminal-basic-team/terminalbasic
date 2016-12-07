@@ -184,7 +184,8 @@ public:
 	{
 		NO_ATTR = 0,
 		BOLD = 0x1,
-		UNDERLINE = 0x2
+		UNDERLINE = 0x2,
+		DIM = 0x4
 	};
 	enum ProgMemStrings : uint8_t;
 	

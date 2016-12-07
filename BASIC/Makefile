@@ -63,7 +63,7 @@ build: .build-post
 .build-pre:
 	echo "#define VERSION \"${VERSION}\"" > "./include/version.h"
 
-.build-post: .build-impl # copy
+.build-post: .build-impl copy
 	echo $(shell expr ${BUILD} + 1) ; \
 	echo $(shell expr ${BUILD} + 1) > "./build-${CONF}"
 
