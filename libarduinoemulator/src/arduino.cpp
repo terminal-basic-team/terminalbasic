@@ -166,7 +166,7 @@ PseudoTtySerial::PseudoTtySerial() :
 	_tty.get();
 	_tty.grant();
 	_tty.unlock();
-	std::cout << _tty.slaveName() << std::endl;
+	std::cout << "Pseudo terminal:" << _tty.slaveName() << std::endl;
 }
 
 void PseudoTtySerial::begin(uint32_t baud)

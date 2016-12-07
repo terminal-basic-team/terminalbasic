@@ -231,8 +231,10 @@ Interpreter::step()
 		break;
 	case EXECUTE:
 		char c = char(ASCII::NUL);
+#ifdef ARDUINO
 		if (_stream.available() > 0)
 			c = _stream.read();
+#endif
 		if (_program._current < _program._textEnd && c != char(ASCII::EOT)) {
 			Program::String *s = _program.current();
 			if (!_parser.parse(s->text + _program._textPosition))
@@ -421,7 +423,7 @@ Interpreter::print(Real number)
 	//::dtostre(number, buf, 9, DTOSTR_ALWAYS_SIGN);
 	::dtostrf(number, 12, 9, buf);
 #else
-	::sprintf(buf, "%f", number);
+	::sprintf(buf, "% .8G", number);
 #endif
 	print(buf);
 }

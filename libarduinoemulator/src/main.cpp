@@ -32,10 +32,9 @@
 // Weak empty variant initialization function.
 // May be redefined by variant files.
 
-//static posix::io::PseudoTTY	tty1;
-//static posix::io::PseudoTTY	tty2;
 PseudoTtySerial	Serial1;
 PseudoTtySerial	Serial2;
+PseudoTtySerial	Serial3;
 
 StdioStream Serial(std::cin, std::cout);
 
