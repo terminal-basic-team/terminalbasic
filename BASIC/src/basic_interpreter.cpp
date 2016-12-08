@@ -31,6 +31,7 @@
 #include "arduino_logger.hpp"
 #include "bytearray.hpp"
 #include "version.h"
+#include "ascii.hpp"
 
 #ifdef ARDUINO
 
@@ -54,10 +55,18 @@ public:
 	{
 		if (_a == NO_ATTR)
 			return;
-		if ((uint8_t(a) & uint8_t(BOLD)) != uint8_t(NO_ATTR))
+		if ((uint8_t(a) & uint8_t(BOLD)) != uint8_t(NO_ATTR)) {
 			_i._stream.print("\x1B[1m");
-		if ((uint8_t(a) & uint8_t(UNDERLINE)) != uint8_t(NO_ATTR))
+#ifdef USEUTFT
+			_i._terminal.print("\x1B[1m");
+#endif
+		}
+		if ((uint8_t(a) & uint8_t(UNDERLINE)) != uint8_t(NO_ATTR)) {
 			_i._stream.print("\x1B[4m");
+#ifdef USEUTFT
+			_i._terminal.print("\x1B[1m");
+#endif
+		}
 		if ((uint8_t(a) & uint8_t(DIM)) != uint8_t(NO_ATTR))
 			_i._stream.print("\x1B[2m");
 	}
@@ -67,6 +76,9 @@ public:
 		if (_a == NO_ATTR)
 			return;
 		_i._stream.print("\x1B[0m");
+#ifdef USEUTFT
+		_i._terminal.print("\x1B[0m");
+#endif
 	}
 private:
 	Interpreter &_i;
@@ -183,7 +195,12 @@ Interpreter::valueFromArray(Parser::Value &v, const char *name)
 }
 
 Interpreter::Interpreter(Stream &stream, Program &program, FunctionBlock *first) :
-_program(program), _state(SHELL), _stream(stream), _parser(_lexer, *this, first)
+    _program(program), _state(SHELL), _stream(stream),
+    _parser(_lexer, *this, first)
+#ifdef USEUTFT 
+    ,_utft(CTE32HR, 38, 39, 40, 41),
+    _terminal(_utft)
+#endif
 {
 	_stream.setTimeout(10000L);
 }
@@ -191,11 +208,14 @@ _program(program), _state(SHELL), _stream(stream), _parser(_lexer, *this, first)
 void
 Interpreter::init()
 {
+#ifdef USEUTFT 
+	_terminal.begin();
+#endif
 	print(ucBASIC, BOLD);
 
-	print(S_VERSION), print(VERSION, BOLD), _stream.println();
+	print(S_VERSION), print(VERSION, BOLD), newline();
 	print(_program.programSize - _program._arraysEnd, BOLD);
-	print(BYTES), print(AVAILABLE), _stream.println();
+	print(BYTES), print(AVAILABLE), newline();
 	//_stream.print("\x1B[c");
 }
 
@@ -209,7 +229,7 @@ Interpreter::step()
 	case SHELL:
 	{
 		print(READY, BOLD);
-		_stream.println();
+		newline();
 	}
 		// fall through
 		// waiting for user input next program line
@@ -269,6 +289,9 @@ void
 Interpreter::cls()
 {
 	_stream.print("\x1B[2J"), _stream.print("\x1B[H");
+#ifdef USEUTFT
+	_terminal.print("\x1B[2J"), _terminal.print("\x1B[H");
+#endif
 }
 
 void
@@ -320,10 +343,13 @@ Interpreter::list(uint16_t start, uint16_t stop)
 		{
 			AttrKeeper a(*this, BOLD);
 			_stream.print(s->number);
+#ifdef USEUTFT
+			_terminal.print(s->number);
+#endif
 		}
 			
 		print(s->text);
-		_stream.println();
+		newline();
 	}
 }
 
@@ -390,12 +416,18 @@ Interpreter::print(const Parser::Value &v, TextAttr attr)
 	switch (v.type) {
 	case Parser::Value::BOOLEAN:
 		_stream.print(v.value.boolean);
+#ifdef USEUTFT
+		_terminal.print(v.value.boolean);
+#endif
 		break;
 	case Parser::Value::REAL:
 		this->print(v.value.real);
 		break;
 	case Parser::Value::INTEGER:
 		_stream.print(v.value.integer);
+#ifdef USEUTFT
+		_terminal.print(v.value.integer);
+#endif
 		break;
 	case Parser::Value::STRING:
 	{
@@ -406,6 +438,9 @@ Interpreter::print(const Parser::Value &v, TextAttr attr)
 			return;
 		}
 		_stream.print(f->body.string);
+#ifdef USEUTFT
+		_terminal.print(f->body.string);
+#endif
 		_program.pop();
 		break;
 	}
@@ -414,12 +449,27 @@ Interpreter::print(const Parser::Value &v, TextAttr attr)
 		break;
 	}
 	_stream.print(' ');
+#ifdef USEUTFT
+	_terminal.print(' ');
+#endif
+}
+
+void
+Interpreter::newline()
+{
+	_stream.println();
+#ifdef USEUTFT
+	_terminal.println();
+#endif
 }
 
 void
 Interpreter::print(char v)
 {
 	_stream.print(v);
+#ifdef USEUTFT
+	_terminal.print(v);
+#endif
 }
 
 void
@@ -558,8 +608,11 @@ Interpreter::save()
 	for (uint16_t p = 0; p < _program._textEnd; ++p) {
 		e.update(p + 2, _program._text[p]);
 		_stream.print('.');
+#ifdef USEUTFT
+		_terminal.print('.');
+#endif
 	}
-	_stream.println();
+	newline();
 }
 
 void Interpreter::load()
@@ -571,8 +624,11 @@ void Interpreter::load()
 	for (uint16_t p = 0; p < len; ++p) {
 		_program._text[p] = e.read(p + 2);
 		_stream.print('.');
+#ifdef USEUTFT
+		_terminal.print('.');
+#endif
 	}
-	_stream.println();
+	newline();
 	_program._textEnd = _program._variablesEnd = _program._arraysEnd = len;
 }
 
@@ -580,6 +636,9 @@ void
 Interpreter::input(const char *varName)
 {
 	_stream.print('?');
+#ifdef USEUTFT
+	_terminal.print('?');
+#endif
 
 	strcpy(_inputVarName, varName);
 
@@ -701,6 +760,9 @@ Interpreter::readInput()
 	for (uint8_t i = _inputPosition; i < end; ++i) {
 		char c = _inputBuffer[i];
 		_stream.write(c);
+#ifdef USEUTFT
+		_terminal.write(c);
+#endif
 		switch (c) {
 		case char(ASCII::BS):
 			if (_inputPosition > 0)
@@ -708,6 +770,9 @@ Interpreter::readInput()
 			break;
 		case char(ASCII::CR):
 			_stream.write(char(ASCII::LF));
+#ifdef USEUTFT
+			_terminal.write(char(ASCII::LF));
+#endif
 			_inputBuffer[i] = 0;
 			return true;
 		default:
@@ -723,6 +788,9 @@ Interpreter::print(const char *text, TextAttr attr)
 	AttrKeeper _a(*this, attr);
 
 	_stream.print(text), _stream.print(' ');
+#ifdef USEUTFT
+	_terminal.print(text), _terminal.print(' ');
+#endif
 }
 
 void
@@ -734,6 +802,9 @@ Interpreter::print(ProgMemStrings index, TextAttr attr)
 	AttrKeeper _a(*this, attr);
 
 	_stream.print(buf), _stream.print(' ');
+#ifdef USEUTFT
+	_terminal.print(buf), _terminal.print(' ');
+#endif
 }
 
 void
@@ -742,6 +813,9 @@ Interpreter::print(Integer i, TextAttr attr)
 	AttrKeeper _a(*this, attr);
 
 	_stream.print(i), _stream.print(' ');
+#ifdef USEUTFT
+	_terminal.print(i), _terminal.print(' ');
+#endif
 }
 
 void
@@ -754,16 +828,31 @@ Interpreter::raiseError(ErrorType type, uint8_t errorCode)
 		strcpy_P(buf, (PGM_P) pgm_read_word(&(ESTRING(S_STATIC))));
 	_stream.print(buf);
 	_stream.print(' ');
+#ifdef USEUTFT
+	_terminal.print(buf), _terminal.print(' ');
+#endif
 	strcpy_P(buf, (PGM_P) pgm_read_word(&(ESTRING(SEMANTIC))));
 	_stream.print(buf);
 	_stream.print(' ');
+#ifdef USEUTFT
+	_terminal.print(buf), _terminal.print(' ');
+#endif
 	strcpy_P(buf, (PGM_P) pgm_read_word(&(ESTRING(ERROR))));
 	_stream.print(buf);
 	_stream.print(':');
+#ifdef USEUTFT
+	_terminal.print(buf), _terminal.print(':');
+#endif
 	if (type == DYNAMIC_ERROR) {
 		_stream.println(errorCode);
+#ifdef USEUTFT
+		_terminal.println(errorCode);
+#endif
 	} else { // STATIC_ERROR
 		_stream.println(int(_parser.getError()));
+#ifdef USEUTFT
+		_terminal.println(int(_parser.getError()));
+#endif
 	}
 	_state = SHELL;
 }

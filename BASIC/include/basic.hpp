@@ -35,7 +35,7 @@ const uint8_t STRINGSIZE = 32;
 #if defined (__AVR_ATmega1284__) || defined (__AVR_ATmega1284P__)
 const size_t PROGRAMSIZE = 14848;
 #elif defined (__AVR_ATmega2560__)
-const size_t PROGRAMSIZE = 7168;
+const size_t PROGRAMSIZE = 4096;
 #elif defined (__AVR_ATmega128__) || defined (__AVR_ATmega128A__)
 const size_t PROGRAMSIZE = 3072;
 #elif defined (__AVR_ATmega328__) || defined (__AVR_ATmega328P__)
@@ -49,22 +49,6 @@ const uint8_t VARSIZE = 8;
 typedef int16_t Integer;
 // floating point type
 typedef float Real;
-
-/**
- * @brief ASCII control characters
- */
-enum class ASCII : uint8_t
-{
-	NUL = 0x00,
-	SOH = 0x01,
-	
-        EOT = 0x03,
-	BEL = 0x07,
-        BS  = 0x08,
-	LF  = 0x0A,
-	CR  = 0x0D,
-	ESC = 0x1B
-};
 
 }
 

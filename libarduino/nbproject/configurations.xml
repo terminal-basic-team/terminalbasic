@@ -225,7 +225,7 @@
     <itemPath>_wiring_pulse.S</itemPath>
   </logicalFolder>
   <sourceRootList>
-    <Elem>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino</Elem>
+    <Elem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</Elem>
     <Elem>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM</Elem>
     <Elem>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial</Elem>
     <Elem>/opt/arduino-1.6.12/libraries/UTFT</Elem>
@@ -2240,6 +2240,7 @@
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_MEGA2560</Elem>
             <Elem>F_CPU=16000000L</Elem>
+            <Elem>__AVR_ATmega2560__</Elem>
           </preprocessorList>
           <warningLevel>2</warningLevel>
         </ccTool>

@@ -21,6 +21,7 @@
 #include "cps_mosprotocol_arduino.hpp"
 #include "arduino_logger.hpp"
 #include "helper.hpp"
+#include "bytearray.hpp"
 
 using namespace cps;
 

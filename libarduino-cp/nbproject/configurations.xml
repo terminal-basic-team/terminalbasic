@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="100">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="arduino"
+                   displayName="arduino"
+                   projectFiles="true"
+                   root="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino">
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Arduino.h</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/CDC.cpp</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial.cpp</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial.h</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial0.cpp</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial1.cpp</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial2.cpp</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial3.cpp</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial_private.h</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/IPAddress.cpp</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/IPAddress.h</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/PluggableUSB.cpp</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/PluggableUSB.h</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Print.h</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Printable.h</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Stream.h</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/USBAPI.h</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/WCharacter.h</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/WString.h</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/binary.h</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/main.cpp</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_private.h</itemPath>
+      <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_pulse.c</itemPath>
+    </logicalFolder>
+    <df root="." name="0">
+    </df>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Важные файлы"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+      <itemPath>nbproject/private/launcher.properties</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceFolderFilter>^(nbproject)$</sourceFolderFilter>
+  <sourceRootList>
+    <Elem>.</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Default" type="0">
+      <toolsSet>
+        <compilerSet>Arduino|GNU</compilerSet>
+        <dependencyChecking>false</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <flagsDictionary>
+        <element flagsID="0" commonFlags="-Os"/>
+        <element flagsID="1" commonFlags="-Os -fno-rtti -fno-exceptions -std=gnu++11"/>
+      </flagsDictionary>
+      <codeAssistance>
+      </codeAssistance>
+      <makefileType>
+        <makeTool>
+          <buildCommandWorkingDir>.</buildCommandWorkingDir>
+          <buildCommand>${MAKE} -f Makefile</buildCommand>
+          <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
+          <executablePath></executablePath>
+          <cTool>
+            <incDir>
+              <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino</pElem>
+              <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega</pElem>
+              <pElem>.</pElem>
+            </incDir>
+            <preprocessorList>
+              <Elem>ARDUINO=10612</Elem>
+              <Elem>ARDUINO_ARCH_AVR</Elem>
+              <Elem>ARDUINO_AVR_MEGA2560</Elem>
+              <Elem>F_CPU=16000000L</Elem>
+            </preprocessorList>
+          </cTool>
+          <ccTool>
+            <incDir>
+              <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino</pElem>
+              <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega</pElem>
+              <pElem>.</pElem>
+            </incDir>
+            <preprocessorList>
+              <Elem>ARDUINO=10612</Elem>
+              <Elem>ARDUINO_ARCH_AVR</Elem>
+              <Elem>ARDUINO_AVR_MEGA2560</Elem>
+              <Elem>F_CPU=16000000L</Elem>
+            </preprocessorList>
+          </ccTool>
+        </makeTool>
+        <preBuild>
+          <preBuildCommandWorkingDir>.</preBuildCommandWorkingDir>
+          <preBuildCommand></preBuildCommand>
+        </preBuild>
+      </makefileType>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/CDC.cpp"
+            ex="false"
+            tool="1"
+            flavor2="8">
+        <ccTool flags="1">
+        </ccTool>
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial.cpp"
+            ex="false"
+            tool="1"
+            flavor2="8">
+        <ccTool flags="1">
+        </ccTool>
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial0.cpp"
+            ex="false"
+            tool="1"
+            flavor2="8">
+        <ccTool flags="1">
+        </ccTool>
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial1.cpp"
+            ex="false"
+            tool="1"
+            flavor2="8">
+        <ccTool flags="1">
+        </ccTool>
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial2.cpp"
+            ex="false"
+            tool="1"
+            flavor2="8">
+        <ccTool flags="1">
+        </ccTool>
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial3.cpp"
+            ex="false"
+            tool="1"
+            flavor2="8">
+        <ccTool flags="1">
+        </ccTool>
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/IPAddress.cpp"
+            ex="false"
+            tool="1"
+            flavor2="8">
+        <ccTool flags="1">
+        </ccTool>
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/PluggableUSB.cpp"
+            ex="false"
+            tool="1"
+            flavor2="8">
+        <ccTool flags="1">
+        </ccTool>
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/main.cpp"
+            ex="false"
+            tool="1"
+            flavor2="8">
+        <ccTool flags="1">
+        </ccTool>
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_pulse.c"
+            ex="false"
+            tool="0"
+            flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+    </conf>
+    <conf name="Windows" type="0">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>false</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <codeAssistance>
+      </codeAssistance>
+      <makefileType>
+        <makeTool>
+          <buildCommandWorkingDir>.</buildCommandWorkingDir>
+          <buildCommand>${MAKE}</buildCommand>
+          <cleanCommand>${MAKE} clean</cleanCommand>
+          <executablePath></executablePath>
+        </makeTool>
+        <preBuild>
+          <preBuildCommandWorkingDir>.</preBuildCommandWorkingDir>
+          <preBuildCommand></preBuildCommand>
+        </preBuild>
+      </makefileType>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Arduino.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/CDC.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial0.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial1.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial2.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial3.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/HardwareSerial_private.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/IPAddress.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/IPAddress.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/PluggableUSB.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/PluggableUSB.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Print.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Printable.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/Stream.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/USBAPI.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/WCharacter.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/WString.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/binary.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/main.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_private.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_pulse.c"
+            ex="false"
+            tool="0"
+            flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>

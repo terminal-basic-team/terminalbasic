@@ -24,6 +24,10 @@
 #include "basic_parser.hpp"
 #include "helper.hpp"
 
+#ifdef USEUTFT
+#include "utft_stream.hpp"
+#endif
+
 namespace BASIC
 {
 
@@ -213,6 +217,7 @@ public:
 	void dump(DumpMode);
 	// print value
 	void print(const Parser::Value&, TextAttr=NO_ATTR);
+	void newline();
 	void print(char);
 	void print(Real);
 	// run program
@@ -312,7 +317,6 @@ private:
 	void print(ProgMemStrings, TextAttr=NO_ATTR);
 	void print(Integer, TextAttr=NO_ATTR);
 
-	
 	void raiseError(ErrorType, uint8_t=0);
 	/**
 	 * @brief read and buffer one symbol
@@ -329,9 +333,14 @@ private:
 	ArrayFrame *addArray(const char*, uint8_t, uint32_t);
 	
 	bool arrayElementIndex(ArrayFrame*, uint16_t&);
-	
+	// Interpreter FSM state
 	State	 _state;
+	// Boundary terminal connection object
 	Stream	&_stream;
+#ifdef USEUTFT
+	UTFT	_utft;
+	UTFTTerminal _terminal;
+#endif
 	Lexer	 _lexer;
 	Parser	 _parser;
 	static PGM_P const _progmemStrings[];

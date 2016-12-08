@@ -2,26 +2,9 @@
 <configurationDescriptor version="100">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="include" displayName="include" projectFiles="true">
-      <itemPath>include/basic.hpp</itemPath>
-      <itemPath>include/basic_arduinoio.hpp</itemPath>
-      <itemPath>include/basic_functionblock.hpp</itemPath>
-      <itemPath>include/basic_interpreter.hpp</itemPath>
-      <itemPath>include/basic_interpreter_program.hpp</itemPath>
-      <itemPath>include/basic_lexer.hpp</itemPath>
-      <itemPath>include/basic_math.hpp</itemPath>
-      <itemPath>include/basic_parser.hpp</itemPath>
-      <itemPath>include/basic_parser_value.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="src" displayName="src" projectFiles="true">
-      <itemPath>src/basic_arduinoio.cpp</itemPath>
-      <itemPath>include/basic_functionblock.cpp</itemPath>
-      <itemPath>src/basic_interpreter.cpp</itemPath>
-      <itemPath>src/basic_interpreter_program.cpp</itemPath>
-      <itemPath>src/basic_lexer.cpp</itemPath>
-      <itemPath>src/basic_math.cpp</itemPath>
-      <itemPath>src/basic_parser.cpp</itemPath>
-      <itemPath>src/basic_parser_value.cpp</itemPath>
-      <itemPath>src/ucbasic_main.cpp</itemPath>
+      <itemPath>include/entry.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Файлы ресурсов"
@@ -109,44 +92,7 @@
           <commandLine>-static</commandLine>
         </linkerTool>
       </compileType>
-      <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_interpreter.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_interpreter_program.hpp"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="include/basic_lexer.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_math.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_parser.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_math.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="0">
+      <item path="include/entry.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Arduino_nano328" type="1">
@@ -212,44 +158,7 @@
           <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega328p -Wl,-Map,${CND_DISTDIR}/${CND_CONF}/basic.map</commandLine>
         </linkerTool>
       </compileType>
-      <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_interpreter.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_interpreter_program.hpp"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="include/basic_lexer.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_math.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_parser.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_math.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="0">
+      <item path="include/entry.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Arduino_UNO" type="1">
@@ -313,44 +222,7 @@
           <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega328p</commandLine>
         </linkerTool>
       </compileType>
-      <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_interpreter.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_interpreter_program.hpp"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="include/basic_lexer.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_math.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_parser.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_math.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
+      <item path="include/entry.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Arduino_mega2560" type="1">
@@ -417,44 +289,12 @@
           <commandLine>-Os -Wall -Wextra -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega2560</commandLine>
         </linkerTool>
       </compileType>
-      <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_interpreter.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_interpreter_program.hpp"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="include/basic_lexer.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_math.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_parser.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_math.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
+      <item path="include/entry.cpp" ex="false" tool="1" flavor2="0">
+        <ccTool>
+          <incFile>
+            <pElem>Arduino.h</pElem>
+          </incFile>
+        </ccTool>
       </item>
     </conf>
     <conf name="Atmega_128a" type="1">
@@ -518,44 +358,7 @@
           <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega128a</commandLine>
         </linkerTool>
       </compileType>
-      <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_interpreter.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_interpreter_program.hpp"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="include/basic_lexer.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_math.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_parser.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_math.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
+      <item path="include/entry.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -625,44 +428,7 @@
           <commandLine>-static</commandLine>
         </linkerTool>
       </compileType>
-      <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_interpreter.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_interpreter_program.hpp"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="include/basic_lexer.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_math.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_parser.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_math.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
+      <item path="include/entry.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Arduino_mega2560_mainframe" type="1">
@@ -727,44 +493,7 @@
           <commandLine>-Os -Wall -Wextra -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega2560</commandLine>
         </linkerTool>
       </compileType>
-      <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_functionblock.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_interpreter.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_interpreter_program.hpp"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="include/basic_lexer.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_math.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_parser.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_math.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
+      <item path="include/entry.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
   </confs>

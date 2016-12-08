@@ -17,7 +17,7 @@
 
 #include "cps.hpp"
 
-template <typename T, unsigned size>
+template <typename T, size_t size>
 class RingQueue
 {
 	CPS_NOTCOPYABLE(RingQueue)
@@ -26,7 +26,10 @@ public:
 	_last(0), _length(0)
 	{
 	}
+	
 	~RingQueue() = default;
+	
+	constexpr size_t getSize() const { return size; }
 	
 	void insert(T element)
 	{

@@ -278,9 +278,30 @@ equals_zero(long double f)
 	return (equals_zero(double(f)));
 }
 
-enum class CartesianCoordinates2D_t
+enum class CartesianCoordinates2D_t : uint8_t
 {
 	X = 0, Y = 1, NUM_COORD
+};
+
+template <typename T>
+struct CartesianCoordinates2D
+{
+	T get(CartesianCoordinates2D_t v) const
+	{
+		return data[uint8_t(v)];
+	}
+	
+	T &coord(CartesianCoordinates2D_t v)
+	{
+		return data[uint8_t(v)];
+	}
+	
+	T x() const { return data[0]; }
+	T y() const { return data[1]; }
+	void setX(T v) { data[0] = v; }
+	void setY(T v) { data[1] = v; }
+	
+	T data[uint8_t(CartesianCoordinates2D_t::NUM_COORD)];
 };
 
 enum class CartesianCoordinates3D_t
