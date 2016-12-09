@@ -22,8 +22,6 @@
 
 #include "arduino_logger.hpp"
 
-#if ARDUINO_LOG
-
 Logger Logger::_instance;
 Logger::format_t Logger::_format = Logger::format_t::dec;
 
@@ -31,4 +29,3 @@ void Logger::init(Stream &stream)
 {
 	_instance._stream = &stream;
 }
-#endif

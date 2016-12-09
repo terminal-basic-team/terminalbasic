@@ -17,6 +17,7 @@ _screen(screen)
 void
 UTFTTerminal::begin()
 {
+	_page = 1;
 	_screen.InitLCD();
 	_screen.setFont(BigFont);
 	_screenSizePixels.data[0] = 480; _screenSizePixels.data[1] = 320;
@@ -26,9 +27,11 @@ UTFTTerminal::begin()
 	_screenSizeChars.data[1] =
 		_screenSizePixels.get(CartesianCoordinates2D_t::Y) /
 		_screen.getFontYsize();
-	_cursorPosition.data[0] = _cursorPosition.data[1] = 0;
 	_insertPosition.data[0] = _insertPosition.data[1] = 0;
 	memset(_data, 0, sizeof (_data));
+	
+	//_screen.setWritePage(_page);
+	//_screen.setDisplayPage(_page);
 	
 	_screen.setColor(VGA_SILVER);
 	_state = REGULAR;
@@ -76,24 +79,23 @@ UTFTTerminal::write(uint8_t c)
 		switch (ASCII(c)) {
 		case ASCII::ESC:
 			_state = ESCAPE;
-			return;
+			return 1;
 		case ASCII::BS:
 			drawCursor(false);
-			if (_cursorPosition.x() > 0)
-				_cursorPosition.data[0]--;
 			if (_insertPosition.x() > 0)
 				_insertPosition.data[0]--;
 			drawCursor();
-			return;
+			return 1;
 		case ASCII::CR:
 			drawCursor(false);
-			_cursorPosition.setX(0);
+			_insertPosition.setX(0);
 			break;
 		case ASCII::LF:
-			_cursorPosition.data[1]++;
+			Serial.print("Write regular LF ");
+			_insertPosition.data[1]++;
 			insertChar(c);
 			drawCursor();
-			return;
+			return 1;
 		default:
 			putChar(c);
 			drawCursor();
@@ -103,19 +105,19 @@ UTFTTerminal::write(uint8_t c)
 		LOG("ESCAPE");
 		switch (c) {
 		case '[':
-			_state = I_BRAC; return;
+			_state = I_BRAC; return 1;
 		case char(ASCII::CAN):
 		default:
-			_state = REGULAR; return;
+			_state = REGULAR; return 1;
 		}
 		break;
 	case I_BRAC:
 		LOG("I_BRAC");
 		switch (c) {
 		case char(ASCII::CAN):
-			_state = REGULAR; return;
+			_state = REGULAR; return 1;
 		default:
-			_state = F_ATTR1; _attr1 = c; return;
+			_state = F_ATTR1; _attr1 = c; return 1;
 		};
 		break;
 	case F_ATTR1:
@@ -127,10 +129,12 @@ UTFTTerminal::write(uint8_t c)
 			else
 				addAttr(RESET);
 			insertChar(char(ASCII::ESC));
-			insertChar('['); insertChar('m');
+			insertChar('['); insertChar(_attr1); insertChar('m');
 		default:
-			_state = REGULAR; return;
+			_state = REGULAR; return 1;
 		}
+	default:
+		Serial.println("Unknown state");
 	}
 	insertChar(c);
 	
@@ -141,11 +145,19 @@ void
 UTFTTerminal::redraw()
 {
 	LOG_TRACE;
+	
+	Serial.println(__PRETTY_FUNCTION__);
+	Serial.print(_insertPosition.x()); Serial.write('\t');
+	Serial.println(_insertPosition.y());
+	
+	_page = 3-_page;
+	//_screen.setWritePage(_page);
+	
 	_screen.clrScr();
-	_cursorPosition.setX(0), _cursorPosition.setY(0);
+	_insertPosition.setX(0), _insertPosition.setY(0);
 	for (uint16_t i=0; i<H; ++i) {
 		for (uint16_t j=0; j<W; ++j) {
-			char c = _data[i][j];
+			char c = _data[i][j]._symbol;
 			LOG(Logger::format_t::hex, c, Logger::format_t::dec);
 			if (c == '\0')
 				break;
@@ -160,55 +172,6 @@ void
 UTFTTerminal::printChar(uint8_t c)
 {
 	LOG_TRACE;
-	switch (_state) {
-	case REGULAR:
-		LOG("REGULAR");
-		switch (ASCII(c)) {
-		case ASCII::ESC:
-			_state = ESCAPE;
-			return;
-		case ASCII::CR:
-			_cursorPosition.setX(0);
-			break;
-		case ASCII::LF:
-			_cursorPosition.data[1]++;
-			return;
-		default:
-			putChar(c);
-		};
-		break;
-	case ESCAPE:
-		LOG("ESCAPE");
-		switch (c) {
-		case '[':
-			_state = I_BRAC; return;
-		case char(ASCII::CAN):
-		default:
-			_state = REGULAR; return;
-		}
-		break;
-	case I_BRAC:
-		LOG("I_BRAC");
-		switch (c) {
-		case char(ASCII::CAN):
-			_state = REGULAR; return;
-		default:
-			_state = F_ATTR1; _attr1 = c; return;
-		};
-		break;
-	case F_ATTR1:
-		LOG("F_ATTR1");
-		switch (c) {
-		case 'm':
-			if (_attr1 == '1')
-				addAttr(BRIGHT);
-			else
-				addAttr(RESET);
-			insertChar('['); insertChar('m');
-		default:
-			_state = REGULAR; return;
-		}
-	}
 }
 
 void
@@ -217,17 +180,27 @@ UTFTTerminal::insertChar(uint8_t c)
 	LOG_TRACE;
 	LOG(Logger::format_t::hex, c, Logger::format_t::dec);
 	LOG(_insertPosition.x(), _insertPosition.y());
-	_data[_insertPosition.y()][_insertPosition.x()] = c;
+
+	_data[_insertPosition.y()][_insertPosition.x()]._attrs = _attributes;
+	_data[_insertPosition.y()][_insertPosition.x()]._symbol = c;
 	if (c == '\n') {
 		_insertPosition.data[0] = 0;
 		_insertPosition.data[1]++;
+			
+		Serial.println("\\n");
+		Serial.print(_insertPosition.x()); Serial.write('\t');
+		Serial.println(_insertPosition.y());
 	} else
 		_insertPosition.data[0]++;
-	
+
 	if (_insertPosition.x() >= W) {
 		LOG("New line");
 		_insertPosition.setX(0);
 		_insertPosition.data[1]++;
+		
+		Serial.print("End of line "); Serial.println(int(_state));
+		Serial.print(_insertPosition.x()); Serial.write('\t');
+		Serial.println(_insertPosition.y());
 	}
 	if (_insertPosition.y() >= H) {
 		LOG("Scroll");
@@ -241,18 +214,18 @@ UTFTTerminal::insertChar(uint8_t c)
 void
 UTFTTerminal::putChar(uint8_t c)
 {	
-	uint16_t x = _cursorPosition.x()*_screen.getFontXsize(),
-		y = _cursorPosition.y()*_screen.getFontYsize();
+	uint16_t x = _insertPosition.x()*_screen.getFontXsize(),
+		y = _insertPosition.y()*_screen.getFontYsize();
 	
 	LOG("pos:", x, y);
 	_screen.printChar(c, x, y);
-	_cursorPosition.data[0]++;
-	if (_cursorPosition.x() >= W) {
-		_cursorPosition.setX(0);
-		_cursorPosition.data[1]++;
+	_insertPosition.data[0]++;
+	if (_insertPosition.x() >= W) {
+		_insertPosition.setX(0);
+		_insertPosition.data[1]++;
 	}
-	if (_cursorPosition.y() >= H) {
-		_cursorPosition.data[1] = H-1;
+	if (_insertPosition.y() >= H) {
+		_insertPosition.data[1] = H-1;
 	}
 }
 
@@ -279,18 +252,10 @@ UTFTTerminal::drawCursor(bool v)
 	word c = _screen.getColor(), b = _screen.getBackColor();
 	if (!v) 
 		_screen.setColor(b);
-	_screen.fillRect(_cursorPosition.x()*_screen.getFontXsize(),
-			 _cursorPosition.y()*_screen.getFontYsize(),
-			 (_cursorPosition.x()+1)*_screen.getFontXsize()-1,
-			 (_cursorPosition.y()+1)*_screen.getFontYsize()-1);
+	_screen.fillRect(_insertPosition.x()*_screen.getFontXsize(),
+			 _insertPosition.y()*_screen.getFontYsize(),
+			 (_insertPosition.x()+1)*_screen.getFontXsize()-1,
+			 (_insertPosition.y()+1)*_screen.getFontYsize()-1);
 	if (!v)
 		_screen.setColor(c);
-}
-
-void
-UTFTTerminal::drawCurrent()
-{
-	_screen.printChar(_data[_cursorPosition.y()][_cursorPosition.x()],
-	    _cursorPosition.x()*_screen.getFontXsize(),
-	    _cursorPosition.y()*_screen.getFontYsize());
 }

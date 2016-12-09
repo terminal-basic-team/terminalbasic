@@ -381,7 +381,6 @@
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_MEGA2560</Elem>
             <Elem>F_CPU=16000000L</Elem>
-            <Elem>USEUTFT</Elem>
           </preprocessorList>
           <useLinkerLibraries>false</useLinkerLibraries>
           <warningLevel>2</warningLevel>

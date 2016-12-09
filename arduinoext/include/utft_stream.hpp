@@ -23,7 +23,7 @@ public:
 private:
 	enum State_t : uint8_t
 	{
-		REGULAR, ESCAPE, I_BRAC, F_ATTR1
+		REGULAR = 0, ESCAPE, I_BRAC, F_ATTR1
 	};
 	
 	enum Attributes_t : uint8_t
@@ -48,10 +48,15 @@ private:
 	CartesianCoordinates2D<uint8_t> _screenSizePixels;
 	CartesianCoordinates2D<uint8_t> _screenSizeChars;
 	CartesianCoordinates2D<uint8_t> _insertPosition;
-	CartesianCoordinates2D<uint8_t> _cursorPosition;
-	char		_data[H][W];
+	struct CPS_PACKED Cell
+	{
+		Attributes_t _attrs;
+		char	     _symbol;
+	};
+	Cell		_data[H][W];
 	char		_attr1;
 	Attributes_t	_attributes;
+	uint8_t		_page;
 // Print interface
 public:
 	size_t write(uint8_t) override;

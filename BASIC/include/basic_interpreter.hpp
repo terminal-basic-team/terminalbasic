@@ -24,10 +24,6 @@
 #include "basic_parser.hpp"
 #include "helper.hpp"
 
-#ifdef USEUTFT
-#include "utft_stream.hpp"
-#endif
-
 namespace BASIC
 {
 
@@ -199,7 +195,7 @@ public:
 	 * @param program Program object
 	 * @param firstModule First module in chain
 	 */
-	explicit Interpreter(Stream&, Program&, FunctionBlock* = NULL);
+	explicit Interpreter(Stream&, Print&, Program&, FunctionBlock* = NULL);
 	
 	/**
 	 * [re]initialize interpreter object
@@ -337,10 +333,8 @@ private:
 	State	 _state;
 	// Boundary terminal connection object
 	Stream	&_stream;
-#ifdef USEUTFT
-	UTFT	_utft;
-	UTFTTerminal _terminal;
-#endif
+	Print	&_output;
+
 	Lexer	 _lexer;
 	Parser	 _parser;
 	static PGM_P const _progmemStrings[];

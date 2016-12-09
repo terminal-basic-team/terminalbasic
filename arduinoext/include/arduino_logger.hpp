@@ -29,6 +29,11 @@
 #define LOG_INIT(T) Logger::init(T)
 #define LOG(args...) Logger::log(args)
 #define LOG_TRACE LOG(__PRETTY_FUNCTION__)
+#else
+#define LOG_INIT(T)
+#define LOG(...)
+#define LOG_TRACE
+#endif
 
 Package(Logger) {
 	public:
@@ -109,31 +114,5 @@ Package(Logger) {
 
 	Stream *_stream;
 };
-#else
-#define LOG_INIT(T)
-#define LOG(...)
-#define LOG_TRACE
-
-Package(Logger)
-{
-	public:
-
-	static void init(Stream&)
-	{
-	}
-
-	template<typename... Args>
-	    static void log(const Args&... args)
-	{
-	}
-	private:
-
-	template<typename T>
-	friend Logger &operator<<(Logger &logger, T first)
-	{
-		return (logger);
-	}
-};
-#endif
 
 #endif

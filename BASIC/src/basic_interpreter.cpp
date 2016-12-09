@@ -56,29 +56,20 @@ public:
 		if (_a == NO_ATTR)
 			return;
 		if ((uint8_t(a) & uint8_t(BOLD)) != uint8_t(NO_ATTR)) {
-			_i._stream.print("\x1B[1m");
-#ifdef USEUTFT
-			_i._terminal.print("\x1B[1m");
-#endif
+			_i._output.print("\x1B[1m");
 		}
 		if ((uint8_t(a) & uint8_t(UNDERLINE)) != uint8_t(NO_ATTR)) {
-			_i._stream.print("\x1B[4m");
-#ifdef USEUTFT
-			_i._terminal.print("\x1B[1m");
-#endif
+			_i._output.print("\x1B[4m");
 		}
 		if ((uint8_t(a) & uint8_t(DIM)) != uint8_t(NO_ATTR))
-			_i._stream.print("\x1B[2m");
+			_i._output.print("\x1B[2m");
 	}
 
 	~AttrKeeper()
 	{
 		if (_a == NO_ATTR)
 			return;
-		_i._stream.print("\x1B[0m");
-#ifdef USEUTFT
-		_i._terminal.print("\x1B[0m");
-#endif
+		_i._output.print("\x1B[0m");
 	}
 private:
 	Interpreter &_i;
@@ -194,13 +185,9 @@ Interpreter::valueFromArray(Parser::Value &v, const char *name)
 	return true;
 }
 
-Interpreter::Interpreter(Stream &stream, Program &program, FunctionBlock *first) :
-    _program(program), _state(SHELL), _stream(stream),
+Interpreter::Interpreter(Stream &stream, Print &output, Program &program, FunctionBlock *first) :
+    _program(program), _state(SHELL), _stream(stream), _output(output),
     _parser(_lexer, *this, first)
-#ifdef USEUTFT 
-    ,_utft(CTE32HR, 38, 39, 40, 41),
-    _terminal(_utft)
-#endif
 {
 	_stream.setTimeout(10000L);
 }
@@ -208,9 +195,6 @@ Interpreter::Interpreter(Stream &stream, Program &program, FunctionBlock *first)
 void
 Interpreter::init()
 {
-#ifdef USEUTFT 
-	_terminal.begin();
-#endif
 	print(ucBASIC, BOLD);
 
 	print(S_VERSION), print(VERSION, BOLD), newline();
@@ -288,10 +272,7 @@ Interpreter::exec()
 void
 Interpreter::cls()
 {
-	_stream.print("\x1B[2J"), _stream.print("\x1B[H");
-#ifdef USEUTFT
-	_terminal.print("\x1B[2J"), _terminal.print("\x1B[H");
-#endif
+	_output.print("\x1B[2J"), _stream.print("\x1B[H");
 }
 
 void
@@ -342,10 +323,7 @@ Interpreter::list(uint16_t start, uint16_t stop)
 		
 		{
 			AttrKeeper a(*this, BOLD);
-			_stream.print(s->number);
-#ifdef USEUTFT
-			_terminal.print(s->number);
-#endif
+			_output.print(s->number);
 		}
 			
 		print(s->text);
@@ -415,19 +393,13 @@ Interpreter::print(const Parser::Value &v, TextAttr attr)
 
 	switch (v.type) {
 	case Parser::Value::BOOLEAN:
-		_stream.print(v.value.boolean);
-#ifdef USEUTFT
-		_terminal.print(v.value.boolean);
-#endif
+		_output.print(v.value.boolean);
 		break;
 	case Parser::Value::REAL:
 		this->print(v.value.real);
 		break;
 	case Parser::Value::INTEGER:
-		_stream.print(v.value.integer);
-#ifdef USEUTFT
-		_terminal.print(v.value.integer);
-#endif
+		_output.print(v.value.integer);
 		break;
 	case Parser::Value::STRING:
 	{
@@ -437,10 +409,7 @@ Interpreter::print(const Parser::Value &v, TextAttr attr)
 			raiseError(DYNAMIC_ERROR, STRING_FRAME_SEARCH);
 			return;
 		}
-		_stream.print(f->body.string);
-#ifdef USEUTFT
-		_terminal.print(f->body.string);
-#endif
+		_output.print(f->body.string);
 		_program.pop();
 		break;
 	}
@@ -448,28 +417,19 @@ Interpreter::print(const Parser::Value &v, TextAttr attr)
 		raiseError(DYNAMIC_ERROR, INVALID_VALUE_TYPE);
 		break;
 	}
-	_stream.print(' ');
-#ifdef USEUTFT
-	_terminal.print(' ');
-#endif
+	_output.print(' ');
 }
 
 void
 Interpreter::newline()
 {
-	_stream.println();
-#ifdef USEUTFT
-	_terminal.println();
-#endif
+	_output.println();
 }
 
 void
 Interpreter::print(char v)
 {
-	_stream.print(v);
-#ifdef USEUTFT
-	_terminal.print(v);
-#endif
+	_output.print(v);
 }
 
 void
@@ -607,10 +567,7 @@ Interpreter::save()
 	e.update(1, len >> 8);
 	for (uint16_t p = 0; p < _program._textEnd; ++p) {
 		e.update(p + 2, _program._text[p]);
-		_stream.print('.');
-#ifdef USEUTFT
-		_terminal.print('.');
-#endif
+		_output.print('.');
 	}
 	newline();
 }
@@ -623,10 +580,7 @@ void Interpreter::load()
 	len |= uint16_t(e.read(1)) << 8;
 	for (uint16_t p = 0; p < len; ++p) {
 		_program._text[p] = e.read(p + 2);
-		_stream.print('.');
-#ifdef USEUTFT
-		_terminal.print('.');
-#endif
+		_output.print('.');
 	}
 	newline();
 	_program._textEnd = _program._variablesEnd = _program._arraysEnd = len;
@@ -635,10 +589,7 @@ void Interpreter::load()
 void
 Interpreter::input(const char *varName)
 {
-	_stream.print('?');
-#ifdef USEUTFT
-	_terminal.print('?');
-#endif
+	_output.print('?');
 
 	strcpy(_inputVarName, varName);
 
@@ -759,20 +710,14 @@ Interpreter::readInput()
 	uint8_t end = _inputPosition + read;
 	for (uint8_t i = _inputPosition; i < end; ++i) {
 		char c = _inputBuffer[i];
-		_stream.write(c);
-#ifdef USEUTFT
-		_terminal.write(c);
-#endif
+		_output.write(c);
 		switch (c) {
 		case char(ASCII::BS):
 			if (_inputPosition > 0)
 				--_inputPosition;
 			break;
 		case char(ASCII::CR):
-			_stream.write(char(ASCII::LF));
-#ifdef USEUTFT
-			_terminal.write(char(ASCII::LF));
-#endif
+			_output.write(char(ASCII::LF));
 			_inputBuffer[i] = 0;
 			return true;
 		default:
@@ -787,10 +732,7 @@ Interpreter::print(const char *text, TextAttr attr)
 {
 	AttrKeeper _a(*this, attr);
 
-	_stream.print(text), _stream.print(' ');
-#ifdef USEUTFT
-	_terminal.print(text), _terminal.print(' ');
-#endif
+	_output.print(text), _output.print(' ');
 }
 
 void
@@ -801,10 +743,7 @@ Interpreter::print(ProgMemStrings index, TextAttr attr)
 
 	AttrKeeper _a(*this, attr);
 
-	_stream.print(buf), _stream.print(' ');
-#ifdef USEUTFT
-	_terminal.print(buf), _terminal.print(' ');
-#endif
+	_output.print(buf), _output.print(' ');
 }
 
 void
@@ -812,10 +751,7 @@ Interpreter::print(Integer i, TextAttr attr)
 {
 	AttrKeeper _a(*this, attr);
 
-	_stream.print(i), _stream.print(' ');
-#ifdef USEUTFT
-	_terminal.print(i), _terminal.print(' ');
-#endif
+	_output.print(i), _output.print(' ');
 }
 
 void
@@ -826,33 +762,18 @@ Interpreter::raiseError(ErrorType type, uint8_t errorCode)
 		strcpy_P(buf, (PGM_P) pgm_read_word(&(ESTRING(DYNAMIC))));
 	else // STATIC_ERROR
 		strcpy_P(buf, (PGM_P) pgm_read_word(&(ESTRING(S_STATIC))));
-	_stream.print(buf);
-	_stream.print(' ');
-#ifdef USEUTFT
-	_terminal.print(buf), _terminal.print(' ');
-#endif
+	_output.print(buf);
+	_output.print(' ');
 	strcpy_P(buf, (PGM_P) pgm_read_word(&(ESTRING(SEMANTIC))));
-	_stream.print(buf);
-	_stream.print(' ');
-#ifdef USEUTFT
-	_terminal.print(buf), _terminal.print(' ');
-#endif
+	_output.print(buf);
+	_output.print(' ');
 	strcpy_P(buf, (PGM_P) pgm_read_word(&(ESTRING(ERROR))));
-	_stream.print(buf);
-	_stream.print(':');
-#ifdef USEUTFT
-	_terminal.print(buf), _terminal.print(':');
-#endif
+	_output.print(buf);
+	_output.print(':');
 	if (type == DYNAMIC_ERROR) {
-		_stream.println(errorCode);
-#ifdef USEUTFT
-		_terminal.println(errorCode);
-#endif
+		_output.println(errorCode);
 	} else { // STATIC_ERROR
-		_stream.println(int(_parser.getError()));
-#ifdef USEUTFT
-		_terminal.println(int(_parser.getError()));
-#endif
+		_output.println(int(_parser.getError()));
 	}
 	_state = SHELL;
 }

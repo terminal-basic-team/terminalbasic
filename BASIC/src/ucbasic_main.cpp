@@ -21,32 +21,41 @@
 #include "basic_math.hpp"
 #include "basic_arduinoio.hpp"
 
+#ifdef USEUTFT
+#include "utft_stream.hpp"
+static UTFT	utft(CTE32HR, 38, 39, 40, 41);
+static UTFTTerminal utftPrint(utft);
+#endif
+
 static BASIC::Math mathBlock;
 static BASIC::ArduinoIO arduinoIo(&mathBlock);
 
 #ifdef BASIC_MULTITERMINAL
 static BASIC::Interpreter::Program program(BASIC::PROGRAMSIZE / 5);
-static BASIC::Interpreter basic(Serial, program, &arduinoIo);
+static BASIC::Interpreter basic(Serial, Serial, program, &arduinoIo);
 #ifdef HAVE_HWSERIAL1
 static BASIC::Interpreter::Program program1(BASIC::PROGRAMSIZE / 5);
-static BASIC::Interpreter basic1(Serial1, program1, &arduinoIo);
+static BASIC::Interpreter basic1(Serial1, Serial1, program1, &arduinoIo);
 #endif
 #ifdef HAVE_HWSERIAL2
 static BASIC::Interpreter::Program program2(BASIC::PROGRAMSIZE / 5);
-static BASIC::Interpreter basic2(Serial2, program2, &arduinoIo);
+static BASIC::Interpreter basic2(Serial2, Serial2, program2, &arduinoIo);
 #endif
 #ifdef HAVE_HWSERIAL3
 static BASIC::Interpreter::Program program3(BASIC::PROGRAMSIZE / 5);
-static BASIC::Interpreter basic3(Serial3, program3, &arduinoIo);
+static BASIC::Interpreter basic3(Serial3, Serial3, program3, &arduinoIo);
 #endif
 #else
 static BASIC::Interpreter::Program program(BASIC::PROGRAMSIZE);
-static BASIC::Interpreter basic(Serial, program, &arduinoIo);
+static BASIC::Interpreter basic(Serial, Serial, program, &arduinoIo);
 #endif
 
 void setup()
 {
 	Serial.begin(57600);
+#ifdef USEUTFT
+	utftPrint.begin();
+#endif
 #ifdef BASIC_MULTITERMINAL
 #ifdef HAVE_HWSERIAL1
 	Serial1.begin(57600);
