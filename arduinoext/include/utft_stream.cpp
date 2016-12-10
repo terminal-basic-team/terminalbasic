@@ -27,7 +27,7 @@ UTFTTerminal::begin()
 	_screenSizeChars.data[1] =
 		_screenSizePixels.get(CartesianCoordinates2D_t::Y) /
 		_screen.getFontYsize();
-	_insertPosition.data[0] = _insertPosition.data[1] = 0;
+	_cursorPosition.set(0,0);
 	memset(_data, 0, sizeof (_data));
 	
 	//_screen.setWritePage(_page);
@@ -46,17 +46,7 @@ UTFTTerminal::end()
 
 void
 UTFTTerminal::dump()
-{
-	Serial.print("Screen size ");
-	Serial.print(_screen.getDisplayXSize());
-	Serial.print('x');
-	Serial.println(_screen.getDisplayYSize());
-	
-	Serial.print("Font size ");
-	Serial.print(_screen.getFontXsize());
-	Serial.print('x');
-	Serial.println(_screen.getFontYsize());
-	
+{	
 	ByteArray ba((uint8_t*)_data, sizeof (_data));
 	Serial.println(ba);
 }
@@ -82,23 +72,25 @@ UTFTTerminal::write(uint8_t c)
 			return 1;
 		case ASCII::BS:
 			drawCursor(false);
-			if (_insertPosition.x() > 0)
-				_insertPosition.data[0]--;
+			insertChar(c);
 			drawCursor();
 			return 1;
 		case ASCII::CR:
 			drawCursor(false);
-			_insertPosition.setX(0);
-			break;
+			insertChar(c);
+			return 1;
 		case ASCII::LF:
-			Serial.print("Write regular LF ");
-			_insertPosition.data[1]++;
 			insertChar(c);
 			drawCursor();
 			return 1;
+		case ASCII::HT:
+			for (uint8_t i=0; i<8; ++i)
+				this->write(' ');
+			return 1;
 		default:
-			putChar(c);
+			insertChar(c);
 			drawCursor();
+			return 1;
 		};
 		break;
 	case ESCAPE:
@@ -128,15 +120,12 @@ UTFTTerminal::write(uint8_t c)
 				addAttr(BRIGHT);
 			else
 				addAttr(RESET);
-			insertChar(char(ASCII::ESC));
-			insertChar('['); insertChar(_attr1); insertChar('m');
 		default:
 			_state = REGULAR; return 1;
 		}
 	default:
 		Serial.println("Unknown state");
 	}
-	insertChar(c);
 	
 	return (1);
 }
@@ -146,32 +135,48 @@ UTFTTerminal::redraw()
 {
 	LOG_TRACE;
 	
-	Serial.println(__PRETTY_FUNCTION__);
-	Serial.print(_insertPosition.x()); Serial.write('\t');
-	Serial.println(_insertPosition.y());
-	
 	_page = 3-_page;
 	//_screen.setWritePage(_page);
 	
+	Serial.print("redraw "), Serial.println(int(_attributes));
+	
 	_screen.clrScr();
-	_insertPosition.setX(0), _insertPosition.setY(0);
+	_cursorPosition.set(0,0);
+	Attributes_t a = _attributes;
+	_attributes = RESET;
+	_screen.setColor(VGA_SILVER);
 	for (uint16_t i=0; i<H; ++i) {
 		for (uint16_t j=0; j<W; ++j) {
+			_cursorPosition.set(j,i);
 			char c = _data[i][j]._symbol;
 			LOG(Logger::format_t::hex, c, Logger::format_t::dec);
 			if (c == '\0')
 				break;
-			printChar(c);
+			printChar(i, j);
 			if (c == '\n')
 				break;
+			else
+			_attributes = _data[i][j]._attrs;
 		}
 	}
+	addAttr(a);
+	Serial.print(" "), Serial.println(int(_attributes));
 }
 
 void
-UTFTTerminal::printChar(uint8_t c)
+UTFTTerminal::printChar(uint8_t y, uint8_t x)
 {
-	LOG_TRACE;
+	LOG_TRACE;	
+	
+	Attributes_t a = _data[y][x]._attrs;
+	if (_attributes != a) {
+		if (a == RESET)
+			_screen.setColor(VGA_SILVER);
+		else if (a & BRIGHT)
+			_screen.setColor(VGA_WHITE);
+	}
+	_screen.printChar(_data[y][x]._symbol,
+	    x*_screen.getFontXsize(), y*_screen.getFontYsize());
 }
 
 void
@@ -181,32 +186,33 @@ UTFTTerminal::insertChar(uint8_t c)
 	LOG(Logger::format_t::hex, c, Logger::format_t::dec);
 	LOG(_insertPosition.x(), _insertPosition.y());
 
-	_data[_insertPosition.y()][_insertPosition.x()]._attrs = _attributes;
-	_data[_insertPosition.y()][_insertPosition.x()]._symbol = c;
-	if (c == '\n') {
-		_insertPosition.data[0] = 0;
-		_insertPosition.data[1]++;
-			
-		Serial.println("\\n");
-		Serial.print(_insertPosition.x()); Serial.write('\t');
-		Serial.println(_insertPosition.y());
-	} else
-		_insertPosition.data[0]++;
+	switch (c) {
+	case char(ASCII::BS):
+		if (_cursorPosition.x > 0)
+			_cursorPosition.x--;
+		else if (_cursorPosition.y > 0)
+			_cursorPosition.y--, _cursorPosition.x = W-1;
+		return;
+	case '\r' : _cursorPosition.x = 0; break;
+	case '\n' : _cursorPosition.y++; break;
+	default:
+		_data[_cursorPosition.y][_cursorPosition.x]._attrs = _attributes;
+		_data[_cursorPosition.y][_cursorPosition.x]._symbol = c;
+		printChar(_cursorPosition.y, _cursorPosition.x);
+		_cursorPosition.next();
+		break;
+	};
 
-	if (_insertPosition.x() >= W) {
+	if (_cursorPosition.x >= W) {
 		LOG("New line");
-		_insertPosition.setX(0);
-		_insertPosition.data[1]++;
-		
-		Serial.print("End of line "); Serial.println(int(_state));
-		Serial.print(_insertPosition.x()); Serial.write('\t');
-		Serial.println(_insertPosition.y());
+		_cursorPosition.x = 0;
+		_cursorPosition.y++;
 	}
-	if (_insertPosition.y() >= H) {
+	if (_cursorPosition.y >= H) {
 		LOG("Scroll");
-		_insertPosition.data[1] = H-1;
-		memmove(_data[0], _data[1], W*(H-1));
-		memset(_data[H-1], 0, W);
+		_cursorPosition.y--;
+		memmove(_data[0], _data[1], sizeof (Cell)*W*(H-1));
+		memset(_data[H-1], 0, sizeof (Cell)*W);
 		redraw();
 	}
 }
@@ -214,18 +220,18 @@ UTFTTerminal::insertChar(uint8_t c)
 void
 UTFTTerminal::putChar(uint8_t c)
 {	
-	uint16_t x = _insertPosition.x()*_screen.getFontXsize(),
-		y = _insertPosition.y()*_screen.getFontYsize();
+	uint16_t x = _cursorPosition.x*_screen.getFontXsize(),
+		y = _cursorPosition.y*_screen.getFontYsize();
 	
 	LOG("pos:", x, y);
 	_screen.printChar(c, x, y);
-	_insertPosition.data[0]++;
-	if (_insertPosition.x() >= W) {
-		_insertPosition.setX(0);
-		_insertPosition.data[1]++;
+	_cursorPosition.next();
+	if (_cursorPosition.x >= W) {
+		_cursorPosition.x = 0;
+		_cursorPosition.y++;
 	}
-	if (_insertPosition.y() >= H) {
-		_insertPosition.data[1] = H-1;
+	if (_cursorPosition.y >= H) {
+		_cursorPosition.y--;
 	}
 }
 
@@ -252,10 +258,10 @@ UTFTTerminal::drawCursor(bool v)
 	word c = _screen.getColor(), b = _screen.getBackColor();
 	if (!v) 
 		_screen.setColor(b);
-	_screen.fillRect(_insertPosition.x()*_screen.getFontXsize(),
-			 _insertPosition.y()*_screen.getFontYsize(),
-			 (_insertPosition.x()+1)*_screen.getFontXsize()-1,
-			 (_insertPosition.y()+1)*_screen.getFontYsize()-1);
+	_screen.fillRect(_cursorPosition.x*_screen.getFontXsize(),
+			 _cursorPosition.y*_screen.getFontYsize(),
+			 (_cursorPosition.x+1)*_screen.getFontXsize()-1,
+			 (_cursorPosition.y+1)*_screen.getFontYsize()-1);
 	if (!v)
 		_screen.setColor(c);
 }

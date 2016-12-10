@@ -35,9 +35,22 @@ private:
 		BLINK = 5
 	};
 	
+	struct CPS_PACKED ScreenCoordinates
+	{
+		void next()
+		{
+			++x;
+		}
+		void set(uint8_t xx, uint8_t yy)
+		{
+			x=xx, y=yy;
+		}
+		uint8_t x,y;
+	};
+	
 	void redraw();
 	void insertChar(uint8_t);
-	void printChar(uint8_t);
+	void printChar(uint8_t, uint8_t);
 	void putChar(uint8_t);
 	void addAttr(Attributes_t);
 	void drawCursor(bool=true);
@@ -47,7 +60,7 @@ private:
 	State_t	_state;
 	CartesianCoordinates2D<uint8_t> _screenSizePixels;
 	CartesianCoordinates2D<uint8_t> _screenSizeChars;
-	CartesianCoordinates2D<uint8_t> _insertPosition;
+	ScreenCoordinates _cursorPosition;
 	struct CPS_PACKED Cell
 	{
 		Attributes_t _attrs;

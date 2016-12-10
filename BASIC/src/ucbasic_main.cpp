@@ -21,6 +21,8 @@
 #include "basic_math.hpp"
 #include "basic_arduinoio.hpp"
 
+#define USEUTFT
+
 #ifdef USEUTFT
 #include "utft_stream.hpp"
 static UTFT	utft(CTE32HR, 38, 39, 40, 41);
@@ -47,7 +49,11 @@ static BASIC::Interpreter basic3(Serial3, Serial3, program3, &arduinoIo);
 #endif
 #else
 static BASIC::Interpreter::Program program(BASIC::PROGRAMSIZE);
+#ifdef USEUTFT
+static BASIC::Interpreter basic(Serial, utftPrint, program, &arduinoIo);
+#else
 static BASIC::Interpreter basic(Serial, Serial, program, &arduinoIo);
+#endif
 #endif
 
 void setup()
