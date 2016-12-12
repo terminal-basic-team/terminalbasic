@@ -623,6 +623,19 @@ Parser::fCommand()
 			_interpreter.save();
 		_lexer.getNext();
 		return true;
+	case REAL_IDENT:
+	case INTEGER_IDENT:
+		FunctionBlock::command c;
+		if (_firstFB != NULL && (c=_firstFB->getCommand(_lexer.id()))) {
+			if (_lexer.getNext()) {
+				Value v;
+				// String value already on stack after fExpression
+				if (fExpression(v) && v.type != Value::STRING) {
+					_interpreter.pushValue(v);
+				}
+			}
+			return (*c)(_interpreter);
+		}
 	default:
 		return false;
 	}

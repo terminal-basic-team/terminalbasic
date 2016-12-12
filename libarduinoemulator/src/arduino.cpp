@@ -34,6 +34,11 @@ void pinMode(uint8_t number, uint8_t mode)
 	
 }
 
+long random()
+{
+	rand();
+}
+
 long random(long val)
 {
     return random() % val;

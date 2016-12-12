@@ -14,6 +14,8 @@
                 <sourceRootElem>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM</sourceRootElem>
                 <sourceRootElem>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial</sourceRootElem>
                 <sourceRootElem>/opt/arduino-1.6.12/libraries/UTFT</sourceRootElem>
+                <sourceRootElem>/opt/arduino-1.6.12/libraries/SD</sourceRootElem>
+                <sourceRootElem>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SPI</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>

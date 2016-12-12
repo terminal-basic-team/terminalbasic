@@ -286,9 +286,18 @@ Interpreter::Program::insert(uint16_t num, const char *text)
 	return true;
 }
 
-void Interpreter::Program::reset()
+void
+Interpreter::Program::reset(size_t size)
 {
-	_current = 0;
+	_current = 0; _sp = programSize;
+	if (size>0)
+		_textEnd = _variablesEnd = _arraysEnd = size;
+}
+
+size_t
+Interpreter::Program::size() const
+{
+	return (_textEnd);
 }
 
 }

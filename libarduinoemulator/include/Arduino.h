@@ -205,6 +205,8 @@ extern const uint8_t PROGMEM digital_pin_to_timer_PGM[];
 #define PL 12
 #endif
 
+#define RANDOM_MAX RAND_MAX
+
 #define NOT_ON_TIMER 0
 #define TIMER0A 1
 #define TIMER0B 2
@@ -251,6 +253,7 @@ void tone(uint8_t _pin, unsigned int frequency, unsigned long duration = 0);
 void noTone(uint8_t _pin);
 
 // WMath prototypes
+long random();
 long random(long);
 long random(long, long);
 void randomSeed(unsigned long);

@@ -16,54 +16,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef RINGBUFFER_HPP
-#define RINGBUFFER_HPP
+#ifndef BASIC_SDFS_HPP
+#define BASIC_SDFS_HPP
 
-#include "cps.hpp"
+#include "basic_functionblock.hpp"
+#include "basic_interpreter.hpp"
+#include <SPI.h>
+#include <SD.h>
 
-template <typename T, size_t size>
-class RingQueue
+namespace BASIC
 {
-	CPS_NOTCOPYABLE(RingQueue)
-public:
-	RingQueue() :
-	_last(0), _length(0)
-	{
-	}
-	
-	~RingQueue() = default;
-	
-	constexpr size_t getSize() const { return size; }
-	
-	void insert(T element)
-	{
-		_data[_last] = element;
-		_last = (_last+1)%size;
-		if (_length < size)
-			++_length;
-	}
-	
-	unsigned length() const { return _length; }
-	
-	unsigned last() const { return _last; }
-	
-	unsigned first() const
-	{
-		unsigned result;
-		
-		if (_last >= _length)
-			result = _last-_length;
-		else
-			result = size - _length + _last;
-		
-		return result;
-	}
-	
-	T *data() { return _data; }
+/**
+ * @brief Module with commands to store the programs on SD card
+ */
+class SDFSModule : public FunctionBlock
+{
+	// Function block interface
+protected:
+	void _init() override;
+
+	FunctionBlock::command _getCommand(const char*) const override;
 private:
-	
-	unsigned _last, _length;
-	T _data[size];
+	static bool dsave(Interpreter&);
+	static bool directory(Interpreter&);
+	static bool dload(Interpreter&);
+	static bool header(Interpreter&);
+	static bool getFileName(Interpreter&, char[]);
+	static File	_root;
 };
+
+}
 
 #endif

@@ -11,6 +11,7 @@
       <itemPath>include/basic_math.hpp</itemPath>
       <itemPath>include/basic_parser.hpp</itemPath>
       <itemPath>include/basic_parser_value.hpp</itemPath>
+      <itemPath>include/basic_sdfs.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="src" displayName="src" projectFiles="true">
       <itemPath>src/basic_arduinoio.cpp</itemPath>
@@ -21,6 +22,7 @@
       <itemPath>src/basic_math.cpp</itemPath>
       <itemPath>src/basic_parser.cpp</itemPath>
       <itemPath>src/basic_parser_value.cpp</itemPath>
+      <itemPath>include/basic_sdfs.cpp</itemPath>
       <itemPath>src/ucbasic_main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -132,6 +134,8 @@
       </item>
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="0">
@@ -235,6 +239,10 @@
       </item>
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="0">
@@ -336,6 +344,10 @@
       </item>
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
@@ -367,10 +379,12 @@
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/variants/mega</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/SoftwareSerial/src</pElem>
+            <pElem>${ARDUINO_PATH}/libraries/UTFT</pElem>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/SPI/src</pElem>
+            <pElem>/opt/arduino-1.6.12/libraries/SD/src</pElem>
             <pElem>include</pElem>
             <pElem>../arduinoext/include</pElem>
-            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/src</pElem>
-            <pElem>/opt/arduino-1.6.12/libraries/UTFT</pElem>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/EEPROM/src</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>
@@ -438,6 +452,10 @@
       <item path="include/basic_parser.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -539,6 +557,10 @@
       <item path="include/basic_parser.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -647,6 +669,10 @@
       </item>
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
@@ -748,6 +774,10 @@
       <item path="include/basic_parser.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
       </item>

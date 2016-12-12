@@ -66,14 +66,6 @@ enum Token : uint8_t
 	KW_TO,
 	KW_STEP,
 	KW_VARS,
-	
-	REAL_IDENT,
-	INTEGER_IDENT,
-	STRING_IDENT,
-	
-	C_INTEGER,
-	C_REAL,
-	C_STRING,
 
 	// *
 	STAR,
@@ -113,6 +105,14 @@ enum Token : uint8_t
 	OP_AND,
 	OP_OR,
 	OP_NOT,
+	
+	REAL_IDENT,
+	INTEGER_IDENT,
+	STRING_IDENT,
+	
+	C_INTEGER,
+	C_REAL,
+	C_STRING,
 	    
 	NUM_TOKENS
 };
@@ -162,12 +162,10 @@ public:
 	 * @return string position index
 	 */
 	size_t getPointer() const { return _pointer; }
-#if ARDUINO_LOG
 	/**
 	 * @brief token strings array
 	 */
 	static PGM_P const tokenStrings[NUM_TOKENS];
-#endif
 private:
 
 	void pushSYM();

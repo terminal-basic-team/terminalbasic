@@ -53,12 +53,38 @@
       <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/README.md</itemPath>
       <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/library.properties</itemPath>
     </logicalFolder>
+    <logicalFolder name="SD" displayName="SD" projectFiles="true">
+      <logicalFolder name="src" displayName="src" projectFiles="true">
+        <logicalFolder name="utility" displayName="utility" projectFiles="true">
+          <itemPath>/opt/arduino-1.6.12/libraries/SD/src/utility/FatStructs.h</itemPath>
+          <itemPath>/opt/arduino-1.6.12/libraries/SD/src/utility/Sd2Card.cpp</itemPath>
+          <itemPath>/opt/arduino-1.6.12/libraries/SD/src/utility/Sd2Card.h</itemPath>
+          <itemPath>/opt/arduino-1.6.12/libraries/SD/src/utility/Sd2PinMap.h</itemPath>
+          <itemPath>/opt/arduino-1.6.12/libraries/SD/src/utility/SdFat.h</itemPath>
+          <itemPath>/opt/arduino-1.6.12/libraries/SD/src/utility/SdFatUtil.h</itemPath>
+          <itemPath>/opt/arduino-1.6.12/libraries/SD/src/utility/SdFatmainpage.h</itemPath>
+          <itemPath>/opt/arduino-1.6.12/libraries/SD/src/utility/SdFile.cpp</itemPath>
+          <itemPath>/opt/arduino-1.6.12/libraries/SD/src/utility/SdInfo.h</itemPath>
+          <itemPath>/opt/arduino-1.6.12/libraries/SD/src/utility/SdVolume.cpp</itemPath>
+        </logicalFolder>
+        <itemPath>/opt/arduino-1.6.12/libraries/SD/src/File.cpp</itemPath>
+        <itemPath>/opt/arduino-1.6.12/libraries/SD/src/README.txt</itemPath>
+        <itemPath>/opt/arduino-1.6.12/libraries/SD/src/SD.cpp</itemPath>
+        <itemPath>/opt/arduino-1.6.12/libraries/SD/src/SD.h</itemPath>
+      </logicalFolder>
+    </logicalFolder>
     <logicalFolder name="SoftwareSerial"
                    displayName="SoftwareSerial"
                    projectFiles="true">
       <logicalFolder name="src" displayName="src" projectFiles="true">
         <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src/SoftwareSerial.cpp</itemPath>
         <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src/SoftwareSerial.h</itemPath>
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="SPI" displayName="SPI" projectFiles="true">
+      <logicalFolder name="src" displayName="src" projectFiles="true">
+        <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SPI/src/SPI.cpp</itemPath>
+        <itemPath>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SPI/src/SPI.h</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="UTFT" displayName="UTFT" projectFiles="true">
@@ -229,6 +255,8 @@
     <Elem>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM</Elem>
     <Elem>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial</Elem>
     <Elem>/opt/arduino-1.6.12/libraries/UTFT</Elem>
+    <Elem>/opt/arduino-1.6.12/libraries/SD</Elem>
+    <Elem>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SPI</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -504,6 +532,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SPI/src/SPI.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SPI/src/SPI.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src/SoftwareSerial.cpp"
             ex="false"
             tool="1"
@@ -512,6 +550,76 @@
       <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src/SoftwareSerial.h"
             ex="false"
             tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/File.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/README.txt"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/SD.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/SD.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/FatStructs.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/Sd2Card.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/Sd2Card.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/Sd2PinMap.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/SdFat.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/SdFatUtil.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/SdFatmainpage.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/SdFile.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/SdInfo.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/SdVolume.cpp"
+            ex="false"
+            tool="1"
             flavor2="0">
       </item>
       <item path="/opt/arduino-1.6.12/libraries/UTFT/DefaultFonts.c"
@@ -1161,6 +1269,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SPI/src/SPI.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SPI/src/SPI.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src/SoftwareSerial.cpp"
             ex="false"
             tool="1"
@@ -1169,6 +1287,76 @@
       <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src/SoftwareSerial.h"
             ex="false"
             tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/File.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/README.txt"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/SD.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/SD.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/FatStructs.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/Sd2Card.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/Sd2Card.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/Sd2PinMap.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/SdFat.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/SdFatUtil.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/SdFatmainpage.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/SdFile.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/SdInfo.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/SdVolume.cpp"
+            ex="false"
+            tool="1"
             flavor2="0">
       </item>
       <item path="/opt/arduino-1.6.12/libraries/UTFT/DefaultFonts.c"
@@ -1819,6 +2007,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SPI/src/SPI.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SPI/src/SPI.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src/SoftwareSerial.cpp"
             ex="false"
             tool="1"
@@ -1827,6 +2025,76 @@
       <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src/SoftwareSerial.h"
             ex="false"
             tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/File.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/README.txt"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/SD.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/SD.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/FatStructs.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/Sd2Card.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/Sd2Card.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/Sd2PinMap.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/SdFat.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/SdFatUtil.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/SdFatmainpage.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/SdFile.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/SdInfo.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/SdVolume.cpp"
+            ex="false"
+            tool="1"
             flavor2="0">
       </item>
       <item path="/opt/arduino-1.6.12/libraries/UTFT/DefaultFonts.c"
@@ -2233,6 +2501,8 @@
             <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega</pElem>
             <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src</pElem>
             <pElem>/opt/arduino-1.6.12/libraries/UTFT</pElem>
+            <pElem>/opt/arduino-1.6.12/libraries/SD/src</pElem>
+            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SPI/src</pElem>
           </incDir>
           <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -flto -mmcu=atmega2560 -fno-rtti</commandLine>
           <preprocessorList>
@@ -2480,6 +2750,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SPI/src/SPI.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SPI/src/SPI.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src/SoftwareSerial.cpp"
             ex="false"
             tool="1"
@@ -2488,6 +2768,76 @@
       <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src/SoftwareSerial.h"
             ex="false"
             tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/File.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/README.txt"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/SD.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/SD.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/FatStructs.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/Sd2Card.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/Sd2Card.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/Sd2PinMap.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/SdFat.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/SdFatUtil.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/SdFatmainpage.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/SdFile.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/SdInfo.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/SdVolume.cpp"
+            ex="false"
+            tool="1"
             flavor2="0">
       </item>
       <item path="/opt/arduino-1.6.12/libraries/UTFT/DefaultFonts.c"
@@ -3137,6 +3487,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SPI/src/SPI.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SPI/src/SPI.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src/SoftwareSerial.cpp"
             ex="false"
             tool="1"
@@ -3145,6 +3505,76 @@
       <item path="/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src/SoftwareSerial.h"
             ex="false"
             tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/File.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/README.txt"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/SD.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/SD.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/FatStructs.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/Sd2Card.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/Sd2Card.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/Sd2PinMap.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/SdFat.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/SdFatUtil.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/SdFatmainpage.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/SdFile.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/SdInfo.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/SdVolume.cpp"
+            ex="false"
+            tool="1"
             flavor2="0">
       </item>
       <item path="/opt/arduino-1.6.12/libraries/UTFT/DefaultFonts.c"

@@ -20,8 +20,9 @@
 #include "basic_interpreter_program.hpp"
 #include "basic_math.hpp"
 #include "basic_arduinoio.hpp"
-
-#define USEUTFT
+#ifdef USESD
+#include "basic_sdfs.hpp"
+#endif
 
 #ifdef USEUTFT
 #include "utft_stream.hpp"
@@ -29,7 +30,12 @@ static UTFT	utft(CTE32HR, 38, 39, 40, 41);
 static UTFTTerminal utftPrint(utft);
 #endif
 
+#ifdef USESD
+static BASIC::SDFSModule sdfs;
+static BASIC::Math mathBlock(&sdfs);
+#else
 static BASIC::Math mathBlock;
+#endif
 static BASIC::ArduinoIO arduinoIo(&mathBlock);
 
 #ifdef BASIC_MULTITERMINAL

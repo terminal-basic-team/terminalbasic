@@ -33,7 +33,13 @@ public:
 
 	typedef bool (*function)(Interpreter&);
 	
+	typedef bool (*command)(Interpreter&);
+	
 	function getFunction(const char*) const;
+	
+	command getCommand(const char*) const;
+	
+	void init();
 	
 	FunctionBlock *next() { return _next; }
 	
@@ -43,13 +49,22 @@ protected:
 	typedef Integer (*_funcInteger)(Integer);
 	
 	explicit FunctionBlock(FunctionBlock* =NULL);
+	
+	virtual void _init() {}
 	/**
 	 * @brief return pointer to the function of this block
 	 *   or NULL if no one
 	 * @param fName function name
 	 * @return function pointer
 	 */
-	virtual function _getFunction(const char*) const = 0;
+	virtual function _getFunction(const char*) const { return NULL; }
+	/**
+	 * @brief return pointer to the command, provided by this block
+	 *   or NULL if no one
+	 * @param fName command name
+	 * @return command pointer
+	 */
+	virtual command _getCommand(const char*) const { return NULL; }
 	/**
 	 * @brief general function wrapper with 1 Real argument
 	 * @param interpreter Interpreter object
@@ -64,7 +79,6 @@ protected:
 	 * @return ok status
 	 */
 	static bool general_func(Interpreter&, _funcInteger);
-	
 private:
 	FunctionBlock *_next;
 };

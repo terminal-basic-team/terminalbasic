@@ -70,6 +70,7 @@ public:
 	 * @return error code
 	 */
 	ErrorCodes getError() const { return _error; }
+	FunctionBlock *firstFB() { return _firstFB; }
 private:
 	/**
 	 * Parser mode: syntax check or execute commands of the interpreter

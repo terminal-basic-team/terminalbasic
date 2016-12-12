@@ -83,11 +83,15 @@ public:
 
 	Program(uint16_t=PROGRAMSIZE);
 	/**
-	 * Clear program memory
+	 * @brief Clear program memory
 	 */
 	void newProg();
-
-	void reset();
+	/**
+	 * @brief reset program 
+	 */
+	void reset(size_t=0);
+	
+	size_t size() const;
 
 	String *getString();
 
