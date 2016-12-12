@@ -55,14 +55,20 @@ public:
 	{
 		if (_a == NO_ATTR)
 			return;
-		if ((uint8_t(a) & uint8_t(BOLD)) != uint8_t(NO_ATTR)) {
+		if ((uint8_t(a) & uint8_t(BRIGHT)) != uint8_t(NO_ATTR))
 			_i._output.print("\x1B[1m");
-		}
-		if ((uint8_t(a) & uint8_t(UNDERLINE)) != uint8_t(NO_ATTR)) {
+		if ((uint8_t(a) & uint8_t(UNDERSCORE)) != uint8_t(NO_ATTR))
 			_i._output.print("\x1B[4m");
-		}
-		if ((uint8_t(a) & uint8_t(DIM)) != uint8_t(NO_ATTR))
-			_i._output.print("\x1B[2m");
+		if ((uint8_t(a) & uint8_t(REVERSE)) != uint8_t(NO_ATTR))
+			_i._output.print("\x1B[7m");
+		if ((uint8_t(a) & 0xF0) == C_YELLOW)
+			_i._output.print("\x1B[33m");
+		else if ((uint8_t(a) & 0xF0) == C_GREEN)
+			_i._output.print("\x1B[32m");
+		else if ((uint8_t(a) & 0xF0) == C_RED)
+			_i._output.print("\x1B[31m");
+		else if ((uint8_t(a) & 0xF0) == C_BLUE)
+			_i._output.print("\x1B[34m");
 	}
 
 	~AttrKeeper()
@@ -74,13 +80,6 @@ public:
 private:
 	Interpreter &_i;
 	TextAttr _a;
-};
-
-enum Interpreter::ProgMemStrings : uint8_t
-{
-	S_STATIC = 0, DYNAMIC, ERROR, SEMANTIC, READY, BYTES,
-	AVAILABLE, ucBASIC, S_VERSION, S_END, S_TEXT, S_OF, S_VARS, S_ARRAYS,
-	S_STACK, NUM_STRINGS
 };
 
 static const char strStatic[] PROGMEM = "STATIC";
@@ -98,6 +97,7 @@ static const char strOF[] PROGMEM = "OF";
 static const char strVARS[] PROGMEM = "VARS";
 static const char strARRAYS[] PROGMEM = "ARRAYS";
 static const char strSTACK[] PROGMEM = "STACK";
+static const char strDIR[] PROGMEM = "DIR";
 
 PGM_P const Interpreter::_progmemStrings[NUM_STRINGS] PROGMEM = {
 	strStatic, // STATIC
@@ -114,7 +114,8 @@ PGM_P const Interpreter::_progmemStrings[NUM_STRINGS] PROGMEM = {
 	strOF, // OF
 	strVARS, // VARS
 	strARRAYS, // ARRAYS
-	strSTACK // STACK
+	strSTACK, // STACK
+	strDIR	// DIR
 };
 
 #define ESTRING(en) (_progmemStrings[en])
@@ -195,10 +196,11 @@ Interpreter::Interpreter(Stream &stream, Print &output, Program &program, Functi
 void
 Interpreter::init()
 {
-	print(ucBASIC, BOLD);
+	_parser.firstFB()->init();
+	print(ucBASIC, BRIGHT);
 
-	print(S_VERSION), print(VERSION, BOLD), newline();
-	print(_program.programSize - _program._arraysEnd, BOLD);
+	print(S_VERSION), print(VERSION, BRIGHT), newline();
+	print(_program.programSize - _program._arraysEnd, BRIGHT);
 	print(BYTES), print(AVAILABLE), newline();
 	//_stream.print("\x1B[c");
 }
@@ -212,7 +214,7 @@ Interpreter::step()
 		// waiting for user input command or program line
 	case SHELL:
 	{
-		print(READY, BOLD);
+		print(READY, BRIGHT);
 		newline();
 	}
 		// fall through
@@ -321,12 +323,17 @@ Interpreter::list(uint16_t start, uint16_t stop)
 		if (stop > 0 && s->number > stop)
 			break;
 		
-		{
-			AttrKeeper a(*this, BOLD);
-			_output.print(s->number);
+		print(s->number, C_YELLOW);
+		
+		Lexer lex;
+		lex.init(s->text);
+		while (lex.getNext()) {
+			print(lex);
+			if (lex.getToken() == KW_REM) {
+				print(s->text+lex.getPointer());
+				break;
+			}
 		}
-			
-		print(s->text);
 		newline();
 	}
 }
@@ -446,9 +453,37 @@ Interpreter::print(Real number)
 }
 
 void
+Interpreter::print(Lexer &l)
+{
+	Token t = l.getToken();
+	if (t <= RPAREN) {
+		char buf[12];
+		strcpy_P(buf, (PGM_P) pgm_read_word(&(Lexer::tokenStrings[t])));
+
+		print(buf, C_GREEN);
+	} else {
+		switch (t) {
+		case C_INTEGER:
+		case C_REAL:
+			print(l.getValue()); break;
+		case C_STRING:
+		{
+			AttrKeeper a(*this, C_RED);
+			_stream.write("\"");
+			_stream.print(l.id());
+			_stream.write("\" ");
+		} break;
+		case REAL_IDENT:
+		case INTEGER_IDENT:
+			print(l.id(), C_BLUE); break;
+		}
+	}
+}
+
+void
 Interpreter::run()
 {
-	_program.reset();
+	_program.reset(_program._textEnd);
 	_state = EXECUTE;
 }
 
@@ -524,6 +559,20 @@ Interpreter::popValue(Parser::Value &v)
 	Program::StackFrame *f = _program.stackFrameByIndex(_program._sp);
 	if ((f != NULL) && (f->_type == Program::StackFrame::VALUE)) {
 		v = f->body.value;
+		_program.pop();
+		return true;
+	} else {
+		raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
+		return false;
+	}
+}
+
+bool
+Interpreter::popString(const char *&str)
+{
+	Program::StackFrame *f = _program.stackFrameByIndex(_program._sp);
+	if ((f != NULL) && (f->_type == Program::StackFrame::STRING)) {
+		str = f->body.string;
 		_program.pop();
 		return true;
 	} else {
@@ -759,15 +808,15 @@ Interpreter::raiseError(ErrorType type, uint8_t errorCode)
 {
 	char buf[16];
 	if (type == DYNAMIC_ERROR)
-		strcpy_P(buf, (PGM_P) pgm_read_word(&(ESTRING(DYNAMIC))));
+		strcpy_P(buf, (PGM_P) pgm_read_word(&(ESTRING(S_DYNAMIC))));
 	else // STATIC_ERROR
 		strcpy_P(buf, (PGM_P) pgm_read_word(&(ESTRING(S_STATIC))));
 	_output.print(buf);
 	_output.print(' ');
-	strcpy_P(buf, (PGM_P) pgm_read_word(&(ESTRING(SEMANTIC))));
+	strcpy_P(buf, (PGM_P) pgm_read_word(&(ESTRING(S_SEMANTIC))));
 	_output.print(buf);
 	_output.print(' ');
-	strcpy_P(buf, (PGM_P) pgm_read_word(&(ESTRING(ERROR))));
+	strcpy_P(buf, (PGM_P) pgm_read_word(&(ESTRING(S_ERROR))));
 	_output.print(buf);
 	_output.print(':');
 	if (type == DYNAMIC_ERROR) {

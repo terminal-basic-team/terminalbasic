@@ -183,12 +183,34 @@ public:
 	enum TextAttr : uint8_t
 	{
 		NO_ATTR = 0,
-		BOLD = 0x1,
-		UNDERLINE = 0x2,
-		DIM = 0x4
+		BRIGHT = 0x1,
+		UNDERSCORE = 0x2,
+		BLINK = 0x4,
+		REVERSE = 0x8,
+		C_WHITE = 0x00,
+		C_BLACK = 0x10,
+		C_RED = 0x20,
+		C_GREEN = 0x30,
+		C_YELLOW = 0x40,
+		C_BLUE = 0x50,
+		C_MAGENTA = 0x60,
+		C_CYAN = 0x70,
+		CB_BLACK = 0x80,
+		CB_RED = 0x90,
+		CB_GREEN = 0xA0,
+		CB_YELLOW = 0xB0,
+		CB_BLUE = 0xC0,
+		CB_MAGENTA = 0xD0,
+		CB_CYAN = 0xE0,
+		CB_WHITE = 0xF0,
 	};
-	enum ProgMemStrings : uint8_t;
 	
+	enum ProgMemStrings : uint8_t
+	{
+		S_STATIC = 0, S_DYNAMIC, S_ERROR, S_SEMANTIC, READY, BYTES,
+		AVAILABLE, ucBASIC, S_VERSION, S_END, S_TEXT, S_OF, S_VARS,
+		S_ARRAYS, S_STACK, S_DIR, NUM_STRINGS
+	};
 	/**
 	 * @brief constructor
 	 * @param stream Boundary object for I/O
@@ -216,6 +238,9 @@ public:
 	void newline();
 	void print(char);
 	void print(Real);
+	void print(Integer, TextAttr=NO_ATTR);
+	void print(ProgMemStrings, TextAttr=NO_ATTR);
+	void print(const char *, TextAttr=NO_ATTR);
 	// run program
 	void run();
 	// goto new line
@@ -234,6 +259,7 @@ public:
 	    const Parser::Value&);
 	void pushValue(const Parser::Value&);
 	bool popValue(Parser::Value&);
+	bool popString(const char*&);
 	/**
 	 * @brief iterate over loop
 	 * @param varName loop variable name
@@ -308,11 +334,7 @@ public:
 	Program &_program;
 private:
 	class AttrKeeper;
-	
-	void print(const char *, TextAttr=NO_ATTR);
-	void print(ProgMemStrings, TextAttr=NO_ATTR);
-	void print(Integer, TextAttr=NO_ATTR);
-
+	void print(Lexer&);
 	void raiseError(ErrorType, uint8_t=0);
 	/**
 	 * @brief read and buffer one symbol

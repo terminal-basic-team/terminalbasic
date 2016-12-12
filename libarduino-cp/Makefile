@@ -9,14 +9,15 @@ RANLIB=${TOOLS}/${TOOLS_PREFIX}gcc-ranlib
 LIB_SOURCES=${ARDUINO_PATH}/hardware/arduino/avr
 MAIN_LIB=${LIB_SOURCES}/cores/arduino
 
-COMPILE_OPTS=-mmcu=atmega2560 -Os -Wall -flto -ffunction-sections -fdata-sections -MMD -MP -MF
-C_COMPILE_OPTS=${COMPILE_OPTS} -std=gnu11
-CXX_COMPILE_OPTS=${COMPILE_OPTS} -fno-rtti -fno-exceptions -fno-threadsafe-statics -std=gnu++11
+COMPILE_OPTS=-mmcu=atmega128a -Os -Wall -Wextra -ffunction-sections -fdata-sections -MMD -MP -MF
+C_COMPILE_OPTS=$(COMPILE_OPTS) -std=gnu11
+CXX_COMPILE_OPTS=$(COMPILE_OPTS) -fno-rtti -fpermissive -fno-exceptions -fno-threadsafe-statics -std=gnu++11
 
-DEFINES=-DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L
-INCLUDES=-I${MAIN_LIB} -I${LIB_SOURCES}/variants/mega
-CFLAGS=${DEFINES} ${INCLUDES} ${COMPILE_OPTS}
-CXXFLAGS=${DEFINES} ${INCLUDES} ${CXX_COMPILE_OPTS}
+DEFINES=-DARDUINO=10612 -DARDUINO_ARCH_AVR -DF_CPU=8000000L
+#-DARDUINO_AVR_MEGA2560
+INCLUDES=-I$(MAIN_LIB) -I$(LIB_SOURCES)/variants/atmega64_128
+CFLAGS=$(DEFINES) $(INCLUDES) $(C_COMPILE_OPTS)
+CXXFLAGS=$(DEFINES) $(INCLUDES) $(CXX_COMPILE_OPTS)
 
 OBJDIR=obj
 OBJECTS=${OBJDIR}/CDC.cpp.o \
@@ -49,19 +50,22 @@ all: dirs ${OBJECTS}
 	${AR} -rv libarduino.a ${OBJECTS}
 	${RANLIB} libarduino.a
 
+app: all entry.cpp
+	$(CXX) $(CXXFLAGS) -c -o entry.cpp.o -include Arduino.h entry.cpp
+	$(CXX) $(CXXFLAGS) -fuse-linker-plugin -mrelax -Wl,--gc-sections entry.cpp.o libarduino.a -mmcu=atmega128a
+
 dirs:
-	mkdir ${OBJDIR}
+	mkdir -p ${OBJDIR}
 
 ${OBJDIR}/%.cpp.o : ${MAIN_LIB}/%.cpp
-	${CXX} ${CXXFLAGS} -c -o $@ $<
+	${CXX} $(CXXFLAGS) -c -o $@ $<
 
-${OBJDIR}/%.c.o: ${MAIN_LIB}/%.c
-	${CC} ${CFLAGS} -c -o $@ $<
+${OBJDIR}/%.c.o : ${MAIN_LIB}/%.c
+	${CC} $(CFLAGS) -c -o $@ $<
 
-${OBJDIR}/%.s.o: ${MAIN_LIB}/%.S
-	${CC} ${CFLAGS} -c -x assembler-with-cpp -o $@ $<
+${OBJDIR}/%.s.o : ${MAIN_LIB}/%.S
+	${CC} $(CFLAGS) -c -x assembler-with-cpp -o $@ $<
 
 clean:
-	rm -rf ${OBJECTS}
 	rm -rf ${OBJDIR}
 	rm -rf libarduino.a

@@ -78,7 +78,6 @@
 namespace BASIC
 {
 
-#if ARDUINO_LOG
 const char sNOTOKENS[] PROGMEM = "NOTOKENS";
 
 const char sCLS[] PROGMEM = "CLS";
@@ -109,14 +108,6 @@ const char sTO[] PROGMEM = "TO";
 const char sSTEP[] PROGMEM = "STEP";
 const char sVARS[] PROGMEM = "VARS";
 
-const char sREAL_IDENT[] PROGMEM = "REAL_IDENT";
-const char sINTEGER_IDENT[] PROGMEM = "INTEGER_IDENT";
-const char sSTRING_IDENT[] PROGMEM = "STRING_IDENT";
-
-const char sINTEGER[] PROGMEM = "C_INTEGER";
-const char sREAL[] PROGMEM = "C_REAL";
-const char sSTRING[] PROGMEM = "C_STRING";
-
 const char sSTAR[] PROGMEM = "*";
 const char sSLASH[] PROGMEM = "/";
 const char sPLUS[] PROGMEM = "+";
@@ -133,6 +124,14 @@ const char sNEA[] PROGMEM = "><";
 const char sCOMMA[] PROGMEM = ",";
 const char sPOW[] PROGMEM = "^";
 
+const char sREAL_IDENT[] PROGMEM = "REAL_IDENT";
+const char sINTEGER_IDENT[] PROGMEM = "INTEGER_IDENT";
+const char sSTRING_IDENT[] PROGMEM = "STRING_IDENT";
+
+const char sINTEGER[] PROGMEM = "C_INTEGER";
+const char sREAL[] PROGMEM = "C_REAL";
+const char sSTRING[] PROGMEM = "C_STRING";
+
 PGM_P const Lexer::tokenStrings[NUM_TOKENS] PROGMEM = {
 	sNOTOKENS,
 	
@@ -142,10 +141,6 @@ PGM_P const Lexer::tokenStrings[NUM_TOKENS] PROGMEM = {
 	sPRINT,	sREM,	sRETURN,
 	
 	sARRAYS,sTHEN,	sTO,	sSTEP,	sVARS,
-	
-	sREAL_IDENT,	sINTEGER_IDENT,	sSTRING_IDENT,
-	
-	sINTEGER,	sREAL,	sSTRING,
 	
 	sSTAR,	sSLASH,	sPLUS,	sMINUS,
 	
@@ -160,12 +155,17 @@ PGM_P const Lexer::tokenStrings[NUM_TOKENS] PROGMEM = {
 	sNEA,
 	sCOLON,
 	sPOW,
+	
+	sREAL_IDENT,	sINTEGER_IDENT,	sSTRING_IDENT,
+	
+	sINTEGER,	sREAL,	sSTRING
 };
 
+#if ARDUINO_LOG
 Logger&
 operator<<(Logger &logger, Token tok)
 {
-	char buf[8];
+	char buf[12];
 	strcpy_P(buf, (PGM_P) pgm_read_word(&(Lexer::tokenStrings[tok])));
 
 	logger.log(buf);

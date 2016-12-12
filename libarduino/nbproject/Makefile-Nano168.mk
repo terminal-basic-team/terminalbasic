@@ -59,7 +59,13 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/f54da836/wiring_digital.o \
 	${OBJECTDIR}/_ext/f54da836/wiring_pulse.o \
 	${OBJECTDIR}/_ext/f54da836/wiring_shift.o \
+	${OBJECTDIR}/_ext/3574db54/SPI.o \
 	${OBJECTDIR}/_ext/d883fa1d/SoftwareSerial.o \
+	${OBJECTDIR}/_ext/cfe35f45/File.o \
+	${OBJECTDIR}/_ext/cfe35f45/SD.o \
+	${OBJECTDIR}/_ext/a40318a2/Sd2Card.o \
+	${OBJECTDIR}/_ext/a40318a2/SdFile.o \
+	${OBJECTDIR}/_ext/a40318a2/SdVolume.o \
 	${OBJECTDIR}/_ext/58edad8c/DefaultFonts.o \
 	${OBJECTDIR}/_ext/58edad8c/UTFT.o \
 	${OBJECTDIR}/_wiring_pulse.o
@@ -211,10 +217,40 @@ ${OBJECTDIR}/_ext/f54da836/wiring_shift.o: /opt/arduino-1.6.12/hardware/arduino/
 	${RM} "$@.d"
 	$(COMPILE.c) -g -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_NANO -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/eightanaloginputs -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f54da836/wiring_shift.o /opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino/wiring_shift.c
 
+${OBJECTDIR}/_ext/3574db54/SPI.o: /opt/arduino-1.6.12/hardware/arduino/avr/libraries/SPI/src/SPI.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/_ext/3574db54
+	${RM} "$@.d"
+	$(COMPILE.cc) -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_NANO -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/eightanaloginputs -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3574db54/SPI.o /opt/arduino-1.6.12/hardware/arduino/avr/libraries/SPI/src/SPI.cpp
+
 ${OBJECTDIR}/_ext/d883fa1d/SoftwareSerial.o: /opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src/SoftwareSerial.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/_ext/d883fa1d
 	${RM} "$@.d"
 	$(COMPILE.cc) -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_NANO -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/eightanaloginputs -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/d883fa1d/SoftwareSerial.o /opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src/SoftwareSerial.cpp
+
+${OBJECTDIR}/_ext/cfe35f45/File.o: /opt/arduino-1.6.12/libraries/SD/src/File.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/_ext/cfe35f45
+	${RM} "$@.d"
+	$(COMPILE.cc) -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_NANO -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/eightanaloginputs -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/cfe35f45/File.o /opt/arduino-1.6.12/libraries/SD/src/File.cpp
+
+${OBJECTDIR}/_ext/cfe35f45/SD.o: /opt/arduino-1.6.12/libraries/SD/src/SD.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/_ext/cfe35f45
+	${RM} "$@.d"
+	$(COMPILE.cc) -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_NANO -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/eightanaloginputs -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/cfe35f45/SD.o /opt/arduino-1.6.12/libraries/SD/src/SD.cpp
+
+${OBJECTDIR}/_ext/a40318a2/Sd2Card.o: /opt/arduino-1.6.12/libraries/SD/src/utility/Sd2Card.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/_ext/a40318a2
+	${RM} "$@.d"
+	$(COMPILE.cc) -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_NANO -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/eightanaloginputs -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/a40318a2/Sd2Card.o /opt/arduino-1.6.12/libraries/SD/src/utility/Sd2Card.cpp
+
+${OBJECTDIR}/_ext/a40318a2/SdFile.o: /opt/arduino-1.6.12/libraries/SD/src/utility/SdFile.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/_ext/a40318a2
+	${RM} "$@.d"
+	$(COMPILE.cc) -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_NANO -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/eightanaloginputs -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/a40318a2/SdFile.o /opt/arduino-1.6.12/libraries/SD/src/utility/SdFile.cpp
+
+${OBJECTDIR}/_ext/a40318a2/SdVolume.o: /opt/arduino-1.6.12/libraries/SD/src/utility/SdVolume.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/_ext/a40318a2
+	${RM} "$@.d"
+	$(COMPILE.cc) -Wall -DARDUINO=10612 -DARDUINO_ARCH_AVR -DARDUINO_AVR_NANO -DF_CPU=16000000L -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.12/hardware/arduino/avr/variants/eightanaloginputs -I/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/a40318a2/SdVolume.o /opt/arduino-1.6.12/libraries/SD/src/utility/SdVolume.cpp
 
 ${OBJECTDIR}/_ext/58edad8c/DefaultFonts.o: /opt/arduino-1.6.12/libraries/UTFT/DefaultFonts.c nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/_ext/58edad8c

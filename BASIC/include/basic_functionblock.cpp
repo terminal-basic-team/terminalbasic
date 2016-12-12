@@ -29,6 +29,14 @@ FunctionBlock::FunctionBlock(FunctionBlock *next) :
 {
 }
 
+void
+FunctionBlock::init()
+{
+	this->_init();
+	if (_next != NULL)
+		_next->init();
+}
+
 FunctionBlock::function
 FunctionBlock::getFunction(const char *name) const
 {
@@ -36,6 +44,16 @@ FunctionBlock::getFunction(const char *name) const
 	if (((result = _getFunction(name)) == NULL) &&
 	    _next != NULL)
 		result = _next->getFunction(name);
+	return result;
+}
+
+FunctionBlock::command
+FunctionBlock::getCommand(const char *name) const
+{
+	command result;
+	if (((result = _getCommand(name)) == NULL) &&
+	    _next != NULL)
+		result = _next->getCommand(name);
 	return result;
 }
 
