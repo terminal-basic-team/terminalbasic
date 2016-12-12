@@ -160,7 +160,6 @@ UTFTTerminal::redraw()
 		}
 	}
 	addAttr(a);
-	Serial.print(" "), Serial.println(int(_attributes));
 }
 
 void
