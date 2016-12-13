@@ -47,8 +47,102 @@ const size_t PROGRAMSIZE = 8192;
 const uint8_t VARSIZE = 8; 
 // integer type
 typedef int16_t Integer;
+// long integer type
+typedef int32_t LongInteger;
 // floating point type
 typedef float Real;
+/**
+ * @brief lexical tokens
+ */
+enum class Token : uint8_t
+{
+	NOTOKENS = 0,
+	
+	// Commands
+	COM_CLS,
+	COM_DATA,
+	COM_DUMP,
+	COM_LIST,
+	COM_LOAD,
+	COM_NEW,
+	COM_RUN,
+	COM_SAVE,
+	
+	// Statements
+	KW_DIM,
+	KW_END,
+	KW_FOR,
+	KW_GO,
+	KW_GOSUB,
+	KW_GOTO,
+	KW_IF,
+	KW_INPUT,
+	KW_LET,
+	KW_NEXT,
+	KW_PRINT,
+	KW_REM,
+	KW_RETURN,
+	// other keywords
+	KW_ARRAYS,
+	KW_FALSE,
+	KW_THEN,
+	KW_TO,
+	KW_TRUE,
+	KW_STEP,
+	KW_VARS,
+
+	// *
+	STAR,
+	// /
+	SLASH,
+	// +
+	PLUS,
+	// -
+	MINUS,
+	// =
+	EQUALS,
+	// :
+	COLON,
+	// ;
+	SEMI,
+	// <
+	LT,
+	// >
+	GT,
+	// <=
+	LTE,
+	// >=
+	GTE,
+	// <>
+	NE,
+	//  ><
+	NEA,
+	// ,
+	COMMA,
+	// ^
+	POW,
+	// (
+	LPAREN,
+	// )
+	RPAREN,
+	
+	OP_AND,
+	OP_OR,
+	OP_NOT,
+	
+	REAL_IDENT,
+	INTEGER_IDENT,
+	LONGINT_IDENT,
+	STRING_IDENT,
+	BOOL_IDENT,
+	
+	C_INTEGER,
+	C_REAL,
+	C_STRING,
+	C_BOOLEAN,
+	    
+	NUM_TOKENS
+};
 
 }
 

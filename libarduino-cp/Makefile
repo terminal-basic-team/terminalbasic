@@ -52,6 +52,7 @@ all: dirs ${OBJECTS}
 
 app: all entry.cpp
 	$(CXX) $(CXXFLAGS) -c -o entry.cpp.o -include Arduino.h entry.cpp
+	$(CXX) $(CXXFLAGS) -O3 -S -o entry.cpp.s -include Arduino.h entry.cpp
 	$(CXX) $(CXXFLAGS) -fuse-linker-plugin -mrelax -Wl,--gc-sections entry.cpp.o libarduino.a -mmcu=atmega128a
 
 dirs:

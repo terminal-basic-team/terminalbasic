@@ -43,10 +43,10 @@ public:
 	 */
 	enum Type : uint8_t
 	{
-		INTEGER = 0,
-		REAL,
-		BOOLEAN,
-		STRING
+		VF_INTEGER = 0,
+		VF_REAL,
+		VF_BOOLEAN,
+		VF_STRING
 	};
 	
 	/**
@@ -208,7 +208,7 @@ public:
 	enum ProgMemStrings : uint8_t
 	{
 		S_STATIC = 0, S_DYNAMIC, S_ERROR, S_SEMANTIC, READY, BYTES,
-		AVAILABLE, ucBASIC, S_VERSION, S_END, S_TEXT, S_OF, S_VARS,
+		AVAILABLE, ucBASIC, S_VERSION, S_TEXT, S_OF, S_VARS,
 		S_ARRAYS, S_STACK, S_DIR, NUM_STRINGS
 	};
 	/**
@@ -233,14 +233,17 @@ public:
 	void list(uint16_t=1, uint16_t=0);
 	// Dump program memory
 	void dump(DumpMode);
-	// print value
-	void print(const Parser::Value&, TextAttr=NO_ATTR);
+	
 	void newline();
 	void print(char);
 	void print(Real);
 	void print(Integer, TextAttr=NO_ATTR);
 	void print(ProgMemStrings, TextAttr=NO_ATTR);
+	void print(Token);
 	void print(const char *, TextAttr=NO_ATTR);
+	// print value
+	void print(const Parser::Value&, TextAttr=NO_ATTR);
+	
 	// run program
 	void run();
 	// goto new line

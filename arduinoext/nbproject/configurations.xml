@@ -15,6 +15,7 @@
       <itemPath>include/protocol.hpp</itemPath>
       <itemPath>include/protocol_arduino.hpp</itemPath>
       <itemPath>include/ringbuffer.hpp</itemPath>
+      <itemPath>include/uart305.hpp</itemPath>
       <itemPath>include/utft_stream.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="src" displayName="src" projectFiles="true">
@@ -145,6 +146,8 @@
       </item>
       <item path="include/ringbuffer.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/uart305.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/cps_mosprotocol.cpp" ex="false" tool="1" flavor2="0">
@@ -257,6 +260,8 @@
       <item path="include/protocol_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/ringbuffer.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/uart305.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -373,6 +378,8 @@
       </item>
       <item path="include/ringbuffer.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/uart305.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/cps_mosprotocol.cpp" ex="false" tool="1" flavor2="8">
@@ -488,6 +495,8 @@
       <item path="include/protocol_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/ringbuffer.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/uart305.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/utft_stream.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -606,6 +615,8 @@
       </item>
       <item path="include/ringbuffer.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/uart305.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/cps_mosprotocol.cpp" ex="false" tool="1" flavor2="8">
@@ -712,6 +723,8 @@
       <item path="include/protocol_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/ringbuffer.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/uart305.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
       </item>

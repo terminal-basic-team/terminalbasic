@@ -22,6 +22,7 @@
 #include <assert.h>
 
 #include <EEPROM.h>
+#include <stdbool.h>
 
 #include "helper.hpp"
 
@@ -91,7 +92,6 @@ static const char strBytes[] PROGMEM = "BYTES";
 static const char strAvailable[] PROGMEM = "AVAILABLE";
 static const char strucBASIC[] PROGMEM = "ucBASIC";
 static const char strVERSION[] PROGMEM = "VERSION";
-static const char strEND[] PROGMEM = "END";
 static const char strTEXT[] PROGMEM = "TEXT";
 static const char strOF[] PROGMEM = "OF";
 static const char strVARS[] PROGMEM = "VARS";
@@ -109,7 +109,6 @@ PGM_P const Interpreter::_progmemStrings[NUM_STRINGS] PROGMEM = {
 	strAvailable, // AVAILABLE
 	strucBASIC, // ucBASIC
 	strVERSION, // VERSION
-	strEND, // END
 	strTEXT, // TEXT
 	strOF, // OF
 	strVARS, // VARS
@@ -128,19 +127,16 @@ Interpreter::valueFromVar(Parser::Value &v, const char *varName)
 		return;
 
 	switch (f->type) {
-	case INTEGER:
-		v.type = Parser::Value::INTEGER;
-		v.value.integer = f->get<Integer>();
+	case VF_INTEGER:
+		v = f->get<Integer>();
 		break;
-	case REAL:
-		v.type = Parser::Value::REAL;
-		v.value.real = f->get<Real>();
+	case VF_REAL:
+		v = f->get<Real>();
 		break;
-	case BOOLEAN:
-		v.type = Parser::Value::BOOLEAN;
-		v.value.boolean = f->get<bool>();
+	case VF_BOOLEAN:
+		v = f->get<bool>();
 		break;
-	case STRING:
+	case VF_STRING:
 	{
 		v.type = Parser::Value::STRING;
 		Program::StackFrame *fr =
@@ -171,11 +167,15 @@ Interpreter::valueFromArray(Parser::Value &v, const char *name)
 	}
 
 	switch (f->type) {
-	case INTEGER:
+	case VF_BOOLEAN:
+		v.type = Parser::Value::BOOLEAN;
+		v.value.boolean = f->get<bool>(index);
+		break;
+	case VF_INTEGER:
 		v.type = Parser::Value::INTEGER;
 		v.value.integer = f->get<Integer>(index);
 		break;
-	case REAL:
+	case VF_REAL:
 		v.type = Parser::Value::REAL;
 		v.value.real = f->get<Real>(index);
 		break;
@@ -255,7 +255,7 @@ void
 Interpreter::exec()
 {
 	_lexer.init(_inputBuffer);
-	if (_lexer.getNext() && (_lexer.getToken() == C_INTEGER) &&
+	if (_lexer.getNext() && (_lexer.getToken() == Token::C_INTEGER) &&
 	    (_lexer.getValue().type == Parser::Value::INTEGER)) {
 		if (!_program.addLine(_lexer.getValue().value.integer,
 		    _inputBuffer + _lexer.getPointer())) {
@@ -287,17 +287,17 @@ Interpreter::doInput()
 n:
 	if (l.getNext()) {
 		switch (l.getToken()) {
-		case MINUS:
+		case Token::MINUS:
 			neg = true;
 			goto n;
-		case PLUS:
+		case Token::PLUS:
 			neg = false;
 			goto n;
-		case C_INTEGER:
-		case C_REAL:
+		case Token::C_INTEGER:
+		case Token::C_REAL:
 			v = l.getValue();
 			break;
-		case C_STRING:
+		case Token::C_STRING:
 		{
 			v = l.getValue();
 			pushString(l.id());
@@ -329,7 +329,7 @@ Interpreter::list(uint16_t start, uint16_t stop)
 		lex.init(s->text);
 		while (lex.getNext()) {
 			print(lex);
-			if (lex.getToken() == KW_REM) {
+			if (lex.getToken() == Token::KW_REM) {
 				print(s->text+lex.getPointer());
 				break;
 			}
@@ -346,11 +346,11 @@ Interpreter::dump(DumpMode mode)
 	{
 		ByteArray ba((uint8_t*) _program._text, _program.programSize);
 		_stream.println(ba);
-		print(S_END), print(S_OF), print(S_TEXT), _stream.print('\t');
+		print(Token::KW_END), print(S_OF), print(S_TEXT), _stream.print('\t');
 		_stream.println(unsigned(_program._textEnd), HEX);
-		print(S_END), print(S_OF), print(S_VARS), _stream.print('\t');
+		print(Token::KW_END), print(S_OF), print(S_VARS), _stream.print('\t');
 		_stream.println(unsigned(_program._variablesEnd), HEX);
-		print(S_END), print(S_OF), print(S_ARRAYS), _stream.print('\t');
+		print(Token::KW_END), print(S_OF), print(S_ARRAYS), _stream.print('\t');
 		_stream.println(unsigned(_program._arraysEnd), HEX);
 		print(S_STACK), _stream.print('\t');
 		_stream.println(unsigned(_program._sp), HEX);
@@ -400,7 +400,10 @@ Interpreter::print(const Parser::Value &v, TextAttr attr)
 
 	switch (v.type) {
 	case Parser::Value::BOOLEAN:
-		_output.print(v.value.boolean);
+		if (v.value.boolean)
+			print(Token::KW_TRUE);
+		else
+			print(Token::KW_FALSE);
 		break;
 	case Parser::Value::REAL:
 		this->print(v.value.real);
@@ -456,28 +459,25 @@ void
 Interpreter::print(Lexer &l)
 {
 	Token t = l.getToken();
-	if (t <= RPAREN) {
-		char buf[12];
-		strcpy_P(buf, (PGM_P) pgm_read_word(&(Lexer::tokenStrings[t])));
-		if ( t <= KW_VARS)
-			print(buf, TextAttr(uint8_t(BRIGHT) | uint8_t(C_GREEN)));
-		else
-			print(buf);
-	} else {
+	if (t <= Token::RPAREN)
+		print(t);
+	else {
 		switch (t) {
-		case C_INTEGER:
-		case C_REAL:
+		case Token::C_INTEGER:
+		case Token::C_REAL:
 			print(l.getValue()); break;
-		case C_STRING:
+		case Token::C_STRING:
 		{
 			AttrKeeper a(*this, C_RED);
 			_stream.write("\"");
 			_stream.print(l.id());
 			_stream.write("\" ");
 		} break;
-		case REAL_IDENT:
-		case INTEGER_IDENT:
+		case Token::REAL_IDENT:
+		case Token::INTEGER_IDENT:
 			print(l.id(), C_BLUE); break;
+		default:
+			print('?');
 		}
 	}
 }
@@ -672,9 +672,19 @@ void
 Interpreter::set(VariableFrame &f, const Parser::Value &v)
 {
 	switch (f.type) {
-	case INTEGER:
+	case VF_BOOLEAN:
 	{
-
+		union
+		{
+			char *b;
+			bool *i;
+		} _U;
+		_U.b = f.bytes;
+		*_U.i = bool(v);
+	}
+		break;
+	case VF_INTEGER:
+	{
 		union
 		{
 			char *b;
@@ -684,9 +694,8 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 		*_U.i = Integer(v);
 	}
 		break;
-	case REAL:
+	case VF_REAL:
 	{
-
 		union
 		{
 			char *b;
@@ -696,10 +705,9 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 		*_U.r = Real(v);
 	}
 		break;
-	case STRING:
+	case VF_STRING:
 	{
-		Program::StackFrame *fr =
-		    _program.stackFrameByIndex(_program._sp);
+		Program::StackFrame *fr = _program.currentStackFrame();
 		if (fr == NULL || fr->_type != Program::StackFrame::STRING) {
 			raiseError(DYNAMIC_ERROR, STRING_FRAME_SEARCH);
 			return;
@@ -717,9 +725,19 @@ void
 Interpreter::set(ArrayFrame &f, uint16_t index, const Parser::Value &v)
 {
 	switch (f.type) {
-	case INTEGER:
+	case VF_BOOLEAN:
 	{
-
+		union
+		{
+			uint8_t *b;
+			bool *i;
+		} _U;
+		_U.b = f.data();
+		_U.i[index] = bool(v);
+	}
+		break;
+	case VF_INTEGER:
+	{
 		union
 		{
 			uint8_t *b;
@@ -729,9 +747,8 @@ Interpreter::set(ArrayFrame &f, uint16_t index, const Parser::Value &v)
 		_U.i[index] = Integer(v);
 	}
 		break;
-	case REAL:
+	case VF_REAL:
 	{
-
 		union
 		{
 			uint8_t *b;
@@ -795,6 +812,19 @@ Interpreter::print(ProgMemStrings index, TextAttr attr)
 	AttrKeeper _a(*this, attr);
 
 	_output.print(buf), _output.print(' ');
+}
+
+void
+Interpreter::print(Token t)
+{
+	char buf[16];
+	strcpy_P(buf, (PGM_P) pgm_read_word(&(Lexer::tokenStrings[
+	    uint8_t(t)])));
+	if ( t <= Token::KW_VARS)
+		print(buf, TextAttr(uint8_t(BRIGHT) |
+		    uint8_t(C_GREEN)));
+	else
+		print(buf);
 }
 
 void
@@ -871,13 +901,16 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 	uint16_t dist = sizeof (VariableFrame);
 	Type t;
 	if (endsWith(name, '%')) {
-		t = INTEGER;
+		t = VF_INTEGER;
 		dist += sizeof (Integer);
+	} else if (endsWith(name, '!')) {
+		t = VF_BOOLEAN;
+		dist += sizeof (bool);
 	} else if (endsWith(name, '$')) {
-		t = STRING;
+		t = VF_STRING;
 		dist += STRINGSIZE;
 	} else {
-		t = REAL;
+		t = VF_REAL;
 		dist += sizeof (Real);
 	}
 	if (_program._arraysEnd >= _program._sp) {
@@ -1032,11 +1065,14 @@ Interpreter::ArrayFrame::size() const
 		mul *= dimension[i] + 1;
 
 	switch (type) {
-	case INTEGER:
+	case VF_INTEGER:
 		mul *= sizeof (Integer);
 		break;
-	case REAL:
+	case VF_REAL:
 		mul *= sizeof (Real);
+		break;
+	case VF_BOOLEAN:
+		mul *= sizeof (bool);
 		break;
 	default:
 		mul = 1;
@@ -1067,10 +1103,13 @@ Interpreter::addArray(const char *name, uint8_t dim,
 
 	Type t;
 	if (endsWith(name, '%')) {
-		t = INTEGER;
+		t = VF_INTEGER;
 		num *= sizeof (Integer);
+	} else if (endsWith(name, '!')) {
+		t = VF_BOOLEAN;
+		num *= sizeof (bool);
 	} else { // real
-		t = REAL;
+		t = VF_REAL;
 		num *= sizeof (Real);
 	}
 	uint16_t dist = sizeof (ArrayFrame) + sizeof (uint16_t) * dim + num;

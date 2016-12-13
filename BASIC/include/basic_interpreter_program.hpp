@@ -42,7 +42,6 @@ public:
 
 	struct CPS_PACKED StackFrame
 	{
-
 		enum Type : uint8_t
 		{
 			SUBPROGRAM_RETURN, FOR_NEXT, STRING, ARRAY_DIMENSION,
@@ -156,7 +155,8 @@ public:
 	char *_text;
 	const uint16_t programSize;
 private:
-	uint16_t _textEnd, _current, _variablesEnd, _arraysEnd, _sp, _jump;
+	size_t _textEnd;
+	size_t _current, _variablesEnd, _arraysEnd, _sp, _jump;
 	bool _jumpFlag;
 	uint8_t _textPosition;
 };

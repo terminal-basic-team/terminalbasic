@@ -92,6 +92,7 @@ const char sSAVE[] PROGMEM = "SAVE";
 const char sDIM[] PROGMEM = "DIM";
 const char sEND[] PROGMEM = "END";
 const char sFOR[] PROGMEM = "FOR";
+const char sGO[] PROGMEM = "GO";
 const char sGOSUB[] PROGMEM = "GOSUB";
 const char sGOTO[] PROGMEM = "GOTO";
 const char sIF[] PROGMEM = "IF";
@@ -103,8 +104,10 @@ const char sREM[] PROGMEM = "REM";
 const char sRETURN[] PROGMEM = "RETURN";
 
 const char sARRAYS[] PROGMEM = "ARRAYS";
+const char sFALSE[] PROGMEM = "FALSE";
 const char sTHEN[] PROGMEM = "THEN";
 const char sTO[] PROGMEM = "TO";
+const char sTRUE[] PROGMEM = "TRUE";
 const char sSTEP[] PROGMEM = "STEP";
 const char sVARS[] PROGMEM = "VARS";
 
@@ -128,21 +131,24 @@ const char sRPAREN[] PROGMEM = ")";
 
 const char sREAL_IDENT[] PROGMEM = "REAL_IDENT";
 const char sINTEGER_IDENT[] PROGMEM = "INTEGER_IDENT";
+const char sLONGINT_IDENT[] PROGMEM = "LONGINT_IDENT";
 const char sSTRING_IDENT[] PROGMEM = "STRING_IDENT";
+const char sBOOL_IDENT[] PROGMEM = "BOOL_IDENT";
 
 const char sINTEGER[] PROGMEM = "C_INTEGER";
 const char sREAL[] PROGMEM = "C_REAL";
 const char sSTRING[] PROGMEM = "C_STRING";
+const char sBOOLEAN[] PROGMEM = "C_BOOLEAN";
 
-PGM_P const Lexer::tokenStrings[NUM_TOKENS] PROGMEM = {
+PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 	sNOTOKENS,
 	
-	sCLS,	sDATA,	sDUMP,	sLIST, sLOAD,	sNEW,	sRUN,	sSAVE,
+	sCLS,	sDATA,	sDUMP,	sLIST,	sLOAD,	sNEW,	sRUN,	sSAVE,
 	
-	sDIM,	sEND,	sFOR,	sGOSUB,	sGOTO,	sIF,	sINPUT,	sLET,	sNEXT,
-	sPRINT,	sREM,	sRETURN,
+	sDIM,	sEND,	sFOR,	sGO,	sGOSUB,	sGOTO,	sIF,	sINPUT,	sLET,
+	sNEXT,	sPRINT,	sREM,	sRETURN,
 	
-	sARRAYS,sTHEN,	sTO,	sSTEP,	sVARS,
+	sARRAYS,sFALSE,	sTHEN,	sTO,	sTRUE,	sSTEP,	sVARS,
 	
 	sSTAR,	sSLASH,	sPLUS,	sMINUS,
 	
@@ -155,9 +161,10 @@ PGM_P const Lexer::tokenStrings[NUM_TOKENS] PROGMEM = {
 	sPOW,
 	sLPAREN, sRPAREN,
 	
-	sREAL_IDENT,	sINTEGER_IDENT,	sSTRING_IDENT,
+	sREAL_IDENT,	sINTEGER_IDENT,	sLONGINT_IDENT,	sSTRING_IDENT,
+	sBOOL_IDENT,
 	
-	sINTEGER,	sREAL,	sSTRING
+	sINTEGER,	sREAL,	sSTRING, sBOOLEAN
 };
 
 #if ARDUINO_LOG
@@ -188,7 +195,7 @@ Lexer::getNext()
 {
 	LOG_TRACE;
 
-	_token = NOTOKENS;
+	_token = Token::NOTOKENS;
 	_valuePointer = 0;
 	while (SYM > 0) {
 		if (isdigit(SYM)) {
@@ -257,19 +264,19 @@ Lexer::getNext()
 				first_V();
 				return true;
 			case '=':
-				_token = EQUALS;
+				_token = Token::EQUALS;
 				next();
 				return true;
 			case ';':
-				_token = SEMI;
+				_token = Token::SEMI;
 				next();
 				return true;
 			case ',':
-				_token = COMMA;
+				_token = Token::COMMA;
 				next();
 				return true;
 			case ':':
-				_token = COLON;
+				_token = Token::COLON;
 				next();
 				return true;
 			case '<':
@@ -279,31 +286,31 @@ Lexer::getNext()
 				fitst_GT();
 				return true;
 			case '(':
-				_token = LPAREN;
+				_token = Token::LPAREN;
 				next();
 				return true;
 			case ')':
-				_token = RPAREN;
+				_token = Token::RPAREN;
 				next();
 				return true;
 			case '+':
-				_token = PLUS;
+				_token = Token::PLUS;
 				next();
 				return true;
 			case '-':
-				_token = MINUS;
+				_token = Token::MINUS;
 				next();
 				return true;
 			case '*':
-				_token = STAR;
+				_token = Token::STAR;
 				next();
 				return true;
 			case '/':
-				_token = SLASH;
+				_token = Token::SLASH;
 				next();
 				return true;
 			case '^':
-				_token = POW;
+				_token = Token::POW;
 				next();
 				return true;
 			case '"':
@@ -355,7 +362,7 @@ Lexer::first_A()
 		switch (SYM) {
 		case 'D':
 			next();
-			_token = OP_AND;
+			_token = Token::OP_AND;
 			return;
 		}
 		break;
@@ -373,7 +380,7 @@ Lexer::first_A()
 					switch (SYM) {
 					case 'S':
 						next();
-						_token = KW_ARRAYS;
+						_token = Token::KW_ARRAYS;
 						return;
 					}
 					break;
@@ -397,7 +404,7 @@ Lexer::first_C()
 		switch (SYM) {
 		case 'S':
 			next();
-			_token = COM_CLS;
+			_token = Token::COM_CLS;
 			return;
 		}
 		break;
@@ -418,7 +425,7 @@ Lexer::first_D()
 			switch (SYM) {
 			case 'A':
 				next();
-				_token = COM_DATA;
+				_token = Token::COM_DATA;
 				return;
 			}
 			break;
@@ -429,7 +436,7 @@ Lexer::first_D()
 		switch (SYM) {
 		case 'M':
 			next();
-			_token = KW_DIM;
+			_token = Token::KW_DIM;
 			return;
 		}
 		break;
@@ -441,7 +448,7 @@ Lexer::first_D()
 			switch (SYM) {
 			case 'P':
 				next();
-				_token = COM_DUMP;
+				_token = Token::COM_DUMP;
 				return;
 			}
 			break;
@@ -461,7 +468,7 @@ Lexer::first_E()
 		switch (SYM) {
 		case 'D':
 			next();
-			_token = KW_END;
+			_token = Token::KW_END;
 			return;
 		}
 		break;
@@ -474,12 +481,31 @@ Lexer::first_F()
 {
 	next();
 	switch (SYM) {
+	case 'A':
+		pushSYM();
+		switch (SYM) {
+		case 'L':
+			pushSYM();
+			switch (SYM) {
+			case 'S':
+				pushSYM();
+				switch (SYM) {
+				case 'E':
+					next();
+					_token = Token::KW_FALSE;
+					return;
+				}
+				break;
+			}
+			break;
+		}
+		break;
 	case 'O':
 		pushSYM();
 		switch (SYM) {
 		case 'R':
 			next();
-			_token = KW_FOR;
+			_token = Token::KW_FOR;
 			return;
 		}
 		break;
@@ -500,7 +526,7 @@ Lexer::first_G()
 			switch (SYM) {
 			case 'O':
 				next();
-				_token = KW_GOTO;
+				_token = Token::KW_GOTO;
 				return;
 			}
 			break;
@@ -512,12 +538,15 @@ Lexer::first_G()
 				switch (SYM) {
 				case 'B':
 					next();
-					_token = KW_GOSUB;
+					_token = Token::KW_GOSUB;
 					return;
 				}
 				break;
 			}
 			break;
+		default:
+			_token = Token::KW_GO;
+			return;
 		}
 		break;
 	}
@@ -531,7 +560,7 @@ Lexer::first_I()
 	switch (SYM) {
 	case 'F':
 		next();
-		_token = KW_IF;
+		_token = Token::KW_IF;
 		return;
 	case 'N':
 		pushSYM();
@@ -544,7 +573,7 @@ Lexer::first_I()
 				switch (SYM) {
 				case 'T':
 					next();
-					_token = KW_INPUT;
+					_token = Token::KW_INPUT;
 					return;
 				}
 			}
@@ -566,7 +595,7 @@ Lexer::first_L()
 			switch (SYM) {
 			case 'T':
 				next();
-				_token = COM_LIST;
+				_token = Token::COM_LIST;
 				return;
 			}
 			break;
@@ -577,7 +606,7 @@ Lexer::first_L()
 		switch (SYM) {
 		case 'T':
 			next();
-			_token = KW_LET;
+			_token = Token::KW_LET;
 			return;
 		}
 		break;
@@ -589,7 +618,7 @@ Lexer::first_L()
 			switch (SYM) {
 			case 'D':
 				next();
-				_token = COM_LOAD;
+				_token = Token::COM_LOAD;
 				return;
 			}
 			break;
@@ -612,13 +641,13 @@ Lexer::first_N()
 			switch (SYM) {
 			case 'T':
 				next();
-				_token = KW_NEXT;
+				_token = Token::KW_NEXT;
 				return;
 			}
 			break;
 		case 'W':
 			next();
-			_token = COM_NEW;
+			_token = Token::COM_NEW;
 			return;
 		}
 	}
@@ -632,7 +661,7 @@ Lexer::first_O()
 	switch (SYM) {
 	case 'R':
 		next();
-		_token = OP_OR;
+		_token = Token::OP_OR;
 		return;
 	}
 	ident();
@@ -654,7 +683,7 @@ Lexer::first_P()
 				switch (SYM) {
 				case 'T':
 					next();
-					_token = KW_PRINT;
+					_token = Token::KW_PRINT;
 					return;
 				}
 			}
@@ -673,7 +702,7 @@ Lexer::first_R()
 		switch (SYM) {
 		case 'M':
 			next();
-			_token = KW_REM;
+			_token = Token::KW_REM;
 			return;
 		case 'T':
 			pushSYM();
@@ -686,7 +715,7 @@ Lexer::first_R()
 					switch (SYM) {
 					case 'N':
 						next();
-						_token = KW_RETURN;
+						_token = Token::KW_RETURN;
 						return;
 					}
 					break;
@@ -701,7 +730,7 @@ Lexer::first_R()
 		switch (SYM) {
 		case 'N':
 			next();
-			_token = COM_RUN;
+			_token = Token::COM_RUN;
 			return;
 		}
 	}
@@ -721,7 +750,7 @@ Lexer::first_S()
 			switch (SYM) {
 			case 'E':
 				next();
-				_token = COM_SAVE;
+				_token = Token::COM_SAVE;
 				return;
 			}
 			break;
@@ -735,7 +764,7 @@ Lexer::first_S()
 			switch (SYM) {
 			case 'P':
 				next();
-				_token = KW_STEP;
+				_token = Token::KW_STEP;
 				return;
 			}
 		}
@@ -756,7 +785,7 @@ Lexer::first_T()
 			switch (SYM) {
 			case 'N':
 				next();
-				_token = KW_THEN;
+				_token = Token::KW_THEN;
 				return;
 			}
 			break;
@@ -764,8 +793,22 @@ Lexer::first_T()
 		break;
 	case 'O':
 		next();
-		_token = KW_TO;
+		_token = Token::KW_TO;
 		return;
+	case 'R':
+		pushSYM();
+		switch (SYM) {
+		case 'U':
+			pushSYM();
+			switch (SYM) {
+			case 'E':
+				next();
+				_token = Token::KW_TRUE;
+				return;
+			}
+			break;
+		}
+		break;
 	}
 	ident();
 }
@@ -783,7 +826,7 @@ Lexer::first_V()
 			switch (SYM) {
 			case 'S':
 				next();
-				_token = KW_VARS;
+				_token = Token::KW_VARS;
 				return;
 			}
 			break;
@@ -799,13 +842,13 @@ Lexer::fitst_LT()
 	next();
 	switch (SYM) {
 	case '=':
-		_token = LTE;
+		_token = Token::LTE;
 		break;
 	case '>':
-		_token = NE;
+		_token = Token::NE;
 		break;
 	default:
-		_token = LT;
+		_token = Token::LT;
 		return;
 	}
 	next();
@@ -817,13 +860,13 @@ Lexer::fitst_GT()
 	next();
 	switch (SYM) {
 	case '=':
-		_token = GTE;
+		_token = Token::GTE;
 		break;
 	case '<':
-		_token = NEA;
+		_token = Token::NEA;
 		break;
 	default:
-		_token = GT;
+		_token = Token::GT;
 		return;
 	}
 	next();
@@ -866,15 +909,15 @@ Lexer::decimalNumber()
 			if (_value.type == Parser::Value::INTEGER)
 				_value = Real(_value);
 			if (!numberScale()) {
-				_token = NOTOKENS;
+				_token = Token::NOTOKENS;
 				return;
 			}
 		}
 		default:
 			if (_value.type == Parser::Value::INTEGER)
-				_token = C_INTEGER;
+				_token = Token::C_INTEGER;
 			else
-				_token = C_REAL;
+				_token = Token::C_REAL;
 			return;
 		}
 	}
@@ -921,12 +964,19 @@ Lexer::ident()
 	}
 	if (SYM == '%') {
 		pushSYM();
-		_token = INTEGER_IDENT;
+		if (SYM == '%') {
+			pushSYM();
+			_token = Token::LONGINT_IDENT;
+		} else
+			_token = Token::INTEGER_IDENT;
 	} else if (SYM == '$') {
 		pushSYM();
-		_token = STRING_IDENT;
+		_token = Token::STRING_IDENT;
+	} else if (SYM == '!') {
+		pushSYM();
+		_token = Token::BOOL_IDENT;
 	} else
-		_token = REAL_IDENT;
+		_token = Token::REAL_IDENT;
 	_value.type = Parser::Value::STRING;
 	_id[_valuePointer] = 0;
 }
@@ -937,7 +987,7 @@ Lexer::stringConst()
 	while (SYM != 0) {
 		if (SYM == '"') {
 			next();
-			_token = C_STRING;
+			_token = Token::C_STRING;
 			_id[_valuePointer] = 0;
 			return;
 		}

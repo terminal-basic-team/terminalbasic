@@ -42,7 +42,7 @@ public:
 	union CPS_PACKED Body
 	{
 		Integer integer;
-		float real;
+		Real real;
 		bool boolean;
 	};
 

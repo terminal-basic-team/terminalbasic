@@ -21,7 +21,9 @@
 #include "basic_math.hpp"
 #include "basic_arduinoio.hpp"
 
-#define USESD
+//#define USESD
+//#define USEUTFT
+//#define BASIC_MULTITERMINAL
 
 #ifdef USESD
 #include "basic_sdfs.hpp"
