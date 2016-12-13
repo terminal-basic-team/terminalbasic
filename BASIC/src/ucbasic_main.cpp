@@ -20,6 +20,9 @@
 #include "basic_interpreter_program.hpp"
 #include "basic_math.hpp"
 #include "basic_arduinoio.hpp"
+
+#define USESD
+
 #ifdef USESD
 #include "basic_sdfs.hpp"
 #endif

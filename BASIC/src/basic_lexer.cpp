@@ -123,6 +123,8 @@ const char sNE[] PROGMEM = "<>";
 const char sNEA[] PROGMEM = "><";
 const char sCOMMA[] PROGMEM = ",";
 const char sPOW[] PROGMEM = "^";
+const char sLPAREN[] PROGMEM = "(";
+const char sRPAREN[] PROGMEM = ")";
 
 const char sREAL_IDENT[] PROGMEM = "REAL_IDENT";
 const char sINTEGER_IDENT[] PROGMEM = "INTEGER_IDENT";
@@ -145,16 +147,13 @@ PGM_P const Lexer::tokenStrings[NUM_TOKENS] PROGMEM = {
 	sSTAR,	sSLASH,	sPLUS,	sMINUS,
 	
 	sEQUALS,
-	sCOLON,
-	sSEMI,
-	sLT,
-	sGT,
-	sLTE,
-	sGTE,
-	sNE,
-	sNEA,
-	sCOLON,
+	sCOLON,	sSEMI,
+	sLT, sGT,
+	sLTE, sGTE,
+	sNE, sNEA,
+	sCOMMA,
 	sPOW,
+	sLPAREN, sRPAREN,
 	
 	sREAL_IDENT,	sINTEGER_IDENT,	sSTRING_IDENT,
 	

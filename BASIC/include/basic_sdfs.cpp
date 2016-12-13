@@ -115,6 +115,7 @@ SDFSModule::_getCommand(const char *name) const
 						if (name[position] == 'E') {
 							++position;
 							if (name[position] == 'R') {
+								++position;
 								if (name[position] == 0)
 									return header;
 							}
@@ -187,8 +188,6 @@ SDFSModule::header(Interpreter &i)
 	for (File ff = _root.openNextFile(FILE_WRITE); ff;
 	    ff = _root.openNextFile(FILE_WRITE)) {
 		ss[0] = '/'; strcpy(ss+1, ff.name());
-		Serial.print("deleting ");
-		Serial.println(ss);
 		ff.close();
 		if (!SD.remove(ss))
 			return false;
