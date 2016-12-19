@@ -98,6 +98,7 @@ static const char strVARS[] PROGMEM = "VARS";
 static const char strARRAYS[] PROGMEM = "ARRAYS";
 static const char strSTACK[] PROGMEM = "STACK";
 static const char strDIR[] PROGMEM = "DIR";
+static const char strREALLY[] PROGMEM = "REALLY";
 
 PGM_P const Interpreter::_progmemStrings[NUM_STRINGS] PROGMEM = {
 	strStatic, // STATIC
@@ -114,7 +115,8 @@ PGM_P const Interpreter::_progmemStrings[NUM_STRINGS] PROGMEM = {
 	strVARS, // VARS
 	strARRAYS, // ARRAYS
 	strSTACK, // STACK
-	strDIR	// DIR
+	strDIR,	// DIR
+	strREALLY
 };
 
 #define ESTRING(en) (_progmemStrings[en])
@@ -1025,6 +1027,33 @@ Interpreter::pushDimensions(uint8_t dim)
 		return;
 	}
 	f->body.arrayDimensions = dim;
+}
+
+bool
+Interpreter::confirm()
+{
+	bool result = false;
+	do {
+		print(S_REALLY); print('?'); newline();
+		while (_stream.available() <= 0);
+		char c = _stream.read();
+		_output.write(c);
+		while (_stream.available() <= 0);
+		if (_stream.read() != int(ASCII::CR)) {
+			newline();
+			continue;
+		}
+		if (c == 'Y' || c == 'y') {
+			result = true;
+		}
+		else if (c == 'N' || c == 'n') {
+			result = false;
+		} else
+			continue;
+		newline();
+		break;
+	} while (true);
+	return result;
 }
 
 void

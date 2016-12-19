@@ -172,7 +172,12 @@ public:
 	// Interpreter FSM state
 	enum State : uint8_t
 	{
-		SHELL, PROGRAM_INPUT, COLLECT_INPUT, EXECUTE, VAR_INPUT
+		SHELL,		// Wait for user input of line or command
+		PROGRAM_INPUT,	// 
+		COLLECT_INPUT,	//
+		EXECUTE,	// Runniong the program
+		VAR_INPUT,	// Input of the variable value
+		CONFIRM_INPUT	// Input of the confirmation
 	};
 	// Memory dump modes
 	enum DumpMode : uint8_t
@@ -209,7 +214,7 @@ public:
 	{
 		S_STATIC = 0, S_DYNAMIC, S_ERROR, S_SEMANTIC, READY, BYTES,
 		AVAILABLE, ucBASIC, S_VERSION, S_TEXT, S_OF, S_VARS,
-		S_ARRAYS, S_STACK, S_DIR, NUM_STRINGS
+		S_ARRAYS, S_STACK, S_DIR, S_REALLY, NUM_STRINGS
 	};
 	/**
 	 * @brief constructor
@@ -227,8 +232,8 @@ public:
 	void step();
 	// Execute entered command (command or inputed program line)
 	void exec();
+	// Clear screen
 	void cls();
-	void doInput();
 	// Output program memory
 	void list(uint16_t=1, uint16_t=0);
 	// Dump program memory
@@ -333,11 +338,20 @@ public:
 	void pushDimensions(uint8_t);
 	
 	void strConcat(Parser::Value&, Parser::Value&);
+	/**
+	 * @brief request user confirmation
+	 * @return 
+	 */
+	bool confirm();
 
 	Program &_program;
 private:
 	class AttrKeeper;
+		
+	void doInput();
+	
 	void print(Lexer&);
+	
 	void raiseError(ErrorType, uint8_t=0);
 	/**
 	 * @brief read and buffer one symbol

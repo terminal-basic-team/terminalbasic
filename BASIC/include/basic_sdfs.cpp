@@ -124,6 +124,29 @@ SDFSModule::_getCommand(const char *name) const
 				}
 			}
 			break;
+		case 'S':
+			++position;
+			if (name[position] == 'C') {
+				++position;
+				if (name[position] == 'R') {
+					++position;
+					if (name[position] == 'A') {
+						++position;
+						if (name[position] == 'T') {
+							++position;
+							if (name[position] == 'C') {
+								++position;
+								if (name[position] == 'H') {
+									++position;
+									if (name[position] == 0)
+										return scratch;
+								}
+							}
+						}
+					}
+				}
+			}
+			break;
 		};
 	}
 	return NULL;
@@ -131,7 +154,7 @@ SDFSModule::_getCommand(const char *name) const
 
 bool
 SDFSModule::directory(Interpreter &i)
-{
+{	
 	_root.rewindDirectory();
 	i.print("SD CARD CONTENTS");
 	i.newline();
@@ -149,6 +172,20 @@ SDFSModule::directory(Interpreter &i)
 		ff.close();
 	}
 	return true;
+}
+
+bool
+SDFSModule::scratch(Interpreter &i)
+{
+	if (!i.confirm())
+		return true;
+	
+	char ss[16];
+	if (getFileName(i, ss)) {
+		SD.remove(ss);
+		return (true);
+	} else
+		return (false);
 }
 
 bool
@@ -183,6 +220,9 @@ SDFSModule::dload(Interpreter &i)
 bool
 SDFSModule::header(Interpreter &i)
 {
+	if (!i.confirm())
+		return true;
+
 	char ss[16];
 	_root.rewindDirectory();
 	for (File ff = _root.openNextFile(FILE_WRITE); ff;

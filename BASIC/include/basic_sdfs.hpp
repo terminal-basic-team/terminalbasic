@@ -39,6 +39,7 @@ protected:
 private:
 	static bool dsave(Interpreter&);
 	static bool directory(Interpreter&);
+	static bool scratch(Interpreter&);
 	static bool dload(Interpreter&);
 	static bool header(Interpreter&);
 	static bool getFileName(Interpreter&, char[]);
