@@ -21,7 +21,7 @@
 #include "basic_math.hpp"
 #include "basic_arduinoio.hpp"
 
-#define USESD
+//#define USESD
 //#define USEUTFT
 //#define BASIC_MULTITERMINAL
 
@@ -67,7 +67,8 @@ static BASIC::Interpreter basic(Serial, Serial, program, &arduinoIo);
 #endif
 #endif
 
-void setup()
+void
+setup()
 {
 	Serial.begin(57600);
 #ifdef USEUTFT
@@ -103,7 +104,8 @@ void setup()
 #endif
 }
 
-void loop()
+void
+loop()
 {
 	LOG_TRACE;
 	

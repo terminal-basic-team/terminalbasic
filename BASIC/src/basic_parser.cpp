@@ -323,6 +323,12 @@ Parser::fExpression(Value &v)
 		Token t = _lexer.getToken();
 		Value v2;
 		switch (t) {
+		case Token::OP_NOT:
+			if (!_lexer.getNext() || !fSimpleExpression(v))
+				return false;
+			if (_mode == EXECUTE)
+				v = !bool(v);
+			return true;
 		case Token::LT:
 			if (_lexer.getNext() && fSimpleExpression(v2)) {
 				v.value.boolean = v < v2;
@@ -639,12 +645,19 @@ Parser::fCommand()
 	case Token::INTEGER_IDENT:
 		FunctionBlock::command c;
 		if (_firstFB != NULL && (c=_firstFB->getCommand(_lexer.id()))) {
-			if (_lexer.getNext()) {
+			while (_lexer.getNext()) {
 				Value v;
 				// String value already on stack after fExpression
-				if (fExpression(v) && v.type != Value::STRING) {
-					_interpreter.pushValue(v);
-				}
+				if (fExpression(v)) {
+					if (v.type != Value::STRING)
+						_interpreter.pushValue(v);
+				} else
+					break;
+				
+				if (_lexer.getToken() == Token::COMMA)
+					continue;
+				else
+					break;
 			}
 			return (*c)(_interpreter);
 		}

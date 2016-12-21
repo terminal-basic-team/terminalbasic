@@ -467,6 +467,7 @@ Interpreter::print(Lexer &l)
 		switch (t) {
 		case Token::C_INTEGER:
 		case Token::C_REAL:
+		case Token::C_BOOLEAN:
 			print(l.getValue()); break;
 		case Token::C_STRING:
 		{
@@ -477,6 +478,7 @@ Interpreter::print(Lexer &l)
 		} break;
 		case Token::REAL_IDENT:
 		case Token::INTEGER_IDENT:
+		case Token::BOOL_IDENT:
 			print(l.id(), C_BLUE); break;
 		default:
 			print('?');

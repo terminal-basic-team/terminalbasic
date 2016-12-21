@@ -111,6 +111,10 @@ const char sTRUE[] PROGMEM = "TRUE";
 const char sSTEP[] PROGMEM = "STEP";
 const char sVARS[] PROGMEM = "VARS";
 
+const char sOP_AND[] PROGMEM = "AND";
+const char sOP_OR[] PROGMEM = "OR";
+const char sOP_NOT[] PROGMEM = "NOT";
+
 const char sSTAR[] PROGMEM = "*";
 const char sSLASH[] PROGMEM = "/";
 const char sPLUS[] PROGMEM = "+";
@@ -149,6 +153,8 @@ PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 	sNEXT,	sPRINT,	sREM,	sRETURN,
 	
 	sARRAYS,sFALSE,	sTHEN,	sTO,	sTRUE,	sSTEP,	sVARS,
+	
+	sOP_AND,	sOP_OR,	sOP_NOT,
 	
 	sSTAR,	sSLASH,	sPLUS,	sMINUS,
 	
@@ -650,6 +656,16 @@ Lexer::first_N()
 			_token = Token::COM_NEW;
 			return;
 		}
+		break;
+	case 'O':
+		pushSYM();
+		switch (SYM) {
+		case 'T':
+			next();
+			_token = Token::OP_NOT;
+			return;
+		}
+		break;
 	}
 	ident();
 }

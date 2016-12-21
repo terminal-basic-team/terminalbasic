@@ -37,21 +37,16 @@ public:
 // FunctionBlock interface
 protected:
 	FunctionBlock::function _getFunction(const char*) const override;
-
+	FunctionBlock::command _getCommand(const char*) const override;
 private:
 	static bool func_aread(Interpreter&);
 	static bool func_aread_int(Interpreter&);
 	static bool func_dread(Interpreter&);
 	
-	enum FuncNames : uint8_t
-	{
-		F_AREAD = 0, F_AREAD_INT, F_DREAD, NUM_FUNC
-	};
+	static bool comm_dwrite(Interpreter&);
 	
 	static Real aread_r(Real);
 	static Integer aread_i(Integer);
-	
-	static PGM_P const funcStrings[NUM_FUNC];
 };
 
 }

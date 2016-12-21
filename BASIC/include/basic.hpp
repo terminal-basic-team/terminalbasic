@@ -90,6 +90,10 @@ enum class Token : uint8_t
 	KW_TRUE,
 	KW_STEP,
 	KW_VARS,
+	
+	OP_AND,
+	OP_OR,
+	OP_NOT,
 
 	// *
 	STAR,
@@ -125,10 +129,6 @@ enum class Token : uint8_t
 	LPAREN,
 	// )
 	RPAREN,
-	
-	OP_AND,
-	OP_OR,
-	OP_NOT,
 	
 	REAL_IDENT,
 	INTEGER_IDENT,
