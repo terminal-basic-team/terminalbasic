@@ -344,8 +344,6 @@
       </item>
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">

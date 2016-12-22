@@ -100,6 +100,7 @@ const char sINPUT[] PROGMEM = "INPUT";
 const char sLET[] PROGMEM = "LET";
 const char sNEXT[] PROGMEM = "NEXT";
 const char sPRINT[] PROGMEM = "PRINT";
+const char sRANDOMIZE[] PROGMEM = "RANDOMIZE";
 const char sREM[] PROGMEM = "REM";
 const char sRETURN[] PROGMEM = "RETURN";
 
@@ -150,7 +151,7 @@ PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 	sCLS,	sDATA,	sDUMP,	sLIST,	sLOAD,	sNEW,	sRUN,	sSAVE,
 	
 	sDIM,	sEND,	sFOR,	sGO,	sGOSUB,	sGOTO,	sIF,	sINPUT,	sLET,
-	sNEXT,	sPRINT,	sREM,	sRETURN,
+	sNEXT,	sPRINT,	sRANDOMIZE,	sREM,	sRETURN,
 	
 	sARRAYS,sFALSE,	sTHEN,	sTO,	sTRUE,	sSTEP,	sVARS,
 	
@@ -713,6 +714,45 @@ Lexer::first_R()
 {
 	next();
 	switch (SYM) {
+	case 'A':
+		pushSYM();
+		switch (SYM) {
+		case 'N':
+			pushSYM();
+			switch (SYM) {
+			case 'D':
+				pushSYM();
+				switch (SYM) {
+				case 'O':
+					pushSYM();
+					switch (SYM) {
+					case 'M':
+						pushSYM();
+						switch (SYM) {
+						case 'I':
+							pushSYM();
+							switch (SYM) {
+							case 'Z':
+								pushSYM();
+								switch (SYM) {
+								case 'E':
+									next();
+									_token = Token::KW_RANDOMIZE;
+									return;
+								}
+								break;
+							}
+							break;
+						}
+						break;
+					}
+					break;
+				}
+				break;
+			}
+			break;
+		}
+		break;
 	case 'E':
 		pushSYM();
 		switch (SYM) {

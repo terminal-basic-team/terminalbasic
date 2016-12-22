@@ -118,7 +118,8 @@ Parser::fOperators()
 }
 
 /*
- * OPERATOR = COMMAND |
+ * OPERATOR =
+ *	COMMAND |
  *	KW_DIM ARRAYS_LIST |
  *      KW_END |
  *	KW_FOR FOR_CONDS |
@@ -223,6 +224,11 @@ Parser::fOperator()
                         _interpreter.print('\n');
                 }
 		break;
+	case Token::KW_RANDOMIZE:
+		if (_mode == EXECUTE)
+			_interpreter.randomize();
+		_lexer.getNext();
+		break;
 	case Token::KW_REM:
 		while (_lexer.getNext());
 		break;
@@ -311,24 +317,33 @@ Parser::fPrintList()
 	}
 }
 
+/*
+ * EXPRESSION =
+ *	SIMPLE_EXPRESSION |
+ *	OP_NOT SIMPLE_EXPRESSION |
+ *	SIMPLE_EXPRESSION REL SIMPLE_EXPRESSION
+ */
 bool
 Parser::fExpression(Value &v)
 {
 	LOG_TRACE;
-
+	
+	Token t = _lexer.getToken();
+	if(t == Token::OP_NOT) {
+		if (!_lexer.getNext() || !fSimpleExpression(v))
+			return (false);
+		if (_mode == EXECUTE)
+			v = !bool(v);
+		return (true);
+	}
+	
 	if (!fSimpleExpression(v))
 		return false;
 
 	while (true) {
-		Token t = _lexer.getToken();
+		t = _lexer.getToken();
 		Value v2;
 		switch (t) {
-		case Token::OP_NOT:
-			if (!_lexer.getNext() || !fSimpleExpression(v))
-				return false;
-			if (_mode == EXECUTE)
-				v = !bool(v);
-			return true;
 		case Token::LT:
 			if (_lexer.getNext() && fSimpleExpression(v2)) {
 				v.value.boolean = v < v2;

@@ -587,6 +587,12 @@ Interpreter::popString(const char *&str)
 	}
 }
 
+void
+Interpreter::randomize()
+{
+	::randomSeed(millis());
+}
+
 bool
 Interpreter::next(const char *varName)
 {

@@ -35,7 +35,7 @@ const uint8_t STRINGSIZE = 32;
 #if defined (__AVR_ATmega1284__) || defined (__AVR_ATmega1284P__)
 const size_t PROGRAMSIZE = 14848;
 #elif defined (__AVR_ATmega2560__)
-const size_t PROGRAMSIZE = 6144;
+const size_t PROGRAMSIZE = 4096;
 #elif defined (__AVR_ATmega128__) || defined (__AVR_ATmega128A__)
 const size_t PROGRAMSIZE = 3072;
 #elif defined (__AVR_ATmega328__) || defined (__AVR_ATmega328P__)
@@ -80,6 +80,7 @@ enum class Token : uint8_t
 	KW_LET,
 	KW_NEXT,
 	KW_PRINT,
+	KW_RANDOMIZE,
 	KW_REM,
 	KW_RETURN,
 	// other keywords

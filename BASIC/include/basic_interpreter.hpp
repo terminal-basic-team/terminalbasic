@@ -268,6 +268,7 @@ public:
 	void pushValue(const Parser::Value&);
 	bool popValue(Parser::Value&);
 	bool popString(const char*&);
+	void randomize();
 	/**
 	 * @brief iterate over loop
 	 * @param varName loop variable name
