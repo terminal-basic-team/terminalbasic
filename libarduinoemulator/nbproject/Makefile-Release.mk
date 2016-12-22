@@ -45,8 +45,8 @@ OBJECTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=-O3 -march=pentium3 -mfpmath=sse
-CXXFLAGS=-O3 -march=pentium3 -mfpmath=sse
+CCFLAGS=-O3 -march=pentium3 -mfpmath=sse `pkg-config --cflags posixcpp` 
+CXXFLAGS=-O3 -march=pentium3 -mfpmath=sse `pkg-config --cflags posixcpp` 
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -70,22 +70,22 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinoemulator.a: ${OBJECTFILE
 ${OBJECTDIR}/include/Print.o: include/Print.cpp
 	${MKDIR} -p ${OBJECTDIR}/include
 	${RM} "$@.d"
-	$(COMPILE.cc) -Wall -s -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I../../posixcpp/include -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/Print.o include/Print.cpp
+	$(COMPILE.cc) -Wall -s -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/Print.o include/Print.cpp
 
 ${OBJECTDIR}/include/Stream.o: include/Stream.cpp
 	${MKDIR} -p ${OBJECTDIR}/include
 	${RM} "$@.d"
-	$(COMPILE.cc) -Wall -s -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I../../posixcpp/include -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/Stream.o include/Stream.cpp
+	$(COMPILE.cc) -Wall -s -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/Stream.o include/Stream.cpp
 
 ${OBJECTDIR}/src/arduino.o: src/arduino.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -Wall -s -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I../../posixcpp/include -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/arduino.o src/arduino.cpp
+	$(COMPILE.cc) -Wall -s -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/arduino.o src/arduino.cpp
 
 ${OBJECTDIR}/src/main.o: src/main.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -Wall -s -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -I../../posixcpp/include -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main.o src/main.cpp
+	$(COMPILE.cc) -Wall -s -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main.o src/main.cpp
 
 # Subprojects
 .build-subprojects:

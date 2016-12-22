@@ -27,19 +27,21 @@
 /*
  * TEXT = OPERATORS | C_INTEGER OPERATORS
  * OPERATORS = OPERATOR | OPERATOR COLON OPERATORS
- * OPERATOR = COMMAND |
+ * OPERATOR =
+ *	KW_DIM ARRAYS_LIST |
  *      KW_END |
- *	KW_RETURN |
- *	KW_REM TEXT |
- *	KW_INPUT VAR_LIST |
- *	KW_PRINT PRINT_LIST |
- *	KW_IF EXPRESSION IF_STATEMENT |
  *	KW_FOR FOR_CONDS |
+ *	KW_GOSUB EXPRESSION |
+ *	KW_IF EXPRESSION IF_STATEMENT |
+ *	KW_INPUT VAR_LIST |
+ *	KW_LET IMPLICIT_ASSIGNMENT |
  *	KW_NEXT IDENT |
- *	ASSIGNMENT |TURN |
+ *	KW_PRINT | KW_PRINT PRINT_LIST |
+ *	KW_REM TEXT |
+ *	KW_RETURN |
+ *	KW_RANDOMIZE |
  *	GOTO_STATEMENT |
- *	KW_GOSUB INTEGER |
- *	KW_DIM ARRAYS_LIST
+ *	COMMAND
  * COMMAND = COM_DUMP | COM_DUMP KW_VARS | COM_DUMP KW_ARRAYS
  *	COM_LIST | COM_NEW | COM_RUN | COM_SAVE | COM_LOAD
  * ASSIGNMENT = KW_LET IMPLICIT_ASSIGNMENT | IMPLICIT_ASSIGNMENT
@@ -119,7 +121,6 @@ Parser::fOperators()
 
 /*
  * OPERATOR =
- *	COMMAND |
  *	KW_DIM ARRAYS_LIST |
  *      KW_END |
  *	KW_FOR FOR_CONDS |
@@ -131,7 +132,9 @@ Parser::fOperators()
  *	KW_PRINT | KW_PRINT PRINT_LIST |
  *	KW_REM TEXT |
  *	KW_RETURN |
- *	GOTO_STATEMENT
+ *	KW_RANDOMIZE |
+ *	GOTO_STATEMENT |
+ *	COMMAND
  */
 bool
 Parser::fOperator()
@@ -157,17 +160,14 @@ Parser::fOperator()
 		return (fForConds());
 	case Token::KW_GOSUB:
 	{
-		// @TODO separate dynamic semantic check (integer expression
-		// type) from syntactic analyse
 		Value v;
-		if (!_lexer.getNext() || !fExpression(v) || (v.type !=
-		    Value::INTEGER)) {
-			_error = INTEGER_EXPRESSION_EXPECTED;
+		if (!_lexer.getNext() || !fExpression(v)) {
+			_error = EXPRESSION_EXPECTED;
 			return (false);
 		}
 		if (_mode == EXECUTE) {
 			_interpreter.pushReturnAddress(_lexer.getPointer());
-			_interpreter.gotoLine(v.value.integer);
+			_interpreter.gotoLine(v);
 		}
 		_stopParse = true;
 		break;
@@ -551,8 +551,7 @@ Parser::fIfStatement()
 		if (_lexer.getNext()) {
 			if (_lexer.getToken() == Token::C_INTEGER) {
 				if (_mode == EXECUTE)
-					_interpreter.gotoLine(Integer(
-					    _lexer.getValue()));
+					_interpreter.gotoLine(_lexer.getValue());
 				_lexer.getNext();
 				return true;
 			} else if (fOperators())
@@ -574,8 +573,8 @@ Parser::fGotoStatement()
 	LOG(t);
 	if (t == Token::KW_GOTO) {
 		Value v;
-		if (!_lexer.getNext() || !fExpression(v) || (v.type != Value::INTEGER)) {
-			_error = INTEGER_EXPRESSION_EXPECTED;
+		if (!_lexer.getNext() || !fExpression(v)) {
+			_error = EXPRESSION_EXPECTED;
 			return false;
 		}
 		if (_mode == EXECUTE) {
@@ -616,7 +615,7 @@ Parser::fCommand()
 	}
 	case Token::COM_LIST:
 	{
-		uint16_t start = 1, stop = 0;
+		Integer start = 1, stop = 0;
 		_lexer.getNext();
 		if (_lexer.getToken() == Token::C_INTEGER) {
 			start = Integer(_lexer.getValue());
@@ -626,7 +625,7 @@ Parser::fCommand()
 		if (_lexer.getToken() == Token::MINUS) {
 			if (!_lexer.getNext() || _lexer.getToken() !=
 			    Token::C_INTEGER) {
-				_error = INTEGER_EXPRESSION_EXPECTED;
+				_error = INTEGER_CONSTANT_EXPECTED;
 				return false;
 			}
 			stop = Integer(_lexer.getValue());

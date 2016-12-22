@@ -16,26 +16,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "basic.hpp"
 #include "arduino_logger.hpp"
 #include "basic_interpreter_program.hpp"
 #include "basic_math.hpp"
 #include "basic_arduinoio.hpp"
 
-#define USESD
-//#define USEUTFT
-//#define BASIC_MULTITERMINAL
-
-#ifdef USESD
+#if USESD
 #include "basic_sdfs.hpp"
 #endif
 
-#ifdef USEUTFT
+#if USEUTFT
 #include "utft_stream.hpp"
 static UTFT	utft(CTE32HR, 38, 39, 40, 41);
 static UTFTTerminal utftPrint(utft);
 #endif
 
-#ifdef USESD
+#if USESD
 static BASIC::SDFSModule sdfs;
 static BASIC::Math mathBlock(&sdfs);
 #else
@@ -43,7 +40,7 @@ static BASIC::Math mathBlock;
 #endif
 static BASIC::ArduinoIO arduinoIo(&mathBlock);
 
-#ifdef BASIC_MULTITERMINAL
+#if BASIC_MULTITERMINAL
 static BASIC::Interpreter::Program program(BASIC::PROGRAMSIZE / 5);
 static BASIC::Interpreter basic(Serial, Serial, program, &arduinoIo);
 #ifdef HAVE_HWSERIAL1
@@ -59,8 +56,8 @@ static BASIC::Interpreter::Program program3(BASIC::PROGRAMSIZE / 5);
 static BASIC::Interpreter basic3(Serial3, Serial3, program3, &arduinoIo);
 #endif
 #else
-static BASIC::Interpreter::Program program(BASIC::PROGRAMSIZE);
-#ifdef USEUTFT
+static BASIC::Interpreter::Program program(PROGRAMSIZE);
+#if USEUTFT
 static BASIC::Interpreter basic(Serial, utftPrint, program, &arduinoIo);
 #else
 static BASIC::Interpreter basic(Serial, Serial, program, &arduinoIo);
@@ -71,10 +68,10 @@ void
 setup()
 {
 	Serial.begin(57600);
-#ifdef USEUTFT
+#if USEUTFT
 	utftPrint.begin();
 #endif
-#ifdef BASIC_MULTITERMINAL
+#if BASIC_MULTITERMINAL
 #ifdef HAVE_HWSERIAL1
 	Serial1.begin(57600);
 #endif
@@ -91,7 +88,7 @@ setup()
 	LOG_TRACE;
 	
 	basic.init();
-#ifdef BASIC_MULTITERMINAL
+#if BASIC_MULTITERMINAL
 #ifdef HAVE_HWSERIAL1
 	basic1.init();
 #endif
@@ -110,7 +107,7 @@ loop()
 	LOG_TRACE;
 	
 	basic.step();
-#ifdef BASIC_MULTITERMINAL
+#if BASIC_MULTITERMINAL
 #ifdef HAVE_HWSERIAL1
 	basic1.step();
 #endif

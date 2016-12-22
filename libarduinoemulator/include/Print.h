@@ -36,7 +36,7 @@ public:
 	size_t print(const char[]);
 	size_t print(const Printable&);
 	size_t print(int val, int base = DEC);
-	size_t print(long n, int base);
+	size_t print(long n, int base = DEC);
 	size_t print(double, int = 2);
 	size_t print(unsigned int val, int base = DEC);
 	size_t print(long unsigned int val, int base = DEC);

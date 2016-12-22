@@ -1,5 +1,5 @@
 /*
- * ucBASIC is a lightweight BASIC-like language interpreter
+ * Terminal-BASIC is a lightweight BASIC-like language interpreter
  * Copyright (C) 2016  Andrey V. Skvortsov <starling13@mail.ru>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -22,35 +22,25 @@
 #include <stdio.h>
 #include <inttypes.h>
 
+#ifdef ARDUINO
+#include "config_arduino.hpp"
+#elif defined __linux__
+#include "config_linux.hpp"
+#endif
+
 /**
  * @brief Simple BASIC language interpreter package
  */
 namespace BASIC
 {
-// Max size of the program line
-const uint8_t PROGSTRINGSIZE = 72;
-// Max size of the string constants/variables
-const uint8_t STRINGSIZE = 32;
-// Number of bytes for program text, variables and stack
-#if defined (__AVR_ATmega1284__) || defined (__AVR_ATmega1284P__)
-const size_t PROGRAMSIZE = 14848;
-#elif defined (__AVR_ATmega2560__)
-const size_t PROGRAMSIZE = 4096;
-#elif defined (__AVR_ATmega128__) || defined (__AVR_ATmega128A__)
-const size_t PROGRAMSIZE = 3072;
-#elif defined (__AVR_ATmega328__) || defined (__AVR_ATmega328P__)
-const size_t PROGRAMSIZE = 1024;
-#else
-const size_t PROGRAMSIZE = 8192;
-#endif
-// Number of characters in variable name
-const uint8_t VARSIZE = 8; 
+
 // integer type
 typedef int16_t Integer;
 // long integer type
 typedef int32_t LongInteger;
 // floating point type
 typedef float Real;
+
 /**
  * @brief lexical tokens
  */
@@ -60,7 +50,6 @@ enum class Token : uint8_t
 	
 	// Commands
 	COM_CLS,
-	COM_DATA,
 	COM_DUMP,
 	COM_LIST,
 	COM_LOAD,
@@ -69,6 +58,7 @@ enum class Token : uint8_t
 	COM_SAVE,
 	
 	// Statements
+	KW_DATA,
 	KW_DIM,
 	KW_END,
 	KW_FOR,
@@ -83,6 +73,7 @@ enum class Token : uint8_t
 	KW_RANDOMIZE,
 	KW_REM,
 	KW_RETURN,
+	KW_STOP,
 	// other keywords
 	KW_ARRAYS,
 	KW_FALSE,

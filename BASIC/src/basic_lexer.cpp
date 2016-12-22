@@ -26,7 +26,6 @@
 
 /*
  * COM_CLS = "CLS"
- * COM_DATA = "DATA"
  * COM_DUMP = "DUMP"
  * COM_LIST = "LIST"
  * COM_LOAD = "LOAD"
@@ -34,6 +33,7 @@
  * COM_RUN = "RUN"
  * COM_SAVE = "SAVE"
  * 
+ * KW_DATA = "DATA"
  * KW_DIM = "DIM"
  * KW_END = "END"
  * KW_FOR = "FOR"
@@ -45,6 +45,8 @@
  * KW_NEXT = "NEXT"
  * KW_PRINT = "PRINT"
  * KW_RETURN = "RETURN"
+ * KW_RANDOMIZE = "RANDOMIZE"
+ * KW_STOP = "STOP"
  * 
  * KW_ARRAYS = "ARRAYS"
  * KW_THEN = "THEN"
@@ -81,7 +83,6 @@ namespace BASIC
 const char sNOTOKENS[] PROGMEM = "NOTOKENS";
 
 const char sCLS[] PROGMEM = "CLS";
-const char sDATA[] PROGMEM = "DATA";
 const char sDUMP[] PROGMEM = "DUMP";
 const char sLIST[] PROGMEM = "LIST";
 const char sLOAD[] PROGMEM = "LOAD";
@@ -89,6 +90,7 @@ const char sNEW[] PROGMEM = "NEW";
 const char sRUN[] PROGMEM = "RUN";
 const char sSAVE[] PROGMEM = "SAVE";
 
+const char sDATA[] PROGMEM = "DATA";
 const char sDIM[] PROGMEM = "DIM";
 const char sEND[] PROGMEM = "END";
 const char sFOR[] PROGMEM = "FOR";
@@ -103,6 +105,7 @@ const char sPRINT[] PROGMEM = "PRINT";
 const char sRANDOMIZE[] PROGMEM = "RANDOMIZE";
 const char sREM[] PROGMEM = "REM";
 const char sRETURN[] PROGMEM = "RETURN";
+const char sSTOP[] PROGMEM = "STOP";
 
 const char sARRAYS[] PROGMEM = "ARRAYS";
 const char sFALSE[] PROGMEM = "FALSE";
@@ -148,14 +151,14 @@ const char sBOOLEAN[] PROGMEM = "C_BOOLEAN";
 PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 	sNOTOKENS,
 	
-	sCLS,	sDATA,	sDUMP,	sLIST,	sLOAD,	sNEW,	sRUN,	sSAVE,
+	sCLS,	sDUMP,	sLIST,	sLOAD,	sNEW,	sRUN,	sSAVE,
 	
-	sDIM,	sEND,	sFOR,	sGO,	sGOSUB,	sGOTO,	sIF,	sINPUT,	sLET,
-	sNEXT,	sPRINT,	sRANDOMIZE,	sREM,	sRETURN,
+	sDATA,	sDIM,	sEND,	sFOR,	sGO,	sGOSUB,	sGOTO,	sIF,	sINPUT,
+	sLET,	sNEXT,	sPRINT,	sRANDOMIZE,	sREM,	sRETURN,sSTOP,
 	
 	sARRAYS,sFALSE,	sTHEN,	sTO,	sTRUE,	sSTEP,	sVARS,
 	
-	sOP_AND,	sOP_OR,	sOP_NOT,
+	sOP_AND,sOP_OR,	sOP_NOT,
 	
 	sSTAR,	sSLASH,	sPLUS,	sMINUS,
 	
@@ -432,7 +435,7 @@ Lexer::first_D()
 			switch (SYM) {
 			case 'A':
 				next();
-				_token = Token::COM_DATA;
+				_token = Token::KW_DATA;
 				return;
 			}
 			break;
@@ -821,6 +824,15 @@ Lexer::first_S()
 			case 'P':
 				next();
 				_token = Token::KW_STEP;
+				return;
+			}
+			break;
+		case 'O':
+			pushSYM();
+			switch (SYM) {
+			case 'P':
+				next();
+				_token = Token::KW_STOP;
 				return;
 			}
 		}

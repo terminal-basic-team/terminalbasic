@@ -64,7 +64,7 @@ build: .build-post
 .build-pre:
 	echo "#define VERSION \"${VERSION}\"" > "./include/version.h"
 
-.build-post: .build-impl # copy
+.build-post: .build-impl copy
 	echo $(shell expr ${BUILD} + 1) ; \
 	echo $(shell expr ${BUILD} + 1) > "./build-${CONF}"
 
@@ -138,7 +138,7 @@ copy:
 
 program:
 	${AVRDUDE} -D -C ${AVRDUDE_CONF} -v -c wiring -p atmega2560 \
-	  -P /dev/ttyACM0 -b115200 -U flash:w:"${CND_BASEDIR}/${CND_ARTIFACT_PATH_${CONF}}.hex":i
+	  -P /dev/ttyUSB0 -b115200 -U flash:w:"${CND_BASEDIR}/${CND_ARTIFACT_PATH_${CONF}}.hex":i
 	#${AVRDUDE} -D -C ${AVRDUDE_CONF} -v -c wiring -p atmega2560 \
 	#  -P /dev/ttyUSB0 -b115200 \
 	#  -U flash:w:"${CND_BASEDIR}/${CND_ARTIFACT_PATH_${CONF}}.hex":i

@@ -12,6 +12,8 @@
       <itemPath>include/basic_parser.hpp</itemPath>
       <itemPath>include/basic_parser_value.hpp</itemPath>
       <itemPath>include/basic_sdfs.hpp</itemPath>
+      <itemPath>include/config_arduino.hpp</itemPath>
+      <itemPath>include/config_linux.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="src" displayName="src" projectFiles="true">
       <itemPath>src/basic_arduinoio.cpp</itemPath>
@@ -63,9 +65,9 @@
             <pElem>../arduinoext/include</pElem>
             <pElem>../libarduinoemulator/include</pElem>
             <pElem>include</pElem>
-            <pElem>../../posixcpp/include</pElem>
             <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino</pElem>
           </incDir>
+          <commandLine>`pkg-config --cflags posixcpp`</commandLine>
           <warningLevel>2</warningLevel>
         </ccTool>
         <linkerTool>
@@ -95,18 +97,7 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinoemulator.a">
               </makeArtifact>
             </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../../posixcpp/posixcpp"
-                            CT="3"
-                            CN="Debug_static"
-                            AC="false"
-                            BL="true"
-                            WD="../../posixcpp/posixcpp"
-                            BC="${MAKE}  -f Makefile CONF=Debug_static"
-                            CC="${MAKE}  -f Makefile CONF=Debug_static clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libposixcpp.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
+            <linkerOptionItem>`pkg-config --libs posixcpp`</linkerOptionItem>
           </linkerLibItems>
           <commandLine>-static</commandLine>
         </linkerTool>
@@ -135,6 +126,10 @@
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -239,9 +234,11 @@
       </item>
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -346,6 +343,10 @@
       </item>
       <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
@@ -393,6 +394,7 @@
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_MEGA2560</Elem>
             <Elem>F_CPU=16000000L</Elem>
+            <Elem>__AVR_ATmega2560__</Elem>
           </preprocessorList>
           <useLinkerLibraries>false</useLinkerLibraries>
           <warningLevel>2</warningLevel>
@@ -454,6 +456,10 @@
       <item path="include/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -560,6 +566,10 @@
       </item>
       <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
@@ -595,10 +605,9 @@
             <pElem>../arduinoext/include</pElem>
             <pElem>../libarduinoemulator/include</pElem>
             <pElem>include</pElem>
-            <pElem>../../posixcpp/include</pElem>
             <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino</pElem>
           </incDir>
-          <commandLine>-O3 -march=pentium3 -mfpmath=sse</commandLine>
+          <commandLine>-O3 -march=pentium3 -mfpmath=sse `pkg-config --cflags posixcpp`</commandLine>
           <warningLevel>2</warningLevel>
         </ccTool>
         <linkerTool>
@@ -628,18 +637,7 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinoemulator.a">
               </makeArtifact>
             </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../../posixcpp/posixcpp"
-                            CT="3"
-                            CN="Release_static"
-                            AC="true"
-                            BL="true"
-                            WD="../../posixcpp/posixcpp"
-                            BC="${MAKE}  -f Makefile CONF=Release_static"
-                            CC="${MAKE}  -f Makefile CONF=Release_static clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libposixcpp.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
+            <linkerOptionItem>`pkg-config --libs posixcpp`</linkerOptionItem>
           </linkerLibItems>
           <commandLine>-static</commandLine>
         </linkerTool>
@@ -667,9 +665,11 @@
       </item>
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -776,6 +776,10 @@
       <item path="include/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
       </item>

@@ -1,5 +1,5 @@
 /*
- * ucBASIC is a lightweight BASIC-like language interpreter
+ * Terminal-BASIC is a lightweight BASIC-like language interpreter
  * Copyright (C) 2016  Andrey V. Skvortsov <starling13@mail.ru>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -50,7 +50,7 @@ public:
 
 		struct CPS_PACKED ForBody
 		{
-			uint16_t calleeIndex;
+			size_t calleeIndex;
 			uint8_t textPosition;
 			char varName[VARSIZE];
 			Parser::Value current;
@@ -61,7 +61,7 @@ public:
 		
 		struct CPS_PACKED GosubReturn
 		{
-			uint16_t calleeIndex;
+			size_t calleeIndex;
 			uint8_t textPosition;
 		};
 
@@ -73,14 +73,14 @@ public:
 		{
 			GosubReturn	gosubReturn;
 			uint8_t		arrayDimensions;
-			uint16_t	arrayDimension;
+			size_t		arrayDimension;
 			ForBody		forFrame;
 			char		string[STRINGSIZE];
 			Parser::Value	value;
 		} body;
 	};
 
-	Program(uint16_t=PROGRAMSIZE);
+	Program(size_t=PROGRAMSIZE);
 	/**
 	 * @brief Clear program memory
 	 */
@@ -98,40 +98,40 @@ public:
 	String *first() const;
 	String *last() const;
 	
-	void jump(uint16_t newVal) { _jump = newVal; _jumpFlag = true; }
+	void jump(size_t newVal) { _jump = newVal; _jumpFlag = true; }
 	/**
 	 * @brief program string at given index
 	 * @param index
 	 * @return string pointer or NULL if not exists
 	 */
-	String *stringByIndex(uint16_t) const;
+	String *stringByIndex(size_t) const;
 	/**
 	 * @brief program string of given number
 	 * @param number
 	 * @param index
 	 * @return string pointer or NULL if not found
 	 */
-	String *stringByNumber(uint16_t, size_t = 0);
+	String *stringByNumber(size_t, size_t = 0);
 	/**
 	 * @brief 
 	 * @param string pointer
 	 * @return index
 	 */
-	uint16_t stringIndex(const String*) const;
+	size_t stringIndex(const String*) const;
 	/**
 	 * @brief get variable frame at a given index
 	 * @param index basic memory address
 	 * @return pointer
 	 */
-	VariableFrame *variableByIndex(uint16_t);
+	VariableFrame *variableByIndex(size_t);
 	VariableFrame *variableByName(const char*);
-	uint16_t variableIndex(VariableFrame*) const;
+	size_t variableIndex(VariableFrame*) const;
 	
-	ArrayFrame *arrayByIndex(uint16_t);
+	ArrayFrame *arrayByIndex(size_t);
 	ArrayFrame *arrayByName(const char*);
-	uint16_t arrayIndex(ArrayFrame*) const;
+	size_t arrayIndex(ArrayFrame*) const;
 
-	StackFrame *stackFrameByIndex(uint16_t index);
+	StackFrame *stackFrameByIndex(size_t index);
 	StackFrame *currentStackFrame();
 	
 	/**
@@ -153,7 +153,7 @@ public:
 	 */
 	bool insert(uint16_t, const char*);
 	char *_text;
-	const uint16_t programSize;
+	const size_t programSize;
 private:
 	size_t _textEnd;
 	size_t _current, _variablesEnd, _arraysEnd, _sp, _jump;

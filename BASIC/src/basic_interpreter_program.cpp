@@ -19,11 +19,12 @@
 #include "basic_interpreter_program.hpp"
 #include <assert.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 namespace BASIC
 {
 
-Interpreter::Program::Program(uint16_t progsize) :
+Interpreter::Program::Program(size_t progsize) :
 	_text(reinterpret_cast<char*>(malloc(progsize))),
 	programSize(progsize)
 {
@@ -69,14 +70,14 @@ Interpreter::Program::last() const
 }
 
 Interpreter::Program::String*
-Interpreter::Program::stringByIndex(uint16_t index) const
+Interpreter::Program::stringByIndex(size_t index) const
 {
 	return (const_cast<String*> (reinterpret_cast<const String*> (
 	    _text + index)));
 }
 
 Interpreter::Program::String*
-Interpreter::Program::stringByNumber(uint16_t number, size_t index)
+Interpreter::Program::stringByNumber(size_t number, size_t index)
 {
 	Program::String *result = NULL;
 
@@ -104,7 +105,7 @@ Interpreter::Program::StackFrame::size(Type t)
 	case STRING:
 		return sizeof (Type) + STRINGSIZE;
 	case ARRAY_DIMENSION:
-		return sizeof (Type) + sizeof (uint16_t);
+		return sizeof (Type) + sizeof (size_t);
 	case ARRAY_DIMENSIONS:
 		return sizeof (Type) + sizeof (uint8_t);
 	case VALUE:
@@ -127,7 +128,7 @@ Interpreter::Program::newProg()
 Interpreter::VariableFrame*
 Interpreter::Program::variableByName(const char *name)
 {
-	uint16_t index = _textEnd;
+	size_t index = _textEnd;
 
 	for (VariableFrame *f = variableByIndex(index); f != NULL;
 	    f = variableByIndex(index)) {
@@ -141,19 +142,19 @@ Interpreter::Program::variableByName(const char *name)
 	return NULL;
 }
 
-uint16_t
+size_t
 Interpreter::Program::stringIndex(const String *s) const
 {
 	return (((char*) s) - _text);
 }
 
-uint16_t
+size_t
 Interpreter::Program::variableIndex(VariableFrame *f) const
 {
 	return (((char*)f) - _text);
 }
 
-uint16_t
+size_t
 Interpreter::Program::arrayIndex(ArrayFrame *f) const
 {
 	return (((char*)f) - _text);
@@ -182,7 +183,7 @@ Interpreter::Program::pop()
 }
 
 Interpreter::Program::StackFrame*
-Interpreter::Program::stackFrameByIndex(uint16_t index)
+Interpreter::Program::stackFrameByIndex(size_t index)
 {
 	if ((index > 0) && (index < programSize))
 		return (reinterpret_cast<StackFrame*> (_text + index));
@@ -199,7 +200,7 @@ Interpreter::Program::currentStackFrame()
 Interpreter::ArrayFrame*
 Interpreter::Program::arrayByName(const char *name)
 {	
-	uint16_t index = _variablesEnd;
+	size_t index = _variablesEnd;
 
 	for (ArrayFrame *f = arrayByIndex(index); index < _arraysEnd; 
 	    index += f->size(),
@@ -214,7 +215,7 @@ Interpreter::Program::arrayByName(const char *name)
 }
 
 Interpreter::VariableFrame*
-Interpreter::Program::variableByIndex(uint16_t index)
+Interpreter::Program::variableByIndex(size_t index)
 {
 	if (index < _variablesEnd)
 		return (reinterpret_cast<VariableFrame*> (_text + index));
@@ -223,7 +224,7 @@ Interpreter::Program::variableByIndex(uint16_t index)
 }
 
 Interpreter::ArrayFrame*
-Interpreter::Program::arrayByIndex(uint16_t index)
+Interpreter::Program::arrayByIndex(size_t index)
 {
 	return (reinterpret_cast<ArrayFrame*> (_text + index));
 }
@@ -233,7 +234,7 @@ Interpreter::Program::addLine(uint16_t num, const char *text)
 {
 	reset();
 
-	const uint16_t strLen = sizeof (String) + strlen(text) + 1;
+	const size_t strLen = sizeof (String) + strlen(text) + 1;
 	
 	if (_textEnd == 0) // First string insertion
 		return insert(num, text);
@@ -244,10 +245,10 @@ Interpreter::Program::addLine(uint16_t num, const char *text)
 		if (num < cur->number) {
 			break;
 		} else if (num == cur->number) { // Replace string
-			uint16_t newSize = strLen;
-			uint16_t curSize = cur->size;
-			int16_t dist = int16_t(newSize) - curSize;
-			uint16_t bytes2copy = _arraysEnd -
+			size_t newSize = strLen;
+			size_t curSize = cur->size;
+			long dist = long(newSize) - curSize;
+			size_t bytes2copy = _arraysEnd -
 				    (_current + curSize);
 			if ((_arraysEnd+dist) >= _sp)
 				return false;
@@ -270,7 +271,7 @@ Interpreter::Program::insert(uint16_t num, const char *text)
 {
 	const uint8_t sl = strlen(text);
 	assert(sl < PROGSTRINGSIZE);
-	const uint16_t strLen = sizeof (String) + strlen(text) + 1;
+	const size_t strLen = sizeof (String) + strlen(text) + 1;
 
 	if (_arraysEnd+strLen>=_sp)
 		return false;

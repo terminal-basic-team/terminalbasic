@@ -1,5 +1,5 @@
 /*
- * ucBASIC is a lightweight BASIC-like language interpreter
+ * Terminal-BASIC is a lightweight BASIC-like language interpreter
  * Copyright (C) 2016  Andrey V. Skvortsov <starling13@mail.ru>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -46,7 +46,7 @@ public:
 		NO_ERROR = 0,
 		OPERATOR_EXPECTED,
 		EXPRESSION_EXPECTED,
-		INTEGER_EXPRESSION_EXPECTED,
+		INTEGER_CONSTANT_EXPECTED,
 		THEN_OR_GOTO_EXPECTED,
 		VARIABLES_LIST_EXPECTED
 	};

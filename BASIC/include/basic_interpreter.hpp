@@ -1,5 +1,5 @@
 /*
- * ucBASIC is a lightweight BASIC-like language interpreter
+ * Terminal-BASIC is a lightweight BASIC-like language interpreter
  * Copyright (C) 2016  Andrey V. Skvortsov <starling13@mail.ru>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -65,6 +65,7 @@ public:
 		NO_SUCH_STRING,
 		INVALID_VALUE_TYPE,
 		NO_SUCH_ARRAY,
+		INTEGER_EXPRESSION_EXPECTED, // Integer expression expected
 		INTERNAL_ERROR = 255
 	};
 	
@@ -122,7 +123,7 @@ public:
 		 * @brief get frame size in bytes
 		 * @return size
 		 */
-		uint16_t size() const;
+		size_t size() const;
 		
 		/**
 		 * @brief get array raw data pointer
@@ -131,7 +132,7 @@ public:
 		uint8_t *data()
 		{
 			return (reinterpret_cast<uint8_t*>(this+1) +
-			    sizeof (uint16_t)*numDimensions);
+			    sizeof (size_t)*numDimensions);
 		}
 		
 		/**
@@ -140,7 +141,7 @@ public:
 		const uint8_t *data() const
 		{
 			return (reinterpret_cast<const uint8_t*>(this+1) +
-			    sizeof (uint16_t)*numDimensions);
+			    sizeof (size_t)*numDimensions);
 		}
 		
 		/**
@@ -149,7 +150,7 @@ public:
 		 * @return value
 		 */
 		template <typename T>
-		T get(uint16_t index) const
+		T get(size_t index) const
 		{
 			union
 			{
@@ -167,7 +168,7 @@ public:
 		// Number of dimensions
 		uint8_t numDimensions;
 		// dimensions values
-		uint16_t dimension[];
+		size_t dimension[];
 	};
 	// Interpreter FSM state
 	enum State : uint8_t
@@ -243,6 +244,7 @@ public:
 	void print(char);
 	void print(Real);
 	void print(Integer, TextAttr=NO_ATTR);
+	void print(long, TextAttr=NO_ATTR);
 	void print(ProgMemStrings, TextAttr=NO_ATTR);
 	void print(Token);
 	void print(const char *, TextAttr=NO_ATTR);
@@ -252,7 +254,7 @@ public:
 	// run program
 	void run();
 	// goto new line
-	void gotoLine(Integer);
+	void gotoLine(const Parser::Value&);
 	// CLear program memory
 	void newProgram();
 	/**
@@ -292,7 +294,7 @@ public:
 	 * @param v value to set
 	 */
 	void set(VariableFrame&, const Parser::Value&);
-	void set(ArrayFrame&, uint16_t, const Parser::Value&);
+	void set(ArrayFrame&, size_t, const Parser::Value&);
 	/**
 	 * @brief set a new value and possibly create new variable
 	 * @param name variable name
@@ -331,7 +333,7 @@ public:
 	 * @param 
 	 * @return 
 	 */
-	uint16_t pushDimension(uint16_t);
+	size_t pushDimension(size_t);
 	/**
 	 * @brief push the number of array dimesions on the stack
 	 * @param num number of dimensions
@@ -353,7 +355,7 @@ private:
 	
 	void print(Lexer&);
 	
-	void raiseError(ErrorType, uint8_t=0);
+	void raiseError(ErrorType, ErrorCodes=NO_ERROR);
 	/**
 	 * @brief read and buffer one symbol
 	 * @return input finished flag
@@ -368,7 +370,7 @@ private:
 	 */
 	ArrayFrame *addArray(const char*, uint8_t, uint32_t);
 	
-	bool arrayElementIndex(ArrayFrame*, uint16_t&);
+	bool arrayElementIndex(ArrayFrame*, size_t&);
 	// Interpreter FSM state
 	State	 _state;
 	// Boundary terminal connection object

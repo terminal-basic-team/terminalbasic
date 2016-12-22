@@ -10,7 +10,6 @@
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects>
                 <make-dep-project>../libarduino</make-dep-project>
-                <make-dep-project>../../posixcpp/posixcpp</make-dep-project>
                 <make-dep-project>../arduinoext</make-dep-project>
                 <make-dep-project>../libarduinoemulator</make-dep-project>
             </make-dep-projects>

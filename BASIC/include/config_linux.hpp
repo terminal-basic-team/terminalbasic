@@ -16,39 +16,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * @file basic_arduinoio.hpp
- * @brief Arduino io container
- */
+#ifndef CONFIG_LINUX_HPP
+#define CONFIG_LINUX_HPP
 
-#ifndef BASIC_ARDUINOIO_HPP
-#define BASIC_ARDUINOIO_HPP
+#include <cstdint>
 
-#include "basic_functionblock.hpp"
-#include "basic_interpreter.hpp"
+// Max size of the program line
+const uint8_t PROGSTRINGSIZE = 80;
 
-namespace BASIC
-{
+// Number of bytes for program text, variables and stack
+const size_t PROGRAMSIZE = 65536;
 
-class ArduinoIO : public FunctionBlock
-{
-public:
-	explicit ArduinoIO(FunctionBlock* =NULL);
-// FunctionBlock interface
-protected:
-	FunctionBlock::function _getFunction(const char*) const override;
-	FunctionBlock::command _getCommand(const char*) const override;
-private:
-	static bool func_aread(Interpreter&);
-	static bool func_aread_int(Interpreter&);
-	static bool func_dread(Interpreter&);
-	
-	static bool comm_dwrite(Interpreter&);
-	
-	static Real aread_r(Real);
-	static Integer aread_i(Integer);
-};
+// Max size of the string constants/variables
+const uint8_t STRINGSIZE = 128;
 
-}
+// Number of characters in variable name
+const uint8_t VARSIZE = 16;
 
 #endif

@@ -162,7 +162,7 @@ Interpreter::valueFromArray(Parser::Value &v, const char *name)
 		return false;
 	}
 
-	uint16_t index;
+	size_t index;
 	if (!arrayElementIndex(f, index)) {
 		raiseError(DYNAMIC_ERROR, INVALID_VALUE_TYPE);
 		return false;
@@ -202,7 +202,7 @@ Interpreter::init()
 	print(ucBASIC, BRIGHT);
 
 	print(S_VERSION), print(VERSION, BRIGHT), newline();
-	print(_program.programSize - _program._arraysEnd, BRIGHT);
+	print(long(_program.programSize - _program._arraysEnd), BRIGHT);
 	print(BYTES), print(AVAILABLE), newline();
 	//_stream.print("\x1B[c");
 }
@@ -325,7 +325,7 @@ Interpreter::list(uint16_t start, uint16_t stop)
 		if (stop > 0 && s->number > stop)
 			break;
 		
-		print(s->number, C_YELLOW);
+		print(long(s->number), C_YELLOW);
 		
 		Lexer lex;
 		lex.init(s->text);
@@ -360,7 +360,7 @@ Interpreter::dump(DumpMode mode)
 		break;
 	case VARS:
 	{
-		uint16_t index = _program._textEnd;
+		size_t index = _program._textEnd;
 		for (VariableFrame *f = _program.variableByIndex(index);
 		    (f != NULL) && (_program.variableIndex(f) <
 		    _program._variablesEnd); f = _program.variableByIndex(
@@ -376,7 +376,7 @@ Interpreter::dump(DumpMode mode)
 		break;
 	case ARRAYS:
 	{
-		uint16_t index = _program._variablesEnd;
+		size_t index = _program._variablesEnd;
 		for (ArrayFrame *f = _program.arrayByIndex(index);
 		    _program.arrayIndex(f) < _program._arraysEnd;
 		    f = _program.arrayByIndex(_program.arrayIndex(f) + f->size())) {
@@ -494,9 +494,13 @@ Interpreter::run()
 }
 
 void
-Interpreter::gotoLine(Integer ln)
+Interpreter::gotoLine(const Parser::Value &l)
 {
-	Program::String *s = _program.stringByNumber(ln);
+	if (l.type != Parser::Value::INTEGER) {
+		raiseError(DYNAMIC_ERROR, INTEGER_EXPRESSION_EXPECTED);
+		return;
+	}
+	Program::String *s = _program.stringByNumber(Integer(l));
 	if (s != NULL)
 		_program.jump(_program.stringIndex(s));
 	else
@@ -622,11 +626,11 @@ Interpreter::next(const char *varName)
 void
 Interpreter::save()
 {
-	uint16_t len = _program._textEnd;
+	size_t len = _program._textEnd;
 	EEPROMClass e;
 	e.update(0, (len << 8) >> 8);
 	e.update(1, len >> 8);
-	for (uint16_t p = 0; p < _program._textEnd; ++p) {
+	for (size_t p = 0; p < _program._textEnd; ++p) {
 		e.update(p + 2, _program._text[p]);
 		_output.print('.');
 	}
@@ -637,9 +641,9 @@ void Interpreter::load()
 {
 	_program.newProg();
 	EEPROMClass e;
-	uint16_t len = uint16_t(e.read(0));
-	len |= uint16_t(e.read(1)) << 8;
-	for (uint16_t p = 0; p < len; ++p) {
+	size_t len = size_t(e.read(0));
+	len |= size_t(e.read(1)) << 8;
+	for (size_t p = 0; p < len; ++p) {
 		_program._text[p] = e.read(p + 2);
 		_output.print('.');
 	}
@@ -732,7 +736,7 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 }
 
 void
-Interpreter::set(ArrayFrame &f, uint16_t index, const Parser::Value &v)
+Interpreter::set(ArrayFrame &f, size_t index, const Parser::Value &v)
 {
 	switch (f.type) {
 	case VF_BOOLEAN:
@@ -846,7 +850,15 @@ Interpreter::print(Integer i, TextAttr attr)
 }
 
 void
-Interpreter::raiseError(ErrorType type, uint8_t errorCode)
+Interpreter::print(long i, TextAttr attr)
+{
+	AttrKeeper _a(*this, attr);
+
+	_output.print(i), _output.print(' ');
+}
+
+void
+Interpreter::raiseError(ErrorType type, ErrorCodes errorCode)
 {
 	char buf[16];
 	if (type == DYNAMIC_ERROR)
@@ -862,7 +874,7 @@ Interpreter::raiseError(ErrorType type, uint8_t errorCode)
 	_output.print(buf);
 	_output.print(':');
 	if (type == DYNAMIC_ERROR) {
-		_output.println(errorCode);
+		_output.println(uint8_t(errorCode));
 	} else { // STATIC_ERROR
 		_output.println(int(_parser.getError()));
 	}
@@ -870,10 +882,10 @@ Interpreter::raiseError(ErrorType type, uint8_t errorCode)
 }
 
 bool
-Interpreter::arrayElementIndex(ArrayFrame *f, uint16_t &index)
+Interpreter::arrayElementIndex(ArrayFrame *f, size_t &index)
 {
 	index = 0;
-	uint16_t dim = f->numDimensions, mul = 1;
+	size_t dim = f->numDimensions, mul = 1;
 	while (dim-- > 0) {
 		Program::StackFrame *sf = _program.currentStackFrame();
 		if (sf == NULL ||
@@ -891,7 +903,7 @@ Interpreter::arrayElementIndex(ArrayFrame *f, uint16_t &index)
 Interpreter::VariableFrame*
 Interpreter::setVariable(const char *name, const Parser::Value &v)
 {
-	uint16_t index = _program._textEnd;
+	size_t index = _program._textEnd;
 
 	VariableFrame *f;
 	for (f = _program.variableByIndex(index); f != NULL; index += f->size(),
@@ -908,7 +920,7 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 	if (f == NULL)
 		f = reinterpret_cast<VariableFrame*> (_program._text + index);
 
-	uint16_t dist = sizeof (VariableFrame);
+	size_t dist = sizeof (VariableFrame);
 	Type t;
 	if (endsWith(name, '%')) {
 		t = VF_INTEGER;
@@ -947,7 +959,7 @@ Interpreter::setArrayElement(const char *name, const Parser::Value &v)
 		return;
 	}
 
-	uint16_t index;
+	size_t index;
 	if (!arrayElementIndex(f, index)) {
 		raiseError(DYNAMIC_ERROR, INVALID_VALUE_TYPE);
 		return;
@@ -963,8 +975,8 @@ Interpreter::newArray(const char *name)
 	if (f != NULL && f->_type == Program::StackFrame::ARRAY_DIMENSIONS) {
 		uint8_t dimensions = f->body.arrayDimensions;
 		_program.pop();
-		uint16_t size = 1;
-		uint16_t sp = _program._sp; // go on stack frames, containong dimesions
+		size_t size = 1;
+		size_t sp = _program._sp; // go on stack frames, containong dimesions
 		for (uint8_t dim = 0; dim < dimensions; ++dim) {
 			f = _program.stackFrameByIndex(sp);
 			if (f != NULL && f->_type ==
@@ -1012,8 +1024,8 @@ Interpreter::pushString(const char *str)
 	strcpy(f->body.string, str);
 }
 
-uint16_t
-Interpreter::pushDimension(uint16_t dim)
+size_t
+Interpreter::pushDimension(size_t dim)
 {
 	Program::StackFrame *f =
 	    _program.push(Program::StackFrame::ARRAY_DIMENSION);
@@ -1090,13 +1102,13 @@ Interpreter::end()
 	_state = SHELL;
 }
 
-uint16_t
+size_t
 Interpreter::ArrayFrame::size() const
 {
-	uint16_t result = sizeof (Interpreter::ArrayFrame) +
-	    numDimensions * sizeof (uint16_t);
+	size_t result = sizeof (Interpreter::ArrayFrame) +
+	    numDimensions * sizeof (size_t);
 
-	uint16_t mul = 1;
+	size_t mul = 1;
 
 	for (uint8_t i = 0; i < numDimensions; ++i)
 		mul *= dimension[i] + 1;
@@ -1123,7 +1135,7 @@ Interpreter::ArrayFrame*
 Interpreter::addArray(const char *name, uint8_t dim,
     uint32_t num)
 {
-	uint16_t index = _program._variablesEnd;
+	size_t index = _program._variablesEnd;
 	ArrayFrame *f;
 	for (f = _program.arrayByIndex(index); f != NULL; index += f->size(),
 	    f = _program.arrayByIndex(index)) {
@@ -1149,7 +1161,7 @@ Interpreter::addArray(const char *name, uint8_t dim,
 		t = VF_REAL;
 		num *= sizeof (Real);
 	}
-	uint16_t dist = sizeof (ArrayFrame) + sizeof (uint16_t) * dim + num;
+	size_t dist = sizeof (ArrayFrame) + sizeof (size_t) * dim + num;
 	if (_program._arraysEnd + dist >= _program._sp) {
 		raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
 		return NULL;
