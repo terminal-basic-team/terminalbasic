@@ -662,6 +662,7 @@ Interpreter::input(const char *varName)
 	_program._textPosition += _lexer.getPointer();
 
 	_inputPosition = 0;
+	
 	memset(_inputBuffer, 0xFF, PROGSTRINGSIZE);
 	
 	while (!readInput());
@@ -785,7 +786,7 @@ Interpreter::readInput()
 {
 	int a = _stream.available();
 	if (a <= 0)
-		return false;
+		return (false);
 
 	const uint8_t availableSize = PROGSTRINGSIZE - 1 - _inputPosition;
 	a = min(a, availableSize);
@@ -804,12 +805,12 @@ Interpreter::readInput()
 		case char(ASCII::CR):
 			_output.write(char(ASCII::LF));
 			_inputBuffer[i] = 0;
-			return true;
+			return (true);
 		default:
 			++_inputPosition;
 		}
 	}
-	return false;
+	return (false);
 }
 
 void
@@ -900,7 +901,7 @@ Interpreter::arrayElementIndex(ArrayFrame *f, size_t &index)
 		mul *= f->dimension[dim] + 1;
 		_program.pop();
 	};
-	return true;
+	return (true);
 }
 
 Interpreter::VariableFrame*
@@ -914,7 +915,7 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 		int res = strcmp(name, f->name);
 		if (res == 0) {
 			set(*f, v);
-			return f;
+			return (f);
 		} else if (res < 0) {
 			break;
 		}
@@ -950,7 +951,7 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 	_program._arraysEnd += f->size();
 	set(*f, v);
 
-	return f;
+	return (f);
 }
 
 void
@@ -1013,7 +1014,7 @@ Interpreter::getVariable(const char *name)
 		Parser::Value v(Integer(0));
 		f = setVariable(name, v);
 	}
-	return f;
+	return (f);
 }
 
 void
@@ -1145,7 +1146,7 @@ Interpreter::addArray(const char *name, uint8_t dim,
 		int res = strcmp(name, f->name);
 		if (res == 0) {
 			raiseError(DYNAMIC_ERROR, REDIMED_ARRAY);
-			return NULL;
+			return (NULL);
 		} else if (res < 0)
 			break;
 	}
