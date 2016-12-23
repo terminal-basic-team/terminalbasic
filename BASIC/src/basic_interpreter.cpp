@@ -1140,8 +1140,8 @@ Interpreter::addArray(const char *name, uint8_t dim,
 {
 	size_t index = _program._variablesEnd;
 	ArrayFrame *f;
-	for (f = _program.arrayByIndex(index); f != NULL; index += f->size(),
-	    f = _program.arrayByIndex(index)) {
+	for (f = _program.arrayByIndex(index); index < _program._arraysEnd;
+	    index += f->size(), f = _program.arrayByIndex(index)) {
 		int res = strcmp(name, f->name);
 		if (res == 0) {
 			raiseError(DYNAMIC_ERROR, REDIMED_ARRAY);
