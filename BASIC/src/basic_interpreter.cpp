@@ -658,11 +658,14 @@ Interpreter::input(const char *varName)
 
 	strcpy(_inputVarName, varName);
 
-	_state = VAR_INPUT;
+	//_state = VAR_INPUT;
 	_program._textPosition += _lexer.getPointer();
 
 	_inputPosition = 0;
 	memset(_inputBuffer, 0xFF, PROGSTRINGSIZE);
+	
+	while (!readInput());
+	doInput();
 }
 
 uint8_t
