@@ -33,15 +33,10 @@
 #include "bytearray.hpp"
 #include "version.h"
 #include "ascii.hpp"
-
 #ifdef ARDUINO
-
-static int freeRam()
-{
-	extern int __heap_start, *__brkval;
-	int v;
-	return (int) &v - (__brkval == 0 ? (int) &__heap_start : (int) __brkval);
-}
+#include "config_arduino.hpp"
+#else
+#include "config_linux.hpp"
 #endif
 
 namespace BASIC
@@ -259,8 +254,9 @@ Interpreter::exec()
 	_lexer.init(_inputBuffer);
 	if (_lexer.getNext() && (_lexer.getToken() == Token::C_INTEGER) &&
 	    (_lexer.getValue().type == Parser::Value::INTEGER)) {
-		if (!_program.addLine(_lexer.getValue().value.integer,
-		    _inputBuffer + _lexer.getPointer())) {
+		Integer pLine = Integer(_lexer.getValue());
+		tokenize();
+		if (!_program.addLine(pLine, _inputBuffer)) {
 			raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
 			_state = SHELL;
 			return;
@@ -271,6 +267,27 @@ Interpreter::exec()
 		if (!_parser.parse(_inputBuffer))
 			raiseError(STATIC_ERROR);
 	}
+}
+
+void
+Interpreter::tokenize()
+{
+	char tempBuffer[PROGSTRINGSIZE];
+	size_t position = 0, lexerPosition = _lexer.getPointer();
+	while (_lexer.getNext()) {
+		if (_lexer.getToken() < Token::REAL_IDENT) {
+			uint8_t t = uint8_t(128) + uint8_t(_lexer.getToken());
+			tempBuffer[position++] = t;
+			lexerPosition = _lexer.getPointer();
+		} else {
+			std::memcpy(tempBuffer+position, _inputBuffer+lexerPosition,
+			    _lexer.getPointer()-lexerPosition);
+			position += _lexer.getPointer()-lexerPosition;
+			lexerPosition = _lexer.getPointer();
+		}
+	}
+	std::memcpy(_inputBuffer, tempBuffer, position);
+	_inputBuffer[position] = 0;
 }
 
 void

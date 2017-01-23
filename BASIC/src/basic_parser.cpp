@@ -709,9 +709,9 @@ Parser::fVarList()
 	do {
 		if (!_lexer.getNext() || !fVar(varName))
 			return false;
-		if (_mode == EXECUTE)
+		if (_mode == EXECUTE) {
 			_interpreter.input(varName);
-		if (!_lexer.getNext())
+		} if (!_lexer.getNext())
 			return true;
 		t = _lexer.getToken();
 	} while (t == Token::COMMA);

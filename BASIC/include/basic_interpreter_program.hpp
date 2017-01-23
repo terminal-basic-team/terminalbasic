@@ -155,6 +155,7 @@ public:
 	char *_text;
 	const size_t programSize;
 private:
+	// End of program text
 	size_t _textEnd;
 	size_t _current, _variablesEnd, _arraysEnd, _sp, _jump;
 	bool _jumpFlag;

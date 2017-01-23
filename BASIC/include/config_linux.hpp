@@ -25,7 +25,7 @@
 const uint8_t PROGSTRINGSIZE = 80;
 
 // Number of bytes for program text, variables and stack
-const size_t PROGRAMSIZE = 65536;
+const size_t PROGRAMSIZE = 256;
 
 // Max size of the string constants/variables
 const uint8_t STRINGSIZE = 128;

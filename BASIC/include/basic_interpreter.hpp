@@ -58,7 +58,7 @@ public:
 		OUTTA_MEMORY,		// Out of memory
 		REDIMED_ARRAY,		// Attempt to define existing array
 		STACK_FRAME_ALLOCATION,	// Unable to allocate stack frame
-		ARRAY_DECLARATION,	
+		ARRAY_DECLARATION,	// 
 		STRING_FRAME_SEARCH,	// Missing string frame
 		INVALID_NEXT,		// 
 		RETURN_WO_GOSUB,
@@ -188,7 +188,7 @@ public:
 	// Terminal text attributes to use when printing
 	enum TextAttr : uint8_t
 	{
-		NO_ATTR = 0,
+		NO_ATTR = 0x0,
 		BRIGHT = 0x1,
 		UNDERSCORE = 0x2,
 		BLINK = 0x4,
@@ -233,6 +233,8 @@ public:
 	void step();
 	// Execute entered command (command or inputed program line)
 	void exec();
+	// Tokenize inputed program string
+	void tokenize();
 	// Clear screen
 	void cls();
 	// Output program memory
@@ -371,18 +373,25 @@ private:
 	ArrayFrame *addArray(const char*, uint8_t, uint32_t);
 	
 	bool arrayElementIndex(ArrayFrame*, size_t&);
+	
 	// Interpreter FSM state
 	State	 _state;
-	// Boundary terminal connection object
+	// Input oject
 	Stream	&_stream;
+	// Output object
 	Print	&_output;
-
+	// Lexical analyzer object
 	Lexer	 _lexer;
+	// Syntactical analyzer object
 	Parser	 _parser;
-	static PGM_P const _progmemStrings[];
+	//Input buffer
 	char _inputBuffer[PROGSTRINGSIZE];
+	// Position in the input buffer
 	uint8_t _inputPosition;
+	// Input variable name string;
 	char _inputVarName[VARSIZE];
+	// Static text strings
+	static PGM_P const _progmemStrings[];
 };
 
 }

@@ -189,7 +189,7 @@ operator<<(Logger &logger, Token tok)
 }
 #endif
 
-#define SYM _string[_pointer]
+#define SYM (uint8_t(_string[_pointer]))
 
 void
 Lexer::init(const char *string)
@@ -335,8 +335,8 @@ Lexer::getNext()
 				break;
 			default:
 				if (SYM >= 0x80) {
-					next();
 					_token = Token(SYM & 0x7F);
+					next();
 				} else if (isalpha(SYM)) {
 					pushSYM();
 					ident();
