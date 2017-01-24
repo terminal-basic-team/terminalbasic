@@ -279,14 +279,27 @@ Interpreter::tokenize()
 			uint8_t t = uint8_t(128) + uint8_t(_lexer.getToken());
 			tempBuffer[position++] = t;
 			lexerPosition = _lexer.getPointer();
+			if (_lexer.getToken() == Token::KW_REM) {
+				while (_inputBuffer[lexerPosition] == ' ' ||
+				    _inputBuffer[lexerPosition] == '\t')
+					++lexerPosition;
+				uint8_t remaining = strlen(_inputBuffer)-lexerPosition;
+				memcpy(tempBuffer+position, _inputBuffer+lexerPosition,
+				    remaining);
+				position += remaining;
+				break;
+			}
 		} else {
-			std::memcpy(tempBuffer+position, _inputBuffer+lexerPosition,
+			while (_inputBuffer[lexerPosition] == ' ' ||
+			    _inputBuffer[lexerPosition] == '\t')
+				++lexerPosition;
+			memcpy(tempBuffer+position, _inputBuffer+lexerPosition,
 			    _lexer.getPointer()-lexerPosition);
 			position += _lexer.getPointer()-lexerPosition;
 			lexerPosition = _lexer.getPointer();
 		}
 	}
-	std::memcpy(_inputBuffer, tempBuffer, position);
+	memcpy(_inputBuffer, tempBuffer, position);
 	_inputBuffer[position] = 0;
 }
 
