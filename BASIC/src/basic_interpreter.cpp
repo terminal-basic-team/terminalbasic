@@ -196,7 +196,7 @@ Interpreter::valueFromArray(Parser::Value &v, const char *name)
 
 Interpreter::Interpreter(Stream &stream, Print &output, Program &program, FunctionBlock *first) :
     _program(program), _state(SHELL), _input(stream), _output(output),
-    _parser(_lexer, *this, first), _tokenizeProgramText(TOKENIZE)
+    _parser(_lexer, *this, first)
 {
 	_input.setTimeout(10000L);
 }
@@ -268,7 +268,7 @@ Interpreter::exec()
 	if (_lexer.getNext() && (_lexer.getToken() == Token::C_INTEGER) &&
 	    (_lexer.getValue().type == Parser::Value::INTEGER)) {
 		Integer pLine = Integer(_lexer.getValue());
-		if (_tokenizeProgramText) {
+		if (TOKENIZE) {
 			tokenize();
 			pString = _inputBuffer;
 		} else
@@ -524,9 +524,9 @@ Interpreter::print(Lexer &l)
 		case Token::C_STRING:
 		{
 			AttrKeeper a(*this, C_RED);
-			_stream.write("\"");
-			_stream.print(l.id());
-			_stream.write("\" ");
+			_output.write("\"");
+			_output.print(l.id());
+			_output.write("\" ");
 		} break;
 		case Token::REAL_IDENT:
 		case Token::INTEGER_IDENT:

@@ -20,7 +20,6 @@
 #define BASIC_PARSER_VALUE_HPP
 
 #include "basic_parser.hpp"
-#include "config_arduino.hpp"
 
 namespace BASIC
 {

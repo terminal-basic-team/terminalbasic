@@ -1035,6 +1035,7 @@ Lexer::ident()
 	}
 	if (SYM == '%') {
 		pushSYM();
+#if USE_LONGINT
 		if (SYM == '%') {
 			pushSYM();
 			_token = Token::LONGINT_IDENT;
