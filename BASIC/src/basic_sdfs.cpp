@@ -17,6 +17,9 @@
  */
 
 #include "basic_sdfs.hpp"
+
+#if USESD
+
 #include "basic_interpreter_program.hpp"
 #include <assert.h>
 
@@ -250,3 +253,5 @@ SDFSModule::getFileName(Interpreter &i, char ss[])
 }
 
 }
+
+#endif // USESD

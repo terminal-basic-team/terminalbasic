@@ -21,6 +21,9 @@
 
 #include "basic_functionblock.hpp"
 #include "basic_interpreter.hpp"
+
+#if USESD
+
 #include <SPI.h>
 #include <SD.h>
 
@@ -48,4 +51,6 @@ private:
 
 }
 
-#endif
+#endif // USESD
+
+#endif // BASIC_SDFS_HPP
