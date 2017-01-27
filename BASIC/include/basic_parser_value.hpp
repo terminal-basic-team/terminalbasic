@@ -20,6 +20,7 @@
 #define BASIC_PARSER_VALUE_HPP
 
 #include "basic_parser.hpp"
+#include "config_arduino.hpp"
 
 namespace BASIC
 {
@@ -30,7 +31,11 @@ public:
 
 	enum Type : uint8_t
 	{
-		INTEGER, REAL, BOOLEAN, STRING
+		INTEGER,
+#if USE_LONGINT
+		    LONG_INTEGER,
+#endif
+		REAL, BOOLEAN, STRING
 	};
 
 	struct CPS_PACKED String
@@ -41,12 +46,18 @@ public:
 
 	union CPS_PACKED Body
 	{
+#if USE_LONGINT
+		LongInteger longInteger;
+#endif
 		Integer integer;
 		Real real;
 		bool boolean;
 	};
 
 	Value();
+#if USE_LONGINT
+	Value(LongInteger);
+#endif
 	Value(Integer);
 	Value(float);
 	Value(bool);
@@ -54,6 +65,9 @@ public:
 	explicit operator Real() const;
 	explicit operator bool() const;
 	explicit operator Integer() const;
+#if USE_LONGINT
+	explicit operator LongInteger() const;
+#endif
 
 	Value &operator-();
 	

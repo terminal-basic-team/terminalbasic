@@ -21,6 +21,9 @@
 
 #include <cstdint>
 
+// Tokenize keywords in program text
+const bool TOKENIZE = true;
+
 // Max size of the program line
 const uint8_t PROGSTRINGSIZE = 80;
 

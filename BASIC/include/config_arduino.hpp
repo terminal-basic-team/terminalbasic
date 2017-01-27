@@ -27,6 +27,10 @@
 #define USEUTFT 0
 // Use multiterminal mode
 #define BASIC_MULTITERMINAL 0
+// USe long integer
+#define USE_LONGINT 0
+// Tokenize keywords in program text
+const bool TOKENIZE = true;
 
 // Max size of the program line
 const uint8_t PROGSTRINGSIZE = 72;

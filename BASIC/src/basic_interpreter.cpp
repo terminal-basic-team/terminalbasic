@@ -127,6 +127,11 @@ Interpreter::valueFromVar(Parser::Value &v, const char *varName)
 	case VF_INTEGER:
 		v = f->get<Integer>();
 		break;
+#if USE_LONGINT
+	case VF_LONG_INTEGER:
+		v = f->get<LongInteger>();
+		break;
+#endif
 	case VF_REAL:
 		v = f->get<Real>();
 		break;
@@ -172,6 +177,12 @@ Interpreter::valueFromArray(Parser::Value &v, const char *name)
 		v.type = Parser::Value::INTEGER;
 		v.value.integer = f->get<Integer>(index);
 		break;
+#if USE_LONGINT
+	case VF_LONG_INTEGER:
+		v.type = Parser::Value::LONG_INTEGER;
+		v.value.longInteger = f->get<LongInteger>(index);
+		break;
+#endif
 	case VF_REAL:
 		v.type = Parser::Value::REAL;
 		v.value.real = f->get<Real>(index);
@@ -184,10 +195,10 @@ Interpreter::valueFromArray(Parser::Value &v, const char *name)
 }
 
 Interpreter::Interpreter(Stream &stream, Print &output, Program &program, FunctionBlock *first) :
-    _program(program), _state(SHELL), _stream(stream), _output(output),
-    _parser(_lexer, *this, first)
+    _program(program), _state(SHELL), _input(stream), _output(output),
+    _parser(_lexer, *this, first), _tokenizeProgramText(TOKENIZE)
 {
-	_stream.setTimeout(10000L);
+	_input.setTimeout(10000L);
 }
 
 void
@@ -235,8 +246,8 @@ Interpreter::step()
 	case EXECUTE:
 		char c = char(ASCII::NUL);
 #ifdef ARDUINO
-		if (_stream.available() > 0)
-			c = _stream.read();
+		if (_input.available() > 0)
+			c = _input.read();
 #endif
 		if (_program._current < _program._textEnd && c != char(ASCII::EOT)) {
 			Program::String *s = _program.current();
@@ -251,12 +262,18 @@ Interpreter::step()
 void
 Interpreter::exec()
 {
+	const char *pString;
+	
 	_lexer.init(_inputBuffer);
 	if (_lexer.getNext() && (_lexer.getToken() == Token::C_INTEGER) &&
 	    (_lexer.getValue().type == Parser::Value::INTEGER)) {
 		Integer pLine = Integer(_lexer.getValue());
-		tokenize();
-		if (!_program.addLine(pLine, _inputBuffer)) {
+		if (_tokenizeProgramText) {
+			tokenize();
+			pString = _inputBuffer;
+		} else
+			pString = _inputBuffer + _lexer.getPointer();
+		if (!_program.addLine(pLine, pString)) {
 			raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
 			_state = SHELL;
 			return;
@@ -275,7 +292,7 @@ Interpreter::tokenize()
 	char tempBuffer[PROGSTRINGSIZE];
 	size_t position = 0, lexerPosition = _lexer.getPointer();
 	while (_lexer.getNext()) {
-		if (_lexer.getToken() < Token::REAL_IDENT) {
+		if (_lexer.getToken() <= Token::OP_NOT) {
 			uint8_t t = uint8_t(128) + uint8_t(_lexer.getToken());
 			tempBuffer[position++] = t;
 			lexerPosition = _lexer.getPointer();
@@ -306,7 +323,7 @@ Interpreter::tokenize()
 void
 Interpreter::cls()
 {
-	_output.print("\x1B[2J"), _stream.print("\x1B[H");
+	_output.print("\x1B[2J"), _input.print("\x1B[H");
 }
 
 void
@@ -377,15 +394,15 @@ Interpreter::dump(DumpMode mode)
 	case MEMORY:
 	{
 		ByteArray ba((uint8_t*) _program._text, _program.programSize);
-		_stream.println(ba);
-		print(Token::KW_END), print(S_OF), print(S_TEXT), _stream.print('\t');
-		_stream.println(unsigned(_program._textEnd), HEX);
-		print(Token::KW_END), print(S_OF), print(S_VARS), _stream.print('\t');
-		_stream.println(unsigned(_program._variablesEnd), HEX);
-		print(Token::KW_END), print(S_OF), print(S_ARRAYS), _stream.print('\t');
-		_stream.println(unsigned(_program._arraysEnd), HEX);
-		print(S_STACK), _stream.print('\t');
-		_stream.println(unsigned(_program._sp), HEX);
+		_input.println(ba);
+		print(Token::KW_END), print(S_OF), print(S_TEXT), _input.print('\t');
+		_input.println(unsigned(_program._textEnd), HEX);
+		print(Token::KW_END), print(S_OF), print(S_VARS), _input.print('\t');
+		_input.println(unsigned(_program._variablesEnd), HEX);
+		print(Token::KW_END), print(S_OF), print(S_ARRAYS), _input.print('\t');
+		_input.println(unsigned(_program._arraysEnd), HEX);
+		print(S_STACK), _input.print('\t');
+		_input.println(unsigned(_program._sp), HEX);
 	}
 		break;
 	case VARS:
@@ -395,12 +412,12 @@ Interpreter::dump(DumpMode mode)
 		    (f != NULL) && (_program.variableIndex(f) <
 		    _program._variablesEnd); f = _program.variableByIndex(
 		    _program.variableIndex(f) + f->size())) {
-			_stream.print(f->name);
-			_stream.print(":\t");
+			_input.print(f->name);
+			_input.print(":\t");
 			Parser::Value v;
 			valueFromVar(v, f->name);
 			print(v);
-			_stream.println();
+			_input.println();
 		}
 	}
 		break;
@@ -410,16 +427,16 @@ Interpreter::dump(DumpMode mode)
 		for (ArrayFrame *f = _program.arrayByIndex(index);
 		    _program.arrayIndex(f) < _program._arraysEnd;
 		    f = _program.arrayByIndex(_program.arrayIndex(f) + f->size())) {
-			_stream.print(f->name);
-			_stream.print('(');
-			_stream.print(f->dimension[0]);
+			_input.print(f->name);
+			_input.print('(');
+			_input.print(f->dimension[0]);
 			for (uint8_t i = 1; i < f->numDimensions; ++i) {
-				_stream.print(',');
-				_stream.print(f->dimension[i]);
+				_input.print(',');
+				_input.print(f->dimension[i]);
 			}
-			_stream.print(')');
-			_stream.print(":\t");
-			_stream.println();
+			_input.print(')');
+			_input.print(":\t");
+			_input.println();
 		}
 	}
 	}
@@ -440,6 +457,11 @@ Interpreter::print(const Parser::Value &v, TextAttr attr)
 	case Parser::Value::REAL:
 		this->print(v.value.real);
 		break;
+#if USE_LONGINT
+	case Parser::Value::LONG_INTEGER:
+		_output.print(v.value.longInteger);
+		break;
+#endif
 	case Parser::Value::INTEGER:
 		_output.print(v.value.integer);
 		break;
@@ -703,6 +725,10 @@ uint8_t
 Interpreter::VariableFrame::size() const
 {
 	switch (type) {
+#if USE_LONGINT
+	case Parser::Value::LONG_INTEGER:
+		return sizeof (VariableFrame) + sizeof (LongInteger);
+#endif
 	case Parser::Value::INTEGER:
 		return sizeof (VariableFrame) + sizeof (Integer);
 	case Parser::Value::REAL:
@@ -742,6 +768,19 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 		*_U.i = Integer(v);
 	}
 		break;
+#if USE_LONGINT
+	case VF_LONG_INTEGER:
+	{
+		union
+		{
+			char *b;
+			LongInteger *i;
+		} _U;
+		_U.b = f.bytes;
+		*_U.i = LongInteger(v);
+	}
+		break;
+#endif
 	case VF_REAL:
 	{
 		union
@@ -795,6 +834,19 @@ Interpreter::set(ArrayFrame &f, size_t index, const Parser::Value &v)
 		_U.i[index] = Integer(v);
 	}
 		break;
+#if USE_LONGINT
+	case VF_LONG_INTEGER:
+	{
+		union
+		{
+			uint8_t *b;
+			LongInteger *i;
+		} _U;
+		_U.b = f.data();
+		_U.i[index] = LongInteger(v);
+	}
+		break;
+#endif
 	case VF_REAL:
 	{
 		union
@@ -814,14 +866,14 @@ Interpreter::set(ArrayFrame &f, size_t index, const Parser::Value &v)
 bool
 Interpreter::readInput()
 {
-	int a = _stream.available();
+	int a = _input.available();
 	if (a <= 0)
 		return (false);
 
 	const uint8_t availableSize = PROGSTRINGSIZE - 1 - _inputPosition;
 	a = min(a, availableSize);
 
-	size_t read = _stream.readBytes(_inputBuffer + _inputPosition, a);
+	size_t read = _input.readBytes(_inputBuffer + _inputPosition, a);
 	assert(read <= availableSize);
 	uint8_t end = _inputPosition + read;
 	for (uint8_t i = _inputPosition; i < end; ++i) {
@@ -956,6 +1008,12 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 
 	size_t dist = sizeof (VariableFrame);
 	Type t;
+#if USE_LONGINT
+	if (endsWith(name, "%%")) {
+		t = VF_LONG_INTEGER;
+		dist += sizeof (LongInteger);
+	} else
+#endif
 	if (endsWith(name, '%')) {
 		t = VF_INTEGER;
 		dist += sizeof (Integer);
@@ -1089,11 +1147,11 @@ Interpreter::confirm()
 	bool result = false;
 	do {
 		print(S_REALLY); print('?'); newline();
-		while (_stream.available() <= 0);
-		char c = _stream.read();
+		while (_input.available() <= 0);
+		char c = _input.read();
 		_output.write(c);
-		while (_stream.available() <= 0);
-		if (_stream.read() != int(ASCII::CR)) {
+		while (_input.available() <= 0);
+		if (_input.read() != int(ASCII::CR)) {
 			newline();
 			continue;
 		}
@@ -1151,6 +1209,11 @@ Interpreter::ArrayFrame::size() const
 	case VF_INTEGER:
 		mul *= sizeof (Integer);
 		break;
+#if USE_LONGINT
+	case VF_LONG_INTEGER:
+		mul *= sizeof (LongInteger);
+		break;
+#endif
 	case VF_REAL:
 		mul *= sizeof (Real);
 		break;
@@ -1185,6 +1248,12 @@ Interpreter::addArray(const char *name, uint8_t dim,
 		f = reinterpret_cast<ArrayFrame*> (_program._text + index);
 
 	Type t;
+#if USE_LONGINT
+	if (endsWith(name, "%%")) {
+		t = VF_LONG_INTEGER;
+		num *= sizeof (LongInteger);
+	} else
+#endif
 	if (endsWith(name, '%')) {
 		t = VF_INTEGER;
 		num *= sizeof (Integer);

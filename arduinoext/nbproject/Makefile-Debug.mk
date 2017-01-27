@@ -37,8 +37,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/_ext/38f13fd/arduino_logger.o \
 	${OBJECTDIR}/include/bcopy.o \
-	${OBJECTDIR}/include/bytearray.o \
 	${OBJECTDIR}/include/math.o \
+	${OBJECTDIR}/src/bytearray.o \
 	${OBJECTDIR}/src/cps_mosprotocol.o \
 	${OBJECTDIR}/src/cps_mosprotocol_arduino.o \
 	${OBJECTDIR}/src/protocol.o \
@@ -91,15 +91,15 @@ ${OBJECTDIR}/include/bcopy.o: include/bcopy.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Wall -Iinclude -I../libarduinoemulator/include -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/bcopy.o include/bcopy.cpp
 
-${OBJECTDIR}/include/bytearray.o: include/bytearray.cpp
-	${MKDIR} -p ${OBJECTDIR}/include
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -Iinclude -I../libarduinoemulator/include -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/bytearray.o include/bytearray.cpp
-
 ${OBJECTDIR}/include/math.o: include/math.cpp
 	${MKDIR} -p ${OBJECTDIR}/include
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Wall -Iinclude -I../libarduinoemulator/include -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/math.o include/math.cpp
+
+${OBJECTDIR}/src/bytearray.o: src/bytearray.cpp
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -Iinclude -I../libarduinoemulator/include -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/bytearray.o src/bytearray.cpp
 
 ${OBJECTDIR}/src/cps_mosprotocol.o: src/cps_mosprotocol.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
@@ -166,19 +166,6 @@ ${OBJECTDIR}/include/bcopy_nomain.o: ${OBJECTDIR}/include/bcopy.o include/bcopy.
 	    ${CP} ${OBJECTDIR}/include/bcopy.o ${OBJECTDIR}/include/bcopy_nomain.o;\
 	fi
 
-${OBJECTDIR}/include/bytearray_nomain.o: ${OBJECTDIR}/include/bytearray.o include/bytearray.cpp 
-	${MKDIR} -p ${OBJECTDIR}/include
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/include/bytearray.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Wall -Iinclude -I../libarduinoemulator/include -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/bytearray_nomain.o include/bytearray.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/include/bytearray.o ${OBJECTDIR}/include/bytearray_nomain.o;\
-	fi
-
 ${OBJECTDIR}/include/math_nomain.o: ${OBJECTDIR}/include/math.o include/math.cpp 
 	${MKDIR} -p ${OBJECTDIR}/include
 	@NMOUTPUT=`${NM} ${OBJECTDIR}/include/math.o`; \
@@ -190,6 +177,19 @@ ${OBJECTDIR}/include/math_nomain.o: ${OBJECTDIR}/include/math.o include/math.cpp
 	    $(COMPILE.cc) -g -Wall -Iinclude -I../libarduinoemulator/include -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/math_nomain.o include/math.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/include/math.o ${OBJECTDIR}/include/math_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/bytearray_nomain.o: ${OBJECTDIR}/src/bytearray.o src/bytearray.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/bytearray.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Wall -Iinclude -I../libarduinoemulator/include -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/bytearray_nomain.o src/bytearray.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/bytearray.o ${OBJECTDIR}/src/bytearray_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/cps_mosprotocol_nomain.o: ${OBJECTDIR}/src/cps_mosprotocol.o src/cps_mosprotocol.cpp 

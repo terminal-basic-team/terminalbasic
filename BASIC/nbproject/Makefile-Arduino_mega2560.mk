@@ -35,15 +35,15 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/include/basic_functionblock.o \
-	${OBJECTDIR}/include/basic_sdfs.o \
 	${OBJECTDIR}/src/basic_arduinoio.o \
+	${OBJECTDIR}/src/basic_functionblock.o \
 	${OBJECTDIR}/src/basic_interpreter.o \
 	${OBJECTDIR}/src/basic_interpreter_program.o \
 	${OBJECTDIR}/src/basic_lexer.o \
 	${OBJECTDIR}/src/basic_math.o \
 	${OBJECTDIR}/src/basic_parser.o \
 	${OBJECTDIR}/src/basic_parser_value.o \
+	${OBJECTDIR}/src/basic_sdfs.o \
 	${OBJECTDIR}/src/ucbasic_main.o
 
 
@@ -75,20 +75,15 @@ ${CND_DISTDIR}/${CND_CONF}/basic: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/basic ${OBJECTFILES} ${LDLIBSOPTIONS} -Os -Wall -Wextra -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega2560
 
-${OBJECTDIR}/include/basic_functionblock.o: include/basic_functionblock.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/include
-	${RM} "$@.d"
-	$(COMPILE.cc) -Wall -DARDUINO=10607 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -D__AVR_ATmega2560__ -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I${ARDUINO_PATH}/hardware/arduino/avr/variants/mega -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/SoftwareSerial/src -I${ARDUINO_PATH}/libraries/UTFT -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/SPI/src -I/opt/arduino-1.6.12/libraries/SD/src -Iinclude -I../arduinoext/include -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/EEPROM/src -include Arduino.h -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/basic_functionblock.o include/basic_functionblock.cpp
-
-${OBJECTDIR}/include/basic_sdfs.o: include/basic_sdfs.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/include
-	${RM} "$@.d"
-	$(COMPILE.cc) -Wall -DARDUINO=10607 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -D__AVR_ATmega2560__ -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I${ARDUINO_PATH}/hardware/arduino/avr/variants/mega -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/SoftwareSerial/src -I${ARDUINO_PATH}/libraries/UTFT -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/SPI/src -I/opt/arduino-1.6.12/libraries/SD/src -Iinclude -I../arduinoext/include -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/EEPROM/src -include Arduino.h -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/basic_sdfs.o include/basic_sdfs.cpp
-
 ${OBJECTDIR}/src/basic_arduinoio.o: src/basic_arduinoio.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -Wall -DARDUINO=10607 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -D__AVR_ATmega2560__ -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I${ARDUINO_PATH}/hardware/arduino/avr/variants/mega -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/SoftwareSerial/src -I${ARDUINO_PATH}/libraries/UTFT -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/SPI/src -I/opt/arduino-1.6.12/libraries/SD/src -Iinclude -I../arduinoext/include -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/EEPROM/src -include Arduino.h -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/basic_arduinoio.o src/basic_arduinoio.cpp
+
+${OBJECTDIR}/src/basic_functionblock.o: src/basic_functionblock.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -Wall -DARDUINO=10607 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -D__AVR_ATmega2560__ -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I${ARDUINO_PATH}/hardware/arduino/avr/variants/mega -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/SoftwareSerial/src -I${ARDUINO_PATH}/libraries/UTFT -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/SPI/src -I/opt/arduino-1.6.12/libraries/SD/src -Iinclude -I../arduinoext/include -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/EEPROM/src -include Arduino.h -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/basic_functionblock.o src/basic_functionblock.cpp
 
 ${OBJECTDIR}/src/basic_interpreter.o: src/basic_interpreter.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/src
@@ -119,6 +114,11 @@ ${OBJECTDIR}/src/basic_parser_value.o: src/basic_parser_value.cpp nbproject/Make
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -Wall -DARDUINO=10607 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -D__AVR_ATmega2560__ -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I${ARDUINO_PATH}/hardware/arduino/avr/variants/mega -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/SoftwareSerial/src -I${ARDUINO_PATH}/libraries/UTFT -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/SPI/src -I/opt/arduino-1.6.12/libraries/SD/src -Iinclude -I../arduinoext/include -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/EEPROM/src -include Arduino.h -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/basic_parser_value.o src/basic_parser_value.cpp
+
+${OBJECTDIR}/src/basic_sdfs.o: src/basic_sdfs.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -Wall -DARDUINO=10607 -DARDUINO_ARCH_AVR -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -D__AVR_ATmega2560__ -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I${ARDUINO_PATH}/hardware/arduino/avr/variants/mega -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/SoftwareSerial/src -I${ARDUINO_PATH}/libraries/UTFT -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/SPI/src -I/opt/arduino-1.6.12/libraries/SD/src -Iinclude -I../arduinoext/include -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/EEPROM/src -include Arduino.h -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/basic_sdfs.o src/basic_sdfs.cpp
 
 ${OBJECTDIR}/src/ucbasic_main.o: src/ucbasic_main.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/src

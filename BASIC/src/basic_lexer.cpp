@@ -948,7 +948,7 @@ Lexer::decimalNumber()
 	_value.type = Parser::Value::INTEGER;
 	_value.value.integer = SYM - '0';
 	
-	while (true) {
+	while (SYM > 0) {
 		next();
 		if (isdigit(SYM)) {
 			_value.value.integer *= Integer(10);
@@ -967,11 +967,14 @@ Lexer::decimalNumber()
 					d /= 10.f;
 					_value.value.real += Real(SYM-'0') *d;
 					continue;
+				} else if (SYM == 0) {
+					_token = Token::C_REAL;
+					return;
 				} else
 					break;
 			}
 		}
-			break;
+		break;
 		case 'E':
 		{
 			if (_value.type == Parser::Value::INTEGER)
@@ -1036,6 +1039,7 @@ Lexer::ident()
 			pushSYM();
 			_token = Token::LONGINT_IDENT;
 		} else
+#endif
 			_token = Token::INTEGER_IDENT;
 	} else if (SYM == '$') {
 		pushSYM();

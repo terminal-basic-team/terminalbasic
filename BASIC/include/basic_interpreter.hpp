@@ -44,6 +44,9 @@ public:
 	enum Type : uint8_t
 	{
 		VF_INTEGER = 0,
+#if USE_LONGINT
+		VF_LONG_INTEGER,
+#endif
 		VF_REAL,
 		VF_BOOLEAN,
 		VF_STRING
@@ -377,7 +380,7 @@ private:
 	// Interpreter FSM state
 	State	 _state;
 	// Input oject
-	Stream	&_stream;
+	Stream	&_input;
 	// Output object
 	Print	&_output;
 	// Lexical analyzer object

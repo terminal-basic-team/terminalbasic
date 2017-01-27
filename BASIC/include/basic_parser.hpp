@@ -99,6 +99,7 @@ private:
 	bool fArray(uint8_t&);
 	bool fDimensions(uint8_t&);
 	bool fIdentifierExpr(const char*, Value&);
+	
 	// last static semantic error
 	ErrorCodes _error;
 	// lexical analyser object reference

@@ -24,6 +24,12 @@
 #include "basic_interpreter.hpp"
 #include "basic_interpreter_program.hpp"
 
+#ifdef ARDUINO
+#include "config_arduino.hpp"
+#else
+#include "config_linux.hpp"
+#endif
+
 /*
  * TEXT = OPERATORS | C_INTEGER OPERATORS
  * OPERATORS = OPERATOR | OPERATOR COLON OPERATORS
@@ -210,8 +216,9 @@ Parser::fOperator()
 		if (!_lexer.getNext() || (_lexer.getToken() != Token::REAL_IDENT
 		    && _lexer.getToken() != Token::INTEGER_IDENT))
 			return (false);
-		if (_mode == EXECUTE)
+		if (_mode == EXECUTE) {
 			_stopParse = !_interpreter.next(_lexer.id());
+		}
 		if (!_stopParse)
 			_lexer.getNext();
 		break;

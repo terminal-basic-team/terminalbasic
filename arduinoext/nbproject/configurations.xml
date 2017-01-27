@@ -21,7 +21,7 @@
     <logicalFolder name="src" displayName="src" projectFiles="true">
       <itemPath>../arduinoext/src/arduino_logger.cpp</itemPath>
       <itemPath>include/bcopy.cpp</itemPath>
-      <itemPath>include/bytearray.cpp</itemPath>
+      <itemPath>src/bytearray.cpp</itemPath>
       <itemPath>src/cps_mosprotocol.cpp</itemPath>
       <itemPath>src/cps_mosprotocol_arduino.cpp</itemPath>
       <itemPath>include/math.cpp</itemPath>
@@ -123,8 +123,6 @@
       </item>
       <item path="include/bcopy.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/bytearray.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="include/bytearray.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/cps_mosprotocol.hpp" ex="false" tool="3" flavor2="0">
@@ -149,6 +147,8 @@
       <item path="include/uart305.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/bytearray.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/cps_mosprotocol.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -238,8 +238,6 @@
       </item>
       <item path="include/bcopy.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/bytearray.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="include/bytearray.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/cps_mosprotocol.hpp" ex="false" tool="3" flavor2="0">
@@ -264,6 +262,8 @@
       <item path="include/uart305.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/bytearray.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/cps_mosprotocol.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -355,8 +355,6 @@
       </item>
       <item path="include/bcopy.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/bytearray.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="include/bytearray.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/cps_mosprotocol.hpp" ex="false" tool="3" flavor2="0">
@@ -381,6 +379,8 @@
       <item path="include/uart305.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/bytearray.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/cps_mosprotocol.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -473,8 +473,6 @@
       </item>
       <item path="include/bcopy.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/bytearray.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="include/bytearray.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/cps_mosprotocol.hpp" ex="false" tool="3" flavor2="0">
@@ -501,6 +499,8 @@
       <item path="include/utft_stream.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/bytearray.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/cps_mosprotocol.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -592,8 +592,6 @@
       </item>
       <item path="include/bcopy.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/bytearray.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="include/bytearray.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/cps_mosprotocol.hpp" ex="false" tool="3" flavor2="0">
@@ -618,6 +616,8 @@
       <item path="include/uart305.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/bytearray.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/cps_mosprotocol.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -701,8 +701,6 @@
       </item>
       <item path="include/bcopy.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/bytearray.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="include/bytearray.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/cps_mosprotocol.hpp" ex="false" tool="3" flavor2="0">
@@ -727,6 +725,8 @@
       <item path="include/uart305.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/bytearray.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/cps_mosprotocol.cpp" ex="false" tool="1" flavor2="0">
       </item>

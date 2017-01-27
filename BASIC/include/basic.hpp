@@ -36,8 +36,10 @@ namespace BASIC
 
 // integer type
 typedef int16_t Integer;
+#if USE_LONGINT
 // long integer type
 typedef int32_t LongInteger;
+#endif
 // floating point type
 typedef float Real;
 

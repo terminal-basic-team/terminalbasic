@@ -74,4 +74,19 @@ endsWith(const char *str, const char end)
 		return false;
 }
 
+inline bool
+endsWith(const char *str, const char *end)
+{
+	size_t l1, l2;
+	
+	l1 = strlen(str); l2 = strlen(end);
+	
+	if (str == NULL || l1 == 0 || l2 == 0 || l1 < l2)
+		return false;
+	else if (strcmp(str+l1-l2, end) == 0)
+		return true;
+	else
+		return false;
+}
+
 #endif /* HELPER_HPP */
