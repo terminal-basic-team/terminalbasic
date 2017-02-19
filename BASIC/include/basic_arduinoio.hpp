@@ -42,7 +42,7 @@ private:
 	static bool func_aread(Interpreter&);
 	static bool func_aread_int(Interpreter&);
 	static bool func_dread(Interpreter&);
-	
+	static bool comm_awrite(Interpreter&);
 	static bool comm_dwrite(Interpreter&);
 	
 	static Real aread_r(Real);

@@ -39,7 +39,9 @@ ArduinoIO::_getFunction(const char *name) const
 		switch (c) {
 		case 'A':
 			++position;
-			if (name[position] == 'R') {
+			c = name[position];
+			switch (c) {
+			case 'R':
 				++position;
 				if (name[position] == 'E') {
 					++position;
@@ -56,6 +58,7 @@ ArduinoIO::_getFunction(const char *name) const
 						}
 					}
 				}
+				break;
 			}
 			break;
 		case 'D':
@@ -91,6 +94,24 @@ ArduinoIO::_getCommand(const char *name) const
 	char c = name[position];
 	if (c != 0) {
 		switch (c) {
+		case 'A':
+			++position;
+			c = name[position];
+			case 'W':
+				++position;
+				if (name[position] == 'R') {
+					++position;
+					if (name[position] == 'I') {
+						++position;
+						if (name[position] == 'T') {
+							++position;
+							if (name[position] == 'E') {
+								return (comm_awrite);
+							}
+						}
+					}
+				}
+			break;
 		case 'D':
 			++position;
 			if (name[position] == 'W') {
@@ -140,6 +161,24 @@ ArduinoIO::func_dread(Interpreter &i)
 		return (true);
 	} else
 		return (false);
+}
+
+bool
+ArduinoIO::comm_awrite(Interpreter &i)
+{
+	Parser::Value v(Integer(0));
+	i.popValue(v);
+	if (v.type == Parser::Value::INTEGER) {
+		Parser::Value v2(Integer(0));
+		i.popValue(v2);
+		if (v2.type == Parser::Value::INTEGER) {
+			pinMode(Integer(v2), OUTPUT);
+			analogWrite(Integer(v2), Integer(v));
+			return (true);
+		}
+	}
+	
+	return (false);
 }
 
 bool
