@@ -338,6 +338,8 @@ Lexer::getNext()
 				if (SYM >= 0x80) {
 					_token = Token(SYM & 0x7F);
 					next();
+					if (_token == Token::C_INTEGER)
+						binaryInteger();
 				} else if (isalpha(SYM)) {
 					pushSYM();
 					ident();
@@ -946,21 +948,26 @@ Lexer::decimalNumber()
 {
 	LOG_TRACE;
 
+#if USE_LONGINT
+	_value.type = Parser::Value::LONG_INTEGER;
+	LongInteger *val = &_value.value.longInteger;
+#else
 	_value.type = Parser::Value::INTEGER;
-	_value.value.integer = SYM - '0';
-	
+	Integer *val = &_value.value.integer;
+#endif
+	*val = SYM - '0';
 	while (SYM > 0) {
 		next();
 		if (isdigit(SYM)) {
-			_value.value.integer *= Integer(10);
-			_value.value.integer += SYM - '0';
+			*val *= Integer(10);
+			*val += SYM - '0';
 			continue;
 		}
 		switch (SYM) {
 		case '.':
 		{
 			_value.type = Parser::Value::REAL;
-			_value.value.real = Real(_value.value.integer);
+			_value.value.real = Real(*val);
 			Real d = 1;
 			while (true) {
 				next();
@@ -986,13 +993,43 @@ Lexer::decimalNumber()
 			}
 		}
 		default:
+#if USE_LONGINT
+			if (_value.type == Parser::Value::INTEGER ||
+			     _value.type == Parser::Value::LONG_INTEGER)
+				_token = Token::C_INTEGER;
+#else
 			if (_value.type == Parser::Value::INTEGER)
 				_token = Token::C_INTEGER;
+#endif
 			else
 				_token = Token::C_REAL;
 			return;
 		}
 	}
+}
+
+void
+Lexer::binaryInteger()
+{
+#if USE_LONGINT
+	_value.type = Parser::Value::LONG_INTEGER;
+	LongInteger *val = &_value.value.longInteger;
+	*val = LongInteger(SYM) << 24;
+	next();
+	*val |= LongInteger(SYM) << 16;
+	next();
+	*val |= LongInteger(SYM) << 8;
+	next();
+	*val |= SYM;
+	next();
+#else
+	_value.type = Parser::Value::INTEGER;
+	Integer *val = &_value.value.integer;
+	*val |= LongInteger(SYM) << 8;
+	next();
+	*val |= SYM << 16;
+	next();
+#endif
 }
 
 bool

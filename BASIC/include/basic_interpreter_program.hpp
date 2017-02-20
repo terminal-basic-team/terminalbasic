@@ -145,13 +145,13 @@ public:
 	 * @param number decimal line number
 	 * @param text
 	 */
-	bool addLine(uint16_t, const char*);
+	bool addLine(uint16_t, const char*, size_t);
 	/**
 	 * @brief Insert line at current position
 	 * @param num line number
 	 * @param text line text
 	 */
-	bool insert(uint16_t, const char*);
+	bool insert(uint16_t, const char*, size_t);
 #if USE_EXTMEM
 	char *_text;
 #else

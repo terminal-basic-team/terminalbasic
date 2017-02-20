@@ -66,6 +66,12 @@ public:
 			_i._output.print("\x1B[31m");
 		else if ((uint8_t(a) & 0xF0) == C_BLUE)
 			_i._output.print("\x1B[34m");
+		else if ((uint8_t(a) & 0xF0) == C_MAGENTA)
+			_i._output.print("\x1B[35m");
+		else if ((uint8_t(a) & 0xF0) == C_CYAN)
+			_i._output.print("\x1B[36m");
+		else if ((uint8_t(a) & 0xF0) == C_WHITE)
+			_i._output.print("\x1B[37m");
 	}
 
 	~AttrKeeper()
@@ -267,15 +273,16 @@ Interpreter::exec()
 	const char *pString;
 	
 	_lexer.init(_inputBuffer);
-	if (_lexer.getNext() && (_lexer.getToken() == Token::C_INTEGER) &&
-	    (_lexer.getValue().type == Parser::Value::INTEGER)) {
+	if (_lexer.getNext() && (_lexer.getToken() == Token::C_INTEGER)) {
 		Integer pLine = Integer(_lexer.getValue());
 		if (TOKENIZE) {
 			tokenize();
 			pString = _inputBuffer;
-		} else
+		} else {
 			pString = _inputBuffer + _lexer.getPointer();
-		if (!_program.addLine(pLine, pString)) {
+			_inputPosition -= _lexer.getPointer();
+		}
+		if (!_program.addLine(pLine, pString, _inputPosition)) {
 			raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
 			_state = SHELL;
 			return;
@@ -294,11 +301,11 @@ Interpreter::tokenize()
 	char tempBuffer[PROGSTRINGSIZE];
 	size_t position = 0, lexerPosition = _lexer.getPointer();
 	while (_lexer.getNext()) {
-		if (_lexer.getToken() <= Token::OP_NOT) {
-			uint8_t t = uint8_t(128) + uint8_t(_lexer.getToken());
+		uint8_t t = uint8_t(0x80) + uint8_t(_lexer.getToken());
+		if (_lexer.getToken() <= Token::OP_NOT) { // One byte tokens
 			tempBuffer[position++] = t;
 			lexerPosition = _lexer.getPointer();
-			if (_lexer.getToken() == Token::KW_REM) {
+			if (_lexer.getToken() == Token::KW_REM) { // Save rem text as is
 				while (_inputBuffer[lexerPosition] == ' ' ||
 				    _inputBuffer[lexerPosition] == '\t')
 					++lexerPosition;
@@ -308,7 +315,21 @@ Interpreter::tokenize()
 				position += remaining;
 				break;
 			}
-		} else {
+		} else if (_lexer.getToken() == Token::C_INTEGER) {
+			tempBuffer[position++] = t;
+#if USE_LONGINT
+			LongInteger v = LongInteger(_lexer.getValue());
+			tempBuffer[position++] = v >> 24;
+			tempBuffer[position++] = (v >> 16) & 0xFF;
+			tempBuffer[position++] = (v >> 8) & 0xFF;
+			tempBuffer[position++] = v & 0xFF;
+#else
+			Integer v = _lexer.getValue();
+			tempBuffer[position++] = (v >> 8) & 0xFF;
+			tempBuffer[position++] = v & 0xFF;
+#endif
+			lexerPosition = _lexer.getPointer();
+		} else { // Other tokens
 			while (_inputBuffer[lexerPosition] == ' ' ||
 			    _inputBuffer[lexerPosition] == '\t')
 				++lexerPosition;
@@ -503,10 +524,9 @@ Interpreter::print(Real number)
 {
 	char buf[17];
 #ifdef ARDUINO
-	//::dtostre(number, buf, 9, DTOSTR_ALWAYS_SIGN);
 	::dtostrf(number, 12, 9, buf);
 #else
-	::sprintf(buf, "% .8G", number);
+	::sprintf(buf, "% .7G", number);
 #endif
 	print(buf);
 }
@@ -522,10 +542,10 @@ Interpreter::print(Lexer &l)
 		case Token::C_INTEGER:
 		case Token::C_REAL:
 		case Token::C_BOOLEAN:
-			print(l.getValue()); break;
+			print(l.getValue(), C_CYAN); break;
 		case Token::C_STRING:
 		{
-			AttrKeeper a(*this, C_RED);
+			AttrKeeper a(*this, C_MAGENTA);
 			_output.write("\"");
 			_output.print(l.id());
 			_output.write("\" ");
@@ -550,7 +570,12 @@ Interpreter::run()
 void
 Interpreter::gotoLine(const Parser::Value &l)
 {
+#if USE_LONGINT
+	if (l.type != Parser::Value::INTEGER &&
+	    l.type != Parser::Value::LONG_INTEGER) {
+#else
 	if (l.type != Parser::Value::INTEGER) {
+#endif
 		raiseError(DYNAMIC_ERROR, INTEGER_EXPRESSION_EXPECTED);
 		return;
 	}
