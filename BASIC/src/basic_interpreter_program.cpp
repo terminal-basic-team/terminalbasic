@@ -25,10 +25,13 @@ namespace BASIC
 {
 
 Interpreter::Program::Program(size_t progsize) :
-	_text(reinterpret_cast<char*>(malloc(progsize))),
+#if USE_EXTMEM
+	_text(reinterpret_cast<char*>(EXTMEM_ADDRESS)),
+#endif
 	programSize(progsize)
 {
 	assert(_text != NULL);
+	assert(progsize <= PROGRAMSIZE);
 	
 	newProg();
 }

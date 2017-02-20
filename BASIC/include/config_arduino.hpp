@@ -22,13 +22,13 @@
 #include <stdint.h>
 
 // Use SDCARD module
-#define USESD 0
+#define USESD 1
 // USe TFT output
 #define USEUTFT 0
 // Use multiterminal mode
 #define BASIC_MULTITERMINAL 0
-// USe long integer
-#define USE_LONGINT 0
+// Use long integer
+#define USE_LONGINT 1
 // Tokenize keywords in program text
 const bool TOKENIZE = true;
 

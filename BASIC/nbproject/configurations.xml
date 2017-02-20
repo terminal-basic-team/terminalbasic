@@ -5,6 +5,7 @@
       <itemPath>include/basic.hpp</itemPath>
       <itemPath>include/basic_arduinoio.hpp</itemPath>
       <itemPath>include/basic_functionblock.hpp</itemPath>
+      <itemPath>include/basic_internalfuncs.hpp</itemPath>
       <itemPath>include/basic_interpreter.hpp</itemPath>
       <itemPath>include/basic_interpreter_program.hpp</itemPath>
       <itemPath>include/basic_lexer.hpp</itemPath>
@@ -18,6 +19,7 @@
     <logicalFolder name="src" displayName="src" projectFiles="true">
       <itemPath>src/basic_arduinoio.cpp</itemPath>
       <itemPath>src/basic_functionblock.cpp</itemPath>
+      <itemPath>src/basic_internalfuncs.cpp</itemPath>
       <itemPath>src/basic_interpreter.cpp</itemPath>
       <itemPath>src/basic_interpreter_program.cpp</itemPath>
       <itemPath>src/basic_lexer.cpp</itemPath>
@@ -108,6 +110,8 @@
       </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_internalfuncs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_interpreter.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_interpreter_program.hpp"
@@ -132,6 +136,8 @@
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -217,6 +223,8 @@
       </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_internalfuncs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_interpreter.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_interpreter_program.hpp"
@@ -241,6 +249,8 @@
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -324,6 +334,8 @@
       </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_internalfuncs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_interpreter.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_interpreter_program.hpp"
@@ -348,6 +360,8 @@
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -436,6 +450,8 @@
       </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_internalfuncs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_interpreter.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_interpreter_program.hpp"
@@ -460,6 +476,8 @@
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -545,6 +563,8 @@
       </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_internalfuncs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_interpreter.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_interpreter_program.hpp"
@@ -569,6 +589,8 @@
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -648,6 +670,8 @@
       </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_internalfuncs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_interpreter.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_interpreter_program.hpp"
@@ -672,6 +696,8 @@
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -756,6 +782,8 @@
       </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_internalfuncs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_interpreter.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_interpreter_program.hpp"
@@ -780,6 +808,8 @@
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
       </item>

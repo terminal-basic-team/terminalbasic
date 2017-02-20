@@ -25,6 +25,7 @@
 #include <stdbool.h>
 
 #include "helper.hpp"
+#include <crc16.h>
 
 #include "basic_interpreter.hpp"
 #include "basic_interpreter_program.hpp"
@@ -194,7 +195,8 @@ Interpreter::valueFromArray(Parser::Value &v, const char *name)
 	return true;
 }
 
-Interpreter::Interpreter(Stream &stream, Print &output, Program &program, FunctionBlock *first) :
+Interpreter::Interpreter(Stream &stream, Print &output, Program &program,
+    FunctionBlock *first) :
     _program(program), _state(SHELL), _input(stream), _output(output),
     _parser(_lexer, *this, first)
 {
@@ -204,7 +206,7 @@ Interpreter::Interpreter(Stream &stream, Print &output, Program &program, Functi
 void
 Interpreter::init()
 {
-	_parser.firstFB()->init();
+	_parser.init();
 	print(ucBASIC, BRIGHT);
 
 	print(S_VERSION), print(VERSION, BRIGHT), newline();
@@ -678,14 +680,31 @@ Interpreter::next(const char *varName)
 void
 Interpreter::save()
 {
+	/**
+	 * struct SavedProgram_t
+	 * {
+	 *	uint16_t	length;
+	 *	uint8_t		data[length];
+	 *	uint16_t	crc;
+	 * };
+	 */
+	
+	// Program text buffer length
 	size_t len = _program._textEnd;
+	uint16_t crc = 0;
+	
 	EEPROMClass e;
+	// First 2 bytes is program length
 	e.update(0, (len << 8) >> 8);
 	e.update(1, len >> 8);
-	for (size_t p = 0; p < _program._textEnd; ++p) {
+	size_t p;
+	for (p = 0; p < _program._textEnd; ++p) {
 		e.update(p + 2, _program._text[p]);
+		crc = crc16_update(crc, _program._text[p]);
 		_output.print('.');
 	}
+	e.update(p + 2, (crc << 8) >> 8);
+	e.update(p + 3, crc >> 8);
 	newline();
 }
 
@@ -693,12 +712,20 @@ void Interpreter::load()
 {
 	_program.newProg();
 	EEPROMClass e;
+	
+	uint16_t crc = 0;
 	size_t len = size_t(e.read(0));
 	len |= size_t(e.read(1)) << 8;
-	for (size_t p = 0; p < len; ++p) {
+	size_t p;
+	for (p = 0; p < len; ++p) {
 		_program._text[p] = e.read(p + 2);
+		crc = crc16_update(crc, _program._text[p]);
 		_output.print('.');
 	}
+	uint16_t pCrc = uint16_t(e.read(p+2));
+	pCrc |= size_t(e.read(p+3)) << 8;
+	if (pCrc != crc)
+		newline(), raiseError(DYNAMIC_ERROR, BAD_CHECKSUM);
 	newline();
 	_program._textEnd = _program._variablesEnd = _program._arraysEnd = len;
 }

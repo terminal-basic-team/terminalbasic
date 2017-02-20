@@ -152,7 +152,11 @@ public:
 	 * @param text line text
 	 */
 	bool insert(uint16_t, const char*);
+#if USE_EXTMEM
 	char *_text;
+#else
+	char _text[PROGRAMSIZE];
+#endif
 	const size_t programSize;
 private:
 	// End of program text

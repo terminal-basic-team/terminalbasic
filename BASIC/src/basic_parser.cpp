@@ -77,8 +77,13 @@ namespace BASIC
 {
 
 Parser::Parser(Lexer &l, Interpreter &i, FunctionBlock *first) :
-_lexer(l), _interpreter(i), _mode(EXECUTE), _firstFB(first)
+_lexer(l), _interpreter(i), _mode(EXECUTE), _internal(first)
 {
+}
+
+void Parser::init()
+{
+	_internal.init();
 }
 
 bool
@@ -665,7 +670,7 @@ Parser::fCommand()
 	case Token::REAL_IDENT:
 	case Token::INTEGER_IDENT:
 		FunctionBlock::command c;
-		if (_firstFB != NULL && (c=_firstFB->getCommand(_lexer.id()))) {
+		if ((c=_internal.getCommand(_lexer.id())) != NULL) {
 			while (_lexer.getNext()) {
 				Value v;
 				// String value already on stack after fExpression
@@ -789,7 +794,7 @@ Parser::fIdentifierExpr(const char *varName, Value &v)
 	if (_lexer.getNext() && _lexer.getToken()==
 	    Token::LPAREN) { // (, array or function
 		FunctionBlock::function f;
-		if (_firstFB != NULL && (f=_firstFB->getFunction(varName))) {
+		if ((f=_internal.getFunction(varName)) != NULL) {
 			// function
 			Value arg;
 			do {

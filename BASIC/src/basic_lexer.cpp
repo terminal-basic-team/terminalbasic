@@ -32,6 +32,7 @@
  * COM_NEW = "NEW"
  * COM_RUN = "RUN"
  * COM_SAVE = "SAVE"
+ * COM_TIME = "TIME"
  * 
  * KW_DATA = "DATA"
  * KW_DIM = "DIM"

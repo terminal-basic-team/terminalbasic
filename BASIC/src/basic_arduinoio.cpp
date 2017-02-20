@@ -96,8 +96,7 @@ ArduinoIO::_getCommand(const char *name) const
 		switch (c) {
 		case 'A':
 			++position;
-			c = name[position];
-			case 'W':
+			if (name[position] == 'W') {
 				++position;
 				if (name[position] == 'R') {
 					++position;
@@ -105,12 +104,12 @@ ArduinoIO::_getCommand(const char *name) const
 						++position;
 						if (name[position] == 'T') {
 							++position;
-							if (name[position] == 'E') {
+							if (name[position] == 'E')
 								return (comm_awrite);
-							}
 						}
 					}
 				}
+			}
 			break;
 		case 'D':
 			++position;
@@ -177,7 +176,7 @@ ArduinoIO::comm_awrite(Interpreter &i)
 			return (true);
 		}
 	}
-	
+
 	return (false);
 }
 
@@ -195,7 +194,7 @@ ArduinoIO::comm_dwrite(Interpreter &i)
 			return (true);
 		}
 	}
-	
+
 	return (false);
 }
 
