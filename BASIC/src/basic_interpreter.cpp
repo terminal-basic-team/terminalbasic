@@ -25,7 +25,7 @@
 #include <stdbool.h>
 
 #include "helper.hpp"
-#include <crc16.h>
+#include <avr/crc16.h>
 
 #include "basic_interpreter.hpp"
 #include "basic_interpreter_program.hpp"
@@ -725,7 +725,7 @@ Interpreter::save()
 	size_t p;
 	for (p = 0; p < _program._textEnd; ++p) {
 		e.update(p + 2, _program._text[p]);
-		crc = crc16_update(crc, _program._text[p]);
+		crc = _crc16_update(crc, _program._text[p]);
 		_output.print('.');
 	}
 	e.update(p + 2, (crc << 8) >> 8);
@@ -744,7 +744,7 @@ void Interpreter::load()
 	size_t p;
 	for (p = 0; p < len; ++p) {
 		_program._text[p] = e.read(p + 2);
-		crc = crc16_update(crc, _program._text[p]);
+		crc = _crc16_update(crc, _program._text[p]);
 		_output.print('.');
 	}
 	uint16_t pCrc = uint16_t(e.read(p+2));

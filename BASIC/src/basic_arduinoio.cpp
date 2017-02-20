@@ -153,7 +153,12 @@ ArduinoIO::func_dread(Interpreter &i)
 {
 	Parser::Value v(Integer(0));
 	i.popValue(v);
+#if USE_LONGINT
+	if (v.type == Parser::Value::INTEGER ||
+	    v.type == Parser::Value::LONG_INTEGER) {
+#else
 	if (v.type == Parser::Value::INTEGER) {
+#endif
 		pinMode(Integer(v), INPUT);
 		v = bool(digitalRead(Integer(v)));
 		i.pushValue(v);
@@ -167,10 +172,20 @@ ArduinoIO::comm_awrite(Interpreter &i)
 {
 	Parser::Value v(Integer(0));
 	i.popValue(v);
+#if USE_LONGINT
+	if (v.type == Parser::Value::INTEGER ||
+	    v.type == Parser::Value::LONG_INTEGER) {
+#else
 	if (v.type == Parser::Value::INTEGER) {
+#endif
 		Parser::Value v2(Integer(0));
 		i.popValue(v2);
+#if USE_LONGINT
+		if (v2.type == Parser::Value::INTEGER ||
+		    v2.type == Parser::Value::LONG_INTEGER) {
+#else
 		if (v2.type == Parser::Value::INTEGER) {
+#endif
 			pinMode(Integer(v2), OUTPUT);
 			analogWrite(Integer(v2), Integer(v));
 			return (true);
@@ -188,7 +203,12 @@ ArduinoIO::comm_dwrite(Interpreter &i)
 	if (v.type == Parser::Value::BOOLEAN) {
 		Parser::Value v2(Integer(0));
 		i.popValue(v2);
+#if USE_LONGINT
+		if (v2.type == Parser::Value::INTEGER ||
+		    v2.type == Parser::Value::LONG_INTEGER) {
+#else
 		if (v2.type == Parser::Value::INTEGER) {
+#endif
 			pinMode(Integer(v2), OUTPUT);
 			digitalWrite(Integer(v2), bool(v));
 			return (true);

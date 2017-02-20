@@ -22,8 +22,6 @@
 
 #include <assert.h>
 
-#include <iostream>
-
 namespace BASIC
 {
 

@@ -26,7 +26,7 @@
 __BEGIN_DECLS
 
 inline uint16_t
-crc16_update(uint16_t crc, uint8_t a)
+_crc16_update(uint16_t crc, uint8_t a)
 {
 	int i;
 	

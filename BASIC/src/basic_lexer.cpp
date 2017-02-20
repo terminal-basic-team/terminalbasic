@@ -985,7 +985,12 @@ Lexer::decimalNumber()
 		break;
 		case 'E':
 		{
+#if USE_LONGINT
+			if (_value.type == Parser::Value::INTEGER ||
+			    _value.type == Parser::Value::LONG_INTEGER)
+#else
 			if (_value.type == Parser::Value::INTEGER)
+#endif
 				_value = Real(_value);
 			if (!numberScale()) {
 				_token = Token::NOTOKENS;
