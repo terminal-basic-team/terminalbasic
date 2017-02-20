@@ -113,6 +113,8 @@ Interpreter::Program::StackFrame::size(Type t)
 		return (sizeof (Type) + sizeof (uint8_t));
 	case VALUE:
 		return (sizeof (Type) + sizeof (Parser::Value));
+	case INPUT_OBJECT:
+		return (sizeof (Type) + sizeof (InputBody));
 	default:
 		return (0);
 	}
@@ -197,7 +199,10 @@ Interpreter::Program::stackFrameByIndex(size_t index)
 Interpreter::Program::StackFrame*
 Interpreter::Program::currentStackFrame()
 {
-	return (stackFrameByIndex(_sp));
+	if (_sp < programSize)
+		return (stackFrameByIndex(_sp));
+	else
+		return (NULL);
 }
 
 Interpreter::ArrayFrame*

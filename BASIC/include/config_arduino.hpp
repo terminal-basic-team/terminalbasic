@@ -22,8 +22,8 @@
 #include <stdint.h>
 
 // Use SDCARD module
-#define USESD 1
-// USe TFT output
+#define USESD 0
+// Uыe TFT output
 #define USEUTFT 0
 // Use multiterminal mode
 #define BASIC_MULTITERMINAL 0
@@ -31,7 +31,6 @@
 #define USE_LONGINT 1
 // Tokenize keywords in program text
 const bool TOKENIZE = true;
-
 // Max size of the program line
 const uint8_t PROGSTRINGSIZE = 72;
 
