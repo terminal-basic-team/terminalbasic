@@ -1030,9 +1030,9 @@ Lexer::binaryInteger()
 #else
 	_value.type = Parser::Value::INTEGER;
 	Integer *val = &_value.value.integer;
-	*val |= LongInteger(SYM) << 8;
+	*val |= Integer(SYM) << uint8_t(8);
 	next();
-	*val |= SYM << 16;
+	*val |= SYM;
 	next();
 #endif
 }

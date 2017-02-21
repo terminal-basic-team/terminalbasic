@@ -3246,6 +3246,8 @@
             <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino</pElem>
             <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/variants/atmega64_128</pElem>
             <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SoftwareSerial/src</pElem>
+            <pElem>/opt/arduino-1.6.12/libraries/SD/src</pElem>
+            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/SPI/src</pElem>
           </incDir>
           <commandLine>-Os -Wextra -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega128a -flto</commandLine>
           <preprocessorList>
@@ -3577,16 +3579,6 @@
             flavor2="0">
       </item>
       <item path="/opt/arduino-1.6.12/libraries/SD/src/utility/SdVolume.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="/opt/arduino-1.6.12/libraries/UTFT/DefaultFonts.c"
-            ex="false"
-            tool="0"
-            flavor2="0">
-      </item>
-      <item path="/opt/arduino-1.6.12/libraries/UTFT/UTFT.cpp"
             ex="false"
             tool="1"
             flavor2="0">
