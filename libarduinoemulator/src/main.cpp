@@ -32,11 +32,12 @@
 // Weak empty variant initialization function.
 // May be redefined by variant files.
 
+PseudoTtySerial	Serial;
 PseudoTtySerial	Serial1;
 PseudoTtySerial	Serial2;
 PseudoTtySerial	Serial3;
 
-StdioStream Serial(std::cin, std::cout);
+//StdioStream Serial(std::cin, std::cout);
 
 void initVariant() __attribute__((weak));
 void initVariant() { }

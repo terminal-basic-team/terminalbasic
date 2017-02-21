@@ -113,7 +113,8 @@ public:
 	int peek() override;;
 };
 
-extern StdioStream Serial;
+//extern StdioStream Serial;
+extern PseudoTtySerial Serial;
 extern PseudoTtySerial Serial1;
 extern PseudoTtySerial Serial2;
 extern PseudoTtySerial Serial3;

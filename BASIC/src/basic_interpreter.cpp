@@ -324,7 +324,7 @@ Interpreter::tokenize()
 			tempBuffer[position++] = (v >> 8) & 0xFF;
 			tempBuffer[position++] = v & 0xFF;
 #else
-			Integer v = _lexer.getValue();
+			Integer v = Integer(_lexer.getValue());
 			tempBuffer[position++] = (v >> 8) & 0xFF;
 			tempBuffer[position++] = v & 0xFF;
 #endif

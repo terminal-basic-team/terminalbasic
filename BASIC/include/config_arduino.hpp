@@ -22,7 +22,7 @@
 #include <stdint.h>
 
 // Use SDCARD module
-#define USESD 1
+#define USESD 0
 // USe TFT output
 #define USEUTFT 0
 // Use multiterminal mode
