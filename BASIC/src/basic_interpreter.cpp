@@ -745,6 +745,7 @@ void Interpreter::load()
 void
 Interpreter::input()
 {
+	_program.reverseLast(Program::StackFrame::INPUT_OBJECT);
 	_state = VAR_INPUT;
 	_output.print('?');
 }

@@ -19,7 +19,7 @@
 #include "basic_interpreter_program.hpp"
 #include <assert.h>
 #include <stdlib.h>
-#include <unistd.h>
+#include <string.h>
 
 namespace BASIC
 {
@@ -185,6 +185,38 @@ Interpreter::Program::pop()
 	StackFrame *f = stackFrameByIndex(_sp);
 	if (f != NULL)
 		_sp += StackFrame::size(f->_type);
+}
+
+void
+Interpreter::Program::reverseLast(StackFrame::Type type)
+{
+	StackFrame *f = this->currentStackFrame();
+	if (f != NULL && f->_type == type) {
+		char buf[sizeof (StackFrame)];
+		StackFrame *fr = reinterpret_cast<StackFrame*>(buf);
+		memcpy(fr, f, StackFrame::size(f->_type));
+		this->pop();
+		reverseLast(type);
+		pushBottom(fr);
+	}
+}
+
+void
+Interpreter::Program::pushBottom(StackFrame *f)
+{
+	StackFrame *newFrame = this->currentStackFrame();
+	if ((newFrame == NULL) || (newFrame->_type != f->_type)) {
+		newFrame = this->push(f->_type);
+		memcpy(newFrame, f, StackFrame::size(f->_type));
+	} else {
+		char buf[sizeof (StackFrame)];
+		StackFrame *fr = reinterpret_cast<StackFrame*>(buf);
+		memcpy(fr, newFrame, StackFrame::size(f->_type));
+		this->pop();
+		pushBottom(f);
+		f = this->push(newFrame->_type);
+		memcpy(f, fr, StackFrame::size(newFrame->_type));
+	}
 }
 
 Interpreter::Program::StackFrame*

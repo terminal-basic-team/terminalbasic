@@ -117,7 +117,7 @@ public:
 
 		Type _type;
 
-		union CPS_PACKED
+		union CPS_PACKED Body
 		{
 			GosubReturn	gosubReturn;
 			uint8_t		arrayDimensions;
@@ -126,7 +126,8 @@ public:
 			InputBody	inputObject;
 			char		string[STRINGSIZE];
 			Parser::Value	value;
-		} body;
+		};
+		Body body;
 	};
 
 	Program(size_t=PROGRAMSIZE);
@@ -188,7 +189,14 @@ public:
 	 * @param type
 	 */
 	StackFrame *push(StackFrame::Type);
+	/**
+	 * @brief pop top value
+	 */
 	void pop();
+	/**
+	 * @brief reverse order of last same type elements
+	 */
+	void reverseLast(StackFrame::Type);
 	/**
 	 * @brief Add new Program line
 	 * @param number decimal line number
@@ -208,6 +216,7 @@ public:
 #endif
 	const size_t programSize;
 private:
+	void pushBottom(StackFrame*);
 	// End of program text
 	size_t _textEnd;
 	size_t _current, _variablesEnd, _arraysEnd, _sp, _jump;
