@@ -21,6 +21,9 @@
 
 #include <cstdint>
 
+namespace BASIC
+{
+
 // Tokenize keywords in program text
 const bool TOKENIZE = true;
 
@@ -36,7 +39,11 @@ const uint8_t STRINGSIZE = 128;
 // Number of characters in variable name
 const uint8_t VARSIZE = 16;
 
+}
+
 // USe long integer
 #define USE_LONGINT 1
+
+#define BASIC_MULTITERMINAL 1
 
 #endif

@@ -219,7 +219,7 @@ public:
 	enum ProgMemStrings : uint8_t
 	{
 		S_STATIC = 0, S_DYNAMIC, S_ERROR, S_SEMANTIC, READY, BYTES,
-		AVAILABLE, ucBASIC, S_VERSION, S_TEXT, S_OF, S_VARS,
+		AVAILABLE, TERMINAL, ucBASIC, S_VERSION, S_TEXT, S_OF, S_VARS,
 		S_ARRAYS, S_STACK, S_DIR, S_REALLY, NUM_STRINGS
 	};
 	/**
@@ -399,6 +399,8 @@ private:
 	char			 _inputVarName[VARSIZE];
 	// Static text strings
 	static PGM_P const	 _progmemStrings[];
+	static uint8_t		 _termnoGen;
+	uint8_t			 _termno;
 };
 
 }

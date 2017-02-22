@@ -92,7 +92,8 @@ static const char strSemantic[] PROGMEM = "SEMANTIC";
 static const char strReady[] PROGMEM = "READY";
 static const char strBytes[] PROGMEM = "BYTES";
 static const char strAvailable[] PROGMEM = "AVAILABLE";
-static const char strucBASIC[] PROGMEM = "ucBASIC";
+static const char strucTERMINAL[] PROGMEM = "TERMINAL";
+static const char strucBASIC[] PROGMEM = "BASIC";
 static const char strVERSION[] PROGMEM = "VERSION";
 static const char strTEXT[] PROGMEM = "TEXT";
 static const char strOF[] PROGMEM = "OF";
@@ -110,7 +111,8 @@ PGM_P const Interpreter::_progmemStrings[NUM_STRINGS] PROGMEM = {
 	strReady, // READY
 	strBytes, // BYTES
 	strAvailable, // AVAILABLE
-	strucBASIC, // ucBASIC
+	strucTERMINAL, // TERMINAL
+	strucBASIC, // BASIC
 	strVERSION, // VERSION
 	strTEXT, // TEXT
 	strOF, // OF
@@ -122,6 +124,8 @@ PGM_P const Interpreter::_progmemStrings[NUM_STRINGS] PROGMEM = {
 };
 
 #define ESTRING(en) (_progmemStrings[en])
+
+uint8_t Interpreter::_termnoGen = 0;
 
 void
 Interpreter::valueFromVar(Parser::Value &v, const char *varName)
@@ -204,7 +208,7 @@ Interpreter::valueFromArray(Parser::Value &v, const char *name)
 Interpreter::Interpreter(Stream &stream, Print &output, Program &program,
     FunctionBlock *first) :
 _program(program), _state(SHELL), _input(stream), _output(output),
-_parser(_lexer, *this, first)
+_parser(_lexer, *this, first), _termno(++_termnoGen)
 {
 	_input.setTimeout(10000L);
 }
@@ -215,8 +219,11 @@ Interpreter::init()
 	_parser.init();
 	_program.newProg();
 
-	print(ucBASIC, BRIGHT);
+	print(TERMINAL, BRIGHT), print(ucBASIC, BRIGHT);
 	print(S_VERSION), print(VERSION, BRIGHT), newline();
+//#if BASIC_MULTITERMINAL
+	print(TERMINAL, NO_ATTR), print(Integer(_termno), BRIGHT), _output.print(':');
+//#endif
 	print(long(_program.programSize - _program._arraysEnd), BRIGHT);
 	print(BYTES), print(AVAILABLE), newline();
 	_state = SHELL;

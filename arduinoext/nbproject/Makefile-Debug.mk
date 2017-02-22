@@ -41,6 +41,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/bytearray.o \
 	${OBJECTDIR}/src/cps_mosprotocol.o \
 	${OBJECTDIR}/src/cps_mosprotocol_arduino.o \
+	${OBJECTDIR}/src/extmemtest.o \
 	${OBJECTDIR}/src/protocol.o \
 	${OBJECTDIR}/src/protocol_arduino.o
 
@@ -110,6 +111,11 @@ ${OBJECTDIR}/src/cps_mosprotocol_arduino.o: src/cps_mosprotocol_arduino.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Wall -Iinclude -I../libarduinoemulator/include -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/cps_mosprotocol_arduino.o src/cps_mosprotocol_arduino.cpp
+
+${OBJECTDIR}/src/extmemtest.o: src/extmemtest.cpp
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -Iinclude -I../libarduinoemulator/include -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/extmemtest.o src/extmemtest.cpp
 
 ${OBJECTDIR}/src/protocol.o: src/protocol.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
@@ -216,6 +222,19 @@ ${OBJECTDIR}/src/cps_mosprotocol_arduino_nomain.o: ${OBJECTDIR}/src/cps_mosproto
 	    $(COMPILE.cc) -g -Wall -Iinclude -I../libarduinoemulator/include -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/cps_mosprotocol_arduino_nomain.o src/cps_mosprotocol_arduino.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/cps_mosprotocol_arduino.o ${OBJECTDIR}/src/cps_mosprotocol_arduino_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/extmemtest_nomain.o: ${OBJECTDIR}/src/extmemtest.o src/extmemtest.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/extmemtest.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Wall -Iinclude -I../libarduinoemulator/include -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/extmemtest_nomain.o src/extmemtest.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/extmemtest.o ${OBJECTDIR}/src/extmemtest_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/protocol_nomain.o: ${OBJECTDIR}/src/protocol.o src/protocol.cpp 

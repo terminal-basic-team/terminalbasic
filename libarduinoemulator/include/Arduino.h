@@ -261,6 +261,9 @@ long map(long, long, long, long, long);
 
 #endif
 
+#define HAVE_HWSERIAL1 1
+#define HAVE_HWSERIAL2 1
+
 //#include "pins_arduino.h"
 
 #endif
