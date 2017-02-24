@@ -16,28 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef ASCII_HPP
-#define ASCII_HPP
+#ifndef EMUSERIAL_HPP
+#define EMUSERIAL_HPP
 
-#include <inttypes.h>
+#include "Stream.h"
 
-/**
- * @brief ASCII control characters
- */
-enum class ASCII : uint8_t
+class Emuserial : public Stream
 {
-	NUL = 0x00,
-	SOH = 0x01,
-        EOT = 0x03,
-	ENQ = 0x05,
-	BEL = 0x07,
-        BS  = 0x08,
-	HT  = 0x09,
-	LF  = 0x0A,
-	CR  = 0x0D,
-	CAN = 0x18,
-	ESC = 0x1B,
-	DEL = 0x7F
+public:
+	 operator bool() { return true; }
+	 virtual void begin(uint32_t) {}
 };
 
 #endif

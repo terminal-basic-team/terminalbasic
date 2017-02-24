@@ -25,7 +25,7 @@
 #include <stdbool.h>
 
 #include "helper.hpp"
-#include <avr/crc16.h>
+#include <util/crc16.h>
 
 #include "basic_interpreter.hpp"
 #include "basic_interpreter_program.hpp"
@@ -221,9 +221,10 @@ Interpreter::init()
 
 	print(TERMINAL, BRIGHT), print(ucBASIC, BRIGHT);
 	print(S_VERSION), print(VERSION, BRIGHT), newline();
-//#if BASIC_MULTITERMINAL
-	print(TERMINAL, NO_ATTR), print(Integer(_termno), BRIGHT), _output.print(':');
-//#endif
+#if BASIC_MULTITERMINAL
+	print(TERMINAL, NO_ATTR), print(Integer(_termno), BRIGHT),
+	_output.print(':'), _output.print(' ');
+#endif
 	print(long(_program.programSize - _program._arraysEnd), BRIGHT);
 	print(BYTES), print(AVAILABLE), newline();
 	_state = SHELL;
@@ -255,6 +256,7 @@ Interpreter::step()
 		break;
 	case VAR_INPUT:
 		if (nextInput()) {
+			_output.print('?');
 			_inputPosition = 0;
 			memset(_inputBuffer, 0xFF, PROGSTRINGSIZE);
 			_state = GET_VAR_VALUE;
@@ -356,6 +358,7 @@ Interpreter::tokenize()
 		}
 	}
 	memcpy(_inputBuffer, tempBuffer, position);
+	_inputPosition = position+1;
 	_inputBuffer[position] = 0;
 }
 
@@ -707,12 +710,15 @@ Interpreter::save()
 	 *	uint16_t	crc;
 	 * };
 	 */
-
+	
 	// Program text buffer length
 	size_t len = _program._textEnd;
 	uint16_t crc = 0;
 
 	EEPROMClass e;
+	for (uint16_t ind = 0; ind < e.length(); ++ind)
+		e.write(ind, 0xFF);
+	
 	// First 2 bytes is program length
 	e.update(0, (len << 8) >> 8);
 	e.update(1, len >> 8);
@@ -754,7 +760,6 @@ Interpreter::input()
 {
 	_program.reverseLast(Program::StackFrame::INPUT_OBJECT);
 	_state = VAR_INPUT;
-	_output.print('?');
 }
 
 bool
@@ -772,8 +777,6 @@ Interpreter::nextInput()
 void
 Interpreter::doInput()
 {
-	//_program._textPosition += _lexer.getPointer();
-
 	Lexer l;
 	l.init(_inputBuffer);
 	Parser::Value v(Integer(0));

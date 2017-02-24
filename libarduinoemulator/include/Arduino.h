@@ -24,6 +24,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <math.h>
+#include "Stdiostream.hpp"
 /*
 #include <avr/pgmspace.h>
 #include <avr/io.h>
@@ -261,8 +262,20 @@ long map(long, long, long, long, long);
 
 #endif
 
-#define HAVE_HWSERIAL1 1
-#define HAVE_HWSERIAL2 1
+#define HAVE_HWSERIAL1 0
+#define HAVE_HWSERIAL2 0
+#define HAVE_HWSERIAL3 0
+
+extern StdioStream Serial;
+#if HAVE_HWSERIAL1
+extern PseudoTtySerial Serial1;
+#endif
+#if HAVE_HWSERIAL2
+extern PseudoTtySerial Serial2;
+#endif
+#if HAVE_HWSERIAL3
+extern PseudoTtySerial Serial3;
+#endif
 
 //#include "pins_arduino.h"
 

@@ -63,6 +63,7 @@ build: .build-post
 
 .build-pre:
 	echo "#define VERSION \"${VERSION}\"" > "./include/version.h"
+	echo ${VERSION} > ./verdion
 
 .build-post: .build-impl # copy
 	echo $(shell expr ${BUILD} + 1) ; \

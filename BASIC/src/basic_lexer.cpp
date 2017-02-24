@@ -978,8 +978,16 @@ Lexer::decimalNumber()
 				} else if (SYM == 0) {
 					_token = Token::C_REAL;
 					return;
-				} else
-					break;
+				} else if (SYM == 'E') {
+					if (!numberScale())
+						_token = Token::NOTOKENS;
+					else
+						_token = Token::C_REAL;
+					return;
+				} else {
+					_token = Token::C_REAL;
+					return;
+				}
 			}
 		}
 		break;

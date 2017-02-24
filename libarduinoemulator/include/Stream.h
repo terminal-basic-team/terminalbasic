@@ -91,32 +91,4 @@ private:
 	posix::io::PseudoTTY _tty;
 };
 
-class StdioStream : public Stream
-{
-public:
-	StdioStream(std::istream&, std::ostream&);
-	void begin(uint32_t baud);
-	void end();
-	bool operator !() const
-	{
-		return false;
-	}
-private:
-	std::istream &_istream;
-	std::ostream &_ostream;
-	// Stream interface
-public:
-	size_t write(uint8_t) override;
-	int available() override;
-	int read() override;
-	void flush() override;;
-	int peek() override;;
-};
-
-//extern StdioStream Serial;
-extern PseudoTtySerial Serial;
-extern PseudoTtySerial Serial1;
-extern PseudoTtySerial Serial2;
-extern PseudoTtySerial Serial3;
-
 #endif

@@ -21,6 +21,9 @@
 
 #include <stdint.h>
 
+namespace BASIC
+{
+
 // Use SDCARD module
 #define USESD 0
 // Uыe TFT output
@@ -50,5 +53,7 @@ const uint8_t STRINGSIZE = 32;
 
 // Number of characters in variable name
 const uint8_t VARSIZE = 8;
+
+}
 
 #endif

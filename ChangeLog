@@ -1,0 +1,32 @@
+r0.1 (25.11.2016)	Initial release. Editing of the program in memory, simple program may be executed.
+r0.2 (29.11.2016)	REM operator;
+			Multioperator lines with operators separated by semicolons;
+			Input both positive and negative numbers;
+			Modular structure with math functions module;
+			Bug fixes.
+r0.3 (07.12.2016)	Interpreter rewrited as FSM with short-time step() method. This allows to implement
+			    time-sharing system with multiple terminals;
+			ArduinoIO module was added;
+			Darthmouth BASIC-style IF support;
+			Commodore BASIC-style IF with multiple true branch operators;
+			Add core command CLS (clear screen);
+			Add math function ACS (arccos);
+			Host sends echo symbols;
+			Break (Ctrl-C) command;
+			vt100 color/highlighted output supported;
+			Bug fixes.
+r0.4 (26.12.2016)	LIST command outputs syntax-highlighted program text;
+			Boolean datatype with TRUE and FALSE constants and ! variable name suffix;
+			ArduinoIO module was  updated;
+			SDCard program save/load module;
+r0.5 (27.01.2017)	4-byte integer optional datatype with %% variable name suffix;
+			RANDOMIZE command was added;
+			RND() function was added;
+			Optional keyword tokenization;
+			Script for make arduino ide sketch from netbeans-oriented sources.
+r0.6 (20.02.2017)	AWRITE command in ARduinoIO module;
+			Tokenization of integer constants;
+			Bug fixes;
+r0.6.1 (21.02.2017)	Fix in the optional long integer support;
+			Atmega128a build fix.
+r0.6.2 (24.02.2017)	Fix program string size when saving to internal memory

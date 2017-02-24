@@ -56,7 +56,7 @@ static BASIC::Interpreter::Program program3(BASIC::PROGRAMSIZE / 5);
 static BASIC::Interpreter basic3(Serial3, Serial3, program3, &arduinoIo);
 #endif
 #else
-static BASIC::Interpreter::Program program(PROGRAMSIZE);
+static BASIC::Interpreter::Program program(BASIC::PROGRAMSIZE);
 #if USEUTFT
 static BASIC::Interpreter basic(Serial, utftPrint, program, &arduinoIo);
 #else

@@ -35,8 +35,9 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/include/Print.o \
 	${OBJECTDIR}/include/Stream.o \
+	${OBJECTDIR}/src/Print.o \
+	${OBJECTDIR}/src/Stdiostream.o \
 	${OBJECTDIR}/src/arduino.o \
 	${OBJECTDIR}/src/main.o
 
@@ -67,25 +68,30 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinoemulator.a: ${OBJECTFILE
 	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinoemulator.a ${OBJECTFILES} 
 	$(RANLIB) ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinoemulator.a
 
-${OBJECTDIR}/include/Print.o: include/Print.cpp
-	${MKDIR} -p ${OBJECTDIR}/include
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/Print.o include/Print.cpp
-
 ${OBJECTDIR}/include/Stream.o: include/Stream.cpp
 	${MKDIR} -p ${OBJECTDIR}/include
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/Stream.o include/Stream.cpp
+	$(COMPILE.cc) -g -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -Isrc -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/Stream.o include/Stream.cpp
+
+${OBJECTDIR}/src/Print.o: src/Print.cpp
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -Isrc -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Print.o src/Print.cpp
+
+${OBJECTDIR}/src/Stdiostream.o: src/Stdiostream.cpp
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -Isrc -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Stdiostream.o src/Stdiostream.cpp
 
 ${OBJECTDIR}/src/arduino.o: src/arduino.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/arduino.o src/arduino.cpp
+	$(COMPILE.cc) -g -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -Isrc -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/arduino.o src/arduino.cpp
 
 ${OBJECTDIR}/src/main.o: src/main.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main.o src/main.cpp
+	$(COMPILE.cc) -g -Iinclude -I/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino -Isrc -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main.o src/main.cpp
 
 # Subprojects
 .build-subprojects:

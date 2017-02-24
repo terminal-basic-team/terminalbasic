@@ -16,28 +16,36 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef ASCII_HPP
-#define ASCII_HPP
+#ifndef STDIOSTREAM_HPP
+#define STDIOSTREAM_HPP
 
-#include <inttypes.h>
+#include <iostream>
+#include "Emuserial.hpp"
 
-/**
- * @brief ASCII control characters
- */
-enum class ASCII : uint8_t
+class StdioStream : public Emuserial
 {
-	NUL = 0x00,
-	SOH = 0x01,
-        EOT = 0x03,
-	ENQ = 0x05,
-	BEL = 0x07,
-        BS  = 0x08,
-	HT  = 0x09,
-	LF  = 0x0A,
-	CR  = 0x0D,
-	CAN = 0x18,
-	ESC = 0x1B,
-	DEL = 0x7F
+public:
+	StdioStream(std::istream&, std::ostream&);
+	~StdioStream();
+	
+	void begin(uint32_t baud);
+	void end();
+
+	bool operator!() const
+	{
+		return (false);
+	}
+
+private:
+	std::istream &_istream;
+	std::ostream &_ostream;
+	// Stream interface
+public:
+	size_t write(uint8_t) override;
+	int available() override;
+	int read() override;
+	void flush() override;
+	int peek() override;
 };
 
 #endif

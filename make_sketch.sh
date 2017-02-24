@@ -1,6 +1,8 @@
 #!/bin/bash
 
-SKETCH=sketch/terminal-basic
+VER=$(cat ./BASIC/version)
+SKETCH=./sketch/terminal-basic-${VER}
+
 SRC="./BASIC/include/basic.hpp ./BASIC/include/basic_lexer.hpp ./BASIC/src/basic_lexer.cpp ./BASIC/include/config_arduino.hpp \
 ./BASIC/include/version.h \
 ./BASIC/include/basic_parser.hpp ./BASIC/include/basic_interpreter.hpp ./BASIC/include/basic_interpreter_program.hpp \
@@ -18,6 +20,9 @@ mkdir -p $SKETCH
 
 cp ./BASIC/src/ucbasic_main.cpp "${SKETCH}/terminal-basic.ino"
 for file in $SRC
- do
+do
 	cp ${file} ${SKETCH}
 done
+
+cd ./sketch
+tar -czvf ./terminal-basic-${VER}-src.tar.gz ./terminal-basic-${VER}

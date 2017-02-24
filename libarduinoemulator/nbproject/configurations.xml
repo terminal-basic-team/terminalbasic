@@ -11,10 +11,13 @@
       <itemPath>include/EEPROM.h</itemPath>
       <itemPath>include/Print.h</itemPath>
       <itemPath>include/Printable.h</itemPath>
+      <itemPath>include/Stdiostream.hpp</itemPath>
       <itemPath>include/Stream.h</itemPath>
     </logicalFolder>
     <logicalFolder name="src" displayName="src" projectFiles="true">
-      <itemPath>include/Print.cpp</itemPath>
+      <itemPath>include/Emuserial.hpp</itemPath>
+      <itemPath>src/Print.cpp</itemPath>
+      <itemPath>src/Stdiostream.cpp</itemPath>
       <itemPath>include/Stream.cpp</itemPath>
       <itemPath>src/arduino.cpp</itemPath>
       <itemPath>src/main.cpp</itemPath>
@@ -50,6 +53,7 @@
           <incDir>
             <pElem>include</pElem>
             <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino</pElem>
+            <pElem>src</pElem>
           </incDir>
           <commandLine>`pkg-config --cflags posixcpp`</commandLine>
         </ccTool>
@@ -60,17 +64,23 @@
       </item>
       <item path="include/EEPROM.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/Print.cpp" ex="false" tool="1" flavor2="0">
+      <item path="include/Emuserial.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/Print.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/Printable.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/Stdiostream.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/Stream.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/Stream.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/utils/crc16.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Print.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Stdiostream.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/arduino.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -111,17 +121,23 @@
       </item>
       <item path="include/EEPROM.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/Print.cpp" ex="false" tool="1" flavor2="0">
+      <item path="include/Emuserial.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/Print.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/Printable.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/Stdiostream.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/Stream.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/Stream.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/utils/crc16.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Print.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Stdiostream.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/arduino.cpp" ex="false" tool="1" flavor2="0">
       </item>

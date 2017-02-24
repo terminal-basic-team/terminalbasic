@@ -44,6 +44,6 @@ const uint8_t VARSIZE = 16;
 // USe long integer
 #define USE_LONGINT 1
 
-#define BASIC_MULTITERMINAL 1
+#define BASIC_MULTITERMINAL 0
 
 #endif
