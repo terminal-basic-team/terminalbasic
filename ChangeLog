@@ -30,3 +30,5 @@ r0.6 (20.02.2017)	AWRITE command in ARduinoIO module;
 r0.6.1 (21.02.2017)	Fix in the optional long integer support;
 			Atmega128a build fix.
 r0.6.2 (24.02.2017)	Fix program string size when saving to internal memory
+			Fix multivalue input
+			Fix input of real numbers
