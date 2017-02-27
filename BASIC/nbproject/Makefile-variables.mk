@@ -33,8 +33,8 @@ CND_PACKAGE_PATH_Arduino_UNO=dist/Arduino_UNO/Arduino-Linux/package/basic.tar
 # Arduino_mega2560 configuration
 CND_PLATFORM_Arduino_mega2560=Arduino-Linux
 CND_ARTIFACT_DIR_Arduino_mega2560=dist/Arduino_mega2560
-CND_ARTIFACT_NAME_Arduino_mega2560=basic
-CND_ARTIFACT_PATH_Arduino_mega2560=dist/Arduino_mega2560/basic
+CND_ARTIFACT_NAME_Arduino_mega2560=basic.elf
+CND_ARTIFACT_PATH_Arduino_mega2560=dist/Arduino_mega2560/basic.elf
 CND_PACKAGE_DIR_Arduino_mega2560=dist/Arduino_mega2560/Arduino-Linux/package
 CND_PACKAGE_NAME_Arduino_mega2560=basic.tar
 CND_PACKAGE_PATH_Arduino_mega2560=dist/Arduino_mega2560/Arduino-Linux/package/basic.tar
