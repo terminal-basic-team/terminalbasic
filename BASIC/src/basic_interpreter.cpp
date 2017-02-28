@@ -538,7 +538,11 @@ Interpreter::print(Lexer &l)
 		break;
 		case Token::REAL_IDENT:
 		case Token::INTEGER_IDENT:
+#if USE_LONGINT
+		case Token::LONGINT_IDENT:
+#endif
 		case Token::BOOL_IDENT:
+		case Token::STRING_IDENT:
 			print(l.id(), C_BLUE);
 			break;
 		default:
