@@ -799,6 +799,11 @@ Interpreter::doInput()
 				v = l.getValue();
 				break;
 			case Token::C_STRING:
+			case Token::REAL_IDENT:
+			case Token::INTEGER_IDENT:
+			case Token::LONGINT_IDENT:
+			case Token::STRING_IDENT:
+			case Token::BOOL_IDENT:
 			{
 				v = l.getValue();
 				pushString(l.id());
@@ -806,6 +811,7 @@ Interpreter::doInput()
 				break;
 			default:
 				raiseError(DYNAMIC_ERROR, INVALID_VALUE_TYPE);
+				return;
 			}
 		}
 		if (neg)
