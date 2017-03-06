@@ -1,7 +1,7 @@
 #!/bin/bash
 
 VER=$(cat ./BASIC/version)
-SKETCH=./sketch/terminal-basic-${VER}
+SKETCH=./sketch/terminal-basic
 
 SRC="./BASIC/include/basic.hpp ./BASIC/include/basic_lexer.hpp ./BASIC/src/basic_lexer.cpp ./BASIC/include/config_arduino.hpp \
 ./BASIC/include/version.h \
@@ -25,4 +25,4 @@ do
 done
 
 cd ./sketch
-tar -czvf ./terminal-basic-${VER}-src.tar.gz ./terminal-basic-${VER}
+tar -czvf ./terminal-basic-${VER}-src.tar.gz ./terminal-basic

@@ -56,14 +56,14 @@ SIZE=${TOOLS}/bin/avr-size
 AVRDUDE_CONF=${TOOLS}/etc/avrdude.conf
 
 BUILD:=$(shell cat "./build-${CONF}")
-VERSION:=0.6.${BUILD}
+VERSION:=0.6.4-${BUILD}
 
 # build
 build: .build-post
 
 .build-pre:
 	echo "#define VERSION \"${VERSION}\"" > "./include/version.h"
-	echo ${VERSION} > ./verdion
+	echo ${VERSION} > ./version
 
 .build-post: .build-impl copy
 	echo $(shell expr ${BUILD} + 1) ; \
