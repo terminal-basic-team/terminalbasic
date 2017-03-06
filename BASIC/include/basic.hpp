@@ -41,7 +41,9 @@ typedef int16_t Integer;
 typedef int32_t LongInteger;
 #endif
 // floating point type
+#if USE_REALS
 typedef float Real;
+#endif
 
 /**
  * @brief lexical tokens
@@ -140,4 +142,4 @@ enum class Token : uint8_t
 
 }
 
-#endif
+#endif // BASIC_HPP

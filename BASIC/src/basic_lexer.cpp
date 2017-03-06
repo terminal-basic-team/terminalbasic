@@ -964,6 +964,7 @@ Lexer::decimalNumber()
 			continue;
 		}
 		switch (SYM) {
+#if USE_REALS
 		case '.':
 		{
 			_value.type = Parser::Value::REAL;
@@ -1004,6 +1005,7 @@ Lexer::decimalNumber()
 				return;
 			}
 		}
+#endif
 		default:
 			if (_value.type == Parser::Value::INTEGER
 #if USE_LONGINT
@@ -1011,9 +1013,10 @@ Lexer::decimalNumber()
 #endif
 			    )
 				_token = Token::C_INTEGER;
-
+#if USE_REALS
 			else
 				_token = Token::C_REAL;
+#endif
 			return;
 		}
 	}
@@ -1031,18 +1034,19 @@ Lexer::binaryInteger()
 	next();
 	*val |= LongInteger(SYM) << 8;
 	next();
-	*val |= SYM;
+	*val |= LongInteger(SYM);
 	next();
 #else
 	_value.type = Parser::Value::INTEGER;
 	Integer *val = &_value.value.integer;
-	*val |= Integer(SYM) << uint8_t(8);
+	*val = Integer(SYM) << uint8_t(8);
 	next();
-	*val |= SYM;
+	*val |= Integer(SYM);
 	next();
 #endif
 }
 
+#if USE_REALS
 bool
 Lexer::numberScale()
 {
@@ -1075,6 +1079,7 @@ Lexer::numberScale()
 		}
 	}
 }
+#endif
 
 void
 Lexer::ident()

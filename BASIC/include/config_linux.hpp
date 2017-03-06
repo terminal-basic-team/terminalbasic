@@ -19,7 +19,13 @@
 #ifndef CONFIG_LINUX_HPP
 #define CONFIG_LINUX_HPP
 
-#include <cstdint>
+#include <stdint.h>
+
+// Modules
+#define USEMATH 0	// Math
+
+// Use long integer
+#define USE_LONGINT 0
 
 namespace BASIC
 {
@@ -40,9 +46,6 @@ const uint8_t STRINGSIZE = 128;
 const uint8_t VARSIZE = 16;
 
 }
-
-// USe long integer
-#define USE_LONGINT 1
 
 #define BASIC_MULTITERMINAL 0
 

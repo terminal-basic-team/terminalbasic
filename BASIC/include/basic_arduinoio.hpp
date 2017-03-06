@@ -39,13 +39,17 @@ protected:
 	FunctionBlock::function _getFunction(const char*) const override;
 	FunctionBlock::command _getCommand(const char*) const override;
 private:
+#if USE_REALS
 	static bool func_aread(Interpreter&);
+#endif
 	static bool func_aread_int(Interpreter&);
 	static bool func_dread(Interpreter&);
 	static bool comm_awrite(Interpreter&);
 	static bool comm_dwrite(Interpreter&);
 	
+#if USE_REALS
 	static Real aread_r(Real);
+#endif
 	static Integer aread_i(Integer);
 };
 

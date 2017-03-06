@@ -42,11 +42,13 @@ public:
 	void init();
 	
 	FunctionBlock *next() { return _next; }
-	void setNext(FunctionBlock *newVal) { _next = newVal; }
+	
+	void setNext(FunctionBlock *newVal);
 	
 protected:
-	
+#if USE_REALS
 	typedef Real (*_funcReal)(Real);
+#endif
 	typedef Integer (*_funcInteger)(Integer);
 	
 	explicit FunctionBlock(FunctionBlock* =NULL);
@@ -66,6 +68,7 @@ protected:
 	 * @return command pointer
 	 */
 	virtual command _getCommand(const char*) const { return NULL; }
+#if USE_REALS
 	/**
 	 * @brief general function wrapper with 1 Real argument
 	 * @param interpreter Interpreter object
@@ -73,6 +76,7 @@ protected:
 	 * @return ok status
 	 */
 	static bool general_func(Interpreter&, _funcReal);
+#endif
 	/**
 	 * @brief general function wrapper with 1 Real argument
 	 * @param interpreter Interpreter object

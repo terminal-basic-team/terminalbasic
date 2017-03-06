@@ -76,8 +76,8 @@
 namespace BASIC
 {
 
-Parser::Parser(Lexer &l, Interpreter &i, FunctionBlock *first) :
-_lexer(l), _interpreter(i), _mode(EXECUTE), _internal(first)
+Parser::Parser(Lexer &l, Interpreter &i) :
+_lexer(l), _interpreter(i), _mode(EXECUTE)
 {
 }
 
@@ -85,6 +85,11 @@ void Parser::init()
 {
 	_mode = EXECUTE;
 	_internal.init();
+}
+
+void Parser::addModule(FunctionBlock *module)
+{
+	_internal.setNext(module);
 }
 
 bool

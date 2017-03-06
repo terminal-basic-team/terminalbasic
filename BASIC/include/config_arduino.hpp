@@ -21,21 +21,30 @@
 
 #include <stdint.h>
 
-namespace BASIC
-{
+/**
+ * Paraeters
+ */
+#define USE_REALS	1 // Real arithmetics
+#define USE_LONGINT	1 // Long integer support
 
-// Use SDCARD module
-#define USESD 1
+/**
+ * Used modules
+ */
+#define USESD 0		// SDcard
+#define USEMATH 1	// Math (requires USE_REALS)
+#define USEARDUINOIO 1	// ARduino IO
+
 // Uыe TFT output
 #define USEUTFT 0
 // Use multiterminal mode
 #define BASIC_MULTITERMINAL 0
-// Use long integer
-#define USE_LONGINT 1
 // Use external memory
-#define USE_EXTMEM 1
+#define USE_EXTMEM 0
 #define EXTMEM_ADDRESS 0x8000
 #define EXTMEM_SIZE 32768
+
+namespace BASIC
+{
 // Tokenize keywords in program text
 const bool TOKENIZE = true;
 // Max size of the program line
@@ -61,5 +70,11 @@ const uint8_t STRINGSIZE = 32;
 const uint8_t VARSIZE = 8;
 
 }
+
+#if USEMATH
+#if !USE_REALS
+#error Math module requires real arithmetics support
+#endif
+#endif
 
 #endif

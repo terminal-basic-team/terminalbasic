@@ -54,7 +54,11 @@ ArduinoIO::_getFunction(const char *name) const
 								if (name[position] == 0)
 									return (func_aread_int);
 							} else if (name[position] == 0)
+#if USE_REALS
 								return (func_aread);
+#else
+								return (func_aread_int);
+#endif
 						}
 					}
 				}
@@ -136,11 +140,13 @@ ArduinoIO::_getCommand(const char *name) const
 	return (NULL);
 }
 
+#if USE_REALS
 bool
 ArduinoIO::func_aread(Interpreter &i)
 {
 	return (general_func(i, aread_r));
 }
+#endif
 
 bool
 ArduinoIO::func_aread_int(Interpreter &i)
@@ -218,6 +224,7 @@ ArduinoIO::comm_dwrite(Interpreter &i)
 	return (false);
 }
 
+#if USE_REALS
 Real
 ArduinoIO::aread_r(Real v)
 {
@@ -225,6 +232,7 @@ ArduinoIO::aread_r(Real v)
 
 	return Real(analogRead(v)) / Real(1023) * Real(5.0);
 }
+#endif
 
 Integer
 ArduinoIO::aread_i(Integer v)

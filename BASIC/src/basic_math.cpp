@@ -16,6 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "basic.hpp"
+
+#if USEMATH
 #include "basic_math.hpp"
 #include <math.h>
 #include <string.h>
@@ -210,3 +213,5 @@ Math::tan_r(Real v)
 }
 
 }
+
+#endif

@@ -27,7 +27,7 @@ namespace BASIC
 class InternalFunctions : public FunctionBlock
 {
 public:
-	InternalFunctions(FunctionBlock*);
+	InternalFunctions(FunctionBlock* = NULL);
 protected:
 	FunctionBlock::function _getFunction(const char*) const override;
 private:

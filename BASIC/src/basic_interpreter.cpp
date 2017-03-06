@@ -17,7 +17,6 @@
  */
 
 #include "math.hpp"
-#include "basic_math.hpp"
 #include <string.h>
 #include <assert.h>
 
@@ -143,9 +142,11 @@ Interpreter::valueFromVar(Parser::Value &v, const char *varName)
 		v = f->get<LongInteger>();
 		break;
 #endif
+#if USE_REALS
 	case VF_REAL:
 		v = f->get<Real>();
 		break;
+#endif
 	case VF_BOOLEAN:
 		v = f->get<bool>();
 		break;
@@ -194,10 +195,12 @@ Interpreter::valueFromArray(Parser::Value &v, const char *name)
 		v.value.longInteger = f->get<LongInteger>(index);
 		break;
 #endif
+#if USE_REALS
 	case VF_REAL:
 		v.type = Parser::Value::REAL;
 		v.value.real = f->get<Real>(index);
 		break;
+#endif
 	default:
 		raiseError(DYNAMIC_ERROR, INVALID_VALUE_TYPE);
 		return false;
@@ -205,10 +208,9 @@ Interpreter::valueFromArray(Parser::Value &v, const char *name)
 	return true;
 }
 
-Interpreter::Interpreter(Stream &stream, Print &output, Program &program,
-    FunctionBlock *first) :
+Interpreter::Interpreter(Stream &stream, Print &output, Program &program) :
 _program(program), _state(SHELL), _input(stream), _output(output),
-_parser(_lexer, *this, first), _termno(++_termnoGen)
+_parser(_lexer, *this), _termno(++_termnoGen)
 {
 	_input.setTimeout(10000L);
 }
@@ -234,6 +236,8 @@ void
 Interpreter::step()
 {
 	LOG_TRACE;
+	
+	char c;
 
 	switch (_state) {
 		// waiting for user input command or program line
@@ -269,8 +273,8 @@ Interpreter::step()
 			_state = VAR_INPUT;
 		}
 		break;
-	case EXECUTE:
-		char c = char(ASCII::NUL);
+	case EXECUTE: 
+		c = char(ASCII::NUL);
 #ifdef ARDUINO
 		if (_input.available() > 0)
 			c = _input.read();
@@ -282,6 +286,8 @@ Interpreter::step()
 			_program.getString();
 		} else
 			_state = SHELL;
+	default:
+		break;
 	}
 }
 
@@ -395,6 +401,12 @@ Interpreter::list(uint16_t start, uint16_t stop)
 }
 
 void
+Interpreter::addModule(FunctionBlock *module)
+{
+	_parser.addModule(module);
+}
+
+void
 Interpreter::dump(DumpMode mode)
 {
 	switch (mode) {
@@ -461,9 +473,11 @@ Interpreter::print(const Parser::Value &v, TextAttr attr)
 		else
 			print(Token::KW_FALSE);
 		break;
+#if USE_REALS
 	case Parser::Value::REAL:
 		this->print(v.value.real);
 		break;
+#endif
 #if USE_LONGINT
 	case Parser::Value::LONG_INTEGER:
 		_output.print(v.value.longInteger);
@@ -503,6 +517,7 @@ Interpreter::print(char v)
 	_output.print(v);
 }
 
+#if USE_REALS
 void
 Interpreter::print(Real number)
 {
@@ -514,6 +529,7 @@ Interpreter::print(Real number)
 #endif
 	print(buf);
 }
+#endif // USE_REALS
 
 void
 Interpreter::print(Lexer &l)
@@ -837,8 +853,10 @@ Interpreter::VariableFrame::size() const
 #endif
 	case Parser::Value::INTEGER:
 		return sizeof (VariableFrame) + sizeof (Integer);
+#if USE_REALS
 	case Parser::Value::REAL:
-		return sizeof (VariableFrame) + sizeof (float);
+		return sizeof (VariableFrame) + sizeof (Real);
+#endif
 	case Parser::Value::BOOLEAN:
 		return sizeof (VariableFrame) + sizeof (bool);
 	case Parser::Value::STRING:
@@ -890,6 +908,7 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 	}
 		break;
 #endif
+#if USE_REALS
 	case VF_REAL:
 	{
 
@@ -902,6 +921,7 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 		*_U.r = Real(v);
 	}
 		break;
+#endif
 	case VF_STRING:
 	{
 		Program::StackFrame *fr = _program.currentStackFrame();
@@ -960,6 +980,7 @@ Interpreter::set(ArrayFrame &f, size_t index, const Parser::Value &v)
 	}
 		break;
 #endif
+#if USE_REALS
 	case VF_REAL:
 	{
 
@@ -972,6 +993,7 @@ Interpreter::set(ArrayFrame &f, size_t index, const Parser::Value &v)
 		_U.r[index] = Real(v);
 	}
 		break;
+#endif
 	default:
 		raiseError(DYNAMIC_ERROR, INVALID_VALUE_TYPE);
 	};
@@ -1128,7 +1150,7 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 		dist += sizeof (LongInteger);
 	} else
 #endif
-		if (endsWith(name, '%')) {
+	if (endsWith(name, '%')) {
 		t = VF_INTEGER;
 		dist += sizeof (Integer);
 	} else if (endsWith(name, '!')) {
@@ -1138,8 +1160,13 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 		t = VF_STRING;
 		dist += STRINGSIZE;
 	} else {
+#if USE_REALS
 		t = VF_REAL;
 		dist += sizeof (Real);
+#else
+		t = VF_INTEGER;
+		dist += sizeof (Integer);
+#endif
 	}
 	if (_program._arraysEnd >= _program._sp) {
 		raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
@@ -1280,7 +1307,7 @@ Interpreter::confirm()
 		newline();
 		break;
 	} while (true);
-	return result;
+	return (result);
 }
 
 void
@@ -1329,9 +1356,11 @@ Interpreter::ArrayFrame::size() const
 		mul *= sizeof (LongInteger);
 		break;
 #endif
+#if USE_REALS
 	case VF_REAL:
 		mul *= sizeof (Real);
 		break;
+#endif
 	case VF_BOOLEAN:
 		mul *= sizeof (bool);
 		break;
@@ -1340,7 +1369,7 @@ Interpreter::ArrayFrame::size() const
 	}
 	result += mul;
 
-	return result;
+	return (result);
 }
 
 Interpreter::ArrayFrame*
@@ -1375,10 +1404,14 @@ Interpreter::addArray(const char *name, uint8_t dim,
 	} else if (endsWith(name, '!')) {
 		t = VF_BOOLEAN;
 		num *= sizeof (bool);
-	} else { // real
+	}
+#if USE_REALS
+	else { // real
 		t = VF_REAL;
 		num *= sizeof (Real);
 	}
+#endif
+	
 	size_t dist = sizeof (ArrayFrame) + sizeof (size_t) * dim + num;
 	if (_program._arraysEnd + dist >= _program._sp) {
 		raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);

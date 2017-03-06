@@ -37,6 +37,14 @@ FunctionBlock::init()
 		_next->init();
 }
 
+void FunctionBlock::setNext(FunctionBlock *next)
+{
+	if (_next != NULL)
+		_next->setNext(next);
+	else
+		_next = next;
+}
+
 FunctionBlock::function
 FunctionBlock::getFunction(const char *name) const
 {
@@ -57,6 +65,7 @@ FunctionBlock::getCommand(const char *name) const
 	return result;
 }
 
+#if USE_REALS
 bool
 FunctionBlock::general_func(Interpreter &i, _funcReal f)
 {
@@ -73,22 +82,26 @@ FunctionBlock::general_func(Interpreter &i, _funcReal f)
 	} else
 		return false;
 }
+#endif
 
 bool
 FunctionBlock::general_func(Interpreter &i, _funcInteger f)
 {
 	Parser::Value v(Integer(0));
 	i.popValue(v);
-	if (v.type == Parser::Value::INTEGER ||
+	if (v.type == Parser::Value::INTEGER
 #if USE_LONGINT
-	    v.type == Parser::Value::LONG_INTEGER ||
+	 || v.type == Parser::Value::LONG_INTEGER
 #endif
-	    v.type == Parser::Value::REAL) {
+#if USE_REALS
+	 || v.type == Parser::Value::REAL
+#endif
+	) {
 		v = (*f)(Integer(v));
 		i.pushValue(v);
-		return true;
+		return (true);
 	} else
-		return false;
+		return (false);
 }
 
 }

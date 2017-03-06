@@ -65,7 +65,11 @@ InternalFunctions::_getFunction(const char *name) const
 bool
 InternalFunctions::func_rnd(Interpreter &i)
 {
+#if USE_REALS
 	Parser::Value v(Real(random()) / Real(RANDOM_MAX));
+#else
+	Parser::Value v(Integer(random()));
+#endif
 	i.pushValue(v);
 	return (true);
 }
@@ -73,7 +77,11 @@ InternalFunctions::func_rnd(Interpreter &i)
 bool
 InternalFunctions::func_tim(Interpreter &i)
 {
-	Real time = millis();
+#if USE_REALS
+	Real time = Real(millis()) / Real(1000);
+#else
+	Integer time = millis() / 1000;
+#endif
 	Parser::Value v(time);
 	i.pushValue(v);
 	return (true);

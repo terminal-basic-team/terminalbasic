@@ -30,7 +30,7 @@ namespace BASIC
 /**
  * @brief Interpreter context object
  */
-class CPS_PACKED Interpreter
+class Interpreter
 {
 public:
 	/**
@@ -228,7 +228,7 @@ public:
 	 * @param program Program object
 	 * @param firstModule First module in chain
 	 */
-	explicit Interpreter(Stream&, Print&, Program&, FunctionBlock* = NULL);
+	explicit Interpreter(Stream&, Print&, Program&);
 	
 	/**
 	 * [re]initialize interpreter object
@@ -247,9 +247,13 @@ public:
 	// Dump program memory
 	void dump(DumpMode);
 	
+	void addModule(FunctionBlock*);
+	
 	void newline();
 	void print(char);
+#if USE_REALS
 	void print(Real);
+#endif
 	void print(Integer, TextAttr=NO_ATTR);
 	void print(long, TextAttr=NO_ATTR);
 	void print(ProgMemStrings, TextAttr=NO_ATTR);
