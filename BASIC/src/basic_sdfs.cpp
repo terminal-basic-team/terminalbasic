@@ -28,6 +28,23 @@ namespace BASIC
 
 File SDFSModule::_root;
 
+static const uint8_t sdfsCommands[] PROGMEM = {
+	'D', 'I', 'R', 'E', 'C', 'T', 'O', 'R', 'Y'+0x80,
+	'D', 'L', 'O', 'A', 'D'+0x80,
+	'D', 'S', 'A', 'V', 'E'+0x80,
+	'H', 'E', 'A', 'D', 'E', 'R'+0x80,
+	'S', 'C', 'R', 'A', 'T', 'C', 'H'+0x80,
+	0
+};
+
+const FunctionBlock::function  SDFSModule::commands[] PROGMEM = {
+	SDFSModule::directory,
+	SDFSModule::dload,
+	SDFSModule::dsave,
+	SDFSModule::header,
+	SDFSModule::scratch
+};
+
 void
 SDFSModule::_init()
 {
@@ -38,121 +55,6 @@ SDFSModule::_init()
 	if (!_root || !_root.isDirectory()) {
 		abort();
 	}
-}
-
-FunctionBlock::command
-SDFSModule::_getCommand(const char *name) const
-{
-	assert(name != NULL);
-	uint8_t position = 0;
-	char c = name[position];
-	if (c != 0) {
-		switch (c) {
-		case 'D':
-			++position, c = name[position];
-			switch (c) {
-			case 'I':
-				++position;
-				if (name[position] == 'R') {
-					++position;
-					if (name[position] == 'E') {
-						++position;
-						if (name[position] == 'C') {
-							++position;
-							if (name[position] == 'T') {
-								++position;
-								if (name[position] == 'O') {
-									++position;
-									if (name[position] == 'R') {
-										++position;
-										if (name[position] == 'Y') {
-											++position;
-											if (name[position] == 0)
-												return directory;
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-				break;
-			case 'L':
-				++position;
-				if (name[position] == 'O') {
-					++position;
-					if (name[position] == 'A') {
-						++position;
-						if (name[position] == 'D') {
-							++position;
-							if (name[position] == 0)
-								return dload;
-						}
-					}
-				}
-				break;
-			case 'S':
-				++position;
-				if (name[position] == 'A') {
-					++position;
-					if (name[position] == 'V') {
-						++position;
-						if (name[position] == 'E') {
-							++position;
-							if (name[position] == 0)
-								return dsave;
-						}
-					}
-				}
-				break;
-			};
-			break;
-		case 'H':
-			++position;
-			if (name[position] == 'E') {
-				++position;
-				if (name[position] == 'A') {
-					++position;
-					if (name[position] == 'D') {
-						++position;
-						if (name[position] == 'E') {
-							++position;
-							if (name[position] == 'R') {
-								++position;
-								if (name[position] == 0)
-									return header;
-							}
-						}
-					}
-				}
-			}
-			break;
-		case 'S':
-			++position;
-			if (name[position] == 'C') {
-				++position;
-				if (name[position] == 'R') {
-					++position;
-					if (name[position] == 'A') {
-						++position;
-						if (name[position] == 'T') {
-							++position;
-							if (name[position] == 'C') {
-								++position;
-								if (name[position] == 'H') {
-									++position;
-									if (name[position] == 0)
-										return scratch;
-								}
-							}
-						}
-					}
-				}
-			}
-			break;
-		};
-	}
-	return NULL;
 }
 
 bool

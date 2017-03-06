@@ -20,6 +20,7 @@
 #define BASIC_INTERNALFUNCS_HPP
 
 #include "basic_functionblock.hpp"
+#include "helper.hpp"
 
 namespace BASIC
 {
@@ -28,11 +29,10 @@ class InternalFunctions : public FunctionBlock
 {
 public:
 	InternalFunctions(FunctionBlock* = NULL);
-protected:
-	FunctionBlock::function _getFunction(const char*) const override;
 private:
 	static bool func_rnd(Interpreter&);
 	static bool func_tim(Interpreter&);
+	static const FunctionBlock::function funcs[] PROGMEM;
 };
 
 }

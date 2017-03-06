@@ -140,6 +140,15 @@ enum class Token : uint8_t
 	NUM_TOKENS
 };
 
+/**
+ * @brief Scan token table
+ * @param token
+ * @param table
+ * @param index
+ * @return find flag
+ */
+bool scanTable(const uint8_t*, const uint8_t[], uint8_t&);
+
 }
 
 #endif // BASIC_HPP

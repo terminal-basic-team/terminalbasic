@@ -25,7 +25,8 @@ namespace BASIC
 {
 
 FunctionBlock::FunctionBlock(FunctionBlock *next) :
-	_next(next)
+_next(next), commands(NULL), functions(NULL), commandTokens(NULL),
+functionTokens(NULL)
 {
 }
 
@@ -63,6 +64,33 @@ FunctionBlock::getCommand(const char *name) const
 	    _next != NULL)
 		result = _next->getCommand(name);
 	return result;
+}
+
+FunctionBlock::function FunctionBlock::_getFunction(const char *name) const
+{
+	if (functionTokens == NULL)
+		return (NULL);
+	
+	uint8_t index;
+	if (scanTable((const uint8_t*)name, functionTokens, index))
+		return (reinterpret_cast<FunctionBlock::command>(
+		    pgm_read_ptr(&functions[index])));
+
+	return (NULL);
+}
+
+FunctionBlock::command
+FunctionBlock::_getCommand(const char *name) const
+{
+	if (commandTokens == NULL)
+		return (NULL);
+	
+	uint8_t index;
+	if (scanTable((const uint8_t*)name, commandTokens, index))
+		return (reinterpret_cast<FunctionBlock::command>(
+		    pgm_read_ptr(&commands[index])));
+
+	return (NULL);
 }
 
 #if USE_REALS

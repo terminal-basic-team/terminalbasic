@@ -34,10 +34,6 @@ class ArduinoIO : public FunctionBlock
 {
 public:
 	explicit ArduinoIO(FunctionBlock* =NULL);
-// FunctionBlock interface
-protected:
-	FunctionBlock::function _getFunction(const char*) const override;
-	FunctionBlock::command _getCommand(const char*) const override;
 private:
 #if USE_REALS
 	static bool func_aread(Interpreter&);
@@ -51,6 +47,9 @@ private:
 	static Real aread_r(Real);
 #endif
 	static Integer aread_i(Integer);
+	
+	static const FunctionBlock::function _funcs[] PROGMEM;
+	static const FunctionBlock::command _commands[] PROGMEM;
 };
 
 }

@@ -23,57 +23,46 @@
 #include <math.h>
 #include <string.h>
 
+#include "ascii.hpp"
+#include "helper.hpp"
+
 namespace BASIC
 {
 
-static const char sABS[] PROGMEM = "ABS";
-static const char sACS[] PROGMEM = "ACS";
-static const char sATN[] PROGMEM = "ATN";
-static const char sCOS[] PROGMEM = "COS";
-static const char sCOT[] PROGMEM = "COT";
-static const char sEXP[] PROGMEM = "EXP";
-static const char sLOG[] PROGMEM = "LOG";
-static const char sPI[] PROGMEM = "PI";
-static const char sSIN[] PROGMEM = "SIN";
-static const char sSQR[] PROGMEM = "SQR";
-static const char sTAN[] PROGMEM = "TAN";
+static const uint8_t mathTokens[] PROGMEM = {
+	'A', 'B', 'S'+0x80,
+	'A', 'C', 'S'+0x80,
+	'A', 'T', 'N'+0x80,
+	'C', 'O', 'S'+0x80,
+	'C', 'O', 'T'+0x80,
+	'E', 'X', 'P'+0x80,
+	'L', 'O', 'G'+0x80,
+	'P', 'I'+0x80,
+	'S', 'I', 'N'+0x80,
+	'S', 'Q', 'R'+0x80,
+	'T', 'A', 'N'+0x80,
+	0
+};
 
-PGM_P const Math::funcStrings[NUM_FUNC] PROGMEM = {
-	sABS, sACS, sATN, sCOS, sCOT, sEXP, sLOG, sPI, sSIN, sSQR, sTAN
+const FunctionBlock::function  Math::funcs[] PROGMEM = {
+	Math::func_abs,
+	Math::func_acs,
+	Math::func_atn,
+	Math::func_cos,
+	Math::func_cot,
+	Math::func_exp,
+	Math::func_log,
+	Math::func_pi,
+	Math::func_sin,
+	Math::func_sqr,
+	Math::func_tan
 };
 
 Math::Math(FunctionBlock *next) :
 FunctionBlock(next)
 {
-}
-
-FunctionBlock::function
-Math::_getFunction(const char *name) const
-{
-	if (strcmp_P(name, (PGM_P)pgm_read_word(&(funcStrings[F_ABS]))) == 0)
-		return func_abs;
-	else if (strcmp_P(name, (PGM_P)pgm_read_word(&(funcStrings[F_ACS]))) == 0)
-		return func_acs;
-	else if (strcmp_P(name, (PGM_P)pgm_read_word(&(funcStrings[F_ATN]))) == 0)
-		return func_atn;
-	else if (strcmp_P(name, (PGM_P)pgm_read_word(&(funcStrings[F_COS]))) == 0)
-		return func_cos;
-	else if (strcmp_P(name, (PGM_P)pgm_read_word(&(funcStrings[F_COT]))) == 0)
-		return func_cot;
-	else if (strcmp_P(name, (PGM_P)pgm_read_word(&(funcStrings[F_EXP]))) == 0)
-		return func_exp;
-	else if (strcmp_P(name, (PGM_P)pgm_read_word(&(funcStrings[F_LOG]))) == 0)
-		return func_log;
-	else if (strcmp_P(name, (PGM_P)pgm_read_word(&(funcStrings[F_SIN]))) == 0)
-		return func_sin;
-	else if (strcmp_P(name, (PGM_P)pgm_read_word(&(funcStrings[F_SQR]))) == 0)
-		return func_sqr;
-	else if (strcmp_P(name, (PGM_P)pgm_read_word(&(funcStrings[F_PI]))) == 0)
-		return func_pi;
-	else if (strcmp_P(name, (PGM_P)pgm_read_word(&(funcStrings[F_TAN]))) == 0)
-		return func_tan;
-	else
-		return NULL;
+	functions = funcs;
+	functionTokens = mathTokens;
 }
 
 bool

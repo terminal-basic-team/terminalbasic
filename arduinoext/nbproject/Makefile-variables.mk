@@ -22,6 +22,14 @@ CND_ARTIFACT_PATH_Arduino_nano328=dist/Arduino_nano328/Arduino-Linux/libarduinoe
 CND_PACKAGE_DIR_Arduino_nano328=dist/Arduino_nano328/Arduino-Linux/package
 CND_PACKAGE_NAME_Arduino_nano328=arduinoext.tar
 CND_PACKAGE_PATH_Arduino_nano328=dist/Arduino_nano328/Arduino-Linux/package/arduinoext.tar
+# Arduino_nano168 configuration
+CND_PLATFORM_Arduino_nano168=Arduino-Linux
+CND_ARTIFACT_DIR_Arduino_nano168=dist/Arduino_nano168/Arduino-Linux
+CND_ARTIFACT_NAME_Arduino_nano168=libarduinoext.a
+CND_ARTIFACT_PATH_Arduino_nano168=dist/Arduino_nano168/Arduino-Linux/libarduinoext.a
+CND_PACKAGE_DIR_Arduino_nano168=dist/Arduino_nano168/Arduino-Linux/package
+CND_PACKAGE_NAME_Arduino_nano168=arduinoext.tar
+CND_PACKAGE_PATH_Arduino_nano168=dist/Arduino_nano168/Arduino-Linux/package/arduinoext.tar
 # Arduino_uno configuration
 CND_PLATFORM_Arduino_uno=Arduino-Linux
 CND_ARTIFACT_DIR_Arduino_uno=dist/Arduino_uno/Arduino-Linux

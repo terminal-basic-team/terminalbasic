@@ -34,9 +34,6 @@ class Math : public FunctionBlock
 {
 public:
 	explicit Math(FunctionBlock* =NULL);
-// FunctionBlock interface
-protected:
-	FunctionBlock::function _getFunction(const char*) const override;
 private:
 	static bool func_abs(Interpreter&);
 	static bool func_acs(Interpreter&);
@@ -50,12 +47,6 @@ private:
 	static bool func_pi(Interpreter&);
 	static bool func_tan(Interpreter&);
 	
-	enum FuncNames : uint8_t
-	{
-		F_ABS = 0, F_ACS, F_ATN, F_COS, F_COT, F_EXP, F_LOG, F_PI,
-		F_SIN, F_SQR, F_TAN, NUM_FUNC
-	};
-	
 	static Real acs_r(Real);
 	static Real atn_r(Real);
 	static Real sin_r(Real);
@@ -66,7 +57,7 @@ private:
 	static Real sqr_r(Real);
 	static Real tan_r(Real);
 	
-	static PGM_P const funcStrings[NUM_FUNC];
+	static const FunctionBlock::function funcs[] PROGMEM;;
 };
 
 }

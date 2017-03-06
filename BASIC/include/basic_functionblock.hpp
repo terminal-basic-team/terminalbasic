@@ -60,14 +60,14 @@ protected:
 	 * @param fName function name
 	 * @return function pointer
 	 */
-	virtual function _getFunction(const char*) const { return NULL; }
+	function _getFunction(const char*) const;
 	/**
 	 * @brief return pointer to the command, provided by this block
 	 *   or NULL if no one
 	 * @param fName command name
 	 * @return command pointer
 	 */
-	virtual command _getCommand(const char*) const { return NULL; }
+	command _getCommand(const char*) const;
 #if USE_REALS
 	/**
 	 * @brief general function wrapper with 1 Real argument
@@ -84,6 +84,10 @@ protected:
 	 * @return ok status
 	 */
 	static bool general_func(Interpreter&, _funcInteger);
+	const uint8_t *commandTokens;
+	const FunctionBlock::command *commands;
+	const uint8_t *functionTokens;
+	const FunctionBlock::command *functions;
 private:
 	FunctionBlock *_next;
 };

@@ -25,41 +25,22 @@
 namespace BASIC
 {
 
+static const uint8_t intFuncs[] PROGMEM = {
+	'R', 'N', 'D'+0x80,
+	'T', 'I', 'M', 'E'+0x80,
+	0
+};
+
+const FunctionBlock::function InternalFunctions::funcs[] PROGMEM = {
+	InternalFunctions::func_rnd,
+	InternalFunctions::func_tim
+};
+
 InternalFunctions::InternalFunctions(FunctionBlock *first) :
 FunctionBlock(first)
 {
-}
-
-FunctionBlock::function
-InternalFunctions::_getFunction(const char *name) const
-{
-	assert(name != NULL);
-	uint8_t position = 0;
-	char c = name[position];
-	if (c != 0) {
-		switch (c) {
-		case 'R':
-			++position;
-			if (name[position] == 'N') {
-				++position;
-				if (name[position] == 'D')
-					return (func_rnd);
-			}
-			break;
-		case 'T':
-			++position;
-			if (name[position] == 'I') {
-				++position;
-				if (name[position] == 'M') {
-					++position;
-					if (name[position] == 'E')
-						return (func_tim);
-				}
-			}
-			break;
-		}
-	}
-	return (NULL);
+	functions = funcs;
+	functionTokens = intFuncs;
 }
 
 bool

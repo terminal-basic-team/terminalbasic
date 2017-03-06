@@ -37,8 +37,6 @@ class SDFSModule : public FunctionBlock
 	// Function block interface
 protected:
 	void _init() override;
-
-	FunctionBlock::command _getCommand(const char*) const override;
 private:
 	static bool dsave(Interpreter&);
 	static bool directory(Interpreter&);
@@ -47,6 +45,7 @@ private:
 	static bool header(Interpreter&);
 	static bool getFileName(Interpreter&, char[]);
 	static File	_root;
+	static const FunctionBlock::function commands[] PROGMEM;
 };
 
 }

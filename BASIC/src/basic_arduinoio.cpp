@@ -24,120 +24,41 @@
 namespace BASIC
 {
 
+static const uint8_t arduinoIOFuncs[] PROGMEM = {
+#if USE_REALS
+	'A', 'R', 'E', 'A', 'D'+0x80,
+#endif
+	'A', 'R', 'E', 'A', 'D', '%'+0x80,
+	'D', 'R', 'E', 'A', 'D'+0x80,
+	0
+};
+
+const FunctionBlock::function ArduinoIO::_funcs[] PROGMEM = {
+#if USE_REALS
+	ArduinoIO::func_aread,
+#endif
+	ArduinoIO::func_aread_int,
+	ArduinoIO::func_dread
+};
+
+static const uint8_t arduinoIOCommands[] PROGMEM = {
+	'A', 'W', 'R', 'I', 'T', 'E'+0x80,
+	'D', 'W', 'R', 'I', 'T', 'E'+0x80,
+	0
+};
+
+const FunctionBlock::command  ArduinoIO::_commands[] PROGMEM = {
+	ArduinoIO::comm_awrite,
+	ArduinoIO::comm_dwrite
+};
+
 ArduinoIO::ArduinoIO(FunctionBlock *next) :
 FunctionBlock(next)
 {
-}
-
-FunctionBlock::function
-ArduinoIO::_getFunction(const char *name) const
-{
-	assert(name != NULL);
-	uint8_t position = 0;
-	char c = name[position];
-	if (c != 0) {
-		switch (c) {
-		case 'A':
-			++position;
-			c = name[position];
-			switch (c) {
-			case 'R':
-				++position;
-				if (name[position] == 'E') {
-					++position;
-					if (name[position] == 'A') {
-						++position;
-						if (name[position] == 'D') {
-							++position;
-							if (name[position] == '%') {
-								++position;
-								if (name[position] == 0)
-									return (func_aread_int);
-							} else if (name[position] == 0)
-#if USE_REALS
-								return (func_aread);
-#else
-								return (func_aread_int);
-#endif
-						}
-					}
-				}
-				break;
-			}
-			break;
-		case 'D':
-			++position;
-			if (name[position] == 'R') {
-				++position;
-				if (name[position] == 'E') {
-					++position;
-					if (name[position] == 'A') {
-						++position;
-						if (name[position] == 'D') {
-							++position;
-							if (name[position] == '!') {
-								++position;
-								if (name[position] == 0)
-									return (func_dread);
-							}
-						}
-					}
-				}
-			}
-			break;
-		}
-	}
-	return (NULL);
-}
-
-FunctionBlock::command
-ArduinoIO::_getCommand(const char *name) const
-{
-	assert(name != NULL);
-	uint8_t position = 0;
-	char c = name[position];
-	if (c != 0) {
-		switch (c) {
-		case 'A':
-			++position;
-			if (name[position] == 'W') {
-				++position;
-				if (name[position] == 'R') {
-					++position;
-					if (name[position] == 'I') {
-						++position;
-						if (name[position] == 'T') {
-							++position;
-							if (name[position] == 'E')
-								return (comm_awrite);
-						}
-					}
-				}
-			}
-			break;
-		case 'D':
-			++position;
-			if (name[position] == 'W') {
-				++position;
-				if (name[position] == 'R') {
-					++position;
-					if (name[position] == 'I') {
-						++position;
-						if (name[position] == 'T') {
-							++position;
-							if (name[position] == 'E') {
-								++position;
-								if (name[position] == 0)
-									return (comm_dwrite);
-							}
-						}
-					}
-				}
-			}
-			break;
-		}
-	}
-	return (NULL);
+	commands = _commands;
+	commandTokens = arduinoIOCommands;
+	functions = _funcs;
+	functionTokens = arduinoIOFuncs;
 }
 
 #if USE_REALS

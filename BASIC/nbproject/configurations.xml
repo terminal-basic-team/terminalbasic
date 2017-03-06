@@ -288,7 +288,7 @@
           <incFile>
             <pElem>Arduino.h</pElem>
           </incFile>
-          <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -fno-threadsafe-statics -MMD -mmcu=atmega328p -ffunction-sections -fdata-sections -flto</commandLine>
+          <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -fno-threadsafe-statics -MMD -mmcu=atmega328p -ffunction-sections -fdata-sections -flto -mcall-prologues</commandLine>
           <preprocessorList>
             <Elem>ARDUINO=10607</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
@@ -402,7 +402,7 @@
           <incFile>
             <pElem>Arduino.h</pElem>
           </incFile>
-          <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -fno-threadsafe-statics -MMD -mmcu=atmega2560 -ffunction-sections -fdata-sections -flto -fno-rtti</commandLine>
+          <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -fno-threadsafe-statics -MMD -mmcu=atmega2560 -ffunction-sections -fdata-sections -flto -fno-rtti -mcall-prologues</commandLine>
           <preprocessorList>
             <Elem>ARDUINO=10607</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>

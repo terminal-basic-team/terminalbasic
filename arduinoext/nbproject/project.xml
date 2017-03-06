@@ -23,6 +23,10 @@
                     <type>3</type>
                 </confElem>
                 <confElem>
+                    <name>Arduino_nano168</name>
+                    <type>3</type>
+                </confElem>
+                <confElem>
                     <name>Arduino_uno</name>
                     <type>3</type>
                 </confElem>

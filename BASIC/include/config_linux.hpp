@@ -21,11 +21,17 @@
 
 #include <stdint.h>
 
-// Modules
-#define USEMATH 0	// Math
+/**
+ * Paraeters
+ */
+#define USE_REALS	1 // Real arithmetics
+#define USE_LONGINT	1 // Long integer support
 
-// Use long integer
-#define USE_LONGINT 0
+/**
+ * Used modules
+ */
+#define USEMATH 1	// Math (requires USE_REALS)
+#define USEARDUINOIO 1	// ARduino IO
 
 namespace BASIC
 {
