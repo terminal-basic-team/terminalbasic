@@ -37,6 +37,7 @@ public:
 private:
 	static bool func_abs(Interpreter&);
 	static bool func_acs(Interpreter&);
+	static bool func_asn(Interpreter&);
 	static bool func_atn(Interpreter&);
 	static bool func_cos(Interpreter&);
 	static bool func_cot(Interpreter&);
@@ -48,6 +49,7 @@ private:
 	static bool func_tan(Interpreter&);
 	
 	static Real acs_r(Real);
+	static Real asn_r(Real);
 	static Real atn_r(Real);
 	static Real sin_r(Real);
 	static Real cos_r(Real);

@@ -20,7 +20,7 @@
 
 #if USESD
 
-#include "basic_interpreter_program.hpp"
+#include "basic_program.hpp"
 #include <assert.h>
 
 namespace BASIC
@@ -101,10 +101,10 @@ SDFSModule::dsave(Interpreter &i)
 		SD.remove(ss);
 	File f = SD.open(ss, FILE_WRITE);
 	if (!f)
-		return false;
+		return (false);
 	f.write(i._program._text, i._program.size());
 	f.close();
-	return true;
+	return (true);
 }
 
 bool

@@ -52,7 +52,7 @@
           <standard>8</standard>
           <incDir>
             <pElem>include</pElem>
-            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino</pElem>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
             <pElem>src</pElem>
           </incDir>
           <commandLine>`pkg-config --cflags posixcpp`</commandLine>
@@ -103,7 +103,7 @@
           <standard>8</standard>
           <incDir>
             <pElem>include</pElem>
-            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino</pElem>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
           </incDir>
           <commandLine>-O3 -march=pentium3 -mfpmath=sse `pkg-config --cflags posixcpp`</commandLine>
           <warningLevel>2</warningLevel>

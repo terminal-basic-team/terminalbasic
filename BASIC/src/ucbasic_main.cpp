@@ -172,7 +172,7 @@ bool scanTable(const uint8_t *token, const uint8_t table[], uint8_t &index)
 				    0);
 				++tabPos, tokPos=0;
 			} else
-				break;
+				return (true);
 		} else {
 			if (c & uint8_t(0x80))
 				c &= ~uint8_t(0x80);
@@ -185,7 +185,7 @@ bool scanTable(const uint8_t *token, const uint8_t table[], uint8_t &index)
 			}
 		}
 	}
-	return (true);
+	return (false);
 }
 
 }

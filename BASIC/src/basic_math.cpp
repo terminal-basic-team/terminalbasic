@@ -32,6 +32,7 @@ namespace BASIC
 static const uint8_t mathTokens[] PROGMEM = {
 	'A', 'B', 'S'+0x80,
 	'A', 'C', 'S'+0x80,
+	'A', 'S', 'N'+0x80,
 	'A', 'T', 'N'+0x80,
 	'C', 'O', 'S'+0x80,
 	'C', 'O', 'T'+0x80,
@@ -44,9 +45,10 @@ static const uint8_t mathTokens[] PROGMEM = {
 	0
 };
 
-const FunctionBlock::function  Math::funcs[] PROGMEM = {
+const FunctionBlock::function Math::funcs[] PROGMEM = {
 	Math::func_abs,
 	Math::func_acs,
+	Math::func_asn,
 	Math::func_atn,
 	Math::func_cos,
 	Math::func_cot,
@@ -89,6 +91,12 @@ bool
 Math::func_acs(Interpreter &i)
 {
 	return general_func(i, &acs_r);
+}
+
+bool
+Math::func_asn(Interpreter &i)
+{
+	return general_func(i, &asn_r);
 }
 
 bool
@@ -150,55 +158,61 @@ Math::func_tan(Interpreter &i)
 Real
 Math::acs_r(Real v)
 {
-	return acos(v);
+	return (acos(v));
+}
+
+Real
+Math::asn_r(Real v)
+{
+	return (asin(v));
 }
 
 Real
 Math::sin_r(Real v)
 {
-	return sin(v);
+	return (sin(v));
 }
 
 Real
 Math::cos_r(Real v)
 {
-	return cos(v);
+	return (cos(v));
 }
 
 Real
 Math::cot_r(Real v)
 {
-	return Real(1) / tan(v);
+	return (Real(1) / tan(v));
 }
 
 Real
 Math::exp_r(Real v)
 {
-	return exp(v);
+	return (exp(v));
 }
 
 Real
 Math::log_r(Real v)
 {
-	return log(v);
+	return (log(v));
 }
 
 Real
 Math::sqr_r(Real v)
 {
-	return sqrt(v);
+	return (sqrt(v));
 }
 
 Real
 Math::atn_r(Real v)
 {
-	return atan(v);
+	return (atan(v));
 }
 
 Real
 Math::tan_r(Real v)
 {
-	return tan(v);
+	return (tan(v));
 }
 
 }

@@ -66,7 +66,7 @@
           <incDir>
             <pElem>include</pElem>
             <pElem>../libarduinoemulator/include</pElem>
-            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino</pElem>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
           </incDir>
           <commandLine>`pkg-config --cflags posixcpp`</commandLine>
           <warningLevel>2</warningLevel>
@@ -521,9 +521,11 @@
           <standard>8</standard>
           <incDir>
             <pElem>include</pElem>
-            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino</pElem>
-            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/variants/mega</pElem>
-            <pElem>/opt/arduino-1.6.12/libraries/UTFT/</pElem>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/variants/mega</pElem>
+            <pElem>${ARDUINO_PATH}/libraries/TVout/</pElem>
+            <pElem>${ARDUINO_PATH}/libraries/TVoutfonts</pElem>
+            <pElem>${ARDUINO_PATH}/libraries/UTFT/</pElem>
           </incDir>
           <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega328p -flto -fno-rtti</commandLine>
           <preprocessorList>
@@ -766,7 +768,7 @@
           <incDir>
             <pElem>include</pElem>
             <pElem>../libarduinoemulator/include</pElem>
-            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino</pElem>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
           </incDir>
           <commandLine>`pkg-config --cflags posixcpp` -O3 -march=pentium3 -mfpmath=sse</commandLine>
           <warningLevel>2</warningLevel>

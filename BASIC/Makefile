@@ -48,7 +48,7 @@ MKDIR=mkdir
 CP=cp
 CCADMIN=CCadmin
 
-ARDUINO_PATH=/opt/arduino-1.6.12
+ARDUINO_PATH=/opt/arduino-1.8.1
 TOOLS = ${ARDUINO_PATH}/hardware/tools/avr
 AVRDUDE=${TOOLS}/bin/avrdude
 OBJCOPY=${TOOLS}/bin/avr-objcopy
@@ -136,6 +136,7 @@ copy:
 	  "${CND_ARTIFACT_PATH_${CONF}}.hex"
 	${OBJCOPY} -O binary -R .eeprom "${CND_ARTIFACT_PATH_${CONF}}" \
 	  "${CND_ARTIFACT_PATH_${CONF}}.bin"
+	${SIZE} -C --mcu=atmega2560 "${CND_ARTIFACT_PATH_${CONF}}"
 
 program:
 	${AVRDUDE} -D -C ${AVRDUDE_CONF} -v -c wiring -p atmega2560 \

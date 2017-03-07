@@ -38,7 +38,8 @@ FunctionBlock::init()
 		_next->init();
 }
 
-void FunctionBlock::setNext(FunctionBlock *next)
+void
+FunctionBlock::setNext(FunctionBlock *next)
 {
 	if (_next != NULL)
 		_next->setNext(next);
@@ -63,10 +64,11 @@ FunctionBlock::getCommand(const char *name) const
 	if (((result = _getCommand(name)) == NULL) &&
 	    _next != NULL)
 		result = _next->getCommand(name);
-	return result;
+	return (result);
 }
 
-FunctionBlock::function FunctionBlock::_getFunction(const char *name) const
+FunctionBlock::function
+FunctionBlock::_getFunction(const char *name) const
 {
 	if (functionTokens == NULL)
 		return (NULL);
