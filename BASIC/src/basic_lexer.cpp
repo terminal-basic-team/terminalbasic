@@ -26,6 +26,7 @@
 
 /*
  * COM_CLS = "CLS"
+ * COM_DELAY = "DELAY"
  * COM_DUMP = "DUMP"
  * COM_LIST = "LIST"
  * COM_LOAD = "LOAD"
