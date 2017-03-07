@@ -22,7 +22,7 @@
 
 #include "basic_parser.hpp"
 #include "basic_interpreter.hpp"
-#include "basic_interpreter_program.hpp"
+#include "basic_program.hpp"
 
 #ifdef ARDUINO
 #include "config_arduino.hpp"

@@ -25,8 +25,8 @@ namespace BASIC
 {
 
 FunctionBlock::FunctionBlock(FunctionBlock *next) :
-_next(next), commands(NULL), functions(NULL), commandTokens(NULL),
-functionTokens(NULL)
+commands(NULL), functions(NULL), commandTokens(NULL),
+functionTokens(NULL), _next(next)
 {
 }
 

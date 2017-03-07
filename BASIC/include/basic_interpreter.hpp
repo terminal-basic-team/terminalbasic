@@ -239,7 +239,7 @@ public:
 	// Execute entered command (command or inputed program line)
 	void exec();
 	// Tokenize inputed program string
-	void tokenize();
+	//void tokenize();
 	// Clear screen
 	void cls();
 	// Output program memory

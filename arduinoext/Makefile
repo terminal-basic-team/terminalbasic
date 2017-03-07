@@ -43,8 +43,8 @@
 #
 # NOCDDL
 
-
-# Environment 
+# Environment
+ARDUINO_PATH=/opt/arduino-1.8.1
 MKDIR=mkdir
 CP=cp
 CCADMIN=CCadmin

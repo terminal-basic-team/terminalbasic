@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "basic_interpreter_program.hpp"
+#include "basic_program.hpp"
 #include <assert.h>
 #include <stdlib.h>
 #include <string.h>
@@ -169,7 +169,7 @@ Interpreter::Program::push(StackFrame::Type t)
 	uint8_t s = StackFrame::size(t);
 	if ((_sp - s) < _arraysEnd)
 		return (NULL);
-	
+
 	_sp -= StackFrame::size(t);
 	StackFrame *f = stackFrameByIndex(_sp);
 	if (f != NULL)
@@ -237,10 +237,10 @@ Interpreter::Program::currentStackFrame()
 
 Interpreter::ArrayFrame*
 Interpreter::Program::arrayByName(const char *name)
-{	
+{
 	size_t index = _variablesEnd;
 
-	for (ArrayFrame *f = arrayByIndex(index); index < _arraysEnd; 
+	for (ArrayFrame *f = arrayByIndex(index); index < _arraysEnd;
 	    index += f->size(),
 	    f = arrayByIndex(index)) {
 		int8_t res = strcmp(name, f->name);
@@ -268,17 +268,77 @@ Interpreter::Program::arrayByIndex(size_t index)
 }
 
 bool
+Interpreter::Program::addLine(uint16_t num, const char *line)
+{
+	size_t size;
+	if (TOKENIZE) {
+		char tempBuffer[PROGSTRINGSIZE];
+
+		Lexer _lexer;
+		_lexer.init(line);
+		size_t position = 0,
+		    lexerPosition = _lexer.getPointer();
+
+		while (_lexer.getNext()) {
+			uint8_t t = uint8_t(0x80) + uint8_t(_lexer.getToken());
+			;
+			if (_lexer.getToken() <= Token::OP_NOT) { // One byte tokens
+				tempBuffer[position++] = t;
+				lexerPosition = _lexer.getPointer();
+				if (_lexer.getToken() == Token::KW_REM) { // Save rem text as is
+					while (line[lexerPosition] == ' ' ||
+					    line[lexerPosition] == '\t')
+						++lexerPosition;
+					uint8_t remaining = strlen(line) - lexerPosition;
+					memcpy(tempBuffer + position, line + lexerPosition,
+					    remaining);
+					position += remaining;
+					break;
+				}
+			} else if (_lexer.getToken() == Token::C_INTEGER) {
+				tempBuffer[position++] = t;
+#if USE_LONGINT
+				LongInteger v = LongInteger(_lexer.getValue());
+				tempBuffer[position++] = v >> 24;
+				tempBuffer[position++] = (v >> 16) & 0xFF;
+				tempBuffer[position++] = (v >> 8) & 0xFF;
+				tempBuffer[position++] = v & 0xFF;
+#else
+				Integer v = Integer(_lexer.getValue());
+				tempBuffer[position++] = (v >> 8) & 0xFF;
+				tempBuffer[position++] = v & 0xFF;
+#endif
+				lexerPosition = _lexer.getPointer();
+			} else { // Other tokens
+				while (line[lexerPosition] == ' ' ||
+				    line[lexerPosition] == '\t')
+					++lexerPosition;
+				memcpy(tempBuffer + position, line + lexerPosition,
+				    _lexer.getPointer() - lexerPosition);
+				position += _lexer.getPointer() - lexerPosition;
+				lexerPosition = _lexer.getPointer();
+			}
+		}
+		tempBuffer[position++] = 0;
+		size = position;
+		line = tempBuffer;
+	} else
+		size = strlen(line);
+	return (addLine(num, line, size));
+}
+
+bool
 Interpreter::Program::addLine(uint16_t num, const char *text, size_t len)
 {
 	reset();
-	
+
 	if (_textEnd == 0) // First string insertion
 		return insert(num, text, len);
-	
+
 	const size_t strLen = sizeof (String) + len;
 	// Iterate over
 	String *cur;
-	for (cur = current(); _current<_textEnd; cur = current()) {
+	for (cur = current(); _current < _textEnd; cur = current()) {
 		if (num < cur->number) {
 			break;
 		} else if (num == cur->number) { // Replace string
@@ -326,8 +386,9 @@ Interpreter::Program::insert(uint16_t num, const char *text, size_t len)
 void
 Interpreter::Program::reset(size_t size)
 {
-	_current = 0; _sp = programSize;
-	if (size>0)
+	_current = 0;
+	_sp = programSize;
+	if (size > 0)
 		_textEnd = _variablesEnd = _arraysEnd = size;
 }
 

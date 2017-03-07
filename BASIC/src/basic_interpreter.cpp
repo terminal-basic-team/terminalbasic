@@ -27,7 +27,7 @@
 #include <util/crc16.h>
 
 #include "basic_interpreter.hpp"
-#include "basic_interpreter_program.hpp"
+#include "basic_program.hpp"
 #include "basic_parser_value.hpp"
 #include "arduino_logger.hpp"
 #include "bytearray.hpp"
@@ -299,14 +299,7 @@ Interpreter::exec()
 	_lexer.init(_inputBuffer);
 	if (_lexer.getNext() && (_lexer.getToken() == Token::C_INTEGER)) {
 		Integer pLine = Integer(_lexer.getValue());
-		if (TOKENIZE) {
-			tokenize();
-			pString = _inputBuffer;
-		} else {
-			pString = _inputBuffer + _lexer.getPointer();
-			_inputPosition -= _lexer.getPointer();
-		}
-		if (!_program.addLine(pLine, pString, _inputPosition)) {
+		if (!_program.addLine(pLine, _inputBuffer+_lexer.getPointer())) {
 			raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
 			_state = SHELL;
 			return;
@@ -317,55 +310,6 @@ Interpreter::exec()
 		if (!_parser.parse(_inputBuffer))
 			raiseError(STATIC_ERROR);
 	}
-}
-
-void
-Interpreter::tokenize()
-{
-	char tempBuffer[PROGSTRINGSIZE];
-	size_t position = 0, lexerPosition = _lexer.getPointer();
-	while (_lexer.getNext()) {
-		uint8_t t = uint8_t(0x80) + uint8_t(_lexer.getToken());
-		if (_lexer.getToken() <= Token::OP_NOT) { // One byte tokens
-			tempBuffer[position++] = t;
-			lexerPosition = _lexer.getPointer();
-			if (_lexer.getToken() == Token::KW_REM) { // Save rem text as is
-				while (_inputBuffer[lexerPosition] == ' ' ||
-				    _inputBuffer[lexerPosition] == '\t')
-					++lexerPosition;
-				uint8_t remaining = strlen(_inputBuffer) - lexerPosition;
-				memcpy(tempBuffer + position, _inputBuffer + lexerPosition,
-				    remaining);
-				position += remaining;
-				break;
-			}
-		} else if (_lexer.getToken() == Token::C_INTEGER) {
-			tempBuffer[position++] = t;
-#if USE_LONGINT
-			LongInteger v = LongInteger(_lexer.getValue());
-			tempBuffer[position++] = v >> 24;
-			tempBuffer[position++] = (v >> 16) & 0xFF;
-			tempBuffer[position++] = (v >> 8) & 0xFF;
-			tempBuffer[position++] = v & 0xFF;
-#else
-			Integer v = Integer(_lexer.getValue());
-			tempBuffer[position++] = (v >> 8) & 0xFF;
-			tempBuffer[position++] = v & 0xFF;
-#endif
-			lexerPosition = _lexer.getPointer();
-		} else { // Other tokens
-			while (_inputBuffer[lexerPosition] == ' ' ||
-			    _inputBuffer[lexerPosition] == '\t')
-				++lexerPosition;
-			memcpy(tempBuffer + position, _inputBuffer + lexerPosition,
-			    _lexer.getPointer() - lexerPosition);
-			position += _lexer.getPointer() - lexerPosition;
-			lexerPosition = _lexer.getPointer();
-		}
-	}
-	memcpy(_inputBuffer, tempBuffer, position);
-	_inputPosition = position+1;
-	_inputBuffer[position] = 0;
 }
 
 void

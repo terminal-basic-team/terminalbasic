@@ -235,13 +235,13 @@ Parser::Value::operator>(const Value &rhs) const
 	case INTEGER:
 		switch (rhs.type) {
 		case INTEGER:
-			return value.integer > rhs.value.integer;
+			return (value.integer > rhs.value.integer);
 #if USE_REALS
 		case REAL:
-			return Real(value.integer) > rhs.value.real;
+			return (Real(value.integer) > rhs.value.real);
 #endif
 		case BOOLEAN:
-			return value.integer > Integer(rhs.value.boolean);
+			return (value.integer > Integer(rhs.value.boolean));
 		}
 #if USE_REALS
 	case REAL:
