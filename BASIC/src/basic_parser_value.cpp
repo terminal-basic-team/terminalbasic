@@ -30,6 +30,7 @@ type(INTEGER)
 }
 
 #if USE_LONGINT
+
 Parser::Value::Value(LongInteger v) :
 type(LONG_INTEGER)
 {
@@ -44,6 +45,7 @@ type(INTEGER)
 }
 
 #if USE_REALS
+
 Parser::Value::Value(Real v) :
 type(REAL)
 {
@@ -58,6 +60,7 @@ type(BOOLEAN)
 }
 
 #if USE_REALS
+
 Parser::Value::operator Real() const
 {
 	switch (type) {
@@ -98,6 +101,7 @@ Parser::Value::operator bool() const
 }
 
 #if USE_LONGINT
+
 Parser::Value::operator LongInteger() const
 {
 	switch (type) {
@@ -135,7 +139,7 @@ Parser::Value::operator Integer() const
 	}
 }
 
-Parser::Value& 
+Parser::Value&
 Parser::Value::operator-()
 {
 	switch (type) {
@@ -166,31 +170,50 @@ bool
 Parser::Value::operator<(const Value &rhs) const
 {
 	switch (type) {
-	case INTEGER:
+#if USE_LONGINT
+	case LONG_INTEGER:
 		switch (rhs.type) {
+		case LONG_INTEGER:
+			return (value.longInteger < rhs.value.longInteger);
 		case INTEGER:
-			return value.integer < rhs.value.integer;
+			return (value.longInteger < rhs.value.integer);
 #if USE_REALS
 		case REAL:
-			return Real(value.integer) < rhs.value.real;
+			return (Real(value.integer) < rhs.value.real);
 #endif
 		case BOOLEAN:
-			return value.integer < Integer(rhs.value.boolean);
+			return (value.integer < Integer(rhs.value.boolean));
+		}
+#endif
+	case INTEGER:
+		switch (rhs.type) {
+#if USE_LONGINT
+		case LONG_INTEGER:
+			return (value.integer < rhs.value.longInteger);
+#endif
+		case INTEGER:
+			return (value.integer < rhs.value.integer);
+#if USE_REALS
+		case REAL:
+			return (Real(value.integer) < rhs.value.real);
+#endif
+		case BOOLEAN:
+			return (value.integer < Integer(rhs.value.boolean));
 		}
 #if USE_REALS
 	case REAL:
-		return value.real < Real(rhs);
+		return (value.real < Real(rhs));
 #endif
 	case BOOLEAN:
 		switch (rhs.type) {
 		case INTEGER:
-			return Integer(value.boolean) < rhs.value.integer;
+			return (Integer(value.boolean) < rhs.value.integer);
 #if USE_REALS
 		case REAL:
-			return Real(value.boolean) < rhs.value.real;
+			return (Real(value.boolean) < rhs.value.real);
 #endif
 		case BOOLEAN:
-			return value.boolean < rhs.value.boolean;
+			return (value.boolean < rhs.value.boolean);
 		}
 	}
 }
@@ -264,17 +287,17 @@ Parser::Value::operator>(const Value &rhs) const
 bool
 operator>=(const Parser::Value &l, const Parser::Value &r)
 {
-	return (l.operator >(r) || l.operator ==(r));
+	return (l.operator>(r) || l.operator==(r));
 }
 
 bool
 operator<=(const Parser::Value &l, const Parser::Value &r)
 {
-	return (l.operator <(r) || l.operator ==(r));
+	return (l.operator<(r) || l.operator==(r));
 }
 
 Parser::Value&
-Parser::Value::operator+=(const Value &rhs)
+    Parser::Value::operator+=(const Value &rhs)
 {
 	switch (type) {
 #if USE_LONGINT
@@ -352,7 +375,7 @@ Parser::Value::operator+=(const Value &rhs)
 }
 
 Parser::Value&
-Parser::Value::operator-=(const Value &rhs)
+    Parser::Value::operator-=(const Value &rhs)
 {
 	switch (type) {
 #if USE_LONGINT
@@ -431,7 +454,7 @@ Parser::Value::operator-=(const Value &rhs)
 }
 
 Parser::Value&
-Parser::Value::operator*=(const Value &rhs)
+    Parser::Value::operator*=(const Value &rhs)
 {
 	switch (type) {
 #if USE_LONGINT
@@ -439,7 +462,7 @@ Parser::Value::operator*=(const Value &rhs)
 		switch (rhs.type) {
 		case LONG_INTEGER:
 			value.longInteger *= rhs.value.longInteger;
-			break;	
+			break;
 		case INTEGER:
 			value.longInteger *= LongInteger(rhs.value.integer);
 			break;
@@ -458,7 +481,7 @@ Parser::Value::operator*=(const Value &rhs)
 #if USE_LONGINT
 		case LONG_INTEGER:
 			value.integer *= rhs.value.longInteger;
-			break;	
+			break;
 #endif
 		case INTEGER:
 			value.integer *= rhs.value.integer;
@@ -501,7 +524,7 @@ Parser::Value::operator*=(const Value &rhs)
 }
 
 Parser::Value&
-Parser::Value::operator/=(const Value &rhs)
+    Parser::Value::operator/=(const Value &rhs)
 {
 #if USE_REALS
 	value.real = Real(*this) / Real(rhs);
@@ -517,7 +540,7 @@ Parser::Value::operator/=(const Value &rhs)
 }
 
 Parser::Value&
-Parser::Value::operator^=(const Value &rhs)
+    Parser::Value::operator^=(const Value &rhs)
 {
 	switch (type) {
 	case INTEGER:

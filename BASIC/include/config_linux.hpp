@@ -30,8 +30,9 @@
 /**
  * Used modules
  */
-#define USEMATH 1	// Math (requires USE_REALS)
-#define USEARDUINOIO 1	// ARduino IO
+#define USEMATH		1 // Math (requires USE_REALS)
+#define USEARDUINOIO	1 // ARduino IO
+#define USESD		0
 
 namespace BASIC
 {

@@ -294,8 +294,6 @@ Interpreter::step()
 void
 Interpreter::exec()
 {
-	const char *pString;
-
 	_lexer.init(_inputBuffer);
 	if (_lexer.getNext() && (_lexer.getToken() == Token::C_INTEGER)) {
 		Integer pLine = Integer(_lexer.getValue());

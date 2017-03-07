@@ -163,8 +163,6 @@
       </item>
       <item path="src/protocol_arduino.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/seriallight.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>

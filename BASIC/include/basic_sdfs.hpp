@@ -24,7 +24,6 @@
 
 #if USESD
 
-#include <SPI.h>
 #include <SD.h>
 
 namespace BASIC

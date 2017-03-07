@@ -32,12 +32,12 @@
  * COM_NEW = "NEW"
  * COM_RUN = "RUN"
  * COM_SAVE = "SAVE"
- * COM_TIME = "TIME"
  * 
  * KW_DATA = "DATA"
  * KW_DIM = "DIM"
  * KW_END = "END"
  * KW_FOR = "FOR"
+ * KW_FOR = "GO"
  * KW_GOSUB = "GOSUB"
  * KW_GOTO = "GOTO"
  * KW_IF = "IF"
@@ -45,20 +45,26 @@
  * KW_LET = "LET"
  * KW_NEXT = "NEXT"
  * KW_PRINT = "PRINT"
- * KW_RETURN = "RETURN"
  * KW_RANDOMIZE = "RANDOMIZE"
+ * KW_REM = "REM"
+ * KW_RETURN = "RETURN"
  * KW_STOP = "STOP"
  * 
  * KW_ARRAYS = "ARRAYS"
+ * KW_FALSE = "FALSE"
+ * KW_STEP = "STEP"
  * KW_THEN = "THEN"
  * KW_TO = "TO"
- * KW_STEP = "STEP"
+ * KW_TRUE = "TRUE"
  * KW_VARS = "VARS"
  * 
  * OP_AND = "AND"
  * OP_OR = "OR"
  * OP_NOT = "NOT"
- * 
+ *
+ * STAR = '*'
+ * SLASH = '/'
+ * PLUS = '+'
  * COLON = ':'
  * SEMI = ';'
  * LT = '<'
@@ -69,9 +75,6 @@
  * NE = "<>"
  * NEA = "><"
  * MINUS = '-'
- * PLUS = '+'
- * STAR = '*'
- * SLASH = '/'
  * POW = '^'
  * IDENT = [A-Z][A-Z0-9]*
  * C_INTEGER = [0-9]+
@@ -111,10 +114,10 @@ const char sSTOP[] PROGMEM = "STOP";
 
 const char sARRAYS[] PROGMEM = "ARRAYS";
 const char sFALSE[] PROGMEM = "FALSE";
+const char sSTEP[] PROGMEM = "STEP";
 const char sTHEN[] PROGMEM = "THEN";
 const char sTO[] PROGMEM = "TO";
 const char sTRUE[] PROGMEM = "TRUE";
-const char sSTEP[] PROGMEM = "STEP";
 const char sVARS[] PROGMEM = "VARS";
 
 const char sOP_AND[] PROGMEM = "AND";
@@ -158,9 +161,9 @@ PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 	sDATA,	sDIM,	sEND,	sFOR,	sGO,	sGOSUB,	sGOTO,	sIF,	sINPUT,
 	sLET,	sNEXT,	sPRINT,	sRANDOMIZE,	sREM,	sRETURN,sSTOP,
 	
-	sARRAYS,sFALSE,	sTHEN,	sTO,	sTRUE,	sSTEP,	sVARS,
+	sARRAYS,sFALSE,	sTHEN,	sSTEP,	sTO,	sTRUE,	sVARS,
 	
-	sOP_AND,sOP_OR,	sOP_NOT,
+	sOP_AND,sOP_OR,sOP_NOT,
 	
 	sSTAR,	sSLASH,	sPLUS,	sMINUS,
 	

@@ -21,18 +21,39 @@
 
 #include <Stream.h>
 
+#define SERIAL_8N1 0x06
+
 class SerialLight : public Stream
 {
 public:
-	SerialLight();
-	
-	void begin(unsigned long);
-	
+	SerialLight(
+		volatile uint8_t *ubrrh, volatile uint8_t *ubrrl,
+		volatile uint8_t *ucsra, volatile uint8_t *ucsrb,
+		volatile uint8_t *ucsrc, volatile uint8_t *udr);
+
+	void
+	begin(unsigned long baud)
+	{
+		begin(baud, SERIAL_8N1);
+	}
+	void begin(unsigned long, uint8_t);
+
 	int available() override;
 	void flush() override;
 	int peek() override;
 	int read() override;
 	size_t write(uint8_t) override;
+private:
+	volatile uint8_t * const _ubrrh;
+	volatile uint8_t * const _ubrrl;
+	volatile uint8_t * const _ucsra;
+	volatile uint8_t * const _ucsrb;
+	volatile uint8_t * const _ucsrc;
+	volatile uint8_t * const _udr;
+	bool _hasByte;
+	uint8_t _byte;
 };
+
+extern SerialLight SerialL;
 
 #endif

@@ -35,8 +35,6 @@
 #include "basic_math.hpp"
 #endif
 
-static SerialLight SerialL;
-
 /**
  * Instantiating modules
  */

@@ -82,10 +82,10 @@ enum class Token : uint8_t
 	// other keywords
 	KW_ARRAYS,
 	KW_FALSE,
+	KW_STEP,
 	KW_THEN,
 	KW_TO,
 	KW_TRUE,
-	KW_STEP,
 	KW_VARS,
 	
 	OP_AND,
