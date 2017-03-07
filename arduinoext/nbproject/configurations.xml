@@ -15,6 +15,7 @@
       <itemPath>include/protocol.hpp</itemPath>
       <itemPath>include/protocol_arduino.hpp</itemPath>
       <itemPath>include/ringbuffer.hpp</itemPath>
+      <itemPath>include/seriallight.hpp</itemPath>
       <itemPath>include/uart305.hpp</itemPath>
       <itemPath>include/utft_stream.hpp</itemPath>
     </logicalFolder>
@@ -28,6 +29,7 @@
       <itemPath>include/math.cpp</itemPath>
       <itemPath>src/protocol.cpp</itemPath>
       <itemPath>src/protocol_arduino.cpp</itemPath>
+      <itemPath>src/seriallight.cpp</itemPath>
       <itemPath>include/utft_stream.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -145,6 +147,8 @@
       </item>
       <item path="include/ringbuffer.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/seriallight.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/uart305.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
@@ -158,6 +162,8 @@
       <item path="src/protocol.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/protocol_arduino.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/seriallight.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -179,7 +185,7 @@
           </incDir>
           <commandLine>-Os -Wextra -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega328p -mcall-prologues</commandLine>
           <preprocessorList>
-            <Elem>ARDUINO=10612</Elem>
+            <Elem>ARDUINO=10801</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_NANO</Elem>
             <Elem>F_CPU=16000000L</Elem>
@@ -260,6 +266,8 @@
       </item>
       <item path="include/ringbuffer.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/seriallight.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/uart305.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
@@ -273,6 +281,8 @@
       <item path="src/protocol.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/protocol_arduino.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/seriallight.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -294,7 +304,7 @@
           </incDir>
           <commandLine>-Os -Wextra -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega168 -mcall-prologues</commandLine>
           <preprocessorList>
-            <Elem>ARDUINO=10</Elem>
+            <Elem>ARDUINO=10801</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_NANO</Elem>
             <Elem>F_CPU=16000000L</Elem>
@@ -375,6 +385,8 @@
       </item>
       <item path="include/ringbuffer.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/seriallight.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/uart305.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
@@ -388,6 +400,8 @@
       <item path="src/protocol.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/protocol_arduino.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/seriallight.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -409,7 +423,7 @@
           </incDir>
           <commandLine>-Os -Wextra -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega328p -flto</commandLine>
           <preprocessorList>
-            <Elem>ARDUINO=10612</Elem>
+            <Elem>ARDUINO=10801</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_UNO</Elem>
             <Elem>F_CPU=16000000L</Elem>
@@ -492,6 +506,8 @@
       </item>
       <item path="include/ringbuffer.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/seriallight.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/uart305.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
@@ -505,6 +521,8 @@
       <item path="src/protocol.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/protocol_arduino.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/seriallight.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -529,7 +547,7 @@
           </incDir>
           <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega328p -flto -fno-rtti</commandLine>
           <preprocessorList>
-            <Elem>ARDUINO=10612</Elem>
+            <Elem>ARDUINO=10801</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_MEGA2560</Elem>
             <Elem>F_CPU=16000000L</Elem>
@@ -612,6 +630,8 @@
       </item>
       <item path="include/ringbuffer.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/seriallight.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/uart305.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/utft_stream.cpp" ex="false" tool="1" flavor2="0">
@@ -635,6 +655,8 @@
       </item>
       <item path="src/protocol_arduino.cpp" ex="false" tool="1" flavor2="8">
       </item>
+      <item path="src/seriallight.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
@@ -655,7 +677,7 @@
           </incDir>
           <commandLine>-Os -Wextra -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega128a -flto</commandLine>
           <preprocessorList>
-            <Elem>ARDUINO=10612</Elem>
+            <Elem>ARDUINO=10801</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_UNO</Elem>
             <Elem>F_CPU=8000000L</Elem>
@@ -738,6 +760,8 @@
       </item>
       <item path="include/ringbuffer.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/seriallight.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/uart305.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
@@ -751,6 +775,140 @@
       <item path="src/protocol.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/protocol_arduino.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/seriallight.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Atmega1284" type="3">
+      <toolsSet>
+        <compilerSet>Arduino|GNU</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>true</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <developmentMode>0</developmentMode>
+          <standard>8</standard>
+          <incDir>
+            <pElem>include</pElem>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/variants/avr_developers</pElem>
+            <pElem>${ARDUINO_PATH}/libraries/TVout/</pElem>
+            <pElem>${ARDUINO_PATH}/libraries/TVoutfonts</pElem>
+            <pElem>${ARDUINO_PATH}/libraries/UTFT/</pElem>
+          </incDir>
+          <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega1284p -flto -fno-rtti</commandLine>
+          <preprocessorList>
+            <Elem>ARDUINO=10801</Elem>
+            <Elem>ARDUINO_ARCH_AVR</Elem>
+            <Elem>F_CPU=16000000L</Elem>
+          </preprocessorList>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <archiverTool>
+          <commandlineTool>avr-gcc-ar</commandlineTool>
+          <ranlibTool>avr-gcc-ranlib</ranlibTool>
+        </archiverTool>
+      </compileType>
+      <item path="../arduinoext/include/arduino_logger.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../arduinoext/include/cps.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../arduinoext/src/arduino_logger.cpp"
+            ex="false"
+            tool="1"
+            flavor2="8">
+      </item>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../libarduinoemulator"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../libarduinoemulator"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinoemulator.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerOptionItem>`pkg-config --libs posixcpp`</linkerOptionItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
+      <item path="include/_protocol.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/ascii.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/bcopy.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="include/bcopy.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/bytearray.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/cps_mosprotocol.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/cps_mosprotocol_arduino.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/helper.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/math.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="include/math.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/protocol.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/protocol_arduino.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/ringbuffer.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/seriallight.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/uart305.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/utft_stream.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/bytearray.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/cps_mosprotocol.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/cps_mosprotocol_arduino.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/extmemtest.cpp" ex="true" tool="1" flavor2="8">
+        <ccTool>
+          <incFile>
+            <pElem>Arduino.h</pElem>
+          </incFile>
+        </ccTool>
+      </item>
+      <item path="src/protocol.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/protocol_arduino.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/seriallight.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -847,6 +1005,8 @@
       </item>
       <item path="include/ringbuffer.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/seriallight.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/uart305.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
@@ -860,6 +1020,8 @@
       <item path="src/protocol.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/protocol_arduino.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/seriallight.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
       </item>

@@ -39,6 +39,10 @@
                     <type>3</type>
                 </confElem>
                 <confElem>
+                    <name>Atmega1284</name>
+                    <type>3</type>
+                </confElem>
+                <confElem>
                     <name>Release</name>
                     <type>3</type>
                 </confElem>

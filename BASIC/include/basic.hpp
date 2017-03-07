@@ -54,6 +54,7 @@ enum class Token : uint8_t
 	
 	// Commands
 	COM_CLS,
+	COM_DELAY,
 	COM_DUMP,
 	COM_LIST,
 	COM_LOAD,

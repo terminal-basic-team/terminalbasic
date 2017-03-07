@@ -39,6 +39,10 @@
                     <name>Atmega_128a</name>
                     <type>3</type>
                 </confElem>
+                <confElem>
+                    <name>Atmega_1284</name>
+                    <type>3</type>
+                </confElem>
             </confList>
             <formatting>
                 <project-formatting-style>false</project-formatting-style>

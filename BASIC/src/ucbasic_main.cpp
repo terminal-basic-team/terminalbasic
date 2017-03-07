@@ -21,6 +21,8 @@
 #include "basic_program.hpp"
 #include "basic_arduinoio.hpp"
 
+#include "seriallight.hpp"
+
 #if USESD
 #include "basic_sdfs.hpp"
 #endif
@@ -32,6 +34,8 @@
 #if USEMATH
 #include "basic_math.hpp"
 #endif
+
+static SerialLight SerialL;
 
 /**
  * Instantiating modules
@@ -102,7 +106,7 @@ setup()
 #endif
 #endif
 
-	LOG_INIT(Serial);
+	LOG_INIT(SerialL);
 
 	LOG_TRACE;
 
@@ -117,7 +121,6 @@ setup()
 #if USESD
 	basic.addModule(&sdfs);
 #endif
-	
 	basic.init();
 #if BASIC_MULTITERMINAL
 #if HAVE_HWSERIAL1

@@ -30,7 +30,7 @@
 /**
  * Used modules
  */
-#define USESD		1 // SDcard
+#define USESD		0 // SDcard
 #define USEMATH 	1 // Math (requires USE_REALS)
 #define USEARDUINOIO	1 // ARduino IO
 
@@ -61,6 +61,8 @@ const size_t PROGRAMSIZE = 6144;
 const size_t PROGRAMSIZE = 3072;
 #elif defined (__AVR_ATmega328__) || defined (__AVR_ATmega328P__)
 const size_t PROGRAMSIZE = 1024;
+#elif defined (__AVR_ATmega168__)
+const size_t PROGRAMSIZE = 512;
 #endif
 
 // Max size of the string constants/variables

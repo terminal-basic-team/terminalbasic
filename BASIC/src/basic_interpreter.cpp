@@ -1342,19 +1342,21 @@ Interpreter::addArray(const char *name, uint8_t dim,
 		num *= sizeof (LongInteger);
 	} else
 #endif
-		if (endsWith(name, '%')) {
+	if (endsWith(name, '%')) {
 		t = VF_INTEGER;
 		num *= sizeof (Integer);
 	} else if (endsWith(name, '!')) {
 		t = VF_BOOLEAN;
 		num *= sizeof (bool);
 	}
-#if USE_REALS
 	else { // real
+#if USE_REALS
 		t = VF_REAL;
 		num *= sizeof (Real);
+#endif		// Integer
+		t = VF_INTEGER;
+		num *= sizeof (Integer);
 	}
-#endif
 	
 	size_t dist = sizeof (ArrayFrame) + sizeof (size_t) * dim + num;
 	if (_program._arraysEnd + dist >= _program._sp) {

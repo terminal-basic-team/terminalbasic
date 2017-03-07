@@ -84,6 +84,7 @@ namespace BASIC
 const char sNOTOKENS[] PROGMEM = "NOTOKENS";
 
 const char sCLS[] PROGMEM = "CLS";
+const char sDELAY[] PROGMEM = "DELAY";
 const char sDUMP[] PROGMEM = "DUMP";
 const char sLIST[] PROGMEM = "LIST";
 const char sLOAD[] PROGMEM = "LOAD";
@@ -152,7 +153,7 @@ const char sBOOLEAN[] PROGMEM = "C_BOOLEAN";
 PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 	sNOTOKENS,
 	
-	sCLS,	sDUMP,	sLIST,	sLOAD,	sNEW,	sRUN,	sSAVE,
+	sCLS,	sDELAY, sDUMP,	sLIST,	sLOAD,	sNEW,	sRUN,	sSAVE,
 	
 	sDATA,	sDIM,	sEND,	sFOR,	sGO,	sGOSUB,	sGOTO,	sIF,	sINPUT,
 	sLET,	sNEXT,	sPRINT,	sRANDOMIZE,	sREM,	sRETURN,sSTOP,

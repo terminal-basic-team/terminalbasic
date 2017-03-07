@@ -65,7 +65,7 @@ build: .build-post
 	echo "#define VERSION \"${VERSION}\"" > "./include/version.h"
 	echo ${VERSION} > ./version
 
-.build-post: .build-impl # copy
+.build-post: .build-impl copy_${CONF}
 	echo $(shell expr ${BUILD} + 1) ; \
 	echo $(shell expr ${BUILD} + 1) > "./build-${CONF}"
 
@@ -128,15 +128,46 @@ help: .help-post
 .help-post: .help-impl
 # Add your post 'help' code here...
 
+ARCH=""
+
+copy_Debug : ARCH=i686-linux_static-dbg
+copy_Debug : copy-pc
+
+copy_Release : ARCH=i686-linux_static
+copy_Release : copy-pc
+
+copy-pc:
+	${CP} "${CND_ARTIFACT_PATH_${CONF}}" "${CND_ARTIFACT_PATH_${CONF}}_${VERSION}_${ARCH}"
+
+copy_Arduino_nano328 : ARCH=arduinoNANO
+copy_Arduino_nano328 : UCARCH=atmega328p
+copy_Arduino_nano328 : copy
+	
+copy_Arduino_nano168 : ARCH=arduinoNANO
+copy_Arduino_nano168 : UCARCH=atmega168
+copy_Arduino_nano168 : copy
+	
+copy_Arduino_mega2560 : ARCH=arduinoMEGA
+copy_Arduino_mega2560 : UCARCH=atmega2560	
+copy_Arduino_mega2560 : copy
+	
+copy_Atmega1284 : ARCH=mighty1284
+copy_Atmega1284 : UCARCH=atmega1284p	
+copy_Atmega1284 : copy
+	
+copy_Arduino_UNO : ARCH=arduinoUNO
+copy_Arduino_UNO : UCARCH=atmega328p	
+copy_Arduino_UNO : copy
+	
 copy:
 	${OBJCOPY} -O ihex -j .eeprom --set-section-flags=.eeprom=alloc,load \
 	  --no-change-warnings --change-section-lma .eeprom=0 \
-	  "${CND_ARTIFACT_PATH_${CONF}}" "${CND_ARTIFACT_PATH_${CONF}}.eep"
+	  "${CND_ARTIFACT_PATH_${CONF}}" "${CND_ARTIFACT_PATH_${CONF}}_${VERSION}_${ARCH}-${UCARCH}.eep"
 	${OBJCOPY} -O ihex -R .eeprom "${CND_ARTIFACT_PATH_${CONF}}" \
-	  "${CND_ARTIFACT_PATH_${CONF}}.hex"
+	  "${CND_ARTIFACT_PATH_${CONF}}_${VERSION}_${ARCH}-${UCARCH}.hex"
 	${OBJCOPY} -O binary -R .eeprom "${CND_ARTIFACT_PATH_${CONF}}" \
-	  "${CND_ARTIFACT_PATH_${CONF}}.bin"
-	${SIZE} -C --mcu=atmega2560 "${CND_ARTIFACT_PATH_${CONF}}"
+	  "${CND_ARTIFACT_PATH_${CONF}}_${VERSION}_${ARCH}-${UCARCH}.bin"
+	${SIZE} -C --mcu=${UCARCH} ${CND_ARTIFACT_PATH_${CONF}}
 
 program:
 	${AVRDUDE} -D -C ${AVRDUDE_CONF} -v -c wiring -p atmega2560 \
