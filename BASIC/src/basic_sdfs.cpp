@@ -108,7 +108,13 @@ SDFSModule::dsave(Interpreter &i)
 	File f = SD.open(ss, FILE_WRITE);
 	if (!f)
 		return (false);
-	f.write(i._program._text, i._program.size());
+	
+	for (Program::String *s = i._program.getString(); s != NULL;
+	    s = i._program.getString()) {
+		f.print(s->number);
+		f.println();
+	}
+	
 	f.close();
 	return (true);
 }
