@@ -63,16 +63,14 @@ SerialLight::begin(unsigned long baud, uint8_t config)
 
 	sbi(*_ucsrb, RXEN0);
 	sbi(*_ucsrb, TXEN0);
-	sbi(*_ucsrb, RXCIE0);
-	cbi(*_ucsrb, UDRIE0);
 }
 
 int
 SerialLight::available()
 {
-	if (*_ucsra & (1<<RXC0))
+	if (*_ucsra & (1<<RXC0)) {
 		return (1);
-	else
+	} else
 		return (0);
 }
 
@@ -109,8 +107,7 @@ size_t
 SerialLight::write(uint8_t c)
 {
 	/* Wait for empty transmit buffer */
-	while ( !(*_ucsra & (1<<UDRE0)) );
+	while (!(*_ucsra & (1<<UDRE0)));
 	/* Put data into buffer, sends the data */
 	*_udr = c;
 }
-

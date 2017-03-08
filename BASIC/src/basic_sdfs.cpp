@@ -37,13 +37,19 @@ static const uint8_t sdfsCommands[] PROGMEM = {
 	0
 };
 
-const FunctionBlock::function  SDFSModule::commands[] PROGMEM = {
+const FunctionBlock::function  SDFSModule::_commands[] PROGMEM = {
 	SDFSModule::directory,
 	SDFSModule::dload,
 	SDFSModule::dsave,
 	SDFSModule::header,
 	SDFSModule::scratch
 };
+
+SDFSModule::SDFSModule()
+{
+	commands = _commands;
+	commandTokens = sdfsCommands;
+}
 
 void
 SDFSModule::_init()

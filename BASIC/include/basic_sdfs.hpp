@@ -34,6 +34,8 @@ namespace BASIC
 class SDFSModule : public FunctionBlock
 {
 	// Function block interface
+public:
+	SDFSModule();
 protected:
 	void _init() override;
 private:
@@ -44,7 +46,7 @@ private:
 	static bool header(Interpreter&);
 	static bool getFileName(Interpreter&, char[]);
 	static File	_root;
-	static const FunctionBlock::function commands[] PROGMEM;
+	static const FunctionBlock::function _commands[] PROGMEM;
 };
 
 }

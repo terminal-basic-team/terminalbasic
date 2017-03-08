@@ -271,9 +271,8 @@ bool
 Interpreter::Program::addLine(uint16_t num, const char *line)
 {
 	size_t size;
+	char tempBuffer[PROGSTRINGSIZE];
 	if (TOKENIZE) {
-		char tempBuffer[PROGSTRINGSIZE];
-
 		Lexer _lexer;
 		_lexer.init(line);
 		size_t position = 0,
@@ -324,6 +323,7 @@ Interpreter::Program::addLine(uint16_t num, const char *line)
 		line = tempBuffer;
 	} else
 		size = strlen(line);
+
 	return (addLine(num, line, size));
 }
 

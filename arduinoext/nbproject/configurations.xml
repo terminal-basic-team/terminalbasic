@@ -416,10 +416,10 @@
           <standard>8</standard>
           <incDir>
             <pElem>include</pElem>
-            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino</pElem>
-            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/variants/eightanaloginputs</pElem>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs</pElem>
           </incDir>
-          <commandLine>-Os -Wextra -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega328p -flto</commandLine>
+          <commandLine>-Os -Wextra -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega328p -flto -fno-rtti -mcall-prologues</commandLine>
           <preprocessorList>
             <Elem>ARDUINO=10801</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
@@ -543,7 +543,7 @@
             <pElem>${ARDUINO_PATH}/libraries/TVoutfonts</pElem>
             <pElem>${ARDUINO_PATH}/libraries/UTFT/</pElem>
           </incDir>
-          <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega328p -flto -fno-rtti</commandLine>
+          <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega328p -flto -fno-rtti -mcall-prologues</commandLine>
           <preprocessorList>
             <Elem>ARDUINO=10801</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
@@ -797,7 +797,7 @@
             <pElem>${ARDUINO_PATH}/libraries/TVoutfonts</pElem>
             <pElem>${ARDUINO_PATH}/libraries/UTFT/</pElem>
           </incDir>
-          <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega1284p -flto -fno-rtti</commandLine>
+          <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega1284p -flto -fno-rtti -mcall-prologues</commandLine>
           <preprocessorList>
             <Elem>ARDUINO=10801</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>

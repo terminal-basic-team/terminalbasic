@@ -89,8 +89,8 @@ enum class Token : uint8_t
 	KW_VARS,
 	
 	OP_AND,
-	OP_OR,
 	OP_NOT,
+	OP_OR,
 
 	// *
 	STAR,

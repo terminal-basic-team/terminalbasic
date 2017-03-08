@@ -67,7 +67,7 @@ build: .build-post
 
 .build-post: .build-impl copy_${CONF}
 	echo $(shell expr ${BUILD} + 1) ; \
-	echo $(shell expr ${BUILD} + 1) > "./build-${CONF}"
+	#echo $(shell expr ${BUILD} + 1) > "./build-${CONF}"
 
 # clean
 clean: .clean-post
@@ -148,16 +148,26 @@ copy_Arduino_nano168 : UCARCH=atmega168
 copy_Arduino_nano168 : copy
 	
 copy_Arduino_mega2560 : ARCH=arduinoMEGA
-copy_Arduino_mega2560 : UCARCH=atmega2560	
+copy_Arduino_mega2560 : UCARCH=atmega2560
 copy_Arduino_mega2560 : copy
 	
 copy_Atmega1284 : ARCH=mighty1284
-copy_Atmega1284 : UCARCH=atmega1284p	
+copy_Atmega1284 : UCARCH=atmega1284p
 copy_Atmega1284 : copy
 	
 copy_Arduino_UNO : ARCH=arduinoUNO
-copy_Arduino_UNO : UCARCH=atmega328p	
+copy_Arduino_UNO : UCARCH=atmega328p
 copy_Arduino_UNO : copy
+
+program: program_${CONF}
+
+program_Arduino_UNO : ARCH=arduinoUNO
+program_Arduino_UNO : UCARCH=atmega328p
+program_Arduino_UNO : program_common
+
+program_Arduino_mega2560 : ARCH=arduinoMEGA
+program_Arduino_mega2560 : UCARCH=atmega2560
+program_Arduino_mega2560 : program_common
 	
 copy:
 	${OBJCOPY} -O ihex -j .eeprom --set-section-flags=.eeprom=alloc,load \
@@ -169,14 +179,14 @@ copy:
 	  "${CND_ARTIFACT_PATH_${CONF}}_${VERSION}_${ARCH}-${UCARCH}.bin"
 	${SIZE} -C --mcu=${UCARCH} ${CND_ARTIFACT_PATH_${CONF}}
 
-program:
+program_common:
 	${AVRDUDE} -D -C ${AVRDUDE_CONF} -v -c wiring -p atmega2560 \
-	  -P /dev/ttyUSB0 -b115200 -U flash:w:"${CND_BASEDIR}/${CND_ARTIFACT_PATH_${CONF}}.hex":i
+	  -P /dev/ttyACM0 -b115200 -U flash:w:"${CND_ARTIFACT_PATH_${CONF}}_${VERSION}_${ARCH}-${UCARCH}.hex":i
 	#${AVRDUDE} -D -C ${AVRDUDE_CONF} -v -c wiring -p atmega2560 \
 	#  -P /dev/ttyUSB0 -b115200 \
 	#  -U flash:w:"${CND_BASEDIR}/${CND_ARTIFACT_PATH_${CONF}}.hex":i
-	#${AVRDUDE} -C ${AVRDUDE_CONF} -v -c arduino -p m328p -P /dev/ttyUSB2 \
-	#-U flash:w:"${CND_BASEDIR}/${CND_ARTIFACT_PATH_${CONF}}.hex":i
+	#${AVRDUDE} -C ${AVRDUDE_CONF} -v -c arduino -p m328p -P /dev/ttyUSB0 \
+	#-U flash:w:"${CND_ARTIFACT_PATH_${CONF}}_${VERSION}_${ARCH}-${UCARCH}.hex":i
 	#${AVRDUDE} -C ${AVRDUDE_CONF} -v -c usbasp -p m328p \
 	#-U flash:w:"${CND_BASEDIR}/${CND_ARTIFACT_PATH_${CONF}}.hex":i
 	#${AVRDUDE} -C ${AVRDUDE_CONF} -v -c usbasp -p m128 \

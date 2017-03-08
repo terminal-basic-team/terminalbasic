@@ -60,8 +60,8 @@
  * KW_VARS = "VARS"
  * 
  * OP_AND = "AND"
- * OP_OR = "OR"
  * OP_NOT = "NOT"
+ * OP_OR = "OR"
  *
  * STAR = '*'
  * SLASH = '/'
@@ -122,8 +122,8 @@ const char sTRUE[] PROGMEM = "TRUE";
 const char sVARS[] PROGMEM = "VARS";
 
 const char sOP_AND[] PROGMEM = "AND";
-const char sOP_OR[] PROGMEM = "OR";
 const char sOP_NOT[] PROGMEM = "NOT";
+const char sOP_OR[] PROGMEM = "OR";
 
 const char sSTAR[] PROGMEM = "*";
 const char sSLASH[] PROGMEM = "/";
@@ -164,18 +164,18 @@ PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 	
 	sARRAYS,sFALSE,	sTHEN,	sSTEP,	sTO,	sTRUE,	sVARS,
 	
-	sOP_AND,sOP_OR,sOP_NOT,
+	sOP_AND,sOP_NOT,sOP_OR,
 	
 	sSTAR,	sSLASH,	sPLUS,	sMINUS,
 	
 	sEQUALS,
 	sCOLON,	sSEMI,
-	sLT, sGT,
-	sLTE, sGTE,
-	sNE, sNEA,
+	sLT,	sGT,
+	sLTE,	sGTE,
+	sNE,	sNEA,
 	sCOMMA,
 	sPOW,
-	sLPAREN, sRPAREN,
+	sLPAREN,sRPAREN,
 	
 	sREAL_IDENT,	sINTEGER_IDENT,	sLONGINT_IDENT,	sSTRING_IDENT,
 	sBOOL_IDENT,

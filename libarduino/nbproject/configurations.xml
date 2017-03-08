@@ -1692,7 +1692,7 @@
             <pElem>${ARDUINO_PATH}/libraries/SD/src</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/SPI/src</pElem>
           </incDir>
-          <commandLine>-Os -Wextra -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega328p -flto</commandLine>
+          <commandLine>-Os -Wextra -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega328p -flto -mcall-prologues</commandLine>
           <preprocessorList>
             <Elem>ARDUINO=10612</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
@@ -2381,7 +2381,7 @@
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/variants/mega</pElem>
           </incDir>
-          <commandLine>-Os -Wextra -std=gnu11 -ffunction-sections -fdata-sections -MMD -mmcu=atmega2560 -flto</commandLine>
+          <commandLine>-Os -Wextra -std=gnu11 -ffunction-sections -fdata-sections -MMD -mmcu=atmega2560 -flto -mcall-prologues</commandLine>
           <preprocessorList>
             <Elem>ARDUINO=10801</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
@@ -2399,7 +2399,7 @@
             <pElem>${ARDUINO_PATH}/libraries/SD/src</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/SPI/src</pElem>
           </incDir>
-          <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -flto -mmcu=atmega2560 -fno-rtti</commandLine>
+          <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -flto -mmcu=atmega2560 -fno-rtti -mcall-prologues</commandLine>
           <preprocessorList>
             <Elem>ARDUINO=10801</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>

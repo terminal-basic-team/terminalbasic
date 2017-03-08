@@ -76,7 +76,7 @@ static BASIC::Interpreter::Program program(BASIC::PROGRAMSIZE);
 #if USEUTFT
 static BASIC::Interpreter basic(Serial, utftPrint, program);
 #else
-static BASIC::Interpreter basic(Serial, Serial, program);
+static BASIC::Interpreter basic(SerialL, SerialL, program);
 #endif
 #endif
 
@@ -87,7 +87,7 @@ setup()
 	XMCRA |= 1ul<<7; // Switch ext mem iface on
 	XMCRB = 0;
 #endif
-	Serial.begin(57600);
+	SerialL.begin(115200);
 #if USEUTFT
 	utftPrint.begin();
 #endif
@@ -104,7 +104,7 @@ setup()
 #endif
 #endif
 
-	LOG_INIT(SerialL);
+	LOG_INIT(Serial);
 
 	LOG_TRACE;
 
