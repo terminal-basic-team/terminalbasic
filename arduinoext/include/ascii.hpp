@@ -22,7 +22,7 @@
 #include <inttypes.h>
 
 /**
- * @brief ASCII control characters
+ * @brief ASCII characters
  */
 enum class ASCII : uint8_t
 {

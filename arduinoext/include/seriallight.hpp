@@ -19,6 +19,7 @@
 #ifndef SERIALLIGHT_HPP
 #define SERIALLIGHT_HPP
 
+#include <Arduino.h>
 #include <Stream.h>
 
 #define SERIAL_8N1 0x06
@@ -55,5 +56,11 @@ private:
 };
 
 extern SerialLight SerialL;
+#ifdef HAVE_HWSERIAL1
+extern SerialLight SerialL1;
+#endif
+#ifdef HAVE_HWSERIAL2
+extern SerialLight SerialL2;
+#endif
 
 #endif

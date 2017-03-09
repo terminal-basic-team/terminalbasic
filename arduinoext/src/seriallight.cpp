@@ -110,4 +110,6 @@ SerialLight::write(uint8_t c)
 	while (!(*_ucsra & (1<<UDRE0)));
 	/* Put data into buffer, sends the data */
 	*_udr = c;
+	
+	return (1);
 }
