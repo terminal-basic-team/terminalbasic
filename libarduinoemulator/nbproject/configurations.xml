@@ -5,18 +5,20 @@
       <logicalFolder name="avr" displayName="avr" projectFiles="true">
       </logicalFolder>
       <logicalFolder name="utils" displayName="util" projectFiles="true">
-        <itemPath>include/utils/crc16.h</itemPath>
+        <itemPath>include/util/crc16.h</itemPath>
       </logicalFolder>
       <itemPath>include/Arduino.h</itemPath>
       <itemPath>include/EEPROM.h</itemPath>
       <itemPath>include/Print.h</itemPath>
       <itemPath>include/Printable.h</itemPath>
+      <itemPath>include/SD.h</itemPath>
       <itemPath>include/Stdiostream.hpp</itemPath>
       <itemPath>include/Stream.h</itemPath>
     </logicalFolder>
     <logicalFolder name="src" displayName="src" projectFiles="true">
       <itemPath>include/Emuserial.hpp</itemPath>
       <itemPath>src/Print.cpp</itemPath>
+      <itemPath>src/SD.cpp</itemPath>
       <itemPath>src/Stdiostream.cpp</itemPath>
       <itemPath>include/Stream.cpp</itemPath>
       <itemPath>src/arduino.cpp</itemPath>
@@ -70,15 +72,19 @@
       </item>
       <item path="include/Printable.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/SD.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/Stdiostream.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/Stream.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/Stream.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/utils/crc16.h" ex="false" tool="3" flavor2="0">
+      <item path="include/util/crc16.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Print.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/SD.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Stdiostream.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -127,15 +133,19 @@
       </item>
       <item path="include/Printable.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/SD.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/Stdiostream.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/Stream.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/Stream.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/utils/crc16.h" ex="false" tool="3" flavor2="0">
+      <item path="include/util/crc16.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Print.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/SD.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Stdiostream.cpp" ex="false" tool="1" flavor2="0">
       </item>

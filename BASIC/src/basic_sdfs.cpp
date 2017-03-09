@@ -23,6 +23,8 @@
 #include "basic_program.hpp"
 #include <assert.h>
 
+#define SS 8
+
 namespace BASIC
 {
 
@@ -109,7 +111,7 @@ SDFSModule::dsave(Interpreter &i)
 	if (!f)
 		return (false);
 	
-	for (Program::String *s = i._program.getString(); s != NULL;
+	for (Interpreter::Program::String *s = i._program.getString(); s != NULL;
 	    s = i._program.getString()) {
 		f.print(s->number);
 		f.println();

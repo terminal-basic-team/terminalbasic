@@ -16,16 +16,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef EMUSERIAL_HPP
-#define EMUSERIAL_HPP
+#include <SD.h>
 
-#include "Stream.h"
-
-class Emuserial : public Stream
+namespace SDLib
 {
-public:
-	 operator bool() { return true; }
-	 virtual void begin(uint32_t) {}
-};
+	
+SDClass SD;
 
-#endif
+bool
+SDClass::begin(uint8_t csPin)
+{
+
+}
+
+File
+SDClass::open(const char* filename, uint8_t mode)
+{
+
+}
+
+}
