@@ -35,7 +35,6 @@ class Math : public FunctionBlock
 public:
 	explicit Math(FunctionBlock* =NULL);
 private:
-	static bool func_abs(Interpreter&);
 	static bool func_acs(Interpreter&);
 	static bool func_asn(Interpreter&);
 	static bool func_atn(Interpreter&);

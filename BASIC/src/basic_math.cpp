@@ -30,7 +30,6 @@ namespace BASIC
 {
 
 static const uint8_t mathTokens[] PROGMEM = {
-	'A', 'B', 'S'+0x80,
 	'A', 'C', 'S'+0x80,
 	'A', 'S', 'N'+0x80,
 	'A', 'T', 'N'+0x80,
@@ -46,7 +45,6 @@ static const uint8_t mathTokens[] PROGMEM = {
 };
 
 const FunctionBlock::function Math::funcs[] PROGMEM = {
-	Math::func_abs,
 	Math::func_acs,
 	Math::func_asn,
 	Math::func_atn,
@@ -65,26 +63,6 @@ FunctionBlock(next)
 {
 	functions = funcs;
 	functionTokens = mathTokens;
-}
-
-bool
-Math::func_abs(Interpreter &i)
-{
-	Parser::Value v(Integer(0));
-	i.popValue(v);
-#if USE_LONGINT
-	if (v.type == Parser::Value::INTEGER ||
-	    v.type == Parser::Value::LONG_INTEGER ||
-	    v.type == Parser::Value::REAL) {
-#else
-	if (v.type == Parser::Value::INTEGER || v.type == Parser::Value::REAL) {
-#endif
-		if (v < Parser::Value(Integer(0)))
-			v.switchSign();
-		i.pushValue(v);
-		return true;
-	} else
-		return false;
 }
 
 bool

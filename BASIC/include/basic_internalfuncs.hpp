@@ -30,8 +30,10 @@ class InternalFunctions : public FunctionBlock
 public:
 	InternalFunctions(FunctionBlock* = NULL);
 private:
+	static bool func_abs(Interpreter&);
 	static bool func_rnd(Interpreter&);
 	static bool func_tim(Interpreter&);
+	
 	static const FunctionBlock::function funcs[] PROGMEM;
 };
 

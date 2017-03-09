@@ -26,12 +26,14 @@ namespace BASIC
 {
 
 static const uint8_t intFuncs[] PROGMEM = {
+	'A', 'B', 'S'+0x80,
 	'R', 'N', 'D'+0x80,
 	'T', 'I', 'M', 'E'+0x80,
 	0
 };
 
 const FunctionBlock::function InternalFunctions::funcs[] PROGMEM = {
+	InternalFunctions::func_abs,
 	InternalFunctions::func_rnd,
 	InternalFunctions::func_tim
 };
@@ -41,6 +43,27 @@ FunctionBlock(first)
 {
 	functions = funcs;
 	functionTokens = intFuncs;
+}
+
+bool
+InternalFunctions::func_abs(Interpreter &i)
+{
+	Parser::Value v(Integer(0));
+	i.popValue(v);
+	if (v.type == Parser::Value::INTEGER
+#if USE_LONGINT
+	 || v.type == Parser::Value::LONG_INTEGER
+#endif
+#if USE_REALS
+	 || v.type == Parser::Value::REAL
+#endif
+	    ) {
+		if (v < Parser::Value(Integer(0)))
+			v.switchSign();
+		i.pushValue(v);
+		return (true);
+	} else
+		return (false);
 }
 
 bool
