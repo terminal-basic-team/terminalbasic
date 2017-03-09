@@ -90,9 +90,15 @@ public:
 	Value &operator/=(const Value&);
 	Value &operator^=(const Value&);
 	void switchSign();
-
+	
 	Type type;
 	Body value;
+private:
+	/**
+	 * @brief match value type with the power type
+	 * @param 
+	 */
+	void powerMatchValue(const Value&);
 };
 }
 

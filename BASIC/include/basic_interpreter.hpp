@@ -47,7 +47,9 @@ public:
 #if USE_LONGINT
 		VF_LONG_INTEGER,
 #endif
+#if USE_REALS
 		VF_REAL,
+#endif
 		VF_BOOLEAN,
 		VF_STRING
 	};

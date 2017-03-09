@@ -400,6 +400,7 @@ Interpreter::dump(DumpMode mode)
 			_output.println();
 		}
 	}
+		break;
 	}
 }
 
@@ -422,10 +423,14 @@ Interpreter::print(const Parser::Value &v, TextAttr attr)
 #endif
 #if USE_LONGINT
 	case Parser::Value::LONG_INTEGER:
+		if (v >= LongInteger(0))
+			_output.write(' ');
 		_output.print(v.value.longInteger);
 		break;
 #endif
 	case Parser::Value::INTEGER:
+		if (v >= Integer(0))
+			_output.write(' ');
 		_output.print(v.value.integer);
 		break;
 	case Parser::Value::STRING:
@@ -504,7 +509,7 @@ Interpreter::print(Lexer &l)
 			print(l.id(), C_BLUE);
 			break;
 		default:
-			print('?');
+			_output.print('?');
 		}
 	}
 }
