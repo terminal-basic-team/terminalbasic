@@ -131,9 +131,9 @@ Parser::fOperators()
 		} else if (t == Token::NOTOKENS)
 			break;
 		else
-			return false;
+			return (false);
 	} while (true);
-	return true;
+	return (true);
 }
 
 /*
@@ -287,7 +287,7 @@ Parser::fImplicitAssignment(char *varName)
 			if (fArray(dimensions))
 				array = true;
 			else
-				return false;
+				return (false);
 		} else
 			array = false;
 		if ((_lexer.getToken() == Token::EQUALS) && _lexer.getNext() &&
@@ -298,12 +298,12 @@ Parser::fImplicitAssignment(char *varName)
 				else
 					_interpreter.setVariable(varName, v);
 			}
-			return true;
+			return (true);
 		} else {
 			_error = EXPRESSION_EXPECTED;
 		}
 	}
-	return false;
+	return (false);
 }
 
 bool
@@ -314,7 +314,7 @@ Parser::fPrintList()
 	Value v;
 	if (!fExpression(v)) {
 		_error = EXPRESSION_EXPECTED;
-		return false;
+		return (false);
 	}
 
 	if (_mode == EXECUTE)
@@ -325,7 +325,7 @@ Parser::fPrintList()
 		case Token::COMMA:
 			if (!_lexer.getNext() || !fExpression(v)) {
 				_error = EXPRESSION_EXPECTED;
-				return false;
+				return (false);
 			}
 			if (_mode == EXECUTE) {
 				_interpreter.print('\t');
@@ -333,7 +333,7 @@ Parser::fPrintList()
 			}
 			break;
 		default:
-			return true;
+			return (true);
 		}
 	}
 }
@@ -414,6 +414,11 @@ Parser::fExpression(Value &v)
 	}
 }
 
+/*
+ * SIMPLE_EXPRESSION =
+ *	TERM |
+ *	TERM ADD TERM
+ */
 bool
 Parser::fSimpleExpression(Value &v)
 {
