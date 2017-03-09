@@ -359,7 +359,7 @@ Parser::fExpression(Value &v)
 	}
 	
 	if (!fSimpleExpression(v))
-		return false;
+		return (false);
 
 	while (true) {
 		t = _lexer.getToken();
@@ -371,44 +371,44 @@ Parser::fExpression(Value &v)
 				v.type = Value::BOOLEAN;
 				continue;
 			} else
-				return false;
+				return (false);
 		case Token::LTE:
 			if (_lexer.getNext() && fSimpleExpression(v2)) {
 				v.value.boolean = (v < v2) || (v == v2);
 				v.type = Value::BOOLEAN;
 				continue;
 			} else
-				return false;
+				return (false);
 		case Token::GT:
 			if (_lexer.getNext() && fSimpleExpression(v2)) {
 				v.value.boolean = v > v2;
 				v.type = Value::BOOLEAN;
 				continue;
 			} else
-				return false;
+				return (false);
 		case Token::GTE:
 			if (_lexer.getNext() && fSimpleExpression(v2)) {
 				v.value.boolean = (v > v2) || (v == v2);
 				v.type = Value::BOOLEAN;
 				continue;
 			} else
-				return false;
+				return (false);
 		case Token::EQUALS:
 			if (_lexer.getNext() && fSimpleExpression(v2)) {
 				v.value.boolean = v == v2;
 				v.type = Value::BOOLEAN;
 				continue;
 			} else
-				return false;
+				return (false);
 		case Token::NE:
 			if (_lexer.getNext() && fSimpleExpression(v2)) {
 				v.value.boolean = !(v == v2);
 				v.type = Value::BOOLEAN;
 				continue;
 			} else
-				return false;
+				return (false);
 		default:
-			return true;
+			return (true);
 		}
 		v.type = Value::BOOLEAN;
 	}
@@ -420,7 +420,7 @@ Parser::fSimpleExpression(Value &v)
 	LOG_TRACE;
 
 	if (!fTerm(v))
-		return false;
+		return (false);
 
 	while (true) {
 		Token t = _lexer.getToken();
@@ -435,15 +435,15 @@ Parser::fSimpleExpression(Value &v)
 				v += v2;
 				continue;
 			} else
-				return false;
+				return (false);
 		case Token::MINUS:
 			if (_lexer.getNext() && fTerm(v2)) {
 				v -= v2;
 				continue;
 			} else
-				return false;
+				return (false);
 		default:
-			return true;
+			return (true);
 		}
 	}
 }
@@ -454,7 +454,7 @@ Parser::fTerm(Value &v)
 	LOG_TRACE;
 
 	if (!fFactor(v))
-		return false;
+		return (false);
 
 	while (true) {
 		Token t = _lexer.getToken();
@@ -462,19 +462,19 @@ Parser::fTerm(Value &v)
 		Value v2;
 		switch (t) {
 		case Token::STAR:
-			if (_lexer.getNext() && fTerm(v2)) {
+			if (_lexer.getNext() && fFactor(v2)) {
 				v *= v2;
 				continue;
 			} else
-				return false;
+				return (false);
 		case Token::SLASH:
-			if (_lexer.getNext() && fTerm(v2)) {
+			if (_lexer.getNext() && fFactor(v2)) {
 				v /= v2;
 				continue;
 			} else
-				return false;
+				return (false);
 		default:
-			return true;
+			return (true);
 		}
 	}
 }
@@ -493,7 +493,7 @@ Parser::fFactor(Value &v)
 		Value v2;
 		switch (t) {
 		case Token::POW:
-			if (_lexer.getNext() && fFactor(v2)) {
+			if (_lexer.getNext() && fFinal(v2)) {
 				v ^= v2;
 				continue;
 			} else
