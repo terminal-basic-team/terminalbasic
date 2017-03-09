@@ -73,10 +73,4 @@ const uint8_t VARSIZE = 8;
 
 }
 
-#if USEMATH
-#if !USE_REALS
-#error Math module requires real arithmetics support
-#endif
-#endif
-
-#endif
+#endif // CONFIG_ARDUINO_HPP
