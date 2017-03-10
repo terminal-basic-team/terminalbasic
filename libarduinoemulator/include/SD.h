@@ -24,6 +24,8 @@
 
 #include <sys/types.h>
 #include <fcntl.h>
+#include <dirent.h>
+#include <stdio.h>
 
 #define FILE_READ O_RDONLY
 #define FILE_WRITE (O_RDWR | O_CREAT)
@@ -34,29 +36,38 @@ namespace SDLib
 class File : public Stream
 {
 public:
-    int available() override;
-    void flush() override;
-    int peek() override;
-    int read() override;
-    size_t write(uint8_t) override;
-    
-    char * name();
-    uint32_t size();
-    void close();
-    
-    operator bool();
-    bool isDirectory(void);
-    void rewindDirectory(void);
-    File openNextFile(uint8_t mode = O_RDONLY);
+
+	File();
+
+	int available() override;
+	void flush() override;
+	int peek() override;
+	int read() override;
+	size_t write(uint8_t) override;
+
+	char * name();
+	uint32_t size();
+	void close();
+
+	operator bool();
+	bool isDirectory(void);
+	void rewindDirectory(void);
+	File openNextFile(uint8_t mode = O_RDONLY);
+private:
+	friend class SDClass;
+	DIR *_directory;
+	FILE *_file;
 };
 
 class SDClass
 {
 public:
-    bool begin(uint8_t csPin);
-    File open(const char *filename, uint8_t mode = FILE_READ);
-    bool remove(const char *filepath);
-    bool exists(const char *filepath);
+	bool begin(uint8_t csPin);
+	File open(const char *filename, uint8_t mode = FILE_READ);
+	bool remove(const char *filepath);
+	bool exists(const char *filepath);
+private:
+	File root;
 };
 
 extern SDClass SD;
@@ -68,7 +79,7 @@ using namespace SDLib;
 
 // This allows sketches to use SDLib::File with other libraries (in the
 // sketch you must use SDFile instead of File to disambiguate)
-typedef SDLib::File    SDFile;
+typedef SDLib::File SDFile;
 typedef SDLib::SDClass SDFileSystemClass;
 #define SDFileSystem   SDLib::SD
 

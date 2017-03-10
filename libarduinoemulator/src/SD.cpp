@@ -20,19 +20,95 @@
 
 namespace SDLib
 {
-	
+
 SDClass SD;
+
+File::File() :
+_file(NULL), _directory(NULL)
+{
+}
 
 bool
 SDClass::begin(uint8_t csPin)
 {
+	root._directory = opendir("./sd");
+}
 
+File
+File::openNextFile(uint8_t mode)
+{
+}
+
+char*
+File::name()
+{
+}
+
+uint32_t
+File::size()
+{
 }
 
 File
 SDClass::open(const char* filename, uint8_t mode)
 {
+}
 
+int
+File::available()
+{
+	return (0);
+}
+
+void
+File::close()
+{
+
+}
+
+void
+File::flush()
+{
+
+}
+
+File::operator bool()
+{
+}
+
+int
+File::peek()
+{
+}
+
+int
+File::read()
+{
+}
+
+size_t
+File::write(uint8_t)
+{
+}
+
+bool
+File::isDirectory()
+{
+}
+
+bool
+SDClass::exists(const char* filepath)
+{
+}
+
+bool
+SDClass::remove(const char* filepath)
+{
+}
+
+void
+File::rewindDirectory()
+{
 }
 
 }
