@@ -87,6 +87,8 @@ SDFSModule::directory(Interpreter &i)
 	return true;
 }
 
+
+
 bool
 SDFSModule::scratch(Interpreter &i)
 {
@@ -159,7 +161,7 @@ SDFSModule::getFileName(Interpreter &i, char ss[])
 {
 	const char *s;
 	if (!i.popString(s))
-		return false;
+		return (false);
 	ss[0] = '/';
 	uint8_t len = strlen(s);
 	strcpy(ss + 1, s);

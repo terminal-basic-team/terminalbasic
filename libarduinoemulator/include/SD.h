@@ -57,6 +57,7 @@ private:
 	friend class SDClass;
 	DIR *_directory;
 	FILE *_file;
+	std::string _path;
 };
 
 class SDClass
