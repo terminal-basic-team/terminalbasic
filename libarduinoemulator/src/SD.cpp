@@ -65,7 +65,17 @@ File::name()
 uint32_t
 File::size()
 {
-	return (0);
+	uint32_t result = 0;
+	
+	if (_file != NULL) {
+		uint32_t tmp = ::ftell(_file);
+		if (::fseek(_file, 0, SEEK_END) == 0) {
+			result = ::ftell(_file);
+			::fseek(_file, tmp, SEEK_SET);
+		}
+	}
+	
+	return (result);
 }
 
 File
@@ -76,13 +86,16 @@ SDClass::open(const char* filename, uint8_t mode)
 	std::string path = std::string("./SD/") + filename;
 	if (std::string(filename) == "/") {
 		result._directory = ::opendir("./SD");
-		result._path = "./SD";
+		result._path = "./SD/";
 		return (result);
 	}
 
-	char *dir = ::dirname((char*) path.c_str());
-	std::string base = ::basename((char*) filename);
-	DIR *d = opendir(dir);
+	std::string pathTmp(path.c_str());
+	std::string base = ::basename((char*)pathTmp.c_str()); 
+	
+	pathTmp = path.c_str();
+	char *dir = ::dirname((char*)pathTmp.c_str());
+	DIR *d = ::opendir(dir);
 	if (d != NULL)
 		while (dirent * e = readdir(d)) {
 			if (std::string(e->d_name) == base) {
@@ -91,30 +104,45 @@ SDClass::open(const char* filename, uint8_t mode)
 				else if (e->d_type == DT_DIR)
 					result._directory = ::opendir(path.c_str());
 				result._path = path;
+				break;
 			}
 		}
 	else
 		throw;
-
+	::closedir(d);
+	
 	return (result);
 }
 
 int
 File::available()
 {
-	return (0);
+	int result = 0;
+	if (_file != NULL) {
+		uint32_t current = ::ftell(_file);
+		uint32_t end = this->size();
+		result = end - current;
+	}
+	return (result);
 }
 
 void
 File::close()
 {
-
+	if (_file != NULL) {
+		::fclose(_file);
+		_file = NULL;
+	} else if (_directory != NULL) {
+		::closedir(_directory);
+		_directory = NULL;
+	}
 }
 
 void
 File::flush()
 {
-
+	if (_file != NULL)
+		::fflush(_file);
 }
 
 File::operator bool()
@@ -125,16 +153,31 @@ File::operator bool()
 int
 File::peek()
 {
+	int result = -1;
+	if (_file != NULL) {
+		result = ::fgetc(_file);
+		::ungetc(result, _file);
+	}
+	return (result);
 }
 
 int
 File::read()
 {
+	if (_file)
+		return (::fgetc(_file));
+	else
+		return (-1);
 }
 
 size_t
-File::write(uint8_t)
+File::write(uint8_t c)
 {
+	if (_file) {
+		::fputc(c, _file);
+		return (1);
+	} else
+		return (0);
 }
 
 bool
@@ -146,17 +189,26 @@ File::isDirectory()
 bool
 SDClass::exists(const char* filepath)
 {
-	
+	std::string path = std::string("./SD/")+filepath;
+	FILE *temp;
+	if ((temp = fopen(path.c_str(), "r")) != NULL) {
+		fclose(temp);
+		return (true);
+	} else
+		return (false);
 }
 
 bool
 SDClass::remove(const char* filepath)
 {
+	return (::unlink((std::string("./SD/")+filepath).c_str()) == 0);
 }
 
 void
 File::rewindDirectory()
 {
+	if (_directory != NULL)
+		::rewinddir(_directory);
 }
 
 }

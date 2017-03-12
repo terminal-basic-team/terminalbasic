@@ -23,8 +23,6 @@
 #include "basic_program.hpp"
 #include <assert.h>
 
-#define SS 8
-
 namespace BASIC
 {
 
@@ -73,10 +71,13 @@ SDFSModule::directory(Interpreter &i)
 	i.newline();
 	Integer index = 0;
 	for (File ff = _root.openNextFile(); ff; ff = _root.openNextFile()) {
-		i.print(index++);
-		i.print('\t');
+		i.print(++index);
+		i.print("    ");
 		i.print(ff.name());
-		i.print('\t');
+		uint8_t len = min((uint8_t(13)-strlen(ff.name())),
+		    uint8_t(13));
+		while (len-- > 0)
+			i.print(' ');
 		if (ff.isDirectory())
 			i.print(Interpreter::S_DIR);
 		else
@@ -84,16 +85,14 @@ SDFSModule::directory(Interpreter &i)
 		i.newline();
 		ff.close();
 	}
-	return true;
+	return (true);
 }
-
-
 
 bool
 SDFSModule::scratch(Interpreter &i)
 {
 	if (!i.confirm())
-		return true;
+		return (true);
 	
 	char ss[16];
 	if (getFileName(i, ss)) {
@@ -128,21 +127,39 @@ SDFSModule::dload(Interpreter &i)
 {
 	char ss[16];
 	if (!getFileName(i, ss))
-		return false;
+		return (false);
 	File f = SD.open(ss);
 	if (!f)
-		return false;
-	f.readBytes(i._program._text, f.size());
-	i._program.reset(f.size());
+		return (false);
+	
+	i._program.newProg();
+	while (true) {
+		char buf[PROGSTRINGSIZE] = {0, };
+		size_t res = f.readBytesUntil('\n', buf, PROGSTRINGSIZE-1);
+		if (res > 0) {
+			Lexer lex;
+			lex.init(buf);
+			uint16_t lineNum;
+			if (!lex.getNext() || lex.getToken() !=
+			    Token::C_INTEGER)
+				return (false);
+			if (!i._program.addLine(Integer(lex.getValue()),
+			    buf+lex.getPointer()))
+				return (false);
+		} else
+			break;
+	}
+	
 	f.close();
-	return true;
+	i._program.reset();
+	return (true);
 }
 
 bool
 SDFSModule::header(Interpreter &i)
 {
 	if (!i.confirm())
-		return true;
+		return (true);
 
 	char ss[16];
 	_root.rewindDirectory();
@@ -151,9 +168,9 @@ SDFSModule::header(Interpreter &i)
 		ss[0] = '/'; strcpy(ss+1, ff.name());
 		ff.close();
 		if (!SD.remove(ss))
-			return false;
+			return (false);
 	}
-	return true;
+	return (true);
 }
 
 bool

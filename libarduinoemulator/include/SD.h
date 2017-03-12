@@ -30,6 +30,8 @@
 #define FILE_READ O_RDONLY
 #define FILE_WRITE (O_RDWR | O_CREAT)
 
+#define SS 8
+
 namespace SDLib
 {
 
