@@ -110,6 +110,8 @@ SDClass::open(const char* filename, uint8_t mode)
 	else
 		throw;
 	::closedir(d);
+	if (!result)
+		result._file = ::fopen(path.c_str(), "w+");
 	
 	return (result);
 }

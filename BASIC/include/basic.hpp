@@ -57,7 +57,7 @@ typedef float Real;
 enum class Token : uint8_t
 {
 	NOTOKENS = 0,
-	
+
 	// Commands
 	COM_CLS,
 	COM_DELAY,
@@ -67,7 +67,7 @@ enum class Token : uint8_t
 	COM_NEW,
 	COM_RUN,
 	COM_SAVE,
-	
+
 	// Statements
 	KW_DATA,
 	KW_DIM,
@@ -93,7 +93,7 @@ enum class Token : uint8_t
 	KW_TO,
 	KW_TRUE,
 	KW_VARS,
-	
+
 	OP_AND,
 	OP_NOT,
 	OP_OR,
@@ -132,18 +132,18 @@ enum class Token : uint8_t
 	LPAREN,
 	// )
 	RPAREN,
-	
+
 	REAL_IDENT,
 	INTEGER_IDENT,
 	LONGINT_IDENT,
 	STRING_IDENT,
 	BOOL_IDENT,
-	
+
 	C_INTEGER,
 	C_REAL,
-	C_STRING,
 	C_BOOLEAN,
-	    
+	C_STRING,
+
 	NUM_TOKENS
 };
 

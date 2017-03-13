@@ -168,7 +168,7 @@ program_Arduino_UNO : program_common
 program_Arduino_mega2560 : ARCH=arduinoMEGA
 program_Arduino_mega2560 : UCARCH=atmega2560
 program_Arduino_mega2560 : program_common
-	
+
 copy:
 	${OBJCOPY} -O ihex -j .eeprom --set-section-flags=.eeprom=alloc,load \
 	  --no-change-warnings --change-section-lma .eeprom=0 \

@@ -20,11 +20,12 @@
 #define BASIC_PARSER_VALUE_HPP
 
 #include "basic_parser.hpp"
+#include <Printable.h>
 
 namespace BASIC
 {
 
-class CPS_PACKED Parser::Value
+class CPS_PACKED Parser::Value : public Printable
 {
 public:
 
@@ -99,7 +100,11 @@ private:
 	 * @param 
 	 */
 	void powerMatchValue(const Value&);
+// Printable interface
+	size_t printTo(Print& p) const override;
+
 };
+
 }
 
 #endif

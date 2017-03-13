@@ -151,8 +151,8 @@ const char sBOOL_IDENT[] PROGMEM = "BOOL_IDENT";
 
 const char sINTEGER[] PROGMEM = "C_INTEGER";
 const char sREAL[] PROGMEM = "C_REAL";
-const char sSTRING[] PROGMEM = "C_STRING";
 const char sBOOLEAN[] PROGMEM = "C_BOOLEAN";
+const char sSTRING[] PROGMEM = "C_STRING";
 
 PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 	sNOTOKENS,
@@ -180,7 +180,7 @@ PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 	sREAL_IDENT,	sINTEGER_IDENT,	sLONGINT_IDENT,	sSTRING_IDENT,
 	sBOOL_IDENT,
 	
-	sINTEGER,	sREAL,	sSTRING, sBOOLEAN
+	sINTEGER,	sREAL,	sBOOLEAN,sSTRING
 };
 
 #if ARDUINO_LOG

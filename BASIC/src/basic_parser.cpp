@@ -166,6 +166,8 @@ Parser::fOperator()
 			return (false);
 		return (fArrayList());
 	case Token::KW_END:
+		_interpreter._program.reset();
+	case Token::KW_STOP:
 		if (_mode == EXECUTE)
 			_interpreter.end();
 		_stopParse = true;

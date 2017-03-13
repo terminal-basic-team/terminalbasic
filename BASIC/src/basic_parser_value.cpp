@@ -19,6 +19,7 @@
 #include "basic_parser_value.hpp"
 
 #include "math.hpp"
+#include "basic_lexer.hpp"
 
 namespace BASIC
 {
@@ -30,6 +31,7 @@ type(INTEGER)
 }
 
 #if USE_LONGINT
+
 Parser::Value::Value(LongInteger v) :
 type(LONG_INTEGER)
 {
@@ -44,6 +46,7 @@ type(INTEGER)
 }
 
 #if USE_REALS
+
 Parser::Value::Value(Real v) :
 type(REAL)
 {
@@ -99,6 +102,7 @@ Parser::Value::operator bool() const
 }
 
 #if USE_LONGINT
+
 Parser::Value::operator LongInteger() const
 {
 	switch (type) {
@@ -274,7 +278,7 @@ Parser::Value::operator>(const Value &rhs) const
 		switch (rhs.type) {
 		case INTEGER:
 			return (value.integer > rhs.value.integer);
-#if USE_LONGINT		
+#if USE_LONGINT  
 		case LONG_INTEGER:
 			return (value.longInteger > rhs.value.integer);
 #endif
@@ -285,7 +289,7 @@ Parser::Value::operator>(const Value &rhs) const
 		case BOOLEAN:
 			return (value.integer > Integer(rhs.value.boolean));
 		}
-#if USE_LONGINT		
+#if USE_LONGINT  
 	case LONG_INTEGER:
 		switch (rhs.type) {
 		case INTEGER:
@@ -336,7 +340,7 @@ operator<=(const Parser::Value &l, const Parser::Value &r)
 }
 
 Parser::Value&
-Parser::Value::operator+=(const Value &rhs)
+    Parser::Value::operator+=(const Value &rhs)
 {
 #if USE_REALS
 	value.real = Real(*this) + Real(rhs);
@@ -352,7 +356,7 @@ Parser::Value::operator+=(const Value &rhs)
 }
 
 Parser::Value&
-Parser::Value::operator-=(const Value &rhs)
+    Parser::Value::operator-=(const Value &rhs)
 {
 #if USE_REALS
 	value.real = Real(*this) - Real(rhs);
@@ -368,7 +372,7 @@ Parser::Value::operator-=(const Value &rhs)
 }
 
 Parser::Value&
-Parser::Value::operator*=(const Value &rhs)
+    Parser::Value::operator*=(const Value &rhs)
 {
 #if USE_REALS
 	value.real = Real(*this) * Real(rhs);
@@ -384,7 +388,7 @@ Parser::Value::operator*=(const Value &rhs)
 }
 
 Parser::Value&
-Parser::Value::operator/=(const Value &rhs)
+    Parser::Value::operator/=(const Value &rhs)
 {
 #if USE_REALS
 	value.real = Real(*this) / Real(rhs);
@@ -404,16 +408,16 @@ Parser::Value::powerMatchValue(const Value &rhs)
 {
 #if USE_LONGINT
 	if (rhs.type == LONG_INTEGER)
-		*this = LongInteger(*this);
+		* this = LongInteger(*this);
 #endif
 #if USE_REALS
 	if (rhs.type == REAL || rhs < Integer(0))
-		*this = Real(*this);
+		* this = Real(*this);
 #endif
 }
 
 Parser::Value&
-Parser::Value::operator^=(const Value &rhs)
+    Parser::Value::operator^=(const Value &rhs)
 {
 	powerMatchValue(rhs);
 	switch (type) {
@@ -466,6 +470,52 @@ Parser::Value::switchSign()
 		type = INTEGER;
 		break;
 	default:
+		break;
+	}
+}
+
+size_t
+Parser::Value::printTo(Print& p) const
+{
+	switch (type) {
+	case BOOLEAN:
+		if (value.boolean)
+			p.print(Lexer::tokenStrings[uint8_t(Token::KW_TRUE)]);
+		else
+			p.print(Lexer::tokenStrings[uint8_t(Token::KW_FALSE)]);
+		break;
+#if USE_REALS
+	case REAL:
+	{
+		char buf[17];
+#ifdef ARDUINO
+		::dtostrf(value.real, 12, 9, buf);
+#else
+		::sprintf(buf, "% .7G", value.real);
+#endif
+		p.print(buf);
+	}
+		break;
+#endif
+#if USE_LONGINT
+	case Parser::Value::LONG_INTEGER:
+		if (value.longInteger >= LongInteger(0))
+			p.write(' ');
+		p.print(value.longInteger);
+		break;
+#endif
+	case Parser::Value::INTEGER:
+		if (value.integer >= Integer(0))
+			p.write(' ');
+		p.print(value.integer);
+		break;
+	case Parser::Value::STRING:
+	{
+		p.print('?');
+		break;
+	}
+	default:
+		p.print('?');
 		break;
 	}
 }

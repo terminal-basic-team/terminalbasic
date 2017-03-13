@@ -112,10 +112,33 @@ SDFSModule::dsave(Interpreter &i)
 	if (!f)
 		return (false);
 	
+	i._program.reset();
 	for (Interpreter::Program::String *s = i._program.getString(); s != NULL;
 	    s = i._program.getString()) {
 		f.print(s->number);
-		f.println();
+		Lexer lex;
+		lex.init(s->text);
+		while (lex.getNext()) {
+			f.write(' ');
+			Token t = lex.getToken();
+			if (t <= Token::RPAREN) {
+				f.print(Lexer::tokenStrings[uint8_t(t)]);
+				if (t == Token::KW_REM) {
+					f.write(' ');
+					f.print(s->text+lex.getPointer());
+					break;
+				}
+			} else if (t <= Token::BOOL_IDENT) {
+				f.print(lex.id());
+			} else if (t <= Token::C_BOOLEAN) {
+				f.print(lex.getValue());
+			} else if (t == Token::C_STRING) {
+				f.write('"');
+				f.print(lex.id());
+				f.write('"');
+			}
+		}
+		f.print('\n');
 	}
 	
 	f.close();
