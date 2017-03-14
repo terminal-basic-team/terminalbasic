@@ -1,4 +1,4 @@
-ucBASIC is a lightweight BASIC-like language interpreter for
+Terminal-BASIC is a lightweight BASIC-like language interpreter for
 microcontroller-based systems.  It was inspired by the TinyBASIC port
 for popular 8-bit AVR uc boards.
 
@@ -6,6 +6,20 @@ Arduino mega 2560-like boards are primary target for this project.
 However the source code is not an arduino-ide sketch, but the set
 of Netbeans C/C++ IDE projects. Moreover projects depend on the
 arduino-ide and uses its toolchain.
+
+1. Build from sources
+
+The script ./make_sketch.sh makes an archive with arduino-ide sketch from source tree.
+It depends on the arduinoext library, which is being hosted at https://bitbucket.org/starling13/libarduinoext/
+(it should be placed at the same directory, where terminal-basic directory is placed i.e.
+   .../REPO/-|
+             |-terminal-basic from https://bitbucket.org/starling13/ucbasic/
+             |-libarduinoext from https://bitbucket.org/starling13/libarduinoext/ )
+
+Use netbeans 8.2 IDE to work with sources. Building for PC (using linux Arduino API emulation library) depends
+on posixcpp library at https://bitbucket.org/starling13/posixcpp/ installed.
+
+2. Terminal-BASIC language
 
 The language, which ucBASIC will support one day is:
 

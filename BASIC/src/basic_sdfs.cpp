@@ -29,6 +29,7 @@ namespace BASIC
 File SDFSModule::_root;
 
 static const uint8_t sdfsCommands[] PROGMEM = {
+	'C', 'H', 'A', 'I', 'N'+0x80,
 	'D', 'I', 'R', 'E', 'C', 'T', 'O', 'R', 'Y'+0x80,
 	'D', 'L', 'O', 'A', 'D'+0x80,
 	'D', 'S', 'A', 'V', 'E'+0x80,
@@ -38,6 +39,7 @@ static const uint8_t sdfsCommands[] PROGMEM = {
 };
 
 const FunctionBlock::function  SDFSModule::_commands[] PROGMEM = {
+	SDFSModule::chain,
 	SDFSModule::directory,
 	SDFSModule::dload,
 	SDFSModule::dsave,
@@ -100,6 +102,12 @@ SDFSModule::scratch(Interpreter &i)
 		return (true);
 	} else
 		return (false);
+}
+
+bool
+SDFSModule::chain(Interpreter &i)
+{
+	return (true);
 }
 
 bool

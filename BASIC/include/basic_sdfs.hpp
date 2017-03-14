@@ -39,6 +39,7 @@ public:
 protected:
 	void _init() override;
 private:
+	static bool chain(Interpreter&);
 	static bool dsave(Interpreter&);
 	static bool directory(Interpreter&);
 	static bool scratch(Interpreter&);

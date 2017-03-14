@@ -64,7 +64,7 @@
             <pElem>../arduino</pElem>
             <pElem>src</pElem>
             <pElem>../include</pElem>
-            <pElem>../arduinoext/include</pElem>
+            <pElem>../../libarduinoext/include</pElem>
             <pElem>../libarduinoemulator/include</pElem>
             <pElem>include</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
@@ -75,18 +75,6 @@
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/basic</output>
           <linkerLibItems>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../arduinoext"
-                            CT="3"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../arduinoext"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libarduinoext.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../libarduinoemulator"
                             CT="3"
@@ -99,6 +87,18 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinoemulator.a">
               </makeArtifact>
             </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../libarduinoext"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../../libarduinoext"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinoext.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
             <linkerOptionItem>`pkg-config --libs posixcpp`</linkerOptionItem>
           </linkerLibItems>
           <commandLine>-static</commandLine>
@@ -108,6 +108,18 @@
         <packType>Tar</packType>
         <output>${CND_DISTDIR}/${CND_CONF}/package/basic.tar</output>
         <packFileList>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
           <packFileListElem type="File"
                             to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
                             from="${OUTPUT_PATH}"
@@ -215,9 +227,9 @@
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/SoftwareSerial/src</pElem>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/EEPROM/src</pElem>
             <pElem>include</pElem>
-            <pElem>../arduinoext/include</pElem>
-            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/src</pElem>
+            <pElem>../../libarduinoext/include</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>
@@ -236,15 +248,15 @@
           <output>${CND_DISTDIR}/${CND_CONF}/basic</output>
           <linkerLibItems>
             <linkerLibProjectItem>
-              <makeArtifact PL="../arduinoext"
+              <makeArtifact PL="../../libarduinoext"
                             CT="3"
                             CN="Arduino_nano328"
-                            AC="false"
+                            AC="true"
                             BL="true"
-                            WD="../arduinoext"
+                            WD="../../libarduinoext"
                             BC="${MAKE}  -f Makefile CONF=Arduino_nano328"
                             CC="${MAKE}  -f Makefile CONF=Arduino_nano328 clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libarduinoext.a">
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinoext.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -327,7 +339,7 @@
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/SoftwareSerial/src</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/EEPROM/src</pElem>
             <pElem>include</pElem>
-            <pElem>../arduinoext/include</pElem>
+            <pElem>../../libarduinoext/include</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>
@@ -345,15 +357,15 @@
           <output>${CND_DISTDIR}/${CND_CONF}/basic</output>
           <linkerLibItems>
             <linkerLibProjectItem>
-              <makeArtifact PL="../arduinoext"
+              <makeArtifact PL="../../libarduinoext"
                             CT="3"
                             CN="Arduino_uno"
-                            AC="true"
+                            AC="false"
                             BL="true"
-                            WD="../arduinoext"
+                            WD="../../libarduinoext"
                             BC="${MAKE}  -f Makefile CONF=Arduino_uno"
                             CC="${MAKE}  -f Makefile CONF=Arduino_uno clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libarduinoext.a">
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinoext.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -440,7 +452,7 @@
             <pElem>${ARDUINO_PATH}/libraries/UTFT</pElem>
             <pElem>${ARDUINO_PATH}/libraries/SD/src</pElem>
             <pElem>include</pElem>
-            <pElem>../arduinoext/include</pElem>
+            <pElem>../../libarduinoext/include</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>
@@ -461,15 +473,15 @@
           <output>${CND_DISTDIR}/${CND_CONF}/basic.elf</output>
           <linkerLibItems>
             <linkerLibProjectItem>
-              <makeArtifact PL="../arduinoext"
+              <makeArtifact PL="../../libarduinoext"
                             CT="3"
                             CN="Arduino_mega2560"
-                            AC="true"
+                            AC="false"
                             BL="true"
-                            WD="../arduinoext"
+                            WD="../../libarduinoext"
                             BC="${MAKE}  -f Makefile CONF=Arduino_mega2560"
                             CC="${MAKE}  -f Makefile CONF=Arduino_mega2560 clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libarduinoext.a">
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinoext.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -662,7 +674,7 @@
             <pElem>../arduino</pElem>
             <pElem>src</pElem>
             <pElem>../include</pElem>
-            <pElem>../arduinoext/include</pElem>
+            <pElem>../../libarduinoext/include</pElem>
             <pElem>../libarduinoemulator/include</pElem>
             <pElem>include</pElem>
             <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino</pElem>
@@ -674,18 +686,6 @@
           <output>${CND_DISTDIR}/${CND_CONF}/basic</output>
           <linkerLibItems>
             <linkerLibProjectItem>
-              <makeArtifact PL="../arduinoext"
-                            CT="3"
-                            CN="Release"
-                            AC="false"
-                            BL="true"
-                            WD="../arduinoext"
-                            BC="${MAKE}  -f Makefile CONF=Release"
-                            CC="${MAKE}  -f Makefile CONF=Release clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libarduinoext.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
               <makeArtifact PL="../libarduinoemulator"
                             CT="3"
                             CN="Release"
@@ -695,6 +695,18 @@
                             BC="${MAKE}  -f Makefile CONF=Release"
                             CC="${MAKE}  -f Makefile CONF=Release clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinoemulator.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../libarduinoext"
+                            CT="3"
+                            CN="Release"
+                            AC="true"
+                            BL="true"
+                            WD="../../libarduinoext"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinoext.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerOptionItem>`pkg-config --libs posixcpp`</linkerOptionItem>
@@ -745,6 +757,8 @@
       <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
