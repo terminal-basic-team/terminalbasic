@@ -22,6 +22,8 @@
 #include <stdio.h>
 #include <inttypes.h>
 
+#include <helper.hpp>
+
 #ifdef ARDUINO
 #include "config_arduino.hpp"
 #elif defined __linux__
@@ -146,6 +148,32 @@ enum class Token : uint8_t
 
 	NUM_TOKENS
 };
+
+enum class ProgMemStrings : uint8_t
+{
+	S_STATIC = 0,
+	S_DYNAMIC,
+	S_ERROR,
+	S_SEMANTIC,
+	READY,
+	BYTES,
+	AVAILABLE,
+	TERMINAL,
+	S_TERMINAL_BASIC,
+	S_VERSION,
+	S_TEXT,
+	S_OF,
+	S_VARS,
+	S_ARRAYS,
+	S_STACK,
+	S_DIR,
+	S_REALLY,
+	S_END,
+	NUM_STRINGS
+};
+
+// Static text strings
+extern PGM_P progmemString(ProgMemStrings);
 
 /**
  * @brief Scan token table

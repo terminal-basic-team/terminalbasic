@@ -84,46 +84,6 @@ private:
 	TextAttr _a;
 };
 
-static const char strStatic[] PROGMEM = "STATIC";
-static const char strDynamic[] PROGMEM = "DYNAMIC";
-static const char strError[] PROGMEM = "ERROR";
-static const char strSemantic[] PROGMEM = "SEMANTIC";
-static const char strReady[] PROGMEM = "READY";
-static const char strBytes[] PROGMEM = "BYTES";
-static const char strAvailable[] PROGMEM = "AVAILABLE";
-static const char strucTERMINAL[] PROGMEM = "TERMINAL";
-static const char strucBASIC[] PROGMEM = "BASIC";
-static const char strVERSION[] PROGMEM = "VERSION";
-static const char strTEXT[] PROGMEM = "TEXT";
-static const char strOF[] PROGMEM = "OF";
-static const char strVARS[] PROGMEM = "VARS";
-static const char strARRAYS[] PROGMEM = "ARRAYS";
-static const char strSTACK[] PROGMEM = "STACK";
-static const char strDIR[] PROGMEM = "DIR";
-static const char strREALLY[] PROGMEM = "REALLY";
-
-PGM_P const Interpreter::_progmemStrings[NUM_STRINGS] PROGMEM = {
-	strStatic, // STATIC
-	strDynamic, // DYNAMAIC
-	strError, // ERROR
-	strSemantic, // SEMANTIC
-	strReady, // READY
-	strBytes, // BYTES
-	strAvailable, // AVAILABLE
-	strucTERMINAL, // TERMINAL
-	strucBASIC, // BASIC
-	strVERSION, // VERSION
-	strTEXT, // TEXT
-	strOF, // OF
-	strVARS, // VARS
-	strARRAYS, // ARRAYS
-	strSTACK, // STACK
-	strDIR, // DIR
-	strREALLY
-};
-
-#define ESTRING(en) (_progmemStrings[en])
-
 uint8_t Interpreter::_termnoGen = 0;
 
 void
@@ -221,14 +181,16 @@ Interpreter::init()
 	_parser.init();
 	_program.newProg();
 
-	print(TERMINAL, BRIGHT), print(ucBASIC, BRIGHT);
-	print(S_VERSION), print(VERSION, BRIGHT), newline();
+	print(ProgMemStrings::TERMINAL, BRIGHT);
+	print(ProgMemStrings::S_TERMINAL_BASIC, BRIGHT);
+	print(ProgMemStrings::S_VERSION);
+	print(VERSION, BRIGHT), newline();
 #if BASIC_MULTITERMINAL
-	print(TERMINAL, NO_ATTR), print(Integer(_termno), BRIGHT),
+	print(ProgMemStrings::TERMINAL, NO_ATTR), print(Integer(_termno), BRIGHT),
 	_output.print(':'), _output.print(' ');
 #endif
 	print(long(_program.programSize - _program._arraysEnd), BRIGHT);
-	print(BYTES), print(AVAILABLE), newline();
+	print(ProgMemStrings::BYTES), print(ProgMemStrings::AVAILABLE), newline();
 	_state = SHELL;
 }
 
@@ -243,7 +205,7 @@ Interpreter::step()
 		// waiting for user input command or program line
 	case SHELL:
 	{
-		print(READY, BRIGHT);
+		print(ProgMemStrings::READY, BRIGHT);
 		newline();
 	}
 		// fall through
@@ -356,13 +318,16 @@ Interpreter::dump(DumpMode mode)
 	{
 		ByteArray ba((uint8_t*) _program._text, _program.programSize);
 		_output.println(ba);
-		print(Token::KW_END), print(S_OF), print(S_TEXT), _output.print('\t');
+		print(Token::KW_END), print(ProgMemStrings::S_OF);
+		print(ProgMemStrings::S_TEXT), _output.print('\t');
 		_output.println(unsigned(_program._textEnd), HEX);
-		print(Token::KW_END), print(S_OF), print(S_VARS), _output.print('\t');
+		print(Token::KW_END), print(ProgMemStrings::S_OF);
+		print(ProgMemStrings::S_VARS), _output.print('\t');
 		_output.println(unsigned(_program._variablesEnd), HEX);
-		print(Token::KW_END), print(S_OF), print(S_ARRAYS), _output.print('\t');
+		print(Token::KW_END), print(ProgMemStrings::S_OF);
+		print(ProgMemStrings::S_ARRAYS), _output.print('\t');
 		_output.println(unsigned(_program._arraysEnd), HEX);
-		print(S_STACK), _output.print('\t');
+		print(ProgMemStrings::S_STACK), _output.print('\t');
 		_output.println(unsigned(_program._sp), HEX);
 	}
 		break;
@@ -990,7 +955,7 @@ void
 Interpreter::print(ProgMemStrings index, TextAttr attr)
 {
 	char buf[16];
-	strcpy_P(buf, (PGM_P) pgm_read_word(&(ESTRING(index))));
+	strcpy_P(buf, progmemString(index));
 
 	AttrKeeper _a(*this, attr);
 
@@ -1031,15 +996,15 @@ Interpreter::raiseError(ErrorType type, ErrorCodes errorCode)
 {
 	char buf[16];
 	if (type == DYNAMIC_ERROR)
-		strcpy_P(buf, (PGM_P) pgm_read_word(&(ESTRING(S_DYNAMIC))));
+		strcpy_P(buf, progmemString(ProgMemStrings::S_DYNAMIC));
 	else // STATIC_ERROR
-		strcpy_P(buf, (PGM_P) pgm_read_word(&(ESTRING(S_STATIC))));
+		strcpy_P(buf, progmemString(ProgMemStrings::S_STATIC));
 	_output.print(buf);
 	_output.print(' ');
-	strcpy_P(buf, (PGM_P) pgm_read_word(&(ESTRING(S_SEMANTIC))));
+	strcpy_P(buf, progmemString(ProgMemStrings::S_SEMANTIC));
 	_output.print(buf);
 	_output.print(' ');
-	strcpy_P(buf, (PGM_P) pgm_read_word(&(ESTRING(S_ERROR))));
+	strcpy_P(buf, progmemString(ProgMemStrings::S_ERROR));
 	_output.print(buf);
 	_output.print(':');
 	if (type == DYNAMIC_ERROR) {
@@ -1234,7 +1199,7 @@ Interpreter::confirm()
 {
 	bool result = false;
 	do {
-		print(S_REALLY);
+		print(ProgMemStrings::S_REALLY);
 		print('?');
 		newline();
 		while (_input.available() <= 0);
@@ -1364,7 +1329,7 @@ Interpreter::addArray(const char *name, uint8_t dim,
 	size_t dist = sizeof (ArrayFrame) + sizeof (size_t) * dim + num;
 	if (_program._arraysEnd + dist >= _program._sp) {
 		raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
-		return NULL;
+		return (NULL);
 	}
 	memmove(_program._text + index + dist, _program._text + index,
 	    _program._arraysEnd - index);

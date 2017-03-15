@@ -102,9 +102,9 @@ Parser::parse(const char *s)
 	_error = NO_ERROR;
 	
 	if (_lexer.getNext())
-		return fOperators();
+		return (fOperators());
 	else
-		return true;
+		return (true);
 }
 
 /*
@@ -118,7 +118,7 @@ Parser::fOperators()
 		if (!fOperator()) {
 			if (_error == NO_ERROR)
 				_error = OPERATOR_EXPECTED;
-			return false;
+			return (false);
 		}
 		if (_stopParse)
 			break;
@@ -241,7 +241,7 @@ Parser::fOperator()
 	case Token::KW_PRINT:
 		if (_lexer.getNext())
 			if (!fPrintList())
-				return false;
+				return (false);
 		if (_mode == EXECUTE) {
 			_interpreter.print('\r');
                         _interpreter.print('\n');
@@ -276,6 +276,11 @@ Parser::fOperator()
 	return (true);
 }
 
+/*
+ * IMPLICIT_ASSIGNMENT =
+ * VAR EQUALS EXPRESSION |
+ * VAR ARRAY EQUALS EXPRESSION
+ */
 bool
 Parser::fImplicitAssignment(char *varName)
 {
@@ -522,49 +527,49 @@ Parser::fFinal(Value &v)
 		switch (t) {
 		case Token::MINUS:
 			if (!_lexer.getNext() || !fFinal(v))
-				return false;
+				return (false);
 			if (_mode == EXECUTE)
 				v.switchSign();
-			return true;
+			return (true);
 		case Token::C_INTEGER:
 		case Token::C_REAL:
 			if (_mode == EXECUTE)
 				v = _lexer.getValue();
 			_lexer.getNext();
-			return true;
+			return (true);
 		case Token::C_STRING:
 			if (_mode == EXECUTE) {
 				_interpreter.pushString(_lexer.id());
 				v.type = Value::Type::STRING;
 			}
 			_lexer.getNext();
-			return true;
+			return (true);
 		case Token::LPAREN:
 			if (!_lexer.getNext() || !fExpression(v))
-				return false;
+				return (false);
 			if (_lexer.getToken() != Token::RPAREN)
-				return false;
+				return (false);
 			else {
 				_lexer.getNext();
-				return true;
+				return (true);
 			}
 		case Token::KW_TRUE:
 			if (_mode == EXECUTE)
 				v = true;
 			_lexer.getNext();
-			return true;
+			return (true);
 		case Token::KW_FALSE:
 			if (_mode == EXECUTE)
 				v = false;
 			_lexer.getNext();
-			return true;
+			return (true);
 		default:
 		{
 			char varName[VARSIZE];
 			if (fVar(varName))
 				return fIdentifierExpr(varName, v);
 		}
-			return false;
+			return (false);
 		}
 	}
 }
@@ -581,14 +586,14 @@ Parser::fIfStatement()
 				if (_mode == EXECUTE)
 					_interpreter.gotoLine(_lexer.getValue());
 				_lexer.getNext();
-				return true;
+				return (true);
 			} else if (fOperators())
-				return true;
+				return (true);
 		}
 		break;
 	default:
 		if (fGotoStatement())
-			return true;
+			return (true);
 		break;
 	}
 	return false;
@@ -603,15 +608,15 @@ Parser::fGotoStatement()
 		Value v;
 		if (!_lexer.getNext() || !fExpression(v)) {
 			_error = EXPRESSION_EXPECTED;
-			return false;
+			return (false);
 		}
 		if (_mode == EXECUTE) {
 			_interpreter.gotoLine(v.value.integer);
 			_stopParse = true;
 		}
-		return true;
+		return (true);
 	} else
-		return false;
+		return (false);
 }
 
 bool
@@ -624,7 +629,7 @@ Parser::fCommand()
 		if (_mode == EXECUTE)
 			_interpreter.cls();
 		_lexer.getNext();
-		return true;
+		return (true);
 	case Token::COM_DUMP:
 	{
 		Interpreter::DumpMode mode = Interpreter::MEMORY;
@@ -639,7 +644,7 @@ Parser::fCommand()
 		}
 		if (_mode == EXECUTE)
 			_interpreter.dump(mode);
-		return true;
+		return (true);
 	}
 	case Token::COM_LIST:
 	{
@@ -654,7 +659,7 @@ Parser::fCommand()
 			if (!_lexer.getNext() || _lexer.getToken() !=
 			    Token::C_INTEGER) {
 				_error = INTEGER_CONSTANT_EXPECTED;
-				return false;
+				return (false);
 			}
 			stop = Integer(_lexer.getValue());
 			_lexer.getNext();
@@ -708,6 +713,11 @@ Parser::fCommand()
 	}
 }
 
+/*
+ * FOR_CONDS =
+ * IMPLICIT_ASSIGNMENT KW_TO EXPRESSION |
+ * IMPLICIT_ASSIGNMENT KW_TO EXPRESSION KW_STEP EXPRESSION
+ */
 bool
 Parser::fForConds()
 {
@@ -715,9 +725,9 @@ Parser::fForConds()
 	char vName[VARSIZE];
 	if (!fImplicitAssignment(vName) ||
 	    _lexer.getToken()!=Token::KW_TO || !_lexer.getNext() ||
-	    !fExpression(v)) {
+	    !fExpression(v))
 		return (false);
-	}
+	
 	Value vStep(Integer(1));
 	if (_lexer.getToken() == Token::KW_STEP && (!_lexer.getNext() ||
 	    !fExpression(vStep)))

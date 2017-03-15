@@ -17,6 +17,7 @@
       <itemPath>include/config_linux.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="src" displayName="src" projectFiles="true">
+      <itemPath>src/basic.cpp</itemPath>
       <itemPath>src/basic_arduinoio.cpp</itemPath>
       <itemPath>src/basic_functionblock.cpp</itemPath>
       <itemPath>src/basic_internalfuncs.cpp</itemPath>
@@ -162,6 +163,12 @@
                             perm="755"
                             owner="root"
                             group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
         </packFileList>
       </packaging>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -189,6 +196,8 @@
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -302,6 +311,8 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
@@ -409,6 +420,8 @@
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -526,6 +539,8 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
@@ -636,6 +651,8 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
@@ -739,6 +756,8 @@
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -852,6 +871,8 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="8">
@@ -963,6 +984,8 @@
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1078,6 +1101,8 @@
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
       </item>

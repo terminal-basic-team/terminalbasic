@@ -218,12 +218,6 @@ public:
 		CB_WHITE = 0xF0,
 	};
 	
-	enum ProgMemStrings : uint8_t
-	{
-		S_STATIC = 0, S_DYNAMIC, S_ERROR, S_SEMANTIC, READY, BYTES,
-		AVAILABLE, TERMINAL, ucBASIC, S_VERSION, S_TEXT, S_OF, S_VARS,
-		S_ARRAYS, S_STACK, S_DIR, S_REALLY, NUM_STRINGS
-	};
 	/**
 	 * @brief constructor
 	 * @param stream Boundary object for I/O
@@ -403,8 +397,6 @@ private:
 	uint8_t			 _inputPosition;
 	// Input variable name string;
 	char			 _inputVarName[VARSIZE];
-	// Static text strings
-	static PGM_P const	 _progmemStrings[];
 	static uint8_t		 _termnoGen;
 	uint8_t			 _termno;
 };

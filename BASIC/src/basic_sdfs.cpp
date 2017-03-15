@@ -57,9 +57,8 @@ SDFSModule::SDFSModule()
 void
 SDFSModule::_init()
 {
-	if (!SD.begin()) {
+	if (!SD.begin())
 		abort();
-	}
 	
 	_root = SD.open("/", FILE_WRITE);
 	if (!_root || !_root.isDirectory()) {
@@ -70,20 +69,25 @@ SDFSModule::_init()
 bool
 SDFSModule::directory(Interpreter &i)
 {	
+	static const char strEND[] PROGMEM = "SD CARD CONTENTS";
+	
 	_root.rewindDirectory();
-	i.print("SD CARD CONTENTS");
+	
+	char buf[17];
+	strcpy_P(buf, (PGM_P)strEND);
+	i.print(buf);
 	i.newline();
 	Integer index = 0;
 	for (File ff = _root.openNextFile(); ff; ff = _root.openNextFile()) {
 		i.print(++index);
-		i.print("    ");
+		i.print('\t');
 		i.print(ff.name());
 		uint8_t len = min((uint8_t(13)-strlen(ff.name())),
 		    uint8_t(13));
 		while (len-- > 0)
 			i.print(' ');
 		if (ff.isDirectory())
-			i.print(Interpreter::S_DIR);
+			i.print(ProgMemStrings::S_DIR);
 		else
 			i.print(Integer(ff.size()));
 		i.newline();

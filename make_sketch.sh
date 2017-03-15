@@ -14,7 +14,7 @@ SRC="./BASIC/include/basic.hpp ./BASIC/include/basic_lexer.hpp ./BASIC/src/basic
 ./BASIC/src/basic_parser_value.cpp ./BASIC/src/basic_sdfs.cpp \
 ../libarduinoext/include/arduino_logger.hpp ../libarduinoext/include/cps.hpp ../libarduinoext/include/helper.hpp \
 ../libarduinoext/include/math.hpp ../libarduinoext/include/bytearray.hpp ../libarduinoext/src/bytearray.cpp \
-../libarduinoext/include/ascii.hpp"
+../libarduinoext/include/ascii.hpp README"
 
 rm -rf $SKETCH
 mkdir -p $SKETCH

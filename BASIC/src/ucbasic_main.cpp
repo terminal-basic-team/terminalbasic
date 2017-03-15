@@ -76,7 +76,7 @@ static BASIC::Interpreter::Program program(BASIC::PROGRAMSIZE);
 #if USEUTFT
 static BASIC::Interpreter basic(Serial, utftPrint, program);
 #else
-static BASIC::Interpreter basic(Serial, Serial, program);
+static BASIC::Interpreter basic(SerialL, SerialL, program);
 #endif
 #endif
 
@@ -87,11 +87,11 @@ setup()
 	XMCRA |= 1ul<<7; // Switch ext mem iface on
 	XMCRB = 0;
 #endif
-	Serial.begin(115200);
+	SerialL.begin(115200);
 #if USEUTFT
 	utftPrint.begin();
 #endif
-	
+
 #if BASIC_MULTITERMINAL
 #if HAVE_HWSERIAL1
 	Serial1.begin(57600);
@@ -150,43 +150,4 @@ loop()
 	basic3.step();
 #endif
 #endif
-}
-
-namespace BASIC
-{
-
-bool scanTable(const uint8_t *token, const uint8_t table[], uint8_t &index)
-{
-	uint8_t tokPos = 0, tabPos = 0;
-	while (token[tokPos] != 0) {
-		uint8_t c = pgm_read_byte(table);
-		uint8_t ct = token[tokPos];
-		if (c == 0)
-			return (false);
-		
-		if (ct == c)
-			++tokPos, ++table;
-		else if (ct+uint8_t(0x80) == c) {
-			index = tabPos;
-			if (token[++tokPos] != 0) {
-				while ((pgm_read_byte(table++) & uint8_t(0x80)) ==
-				    0);
-				++tabPos, tokPos=0;
-			} else
-				return (true);
-		} else {
-			if (c & uint8_t(0x80))
-				c &= ~uint8_t(0x80);
-			if (c > ct)
-				return (false);
-			else {
-				while ((pgm_read_byte(table++) & uint8_t(0x80)) ==
-				    0);
-				++tabPos, tokPos=0;
-			}
-		}
-	}
-	return (false);
-}
-
 }

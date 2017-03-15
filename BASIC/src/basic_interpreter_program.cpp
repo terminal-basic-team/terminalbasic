@@ -26,9 +26,9 @@ namespace BASIC
 
 Interpreter::Program::Program(size_t progsize) :
 #if USE_EXTMEM
-	_text(reinterpret_cast<char*>(EXTMEM_ADDRESS)),
+_text(reinterpret_cast<char*> (EXTMEM_ADDRESS)),
 #endif
-	programSize(progsize)
+programSize(progsize)
 {
 	assert(_text != NULL);
 	assert(progsize <= PROGRAMSIZE);
@@ -154,13 +154,13 @@ Interpreter::Program::stringIndex(const String *s) const
 size_t
 Interpreter::Program::variableIndex(VariableFrame *f) const
 {
-	return (((char*)f) - _text);
+	return (((char*) f) - _text);
 }
 
 size_t
 Interpreter::Program::arrayIndex(ArrayFrame *f) const
 {
-	return (((char*)f) - _text);
+	return (((char*) f) - _text);
 }
 
 Interpreter::Program::StackFrame*
@@ -191,7 +191,7 @@ Interpreter::Program::reverseLast(StackFrame::Type type)
 	StackFrame *f = this->currentStackFrame();
 	if (f != NULL && f->_type == type) {
 		char buf[sizeof (StackFrame)];
-		StackFrame *fr = reinterpret_cast<StackFrame*>(buf);
+		StackFrame *fr = reinterpret_cast<StackFrame*> (buf);
 		memcpy(fr, f, StackFrame::size(f->_type));
 		this->pop();
 		reverseLast(type);
@@ -208,7 +208,7 @@ Interpreter::Program::pushBottom(StackFrame *f)
 		memcpy(newFrame, f, StackFrame::size(f->_type));
 	} else {
 		char buf[sizeof (StackFrame)];
-		StackFrame *fr = reinterpret_cast<StackFrame*>(buf);
+		StackFrame *fr = reinterpret_cast<StackFrame*> (buf);
 		memcpy(fr, newFrame, StackFrame::size(f->_type));
 		this->pop();
 		pushBottom(f);
@@ -272,57 +272,55 @@ Interpreter::Program::addLine(uint16_t num, const char *line)
 {
 	size_t size;
 	char tempBuffer[PROGSTRINGSIZE];
-	if (TOKENIZE) {
-		Lexer _lexer;
-		_lexer.init(line);
-		size_t position = 0,
-		    lexerPosition = _lexer.getPointer();
 
-		while (_lexer.getNext()) {
-			uint8_t t = uint8_t(0x80) + uint8_t(_lexer.getToken());
-			;
-			if (_lexer.getToken() <= Token::OP_NOT) { // One byte tokens
-				tempBuffer[position++] = t;
-				lexerPosition = _lexer.getPointer();
-				if (_lexer.getToken() == Token::KW_REM) { // Save rem text as is
-					while (line[lexerPosition] == ' ' ||
-					    line[lexerPosition] == '\t')
-						++lexerPosition;
-					uint8_t remaining = strlen(line) - lexerPosition;
-					memcpy(tempBuffer + position, line + lexerPosition,
-					    remaining);
-					position += remaining;
-					break;
-				}
-			} else if (_lexer.getToken() == Token::C_INTEGER) {
-				tempBuffer[position++] = t;
-#if USE_LONGINT
-				LongInteger v = LongInteger(_lexer.getValue());
-				tempBuffer[position++] = v >> 24;
-				tempBuffer[position++] = (v >> 16) & 0xFF;
-				tempBuffer[position++] = (v >> 8) & 0xFF;
-				tempBuffer[position++] = v & 0xFF;
-#else
-				Integer v = Integer(_lexer.getValue());
-				tempBuffer[position++] = (v >> 8) & 0xFF;
-				tempBuffer[position++] = v & 0xFF;
-#endif
-				lexerPosition = _lexer.getPointer();
-			} else { // Other tokens
+	Lexer _lexer;
+	_lexer.init(line);
+	size_t position = 0,
+	    lexerPosition = _lexer.getPointer();
+
+	while (_lexer.getNext()) {
+		uint8_t t = uint8_t(0x80) + uint8_t(_lexer.getToken());
+		;
+		if (_lexer.getToken() <= Token::OP_NOT) { // One byte tokens
+			tempBuffer[position++] = t;
+			lexerPosition = _lexer.getPointer();
+			if (_lexer.getToken() == Token::KW_REM) { // Save rem text as is
 				while (line[lexerPosition] == ' ' ||
 				    line[lexerPosition] == '\t')
 					++lexerPosition;
+				uint8_t remaining = strlen(line) - lexerPosition;
 				memcpy(tempBuffer + position, line + lexerPosition,
-				    _lexer.getPointer() - lexerPosition);
-				position += _lexer.getPointer() - lexerPosition;
-				lexerPosition = _lexer.getPointer();
+				    remaining);
+				position += remaining;
+				break;
 			}
+		} else if (_lexer.getToken() == Token::C_INTEGER) {
+			tempBuffer[position++] = t;
+#if USE_LONGINT
+			LongInteger v = LongInteger(_lexer.getValue());
+			tempBuffer[position++] = v >> 24;
+			tempBuffer[position++] = (v >> 16) & 0xFF;
+			tempBuffer[position++] = (v >> 8) & 0xFF;
+			tempBuffer[position++] = v & 0xFF;
+#else
+			Integer v = Integer(_lexer.getValue());
+			tempBuffer[position++] = (v >> 8) & 0xFF;
+			tempBuffer[position++] = v & 0xFF;
+#endif
+			lexerPosition = _lexer.getPointer();
+		} else { // Other tokens
+			while (line[lexerPosition] == ' ' ||
+			    line[lexerPosition] == '\t')
+				++lexerPosition;
+			memcpy(tempBuffer + position, line + lexerPosition,
+			    _lexer.getPointer() - lexerPosition);
+			position += _lexer.getPointer() - lexerPosition;
+			lexerPosition = _lexer.getPointer();
 		}
-		tempBuffer[position++] = 0;
-		size = position;
-		line = tempBuffer;
-	} else
-		size = strlen(line);
+	}
+	tempBuffer[position++] = 0;
+	size = position;
+	line = tempBuffer;
 
 	return (addLine(num, line, size));
 }
@@ -346,8 +344,8 @@ Interpreter::Program::addLine(uint16_t num, const char *text, size_t len)
 			size_t curSize = cur->size;
 			long dist = long(newSize) - curSize;
 			size_t bytes2copy = _arraysEnd -
-				    (_current + curSize);
-			if ((_arraysEnd+dist) >= _sp)
+			    (_current + curSize);
+			if ((_arraysEnd + dist) >= _sp)
 				return (false);
 			memmove(_text + _current + newSize,
 			    _text + _current + curSize, bytes2copy);
@@ -369,17 +367,17 @@ Interpreter::Program::insert(uint16_t num, const char *text, size_t len)
 	assert(len < PROGSTRINGSIZE);
 	const size_t strLen = sizeof (String) + len;
 
-	if (_arraysEnd+strLen >= _sp)
+	if (_arraysEnd + strLen >= _sp)
 		return (false);
-	
-	memmove(_text+_current+strLen, _text + _current,
-	    _arraysEnd-_current);
+
+	memmove(_text + _current + strLen, _text + _current,
+	    _arraysEnd - _current);
 
 	String *cur = current();
 	cur->number = num;
 	cur->size = strLen;
 	memcpy(cur->text, text, len);
-	_textEnd+=strLen, _variablesEnd+=strLen, _arraysEnd+=strLen;
+	_textEnd += strLen, _variablesEnd += strLen, _arraysEnd += strLen;
 	return true;
 }
 

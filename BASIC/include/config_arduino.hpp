@@ -24,15 +24,15 @@
 /**
  * Paraeters
  */
-#define USE_REALS	0 // Real arithmetics
+#define USE_REALS	1 // Real arithmetics
 #define USE_LONGINT	0 // Long integer support
 
 /**
  * Used modules
  */
 #define USESD		0 // SDcard
-#define USEMATH 	0 // Math (requires USE_REALS)
-#define USEARDUINOIO	0 // ARduino IO
+#define USEMATH 	1 // Math (requires USE_REALS)
+#define USEARDUINOIO	1 // ARduino IO
 
 // Uыe TFT output
 #define USEUTFT		0
@@ -45,10 +45,8 @@
 
 namespace BASIC
 {
-// Tokenize keywords in program text
-const bool TOKENIZE = true;
 // Max size of the program line
-const uint8_t PROGSTRINGSIZE = 72;
+const uint8_t PROGSTRINGSIZE = 73;
 
 // Number of bytes for program text, variables and stack
 #if USE_EXTMEM
@@ -60,13 +58,13 @@ const size_t PROGRAMSIZE = 6144;
 #elif defined (__AVR_ATmega128__) || defined (__AVR_ATmega128A__)
 const size_t PROGRAMSIZE = 3072;
 #elif defined (__AVR_ATmega328__) || defined (__AVR_ATmega328P__)
-const size_t PROGRAMSIZE = 1280;
+const size_t PROGRAMSIZE = 1024;
 #elif defined (__AVR_ATmega168__)
 const size_t PROGRAMSIZE = 384;
 #endif
 
 // Max size of the string constants/variables
-const uint8_t STRINGSIZE = 32;
+const uint8_t STRINGSIZE = 64;
 
 // Number of characters in variable name
 const uint8_t VARSIZE = 8;
