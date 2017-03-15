@@ -23,6 +23,7 @@
 #include "basic_program.hpp"
 #include <assert.h>
 
+
 namespace BASIC
 {
 
@@ -56,9 +57,10 @@ SDFSModule::SDFSModule()
 void
 SDFSModule::_init()
 {
-	if (!SD.begin(SS)) {
+	if (!SD.begin()) {
 		abort();
 	}
+	
 	_root = SD.open("/", FILE_WRITE);
 	if (!_root || !_root.isDirectory()) {
 		abort();
@@ -113,24 +115,30 @@ SDFSModule::chain(Interpreter &i)
 bool
 SDFSModule::dsave(Interpreter &i)
 {
-	char ss[16];
-	if (getFileName(i, ss))
-		SD.remove(ss);
-	File f = SD.open(ss, FILE_WRITE);
+	File f;
+	{
+		char ss[16];
+		if (getFileName(i, ss))
+			SD.remove(ss);
+		f = SD.open(ss, FILE_WRITE);
+	}
+	delay(300);
 	if (!f)
 		return (false);
-	
 	i._program.reset();
+	Lexer lex;
 	for (Interpreter::Program::String *s = i._program.getString(); s != NULL;
 	    s = i._program.getString()) {
 		f.print(s->number);
-		Lexer lex;
 		lex.init(s->text);
 		while (lex.getNext()) {
 			f.write(' ');
 			Token t = lex.getToken();
 			if (t <= Token::RPAREN) {
-				f.print(Lexer::tokenStrings[uint8_t(t)]);
+				char buf[16];
+				strcpy_P(buf, (PGM_P)pgm_read_word(
+					&(Lexer::tokenStrings[uint8_t(t)])));
+				f.print(buf);
 				if (t == Token::KW_REM) {
 					f.write(' ');
 					f.print(s->text+lex.getPointer());
@@ -148,7 +156,6 @@ SDFSModule::dsave(Interpreter &i)
 		}
 		f.print('\n');
 	}
-	
 	f.close();
 	return (true);
 }

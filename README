@@ -9,17 +9,27 @@ arduino-ide and uses its toolchain.
 
 1. Build from sources
 
-The script ./make_sketch.sh makes an archive with arduino-ide sketch from source tree.
-It depends on the arduinoext library, which is being hosted at https://bitbucket.org/starling13/libarduinoext/
-(it should be placed at the same directory, where terminal-basic directory is placed i.e.
+The script ./make_sketch.sh makes an archive with arduino-ide sketch
+from source tree. It depends on the arduinoext library, which is being
+hosted at https://bitbucket.org/starling13/libarduinoext/
+(it should be placed at the same directory, where terminal-basic
+directory is placed i.e.
    .../REPO/-|
              |-terminal-basic from https://bitbucket.org/starling13/ucbasic/
              |-libarduinoext from https://bitbucket.org/starling13/libarduinoext/ )
 
-Use netbeans 8.2 IDE to work with sources. Building for PC (using linux Arduino API emulation library) depends
-on posixcpp library at https://bitbucket.org/starling13/posixcpp/ installed.
+Use netbeans 8.2 IDE to work with sources. Building for PC (using
+linux Arduino API emulation library) depends
+on posixcpp library from https://bitbucket.org/starling13/posixcpp/
+installed.
 
 2. Terminal-BASIC language
+
+Primary goal for project is a support of ANSI/ECMA Minimal BASIC
+standards.
+
+A set of sources for test programs can be downloaded from
+https://cloud.mail.ru/public/45SG/gGc2kFpBk
 
 The language, which ucBASIC will support one day is:
 

@@ -56,7 +56,7 @@ SIZE=${TOOLS}/bin/avr-size
 AVRDUDE_CONF=${TOOLS}/etc/avrdude.conf
 
 BUILD:=$(shell cat "./build-${CONF}")
-VERSION:=0.6.4-${BUILD}
+VERSION:=0.7.0-${BUILD}
 
 # build
 build: .build-post
@@ -181,7 +181,7 @@ copy:
 
 program_common:
 	${AVRDUDE} -D -C ${AVRDUDE_CONF} -v -c wiring -p atmega2560 \
-	  -P /dev/ttyACM0 -b115200 -U flash:w:"${CND_ARTIFACT_PATH_${CONF}}_${VERSION}_${ARCH}-${UCARCH}.hex":i
+	  -P /dev/ttyUSB0 -b115200 -U flash:w:"${CND_ARTIFACT_PATH_${CONF}}_${VERSION}_${ARCH}-${UCARCH}.hex":i
 	#${AVRDUDE} -D -C ${AVRDUDE_CONF} -v -c wiring -p atmega2560 \
 	#  -P /dev/ttyUSB0 -b115200 \
 	#  -U flash:w:"${CND_BASEDIR}/${CND_ARTIFACT_PATH_${CONF}}.hex":i

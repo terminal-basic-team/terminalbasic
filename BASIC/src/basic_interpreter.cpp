@@ -684,7 +684,7 @@ Interpreter::save()
 
 	EEPROMClass e;
 	for (uint16_t ind = 0; ind < e.length(); ++ind)
-		e.write(ind, 0xFF);
+		e.update(ind, 0xFF);
 	
 	// First 2 bytes is program length
 	e.update(0, (len << 8) >> 8);
