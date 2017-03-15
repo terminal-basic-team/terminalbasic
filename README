@@ -9,6 +9,9 @@ arduino-ide and uses its toolchain.
 
 1. Build from sources
 
+Full source code is available at https://bitbucket.org/starling13/ucbasic/
+and https://sourceforge.net/p/terminal-basic/
+
 The script ./make_sketch.sh makes an archive with arduino-ide sketch
 from source tree. It depends on the arduinoext library, which is being
 hosted at https://bitbucket.org/starling13/libarduinoext/
