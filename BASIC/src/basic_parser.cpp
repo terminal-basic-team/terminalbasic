@@ -239,13 +239,11 @@ Parser::fOperator()
 			_lexer.getNext();
 		break;
 	case Token::KW_PRINT:
-		if (_lexer.getNext())
+		if (_lexer.getNext()) {
 			if (!fPrintList())
 				return (false);
-		if (_mode == EXECUTE) {
-			_interpreter.print('\r');
-                        _interpreter.print('\n');
-                }
+		} else
+			_interpreter.newline();
 		break;
 	case Token::KW_RANDOMIZE:
 		if (_mode == EXECUTE)
@@ -339,7 +337,21 @@ Parser::fPrintList()
 				_interpreter.print(v);
 			}
 			break;
+		case Token::SEMI:
+			if (_lexer.getNext()) {
+				if (fExpression(v)) {
+					if (_mode == EXECUTE)
+					_interpreter.print(v);
+				} else {
+					_error = EXPRESSION_EXPECTED;
+					return (false);
+				}
+			} else
+				return (true);
+			break;
 		default:
+			if (_mode == EXECUTE)
+				_interpreter.newline();
 			return (true);
 		}
 	}

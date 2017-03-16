@@ -414,7 +414,6 @@ Interpreter::print(const Parser::Value &v, TextAttr attr)
 		raiseError(DYNAMIC_ERROR, INVALID_VALUE_TYPE);
 		break;
 	}
-	_output.print(' ');
 }
 
 void

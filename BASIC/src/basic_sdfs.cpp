@@ -126,7 +126,6 @@ SDFSModule::dsave(Interpreter &i)
 			SD.remove(ss);
 		f = SD.open(ss, FILE_WRITE);
 	}
-	delay(300);
 	if (!f)
 		return (false);
 	i._program.reset();
