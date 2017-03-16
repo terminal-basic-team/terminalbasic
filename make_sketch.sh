@@ -4,7 +4,7 @@ VER=$(cat ./BASIC/version)
 SKETCH=./sketch/terminal-basic
 
 SRC="./BASIC/include/basic.hpp ./BASIC/include/basic_lexer.hpp ./BASIC/src/basic_lexer.cpp \
-./BASIC/include/config_arduino.hpp ./BASIC/include/version.h \
+./BASIC/include/config_arduino.hpp ./BASIC/include/version.h ./BASIC/src/basic.cpp \
 ./BASIC/include/basic_parser.hpp ./BASIC/include/basic_interpreter.hpp ./BASIC/include/basic_program.hpp \
 ./BASIC/src/basic_parser.cpp ./BASIC/src/basic_interpreter.cpp ./BASIC/src/basic_interpreter_program.cpp \
 ./BASIC/include/basic_functionblock.hpp ./BASIC/include/basic_arduinoio.hpp ./BASIC/include/basic_math.hpp \
@@ -14,6 +14,7 @@ SRC="./BASIC/include/basic.hpp ./BASIC/include/basic_lexer.hpp ./BASIC/src/basic
 ./BASIC/src/basic_parser_value.cpp ./BASIC/src/basic_sdfs.cpp \
 ../libarduinoext/include/arduino_logger.hpp ../libarduinoext/include/cps.hpp ../libarduinoext/include/helper.hpp \
 ../libarduinoext/include/math.hpp ../libarduinoext/include/bytearray.hpp ../libarduinoext/src/bytearray.cpp \
+../libarduinoext/include/seriallight.hpp ../libarduinoext/src/seriallight.cpp \
 ../libarduinoext/include/ascii.hpp README"
 
 rm -rf $SKETCH

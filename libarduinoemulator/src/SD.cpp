@@ -46,9 +46,11 @@ File::openNextFile(uint8_t mode)
 	dirent * e = readdir(_directory);
 	if (e != NULL) {
 		std::string path = _path + '/' + e->d_name;
-		if (e->d_type == DT_REG)
+		if (e->d_type == DT_REG) {
 			result._file = ::fopen(path.c_str(), "r+");
-		else if (e->d_type == DT_DIR)
+			if (result._file == NULL)
+				::perror("fopen");
+		} else if (e->d_type == DT_DIR)
 			result._directory = ::opendir(path.c_str());
 		result._path = path;
 	}
