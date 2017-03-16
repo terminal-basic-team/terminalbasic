@@ -180,7 +180,6 @@ SDFSModule::dload(Interpreter &i)
 		if (res > 0) {
 			Lexer lex;
 			lex.init(buf);
-			uint16_t lineNum;
 			if (!lex.getNext() || lex.getToken() !=
 			    Token::C_INTEGER)
 				return (false);
