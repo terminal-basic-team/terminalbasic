@@ -71,7 +71,9 @@ enum class Token : uint8_t
 	COM_SAVE,
 
 	// Statements
+	KW_BASE,
 	KW_DATA,
+	KW_DEF,
 	KW_DIM,
 	KW_END,
 	KW_FOR,
@@ -82,8 +84,11 @@ enum class Token : uint8_t
 	KW_INPUT,
 	KW_LET,
 	KW_NEXT,
+	KW_ON,
+	KW_OPTION,
 	KW_PRINT,
 	KW_RANDOMIZE,
+	KW_READ,
 	KW_REM,
 	KW_RETURN,
 	KW_STOP,
@@ -182,7 +187,7 @@ extern PGM_P progmemString(ProgMemStrings);
  * @param index
  * @return find flag
  */
-bool scanTable(const uint8_t*, const uint8_t[], uint8_t&);
+uint8_t *scanTable(const uint8_t*, const uint8_t[], uint8_t&);
 
 }
 

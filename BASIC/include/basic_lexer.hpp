@@ -85,6 +85,7 @@ private:
 	void next();
 
 	void first_A();
+	void first_B();
 	void first_C();
 	void first_D();
 	void first_E();

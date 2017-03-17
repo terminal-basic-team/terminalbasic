@@ -25,7 +25,7 @@
  * Paraeters
  */
 #define USE_REALS	1 // Real arithmetics
-#define USE_LONGINT	0 // Long integer support
+#define USE_LONGINT	1 // Long integer support
 
 /**
  * Used modules
