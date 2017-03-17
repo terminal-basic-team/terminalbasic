@@ -57,13 +57,12 @@ SDFSModule::SDFSModule()
 void
 SDFSModule::_init()
 {
-	if (!SD.begin())
+	if (!SD.begin(125000, SD_CHIP_SELECT_PIN))
 		abort();
 	
 	_root = SD.open("/", FILE_WRITE);
-	if (!_root || !_root.isDirectory()) {
+	if (!_root || !_root.isDirectory())
 		abort();
-	}
 }
 
 bool
