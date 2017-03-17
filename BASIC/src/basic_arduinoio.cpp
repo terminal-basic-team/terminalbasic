@@ -34,10 +34,10 @@ static const uint8_t arduinoIOFuncs[] PROGMEM = {
 };
 
 const FunctionBlock::function ArduinoIO::_funcs[] PROGMEM = {
+	ArduinoIO::func_aread_int,
 #if USE_REALS
 	ArduinoIO::func_aread,
 #endif
-	ArduinoIO::func_aread_int,
 	ArduinoIO::func_dread
 };
 

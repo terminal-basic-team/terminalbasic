@@ -31,6 +31,7 @@
 #define FILE_WRITE (O_RDWR | O_CREAT)
 
 #define SS 8
+#define SD_CHIP_SELECT_PIN SS
 
 namespace SDLib
 {
@@ -66,6 +67,7 @@ class SDClass
 {
 public:
 	bool begin(uint8_t =0);
+        bool begin(uint32_t, uint8_t);
 	File open(const char *filename, uint8_t mode = FILE_READ);
 	bool remove(const char *filepath);
 	bool exists(const char *filepath);
