@@ -274,7 +274,7 @@
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs</pElem>
           </incDir>
-          <commandLine>-Os -Wextra -std=gnu11 -ffunction-sections -fdata-sections -MMD -mmcu=atmega328p -flto</commandLine>
+          <commandLine>-Os -Wextra -std=gnu11 -ffunction-sections -fdata-sections -MMD -mmcu=atmega328p -flto -mcall-prologues</commandLine>
           <preprocessorList>
             <Elem>ARDUINO=10801</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
@@ -292,9 +292,9 @@
             <pElem>${ARDUINO_PATH}/libraries/TVout</pElem>
             <pElem>${ARDUINO_PATH}/libraries/SD/src</pElem>
           </incDir>
-          <commandLine>-Os -Wextra -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega328p -mcall-prologues</commandLine>
+          <commandLine>-Os -Wextra -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega328p -mcall-prologues -flto</commandLine>
           <preprocessorList>
-            <Elem>ARDUINO=10612</Elem>
+            <Elem>ARDUINO=10801</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_NANO</Elem>
             <Elem>F_CPU=16000000L</Elem>
@@ -977,10 +977,10 @@
       <compileType>
         <cTool>
           <incDir>
-            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino</pElem>
-            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/variants/eightanaloginputs</pElem>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs</pElem>
           </incDir>
-          <commandLine>-Os -Wextra -std=gnu11 -ffunction-sections -fdata-sections -MMD -mmcu=atmega168</commandLine>
+          <commandLine>-Os -Wextra -std=gnu11 -ffunction-sections -flto -fdata-sections -MMD -mmcu=atmega168 -mcall-prologues</commandLine>
           <preprocessorList>
             <Elem>ARDUINO=10801</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
@@ -999,9 +999,9 @@
             <pElem>${ARDUINO_PATH}/libraries/TVout</pElem>
             <pElem>${ARDUINO_PATH}/libraries/SD/src</pElem>
           </incDir>
-          <commandLine>-Os -Wextra -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega168 -fno-rtti -mcall-prologues</commandLine>
+          <commandLine>-Os -Wextra -std=gnu++11 -flto -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -mmcu=atmega168 -fno-rtti -mcall-prologues</commandLine>
           <preprocessorList>
-            <Elem>ARDUINO=10612</Elem>
+            <Elem>ARDUINO=10801</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_NANO</Elem>
             <Elem>F_CPU=16000000L</Elem>
@@ -1010,6 +1010,8 @@
         </ccTool>
         <archiverTool>
           <output>${CND_DISTDIR}/${CND_CONF}/libarduino.a</output>
+          <commandlineTool>avr-gcc-ar</commandlineTool>
+          <ranlibTool>avr-gcc-ranlib</ranlibTool>
         </archiverTool>
       </compileType>
       <item path="/opt/arduino-1.8.1/hardware/arduino/avr/cores/arduino/Arduino.h"

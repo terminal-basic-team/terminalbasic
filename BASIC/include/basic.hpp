@@ -59,42 +59,37 @@ typedef float Real;
 enum class Token : uint8_t
 {
 	NOTOKENS = 0,
-
-	// Commands
+        KW_ARRAYS,
+	KW_BASE,
 	COM_CLS,
+	KW_DATA,       // 4
+	KW_DEF,        // 5
 	COM_DELAY,
+	KW_DIM,        // 7
 	COM_DUMP,
+	KW_END,
+        KW_FALSE,      // 10
+        KW_FOR,
+	KW_GOSUB,
+	KW_GOTO,
+        KW_GO,
+        KW_IF,
+	KW_INPUT,
+        KW_LET,
 	COM_LIST,
 	COM_LOAD,
 	COM_NEW,
+        KW_RANDOMIZE,
+        KW_READ,
+	KW_REM,
+        KW_RETURN,
 	COM_RUN,
 	COM_SAVE,
-
-	// Statements
-	KW_BASE,
-	KW_DATA,
-	KW_DEF,
-	KW_DIM,
-	KW_END,
-	KW_FOR,
-	KW_GO,
-	KW_GOSUB,
-	KW_GOTO,
-	KW_IF,
-	KW_INPUT,
-	KW_LET,
 	KW_NEXT,
 	KW_ON,
 	KW_OPTION,
 	KW_PRINT,
-	KW_RANDOMIZE,
-	KW_READ,
-	KW_REM,
-	KW_RETURN,
 	KW_STOP,
-	// other keywords
-	KW_ARRAYS,
-	KW_FALSE,
 	KW_STEP,
 	KW_THEN,
 	KW_TO,

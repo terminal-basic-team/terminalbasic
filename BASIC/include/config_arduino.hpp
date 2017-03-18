@@ -24,15 +24,15 @@
 /**
  * Paraeters
  */
-#define USE_REALS	1 // Real arithmetics
-#define USE_LONGINT	1 // Long integer support
+#define USE_REALS	0 // Real arithmetics
+#define USE_LONGINT	0 // Long integer support
 
 /**
  * Used modules
  */
-#define USESD		1 // SDcard
-#define USEMATH 	1 // Math (requires USE_REALS)
-#define USEARDUINOIO	1 // ARduino IO
+#define USESD		0 // SDcard
+#define USEMATH 	0 // Math (requires USE_REALS)
+#define USEARDUINOIO	0 // ARduino IO
 
 // Uыe TFT output
 #define USEUTFT		0

@@ -278,6 +278,8 @@
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/SoftwareSerial/src</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/EEPROM/src</pElem>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/SPI/src</pElem>
+            <pElem>${ARDUINO_PATH}/libraries/SD/src</pElem>
             <pElem>include</pElem>
             <pElem>../../libarduinoext/include</pElem>
           </incDir>
@@ -286,7 +288,7 @@
           </incFile>
           <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -fno-threadsafe-statics -MMD -mmcu=atmega328p -ffunction-sections -fdata-sections -flto -mcall-prologues</commandLine>
           <preprocessorList>
-            <Elem>ARDUINO=10607</Elem>
+            <Elem>ARDUINO=10801</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_NANO</Elem>
             <Elem>F_CPU=16000000L</Elem>
@@ -388,6 +390,8 @@
       <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1099,7 +1103,7 @@
             </linkerLibProjectItem>
             <linkerLibStdlibItem>Mathematics</linkerLibStdlibItem>
           </linkerLibItems>
-          <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega168</commandLine>
+          <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega168 -mcall-prologues</commandLine>
         </linkerTool>
       </compileType>
       <folder path="TestFiles/f1">

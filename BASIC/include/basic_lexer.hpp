@@ -85,18 +85,9 @@ private:
 	void next();
 
 	void first_A();
-	void first_B();
-	void first_C();
-	void first_D();
-	void first_E();
-	void first_F();
-	void first_G();
-	void first_I();
-	void first_L();
 	void first_N();
 	void first_O();
 	void first_P();
-	void first_R();
 	void first_S();
 	void first_T();
 	void first_V();
