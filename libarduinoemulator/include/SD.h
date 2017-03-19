@@ -67,7 +67,7 @@ class SDClass
 {
 public:
 	bool begin(uint8_t =0);
-        bool begin(uint32_t, uint8_t);
+	bool begin(uint32_t, uint8_t);
 	File open(const char *filename, uint8_t mode = FILE_READ);
 	bool remove(const char *filepath);
 	bool exists(const char *filepath);
