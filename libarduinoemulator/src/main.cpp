@@ -36,9 +36,9 @@
 
 StdioStream Serial(std::cin, std::cout);
 //PseudoTtySerial	Serial;
-PseudoTtySerial	Serial1;
-PseudoTtySerial	Serial2;
-PseudoTtySerial	Serial3;
+//PseudoTtySerial	Serial1;
+//PseudoTtySerial	Serial2;
+//PseudoTtySerial	Serial3;
 
 //StdioStream Serial(std::cin, std::cout);
 

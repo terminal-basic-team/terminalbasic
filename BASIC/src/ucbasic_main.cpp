@@ -76,9 +76,13 @@ static BASIC::Interpreter::Program program(BASIC::PROGRAMSIZE);
 #if USEUTFT
 static BASIC::Interpreter basic(Serial, utftPrint, program);
 #else
+#ifdef ARDUINO
 static BASIC::Interpreter basic(SerialL, SerialL, program);
+#else
+static BASIC::Interpreter basic(Serial, Serial, program);
 #endif
-#endif
+#endif // USEUTFT
+#endif // BASIC_MULTITERMINAL
 
 void
 setup()
@@ -87,7 +91,11 @@ setup()
 	XMCRA |= 1ul<<7; // Switch ext mem iface on
 	XMCRB = 0;
 #endif
+#ifdef ARDUINO
 	SerialL.begin(115200);
+#else
+	Serial.begin(115200);
+#endif // ARDUINO
 #if USEUTFT
 	utftPrint.begin();
 #endif

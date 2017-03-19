@@ -407,7 +407,11 @@ void
 Parser::Value::powerMatchValue(const Value &rhs)
 {
 #if USE_LONGINT
-	if (rhs.type == LONG_INTEGER)
+	if (rhs.type == LONG_INTEGER
+#if USE_REALS
+	    && type != REAL
+#endif
+	)
 		* this = LongInteger(*this);
 #endif
 #if USE_REALS
