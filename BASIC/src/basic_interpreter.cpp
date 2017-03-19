@@ -925,18 +925,21 @@ Interpreter::readInput()
 	uint8_t end = _inputPosition + read;
 	for (uint8_t i = _inputPosition; i < end; ++i) {
 		char c = _inputBuffer[i];
-		_output.write(c);
 		switch (c) {
 		case char(ASCII::BS):
-			if (_inputPosition > 0)
+		case char(ASCII::DEL):
+			if (_inputPosition > 0) {
 				--_inputPosition;
+				_output.write(char(ASCII::BS));
+			}
 			break;
 		case char(ASCII::CR):
-			_output.write(char(ASCII::LF));
+			_output.println();
 			_inputBuffer[i] = 0;
 			return (true);
 		default:
 			++_inputPosition;
+			_output.write(c);
 		}
 	}
 	return (false);
@@ -980,6 +983,15 @@ Interpreter::print(Integer i, TextAttr attr)
 	AttrKeeper _a(*this, attr);
 
 	_output.print(i), _output.print(' ');
+}
+
+void
+Interpreter::printTab(Integer tabs)
+{
+	if (tabs < 1)
+		raiseError(DYNAMIC_ERROR, INVALID_TAB_VALUE);
+	else
+		_output.print("\x1B["), _output.print(tabs-1), _output.print('C');
 }
 
 void
@@ -1140,10 +1152,8 @@ Interpreter::newArray(const char *name)
 				array->dimension[dim] = f->body.arrayDimension;
 				_program.pop();
 			}
-		} else
-			return;
-	};
-	return;
+		}
+	}
 }
 
 const Interpreter::VariableFrame*
@@ -1186,11 +1196,10 @@ Interpreter::pushDimensions(uint8_t dim)
 {
 	Program::StackFrame *f =
 	    _program.push(Program::StackFrame::ARRAY_DIMENSIONS);
-	if (f == NULL) {
+	if (f != NULL)
+		f->body.arrayDimensions = dim;
+	else
 		raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
-		return;
-	}
-	f->body.arrayDimensions = dim;
 }
 
 bool
@@ -1235,10 +1244,10 @@ Interpreter::strConcat(Parser::Value &v1, Parser::Value &v2)
 				l2 = STRINGSIZE - l1 - 1;
 			strncpy(ff->body.string + l1, f->body.string, l2);
 			ff->body.string[l1 + l2] = 0;
-		} else
-			raiseError(DYNAMIC_ERROR, STRING_FRAME_SEARCH);
-	} else
-		raiseError(DYNAMIC_ERROR, STRING_FRAME_SEARCH);
+			return;
+		}
+	}
+	raiseError(DYNAMIC_ERROR, STRING_FRAME_SEARCH);
 }
 
 void

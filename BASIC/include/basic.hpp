@@ -91,6 +91,7 @@ enum class Token : uint8_t
 	KW_ARRAYS,
 	KW_FALSE,
 	KW_STEP,
+	KW_TAB,
 	KW_THEN,
 	KW_TO,
 	KW_TRUE,

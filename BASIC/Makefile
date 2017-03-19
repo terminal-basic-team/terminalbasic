@@ -163,10 +163,12 @@ program: program_${CONF}
 
 program_Arduino_UNO : ARCH=arduinoUNO
 program_Arduino_UNO : UCARCH=atmega328p
+program_Arduino_UNO : PROGRAMMER=arduino
 program_Arduino_UNO : program_common
 
 program_Arduino_mega2560 : ARCH=arduinoMEGA
 program_Arduino_mega2560 : UCARCH=atmega2560
+program_Arduino_mega2560 : PROGRAMMER=wiring
 program_Arduino_mega2560 : program_common
 
 copy:
@@ -180,7 +182,7 @@ copy:
 	${SIZE} -C --mcu=${UCARCH} ${CND_ARTIFACT_PATH_${CONF}}
 
 program_common:
-	${AVRDUDE} -D -C ${AVRDUDE_CONF} -v -c wiring -p atmega2560 \
+	${AVRDUDE} -D -C ${AVRDUDE_CONF} -v -c ${PROGRAMMER} -p ${UCARCH} \
 	  -P /dev/ttyUSB0 -b115200 -U flash:w:"${CND_ARTIFACT_PATH_${CONF}}_${VERSION}_${ARCH}-${UCARCH}.hex":i
 	#${AVRDUDE} -D -C ${AVRDUDE_CONF} -v -c wiring -p atmega2560 \
 	#  -P /dev/ttyUSB0 -b115200 \

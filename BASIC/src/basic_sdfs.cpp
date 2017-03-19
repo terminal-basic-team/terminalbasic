@@ -57,7 +57,7 @@ SDFSModule::SDFSModule()
 void
 SDFSModule::_init()
 {
-	if (!SD.begin(125000, SD_CHIP_SELECT_PIN))
+	if (!SD.begin())
 		abort();
 	
 	_root = SD.open("/", FILE_WRITE);
@@ -67,11 +67,11 @@ SDFSModule::_init()
 
 bool
 SDFSModule::directory(Interpreter &i)
-{	
+{
 	static const char strEND[] PROGMEM = "SD CARD CONTENTS";
-	
+
 	_root.rewindDirectory();
-	
+
 	char buf[17];
 	strcpy_P(buf, (PGM_P)strEND);
 	i.print(buf);
@@ -100,7 +100,7 @@ SDFSModule::scratch(Interpreter &i)
 {
 	if (!i.confirm())
 		return (true);
-	
+
 	char ss[16];
 	if (getFileName(i, ss)) {
 		SD.remove(ss);

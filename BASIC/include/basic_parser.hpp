@@ -87,6 +87,7 @@ private:
 	bool fOperator();
 	bool fImplicitAssignment(char*);
 	bool fPrintList();
+	bool fPrintItem();
 	bool fExpression(Value&);
 	bool fSimpleExpression(Value&);
 	bool fTerm(Value&);

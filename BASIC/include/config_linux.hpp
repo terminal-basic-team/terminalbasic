@@ -44,10 +44,10 @@ const bool TOKENIZE = true;
 const uint8_t PROGSTRINGSIZE = 80;
 
 // Number of bytes for program text, variables and stack
-const size_t PROGRAMSIZE = 4096;
+const size_t PROGRAMSIZE = 6144;
 
 // Max size of the string constants/variables
-const uint8_t STRINGSIZE = 128;
+const uint8_t STRINGSIZE = 64;
 
 // Number of characters in variable name
 const uint8_t VARSIZE = 16;

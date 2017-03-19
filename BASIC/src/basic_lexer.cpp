@@ -54,6 +54,7 @@
  * KW_ARRAYS = "ARRAYS"
  * KW_FALSE = "FALSE"
  * KW_STEP = "STEP"
+ * KW_TAB = "TAB"
  * KW_THEN = "THEN"
  * KW_TO = "TO"
  * KW_TRUE = "TRUE"
@@ -116,6 +117,7 @@ const char sSTOP[] PROGMEM = "STOP";
 const char sARRAYS[] PROGMEM = "ARRAYS";
 const char sFALSE[] PROGMEM = "FALSE";
 const char sSTEP[] PROGMEM = "STEP";
+const char sTAB[] PROGMEM = "TAB";
 const char sTHEN[] PROGMEM = "THEN";
 const char sTO[] PROGMEM = "TO";
 const char sTRUE[] PROGMEM = "TRUE";
@@ -156,34 +158,35 @@ const char sSTRING[] PROGMEM = "C_STRING";
 
 PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 	sNOTOKENS,
-	
-	sCLS,	sDELAY, sDUMP,	sLIST,	sLOAD,	sNEW,	sRUN,	sSAVE,
-	
-	sDATA,	sDIM,	sEND,	sFOR,	sGO,	sGOSUB,	sGOTO,	sIF,	sINPUT,
-	sLET,	sNEXT,	sPRINT,	sRANDOMIZE,	sREM,	sRETURN,sSTOP,
-	
-	sARRAYS,sFALSE,	sTHEN,	sSTEP,	sTO,	sTRUE,	sVARS,
-	
-	sOP_AND,sOP_NOT,sOP_OR,
-	
-	sSTAR,	sSLASH,	sPLUS,	sMINUS,
-	
+
+	sCLS, sDELAY, sDUMP, sLIST, sLOAD, sNEW, sRUN, sSAVE,
+
+	sDATA, sDIM, sEND, sFOR, sGO, sGOSUB, sGOTO, sIF, sINPUT,
+	sLET, sNEXT, sPRINT, sRANDOMIZE, sREM, sRETURN, sSTOP,
+
+	sARRAYS, sFALSE, sSTEP, sTAB, sTHEN, sTO, sTRUE, sVARS,
+
+	sOP_AND, sOP_NOT, sOP_OR,
+
+	sSTAR, sSLASH, sPLUS, sMINUS,
+
 	sEQUALS,
-	sCOLON,	sSEMI,
-	sLT,	sGT,
-	sLTE,	sGTE,
-	sNE,	sNEA,
+	sCOLON, sSEMI,
+	sLT, sGT,
+	sLTE, sGTE,
+	sNE, sNEA,
 	sCOMMA,
 	sPOW,
-	sLPAREN,sRPAREN,
-	
-	sREAL_IDENT,	sINTEGER_IDENT,	sLONGINT_IDENT,	sSTRING_IDENT,
+	sLPAREN, sRPAREN,
+
+	sREAL_IDENT, sINTEGER_IDENT, sLONGINT_IDENT, sSTRING_IDENT,
 	sBOOL_IDENT,
-	
-	sINTEGER,	sREAL,	sBOOLEAN,sSTRING
+
+	sINTEGER, sREAL, sBOOLEAN, sSTRING
 };
 
 #if ARDUINO_LOG
+
 Logger&
 operator<<(Logger &logger, Token tok)
 {
@@ -230,7 +233,7 @@ Lexer::getNext()
 			case 'D':
 				_id[_valuePointer++] = SYM;
 				first_D();
-				return true;				
+				return true;
 			case 'E':
 				_id[_valuePointer++] = SYM;
 				first_E();
@@ -853,6 +856,15 @@ Lexer::first_T()
 {
 	next();
 	switch (SYM) {
+	case 'A':
+		pushSYM();
+		switch (SYM) {
+		case 'B':
+			next();
+			_token = Token::KW_TAB;
+			return;
+		}
+		break;
 	case 'H':
 		pushSYM();
 		switch (SYM) {
@@ -979,7 +991,7 @@ Lexer::decimalNumber()
 				next();
 				if (isdigit(SYM)) {
 					d /= 10.f;
-					_value.value.real += Real(SYM-'0') *d;
+					_value.value.real += Real(SYM - '0') * d;
 					continue;
 				} else if (SYM == 0) {
 					_token = Token::C_REAL;
@@ -996,14 +1008,14 @@ Lexer::decimalNumber()
 				}
 			}
 		}
-		break;
+			break;
 		case 'E':
 		{
 			if (_value.type == Parser::Value::INTEGER
 #if USE_LONGINT
-			 || _value.type == Parser::Value::LONG_INTEGER
-#endif			
-			)
+			    || _value.type == Parser::Value::LONG_INTEGER
+#endif   
+			    )
 				_value = Real(_value);
 			if (!numberScale()) {
 				_token = Token::NOTOKENS;
@@ -1014,7 +1026,7 @@ Lexer::decimalNumber()
 		default:
 			if (_value.type == Parser::Value::INTEGER
 #if USE_LONGINT
-			 || _value.type == Parser::Value::LONG_INTEGER
+			    || _value.type == Parser::Value::LONG_INTEGER
 #endif
 			    )
 				_token = Token::C_INTEGER;
@@ -1052,12 +1064,13 @@ Lexer::binaryInteger()
 }
 
 #if USE_REALS
+
 bool
 Lexer::numberScale()
 {
 	Integer scale(0);
 	bool sign = true;
-	
+
 	next();
 	if (SYM == '-') {
 		sign = false;
@@ -1068,7 +1081,7 @@ Lexer::numberScale()
 		next();
 	} else
 		return false;
-	
+
 	while (true) {
 		if (isdigit(SYM)) {
 			scale *= Integer(10);

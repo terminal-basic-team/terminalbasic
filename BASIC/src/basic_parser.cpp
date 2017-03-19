@@ -311,38 +311,33 @@ Parser::fImplicitAssignment(char *varName)
 	return (false);
 }
 
+/*
+ * PRINT_LIST =
+ * PRINT_ITEM |
+ * PRINT_ITEM COMMA PRINT_LIST
+ */
 bool
 Parser::fPrintList()
 {
 	LOG_TRACE;
-
-	Value v;
-	if (!fExpression(v)) {
-		_error = EXPRESSION_EXPECTED;
+	
+	if (!fPrintItem()) 
 		return (false);
-	}
-
-	if (_mode == EXECUTE)
-		_interpreter.print(v);
+	
 	while (true) {
 		Token t = _lexer.getToken();
 		switch (t) {
 		case Token::COMMA:
-			if (!_lexer.getNext() || !fExpression(v)) {
+			if (_mode == EXECUTE)
+				_interpreter.print('\t');
+			if (!_lexer.getNext() || !fPrintItem()) {
 				_error = EXPRESSION_EXPECTED;
 				return (false);
-			}
-			if (_mode == EXECUTE) {
-				_interpreter.print('\t');
-				_interpreter.print(v);
 			}
 			break;
 		case Token::SEMI:
 			if (_lexer.getNext()) {
-				if (fExpression(v)) {
-					if (_mode == EXECUTE)
-					_interpreter.print(v);
-				} else {
+				if (!fPrintItem()) {
 					_error = EXPRESSION_EXPECTED;
 					return (false);
 				}
@@ -355,6 +350,35 @@ Parser::fPrintList()
 			return (true);
 		}
 	}
+}
+
+/*
+ * PRINT_ITEM =
+ * KW_TAB LPAREN EXPRESSION RPAREN |
+ * EXPRESSION
+ */
+bool
+Parser::fPrintItem()
+{
+	Value v;
+	if (_lexer.getToken() == Token::KW_TAB) {
+		if (_lexer.getNext() && _lexer.getToken() == Token::LPAREN &&
+		    _lexer.getNext() && fExpression(v) &&
+		    _lexer.getToken() == Token::RPAREN) {
+			_interpreter.printTab(Integer(v));
+			_lexer.getNext();
+		} else
+			return (false);
+	} else {
+		if (!fExpression(v)) {
+			_error = EXPRESSION_EXPECTED;
+			return (false);
+		}
+		
+		if (_mode == EXECUTE)
+			_interpreter.print(v);
+	}
+	return (true);
 }
 
 /*

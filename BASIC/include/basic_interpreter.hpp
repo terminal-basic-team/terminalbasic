@@ -72,6 +72,7 @@ public:
 		NO_SUCH_ARRAY,
 		INTEGER_EXPRESSION_EXPECTED, // Integer expression expected
 		BAD_CHECKSUM,		// Bad program checksum
+		INVALID_TAB_VALUE,
 		INTERNAL_ERROR = 255
 	};
 	
@@ -251,6 +252,7 @@ public:
 	void print(Real);
 #endif
 	void print(Integer, TextAttr=NO_ATTR);
+	void printTab(Integer);
 	void print(long, TextAttr=NO_ATTR);
 	void print(ProgMemStrings, TextAttr=NO_ATTR);
 	void print(Token);
