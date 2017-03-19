@@ -101,6 +101,17 @@
         <itemPath>/opt/arduino-1.8.1/libraries/TVout/video_gen.cpp</itemPath>
         <itemPath>/opt/arduino-1.8.1/libraries/TVout/video_gen.h</itemPath>
       </logicalFolder>
+      <logicalFolder name="TVoutfonts" displayName="TVoutfonts" projectFiles="true">
+        <itemPath>/opt/arduino-1.8.1/libraries/TVoutfonts/font4x6.cpp</itemPath>
+        <itemPath>/opt/arduino-1.8.1/libraries/TVoutfonts/font4x6.h</itemPath>
+        <itemPath>/opt/arduino-1.8.1/libraries/TVoutfonts/font6x8.cpp</itemPath>
+        <itemPath>/opt/arduino-1.8.1/libraries/TVoutfonts/font6x8.h</itemPath>
+        <itemPath>/opt/arduino-1.8.1/libraries/TVoutfonts/font8x8.cpp</itemPath>
+        <itemPath>/opt/arduino-1.8.1/libraries/TVoutfonts/font8x8.h</itemPath>
+        <itemPath>/opt/arduino-1.8.1/libraries/TVoutfonts/font8x8ext.cpp</itemPath>
+        <itemPath>/opt/arduino-1.8.1/libraries/TVoutfonts/font8x8ext.h</itemPath>
+        <itemPath>/opt/arduino-1.8.1/libraries/TVoutfonts/fontALL.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="UTFT" displayName="UTFT" projectFiles="true">
         <logicalFolder name="hardware" displayName="hardware" projectFiles="true">
           <logicalFolder name="avr" displayName="avr" projectFiles="true">
@@ -258,6 +269,7 @@
     <Elem>${ARDUINO_PATH}/libraries/SD</Elem>
     <Elem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/SPI</Elem>
     <Elem>/opt/arduino-1.8.1/libraries/TVout</Elem>
+    <Elem>/opt/arduino-1.8.1/libraries/TVoutfonts</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -638,6 +650,51 @@
             flavor2="0">
       </item>
       <item path="/opt/arduino-1.8.1/libraries/TVout/video_gen.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font4x6.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font4x6.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font6x8.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font6x8.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font8x8.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font8x8.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font8x8ext.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font8x8ext.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/fontALL.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -1347,6 +1404,51 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font4x6.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font4x6.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font6x8.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font6x8.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font8x8.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font8x8.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font8x8ext.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font8x8ext.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/fontALL.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="/opt/arduino-1.8.1/libraries/UTFT/UTFT.h"
             ex="false"
             tool="3"
@@ -2038,6 +2140,51 @@
             flavor2="0">
       </item>
       <item path="/opt/arduino-1.8.1/libraries/TVout/video_gen.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font4x6.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font4x6.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font6x8.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font6x8.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font8x8.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font8x8.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font8x8ext.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font8x8ext.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/fontALL.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -2750,6 +2897,51 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font4x6.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font4x6.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font6x8.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font6x8.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font8x8.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font8x8.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font8x8ext.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font8x8ext.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/fontALL.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="/opt/arduino-1.8.1/libraries/UTFT/DefaultFonts.c"
             ex="false"
             tool="0"
@@ -3450,6 +3642,51 @@
             flavor2="0">
       </item>
       <item path="/opt/arduino-1.8.1/libraries/TVout/video_gen.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font4x6.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font4x6.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font6x8.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font6x8.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font8x8.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font8x8.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font8x8ext.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font8x8ext.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/fontALL.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -4157,6 +4394,51 @@
             flavor2="9">
       </item>
       <item path="/opt/arduino-1.8.1/libraries/TVout/video_gen.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font4x6.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font4x6.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font6x8.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font6x8.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font8x8.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font8x8.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font8x8ext.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/font8x8ext.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVoutfonts/fontALL.h"
             ex="false"
             tool="3"
             flavor2="0">

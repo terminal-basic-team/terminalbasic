@@ -25,21 +25,22 @@
  * Paraeters
  */
 #define USE_REALS	1 // Real arithmetics
-#define USE_LONGINT	0 // Long integer support
+#define USE_LONGINT	1 // Long integer support
 
 /**
  * Used modules
  */
-#define USESD		0 // SDcard
+#define USESD		1 // SDcard
 #define USEMATH 	1 // Math (requires USE_REALS)
 #define USEARDUINOIO	1 // ARduino IO
 
 // Uыe TFT output
 #define USEUTFT		0
+#define USETVOUT	1
 // Use multiterminal mode
 #define BASIC_MULTITERMINAL 0
 // Use external memory
-#define USE_EXTMEM	0
+#define USE_EXTMEM	1
 #define EXTMEM_ADDRESS 0x8000
 #define EXTMEM_SIZE 32768
 
@@ -48,7 +49,7 @@ namespace BASIC
 // Tokenize keywords in program text
 const bool TOKENIZE = true;
 // Max size of the program line
-const uint8_t PROGSTRINGSIZE = 73;
+const uint8_t PROGSTRINGSIZE = 80;
 
 // Number of bytes for program text, variables and stack
 #if USE_EXTMEM
