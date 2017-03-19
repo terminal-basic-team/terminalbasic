@@ -70,15 +70,17 @@ FunctionBlock::getCommand(const char *name) const
 FunctionBlock::function
 FunctionBlock::_getFunction(const char *name) const
 {
-	if (functionTokens == NULL)
-		return (NULL);
+	function result = NULL;
 	
-	uint8_t index;
-	if (scanTable((const uint8_t*)name, functionTokens, index))
-		return (reinterpret_cast<FunctionBlock::command>(
-		    pgm_read_ptr(&functions[index])));
+	if (functionTokens != NULL) {
+		uint8_t index;
+		if (scanTable((const uint8_t*)name, functionTokens, index)) {
+			result = reinterpret_cast<FunctionBlock::function>(
+			    pgm_read_ptr(&functions[index]));
+		}
+	}
 
-	return (NULL);
+	return (result);
 }
 
 FunctionBlock::command

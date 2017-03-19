@@ -87,7 +87,7 @@ protected:
 	const uint8_t *commandTokens;
 	const FunctionBlock::command *commands;
 	const uint8_t *functionTokens;
-	const FunctionBlock::command *functions;
+	const FunctionBlock::function *functions;
 private:
 	FunctionBlock *_next;
 };
