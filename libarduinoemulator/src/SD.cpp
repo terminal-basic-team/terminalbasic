@@ -36,6 +36,12 @@ SDClass::begin(uint8_t csPin)
 	return (true);
 }
 
+bool
+SDClass::begin(uint32_t, uint8_t csPin)
+{
+	return (true);
+}
+
 File
 File::openNextFile(uint8_t mode)
 {
