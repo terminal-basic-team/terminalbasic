@@ -60,24 +60,6 @@ Font::firstChar() const
 	return (pgm_read_byte(_font+2));
 }
 
-/* Call this to start video output with the default resolution.
- * 
- * Arguments:
- *	mode:
- *		The video standard to follow:
- *		PAL		=1	=_PAL
- *		NTSC	=0	=_NTSC
- *
- * Returns:
- *	0 if no error.
- *	4 if there is not enough memory.
- */
-char TVoutEx::begin(VideMode_t mode)
-{	
-	return begin(mode,128,96);
-}
-
-
 /* call this to start video output with a specified resolution.
  *
  * Arguments:
@@ -96,23 +78,23 @@ char TVoutEx::begin(VideMode_t mode)
  *		2 if y is to large (NTSC only cannot fill PAL vertical resolution by 8bit limit)
  *		4 if there is not enough memory for the frame buffer.
  */
-char TVoutEx::begin(VideMode_t mode, uint8_t x, uint8_t y) {
+char TVoutEx::begin(VideMode_t mode, uint16_t x, uint16_t y) {
 	
 	// check if x is divisable by 8
-	if ( !(x & 0xF8))
-		return 1;
+	if (!(x & 0xFFF8u))
+		return (1);
 	x = x/8;
 		
 	screen = (unsigned char*)malloc(x * y * sizeof(unsigned char));
 	if (screen == NULL)
-		return 4;
-		
+		return (4);
+
 	cursor_x = 0;
 	cursor_y = 0;
 	
-	render_setup(mode,x,y,screen);
+	render_setup(mode, x, y, screen);
 	clear_screen();
-	return 0;
+	return (0);
 } // end of begin
 
 
@@ -158,20 +140,19 @@ void TVoutEx::fill(Color_t color)
  * Returns: 
  *	The horizonal resolution.
 */
-unsigned char TVoutEx::hres()
+uint16_t TVoutEx::hres()
 {
-	return display.hres*8;
+	return (8u*display.hres);
 } // end of hres
-
 
 /* Gets the Vertical resolution of the screen
  *
  * Returns:
  *	The vertical resolution
 */
-unsigned char TVoutEx::vres()
+uint16_t TVoutEx::vres()
 {
-	return display.vres;
+	return (display.vres);
 } // end of vres
 
 
@@ -709,7 +690,7 @@ void TVoutEx::bitmap(uint8_t x, uint8_t y, const unsigned char * bmp,
  *		LEFT	=2
  *		RIGHT	=3
 */
-void TVoutEx::shift(uint8_t distance, uint8_t direction)
+void TVoutEx::shift(uint8_t distance, Direction_t direction)
 {
 	uint8_t * src;
 	uint8_t * dst;
@@ -802,7 +783,6 @@ static void inline sp(uint8_t x, uint8_t y, char c)
 		display.screen[(x/8) + (y*display.hres)] ^= 0x80 >> (x&7);
 } // end of sp
 
-
 /* set the vertical blank function call
  * The function passed to this function will be called one per frame.
  * The function should be quickish.
@@ -855,7 +835,6 @@ void TVoutEx::tone(unsigned int frequency)
  */
 void TVoutEx::tone(unsigned int frequency, unsigned long duration_ms)
 {
-
 	if (frequency == 0)
 		return;
 
@@ -931,7 +910,7 @@ void TVoutEx::noTone()
 	PORT_SND &= ~(_BV(SND_PIN)); //set pin 11 to 0
 } // end of noTone
 
-void TVoutEx::select_font(const unsigned char * f)
+void TVoutEx::select_font(const unsigned char *f)
 {
 	font.setFont(f);
 }
@@ -940,7 +919,7 @@ void TVoutEx::select_font(const unsigned char * f)
  * print an 8x8 char c at x,y
  * x must be a multiple of 8
  */
-void TVoutEx::print_char(uint8_t x, uint8_t y, unsigned char c)
+void TVoutEx::print_char(uint8_t x, uint8_t y, uint8_t c)
 {
 	c -= font.firstChar();
 	bitmap(x, y, font.font(), (c*font.height())+3, font.width(),

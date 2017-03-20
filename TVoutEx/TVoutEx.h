@@ -50,15 +50,14 @@ enum Color_t : uint8_t
 	INVERT = 2
 };
 
-#define UP					0
-#define DOWN					1
-#define LEFT					2
-#define RIGHT					3
+enum Direction_t : uint8_t
+{
+	UP = 0,
+	DOWN = 1,
+	LEFT = 2,
+	RIGHT = 3
+};
 
-#define DEC 10
-#define HEX 16
-#define OCT 8
-#define BIN 2
 #define BYTE 0
 
 // Macros for clearer usage
@@ -89,13 +88,12 @@ class TVoutEx
 public:
 	uint8_t * screen;
 	
-	char begin(VideMode_t);
-	char begin(VideMode_t, uint8_t x, uint8_t y);
+	char begin(VideMode_t, uint16_t=128u, uint16_t=96u);
 	void end();
 	
 	//accessor functions
-	unsigned char hres();
-	unsigned char vres();
+	uint16_t hres();
+	uint16_t vres();
 	char char_line();
 	
 	//flow control functions
@@ -112,7 +110,7 @@ public:
 	void set_pixel(uint8_t x, uint8_t y, char c);
 	unsigned char get_pixel(uint8_t x, uint8_t y);
 	void fill(Color_t color);
-	void shift(uint8_t distance, uint8_t direction);
+	void shift(uint8_t distance, Direction_t direction);
 	void draw_line(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, char c);
 	void draw_row(uint8_t line, uint16_t x0, uint16_t x1, uint8_t c);
 	void draw_column(uint8_t row, uint16_t y0, uint16_t y1, uint8_t c);
@@ -131,51 +129,11 @@ public:
 	
 //The following function definitions can be found in TVoutPrint.cpp
 //printing functions
-	void print_char(uint8_t x, uint8_t y, unsigned char c);
+	void print_char(uint8_t x, uint8_t y, uint8_t c);
 	void set_cursor(uint8_t, uint8_t);
 	void select_font(const unsigned char * f);
 
-    void write(uint8_t);
-    void write(const char *str);
-    void write(const uint8_t *buffer, uint8_t size);
-
-    void print(const char[]);
-    void print(char, int = BYTE);
-    void print(unsigned char, int = BYTE);
-    void print(int, int = DEC);
-    void print(unsigned int, int = DEC);
-    void print(long, int = DEC);
-    void print(unsigned long, int = DEC);
-    void print(double, int = 2);
-	
-	void print(uint8_t, uint8_t, const char[]);
-	void print(uint8_t, uint8_t, char, int = BYTE);
-	void print(uint8_t, uint8_t, unsigned char, int = BYTE);
-	void print(uint8_t, uint8_t, int, int = DEC);
-	void print(uint8_t, uint8_t, unsigned int, int = DEC);
-	void print(uint8_t, uint8_t, long, int = DEC);
-	void print(uint8_t, uint8_t, unsigned long, int = DEC);
-	void print(uint8_t, uint8_t, double, int = 2);
-	
-	void println(uint8_t, uint8_t, const char[]);
-    void println(uint8_t, uint8_t, char, int = BYTE);
-    void println(uint8_t, uint8_t, unsigned char, int = BYTE);
-    void println(uint8_t, uint8_t, int, int = DEC);
-    void println(uint8_t, uint8_t, unsigned int, int = DEC);
-    void println(uint8_t, uint8_t, long, int = DEC);
-    void println(uint8_t, uint8_t, unsigned long, int = DEC);
-    void println(uint8_t, uint8_t, double, int = 2);
-    void println(uint8_t, uint8_t);
-
-    void println(const char[]);
-    void println(char, int = BYTE);
-    void println(unsigned char, int = BYTE);
-    void println(int, int = DEC);
-    void println(unsigned int, int = DEC);
-    void println(long, int = DEC);
-    void println(unsigned long, int = DEC);
-    void println(double, int = 2);
-    void println(void);
+	void write(uint8_t);
 	
 	void printPGM(const char[]);
 	void printPGM(uint8_t, uint8_t, const char[]);
@@ -185,8 +143,6 @@ private:
 	Font	font;
 	
 	void inc_txtline();
-	void printNumber(unsigned long, uint8_t);
-	void printFloat(double, uint8_t);
 };
 
 static void inline sp(unsigned char x, unsigned char y, char c); 

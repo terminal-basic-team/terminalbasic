@@ -44,12 +44,11 @@ struct TVout_vid
 	char vscale_const;		//combine me with status switch
 	char vscale;			//combine me too.
 	char vsync_end;			//remove me
-	uint8_t * screen;
+	uint8_t *screen;
 	size_t size() const { return (hres*vres); }
 };
 
 extern TVout_vid display;
-
 extern void (*hbi_hook)();
 extern void (*vbi_hook)();
 

@@ -119,17 +119,15 @@ void render_setup(VideMode_t mode, uint8_t x, uint8_t y, uint8_t *scrnptr) {
 }
 
 void blank_line() {
-	if ( display.scanLine == display.start_render) {
+	if (display.scanLine == display.start_render) {
 		renderLine = 0;
 		display.vscale = display.vscale_const;
 		line_handler = &active_line;
-	}
-	else if (display.scanLine == display.lines_frame) {
+	} else if (display.scanLine == display.lines_frame) {
 		line_handler = &vsync_line;
 		vbi_hook();
 	}
-	
-	display.scanLine++;
+	++(display.scanLine);
 }
 
 void active_line() {
@@ -138,42 +136,34 @@ void active_line() {
 	if (!display.vscale) {
 		display.vscale = display.vscale_const;
 		renderLine += display.hres;
-	}
-	else
-		display.vscale--;
+	} else
+		--(display.vscale);
 		
 	if ((display.scanLine + 1) == (int)(display.start_render + (display.vres*(display.vscale_const+1))))
 		line_handler = &blank_line;
 		
-	display.scanLine++;
+	++(display.scanLine);
 }
 
-void vsync_line() {
-
+void vsync_line()
+{
 	if (display.scanLine >= display.lines_frame) {
 		OCR1A = _CYCLES_VIRT_SYNC;
 		display.scanLine = 0;
-		display.frames++;
+		++(display.frames);
 
-		if (remainingToneVsyncs != 0)
-		{
+		if (remainingToneVsyncs != 0) {
 			if (remainingToneVsyncs > 0)
-			{
-				remainingToneVsyncs--;
-			}
-
-		} else
-		{
+				--remainingToneVsyncs;
+		} else {
 			TCCR2B = 0; //stop the tone
  			PORTB &= ~(_BV(SND_PIN));
 		}
-
-	}
-	else if (display.scanLine == display.vsync_end) {
+	} else if (display.scanLine == display.vsync_end) {
 		OCR1A = _CYCLES_HORZ_SYNC;
 		line_handler = &blank_line;
 	}
-	display.scanLine++;
+	++(display.scanLine);
 }
 
 
