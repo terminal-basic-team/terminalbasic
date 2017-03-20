@@ -7,3 +7,6 @@ syntax: glob
 *.hex
 *.bin
 */dist/*
+*/build/*
+*.mk
+*.bash
