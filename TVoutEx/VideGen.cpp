@@ -26,7 +26,7 @@
 #include <avr/interrupt.h>
 #include <avr/io.h>
 
-#include "video_gen.h"
+#include "VideoGen.h"
 #include "spec/video_properties.h"
 #include "spec/asm_macros.h"
 
@@ -48,14 +48,14 @@ volatile long remainingToneVsyncs;
 
 void empty() {}
 
-void render_setup(uint8_t mode, uint8_t x, uint8_t y, uint8_t *scrnptr) {
+void render_setup(VideMode_t mode, uint8_t x, uint8_t y, uint8_t *scrnptr) {
 	
 	display.screen = scrnptr;
 	display.hres = x;
 	display.vres = y;
 	display.frames = 0;
 	
-	if (mode)
+	if (mode == PAL)
 		display.vscale_const = _PAL_LINE_DISPLAY/display.vres - 1;
 	else
 		display.vscale_const = _NTSC_LINE_DISPLAY/display.vres - 1;
@@ -96,7 +96,7 @@ void render_setup(uint8_t mode, uint8_t x, uint8_t y, uint8_t *scrnptr) {
 	TCCR1A = _BV(COM1A1) | _BV(COM1A0) | _BV(WGM11);
 	TCCR1B = _BV(WGM13) | _BV(WGM12) | _BV(CS10);
 	
-	if (mode) {
+	if (mode == PAL) {
 		display.start_render = _PAL_LINE_MID - ((display.vres * (display.vscale_const+1))/2);
 		display.output_delay = _PAL_CYCLES_OUTPUT_START;
 		display.vsync_end = _PAL_LINE_STOP_VSYNC;
@@ -104,7 +104,7 @@ void render_setup(uint8_t mode, uint8_t x, uint8_t y, uint8_t *scrnptr) {
 		ICR1 = _PAL_CYCLES_SCANLINE;
 		OCR1A = _CYCLES_HORZ_SYNC;
 		}
-	else {
+	else if (mode == NTSC) {
 		display.start_render = _NTSC_LINE_MID - ((display.vres * (display.vscale_const+1))/2) + 8;
 		display.output_delay = _NTSC_CYCLES_OUTPUT_START;
 		display.vsync_end = _NTSC_LINE_STOP_VSYNC;

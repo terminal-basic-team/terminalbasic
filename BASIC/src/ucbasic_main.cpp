@@ -36,7 +36,7 @@
 #endif
 
 #if USETVOUT
-#include "tvout_print.hpp"
+#include "TVoutPrint.hpp"
 #endif
 
 /**

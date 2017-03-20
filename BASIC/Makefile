@@ -151,6 +151,10 @@ copy_Arduino_mega2560 : ARCH=arduinoMEGA
 copy_Arduino_mega2560 : UCARCH=atmega2560
 copy_Arduino_mega2560 : copy
 	
+copy_Arduino_mega2560_tvout : ARCH=arduinoMEGA
+copy_Arduino_mega2560_tvout : UCARCH=atmega2560
+copy_Arduino_mega2560_tvout : copy
+	
 copy_Atmega1284 : ARCH=mighty1284
 copy_Atmega1284 : UCARCH=atmega1284p
 copy_Atmega1284 : copy

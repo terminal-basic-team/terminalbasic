@@ -37,21 +37,20 @@ application as possible.
 #include <avr/interrupt.h>
 #include <stdlib.h>
 
-#include "video_gen.h"
+#include "VideoGen.h"
 #include "spec/hardware_setup.h"
 #include "spec/video_properties.h"
 
 // macros for readability when selecting mode.
-#define PAL						1
-#define	NTSC					0
-#define _PAL					1
-#define _NTSC					0
 
-#define WHITE					1
-#define BLACK					0
-#define INVERT					2
+enum Color_t : uint8_t
+{
+	BLACK = 0,
+	WHITE = 1,
+	INVERT = 2
+};
 
-#define UP						0
+#define UP					0
 #define DOWN					1
 #define LEFT					2
 #define RIGHT					3
@@ -63,18 +62,35 @@ application as possible.
 #define BYTE 0
 
 // Macros for clearer usage
-#define clear_screen()				fill(0)
-#define invert(color)				fill(2)
+#define clear_screen()				fill(BLACK)
+#define invert(color)				fill(INVERT)
+
+
+class Font
+{
+public:
+	void setFont(const unsigned char *f)
+	{
+		_font = f;
+	}
+	uint8_t width() const;
+	uint8_t height() const;
+	uint8_t firstChar() const;
+	const unsigned char *font() const;
+private:
+	const unsigned char *_font;
+};
 
 /*
 TVout.cpp contains a brief expenation of each function.
 */
-class TVout {
+class TVoutEx
+{
 public:
 	uint8_t * screen;
 	
-	char begin(uint8_t mode);
-	char begin(uint8_t mode, uint8_t x, uint8_t y);
+	char begin(VideMode_t);
+	char begin(VideMode_t, uint8_t x, uint8_t y);
 	void end();
 	
 	//accessor functions
@@ -95,7 +111,7 @@ public:
 	//basic rendering functions
 	void set_pixel(uint8_t x, uint8_t y, char c);
 	unsigned char get_pixel(uint8_t x, uint8_t y);
-	void fill(uint8_t color);
+	void fill(Color_t color);
 	void shift(uint8_t distance, uint8_t direction);
 	void draw_line(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, char c);
 	void draw_row(uint8_t line, uint16_t x0, uint16_t x1, uint8_t c);
@@ -166,11 +182,11 @@ public:
 	
 private:
 	uint8_t cursor_x,cursor_y;
-	const unsigned char * font;
+	Font	font;
 	
 	void inc_txtline();
-    void printNumber(unsigned long, uint8_t);
-    void printFloat(double, uint8_t);
+	void printNumber(unsigned long, uint8_t);
+	void printFloat(double, uint8_t);
 };
 
 static void inline sp(unsigned char x, unsigned char y, char c); 

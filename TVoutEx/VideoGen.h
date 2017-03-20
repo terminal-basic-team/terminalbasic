@@ -26,7 +26,14 @@
 #ifndef VIDEO_GEN_H
 #define VIDEO_GEN_H
 
-typedef struct {
+enum VideMode_t : uint8_t
+{
+	NTSC = 0,
+	PAL = 1
+};
+
+struct TVout_vid
+{
 	volatile int scanLine;
 	volatile unsigned long frames;
 	unsigned char start_render;
@@ -38,14 +45,15 @@ typedef struct {
 	char vscale;			//combine me too.
 	char vsync_end;			//remove me
 	uint8_t * screen;
-} TVout_vid;
+	size_t size() const { return (hres*vres); }
+};
 
 extern TVout_vid display;
 
 extern void (*hbi_hook)();
 extern void (*vbi_hook)();
 
-void render_setup(uint8_t mode, uint8_t x, uint8_t y, uint8_t *scrnptr);
+void render_setup(VideMode_t mode, uint8_t x, uint8_t y, uint8_t *scrnptr);
 
 void blank_line();
 void active_line();
