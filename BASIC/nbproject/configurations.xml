@@ -62,12 +62,9 @@
         <ccTool>
           <standard>8</standard>
           <incDir>
-            <pElem>../arduino</pElem>
-            <pElem>src</pElem>
-            <pElem>../include</pElem>
-            <pElem>../../libarduinoext/include</pElem>
-            <pElem>../libarduinoemulator/include</pElem>
             <pElem>include</pElem>
+            <pElem>../../libarduinoext/include</pElem>
+            <pElem>../../libarduinoemulator/include</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
           </incDir>
           <commandLine>`pkg-config --cflags posixcpp`</commandLine>
@@ -77,12 +74,12 @@
           <output>${CND_DISTDIR}/${CND_CONF}/basic</output>
           <linkerLibItems>
             <linkerLibProjectItem>
-              <makeArtifact PL="../libarduinoemulator"
+              <makeArtifact PL="../../libarduinoemulator"
                             CT="3"
                             CN="Debug"
-                            AC="true"
+                            AC="false"
                             BL="true"
-                            WD="../libarduinoemulator"
+                            WD="../../libarduinoemulator"
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinoemulator.a">
@@ -109,6 +106,12 @@
         <packType>Tar</packType>
         <output>${CND_DISTDIR}/${CND_CONF}/package/basic.tar</output>
         <packFileList>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
           <packFileListElem type="File"
                             to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
                             from="${OUTPUT_PATH}"
@@ -709,13 +712,10 @@
           <stripSymbols>true</stripSymbols>
           <standard>8</standard>
           <incDir>
-            <pElem>../arduino</pElem>
-            <pElem>src</pElem>
-            <pElem>../include</pElem>
-            <pElem>../../libarduinoext/include</pElem>
-            <pElem>../libarduinoemulator/include</pElem>
             <pElem>include</pElem>
-            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/cores/arduino</pElem>
+            <pElem>../../libarduinoext/include</pElem>
+            <pElem>../../libarduinoemulator/include</pElem>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
           </incDir>
           <commandLine>-O3 -march=pentium3 -mfpmath=sse `pkg-config --cflags posixcpp`</commandLine>
           <warningLevel>2</warningLevel>
@@ -724,12 +724,12 @@
           <output>${CND_DISTDIR}/${CND_CONF}/terminal-basic</output>
           <linkerLibItems>
             <linkerLibProjectItem>
-              <makeArtifact PL="../libarduinoemulator"
+              <makeArtifact PL="../../libarduinoemulator"
                             CT="3"
                             CN="Release"
                             AC="false"
                             BL="true"
-                            WD="../libarduinoemulator"
+                            WD="../../libarduinoemulator"
                             BC="${MAKE}  -f Makefile CONF=Release"
                             CC="${MAKE}  -f Makefile CONF=Release clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinoemulator.a">
