@@ -25,16 +25,17 @@
 #include <math.h>
 
 /*
- * KW_BASE = "BASE"
- * COM_CLS = "CLS"
- * KW_DATA = "DATA"
- * KW_DEF = "DEF"
- * COM_DELAY = "DELAY"
- * KW_DIM = "DIM"
- * COM_DUMP = "DUMP"
- * KW_END = "END"
- * KW_FALSE = "FALSE"
- * KW_FOR = "FOR"
+ * KW_ARRAYS = "ARRAYS" // 1
+ * KW_BASE = "BASE"     // 2
+ * COM_CLS = "CLS"      // 3
+ * KW_DATA = "DATA"     // 4
+ * KW_DEF = "DEF"       // 5
+ * COM_DELAY = "DELAY"  // 6
+ * KW_DIM = "DIM"       // 7
+ * COM_DUMP = "DUMP"    // 8
+ * KW_END = "END"       // 9
+ * KW_FALSE = "FALSE"   // 10
+ * KW_FOR = "FOR"       // 11
  * KW_GOSUB = "GOSUB"
  * KW_GOTO = "GOTO"
  * KW_GO = "GO"
@@ -91,15 +92,15 @@ namespace BASIC
 {
 
 const char sNOTOKENS[] PROGMEM = "NOTOKENS";  // 0
-const char sARRAYS[] PROGMEM = "ARRAYS";
-const char sBASE[] PROGMEM = "BASE";
-const char sCLS[] PROGMEM = "CLS";
-const char sDATA[] PROGMEM = "DATA";
+const char sARRAYS[] PROGMEM = "ARRAYS";      // 1
+const char sBASE[] PROGMEM = "BASE";          // 2
+const char sCLS[] PROGMEM = "CLS";            // 3
+const char sDATA[] PROGMEM = "DATA";          // 4
 const char sDEF[] PROGMEM = "DEF";            // 5
-const char sDELAY[] PROGMEM = "DELAY";
-const char sDIM[] PROGMEM = "DIM";
-const char sDUMP[] PROGMEM = "DUMP";
-const char sEND[] PROGMEM = "END";
+const char sDELAY[] PROGMEM = "DELAY";        // 6
+const char sDIM[] PROGMEM = "DIM";            // 7
+const char sDUMP[] PROGMEM = "DUMP";          // 8
+const char sEND[] PROGMEM = "END";            // 9
 const char sFALSE[] PROGMEM = "FALSE";        // 10
 const char sFOR[] PROGMEM = "FOR";            // 11
 const char sGOSUB[] PROGMEM = "GOSUB";
@@ -117,6 +118,7 @@ const char sREM[] PROGMEM = "REM";
 const char sRETURN[] PROGMEM = "RETURN";
 const char sRUN[] PROGMEM = "RUN";
 const char sSAVE[] PROGMEM = "SAVE";
+const char sTAB[] PROGMEM = "TAB";
 const char sNEXT[] PROGMEM = "NEXT";
 const char sON[] PROGMEM = "ON";
 const char sOPTION[] PROGMEM = "OPTION";
@@ -163,17 +165,17 @@ const char sSTRING[] PROGMEM = "C_STRING";
 
 PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 	sNOTOKENS,  // 0
-	sARRAYS,
-	sBASE,
-	sCLS,
-	sDATA,
+	sARRAYS,    // 1
+	sBASE,      // 2
+	sCLS,       // 3
+	sDATA,      // 4
 	sDEF,       // 5
-	sDELAY,
-	sDIM,
-	sDUMP,
-	sEND,
+	sDELAY,     // 6
+	sDIM,       // 7
+	sDUMP,      // 8
+	sEND,       // 9
 	sFALSE,     // 10
-	sFOR,
+	sFOR,       // 11
 	sGOSUB,
 	sGOTO,
 	sGO,
@@ -189,6 +191,7 @@ PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 	sRETURN,
 	sRUN,
 	sSAVE,
+	sTAB,
 
 	sNEXT, sON, sOPTION, sPRINT, sSTOP,
 
@@ -241,6 +244,7 @@ static const uint8_t tokenTable[] PROGMEM = {
 	'R', 'E', 'T', 'U', 'R', 'N'+0x80,
 	'R', 'U', 'N'+0x80,
 	'S', 'A', 'V', 'E'+0x80,
+	'T', 'A', 'B'+0x80,
 	0
 };
 

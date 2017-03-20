@@ -210,13 +210,15 @@
                             perm="755"
                             owner="root"
                             group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
         </packFileList>
       </packaging>
-      <item path="../TVoutEx/TVoutEx.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="../TVoutEx/TVoutEx.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/VideGen.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../TVoutEx/VideoGen.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -253,8 +255,6 @@
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/TVoutPrint.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -863,11 +863,7 @@
           <commandLine>-static</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../TVoutEx/TVoutEx.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="../TVoutEx/TVoutEx.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/VideGen.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../TVoutEx/VideoGen.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -904,8 +900,6 @@
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/TVoutPrint.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
