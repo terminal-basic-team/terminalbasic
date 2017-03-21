@@ -60,6 +60,15 @@ Font::firstChar() const
 	return (pgm_read_byte(_font+2));
 }
 
+TVoutEx *TVoutEx::_instance = NULL;
+
+TVoutEx::TVoutEx()
+{
+	_instance = this;
+	_cursorState = false;
+	//setVbiHook(cursorHook);
+}
+
 /* call this to start video output with a specified resolution.
  *
  * Arguments:
@@ -92,7 +101,7 @@ char TVoutEx::begin(VideMode_t mode, uint16_t x, uint16_t y) {
 	cursor_x = 0;
 	cursor_y = 0;
 	
-	render_setup(mode, x, y, screen);
+	renderSetup(mode, x, y, screen);
 	clear_screen();
 	return (0);
 } // end of begin
@@ -520,7 +529,6 @@ void TVoutEx::draw_column(uint8_t row, uint16_t y0, uint16_t y1, uint8_t c)
 */
 void TVoutEx::draw_rect(uint8_t x0, uint8_t y0, uint8_t w, uint8_t h, char c, char fc)
 {
-	
 	if (fc != -1) {
 		for (unsigned char i = y0; i < y0+h; i++)
 			draw_row(i,x0,x0+w,fc);
@@ -551,7 +559,6 @@ void TVoutEx::draw_rect(uint8_t x0, uint8_t y0, uint8_t w, uint8_t h, char c, ch
  */
 void TVoutEx::draw_circle(uint8_t x0, uint8_t y0, uint8_t radius, char c, char fc)
 {
-
 	int f = 1 - radius;
 	int ddF_x = 1;
 	int	ddF_y = -2 * radius;
@@ -627,7 +634,6 @@ void TVoutEx::draw_circle(uint8_t x0, uint8_t y0, uint8_t radius, char c, char f
 void TVoutEx::bitmap(uint8_t x, uint8_t y, const unsigned char * bmp,
 				   uint16_t i, uint8_t width, uint8_t lines)
 {
-
 	uint8_t temp, lshift, rshift, save, xtra;
 	uint16_t si = 0;
 	
@@ -791,11 +797,25 @@ static void inline sp(uint8_t x, uint8_t y, char c)
  *	func:
  *		The function to call.
  */
-void TVoutEx::set_vbi_hook(void (*func)())
+void TVoutEx::setVbiHook(void (*func)())
 {
-	vbi_hook = func;
-} // end of set_vbi_hook
+	vbiHook = func;
+}
 
+void
+TVoutEx::cursorHook()
+{
+	Color_t c;
+	if (_instance->_cursorState)
+		c = WHITE;
+	else
+		c = BLACK;
+	
+	_instance->draw_rect(_instance->cursor_x, _instance->cursor_y,
+	    _instance->font.width(), _instance->font.height(),
+	    c, c);
+	_instance->_cursorState = !_instance->_cursorState;
+}
 
 /* set the horizonal blank function call
  * This function passed to this function will be called one per scan line.
@@ -821,7 +841,7 @@ void TVoutEx::set_hbi_hook(void (*func)())
 void TVoutEx::tone(unsigned int frequency)
 {
 	tone(frequency, 0);
-} // end of tone
+}
 
 
 /* Simple tone generation

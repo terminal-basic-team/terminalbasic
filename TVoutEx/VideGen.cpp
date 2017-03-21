@@ -41,15 +41,15 @@ TVout_vid display;
 void (*render_line)();			//remove me
 void (*line_handler)();			//remove me
 void (*hbi_hook)() = &empty;
-void (*vbi_hook)() = &empty;
+void (*vbiHook)() = &empty;
 
 // sound properties
 volatile long remainingToneVsyncs;
 
 void empty() {}
 
-void render_setup(VideMode_t mode, uint8_t x, uint8_t y, uint8_t *scrnptr) {
-	
+void renderSetup(VideMode_t mode, uint8_t x, uint8_t y, uint8_t *scrnptr)
+{
 	display.screen = scrnptr;
 	display.hres = x;
 	display.vres = y;
@@ -118,19 +118,21 @@ void render_setup(VideMode_t mode, uint8_t x, uint8_t y, uint8_t *scrnptr) {
 	sei();
 }
 
-void blank_line() {
+void blank_line()
+{
 	if (display.scanLine == display.start_render) {
 		renderLine = 0;
 		display.vscale = display.vscale_const;
 		line_handler = &active_line;
 	} else if (display.scanLine == display.lines_frame) {
 		line_handler = &vsync_line;
-		vbi_hook();
+		vbiHook();
 	}
 	++(display.scanLine);
 }
 
-void active_line() {
+void active_line()
+{
 	wait_until(display.output_delay);
 	render_line();
 	if (!display.vscale) {
@@ -139,7 +141,8 @@ void active_line() {
 	} else
 		--(display.vscale);
 		
-	if ((display.scanLine + 1) == (int)(display.start_render + (display.vres*(display.vscale_const+1))))
+	if ((display.scanLine + 1) == (int)(display.start_render +
+	    (display.vres*(display.vscale_const+1))))
 		line_handler = &blank_line;
 		
 	++(display.scanLine);

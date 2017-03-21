@@ -88,6 +88,8 @@ class TVoutEx
 public:
 	uint8_t * screen;
 	
+        TVoutEx();
+        
 	char begin(VideMode_t, uint16_t=128u, uint16_t=96u);
 	void end();
 	
@@ -119,7 +121,7 @@ public:
 	void bitmap(uint8_t x, uint8_t y, const unsigned char * bmp, uint16_t i = 0, uint8_t width = 0, uint8_t lines = 0);
 	
 	//hook setup functions
-	void set_vbi_hook(void (*func)());
+	void setVbiHook(void (*func)());
 	void set_hbi_hook(void (*func)());
 
 	//tone functions
@@ -139,8 +141,11 @@ public:
 	void printPGM(uint8_t, uint8_t, const char[]);
 	
 private:
+	static void cursorHook();
 	uint8_t cursor_x,cursor_y;
+        bool             _cursorState;
 	Font	font;
+        static TVoutEx  *_instance;
 	
 	void inc_txtline();
 };
