@@ -87,10 +87,7 @@ private:
 	void first_A();
 	void first_N();
 	void first_O();
-	void first_P();
-	void first_S();
 	void first_T();
-	void first_V();
 
 	void fitst_LT();
 	void fitst_GT();
