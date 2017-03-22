@@ -54,3 +54,5 @@ r0.7 (19.03.2017) Fix integer constants parsing bug;
 
 r0.7.1 (22.03.2017)
 		  Fix bug with real arrays declaration
+			Fix dependency on libarduinoemulator repo
+			
