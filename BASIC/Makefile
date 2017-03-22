@@ -56,7 +56,7 @@ SIZE=${TOOLS}/bin/avr-size
 AVRDUDE_CONF=${TOOLS}/etc/avrdude.conf
 
 BUILD:=$(shell cat "./build-${CONF}")
-VERSION:=0.7.0-${BUILD}
+VERSION:=0.7.1-${BUILD}
 
 # build
 build: .build-post

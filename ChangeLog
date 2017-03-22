@@ -21,7 +21,7 @@ r0.3 (07.12.2016)	Interpreter rewrited as FSM with short-time step() method. Thi
 r0.4 (26.12.2016)	LIST command outputs syntax-highlighted program text;
 			Boolean datatype with TRUE and FALSE constants and ! variable name suffix;
 			ArduinoIO module was  updated;
-			SDCard program save/load module;
+			SDCard program save/load module.
 
 r0.5 (27.01.2017)	4-byte integer optional datatype with %% variable name suffix;
 			RANDOMIZE command was added;
@@ -40,7 +40,17 @@ r0.6.2 (24.02.2017)	Fix program string size when saving to internal memory
 			Fix multivalue input
 			Fix input of real numbers
 
-r0.6.3 ()		Fix Atmega2560 with external memory build
-			FIx input/output boundary objects usage
+r0.6.3 (28.02.2017)	Fix Atmega2560 with external memory build
+			Fix input/output boundary objects usage
 			Fix listing of variables ids
-			Fix string variables input
+			Fix string variables input.
+
+r0.7 (19.03.2017) Fix integer constants parsing bug;
+			Fix arithmetic operation presedence;
+			Add condition compilation of real numbers support;
+			Use lightweight serail port Stream to save FLASH/SRAM space;
+			Extend PRINT command to pass MINIMAL BASIC tests;
+			SD card module uses textual source form to save and load programs.
+
+r0.7.1 (22.03.2017)
+		  Fix bug with real arrays declaration
