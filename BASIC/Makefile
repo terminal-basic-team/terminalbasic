@@ -54,6 +54,7 @@ AVRDUDE=${TOOLS}/bin/avrdude
 OBJCOPY=${TOOLS}/bin/avr-objcopy
 SIZE=${TOOLS}/bin/avr-size
 AVRDUDE_CONF=${TOOLS}/etc/avrdude.conf
+JAVA=/usr/lib/jvm/java-1.8.0-openjdk-i386/bin/java  
 
 BUILD:=$(shell cat "./build-${CONF}")
 VERSION:=0.7.0-${BUILD}

@@ -58,7 +58,7 @@ static PGM_P const progmemStrings[uint8_t(ProgMemStrings::NUM_STRINGS)] PROGMEM 
 	strSTACK, // STACK
 	strDIR, // DIR
 	strREALLY, // REALLY
-	strEND
+	strEND // END
 };
 
 uint8_t*
