@@ -62,10 +62,7 @@
                 </confElem>
             </confList>
             <formatting>
-                <project-formatting-style>true</project-formatting-style>
-                <c-style>OpenSolaris|OpenSolaris</c-style>
-                <cpp-style>OpenSolaris|OpenSolaris</cpp-style>
-                <header-style>OpenSolaris|OpenSolaris</header-style>
+                <project-formatting-style>false</project-formatting-style>
             </formatting>
         </data>
     </configuration>

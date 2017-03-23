@@ -970,9 +970,9 @@ Interpreter::print(Token t)
 	char buf[16];
 	strcpy_P(buf, (PGM_P) pgm_read_word(&(Lexer::tokenStrings[
 	    uint8_t(t)])));
-	if (t <= Token::KW_VARS)
+	if (t < Token::OP_AND)
 		print(buf, TextAttr(uint8_t(BRIGHT) |
-	    uint8_t(C_GREEN)));
+		    uint8_t(C_GREEN)));
 	else
 		print(buf);
 }

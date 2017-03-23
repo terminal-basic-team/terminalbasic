@@ -26,6 +26,7 @@
  */
 #define USE_REALS	1 // Real arithmetics
 #define USE_LONGINT	1 // Long integer support
+#define USE_DUMP	1
 
 /**
  * Used modules

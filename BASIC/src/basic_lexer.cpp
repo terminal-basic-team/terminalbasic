@@ -39,9 +39,9 @@
  * KW_GOSUB = "GOSUB"   // 12
  * KW_GOTO = "GOTO"     // 13
  * KW_GO = "GO"         // 14
- * KW_IF = "IF"
- * KW_INPUT = "INPUT"
- * KW_LET = "LET"
+ * KW_IF = "IF"         // 15
+ * KW_INPUT = "INPUT"   // 16
+ * KW_LET = "LET"       // 17
  * COM_LIST = "LIST"
  * COM_LOAD = "LOAD"
  * COM_NEW = "NEW"
@@ -58,12 +58,10 @@
  * KW_STEP = "STEP"
  * KW_STOP = "STOP"
  * KW_TAB = "TAB"
- * KW_VARS = "VARS"
- * 
- * KW_ARRAYS = "ARRAYS"
  * KW_THEN = "THEN"
  * KW_TO = "TO"
  * KW_TRUE = "TRUE"
+ * KW_VARS = "VARS"
  * 
  * OP_AND = "AND"
  * OP_NOT = "NOT"
@@ -92,23 +90,27 @@ namespace BASIC
 {
 
 const char sNOTOKENS[] PROGMEM = "NOTOKENS";  // 0
+#if USE_DUMP
 const char sARRAYS[] PROGMEM = "ARRAYS";      // 1
+#endif
 const char sBASE[] PROGMEM = "BASE";          // 2
 const char sCLS[] PROGMEM = "CLS";            // 3
 const char sDATA[] PROGMEM = "DATA";          // 4
 const char sDEF[] PROGMEM = "DEF";            // 5
 const char sDELAY[] PROGMEM = "DELAY";        // 6
 const char sDIM[] PROGMEM = "DIM";            // 7
+#if USE_DUMP
 const char sDUMP[] PROGMEM = "DUMP";          // 8
+#endif
 const char sEND[] PROGMEM = "END";            // 9
 const char sFALSE[] PROGMEM = "FALSE";        // 10
 const char sFOR[] PROGMEM = "FOR";            // 11
 const char sGOSUB[] PROGMEM = "GOSUB";        // 12
 const char sGOTO[] PROGMEM = "GOTO";          // 13
 const char sGO[] PROGMEM = "GO";              // 14
-const char sIF[] PROGMEM = "IF";
-const char sINPUT[] PROGMEM = "INPUT";
-const char sLET[] PROGMEM = "LET";
+const char sIF[] PROGMEM = "IF";              // 15
+const char sINPUT[] PROGMEM = "INPUT";        // 16
+const char sLET[] PROGMEM = "LET";            // 17
 const char sLIST[] PROGMEM = "LIST";
 const char sLOAD[] PROGMEM = "LOAD";
 const char sNEW[] PROGMEM = "NEW";
@@ -125,11 +127,12 @@ const char sSAVE[] PROGMEM = "SAVE";
 const char sSTEP[] PROGMEM = "STEP";
 const char sSTOP[] PROGMEM = "STOP";
 const char sTAB[] PROGMEM = "TAB";
-const char sVARS[] PROGMEM = "VARS";
-
 const char sTHEN[] PROGMEM = "THEN";
 const char sTO[] PROGMEM = "TO";
 const char sTRUE[] PROGMEM = "TRUE";
+#if USE_DUMP
+const char sVARS[] PROGMEM = "VARS";
+#endif
 
 const char sOP_AND[] PROGMEM = "AND";
 const char sOP_NOT[] PROGMEM = "NOT";
@@ -166,23 +169,27 @@ const char sSTRING[] PROGMEM = "C_STRING";
 
 PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 	sNOTOKENS,  // 0
+#if USE_DUMP
 	sARRAYS,    // 1
+#endif
 	sBASE,      // 2
 	sCLS,       // 3
 	sDATA,      // 4
 	sDEF,       // 5
 	sDELAY,     // 6
 	sDIM,       // 7
+#if USE_DUMP
 	sDUMP,      // 8
+#endif
 	sEND,       // 9
 	sFALSE,     // 10
 	sFOR,       // 11
 	sGOSUB,     // 12
 	sGOTO,      // 13
 	sGO,        // 14
-	sIF,
-	sINPUT,
-	sLET,
+	sIF,        // 15
+	sINPUT,     // 16
+	sLET,       // 17
 	sLIST,
 	sLOAD,
 	sNEW,
@@ -199,9 +206,12 @@ PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 	sSTEP,
 	sSTOP,
 	sTAB,
+	sTHEN,
+	sTO,
+	sTRUE,
+#if USE_DUMP
 	sVARS,
-
-	sTHEN, sTO, sTRUE,
+#endif
 
 	sOP_AND, sOP_NOT, sOP_OR,
 
@@ -224,32 +234,36 @@ PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 
 static const uint8_t tokenTable[] PROGMEM = {
 	0x80,
+#if USE_DUMP
 	'A', 'R', 'R', 'A', 'Y', 'S'+0x80, // 1
+#endif
 	'B', 'A', 'S', 'E'+0x80,           // 2
 	'C', 'L', 'S'+0x80,                // 3
 	'D', 'A', 'T', 'A'+0x80,           // 4
 	'D', 'E', 'F'+0x80,                // 5
 	'D', 'E', 'L', 'A', 'Y'+0x80,      // 6
 	'D', 'I', 'M'+0x80,                // 7
+#if USE_DUMP
 	'D', 'U', 'M', 'P'+0x80,           // 8
+#endif
 	'E', 'N', 'D'+0x80,                // 9
 	'F', 'A', 'L', 'S', 'E'+0x80,      // 10
 	'F', 'O', 'R'+0x80,                // 11
 	'G', 'O', 'S', 'U', 'B'+0x80,      // 12
 	'G', 'O', 'T', 'O'+0x80,           // 13
 	'G', 'O'+0x80,                     // 14
-	'I', 'F'+0x80,
-	'I', 'N', 'P', 'U', 'T'+0x80,
-	'L', 'E', 'T'+0x80,
-	'L', 'I', 'S', 'T'+0x80,
-	'L', 'O', 'A', 'D'+0x80,
-	'N', 'E', 'W'+0x80,
-	'N', 'E', 'X', 'T'+0x80,
-	'O', 'N'+0x80,
-	'O', 'P', 'T', 'I', 'O', 'N'+0x80,
-	'P', 'R', 'I', 'N', 'T'+0x80,
-	'R', 'A', 'N', 'D', 'O', 'M', 'I', 'Z', 'E'+0x80,
-	'R', 'E', 'A', 'D'+0x80,
+	'I', 'F'+0x80,                     // 15
+	'I', 'N', 'P', 'U', 'T'+0x80,      // 16
+	'L', 'E', 'T'+0x80,                // 17
+	'L', 'I', 'S', 'T'+0x80,           // 18
+	'L', 'O', 'A', 'D'+0x80,           // 19
+	'N', 'E', 'W'+0x80,                // 20
+	'N', 'E', 'X', 'T'+0x80,           // 21
+	'O', 'N'+0x80,                     // 22
+	'O', 'P', 'T', 'I', 'O', 'N'+0x80, // 23
+	'P', 'R', 'I', 'N', 'T'+0x80,      // 24
+	'R', 'A', 'N', 'D', 'O', 'M', 'I', 'Z', 'E'+0x80, //25
+	'R', 'E', 'A', 'D'+0x80,           // 26
 	'R', 'E', 'M'+0x80,
 	'R', 'E', 'T', 'U', 'R', 'N'+0x80,
 	'R', 'U', 'N'+0x80,
@@ -257,7 +271,12 @@ static const uint8_t tokenTable[] PROGMEM = {
 	'S', 'T', 'E', 'P'+0x80,
 	'S', 'T', 'O', 'P'+0x80,
 	'T', 'A', 'B'+0x80,
+	'T', 'H', 'E', 'N'+0x80,
+	'T', 'O'+0x80,
+	'T', 'R', 'U', 'E'+0x80,
+#if USE_DUMP
 	'V', 'A', 'R', 'S'+0x80,
+#endif
 	0
 };
 
@@ -275,6 +294,22 @@ operator<<(Logger &logger, Token tok)
 #endif
 
 #define SYM (uint8_t(_string[_pointer]))
+
+const uint8_t*
+Lexer::getTokenString(Token t) const
+{
+	const uint8_t *result = tokenTable;
+	
+	uint8_t c; uint8_t index = 0;
+	while ((c = pgm_read_byte(result)) != 0) {
+		if (index == uint8_t(t))
+			return (result);
+		if (c&0x80)
+			++index;
+		c=pgm_read_byte(++result);
+	}
+	return NULL;
+}
 
 void
 Lexer::init(const char *string)
@@ -318,10 +353,6 @@ Lexer::getNext()
 		case 'O':
 			_id[_valuePointer++] = SYM;
 			first_O();
-			return true;
-		case 'T':
-			_id[_valuePointer++] = SYM;
-			first_T();
 			return true;
 		case '=':
 			_token = Token::EQUALS;
@@ -459,47 +490,6 @@ Lexer::first_O()
 		next();
 		_token = Token::OP_OR;
 		return;
-	}
-	ident();
-}
-
-void
-Lexer::first_T()
-{
-	next();
-	switch (SYM) {
-	case 'H':
-		pushSYM();
-		switch (SYM) {
-		case 'E':
-			pushSYM();
-			switch (SYM) {
-			case 'N':
-				next();
-				_token = Token::KW_THEN;
-				return;
-			}
-			break;
-		}
-		break;
-	case 'O':
-		next();
-		_token = Token::KW_TO;
-		return;
-	case 'R':
-		pushSYM();
-		switch (SYM) {
-		case 'U':
-			pushSYM();
-			switch (SYM) {
-			case 'E':
-				next();
-				_token = Token::KW_TRUE;
-				return;
-			}
-			break;
-		}
-		break;
 	}
 	ident();
 }

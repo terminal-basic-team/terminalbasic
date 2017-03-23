@@ -24,23 +24,24 @@
 /**
  * Paraeters
  */
-#define USE_REALS	1 // Real arithmetics
-#define USE_LONGINT	1 // Long integer support
+#define USE_REALS	0 // Real arithmetics
+#define USE_LONGINT	0 // Long integer support
+#define USE_DUMP	0
 
 /**
  * Used modules
  */
-#define USESD		1 // SDcard
-#define USEMATH 	1 // Math (requires USE_REALS)
-#define USEARDUINOIO	1 // ARduino IO
+#define USESD		0 // SDcard
+#define USEMATH 	0 // Math (requires USE_REALS)
+#define USEARDUINOIO	0 // ARduino IO
 
 // Uыe TFT output
 #define USEUTFT		0
-#define USETVOUT	1
+#define USETVOUT	0
 // Use multiterminal mode
 #define BASIC_MULTITERMINAL 0
 // Use external memory
-#define USE_EXTMEM	1
+#define USE_EXTMEM	0
 #define EXTMEM_ADDRESS 0x8000
 #define EXTMEM_SIZE 32768
 

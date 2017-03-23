@@ -51,6 +51,12 @@
                    displayName="Файлы тестов"
                    projectFiles="false"
                    kind="TEST_LOGICAL_FOLDER">
+      <logicalFolder name="f1"
+                     displayName="table test"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/TableTest.cpp</itemPath>
+      </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Важные файлы"
@@ -222,6 +228,12 @@
                             perm="755"
                             owner="root"
                             group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
         </packFileList>
       </packaging>
       <item path="../TVoutEx/TVoutEx.h" ex="false" tool="3" flavor2="0">
@@ -234,6 +246,21 @@
       </item>
       <item path="../TVoutEx/spec/video_properties.h" ex="false" tool="3" flavor2="0">
       </item>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
       <item path="include/TVoutPrint.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -285,6 +312,8 @@
       <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/TableTest.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Arduino_nano328" type="1">
@@ -364,6 +393,21 @@
       </item>
       <item path="../TVoutEx/spec/video_properties.h" ex="false" tool="3" flavor2="0">
       </item>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
       <item path="include/TVoutPrint.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -415,6 +459,8 @@
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/TableTest.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Arduino_UNO" type="1">
@@ -493,6 +539,21 @@
       </item>
       <item path="../TVoutEx/spec/video_properties.h" ex="false" tool="3" flavor2="0">
       </item>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
       <item path="include/TVoutPrint.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -546,6 +607,8 @@
       <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="tests/TableTest.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Arduino_mega2560" type="1">
@@ -632,6 +695,21 @@
       </item>
       <item path="../TVoutEx/spec/video_properties.h" ex="false" tool="3" flavor2="0">
       </item>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
       <item path="include/TVoutPrint.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -685,6 +763,8 @@
       <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="tests/TableTest.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Atmega_128a" type="1">
@@ -762,6 +842,21 @@
       </item>
       <item path="../TVoutEx/spec/video_properties.h" ex="false" tool="3" flavor2="0">
       </item>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
       <item path="include/TVoutPrint.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -815,6 +910,8 @@
       <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="tests/TableTest.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -879,6 +976,21 @@
       </item>
       <item path="../TVoutEx/spec/video_properties.h" ex="false" tool="3" flavor2="0">
       </item>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
       <item path="include/TVoutPrint.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -930,6 +1042,8 @@
       <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="tests/TableTest.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Arduino_mega2560_mainframe" type="1">
@@ -1009,6 +1123,21 @@
       </item>
       <item path="../TVoutEx/spec/video_properties.h" ex="false" tool="3" flavor2="0">
       </item>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
       <item path="include/TVoutPrint.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -1062,6 +1191,8 @@
       <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="tests/TableTest.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Arduino_nano168" type="1">
@@ -1129,11 +1260,7 @@
           <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega168</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../TVoutEx/TVoutEx.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="../TVoutEx/TVoutEx.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/VideGen.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../TVoutEx/VideoGen.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1143,6 +1270,21 @@
       </item>
       <item path="../TVoutEx/spec/video_properties.h" ex="false" tool="3" flavor2="0">
       </item>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
       <item path="include/TVoutPrint.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -1171,8 +1313,6 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/TVoutPrint.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
@@ -1194,6 +1334,8 @@
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/TableTest.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Atmega1284" type="1">
@@ -1278,6 +1420,21 @@
       </item>
       <item path="../TVoutEx/spec/video_properties.h" ex="false" tool="3" flavor2="0">
       </item>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
       <item path="include/TVoutPrint.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -1331,6 +1488,8 @@
       <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="tests/TableTest.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Arduino_mega2560_tvout" type="1">
@@ -1417,6 +1576,21 @@
       </item>
       <item path="../TVoutEx/spec/video_properties.h" ex="false" tool="3" flavor2="0">
       </item>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
       <item path="include/TVoutPrint.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -1470,6 +1644,8 @@
       <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="tests/TableTest.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
   </confs>

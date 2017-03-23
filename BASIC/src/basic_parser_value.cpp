@@ -484,9 +484,9 @@ Parser::Value::printTo(Print& p) const
 	switch (type) {
 	case BOOLEAN:
 		if (value.boolean)
-			p.print(Lexer::tokenStrings[uint8_t(Token::KW_TRUE)]);
+			return p.print(Lexer::tokenStrings[uint8_t(Token::KW_TRUE)]);
 		else
-			p.print(Lexer::tokenStrings[uint8_t(Token::KW_FALSE)]);
+			return p.print(Lexer::tokenStrings[uint8_t(Token::KW_FALSE)]);
 		break;
 #if USE_REALS
 	case REAL:
@@ -497,7 +497,7 @@ Parser::Value::printTo(Print& p) const
 #else
 		::sprintf(buf, "% .7G", value.real);
 #endif
-		p.print(buf);
+		return p.print(buf);
 	}
 		break;
 #endif
@@ -505,22 +505,14 @@ Parser::Value::printTo(Print& p) const
 	case Parser::Value::LONG_INTEGER:
 		if (value.longInteger >= LongInteger(0))
 			p.write(' ');
-		p.print(value.longInteger);
-		break;
+		return p.print(value.longInteger) + 1;
 #endif
 	case Parser::Value::INTEGER:
 		if (value.integer >= Integer(0))
 			p.write(' ');
-		p.print(value.integer);
-		break;
-	case Parser::Value::STRING:
-	{
-		p.print('?');
-		break;
-	}
+		return  p.print(value.integer) + 1;
 	default:
-		p.print('?');
-		break;
+		return p.print('?');
 	}
 }
 

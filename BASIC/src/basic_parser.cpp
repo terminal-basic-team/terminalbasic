@@ -666,6 +666,7 @@ Parser::fCommand()
 			_interpreter.cls();
 		_lexer.getNext();
 		return (true);
+#if USE_DUMP
 	case Token::COM_DUMP:
 	{
 		Interpreter::DumpMode mode = Interpreter::MEMORY;
@@ -682,6 +683,7 @@ Parser::fCommand()
 			_interpreter.dump(mode);
 		return (true);
 	}
+#endif
 	case Token::COM_LIST:
 	{
 		Integer start = 1, stop = 0;
