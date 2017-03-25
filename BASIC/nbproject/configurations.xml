@@ -234,6 +234,12 @@
                             perm="755"
                             owner="root"
                             group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
         </packFileList>
       </packaging>
       <item path="../TVoutEx/TVoutEx.h" ex="false" tool="3" flavor2="0">
@@ -1509,7 +1515,6 @@
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/SoftwareSerial/src</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/SPI/src</pElem>
             <pElem>${ARDUINO_PATH}/libraries/TVoutfonts</pElem>
-            <pElem>${ARDUINO_PATH}/libraries/TVout</pElem>
             <pElem>${ARDUINO_PATH}/libraries/UTFT</pElem>
             <pElem>${ARDUINO_PATH}/libraries/SD/src</pElem>
             <pElem>include</pElem>

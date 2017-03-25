@@ -2859,19 +2859,9 @@
             tool="1"
             flavor2="0">
       </item>
-      <item path="/opt/arduino-1.8.1/libraries/TVout/TVout.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
       <item path="/opt/arduino-1.8.1/libraries/TVout/TVout.h"
             ex="false"
             tool="3"
-            flavor2="0">
-      </item>
-      <item path="/opt/arduino-1.8.1/libraries/TVout/TVoutPrint.cpp"
-            ex="false"
-            tool="1"
             flavor2="0">
       </item>
       <item path="/opt/arduino-1.8.1/libraries/TVout/spec/asm_macros.h"
@@ -2887,11 +2877,6 @@
       <item path="/opt/arduino-1.8.1/libraries/TVout/spec/video_properties.h"
             ex="false"
             tool="3"
-            flavor2="0">
-      </item>
-      <item path="/opt/arduino-1.8.1/libraries/TVout/video_gen.cpp"
-            ex="false"
-            tool="1"
             flavor2="0">
       </item>
       <item path="/opt/arduino-1.8.1/libraries/TVout/video_gen.h"

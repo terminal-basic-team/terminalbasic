@@ -20,7 +20,7 @@
 #define TVOUT_PRINT_HPP
 
 #include <Print.h>
-#include "TVout.h"
+#include "TVoutEx.h"
 
 class TVoutPrint : public Print
 {
@@ -41,7 +41,7 @@ private:
 	void writeIdle(uint8_t);
 	void writeESC(uint8_t);
 	void writeLbracket(uint8_t);
-	TVout	_boundary;
+	TVoutEx	_boundary;
 	State_t	_state;
 };
 
