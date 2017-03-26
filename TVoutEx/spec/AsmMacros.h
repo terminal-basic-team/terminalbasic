@@ -23,7 +23,7 @@
  OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#include "hardware_setup.h"
+#include "HardwareSetup.h"
 
 #ifndef ASM_MACROS_H
 #define ASM_MACROS_H

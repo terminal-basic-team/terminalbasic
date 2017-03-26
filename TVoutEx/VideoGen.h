@@ -32,7 +32,7 @@ enum VideMode_t : uint8_t
 	PAL = 1
 };
 
-struct TVout_vid
+struct TVoutVid
 {
 	volatile int scanLine;
 	volatile unsigned long frames;
@@ -48,24 +48,24 @@ struct TVout_vid
 	size_t size() const { return (hres*vres); }
 };
 
-extern TVout_vid display;
+extern TVoutVid display;
 extern void (*hbi_hook)();
-extern void (*vbiHook)();
+extern void (*vbi_hook)();
 
 void renderSetup(VideMode_t mode, uint8_t x, uint8_t y, uint8_t *scrnptr);
 
-void blank_line();
-void active_line();
-void vsync_line();
-void empty();
+void blankLine();
+void activeLine();
+void vsyncLine();
+void emptyFunction();
 
 //tone generation properties
 extern volatile long remainingToneVsyncs;
 
 // 6cycles functions
-void render_line6c();
-void render_line5c();
-void render_line4c();
-void render_line3c();
-static void inline wait_until(uint8_t time);
+void renderLine6c();
+void renderLine5c();
+void renderLine4c();
+void renderLine3c();
+static void inline waitUntil(uint8_t time);
 #endif

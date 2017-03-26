@@ -60,7 +60,7 @@ TVoutEx::~TVoutEx()
  *	4 if there is not enough memory.
  */
 char
-TVoutEx::begin(uint8_t mode)
+TVoutEx::begin(VideMode_t mode)
 {
 	return begin(mode, 128, 96);
 } // end of begin
@@ -85,7 +85,7 @@ TVoutEx::begin(uint8_t mode)
  *		4 if there is not enough memory for the frame buffer.
  */
 char
-TVoutEx::begin(uint8_t mode, uint8_t x, uint8_t y)
+TVoutEx::begin(VideMode_t mode, uint8_t x, uint8_t y)
 {
 	if (_instance != NULL)
 		return 3;
@@ -102,7 +102,7 @@ TVoutEx::begin(uint8_t mode, uint8_t x, uint8_t y)
 	cursor_x = 0;
 	cursor_y = 0;
 
-	render_setup(mode, x, y, screen);
+	renderSetup(mode, x, y, screen);
 	clear_screen();
 	vbi_hook = vBlank;
 	return 0;
@@ -115,7 +115,7 @@ TVoutEx::end()
 {
 	_instance = NULL;
 	TIMSK1 = 0;
-	vbi_hook = empty;
+	vbi_hook = emptyFunction;
 	free(screen);
 }
 
@@ -127,7 +127,7 @@ TVoutEx::end()
  *		(see color note at the top of this file)
  */
 void
-TVoutEx::fill(uint8_t color)
+TVoutEx::fill(Color_t color)
 {
 	switch (color) {
 	case BLACK:
@@ -319,7 +319,7 @@ TVoutEx::get_pixel(uint8_t x, uint8_t y)
 
 /* Patched to allow support for the Arduino Leonardo */
 void
-TVoutEx::draw_line(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, char c)
+TVoutEx::draw_line(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, Color_t c)
 {
 
 	if (x0 > display.hres * 8 || y0 > display.vres || x1 > display.hres * 8 || y1 > display.vres)
@@ -402,7 +402,7 @@ TVoutEx::draw_line(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, char c)
  *		(see color note at the top of this file)
  */
 void
-TVoutEx::draw_row(uint8_t line, uint16_t x0, uint16_t x1, uint8_t c)
+TVoutEx::draw_row(uint8_t line, uint16_t x0, uint16_t x1, Color_t c)
 {
 	uint8_t lbit, rbit;
 
@@ -455,9 +455,8 @@ TVoutEx::draw_row(uint8_t line, uint16_t x0, uint16_t x1, uint8_t c)
  *		(see color note at the top of this file)
  */
 void
-TVoutEx::draw_column(uint8_t row, uint16_t y0, uint16_t y1, uint8_t c)
+TVoutEx::draw_column(uint8_t row, uint16_t y0, uint16_t y1, Color_t c)
 {
-
 	unsigned char bit;
 	int byte;
 
@@ -513,9 +512,8 @@ TVoutEx::draw_column(uint8_t row, uint16_t y0, uint16_t y1, uint8_t c)
  *		default =-1 (no fill)
  */
 void
-TVoutEx::draw_rect(uint8_t x0, uint8_t y0, uint8_t w, uint8_t h, char c, char fc)
+TVoutEx::draw_rect(uint8_t x0, uint8_t y0, uint8_t w, uint8_t h, Color_t c, char fc)
 {
-
 	if (fc != -1) {
 		for (unsigned char i = y0; i < y0 + h; i++)
 			draw_row(i, x0, x0 + w, fc);
@@ -544,9 +542,8 @@ TVoutEx::draw_rect(uint8_t x0, uint8_t y0, uint8_t w, uint8_t h, char c, char fc
  *		defualt  =-1 (do not fill)
  */
 void
-TVoutEx::draw_circle(uint8_t x0, uint8_t y0, uint8_t radius, char c, char fc)
+TVoutEx::draw_circle(uint8_t x0, uint8_t y0, uint8_t radius, Color_t c, Color_t fc)
 {
-
 	int f = 1 - radius;
 	int ddF_x = 1;
 	int ddF_y = -2 * radius;
@@ -556,7 +553,7 @@ TVoutEx::draw_circle(uint8_t x0, uint8_t y0, uint8_t radius, char c, char fc)
 
 
 	//there is a fill color
-	if (fc != -1)
+	if (fc != NOT_A_COLOR)
 		draw_row(y0, x0 - radius, x0 + radius, fc);
 
 	sp(x0, y0 + radius, c);
@@ -684,7 +681,7 @@ TVoutEx::bitmap(uint8_t x, uint8_t y, const unsigned char * bmp,
  *		RIGHT	=3
  */
 void
-TVoutEx::shift(uint8_t distance, uint8_t direction)
+TVoutEx::shift(uint8_t distance, Direction_t direction)
 {
 	uint8_t * src;
 	uint8_t * dst;

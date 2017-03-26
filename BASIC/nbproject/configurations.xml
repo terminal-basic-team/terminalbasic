@@ -32,9 +32,9 @@
     </logicalFolder>
     <logicalFolder name="TVoutEx" displayName="TVoutEx" projectFiles="true">
       <logicalFolder name="spec" displayName="spec" projectFiles="true">
-        <itemPath>../TVoutEx/spec/asm_macros.h</itemPath>
-        <itemPath>../TVoutEx/spec/hardware_setup.h</itemPath>
-        <itemPath>../TVoutEx/spec/video_properties.h</itemPath>
+        <itemPath>../TVoutEx/spec/AsmMacros.h</itemPath>
+        <itemPath>../TVoutEx/spec/HardwareSetup.h</itemPath>
+        <itemPath>../TVoutEx/spec/VideoProperties.h</itemPath>
       </logicalFolder>
       <itemPath>../TVoutEx/TVoutEx.cpp</itemPath>
       <itemPath>../TVoutEx/TVoutEx.h</itemPath>
@@ -240,17 +240,23 @@
                             perm="755"
                             owner="root"
                             group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
         </packFileList>
       </packaging>
       <item path="../TVoutEx/TVoutEx.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../TVoutEx/VideoGen.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../TVoutEx/spec/asm_macros.h" ex="false" tool="3" flavor2="0">
+      <item path="../TVoutEx/spec/AsmMacros.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../TVoutEx/spec/hardware_setup.h" ex="false" tool="3" flavor2="0">
+      <item path="../TVoutEx/spec/HardwareSetup.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../TVoutEx/spec/video_properties.h" ex="false" tool="3" flavor2="0">
+      <item path="../TVoutEx/spec/VideoProperties.h" ex="false" tool="3" flavor2="0">
       </item>
       <folder path="TestFiles/f1">
         <cTool>
@@ -393,11 +399,11 @@
       </item>
       <item path="../TVoutEx/VideoGen.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../TVoutEx/spec/asm_macros.h" ex="false" tool="3" flavor2="0">
+      <item path="../TVoutEx/spec/AsmMacros.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../TVoutEx/spec/hardware_setup.h" ex="false" tool="3" flavor2="0">
+      <item path="../TVoutEx/spec/HardwareSetup.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../TVoutEx/spec/video_properties.h" ex="false" tool="3" flavor2="0">
+      <item path="../TVoutEx/spec/VideoProperties.h" ex="false" tool="3" flavor2="0">
       </item>
       <folder path="TestFiles/f1">
         <cTool>
@@ -539,11 +545,11 @@
       </item>
       <item path="../TVoutEx/VideoGen.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../TVoutEx/spec/asm_macros.h" ex="false" tool="3" flavor2="0">
+      <item path="../TVoutEx/spec/AsmMacros.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../TVoutEx/spec/hardware_setup.h" ex="false" tool="3" flavor2="0">
+      <item path="../TVoutEx/spec/HardwareSetup.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../TVoutEx/spec/video_properties.h" ex="false" tool="3" flavor2="0">
+      <item path="../TVoutEx/spec/VideoProperties.h" ex="false" tool="3" flavor2="0">
       </item>
       <folder path="TestFiles/f1">
         <cTool>
@@ -695,11 +701,11 @@
       </item>
       <item path="../TVoutEx/VideoGen.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../TVoutEx/spec/asm_macros.h" ex="false" tool="3" flavor2="0">
+      <item path="../TVoutEx/spec/AsmMacros.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../TVoutEx/spec/hardware_setup.h" ex="false" tool="3" flavor2="0">
+      <item path="../TVoutEx/spec/HardwareSetup.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../TVoutEx/spec/video_properties.h" ex="false" tool="3" flavor2="0">
+      <item path="../TVoutEx/spec/VideoProperties.h" ex="false" tool="3" flavor2="0">
       </item>
       <folder path="TestFiles/f1">
         <cTool>
@@ -842,11 +848,11 @@
       </item>
       <item path="../TVoutEx/VideoGen.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../TVoutEx/spec/asm_macros.h" ex="false" tool="3" flavor2="0">
+      <item path="../TVoutEx/spec/AsmMacros.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../TVoutEx/spec/hardware_setup.h" ex="false" tool="3" flavor2="0">
+      <item path="../TVoutEx/spec/HardwareSetup.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../TVoutEx/spec/video_properties.h" ex="false" tool="3" flavor2="0">
+      <item path="../TVoutEx/spec/VideoProperties.h" ex="false" tool="3" flavor2="0">
       </item>
       <folder path="TestFiles/f1">
         <cTool>
@@ -976,11 +982,11 @@
       </item>
       <item path="../TVoutEx/VideoGen.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../TVoutEx/spec/asm_macros.h" ex="false" tool="3" flavor2="0">
+      <item path="../TVoutEx/spec/AsmMacros.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../TVoutEx/spec/hardware_setup.h" ex="false" tool="3" flavor2="0">
+      <item path="../TVoutEx/spec/HardwareSetup.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../TVoutEx/spec/video_properties.h" ex="false" tool="3" flavor2="0">
+      <item path="../TVoutEx/spec/VideoProperties.h" ex="false" tool="3" flavor2="0">
       </item>
       <folder path="TestFiles/f1">
         <cTool>
@@ -1123,11 +1129,11 @@
       </item>
       <item path="../TVoutEx/VideoGen.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../TVoutEx/spec/asm_macros.h" ex="false" tool="3" flavor2="0">
+      <item path="../TVoutEx/spec/AsmMacros.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../TVoutEx/spec/hardware_setup.h" ex="false" tool="3" flavor2="0">
+      <item path="../TVoutEx/spec/HardwareSetup.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../TVoutEx/spec/video_properties.h" ex="false" tool="3" flavor2="0">
+      <item path="../TVoutEx/spec/VideoProperties.h" ex="false" tool="3" flavor2="0">
       </item>
       <folder path="TestFiles/f1">
         <cTool>
@@ -1270,11 +1276,11 @@
       </item>
       <item path="../TVoutEx/VideoGen.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../TVoutEx/spec/asm_macros.h" ex="false" tool="3" flavor2="0">
+      <item path="../TVoutEx/spec/AsmMacros.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../TVoutEx/spec/hardware_setup.h" ex="false" tool="3" flavor2="0">
+      <item path="../TVoutEx/spec/HardwareSetup.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../TVoutEx/spec/video_properties.h" ex="false" tool="3" flavor2="0">
+      <item path="../TVoutEx/spec/VideoProperties.h" ex="false" tool="3" flavor2="0">
       </item>
       <folder path="TestFiles/f1">
         <cTool>
@@ -1420,11 +1426,11 @@
       </item>
       <item path="../TVoutEx/VideoGen.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../TVoutEx/spec/asm_macros.h" ex="false" tool="3" flavor2="0">
+      <item path="../TVoutEx/spec/AsmMacros.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../TVoutEx/spec/hardware_setup.h" ex="false" tool="3" flavor2="0">
+      <item path="../TVoutEx/spec/HardwareSetup.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../TVoutEx/spec/video_properties.h" ex="false" tool="3" flavor2="0">
+      <item path="../TVoutEx/spec/VideoProperties.h" ex="false" tool="3" flavor2="0">
       </item>
       <folder path="TestFiles/f1">
         <cTool>
@@ -1575,11 +1581,11 @@
       </item>
       <item path="../TVoutEx/VideoGen.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../TVoutEx/spec/asm_macros.h" ex="false" tool="3" flavor2="0">
+      <item path="../TVoutEx/spec/AsmMacros.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../TVoutEx/spec/hardware_setup.h" ex="false" tool="3" flavor2="0">
+      <item path="../TVoutEx/spec/HardwareSetup.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../TVoutEx/spec/video_properties.h" ex="false" tool="3" flavor2="0">
+      <item path="../TVoutEx/spec/VideoProperties.h" ex="false" tool="3" flavor2="0">
       </item>
       <folder path="TestFiles/f1">
         <cTool>

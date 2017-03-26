@@ -27,9 +27,9 @@
 #include <avr/io.h>
 
 #include "VideoGen.h"
-#include "spec/video_properties.h"
-#include "spec/asm_macros.h"
-#include "spec/hardware_setup.h"
+#include "spec/VideoProperties.h"
+#include "spec/AsmMacros.h"
+#include "spec/HardwareSetup.h"
 
 //#define REMOVE6C
 //#define REMOVE5C
@@ -37,18 +37,18 @@
 //#define REMOVE3C
 
 int renderLine;
-TVout_vid display;
+TVoutVid display;
 void (*render_line)();			//remove me
 void (*line_handler)();			//remove me
-void (*hbi_hook)() = &empty;
-void (*vbi_hook)() = &empty;
+void (*hbi_hook)() = &emptyFunction;
+void (*vbi_hook)() = &emptyFunction;
 
 // sound properties
 volatile long remainingToneVsyncs;
 
-void empty() {}
+void emptyFunction() {}
 
-void render_setup(uint8_t mode, uint8_t x, uint8_t y, uint8_t *scrnptr) {
+void renderSetup(VideMode_t mode, uint8_t x, uint8_t y, uint8_t *scrnptr) {
 
 	display.screen = scrnptr;
 	display.hres = x;
@@ -67,22 +67,22 @@ void render_setup(uint8_t mode, uint8_t x, uint8_t y, uint8_t *scrnptr) {
 	unsigned char rmethod = (_TIME_ACTIVE*_CYCLES_PER_US)/(display.hres*8);
 	switch(rmethod) {
 		case 6:
-			render_line = &render_line6c;
+			render_line = &renderLine6c;
 			break;
 		case 5:
-			render_line = &render_line5c;
+			render_line = &renderLine5c;
 			break;
 		case 4:
-			render_line = &render_line4c;
+			render_line = &renderLine4c;
 			break;
 		case 3:
-			render_line = &render_line3c;
+			render_line = &renderLine3c;
 			break;
 		default:
 			if (rmethod > 6)
-				render_line = &render_line6c;
+				render_line = &renderLine6c;
 			else
-				render_line = &render_line3c;
+				render_line = &renderLine3c;
 	}
 	
 
@@ -113,7 +113,7 @@ void render_setup(uint8_t mode, uint8_t x, uint8_t y, uint8_t *scrnptr) {
 		OCR1A = _CYCLES_HORZ_SYNC;
 	}
 	display.scanLine = display.lines_frame+1;
-	line_handler = &vsync_line;
+	line_handler = &vsyncLine;
 	TIMSK1 = _BV(TOIE1);
 	sei();
 }
@@ -124,23 +124,23 @@ ISR(TIMER1_OVF_vect) {
 	line_handler();
 }
 
-void blank_line() {
+void blankLine() {
 		
 	if ( display.scanLine == display.start_render) {
 		renderLine = 0;
 		display.vscale = display.vscale_const;
-		line_handler = &active_line;
+		line_handler = &activeLine;
 	}
 	else if (display.scanLine == display.lines_frame) {
-		line_handler = &vsync_line;
+		line_handler = &vsyncLine;
 		vbi_hook();
 	}
 	
 	display.scanLine++;
 }
 
-void active_line() {
-	wait_until(display.output_delay);
+void activeLine() {
+	waitUntil(display.output_delay);
 	render_line();
 	if (!display.vscale) {
 		display.vscale = display.vscale_const;
@@ -150,12 +150,12 @@ void active_line() {
 		display.vscale--;
 		
 	if ((display.scanLine + 1) == (int)(display.start_render + (display.vres*(display.vscale_const+1))))
-		line_handler = &blank_line;
+		line_handler = &blankLine;
 		
 	display.scanLine++;
 }
 
-void vsync_line() {
+void vsyncLine() {
 	if (display.scanLine >= display.lines_frame) {
 		OCR1A = _CYCLES_VIRT_SYNC;
 		display.scanLine = 0;
@@ -177,13 +177,13 @@ void vsync_line() {
 	}
 	else if (display.scanLine == display.vsync_end) {
 		OCR1A = _CYCLES_HORZ_SYNC;
-		line_handler = &blank_line;
+		line_handler = &blankLine;
 	}
 	display.scanLine++;
 }
 
 
-static void inline wait_until(uint8_t time) {
+static void inline waitUntil(uint8_t time) {
 	__asm__ __volatile__ (
 			"subi	%[time], 10\n"
 			"sub	%[time], %[tcnt1l]\n\t"
@@ -204,7 +204,7 @@ static void inline wait_until(uint8_t time) {
 	);
 }
 
-void render_line6c() {
+void renderLine6c() {
 	#ifndef REMOVE6C
 	__asm__ __volatile__ (
 		"ADD	r26,r28\n\t"
@@ -258,7 +258,7 @@ void render_line6c() {
 	#endif
 }
 
-void render_line5c() {
+void renderLine5c() {
 	#ifndef REMOVE5C
 	__asm__ __volatile__ (
 		"ADD	r26,r28\n\t"
@@ -311,7 +311,7 @@ void render_line5c() {
 	#endif
 }
 
-void render_line4c() {
+void renderLine4c() {
 	#ifndef REMOVE4C
 	__asm__ __volatile__ (
 		"ADD	r26,r28\n\t"
@@ -361,7 +361,7 @@ void render_line4c() {
 }
 
 // only 16mhz right now!!!
-void render_line3c() {
+void renderLine3c() {
 	#ifndef REMOVE3C
 	__asm__ __volatile__ (
 	".macro byteshift\n\t"

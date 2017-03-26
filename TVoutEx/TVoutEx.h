@@ -38,25 +38,26 @@ application as possible.
 #include <stdlib.h>
 
 #include "VideoGen.h"
-#include "spec/hardware_setup.h"
-#include "spec/video_properties.h"
+#include "spec/HardwareSetup.h"
+#include "spec/VideoProperties.h"
 
 #include "cps.hpp"
 
-// macros for readability when selecting mode.
-#define PAL      1
-#define NTSC     0
-#define _PAL     1
-#define _NTSC     0
+enum Color_t : uint8_t
+{
+	NOT_A_COLOR = uint8_t(-1),
+	BLACK = 0,
+	WHITE = 1,
+	INVERT = 2
+};
 
-#define WHITE     1
-#define BLACK     0
-#define INVERT     2
-
-#define UP      0
-#define DOWN     1
-#define LEFT     2
-#define RIGHT     3
+enum Direction_t : uint8_t
+{
+	UP = 0,
+	DOWN = 1,
+	LEFT = 2,
+	RIGHT = 3
+};
 
 #define DEC 10
 #define HEX 16
@@ -80,8 +81,8 @@ public:
 	explicit TVoutEx();
 	~TVoutEx();
 	
-	char begin(uint8_t mode);
-	char begin(uint8_t mode, uint8_t x, uint8_t y);
+	char begin(VideMode_t mode);
+	char begin(VideMode_t mode, uint8_t x, uint8_t y);
 	void end();
 
 	//accessor functions
@@ -101,13 +102,13 @@ public:
 	//basic rendering functions
 	void set_pixel(uint8_t x, uint8_t y, char c);
 	unsigned char get_pixel(uint8_t x, uint8_t y);
-	void fill(uint8_t color);
-	void shift(uint8_t distance, uint8_t direction);
-	void draw_line(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, char c);
-	void draw_row(uint8_t line, uint16_t x0, uint16_t x1, uint8_t c);
-	void draw_column(uint8_t row, uint16_t y0, uint16_t y1, uint8_t c);
-	void draw_rect(uint8_t x0, uint8_t y0, uint8_t w, uint8_t h, char c, char fc = -1);
-	void draw_circle(uint8_t x0, uint8_t y0, uint8_t radius, char c, char fc = -1);
+	void fill(Color_t color);
+	void shift(uint8_t distance, Direction_t);
+	void draw_line(uint8_t, uint8_t, uint8_t, uint8_t, Color_t c);
+	void draw_row(uint8_t line, uint16_t x0, uint16_t x1, Color_t c);
+	void draw_column(uint8_t row, uint16_t y0, uint16_t y1, Color_t c);
+	void draw_rect(uint8_t x0, uint8_t y0, uint8_t w, uint8_t h, Color_t c, char fc = -1);
+	void draw_circle(uint8_t, uint8_t, uint8_t, Color_t, Color_t = NOT_A_COLOR);
 	void bitmap(uint8_t x, uint8_t y, const unsigned char * bmp, uint16_t i = 0, uint8_t width = 0, uint8_t lines = 0);
 
 	//hook setup functions
