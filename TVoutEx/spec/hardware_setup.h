@@ -36,8 +36,8 @@
 // device specific settings.
 #if defined(__AVR_ATmega1280__) || defined(__AVR_ATmega1281__) || defined(__AVR_ATmega2560__) || defined(__AVR_ATmega2561__)
 #if defined(ENABLE_FAST_OUTPUT)
-#define PORT_VID	PORTA
-#define	DDR_VID		DDRA
+#define PORT_VID	PORTF
+#define	DDR_VID		DDRF
 #define VID_PIN		7
 #else
 //video

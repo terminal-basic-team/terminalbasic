@@ -29,7 +29,7 @@
 #include "VideoGen.h"
 #include "spec/video_properties.h"
 #include "spec/asm_macros.h"
-
+#include "spec/hardware_setup.h"
 
 //#define REMOVE6C
 //#define REMOVE5C
@@ -41,21 +41,21 @@ TVout_vid display;
 void (*render_line)();			//remove me
 void (*line_handler)();			//remove me
 void (*hbi_hook)() = &empty;
-void (*vbiHook)() = &empty;
+void (*vbi_hook)() = &empty;
 
 // sound properties
 volatile long remainingToneVsyncs;
 
 void empty() {}
 
-void renderSetup(VideMode_t mode, uint8_t x, uint8_t y, uint8_t *scrnptr)
-{
+void render_setup(uint8_t mode, uint8_t x, uint8_t y, uint8_t *scrnptr) {
+
 	display.screen = scrnptr;
 	display.hres = x;
 	display.vres = y;
 	display.frames = 0;
 	
-	if (mode == PAL)
+	if (mode)
 		display.vscale_const = _PAL_LINE_DISPLAY/display.vres - 1;
 	else
 		display.vscale_const = _NTSC_LINE_DISPLAY/display.vres - 1;
@@ -96,7 +96,7 @@ void renderSetup(VideMode_t mode, uint8_t x, uint8_t y, uint8_t *scrnptr)
 	TCCR1A = _BV(COM1A1) | _BV(COM1A0) | _BV(WGM11);
 	TCCR1B = _BV(WGM13) | _BV(WGM12) | _BV(CS10);
 	
-	if (mode == PAL) {
+	if (mode) {
 		display.start_render = _PAL_LINE_MID - ((display.vres * (display.vscale_const+1))/2);
 		display.output_delay = _PAL_CYCLES_OUTPUT_START;
 		display.vsync_end = _PAL_LINE_STOP_VSYNC;
@@ -104,7 +104,7 @@ void renderSetup(VideMode_t mode, uint8_t x, uint8_t y, uint8_t *scrnptr)
 		ICR1 = _PAL_CYCLES_SCANLINE;
 		OCR1A = _CYCLES_HORZ_SYNC;
 		}
-	else if (mode == NTSC) {
+	else {
 		display.start_render = _NTSC_LINE_MID - ((display.vres * (display.vscale_const+1))/2) + 8;
 		display.output_delay = _NTSC_CYCLES_OUTPUT_START;
 		display.vsync_end = _NTSC_LINE_STOP_VSYNC;
@@ -118,60 +118,73 @@ void renderSetup(VideMode_t mode, uint8_t x, uint8_t y, uint8_t *scrnptr)
 	sei();
 }
 
-void blank_line()
-{
-	if (display.scanLine == display.start_render) {
+// render a line
+ISR(TIMER1_OVF_vect) {
+	hbi_hook();
+	line_handler();
+}
+
+void blank_line() {
+		
+	if ( display.scanLine == display.start_render) {
 		renderLine = 0;
 		display.vscale = display.vscale_const;
 		line_handler = &active_line;
-	} else if (display.scanLine == display.lines_frame) {
-		line_handler = &vsync_line;
-		vbiHook();
 	}
-	++(display.scanLine);
+	else if (display.scanLine == display.lines_frame) {
+		line_handler = &vsync_line;
+		vbi_hook();
+	}
+	
+	display.scanLine++;
 }
 
-void active_line()
-{
+void active_line() {
 	wait_until(display.output_delay);
 	render_line();
 	if (!display.vscale) {
 		display.vscale = display.vscale_const;
 		renderLine += display.hres;
-	} else
-		--(display.vscale);
+	}
+	else
+		display.vscale--;
 		
-	if ((display.scanLine + 1) == (int)(display.start_render +
-	    (display.vres*(display.vscale_const+1))))
+	if ((display.scanLine + 1) == (int)(display.start_render + (display.vres*(display.vscale_const+1))))
 		line_handler = &blank_line;
 		
-	++(display.scanLine);
+	display.scanLine++;
 }
 
-void vsync_line()
-{
+void vsync_line() {
 	if (display.scanLine >= display.lines_frame) {
 		OCR1A = _CYCLES_VIRT_SYNC;
 		display.scanLine = 0;
-		++(display.frames);
+		display.frames++;
 
-		if (remainingToneVsyncs != 0) {
+		if (remainingToneVsyncs != 0)
+		{
 			if (remainingToneVsyncs > 0)
-				--remainingToneVsyncs;
-		} else {
+			{
+				remainingToneVsyncs--;
+			}
+
+		} else
+		{
 			TCCR2B = 0; //stop the tone
  			PORTB &= ~(_BV(SND_PIN));
 		}
-	} else if (display.scanLine == display.vsync_end) {
+
+	}
+	else if (display.scanLine == display.vsync_end) {
 		OCR1A = _CYCLES_HORZ_SYNC;
 		line_handler = &blank_line;
 	}
-	++(display.scanLine);
+	display.scanLine++;
 }
 
 
 static void inline wait_until(uint8_t time) {
-	asm volatile (
+	__asm__ __volatile__ (
 			"subi	%[time], 10\n"
 			"sub	%[time], %[tcnt1l]\n\t"
 		"100:\n\t"
@@ -193,7 +206,7 @@ static void inline wait_until(uint8_t time) {
 
 void render_line6c() {
 	#ifndef REMOVE6C
-	asm volatile (
+	__asm__ __volatile__ (
 		"ADD	r26,r28\n\t"
 		"ADC	r27,r29\n\t"
 		//save PORTB
@@ -247,7 +260,7 @@ void render_line6c() {
 
 void render_line5c() {
 	#ifndef REMOVE5C
-	asm volatile (
+	__asm__ __volatile__ (
 		"ADD	r26,r28\n\t"
 		"ADC	r27,r29\n\t"
 		//save PORTB
@@ -300,7 +313,7 @@ void render_line5c() {
 
 void render_line4c() {
 	#ifndef REMOVE4C
-	asm volatile (
+	__asm__ __volatile__ (
 		"ADD	r26,r28\n\t"
 		"ADC	r27,r29\n\t"
 		
@@ -350,7 +363,7 @@ void render_line4c() {
 // only 16mhz right now!!!
 void render_line3c() {
 	#ifndef REMOVE3C
-	asm volatile (
+	__asm__ __volatile__ (
 	".macro byteshift\n\t"
 		"LD		__tmp_reg__,X+\n\t"
 		"out	%[port],__tmp_reg__\n\t"	//0
@@ -454,10 +467,4 @@ void render_line3c() {
 		: "r16" // try to remove this clobber later...
 	);
 	#endif
-}
-
-// render a line
-ISR(TIMER1_OVF_vect) {
-	hbi_hook();
-	line_handler();
 }
