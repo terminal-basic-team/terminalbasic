@@ -13,6 +13,7 @@
                 <make-dep-project>../libarduino</make-dep-project>
                 <make-dep-project>../arduinoext</make-dep-project>
                 <make-dep-project>../../libarduinoext</make-dep-project>
+                <make-dep-project>../../libarduino</make-dep-project>
             </make-dep-projects>
             <sourceRootList>
                 <sourceRootElem>include</sourceRootElem>

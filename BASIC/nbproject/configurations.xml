@@ -234,6 +234,12 @@
                             perm="755"
                             owner="root"
                             group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
         </packFileList>
       </packaging>
       <item path="../TVoutEx/TVoutEx.h" ex="false" tool="3" flavor2="0">
@@ -363,12 +369,12 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../libarduino"
+              <makeArtifact PL="../../libarduino"
                             CT="3"
                             CN="Nano328"
                             AC="true"
                             BL="true"
-                            WD="../libarduino"
+                            WD="../../libarduino"
                             BC="${MAKE}  -f Makefile CONF=Nano328"
                             CC="${MAKE}  -f Makefile CONF=Nano328 clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/libarduino.a">
