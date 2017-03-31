@@ -33,6 +33,7 @@
  */
 
 #include "TVoutEx.h"
+#include "PS2Keyboard.h"
 
 TVoutEx *TVoutEx::_instance = NULL;
 
@@ -103,8 +104,8 @@ TVoutEx::begin(VideMode_t mode, uint8_t x, uint8_t y)
 	cursor_y = 0;
 
 	renderSetup(mode, x, y, screen);
-	clear_screen();
-	vbi_hook = vBlank;
+	clearScreen();
+	vbiHook = vBlank;
 	return 0;
 } // end of begin
 
@@ -115,7 +116,7 @@ TVoutEx::end()
 {
 	_instance = NULL;
 	TIMSK1 = 0;
-	vbi_hook = emptyFunction;
+	vbiHook = emptyFunction;
 	free(screen);
 }
 
@@ -147,7 +148,7 @@ TVoutEx::fill(Color_t color)
 			display.screen[i] = ~display.screen[i];
 		break;
 	}
-} // end of fill
+}
 
 /* Gets the Horizontal resolution of the screen
  *
@@ -784,7 +785,7 @@ sp(uint8_t x, uint8_t y, char c)
 void
 TVoutEx::set_vbi_hook(void (*func)())
 {
-	vbi_hook = func;
+	vbiHook = func;
 } // end of set_vbi_hook
 
 /* set the horizonal blank function call
@@ -798,7 +799,7 @@ TVoutEx::set_vbi_hook(void (*func)())
 void
 TVoutEx::set_hbi_hook(void (*func)())
 {
-	hbi_hook = func;
+	hbiHook = func;
 } // end of set_bhi_hook
 
 /* Simple tone generation
@@ -986,6 +987,8 @@ TVoutEx::printPGM(uint8_t x, uint8_t y, const char str[])
 void
 TVoutEx::vBlank()
 {
+	PS2Keyboard::begin(3, CORE_INT0_PIN);
+	delay(1);
 	uint8_t col;
 	if (_instance != NULL) {
 		if (--_instance->_cursorCounter == 0)
@@ -1000,6 +1003,7 @@ TVoutEx::vBlank()
 		_instance->draw_row(_instance->cursor_y + 7, _instance->cursor_x,
 		    _instance->cursor_x + 6, col);
 	}
+	PS2Keyboard::end();
 }
 
 void

@@ -70,6 +70,14 @@
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="f1" displayName="libraries" projectFiles="true">
+      <logicalFolder name="PS2Keyboard" displayName="PS2Keyboard" projectFiles="true">
+        <logicalFolder name="utility" displayName="utility" projectFiles="true">
+          <itemPath>/opt/arduino-1.8.1/libraries/PS2Keyboard/utility/.#int_pins.h</itemPath>
+          <itemPath>/opt/arduino-1.8.1/libraries/PS2Keyboard/utility/int_pins.h</itemPath>
+        </logicalFolder>
+        <itemPath>/opt/arduino-1.8.1/libraries/PS2Keyboard/PS2Keyboard.cpp</itemPath>
+        <itemPath>/opt/arduino-1.8.1/libraries/PS2Keyboard/PS2Keyboard.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="SD" displayName="SD" projectFiles="true">
         <logicalFolder name="src" displayName="src" projectFiles="true">
           <logicalFolder name="utility" displayName="utility" projectFiles="true">
@@ -268,8 +276,9 @@
     <Elem>${ARDUINO_PATH}/libraries/UTFT</Elem>
     <Elem>${ARDUINO_PATH}/libraries/SD</Elem>
     <Elem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/SPI</Elem>
-    <Elem>/opt/arduino-1.8.1/libraries/TVout</Elem>
-    <Elem>/opt/arduino-1.8.1/libraries/TVoutfonts</Elem>
+    <Elem>${ARDUINO_PATH}/libraries/TVout</Elem>
+    <Elem>${ARDUINO_PATH}/libraries/TVoutfonts</Elem>
+    <Elem>${ARDUINO_PATH}/libraries/PS2Keyboard</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -545,6 +554,26 @@
             flavor2="0">
       </item>
       <item path="/opt/arduino-1.8.1/hardware/arduino/avr/libraries/SPI/src/SPI.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/PS2Keyboard/PS2Keyboard.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/PS2Keyboard/PS2Keyboard.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/PS2Keyboard/utility/.#int_pins.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/PS2Keyboard/utility/int_pins.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -1301,6 +1330,26 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="/opt/arduino-1.8.1/libraries/PS2Keyboard/PS2Keyboard.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/PS2Keyboard/PS2Keyboard.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/PS2Keyboard/utility/.#int_pins.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/PS2Keyboard/utility/int_pins.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="/opt/arduino-1.8.1/libraries/SD/src/File.cpp"
             ex="false"
             tool="1"
@@ -2041,6 +2090,26 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="/opt/arduino-1.8.1/libraries/PS2Keyboard/PS2Keyboard.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/PS2Keyboard/PS2Keyboard.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/PS2Keyboard/utility/.#int_pins.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/PS2Keyboard/utility/int_pins.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="/opt/arduino-1.8.1/libraries/SD/src/File.cpp"
             ex="false"
             tool="1"
@@ -2541,12 +2610,13 @@
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/SPI/src</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/variants/mega</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/SoftwareSerial/src</pElem>
-            <pElem>${ARDUINO_PATH}/libraries/UTFT</pElem>
+            <pElem>${ARDUINO_PATH}/libraries/TVout</pElem>
             <pElem>${ARDUINO_PATH}/libraries/SD/src</pElem>
-            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/SPI/src</pElem>
+            <pElem>${ARDUINO_PATH}/libraries/UTFT</pElem>
           </incDir>
           <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -flto -mmcu=atmega2560 -fno-rtti -mcall-prologues</commandLine>
           <preprocessorList>
@@ -2794,6 +2864,26 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="/opt/arduino-1.8.1/libraries/PS2Keyboard/PS2Keyboard.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/PS2Keyboard/PS2Keyboard.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/PS2Keyboard/utility/.#int_pins.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/PS2Keyboard/utility/int_pins.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="/opt/arduino-1.8.1/libraries/SD/src/File.cpp"
             ex="false"
             tool="1"
@@ -2859,9 +2949,19 @@
             tool="1"
             flavor2="0">
       </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVout/TVout.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="/opt/arduino-1.8.1/libraries/TVout/TVout.h"
             ex="false"
             tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVout/TVoutPrint.cpp"
+            ex="false"
+            tool="1"
             flavor2="0">
       </item>
       <item path="/opt/arduino-1.8.1/libraries/TVout/spec/asm_macros.h"
@@ -2877,6 +2977,11 @@
       <item path="/opt/arduino-1.8.1/libraries/TVout/spec/video_properties.h"
             ex="false"
             tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/TVout/video_gen.cpp"
+            ex="false"
+            tool="1"
             flavor2="0">
       </item>
       <item path="/opt/arduino-1.8.1/libraries/TVout/video_gen.h"
@@ -3524,6 +3629,26 @@
             flavor2="0">
       </item>
       <item path="/opt/arduino-1.8.1/hardware/arduino/avr/libraries/SPI/src/SPI.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/PS2Keyboard/PS2Keyboard.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/PS2Keyboard/PS2Keyboard.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/PS2Keyboard/utility/.#int_pins.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/PS2Keyboard/utility/int_pins.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -4276,6 +4401,26 @@
             flavor2="9">
       </item>
       <item path="/opt/arduino-1.8.1/hardware/arduino/avr/libraries/SPI/src/SPI.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/PS2Keyboard/PS2Keyboard.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/PS2Keyboard/PS2Keyboard.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/PS2Keyboard/utility/.#int_pins.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/opt/arduino-1.8.1/libraries/PS2Keyboard/utility/int_pins.h"
             ex="false"
             tool="3"
             flavor2="0">

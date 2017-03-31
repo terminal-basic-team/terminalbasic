@@ -223,6 +223,7 @@ Parser::Value::operator<(const Value &rhs) const
 			return (value.boolean < rhs.value.boolean);
 		}
 	}
+	return false;
 }
 
 bool

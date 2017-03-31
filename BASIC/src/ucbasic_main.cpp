@@ -20,7 +20,6 @@
 #include "arduino_logger.hpp"
 #include "basic_program.hpp"
 #include "basic_arduinoio.hpp"
-
 #include "seriallight.hpp"
 
 #if USESD
@@ -103,14 +102,14 @@ setup()
 	tvoutPrint.begin();
 #endif
 #ifdef ARDUINO
-	SerialL.begin(115200);
+	SerialL.begin(9600);
 #else
 	Serial.begin(115200);
 #endif // ARDUINO
 #if USEUTFT
 	utftPrint.begin();
 #endif
-
+	
 #if BASIC_MULTITERMINAL
 #if HAVE_HWSERIAL1
 	Serial1.begin(57600);

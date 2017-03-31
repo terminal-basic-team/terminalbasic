@@ -40,8 +40,8 @@ int renderLine;
 TVoutVid display;
 void (*render_line)();			//remove me
 void (*line_handler)();			//remove me
-void (*hbi_hook)() = &emptyFunction;
-void (*vbi_hook)() = &emptyFunction;
+void (*hbiHook)() = &emptyFunction;
+void (*vbiHook)() = &emptyFunction;
 
 // sound properties
 volatile long remainingToneVsyncs;
@@ -120,7 +120,7 @@ void renderSetup(VideMode_t mode, uint8_t x, uint8_t y, uint8_t *scrnptr) {
 
 // render a line
 ISR(TIMER1_OVF_vect) {
-	hbi_hook();
+	hbiHook();
 	line_handler();
 }
 
@@ -133,7 +133,7 @@ void blankLine() {
 	}
 	else if (display.scanLine == display.lines_frame) {
 		line_handler = &vsyncLine;
-		vbi_hook();
+		vbiHook();
 	}
 	
 	display.scanLine++;

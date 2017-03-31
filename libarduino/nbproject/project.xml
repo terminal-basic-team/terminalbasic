@@ -16,8 +16,9 @@
                 <sourceRootElem>${ARDUINO_PATH}/libraries/UTFT</sourceRootElem>
                 <sourceRootElem>${ARDUINO_PATH}/libraries/SD</sourceRootElem>
                 <sourceRootElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/SPI</sourceRootElem>
-                <sourceRootElem>/opt/arduino-1.8.1/libraries/TVout</sourceRootElem>
-                <sourceRootElem>/opt/arduino-1.8.1/libraries/TVoutfonts</sourceRootElem>
+                <sourceRootElem>${ARDUINO_PATH}/libraries/TVout</sourceRootElem>
+                <sourceRootElem>${ARDUINO_PATH}/libraries/TVoutfonts</sourceRootElem>
+                <sourceRootElem>${ARDUINO_PATH}/libraries/PS2Keyboard</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>

@@ -59,14 +59,8 @@ enum Direction_t : uint8_t
 	RIGHT = 3
 };
 
-#define DEC 10
-#define HEX 16
-#define OCT 8
-#define BIN 2
-#define BYTE 0
-
 // Macros for clearer usage
-#define clear_screen()    fill(0)
+#define clearScreen()    fill(0)
 #define invert(color)    fill(2)
 
 /*

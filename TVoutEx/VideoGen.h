@@ -49,8 +49,8 @@ struct TVoutVid
 };
 
 extern TVoutVid display;
-extern void (*hbi_hook)();
-extern void (*vbi_hook)();
+extern void (*hbiHook)();
+extern void (*vbiHook)();
 
 void renderSetup(VideMode_t mode, uint8_t x, uint8_t y, uint8_t *scrnptr);
 
