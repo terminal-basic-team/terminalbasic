@@ -102,7 +102,7 @@ setup()
 	tvoutPrint.begin();
 #endif
 #ifdef ARDUINO
-	SerialL.begin(9600);
+	SerialL.begin(115200);
 #else
 	Serial.begin(115200);
 #endif // ARDUINO
@@ -122,7 +122,7 @@ setup()
 #endif
 #endif
 
-	LOG_INIT(Serial);
+	LOG_INIT(SerialL);
 
 	LOG_TRACE;
 

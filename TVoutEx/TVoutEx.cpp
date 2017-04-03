@@ -33,7 +33,6 @@
  */
 
 #include "TVoutEx.h"
-#include "PS2Keyboard.h"
 
 TVoutEx *TVoutEx::_instance = NULL;
 
@@ -270,7 +269,7 @@ TVoutEx::force_linestart(uint8_t line)
  *		(see color note at the top of this file)
  */
 void
-TVoutEx::set_pixel(uint8_t x, uint8_t y, char c)
+TVoutEx::set_pixel(uint8_t x, uint8_t y, Color_t c)
 {
 	if (x >= display.hres * 8 || y >= display.vres)
 		return;
@@ -987,8 +986,6 @@ TVoutEx::printPGM(uint8_t x, uint8_t y, const char str[])
 void
 TVoutEx::vBlank()
 {
-	PS2Keyboard::begin(3, CORE_INT0_PIN);
-	delay(1);
 	uint8_t col;
 	if (_instance != NULL) {
 		if (--_instance->_cursorCounter == 0)
@@ -1003,7 +1000,6 @@ TVoutEx::vBlank()
 		_instance->draw_row(_instance->cursor_y + 7, _instance->cursor_x,
 		    _instance->cursor_x + 6, col);
 	}
-	PS2Keyboard::end();
 }
 
 void

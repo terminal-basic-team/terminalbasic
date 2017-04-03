@@ -94,7 +94,7 @@ public:
 	void force_linestart(uint8_t line);
 
 	//basic rendering functions
-	void set_pixel(uint8_t x, uint8_t y, char c);
+	void set_pixel(uint8_t x, uint8_t y, Color_t c);
 	unsigned char get_pixel(uint8_t x, uint8_t y);
 	void fill(Color_t color);
 	void shift(uint8_t distance, Direction_t);
