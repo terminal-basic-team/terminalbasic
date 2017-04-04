@@ -112,7 +112,8 @@ SDFSModule::scratch(Interpreter &i)
 bool
 SDFSModule::chain(Interpreter &i)
 {
-	return (true);
+	i._program.clearProg();
+	return _loadText(i);
 }
 
 bool
@@ -163,7 +164,7 @@ SDFSModule::dsave(Interpreter &i)
 }
 
 bool
-SDFSModule::dload(Interpreter &i)
+SDFSModule::_loadText(Interpreter &i)
 {
 	char ss[16];
 	if (!getFileName(i, ss))
@@ -172,7 +173,6 @@ SDFSModule::dload(Interpreter &i)
 	if (!f)
 		return (false);
 	
-	i._program.newProg();
 	while (true) {
 		char buf[PROGSTRINGSIZE] = {0, };
 		size_t res = f.readBytesUntil('\n', buf, PROGSTRINGSIZE-1);
@@ -191,7 +191,15 @@ SDFSModule::dload(Interpreter &i)
 	
 	f.close();
 	i._program.reset();
-	return (true);
+	
+	return true;
+}
+
+bool
+SDFSModule::dload(Interpreter &i)
+{
+	i._program.newProg();
+	return (_loadText(i));
 }
 
 bool

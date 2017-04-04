@@ -45,7 +45,10 @@ private:
 	static bool scratch(Interpreter&);
 	static bool dload(Interpreter&);
 	static bool header(Interpreter&);
+	
 	static bool getFileName(Interpreter&, char[]);
+	static bool _loadText(Interpreter&);
+	
 	static File	_root;
 	static const FunctionBlock::function _commands[] PROGMEM;
 };

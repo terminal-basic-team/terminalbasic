@@ -119,6 +119,18 @@ Interpreter::Program::StackFrame::size(Type t)
 }
 
 void
+Interpreter::Program::clearProg()
+{
+	_jumpFlag = false;
+	_textPosition = 0;
+	_sp = programSize;
+	memmove(_text, _text+_textEnd, _arraysEnd-_textEnd);
+	_variablesEnd -= _textEnd;
+	_arraysEnd -= _textEnd;
+	_textEnd = 0;
+}
+
+void
 Interpreter::Program::newProg()
 {
 	_textEnd = _current = _variablesEnd = _arraysEnd = _jump = 0;

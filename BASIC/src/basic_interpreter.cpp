@@ -318,13 +318,13 @@ Interpreter::dump(DumpMode mode)
 	{
 		ByteArray ba((uint8_t*) _program._text, _program.programSize);
 		_output.println(ba);
-		print(Token::KW_END), print(ProgMemStrings::S_OF);
+		print(ProgMemStrings::S_END), print(ProgMemStrings::S_OF);
 		print(ProgMemStrings::S_TEXT), _output.print('\t');
 		_output.println(unsigned(_program._textEnd), HEX);
-		print(Token::KW_END), print(ProgMemStrings::S_OF);
+		print(ProgMemStrings::S_END), print(ProgMemStrings::S_OF);
 		print(ProgMemStrings::S_VARS), _output.print('\t');
 		_output.println(unsigned(_program._variablesEnd), HEX);
-		print(Token::KW_END), print(ProgMemStrings::S_OF);
+		print(ProgMemStrings::S_END), print(ProgMemStrings::S_OF);
 		print(ProgMemStrings::S_ARRAYS), _output.print('\t');
 		_output.println(unsigned(_program._arraysEnd), HEX);
 		print(ProgMemStrings::S_STACK), _output.print('\t');

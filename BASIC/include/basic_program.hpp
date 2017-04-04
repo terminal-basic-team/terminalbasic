@@ -134,6 +134,10 @@ public:
 
 	Program(size_t=PROGRAMSIZE);
 	/**
+	 * @brief Clear program text, but not vars and arrays
+	 */
+	void clearProg();
+	/**
 	 * @brief Clear program memory
 	 */
 	void newProg();

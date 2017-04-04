@@ -33,7 +33,7 @@
  */
 #define USEMATH		1 // Math (requires USE_REALS)
 #define USEARDUINOIO	1 // ARduino IO
-#define USESD		1
+#define USESD		1 // SD card module
 
 namespace BASIC
 {
