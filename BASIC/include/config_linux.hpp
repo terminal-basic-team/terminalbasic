@@ -31,7 +31,14 @@
 /**
  * Used modules
  */
-#define USEMATH		1 // Math (requires USE_REALS)
+/*
+ * Math module (requires USE_REALS)
+ */
+#define USEMATH 	1
+#if USEMATH
+#define M_TRIGONOMETRIC	1
+#endif
+
 #define USEARDUINOIO	1 // ARduino IO
 #define USESD		1 // SD card module
 
