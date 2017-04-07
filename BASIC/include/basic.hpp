@@ -63,26 +63,27 @@ enum class Token : uint8_t
 	KW_ARRAYS,     // 1
 #endif
 	KW_BASE,       // 2
-	COM_CLS,       // 3
-	KW_DATA,       // 4
-	KW_DEF,        // 5
-	COM_DELAY,     // 6
-	KW_DIM,        // 7
+	COM_CHAIN,     // 3
+	COM_CLS,       // 4
+	KW_DATA,       // 5
+	KW_DEF,        // 6
+	COM_DELAY,     // 7
+	KW_DIM,        // 8
 #if USE_DUMP
-	COM_DUMP,      // 8
+	COM_DUMP,      // 9
 #endif
-	KW_END,        // 9
-	KW_FALSE,      // 10
-	KW_FOR,        // 11
-	KW_GOSUB,      // 12
-	KW_GOTO,       // 13
-	KW_GO,         // 14
-	KW_IF,         // 15
-	KW_INPUT,      // 16
-	KW_LET,        // 17
-	COM_LIST,
-	COM_LOAD,
-	COM_NEW,
+	KW_END,        // 10
+	KW_FALSE,      // 11
+	KW_FOR,        // 12
+	KW_GOSUB,      // 13
+	KW_GOTO,       // 14
+	KW_GO,         // 15
+	KW_IF,         // 16
+	KW_INPUT,      // 17
+	KW_LET,        // 18
+	COM_LIST,      // 19
+	COM_LOAD,      // 20
+	COM_NEW,       // 21
 	KW_NEXT,
 	KW_ON,
 	KW_OPTION,

@@ -39,7 +39,7 @@ public:
 protected:
 	void _init() override;
 private:
-	static bool chain(Interpreter&);
+	static bool dchain(Interpreter&);
 	static bool dsave(Interpreter&);
 	static bool directory(Interpreter&);
 	static bool scratch(Interpreter&);
@@ -47,7 +47,7 @@ private:
 	static bool header(Interpreter&);
 	
 	static bool getFileName(Interpreter&, char[]);
-	static bool _loadText(Interpreter&);
+	static bool _loadText(File&, Interpreter&);
 	
 	static File	_root;
 	static const FunctionBlock::function _commands[] PROGMEM;

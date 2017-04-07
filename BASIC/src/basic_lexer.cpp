@@ -27,28 +27,29 @@
 /*
  * KW_ARRAYS = "ARRAYS" // 1
  * KW_BASE = "BASE"     // 2
- * COM_CLS = "CLS"      // 3
- * KW_DATA = "DATA"     // 4
- * KW_DEF = "DEF"       // 5
- * COM_DELAY = "DELAY"  // 6
- * KW_DIM = "DIM"       // 7
- * COM_DUMP = "DUMP"    // 8
- * KW_END = "END"       // 9
- * KW_FALSE = "FALSE"   // 10
- * KW_FOR = "FOR"       // 11
- * KW_GOSUB = "GOSUB"   // 12
- * KW_GOTO = "GOTO"     // 13
- * KW_GO = "GO"         // 14
- * KW_IF = "IF"         // 15
- * KW_INPUT = "INPUT"   // 16
- * KW_LET = "LET"       // 17
- * COM_LIST = "LIST"
- * COM_LOAD = "LOAD"
- * COM_NEW = "NEW"
- * KW_NEXT = "NEXT"
- * KW_ON = "ON"
- * KW_OPTION = "OPTION"
- * KW_PRINT = "PRINT"
+ * COM_CHAIN = "CHAIN"  // 3
+ * COM_CLS = "CLS"      // 4
+ * KW_DATA = "DATA"     // 5
+ * KW_DEF = "DEF"       // 6
+ * COM_DELAY = "DELAY"  // 7
+ * KW_DIM = "DIM"       // 8
+ * COM_DUMP = "DUMP"    // 9
+ * KW_END = "END"       // 10
+ * KW_FALSE = "FALSE"   // 11
+ * KW_FOR = "FOR"       // 12
+ * KW_GOSUB = "GOSUB"   // 13
+ * KW_GOTO = "GOTO"     // 14
+ * KW_GO = "GO"         // 15
+ * KW_IF = "IF"         // 16
+ * KW_INPUT = "INPUT"   // 17
+ * KW_LET = "LET"       // 18
+ * COM_LIST = "LIST"    // 19
+ * COM_LOAD = "LOAD"    // 20
+ * COM_NEW = "NEW"      // 21
+ * KW_NEXT = "NEXT"     // 22
+ * KW_ON = "ON"         // 23
+ * KW_OPTION = "OPTION" // 24
+ * KW_PRINT = "PRINT"   // 25
  * KW_RANDOMIZE = "RANDOMIZE"
  * KW_READ = "READ"
  * KW_REM = "REM"
@@ -94,30 +95,31 @@ const char sNOTOKENS[] PROGMEM = "NOTOKENS";  // 0
 const char sARRAYS[] PROGMEM = "ARRAYS";      // 1
 #endif
 const char sBASE[] PROGMEM = "BASE";          // 2
-const char sCLS[] PROGMEM = "CLS";            // 3
-const char sDATA[] PROGMEM = "DATA";          // 4
-const char sDEF[] PROGMEM = "DEF";            // 5
-const char sDELAY[] PROGMEM = "DELAY";        // 6
-const char sDIM[] PROGMEM = "DIM";            // 7
+const char sCHAIN[] PROGMEM = "CHAIN";        // 3
+const char sCLS[] PROGMEM = "CLS";            // 4
+const char sDATA[] PROGMEM = "DATA";          // 5
+const char sDEF[] PROGMEM = "DEF";            // 6
+const char sDELAY[] PROGMEM = "DELAY";        // 7
+const char sDIM[] PROGMEM = "DIM";            // 8
 #if USE_DUMP
-const char sDUMP[] PROGMEM = "DUMP";          // 8
+const char sDUMP[] PROGMEM = "DUMP";          // 9
 #endif
-const char sEND[] PROGMEM = "END";            // 9
-const char sFALSE[] PROGMEM = "FALSE";        // 10
-const char sFOR[] PROGMEM = "FOR";            // 11
-const char sGOSUB[] PROGMEM = "GOSUB";        // 12
-const char sGOTO[] PROGMEM = "GOTO";          // 13
-const char sGO[] PROGMEM = "GO";              // 14
-const char sIF[] PROGMEM = "IF";              // 15
-const char sINPUT[] PROGMEM = "INPUT";        // 16
-const char sLET[] PROGMEM = "LET";            // 17
-const char sLIST[] PROGMEM = "LIST";
-const char sLOAD[] PROGMEM = "LOAD";
-const char sNEW[] PROGMEM = "NEW";
-const char sNEXT[] PROGMEM = "NEXT";
-const char sON[] PROGMEM = "ON";
-const char sOPTION[] PROGMEM = "OPTION";
-const char sPRINT[] PROGMEM = "PRINT";
+const char sEND[] PROGMEM = "END";            // 10
+const char sFALSE[] PROGMEM = "FALSE";        // 11
+const char sFOR[] PROGMEM = "FOR";            // 12
+const char sGOSUB[] PROGMEM = "GOSUB";        // 13
+const char sGOTO[] PROGMEM = "GOTO";          // 14
+const char sGO[] PROGMEM = "GO";              // 15
+const char sIF[] PROGMEM = "IF";              // 16
+const char sINPUT[] PROGMEM = "INPUT";        // 17
+const char sLET[] PROGMEM = "LET";            // 18
+const char sLIST[] PROGMEM = "LIST";          // 19
+const char sLOAD[] PROGMEM = "LOAD";          // 20
+const char sNEW[] PROGMEM = "NEW";            // 21
+const char sNEXT[] PROGMEM = "NEXT";          // 22
+const char sON[] PROGMEM = "ON";              // 23
+const char sOPTION[] PROGMEM = "OPTION";      // 24
+const char sPRINT[] PROGMEM = "PRINT";        // 25
 const char sRANDOMIZE[] PROGMEM = "RANDOMIZE";
 const char sREAD[] PROGMEM = "READ";
 const char sREM[] PROGMEM = "REM";
@@ -173,30 +175,31 @@ PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 	sARRAYS,    // 1
 #endif
 	sBASE,      // 2
-	sCLS,       // 3
-	sDATA,      // 4
-	sDEF,       // 5
-	sDELAY,     // 6
-	sDIM,       // 7
+	sCHAIN,     // 3
+	sCLS,       // 4
+	sDATA,      // 5
+	sDEF,       // 6
+	sDELAY,     // 7
+	sDIM,       // 8
 #if USE_DUMP
-	sDUMP,      // 8
+	sDUMP,      // 9
 #endif
-	sEND,       // 9
-	sFALSE,     // 10
-	sFOR,       // 11
-	sGOSUB,     // 12
-	sGOTO,      // 13
-	sGO,        // 14
-	sIF,        // 15
-	sINPUT,     // 16
-	sLET,       // 17
-	sLIST,
-	sLOAD,
-	sNEW,
-	sNEXT,
-	sON,
-	sOPTION,
-	sPRINT,
+	sEND,       // 10
+	sFALSE,     // 11
+	sFOR,       // 12
+	sGOSUB,     // 13
+	sGOTO,      // 14
+	sGO,        // 15
+	sIF,        // 16
+	sINPUT,     // 17
+	sLET,       // 18
+	sLIST,      // 19
+	sLOAD,      // 20
+	sNEW,       // 21
+	sNEXT,      // 22
+	sON,        // 23
+	sOPTION,    // 24
+	sPRINT,     // 25
 	sRANDOMIZE,
 	sREAD,
 	sREM,
@@ -238,32 +241,33 @@ static const uint8_t tokenTable[] PROGMEM = {
 	'A', 'R', 'R', 'A', 'Y', 'S'+0x80, // 1
 #endif
 	'B', 'A', 'S', 'E'+0x80,           // 2
-	'C', 'L', 'S'+0x80,                // 3
-	'D', 'A', 'T', 'A'+0x80,           // 4
-	'D', 'E', 'F'+0x80,                // 5
-	'D', 'E', 'L', 'A', 'Y'+0x80,      // 6
-	'D', 'I', 'M'+0x80,                // 7
+	'C', 'H', 'A', 'I', 'N'+0x80,      // 3
+	'C', 'L', 'S'+0x80,                // 4
+	'D', 'A', 'T', 'A'+0x80,           // 5
+	'D', 'E', 'F'+0x80,                // 6
+	'D', 'E', 'L', 'A', 'Y'+0x80,      // 7
+	'D', 'I', 'M'+0x80,                // 8
 #if USE_DUMP
-	'D', 'U', 'M', 'P'+0x80,           // 8
+	'D', 'U', 'M', 'P'+0x80,           // 9
 #endif
-	'E', 'N', 'D'+0x80,                // 9
-	'F', 'A', 'L', 'S', 'E'+0x80,      // 10
-	'F', 'O', 'R'+0x80,                // 11
-	'G', 'O', 'S', 'U', 'B'+0x80,      // 12
-	'G', 'O', 'T', 'O'+0x80,           // 13
-	'G', 'O'+0x80,                     // 14
-	'I', 'F'+0x80,                     // 15
-	'I', 'N', 'P', 'U', 'T'+0x80,      // 16
-	'L', 'E', 'T'+0x80,                // 17
-	'L', 'I', 'S', 'T'+0x80,           // 18
-	'L', 'O', 'A', 'D'+0x80,           // 19
-	'N', 'E', 'W'+0x80,                // 20
-	'N', 'E', 'X', 'T'+0x80,           // 21
-	'O', 'N'+0x80,                     // 22
-	'O', 'P', 'T', 'I', 'O', 'N'+0x80, // 23
-	'P', 'R', 'I', 'N', 'T'+0x80,      // 24
-	'R', 'A', 'N', 'D', 'O', 'M', 'I', 'Z', 'E'+0x80, //25
-	'R', 'E', 'A', 'D'+0x80,           // 26
+	'E', 'N', 'D'+0x80,                // 10
+	'F', 'A', 'L', 'S', 'E'+0x80,      // 11
+	'F', 'O', 'R'+0x80,                // 12
+	'G', 'O', 'S', 'U', 'B'+0x80,      // 13
+	'G', 'O', 'T', 'O'+0x80,           // 14
+	'G', 'O'+0x80,                     // 15
+	'I', 'F'+0x80,                     // 16
+	'I', 'N', 'P', 'U', 'T'+0x80,      // 17
+	'L', 'E', 'T'+0x80,                // 18
+	'L', 'I', 'S', 'T'+0x80,           // 19
+	'L', 'O', 'A', 'D'+0x80,           // 20
+	'N', 'E', 'W'+0x80,                // 21
+	'N', 'E', 'X', 'T'+0x80,           // 22
+	'O', 'N'+0x80,                     // 23
+	'O', 'P', 'T', 'I', 'O', 'N'+0x80, // 24
+	'P', 'R', 'I', 'N', 'T'+0x80,      // 25
+	'R', 'A', 'N', 'D', 'O', 'M', 'I', 'Z', 'E'+0x80, //26
+	'R', 'E', 'A', 'D'+0x80,           // 27
 	'R', 'E', 'M'+0x80,
 	'R', 'E', 'T', 'U', 'R', 'N'+0x80,
 	'R', 'U', 'N'+0x80,

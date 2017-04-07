@@ -92,6 +92,12 @@ void Parser::addModule(FunctionBlock *module)
 	_internal.setNext(module);
 }
 
+void
+Parser::stop()
+{
+	_stopParse = true;
+}
+
 bool
 Parser::parse(const char *s)
 {
@@ -140,6 +146,7 @@ Parser::fOperators()
  * OPERATOR =
  *	KW_DIM ARRAYS_LIST |
  *      KW_END |
+ *	KW_STOP |
  *	KW_FOR FOR_CONDS |
  *	KW_GOSUB EXPRESSION |
  *	KW_IF EXPRESSION IF_STATEMENT |
@@ -330,17 +337,13 @@ Parser::fPrintList()
 		case Token::COMMA:
 			if (_mode == EXECUTE)
 				_interpreter.print('\t');
-			if (!_lexer.getNext() || !fPrintItem()) {
-				_error = EXPRESSION_EXPECTED;
+			if (!_lexer.getNext() || !fPrintItem())
 				return (false);
-			}
 			break;
 		case Token::SEMI:
 			if (_lexer.getNext()) {
-				if (!fPrintItem()) {
-					_error = EXPRESSION_EXPECTED;
+				if (!fPrintItem())
 					return (false);
-				}
 			} else
 				return (true);
 			break;
@@ -360,23 +363,25 @@ Parser::fPrintList()
 bool
 Parser::fPrintItem()
 {
-	Value v;
-	if (_lexer.getToken() == Token::KW_TAB) {
-		if (_lexer.getNext() && _lexer.getToken() == Token::LPAREN &&
-		    _lexer.getNext() && fExpression(v) &&
-		    _lexer.getToken() == Token::RPAREN) {
-			_interpreter.printTab(Integer(v));
-			_lexer.getNext();
-		} else
-			return (false);
-	} else {
-		if (!fExpression(v)) {
-			_error = EXPRESSION_EXPECTED;
-			return (false);
+	if (_lexer.getToken() != Token::COMMA) {
+		Value v;
+		if (_lexer.getToken() == Token::KW_TAB) {
+			if (_lexer.getNext() && _lexer.getToken() == Token::LPAREN &&
+			    _lexer.getNext() && fExpression(v) &&
+			    _lexer.getToken() == Token::RPAREN) {
+				_interpreter.printTab(Integer(v));
+				_lexer.getNext();
+			} else
+				return (false);
+		} else {
+			if (!fExpression(v)) {
+				_error = EXPRESSION_EXPECTED;
+				return (false);
+			}
+
+			if (_mode == EXECUTE)
+				_interpreter.print(v);
 		}
-		
-		if (_mode == EXECUTE)
-			_interpreter.print(v);
 	}
 	return (true);
 }
@@ -661,6 +666,11 @@ Parser::fCommand()
 	Token t = _lexer.getToken();
 	LOG(t);
 	switch (t) {
+	case Token::COM_CHAIN:
+		if (_mode == EXECUTE)
+			_interpreter.chain();
+		_lexer.getNext();
+		return (true);
 	case Token::COM_CLS:
 		if (_mode == EXECUTE)
 			_interpreter.cls();

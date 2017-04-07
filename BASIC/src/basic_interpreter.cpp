@@ -310,6 +310,7 @@ Interpreter::addModule(FunctionBlock *module)
 	_parser.addModule(module);
 }
 
+#if USE_DUMP
 void
 Interpreter::dump(DumpMode mode)
 {
@@ -368,6 +369,7 @@ Interpreter::dump(DumpMode mode)
 		break;
 	}
 }
+#endif
 
 void
 Interpreter::print(const Parser::Value &v, TextAttr attr)
@@ -630,60 +632,127 @@ Interpreter::next(const char *varName)
 	return (false);
 }
 
+struct EEpromHeader_t
+{
+	uint16_t len;
+	uint16_t magic_FFFFminuslen;
+	uint16_t crc16;
+};
+
 void
 Interpreter::save()
 {
-	/**
-	 * struct SavedProgram_t
-	 * {
-	 *	uint16_t	length;
-	 *	uint8_t		data[length];
-	 *	uint16_t	crc;
-	 * };
-	 */
+	EEpromHeader_t h = {
+		// Program text buffer length
+		.len = _program._textEnd,
+		.magic_FFFFminuslen = uint16_t(0xFFFFu)-_program._textEnd,
+		// Checksum
+		.crc16 = 0
+	};
 	
-	// Program text buffer length
-	size_t len = _program._textEnd;
-	uint16_t crc = 0;
-
-	EEPROMClass e;
-	for (uint16_t ind = 0; ind < e.length(); ++ind)
-		e.update(ind, 0xFF);
-	
-	// First 2 bytes is program length
-	e.update(0, (len << 8) >> 8);
-	e.update(1, len >> 8);
+	// Compute program checksum
 	size_t p;
-	for (p = 0; p < _program._textEnd; ++p) {
-		e.update(p + 2, _program._text[p]);
-		crc = _crc16_update(crc, _program._text[p]);
-		_output.print('.');
+	for (p = 0; p < _program._textEnd; ++p)
+		h.crc16 = _crc16_update(h.crc16, _program._text[p]);
+
+	{
+		EEPROMClass e;
+		// Write program to EEPROM
+		for (p = 0; p < _program._textEnd; ++p) {
+			e.update(p + sizeof (EEpromHeader_t), _program._text[p]);
+			_output.print('.');
+		}
 	}
-	e.update(p + 2, (crc << 8) >> 8);
-	e.update(p + 3, crc >> 8);
 	newline();
+	
+	// Compute checksum
+	uint16_t crc = eepromProgramChecksum(h.len);
+	
+	if (crc == h.crc16) {
+		EEPROMClass e;
+		e.put(0, h);
+	} else
+		raiseError(DYNAMIC_ERROR, BAD_CHECKSUM);
 }
 
-void Interpreter::load()
+void
+Interpreter::load()
 {
+	uint16_t len;
 	_program.newProg();
-	EEPROMClass e;
+	if (!checkText(len))
+		return;
 
-	uint16_t crc = 0;
-	size_t len = size_t(e.read(0));
-	len |= size_t(e.read(1)) << 8;
-	size_t p;
-	for (p = 0; p < len; ++p) {
-		_program._text[p] = e.read(p + 2);
-		crc = _crc16_update(crc, _program._text[p]);
+	loadText(len);
+	_program._textEnd = _program._variablesEnd = _program._arraysEnd = len;
+}
+
+void
+Interpreter::chain()
+{
+	uint16_t len;
+	if (!checkText(len))
+		return;
+	
+	_program.clearProg();
+	_program.moveData(len);
+	loadText(len);
+	_program.jump(0);
+	_parser.stop();
+}
+
+uint16_t
+Interpreter::eepromProgramChecksum(uint16_t len)
+{
+	EEPROMClass e;
+	// Compute checksum
+	uint16_t crc = 0, p;
+	for (p = sizeof (EEpromHeader_t); p < len+sizeof (EEpromHeader_t);
+	    ++p) {
+		uint8_t b = e.read(p);
+		crc = _crc16_update(crc, b);
 		_output.print('.');
 	}
-	uint16_t pCrc = uint16_t(e.read(p + 2));
-	pCrc |= size_t(e.read(p + 3)) << 8;
-	if (pCrc != crc)
-		newline(), raiseError(DYNAMIC_ERROR, BAD_CHECKSUM);
 	newline();
-	_program._textEnd = _program._variablesEnd = _program._arraysEnd = len;
+	return crc;
+}
+
+bool
+Interpreter::checkText(uint16_t &len)
+{
+	EEpromHeader_t h;
+	
+	{
+		EEPROMClass e;
+		e.get(0, h);
+	}
+	
+	if ((h.len > PROGRAMSIZE) ||
+	    (h.magic_FFFFminuslen != uint16_t(0xFFFF)-h.len)) {
+		raiseError(DYNAMIC_ERROR, INTERNAL_ERROR);
+		return false;
+	}
+	
+	uint16_t crc = eepromProgramChecksum(h.len);
+	if (h.crc16 != crc) {
+		raiseError(DYNAMIC_ERROR, BAD_CHECKSUM);
+		return false;
+	}
+	
+	len = h.len;
+	return true;
+}
+
+void
+Interpreter::loadText(uint16_t len)
+{
+	EEPROMClass e;
+
+	for (uint16_t p = 0; p < len; ++p) {
+		_program._text[p] = e.read(p + sizeof (EEpromHeader_t));
+		_output.print('.');
+	}
+	newline();
 }
 
 void

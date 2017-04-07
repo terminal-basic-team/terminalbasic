@@ -77,7 +77,7 @@ public:
 	};
 	
 	/**
-	 * Type of the occurederror
+	 * Type of the occured error
 	 */
 	enum ErrorType : uint8_t
 	{
@@ -174,7 +174,7 @@ public:
 		Type type;
 		// Number of dimensions
 		uint8_t numDimensions;
-		// dimensions values
+		// Actual dimensions values
 		size_t dimension[];
 	};
 	// Interpreter FSM state
@@ -188,11 +188,13 @@ public:
 		GET_VAR_VALUE,
 		CONFIRM_INPUT	// Input of the confirmation
 	};
+#if USE_DUMP
 	// Memory dump modes
 	enum DumpMode : uint8_t
 	{
 		MEMORY, VARS, ARRAYS
 	};
+#endif
 	// Terminal text attributes to use when printing
 	enum TextAttr : uint8_t
 	{
@@ -221,9 +223,9 @@ public:
 	
 	/**
 	 * @brief constructor
-	 * @param stream Boundary object for I/O
+	 * @param stream Boundary output object
+	 * @param print Boundary input object
 	 * @param program Program object
-	 * @param firstModule First module in chain
 	 */
 	explicit Interpreter(Stream&, Print&, Program&);
 	
@@ -235,22 +237,24 @@ public:
 	void step();
 	// Execute entered command (command or inputed program line)
 	void exec();
-	// Tokenize inputed program string
-	//void tokenize();
 	// Clear screen
 	void cls();
 	// Output program memory
 	void list(uint16_t=1, uint16_t=0);
+#if USE_DUMP
 	// Dump program memory
 	void dump(DumpMode);
-	
+#endif
+	// Add module on tail of the modules list
 	void addModule(FunctionBlock*);
 	
+	// New print line
 	void newline();
 	void print(char);
 #if USE_REALS
 	void print(Real);
 #endif
+	
 	void print(Integer, TextAttr=NO_ATTR);
 	void printTab(Integer);
 	void print(long, TextAttr=NO_ATTR);
@@ -287,10 +291,12 @@ public:
 	 * @return loop end flag
 	 */
 	bool next(const char*);
+
+	// Internal EEPROM commands
 	
 	void save();
-	
 	void load();
+	void chain();
 	/**
 	 * @breif Input variables
 	 */
@@ -355,6 +361,8 @@ public:
 	 * @return 
 	 */
 	bool confirm();
+	
+	void stop() { _parser.stop(); }
 
 	Program &_program;
 private:
@@ -382,6 +390,14 @@ private:
 	ArrayFrame *addArray(const char*, uint8_t, uint32_t);
 	
 	bool arrayElementIndex(ArrayFrame*, size_t&);
+	/**
+	 * @brief Check program text
+	 * @param len Length of the program
+	 * @return Flag of success
+	 */
+	bool checkText(uint16_t&);
+	void loadText(uint16_t);
+	uint16_t eepromProgramChecksum(uint16_t);
 	
 	// Interpreter FSM state
 	State			 _state;

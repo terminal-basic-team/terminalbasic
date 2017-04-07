@@ -124,10 +124,17 @@ Interpreter::Program::clearProg()
 	_jumpFlag = false;
 	_textPosition = 0;
 	_sp = programSize;
-	memmove(_text, _text+_textEnd, _arraysEnd-_textEnd);
-	_variablesEnd -= _textEnd;
-	_arraysEnd -= _textEnd;
-	_textEnd = 0;
+	_current = 0;
+}
+
+void
+Interpreter::Program::moveData(uint16_t dest)
+{
+	int32_t diff = _textEnd-dest;
+	memmove(_text+dest, _text+_textEnd, _arraysEnd-_textEnd);
+	_variablesEnd -= diff;
+	_arraysEnd -= diff;
+	_textEnd = dest;
 }
 
 void
