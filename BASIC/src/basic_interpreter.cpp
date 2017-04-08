@@ -46,42 +46,43 @@ class Interpreter::AttrKeeper
 {
 public:
 
-	explicit AttrKeeper(Interpreter &i, TextAttr a) :
+	explicit AttrKeeper(Interpreter &i, VT100::TextAttr a) :
 	_i(i), _a(a)
 	{
-		if (_a == NO_ATTR)
+		if (_a == VT100::NO_ATTR)
 			return;
-		if ((uint8_t(a) & uint8_t(BRIGHT)) != uint8_t(NO_ATTR))
+		if ((uint8_t(a) & uint8_t(VT100::BRIGHT)) != uint8_t(VT100::NO_ATTR))
 			_i._output.print("\x1B[1m");
-		if ((uint8_t(a) & uint8_t(UNDERSCORE)) != uint8_t(NO_ATTR))
+		if ((uint8_t(a) & uint8_t(VT100::UNDERSCORE)) != uint8_t(VT100::NO_ATTR))
 			_i._output.print("\x1B[4m");
-		if ((uint8_t(a) & uint8_t(REVERSE)) != uint8_t(NO_ATTR))
+		if ((uint8_t(a) & uint8_t(VT100::REVERSE)) != uint8_t(VT100::NO_ATTR))
 			_i._output.print("\x1B[7m");
-		if ((uint8_t(a) & 0xF0) == C_YELLOW)
+		if ((uint8_t(a) & 0xF0) == VT100::C_YELLOW)
 			_i._output.print("\x1B[33m");
-		else if ((uint8_t(a) & 0xF0) == C_GREEN)
+		else if ((uint8_t(a) & 0xF0) == VT100::C_GREEN)
 			_i._output.print("\x1B[32m");
-		else if ((uint8_t(a) & 0xF0) == C_RED)
+		else if ((uint8_t(a) & 0xF0) == VT100::C_RED)
 			_i._output.print("\x1B[31m");
-		else if ((uint8_t(a) & 0xF0) == C_BLUE)
+		else if ((uint8_t(a) & 0xF0) == VT100::C_BLUE)
 			_i._output.print("\x1B[34m");
-		else if ((uint8_t(a) & 0xF0) == C_MAGENTA)
+		else if ((uint8_t(a) & 0xF0) == VT100::C_MAGENTA)
 			_i._output.print("\x1B[35m");
-		else if ((uint8_t(a) & 0xF0) == C_CYAN)
+		else if ((uint8_t(a) & 0xF0) == VT100::C_CYAN)
 			_i._output.print("\x1B[36m");
-		else if ((uint8_t(a) & 0xF0) == C_WHITE)
+		else if ((uint8_t(a) & 0xF0) == VT100::C_WHITE)
 			_i._output.print("\x1B[37m");
 	}
 
 	~AttrKeeper()
 	{
-		if (_a == NO_ATTR)
+		if (_a == VT100::NO_ATTR)
 			return;
 		_i._output.print("\x1B[0m");
 	}
 private:
+	
 	Interpreter &_i;
-	TextAttr _a;
+	VT100::TextAttr _a;
 };
 
 uint8_t Interpreter::_termnoGen = 0;
@@ -181,15 +182,15 @@ Interpreter::init()
 	_parser.init();
 	_program.newProg();
 
-	print(ProgMemStrings::TERMINAL, BRIGHT);
-	print(ProgMemStrings::S_TERMINAL_BASIC, BRIGHT);
+	print(ProgMemStrings::TERMINAL, VT100::BRIGHT);
+	print(ProgMemStrings::S_TERMINAL_BASIC, VT100::BRIGHT);
 	print(ProgMemStrings::S_VERSION);
-	print(VERSION, BRIGHT), newline();
+	print(VERSION, VT100::BRIGHT), newline();
 #if BASIC_MULTITERMINAL
 	print(ProgMemStrings::TERMINAL, NO_ATTR), print(Integer(_termno), BRIGHT),
 	_output.print(':'), _output.print(' ');
 #endif
-	print(long(_program.programSize - _program._arraysEnd), BRIGHT);
+	print(long(_program.programSize - _program._arraysEnd), VT100::BRIGHT);
 	print(ProgMemStrings::BYTES), print(ProgMemStrings::AVAILABLE), newline();
 	_state = SHELL;
 }
@@ -205,7 +206,7 @@ Interpreter::step()
 		// waiting for user input command or program line
 	case SHELL:
 	{
-		print(ProgMemStrings::READY, BRIGHT);
+		print(ProgMemStrings::READY, VT100::BRIGHT);
 		newline();
 	}
 		// fall through
@@ -289,7 +290,7 @@ Interpreter::list(uint16_t start, uint16_t stop)
 		if (stop > 0 && s->number > stop)
 			break;
 
-		print(long(s->number), C_YELLOW);
+		print(long(s->number), VT100::C_YELLOW);
 
 		Lexer lex;
 		lex.init(s->text);
@@ -372,7 +373,7 @@ Interpreter::dump(DumpMode mode)
 #endif
 
 void
-Interpreter::print(const Parser::Value &v, TextAttr attr)
+Interpreter::print(const Parser::Value &v, VT100::TextAttr attr)
 {
 	AttrKeeper keeper(*this, attr);
 
@@ -455,11 +456,11 @@ Interpreter::print(Lexer &l)
 		case Token::C_INTEGER:
 		case Token::C_REAL:
 		case Token::C_BOOLEAN:
-			print(l.getValue(), C_CYAN);
+			print(l.getValue(), VT100::C_CYAN);
 			break;
 		case Token::C_STRING:
 		{
-			AttrKeeper a(*this, C_MAGENTA);
+			AttrKeeper a(*this, VT100::C_MAGENTA);
 			_output.write("\"");
 			_output.print(l.id());
 			_output.write("\" ");
@@ -472,7 +473,7 @@ Interpreter::print(Lexer &l)
 #endif
 		case Token::BOOL_IDENT:
 		case Token::STRING_IDENT:
-			print(l.id(), C_BLUE);
+			print(l.id(), VT100::C_BLUE);
 			break;
 		default:
 			_output.print('?');
@@ -1015,7 +1016,7 @@ Interpreter::readInput()
 }
 
 void
-Interpreter::print(const char *text, TextAttr attr)
+Interpreter::print(const char *text, VT100::TextAttr attr)
 {
 	AttrKeeper _a(*this, attr);
 
@@ -1023,7 +1024,7 @@ Interpreter::print(const char *text, TextAttr attr)
 }
 
 void
-Interpreter::print(ProgMemStrings index, TextAttr attr)
+Interpreter::print(ProgMemStrings index, VT100::TextAttr attr)
 {
 	char buf[16];
 	strcpy_P(buf, progmemString(index));
@@ -1040,14 +1041,14 @@ Interpreter::print(Token t)
 	strcpy_P(buf, (PGM_P) pgm_read_word(&(Lexer::tokenStrings[
 	    uint8_t(t)])));
 	if (t < Token::OP_AND)
-		print(buf, TextAttr(uint8_t(BRIGHT) |
-		    uint8_t(C_GREEN)));
+		print(buf, VT100::TextAttr(uint8_t(VT100::BRIGHT) |
+		    uint8_t(VT100::C_GREEN)));
 	else
 		print(buf);
 }
 
 void
-Interpreter::print(Integer i, TextAttr attr)
+Interpreter::print(Integer i, VT100::TextAttr attr)
 {
 	AttrKeeper _a(*this, attr);
 
@@ -1064,7 +1065,7 @@ Interpreter::printTab(Integer tabs)
 }
 
 void
-Interpreter::print(long i, TextAttr attr)
+Interpreter::print(long i, VT100::TextAttr attr)
 {
 	AttrKeeper _a(*this, attr);
 

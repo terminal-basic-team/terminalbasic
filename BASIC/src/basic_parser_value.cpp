@@ -422,7 +422,7 @@ Parser::Value::powerMatchValue(const Value &rhs)
 }
 
 Parser::Value&
-    Parser::Value::operator^=(const Value &rhs)
+Parser::Value::operator^=(const Value &rhs)
 {
 	powerMatchValue(rhs);
 	switch (type) {

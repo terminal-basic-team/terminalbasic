@@ -23,6 +23,7 @@
 #include "basic_lexer.hpp"
 #include "basic_parser.hpp"
 #include "helper.hpp"
+#include "vt100.hpp"
 
 namespace BASIC
 {
@@ -195,31 +196,6 @@ public:
 		MEMORY, VARS, ARRAYS
 	};
 #endif
-	// Terminal text attributes to use when printing
-	enum TextAttr : uint8_t
-	{
-		NO_ATTR = 0x0,
-		BRIGHT = 0x1,
-		UNDERSCORE = 0x2,
-		BLINK = 0x4,
-		REVERSE = 0x8,
-		C_WHITE = 0x00,
-		C_BLACK = 0x10,
-		C_RED = 0x20,
-		C_GREEN = 0x30,
-		C_YELLOW = 0x40,
-		C_BLUE = 0x50,
-		C_MAGENTA = 0x60,
-		C_CYAN = 0x70,
-		CB_BLACK = 0x80,
-		CB_RED = 0x90,
-		CB_GREEN = 0xA0,
-		CB_YELLOW = 0xB0,
-		CB_BLUE = 0xC0,
-		CB_MAGENTA = 0xD0,
-		CB_CYAN = 0xE0,
-		CB_WHITE = 0xF0,
-	};
 	
 	/**
 	 * @brief constructor
@@ -255,14 +231,14 @@ public:
 	void print(Real);
 #endif
 	
-	void print(Integer, TextAttr=NO_ATTR);
+	void print(Integer, VT100::TextAttr=VT100::NO_ATTR);
 	void printTab(Integer);
-	void print(long, TextAttr=NO_ATTR);
-	void print(ProgMemStrings, TextAttr=NO_ATTR);
+	void print(long, VT100::TextAttr=VT100::NO_ATTR);
+	void print(ProgMemStrings, VT100::TextAttr=VT100::NO_ATTR);
 	void print(Token);
-	void print(const char *, TextAttr=NO_ATTR);
+	void print(const char *, VT100::TextAttr=VT100::NO_ATTR);
 	// print value
-	void print(const Parser::Value&, TextAttr=NO_ATTR);
+	void print(const Parser::Value&, VT100::TextAttr=VT100::NO_ATTR);
 	
 	// run program
 	void run();

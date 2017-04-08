@@ -24,28 +24,26 @@
 /**
  * Paraeters
  */
-#define USE_REALS	0 // Real arithmetics
-#define USE_LONGINT	0 // Long integer support
-#define USE_DUMP	0
+#define USE_REALS	1 // Real arithmetics
+#define USE_LONGINT	1 // Long integer support
+#define USE_DUMP	1
 
 /**
  * Used modules
  */
-#define USESD		0 // SDcard
-
+#define USESD		1 // SDcard
+#define USEARDUINOIO	1 // ARduino IO
 /*
  * Math module (requires USE_REALS)
  */
-#define USEMATH 	0
+#define USEMATH 	1
 #if USEMATH
 #define M_TRIGONOMETRIC		1 // SIN COS TAN COT
 #define M_REVERSE_TRIGONOMETRIC	1 // ACS ASN ATN
 #endif
 
-#define USEARDUINOIO	0 // ARduino IO
-
 // Uыe TFT output
-#define USEUTFT		0
+#define USEUTFT		1
 #define USETVOUT	0
 // Use multiterminal mode
 #define BASIC_MULTITERMINAL 0

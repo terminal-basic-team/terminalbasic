@@ -79,7 +79,7 @@ static BASIC::Interpreter basic3(Serial3, Serial3, program3);
 #else
 static BASIC::Interpreter::Program program(BASIC::PROGRAMSIZE);
 #if USEUTFT
-static BASIC::Interpreter basic(Serial, utftPrint, program);
+static BASIC::Interpreter basic(SerialL, utftPrint, program);
 #elif USETVOUT
 static BASIC::Interpreter basic(SerialL, tvoutPrint, program);
 #else

@@ -19,6 +19,7 @@
                 <sourceRootElem>include</sourceRootElem>
                 <sourceRootElem>src</sourceRootElem>
                 <sourceRootElem>../TVoutEx</sourceRootElem>
+                <sourceRootElem>../UTFT</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>
