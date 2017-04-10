@@ -1042,7 +1042,7 @@ Interpreter::print(Token t)
 	char buf[16];
 	strcpy_P(buf, (PGM_P) pgm_read_word(&(Lexer::tokenStrings[
 	    uint8_t(t)])));
-	if (t < Token::OP_AND)
+	if (t < Token::STAR)
 		print(buf, VT100::TextAttr(uint8_t(VT100::BRIGHT) |
 		    uint8_t(VT100::C_GREEN)));
 	else

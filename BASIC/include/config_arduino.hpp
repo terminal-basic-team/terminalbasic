@@ -24,39 +24,39 @@
 /**
  * Paraeters
  */
-#define USE_REALS	0 // Real arithmetics
-#define USE_LONGINT	0 // Long integer support
-#define USE_DUMP	0 // DUMP command support
-#define CLEAR_PROGRAM_MEMORY 0
+#define USE_REALS            1 // Real arithmetics
+#define USE_LONGINT          0 // Long integer support
+#define USE_DUMP             1 // DUMP command support
+#define CLEAR_PROGRAM_MEMORY 1 // Clear program memory with 0xFF on NEW
 
-#define USE_SAVE_LOAD	0 // SAVE and LOAD commands support
+#define USE_SAVE_LOAD        1 // SAVE and LOAD commands support
 #if USE_SAVE_LOAD
-#define SAVE_LOAD_CHECKSUM 0
+#define SAVE_LOAD_CHECKSUM   1 // Compute checksums while SAVE, LOAD and CHAIN
 #endif
 
 /**
  * Used modules
  */
-#define USESD		0 // SDcard
-#define USEARDUINOIO	0 // ARduino IO
+#define USESD                0 // SDcard
+#define USEARDUINOIO         1 // ARduino IO
 /*
  * Math module (requires USE_REALS)
  */
-#define USEMATH 	0
+#define USEMATH                 1
 #if USEMATH
-#define M_TRIGONOMETRIC		1 // SIN COS TAN COT
+#define M_TRIGONOMETRIC         1 // SIN COS TAN COT
 #define M_REVERSE_TRIGONOMETRIC	1 // ACS ASN ATN
 #endif
 
 // Uыe TFT output
-#define USEUTFT		0
-#define USETVOUT	0
+#define USEUTFT		          0
+#define USETVOUT	          0
 // Use multiterminal mode
 #define BASIC_MULTITERMINAL 0
 // Use external memory
-#define USE_EXTMEM	0
+#define USE_EXTMEM	        0
 #define EXTMEM_ADDRESS 0x8000
-#define EXTMEM_SIZE 32768
+#define EXTMEM_SIZE    32768
 
 namespace BASIC
 {
@@ -75,7 +75,7 @@ const size_t PROGRAMSIZE = 4096;
 #elif defined (__AVR_ATmega128__) || defined (__AVR_ATmega128A__)
 const size_t PROGRAMSIZE = 3072;
 #elif defined (__AVR_ATmega328__) || defined (__AVR_ATmega328P__)
-const size_t PROGRAMSIZE = 1024;
+const size_t PROGRAMSIZE = 1000;
 #elif defined (__AVR_ATmega168__)
 const size_t PROGRAMSIZE = 384;
 #endif
