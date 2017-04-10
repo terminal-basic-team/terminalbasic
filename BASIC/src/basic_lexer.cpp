@@ -25,6 +25,7 @@
 #include <math.h>
 
 /*
+ * OP_AND = "AND"       // 1
  * KW_ARRAYS = "ARRAYS" // 1
  * KW_BASE = "BASE"     // 2
  * COM_CHAIN = "CHAIN"  // 3
@@ -47,8 +48,10 @@
  * COM_LOAD = "LOAD"    // 20
  * COM_NEW = "NEW"      // 21
  * KW_NEXT = "NEXT"     // 22
+ * OP_NOT = "NOT"
  * KW_ON = "ON"         // 23
  * KW_OPTION = "OPTION" // 24
+ * OP_OR = "OR"
  * KW_PRINT = "PRINT"   // 25
  * KW_RANDOMIZE = "RANDOMIZE"
  * KW_READ = "READ"
@@ -64,10 +67,6 @@
  * KW_TRUE = "TRUE"
  * KW_VARS = "VARS"
  * 
- * OP_AND = "AND"
- * OP_NOT = "NOT"
- * OP_OR = "OR"
- *
  * STAR = '*'
  * SLASH = '/'
  * PLUS = '+'
@@ -91,41 +90,50 @@ namespace BASIC
 {
 
 const char sNOTOKENS[] PROGMEM = "NOTOKENS";  // 0
+const char sOP_AND[] PROGMEM = "AND";         // 1
 #if USE_DUMP
-const char sARRAYS[] PROGMEM = "ARRAYS";      // 1
+const char sARRAYS[] PROGMEM = "ARRAYS";      // 2
 #endif
-const char sBASE[] PROGMEM = "BASE";          // 2
-const char sCHAIN[] PROGMEM = "CHAIN";        // 3
-const char sCLS[] PROGMEM = "CLS";            // 4
-const char sDATA[] PROGMEM = "DATA";          // 5
-const char sDEF[] PROGMEM = "DEF";            // 6
-const char sDELAY[] PROGMEM = "DELAY";        // 7
-const char sDIM[] PROGMEM = "DIM";            // 8
+const char sBASE[] PROGMEM = "BASE";          // 3
+#if USE_SAVE_LOAD
+const char sCHAIN[] PROGMEM = "CHAIN";        // 4
+#endif
+const char sCLS[] PROGMEM = "CLS";            // 5
+const char sDATA[] PROGMEM = "DATA";          // 6
+const char sDEF[] PROGMEM = "DEF";            // 7
+const char sDELAY[] PROGMEM = "DELAY";        // 8
+const char sDIM[] PROGMEM = "DIM";            // 9
 #if USE_DUMP
-const char sDUMP[] PROGMEM = "DUMP";          // 9
+const char sDUMP[] PROGMEM = "DUMP";          // 10
 #endif
-const char sEND[] PROGMEM = "END";            // 10
-const char sFALSE[] PROGMEM = "FALSE";        // 11
-const char sFOR[] PROGMEM = "FOR";            // 12
-const char sGOSUB[] PROGMEM = "GOSUB";        // 13
-const char sGOTO[] PROGMEM = "GOTO";          // 14
-const char sGO[] PROGMEM = "GO";              // 15
-const char sIF[] PROGMEM = "IF";              // 16
-const char sINPUT[] PROGMEM = "INPUT";        // 17
-const char sLET[] PROGMEM = "LET";            // 18
-const char sLIST[] PROGMEM = "LIST";          // 19
-const char sLOAD[] PROGMEM = "LOAD";          // 20
-const char sNEW[] PROGMEM = "NEW";            // 21
-const char sNEXT[] PROGMEM = "NEXT";          // 22
-const char sON[] PROGMEM = "ON";              // 23
-const char sOPTION[] PROGMEM = "OPTION";      // 24
-const char sPRINT[] PROGMEM = "PRINT";        // 25
-const char sRANDOMIZE[] PROGMEM = "RANDOMIZE";
-const char sREAD[] PROGMEM = "READ";
-const char sREM[] PROGMEM = "REM";
-const char sRETURN[] PROGMEM = "RETURN";
+const char sEND[] PROGMEM = "END";            // 11
+const char sFALSE[] PROGMEM = "FALSE";        // 12
+const char sFOR[] PROGMEM = "FOR";            // 13
+const char sGOSUB[] PROGMEM = "GOSUB";        // 14
+const char sGOTO[] PROGMEM = "GOTO";          // 15
+const char sGO[] PROGMEM = "GO";              // 16
+const char sIF[] PROGMEM = "IF";              // 17
+const char sINPUT[] PROGMEM = "INPUT";        // 18
+const char sLET[] PROGMEM = "LET";            // 19
+const char sLIST[] PROGMEM = "LIST";          // 20
+#if USE_SAVE_LOAD
+const char sLOAD[] PROGMEM = "LOAD";          // 21
+#endif
+const char sNEW[] PROGMEM = "NEW";            // 22
+const char sNEXT[] PROGMEM = "NEXT";          // 23
+const char sOP_NOT[] PROGMEM = "NOT";
+const char sON[] PROGMEM = "ON";              // 24
+const char sOPTION[] PROGMEM = "OPTION";      // 25
+const char sOP_OR[] PROGMEM = "OR";
+const char sPRINT[] PROGMEM = "PRINT";        // 26
+const char sRANDOMIZE[] PROGMEM = "RANDOMIZE";// 27
+const char sREAD[] PROGMEM = "READ";          // 28
+const char sREM[] PROGMEM = "REM";            // 29
+const char sRETURN[] PROGMEM = "RETURN";      // 30
 const char sRUN[] PROGMEM = "RUN";
+#if USE_SAVE_LOAD
 const char sSAVE[] PROGMEM = "SAVE";
+#endif
 const char sSTEP[] PROGMEM = "STEP";
 const char sSTOP[] PROGMEM = "STOP";
 const char sTAB[] PROGMEM = "TAB";
@@ -135,10 +143,6 @@ const char sTRUE[] PROGMEM = "TRUE";
 #if USE_DUMP
 const char sVARS[] PROGMEM = "VARS";
 #endif
-
-const char sOP_AND[] PROGMEM = "AND";
-const char sOP_NOT[] PROGMEM = "NOT";
-const char sOP_OR[] PROGMEM = "OR";
 
 const char sSTAR[] PROGMEM = "*";
 const char sSLASH[] PROGMEM = "/";
@@ -171,11 +175,14 @@ const char sSTRING[] PROGMEM = "C_STRING";
 
 PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 	sNOTOKENS,  // 0
+	sOP_AND,
 #if USE_DUMP
 	sARRAYS,    // 1
 #endif
 	sBASE,      // 2
+#if USE_SAVE_LOAD
 	sCHAIN,     // 3
+#endif
 	sCLS,       // 4
 	sDATA,      // 5
 	sDEF,       // 6
@@ -194,18 +201,24 @@ PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 	sINPUT,     // 17
 	sLET,       // 18
 	sLIST,      // 19
+#if USE_SAVE_LOAD
 	sLOAD,      // 20
+#endif
 	sNEW,       // 21
 	sNEXT,      // 22
+	sOP_NOT,
 	sON,        // 23
 	sOPTION,    // 24
+	sOP_OR,
 	sPRINT,     // 25
 	sRANDOMIZE,
 	sREAD,
 	sREM,
 	sRETURN,
 	sRUN,
+#if USE_SAVE_LOAD
 	sSAVE,
+#endif
 	sSTEP,
 	sSTOP,
 	sTAB,
@@ -215,8 +228,6 @@ PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 #if USE_DUMP
 	sVARS,
 #endif
-
-	sOP_AND, sOP_NOT, sOP_OR,
 
 	sSTAR, sSLASH, sPLUS, sMINUS,
 
@@ -237,6 +248,7 @@ PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 
 static const uint8_t tokenTable[] PROGMEM = {
 	0x80,
+	'A', 'N', 'D'+0x80,
 #if USE_DUMP
 	'A', 'R', 'R', 'A', 'Y', 'S'+0x80, // 1
 #endif
@@ -263,8 +275,10 @@ static const uint8_t tokenTable[] PROGMEM = {
 	'L', 'O', 'A', 'D'+0x80,           // 20
 	'N', 'E', 'W'+0x80,                // 21
 	'N', 'E', 'X', 'T'+0x80,           // 22
+	'N', 'O', 'T'+0x80,
 	'O', 'N'+0x80,                     // 23
 	'O', 'P', 'T', 'I', 'O', 'N'+0x80, // 24
+	'O', 'R'+0x80,
 	'P', 'R', 'I', 'N', 'T'+0x80,      // 25
 	'R', 'A', 'N', 'D', 'O', 'M', 'I', 'Z', 'E'+0x80, //26
 	'R', 'E', 'A', 'D'+0x80,           // 27
@@ -346,18 +360,6 @@ Lexer::getNext()
 			}
 		}
 		switch (SYM) {
-		case 'A':
-			_id[_valuePointer++] = SYM;
-			first_A();
-			return (true);
-		case 'N':
-			_id[_valuePointer++] = SYM;
-			first_N();
-			return true;
-		case 'O':
-			_id[_valuePointer++] = SYM;
-			first_O();
-			return true;
 		case '=':
 			_token = Token::EQUALS;
 			next();
@@ -447,55 +449,6 @@ void
 Lexer::next()
 {
 	++_pointer;
-}
-
-void
-Lexer::first_A()
-{
-	next();
-	switch (SYM) {
-	case 'N':
-		pushSYM();
-		switch (SYM) {
-		case 'D':
-			next();
-			_token = Token::OP_AND;
-			return;
-		}
-		break;
-	}
-	ident();
-}
-
-void
-Lexer::first_N()
-{
-	next();
-	switch (SYM) {
-	case 'O':
-		pushSYM();
-		switch (SYM) {
-		case 'T':
-			next();
-			_token = Token::OP_NOT;
-			return;
-		}
-		break;
-	}
-	ident();
-}
-
-void
-Lexer::first_O()
-{
-	next();
-	switch (SYM) {
-	case 'R':
-		next();
-		_token = Token::OP_OR;
-		return;
-	}
-	ident();
 }
 
 void

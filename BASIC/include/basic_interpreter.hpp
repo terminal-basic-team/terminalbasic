@@ -101,7 +101,7 @@ public:
 		 * @brief getValue from Variable frame
 		 * @param T value type
 		 * @return value
-		 */		
+		 */
 		template <typename T>
 		T get() const
 		{
@@ -216,7 +216,7 @@ public:
 	// Clear screen
 	void cls();
 	// Output program memory
-	void list(uint16_t=1, uint16_t=0);
+	void list(uint16_t = 1, uint16_t = 0);
 #if USE_DUMP
 	// Dump program memory
 	void dump(DumpMode);
@@ -230,16 +230,16 @@ public:
 #if USE_REALS
 	void print(Real);
 #endif
-	
-	void print(Integer, VT100::TextAttr=VT100::NO_ATTR);
+
+	void print(Integer, VT100::TextAttr = VT100::NO_ATTR);
 	void printTab(Integer);
-	void print(long, VT100::TextAttr=VT100::NO_ATTR);
-	void print(ProgMemStrings, VT100::TextAttr=VT100::NO_ATTR);
+	void print(long, VT100::TextAttr = VT100::NO_ATTR);
+	void print(ProgMemStrings, VT100::TextAttr = VT100::NO_ATTR);
 	void print(Token);
 	void print(const char *, VT100::TextAttr=VT100::NO_ATTR);
 	// print value
-	void print(const Parser::Value&, VT100::TextAttr=VT100::NO_ATTR);
-	
+	void print(const Parser::Value&, VT100::TextAttr = VT100::NO_ATTR);
+
 	// run program
 	void run();
 	// goto new line
@@ -269,15 +269,23 @@ public:
 	bool next(const char*);
 
 	// Internal EEPROM commands
-	
+#if USE_SAVE_LOAD
+
+	struct EEpromHeader_t
+	{
+		uint16_t len;
+		uint16_t magic_FFFFminuslen;
+		uint16_t crc16;
+	};
 	void save();
 	void load();
 	void chain();
+#endif // USE_SAVE_LOAD
 	/**
 	 * @breif Input variables
 	 */
 	void input();
-	
+
 	void end();
 	/**
 	 * @brief set value to initialized object
@@ -310,11 +318,11 @@ public:
 	 * @return frame pointer
 	 */
 	const VariableFrame *getVariable(const char*);
-	
+
 	void valueFromVar(Parser::Value&, const char*);
-	
+
 	bool valueFromArray(Parser::Value&, const char*);
-	
+
 	/**
 	 * @brief push string constant on the stack
 	 */
@@ -337,8 +345,11 @@ public:
 	 * @return 
 	 */
 	bool confirm();
-	
-	void stop() { _parser.stop(); }
+
+	void stop()
+	{
+		_parser.stop();
+	}
 
 	Program &_program;
 private:
@@ -349,8 +360,8 @@ private:
 	void doInput();
 	
 	void print(Lexer&);
-	
-	void raiseError(ErrorType, ErrorCodes=NO_ERROR);
+
+	void raiseError(ErrorType, ErrorCodes = NO_ERROR);
 	/**
 	 * @brief read and buffer one symbol
 	 * @return input finished flag
@@ -372,9 +383,16 @@ private:
 	 * @return Flag of success
 	 */
 	bool checkText(uint16_t&);
-	void loadText(uint16_t);
+	/**
+	 * @brief load program memory from eeprom
+	 * @param len Length of program
+	 * @param showPogress show loading progress
+	 */
+	void loadText(uint16_t, bool=true);
+#if SAVE_LOAD_CHECKSUM
 	uint16_t eepromProgramChecksum(uint16_t);
-	
+#endif
+#endif // USE_SAVE_LOAD
 	// Interpreter FSM state
 	State			 _state;
 	// Input oject

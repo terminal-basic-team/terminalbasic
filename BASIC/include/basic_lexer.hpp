@@ -86,10 +86,6 @@ private:
 	void pushSYM();
 	void next();
 
-	void first_A();
-	void first_N();
-	void first_O();
-
 	void fitst_LT();
 	void fitst_GT();
 	
