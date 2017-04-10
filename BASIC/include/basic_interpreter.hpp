@@ -38,7 +38,7 @@ public:
 	 * @brief BASIC program memory
 	 */
 	class CPS_PACKED Program;
-	
+
 	/**
 	 * Variable type
 	 */
@@ -54,7 +54,7 @@ public:
 		VF_BOOLEAN,
 		VF_STRING
 	};
-	
+
 	/**
 	 * Dynamic (runtime error codes)
 	 */
@@ -76,7 +76,7 @@ public:
 		INVALID_TAB_VALUE,
 		INTERNAL_ERROR = 255
 	};
-	
+
 	/**
 	 * Type of the occured error
 	 */
@@ -85,7 +85,7 @@ public:
 		STATIC_ERROR, // syntax
 		DYNAMIC_ERROR // runtime
 	};
-	
+
 	/**
 	 * @brief variable memory frame
 	 */
@@ -113,7 +113,7 @@ public:
 			_U.b = bytes;
 			return *_U.i;
 		}
-		
+
 		// Variable name
 		char name[VARSIZE];
 		// Variable type
@@ -121,7 +121,7 @@ public:
 		// Frame body
 		char bytes[];
 	};
-	
+
 	/**
 	 * Array memory frame
 	 */
@@ -132,7 +132,7 @@ public:
 		 * @return size
 		 */
 		size_t size() const;
-		
+
 		/**
 		 * @brief get array raw data pointer
 		 * @return pointer

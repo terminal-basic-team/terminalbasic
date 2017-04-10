@@ -373,7 +373,7 @@ Parser::Value&
 }
 
 Parser::Value&
-    Parser::Value::operator*=(const Value &rhs)
+Parser::Value::operator*=(const Value &rhs)
 {
 #if USE_REALS
 	value.real = Real(*this) * Real(rhs);
@@ -477,6 +477,41 @@ Parser::Value::switchSign()
 	default:
 		break;
 	}
+}
+
+void
+Parser::Value::notOp()
+{
+	switch (type) {
+	case INTEGER:
+		this->value.integer = ~this->value.integer; break;
+	case BOOLEAN:
+		this->value.boolean = !this->value.boolean; break;
+	}
+}
+
+Parser::Value&
+Parser::Value::operator|=(const Value &v)
+{
+	switch (type) {
+	case INTEGER:
+		this->value.integer |= Integer(v); break;
+	case BOOLEAN:
+		this->value.boolean |= bool(v); break;
+	}
+	return (*this);
+}
+
+Parser::Value&
+Parser::Value::operator&=(const Value &v)
+{
+	switch (type) {
+	case INTEGER:
+		this->value.integer &= Integer(v); break;
+	case BOOLEAN:
+		this->value.boolean &= bool(v); break;
+	}
+	return (*this);
 }
 
 size_t

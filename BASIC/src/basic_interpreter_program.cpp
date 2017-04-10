@@ -140,11 +140,11 @@ Interpreter::Program::moveData(uint16_t dest)
 void
 Interpreter::Program::newProg()
 {
-	_textEnd = _current = _variablesEnd = _arraysEnd = _jump = 0;
-	_jumpFlag = false;
-	_textPosition = 0;
-	_sp = programSize;
+	clearProg();
+	_textEnd = _variablesEnd = _arraysEnd = _jump = 0;
+#if CLEAR_PROGRAM_MEMORY
 	memset(_text, 0xFF, programSize);
+#endif
 }
 
 Interpreter::VariableFrame*
@@ -300,7 +300,7 @@ Interpreter::Program::addLine(uint16_t num, const char *line)
 	while (_lexer.getNext()) {
 		uint8_t t = uint8_t(0x80) + uint8_t(_lexer.getToken());
 		;
-		if (_lexer.getToken() <= Token::OP_NOT) { // One byte tokens
+		if (_lexer.getToken() < Token::STAR) { // One byte tokens
 			tempBuffer[position++] = t;
 			lexerPosition = _lexer.getPointer();
 			if (_lexer.getToken() == Token::KW_REM) { // Save rem text as is

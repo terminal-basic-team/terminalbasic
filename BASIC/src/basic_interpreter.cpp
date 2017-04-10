@@ -664,6 +664,7 @@ Interpreter::save()
 	uint16_t crc = eepromProgramChecksum(h.len);
 	
 	if (crc == h.crc16) {
+#endif
 		EEPROMClass e;
 		e.put(0, h);
 #if SAVE_LOAD_CHECKSUM

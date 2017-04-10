@@ -397,20 +397,11 @@ Parser::fExpression(Value &v)
 {
 	LOG_TRACE;
 	
-	Token t = _lexer.getToken();
-	if(t == Token::OP_NOT) {
-		if (!_lexer.getNext() || !fSimpleExpression(v))
-			return (false);
-		if (_mode == EXECUTE)
-			v = !bool(v);
-		return (true);
-	}
-	
 	if (!fSimpleExpression(v))
 		return (false);
 
 	while (true) {
-		t = _lexer.getToken();
+		Token t = _lexer.getToken();
 		Value v2;
 		switch (t) {
 		case Token::LT:
@@ -495,6 +486,12 @@ Parser::fSimpleExpression(Value &v)
 				continue;
 			} else
 				return (false);
+		case Token::OP_OR:
+			if (_lexer.getNext() && fTerm(v2)) {
+				v |= v2;
+				continue;
+			} else
+				return (false);
 		default:
 			return (true);
 		}
@@ -526,6 +523,12 @@ Parser::fTerm(Value &v)
 				continue;
 			} else
 				return (false);
+		case Token::OP_AND:
+			if (_lexer.getNext() && fFactor(v2)) {
+				v &= v2;
+				continue;
+			} else
+				return (false);	
 		default:
 			return (true);
 		}
@@ -571,6 +574,12 @@ Parser::fFinal(Value &v)
 				return (false);
 			if (_mode == EXECUTE)
 				v.switchSign();
+			return (true);
+		case Token::OP_NOT:
+			if (!_lexer.getNext() || !fFinal(v))
+				return (false);
+			if (_mode == EXECUTE)
+				v.notOp();
 			return (true);
 		case Token::C_INTEGER:
 		case Token::C_REAL:
@@ -666,11 +675,13 @@ Parser::fCommand()
 	Token t = _lexer.getToken();
 	LOG(t);
 	switch (t) {
+#if USE_SAVE_LOAD
 	case Token::COM_CHAIN:
 		if (_mode == EXECUTE)
 			_interpreter.chain();
 		_lexer.getNext();
 		return (true);
+#endif
 	case Token::COM_CLS:
 		if (_mode == EXECUTE)
 			_interpreter.cls();
@@ -716,11 +727,13 @@ Parser::fCommand()
 			_interpreter.list(start, stop);
 	}
 		return (true);
+#if USE_SAVE_LOAD
 	case Token::COM_LOAD:
 		if (_mode == EXECUTE)
 			_interpreter.load();
 		_lexer.getNext();
 		return (true);
+#endif
 	case Token::COM_NEW:
 		if (_mode == EXECUTE)
 			_interpreter.newProgram();
@@ -731,11 +744,13 @@ Parser::fCommand()
 			_interpreter.run();
 		_lexer.getNext();
 		return (true);
+#if USE_SAVE_LOAD
 	case Token::COM_SAVE:
 		if (_mode == EXECUTE)
 			_interpreter.save();
 		_lexer.getNext();
 		return (true);
+#endif
 	case Token::REAL_IDENT:
 	case Token::INTEGER_IDENT:
 		FunctionBlock::command c;

@@ -26,7 +26,13 @@
  */
 #define USE_REALS	1 // Real arithmetics
 #define USE_LONGINT	1 // Long integer support
-#define USE_DUMP	1
+#define USE_DUMP	1 // DUMP command support
+#define CLEAR_PROGRAM_MEMORY 1
+
+#define USE_SAVE_LOAD	1 // SAVE and LOAD commands support
+#if USE_SAVE_LOAD
+#define SAVE_LOAD_CHECKSUM 1
+#endif
 
 /**
  * Used modules
