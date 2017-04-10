@@ -139,19 +139,19 @@ public:
 		 */
 		uint8_t *data()
 		{
-			return (reinterpret_cast<uint8_t*>(this+1) +
-			    sizeof (size_t)*numDimensions);
+			return (reinterpret_cast<uint8_t*> (this+1) +
+			    sizeof (size_t) * numDimensions);
 		}
-		
+
 		/**
 		 * @brief Overloaded version
 		 */
 		const uint8_t *data() const
 		{
-			return (reinterpret_cast<const uint8_t*>(this+1) +
-			    sizeof (size_t)*numDimensions);
+			return (reinterpret_cast<const uint8_t*> (this+1) +
+			    sizeof (size_t) * numDimensions);
 		}
-		
+
 		/**
 		 * @brief get array value by raw index
 		 * @param index shift in array data
@@ -168,7 +168,7 @@ public:
 			_U.b = this->data();
 			return _U.i[index];
 		}
-		
+
 		// Array data
 		char name[VARSIZE];
 		// Array type
@@ -179,6 +179,7 @@ public:
 		size_t dimension[];
 	};
 	// Interpreter FSM state
+
 	enum State : uint8_t
 	{
 		SHELL,		// Wait for user input of line or command
@@ -223,7 +224,7 @@ public:
 #endif
 	// Add module on tail of the modules list
 	void addModule(FunctionBlock*);
-	
+
 	// New print line
 	void newline();
 	void print(char);
@@ -236,7 +237,7 @@ public:
 	void print(long, VT100::TextAttr = VT100::NO_ATTR);
 	void print(ProgMemStrings, VT100::TextAttr = VT100::NO_ATTR);
 	void print(Token);
-	void print(const char *, VT100::TextAttr=VT100::NO_ATTR);
+	void print(const char *, VT100::TextAttr = VT100::NO_ATTR);
 	// print value
 	void print(const Parser::Value&, VT100::TextAttr = VT100::NO_ATTR);
 
@@ -338,7 +339,7 @@ public:
 	 * @param num number of dimensions
 	 */
 	void pushDimensions(uint8_t);
-	
+
 	void strConcat(Parser::Value&, Parser::Value&);
 	/**
 	 * @brief request user confirmation
@@ -358,7 +359,7 @@ private:
 	bool nextInput();
 	// Place input values to objects
 	void doInput();
-	
+
 	void print(Lexer&);
 
 	void raiseError(ErrorType, ErrorCodes = NO_ERROR);
@@ -375,8 +376,9 @@ private:
 	 * @return 
 	 */
 	ArrayFrame *addArray(const char*, uint8_t, uint32_t);
-	
+
 	bool arrayElementIndex(ArrayFrame*, size_t&);
+#if USE_SAVE_LOAD
 	/**
 	 * @brief Check program text
 	 * @param len Length of the program
