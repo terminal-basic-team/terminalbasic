@@ -341,23 +341,24 @@ operator<=(const Parser::Value &l, const Parser::Value &r)
 }
 
 Parser::Value&
-    Parser::Value::operator+=(const Value &rhs)
+Parser::Value::operator+=(const Value &rhs)
 {
+	switch (this->type) {
 #if USE_REALS
-	value.real = Real(*this) + Real(rhs);
-	type = Value::REAL;
-#elif USE_LONGINT
-	value.longInteger = LongInteger(*this) + LongInteger(rhs);
-	type = Value::LONG_INTEGER;
-#else
-	value.integer = Integer(*this) + Integer(rhs);
-	type = Value::INTEGER;
+	case REAL: this->value.real += Real(rhs); break;
 #endif
+#if USE_LONGINT
+	case LONG_INTEGER: this->value.longInteger += LongInteger(rhs); break;
+#endif
+	case INTEGER : this->value.integer += Integer(rhs); break;
+	default: break;
+	}
+	
 	return (*this);
 }
 
 Parser::Value&
-    Parser::Value::operator-=(const Value &rhs)
+Parser::Value::operator-=(const Value &rhs)
 {
 #if USE_REALS
 	value.real = Real(*this) - Real(rhs);
@@ -389,7 +390,7 @@ Parser::Value::operator*=(const Value &rhs)
 }
 
 Parser::Value&
-    Parser::Value::operator/=(const Value &rhs)
+Parser::Value::operator/=(const Value &rhs)
 {
 #if USE_REALS
 	value.real = Real(*this) / Real(rhs);

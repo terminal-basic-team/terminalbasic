@@ -25,6 +25,7 @@ static const char strStatic[] PROGMEM = "STATIC";
 static const char strDynamic[] PROGMEM = "DYNAMIC";
 static const char strError[] PROGMEM = "ERROR";
 static const char strSemantic[] PROGMEM = "SEMANTIC";
+static const char strAt[] PROGMEM = "AT";
 static const char strReady[] PROGMEM = "READY";
 static const char strBytes[] PROGMEM = "BYTES";
 static const char strAvailable[] PROGMEM = "AVAILABLE";
@@ -45,6 +46,7 @@ static PGM_P const progmemStrings[uint8_t(ProgMemStrings::NUM_STRINGS)] PROGMEM 
 	strDynamic, // DYNAMAIC
 	strError, // ERROR
 	strSemantic, // SEMANTIC
+	strAt,     // AT
 	strReady, // READY
 	strBytes, // BYTES
 	strAvailable, // AVAILABLE

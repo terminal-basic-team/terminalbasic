@@ -63,7 +63,7 @@ namespace BASIC
 // Tokenize keywords in program text
 const bool TOKENIZE = true;
 // Max size of the program line
-const uint8_t PROGSTRINGSIZE = 80;
+const uint8_t PROGSTRINGSIZE = 64;
 
 // Number of bytes for program text, variables and stack
 #if USE_EXTMEM
@@ -71,7 +71,7 @@ const size_t PROGRAMSIZE = EXTMEM_SIZE;
 #elif defined (__AVR_ATmega1284__) || defined (__AVR_ATmega1284P__)
 const size_t PROGRAMSIZE = 14848;
 #elif defined (__AVR_ATmega2560__)
-const size_t PROGRAMSIZE = 4096;
+const size_t PROGRAMSIZE = 6144;
 #elif defined (__AVR_ATmega128__) || defined (__AVR_ATmega128A__)
 const size_t PROGRAMSIZE = 3072;
 #elif defined (__AVR_ATmega328__) || defined (__AVR_ATmega328P__)
@@ -81,10 +81,10 @@ const size_t PROGRAMSIZE = 384;
 #endif
 
 // Max size of the string constants/variables
-const uint8_t STRINGSIZE = 64;
+const uint8_t STRINGSIZE = 48;
 
 // Number of characters in variable name
-const uint8_t VARSIZE = 8;
+const uint8_t VARSIZE = 5;
 
 }
 

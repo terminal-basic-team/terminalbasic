@@ -30,19 +30,6 @@
       <itemPath>src/basic_sdfs.cpp</itemPath>
       <itemPath>src/ucbasic_main.cpp</itemPath>
     </logicalFolder>
-    <logicalFolder name="TVoutEx" displayName="TVoutEx" projectFiles="true">
-      <logicalFolder name="spec" displayName="spec" projectFiles="true">
-        <itemPath>../TVoutEx/spec/AsmMacros.h</itemPath>
-        <itemPath>../TVoutEx/spec/HardwareSetup.h</itemPath>
-        <itemPath>../TVoutEx/spec/VideoProperties.h</itemPath>
-      </logicalFolder>
-      <itemPath>../TVoutEx/TVoutEx.cpp</itemPath>
-      <itemPath>../TVoutEx/TVoutEx.h</itemPath>
-      <itemPath>src/TVoutPrint.cpp</itemPath>
-      <itemPath>include/TVoutPrint.hpp</itemPath>
-      <itemPath>../TVoutEx/VideGen.cpp</itemPath>
-      <itemPath>../TVoutEx/VideoGen.h</itemPath>
-    </logicalFolder>
     <logicalFolder name="UTFT" displayName="UTFT" projectFiles="true">
       <logicalFolder name="include" displayName="include" projectFiles="true">
         <itemPath>../UTFT/include/utft_stream.hpp</itemPath>
@@ -327,18 +314,14 @@
                             perm="755"
                             owner="root"
                             group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
         </packFileList>
       </packaging>
-      <item path="../TVoutEx/TVoutEx.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/VideoGen.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/spec/AsmMacros.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/spec/HardwareSetup.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/spec/VideoProperties.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../UTFT/src/utft_stream.cpp" ex="false" tool="1" flavor2="0">
@@ -358,8 +341,6 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
-      <item path="include/TVoutPrint.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
@@ -478,20 +459,6 @@
           <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega328p</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../TVoutEx/TVoutEx.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="../TVoutEx/TVoutEx.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/VideGen.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="../TVoutEx/VideoGen.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/spec/AsmMacros.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/spec/HardwareSetup.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/spec/VideoProperties.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../UTFT/src/utft_stream.cpp" ex="false" tool="1" flavor2="0">
@@ -511,8 +478,6 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
-      <item path="include/TVoutPrint.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
@@ -538,8 +503,6 @@
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/TVoutPrint.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -631,20 +594,6 @@
           <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega328p</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../TVoutEx/TVoutEx.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="../TVoutEx/TVoutEx.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/VideGen.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="../TVoutEx/VideoGen.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/spec/AsmMacros.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/spec/HardwareSetup.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/spec/VideoProperties.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../UTFT/src/utft_stream.cpp" ex="false" tool="1" flavor2="0">
@@ -664,8 +613,6 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
-      <item path="include/TVoutPrint.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
@@ -691,8 +638,6 @@
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/TVoutPrint.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -793,20 +738,6 @@
           <commandLine>-Os -Wall -Wextra -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega2560</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../TVoutEx/TVoutEx.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="../TVoutEx/TVoutEx.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/VideGen.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="../TVoutEx/VideoGen.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/spec/AsmMacros.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/spec/HardwareSetup.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/spec/VideoProperties.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../UTFT/src/utft_stream.cpp" ex="false" tool="1" flavor2="0">
@@ -826,8 +757,6 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
-      <item path="include/TVoutPrint.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
@@ -853,8 +782,6 @@
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/TVoutPrint.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -944,20 +871,6 @@
           <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega128a</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../TVoutEx/TVoutEx.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="../TVoutEx/TVoutEx.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/VideGen.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="../TVoutEx/VideoGen.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/spec/AsmMacros.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/spec/HardwareSetup.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/spec/VideoProperties.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../UTFT/src/utft_stream.cpp" ex="false" tool="1" flavor2="0">
@@ -977,8 +890,6 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
-      <item path="include/TVoutPrint.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
@@ -1004,8 +915,6 @@
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/TVoutPrint.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1086,16 +995,6 @@
           <commandLine>-static</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../TVoutEx/TVoutEx.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/VideoGen.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/spec/AsmMacros.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/spec/HardwareSetup.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/spec/VideoProperties.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../UTFT/src/utft_stream.cpp" ex="false" tool="1" flavor2="0">
@@ -1115,8 +1014,6 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
-      <item path="include/TVoutPrint.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
@@ -1233,20 +1130,6 @@
           <commandLine>-Os -Wall -Wextra -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega2560</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../TVoutEx/TVoutEx.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="../TVoutEx/TVoutEx.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/VideGen.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="../TVoutEx/VideoGen.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/spec/AsmMacros.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/spec/HardwareSetup.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/spec/VideoProperties.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../UTFT/src/utft_stream.cpp" ex="false" tool="1" flavor2="0">
@@ -1266,8 +1149,6 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
-      <item path="include/TVoutPrint.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
@@ -1293,8 +1174,6 @@
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/TVoutPrint.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1388,16 +1267,6 @@
           <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega168</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../TVoutEx/TVoutEx.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/VideoGen.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/spec/AsmMacros.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/spec/HardwareSetup.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/spec/VideoProperties.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../UTFT/src/utft_stream.cpp" ex="false" tool="1" flavor2="0">
@@ -1417,8 +1286,6 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
-      <item path="include/TVoutPrint.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
@@ -1538,20 +1405,6 @@
           <commandLine>-Os -Wall -Wextra -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega1284p</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../TVoutEx/TVoutEx.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="../TVoutEx/TVoutEx.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/VideGen.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="../TVoutEx/VideoGen.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/spec/AsmMacros.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/spec/HardwareSetup.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/spec/VideoProperties.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../UTFT/src/utft_stream.cpp" ex="false" tool="1" flavor2="0">
@@ -1571,8 +1424,6 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
-      <item path="include/TVoutPrint.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
@@ -1598,8 +1449,6 @@
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/TVoutPrint.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1699,20 +1548,6 @@
           <commandLine>-Os -Wall -Wextra -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega2560</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../TVoutEx/TVoutEx.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="../TVoutEx/TVoutEx.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/VideGen.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="../TVoutEx/VideoGen.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/spec/AsmMacros.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/spec/HardwareSetup.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../TVoutEx/spec/VideoProperties.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../UTFT/src/utft_stream.cpp" ex="false" tool="1" flavor2="0">
@@ -1732,8 +1567,6 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
-      <item path="include/TVoutPrint.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
@@ -1759,8 +1592,6 @@
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/TVoutPrint.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="8">
       </item>
