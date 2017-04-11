@@ -59,11 +59,11 @@ TVoutEx::~TVoutEx()
  *	0 if no error.
  *	4 if there is not enough memory.
  */
-char
-TVoutEx::begin(VideMode_t mode)
-{
-	return begin(mode, 128, 96);
-} // end of begin
+//char
+//TVoutEx::begin(VideMode_t mode)
+//{
+//	return begin(mode, 128, 96);
+//} // end of begin
 
 /* call this to start video output with a specified resolution.
  *
@@ -85,7 +85,7 @@ TVoutEx::begin(VideMode_t mode)
  *		4 if there is not enough memory for the frame buffer.
  */
 char
-TVoutEx::begin(VideMode_t mode, uint8_t x, uint8_t y)
+TVoutEx::begin(VideMode_t mode, uint8_t x, uint8_t y, uint8_t *buf, size_t size)
 {
 	if (_instance != NULL)
 		return 3;
@@ -93,11 +93,14 @@ TVoutEx::begin(VideMode_t mode, uint8_t x, uint8_t y)
 	// check if x is divisable by 8
 	if (!(x & 0xF8))
 		return 1;
-	x = x / 8;
-
-	screen = (unsigned char*) malloc(x * y * sizeof (unsigned char));
+	
+	x /= 8;
+	if ((x * y * sizeof (unsigned char)) != size)
+		return 1;
+	
 	if (screen == NULL)
 		return 4;
+	screen = buf;
 
 	cursor_x = 0;
 	cursor_y = 0;
@@ -116,7 +119,6 @@ TVoutEx::end()
 	_instance = NULL;
 	TIMSK1 = 0;
 	vbiHook = emptyFunction;
-	free(screen);
 }
 
 /* Fill the screen with some color.

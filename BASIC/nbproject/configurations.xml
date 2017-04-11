@@ -40,7 +40,7 @@
       <itemPath>../TVoutEx/TVoutEx.h</itemPath>
       <itemPath>src/TVoutPrint.cpp</itemPath>
       <itemPath>include/TVoutPrint.hpp</itemPath>
-      <itemPath>../TVoutEx/VideGen.cpp</itemPath>
+      <itemPath>../TVoutEx/VideoGen.cpp</itemPath>
       <itemPath>../TVoutEx/VideoGen.h</itemPath>
     </logicalFolder>
     <logicalFolder name="UTFT" displayName="UTFT" projectFiles="true">
@@ -327,9 +327,17 @@
                             perm="755"
                             owner="root"
                             group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
         </packFileList>
       </packaging>
       <item path="../TVoutEx/TVoutEx.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../TVoutEx/VideoGen.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../TVoutEx/VideoGen.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -482,7 +490,7 @@
       </item>
       <item path="../TVoutEx/TVoutEx.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../TVoutEx/VideGen.cpp" ex="false" tool="1" flavor2="0">
+      <item path="../TVoutEx/VideoGen.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../TVoutEx/VideoGen.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -635,7 +643,7 @@
       </item>
       <item path="../TVoutEx/TVoutEx.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../TVoutEx/VideGen.cpp" ex="false" tool="1" flavor2="0">
+      <item path="../TVoutEx/VideoGen.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../TVoutEx/VideoGen.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -797,7 +805,7 @@
       </item>
       <item path="../TVoutEx/TVoutEx.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../TVoutEx/VideGen.cpp" ex="false" tool="1" flavor2="0">
+      <item path="../TVoutEx/VideoGen.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../TVoutEx/VideoGen.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -948,7 +956,7 @@
       </item>
       <item path="../TVoutEx/TVoutEx.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../TVoutEx/VideGen.cpp" ex="false" tool="1" flavor2="0">
+      <item path="../TVoutEx/VideoGen.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../TVoutEx/VideoGen.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1087,6 +1095,8 @@
         </linkerTool>
       </compileType>
       <item path="../TVoutEx/TVoutEx.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../TVoutEx/VideoGen.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../TVoutEx/VideoGen.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1237,7 +1247,7 @@
       </item>
       <item path="../TVoutEx/TVoutEx.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../TVoutEx/VideGen.cpp" ex="false" tool="1" flavor2="0">
+      <item path="../TVoutEx/VideoGen.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../TVoutEx/VideoGen.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1389,6 +1399,8 @@
         </linkerTool>
       </compileType>
       <item path="../TVoutEx/TVoutEx.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../TVoutEx/VideoGen.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../TVoutEx/VideoGen.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1542,7 +1554,7 @@
       </item>
       <item path="../TVoutEx/TVoutEx.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../TVoutEx/VideGen.cpp" ex="false" tool="1" flavor2="0">
+      <item path="../TVoutEx/VideoGen.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../TVoutEx/VideoGen.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1703,7 +1715,7 @@
       </item>
       <item path="../TVoutEx/TVoutEx.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../TVoutEx/VideGen.cpp" ex="false" tool="1" flavor2="8">
+      <item path="../TVoutEx/VideoGen.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../TVoutEx/VideoGen.h" ex="false" tool="3" flavor2="0">
       </item>

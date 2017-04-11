@@ -33,7 +33,7 @@ TVoutPrint::~TVoutPrint()
 void
 TVoutPrint::begin()
 {
-	if (_boundary.begin(PAL, 192, 192) != 0)
+	if (_boundary.begin(PAL, 192, 192, _buffer, sizeof (_buffer)) != 0)
 		abort();
 	_boundary.select_font(font6x8);
 }

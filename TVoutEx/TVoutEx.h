@@ -74,9 +74,23 @@ public:
 
 	explicit TVoutEx();
 	~TVoutEx();
+	/**
+	 * @brief overloaded version
+	 * @param mode 
+	 * @return Operation code
+	 */
+	//char begin(VideMode_t);
 	
-	char begin(VideMode_t mode);
-	char begin(VideMode_t mode, uint8_t x, uint8_t y);
+	/**
+	 * @brief Init display
+	 * @param mode PAL or NTSC
+	 * @param x Horizontal resolution
+	 * @param y Vertical resolution
+	 * @param buf screen buffer pointer
+	 * @param size
+	 * @return code
+	 */
+	char begin(VideMode_t, uint8_t, uint8_t, uint8_t*, size_t);
 	void end();
 
 	//accessor functions

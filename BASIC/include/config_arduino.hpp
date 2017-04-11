@@ -29,7 +29,7 @@
 #define USE_DUMP             1 // DUMP command support
 #define CLEAR_PROGRAM_MEMORY 1 // Clear program memory with 0xFF on NEW
 
-#define USE_SAVE_LOAD        1 // SAVE and LOAD commands support
+#define USE_SAVE_LOAD        1 // SAVE, LOAD and CHAIN commands support
 #if USE_SAVE_LOAD
 #define SAVE_LOAD_CHECKSUM   1 // Compute checksums while SAVE, LOAD and CHAIN
 #endif
@@ -37,8 +37,8 @@
 /**
  * Used modules
  */
-#define USESD                0 // SDcard
-#define USEARDUINOIO         1 // ARduino IO
+#define USESD                1 // SDcard module
+#define USEARDUINOIO         1 // Arduino IO module
 /*
  * Math module (requires USE_REALS)
  */
@@ -48,15 +48,40 @@
 #define M_REVERSE_TRIGONOMETRIC	1 // ACS ASN ATN
 #endif
 
-// Uыe TFT output
+// Input variants
+#define SERIAL_I 0 // Serial output
+
+// Output variants
+#define SERIAL_O 0 // Serial output
+#define UTFT_O   1 // UTFT output
+#define TVOUT_O  2 // TVout output
+
+// Input select (SERIAL)
+#define S_INPUT SERIAL_I
+
+// Output select
+#define S_OUTPUT SERIAL_O
+
 #define USEUTFT		          0
 #define USETVOUT	          0
+
+#if S_OUTPUT == UTFT_O
+#undef USEUTFT
+#define USEUTFT		          1
+#elif S_OUTPUT == TVOUT_O
+#undef USETVOUT
+#define USETVOUT	          1
+#endif
+
 // Use multiterminal mode
-#define BASIC_MULTITERMINAL 0
+#define BASIC_MULTITERMINAL       0
+
 // Use external memory
-#define USE_EXTMEM	        0
+#define USE_EXTMEM                0
+#if USE_EXTMEM
 #define EXTMEM_ADDRESS 0x8000
 #define EXTMEM_SIZE    32768
+#endif
 
 namespace BASIC
 {
@@ -75,7 +100,7 @@ const size_t PROGRAMSIZE = 4096;
 #elif defined (__AVR_ATmega128__) || defined (__AVR_ATmega128A__)
 const size_t PROGRAMSIZE = 3072;
 #elif defined (__AVR_ATmega328__) || defined (__AVR_ATmega328P__)
-const size_t PROGRAMSIZE = 1000;
+const size_t PROGRAMSIZE = 1024;
 #elif defined (__AVR_ATmega168__)
 const size_t PROGRAMSIZE = 384;
 #endif
@@ -84,7 +109,7 @@ const size_t PROGRAMSIZE = 384;
 const uint8_t STRINGSIZE = 64;
 
 // Number of characters in variable name
-const uint8_t VARSIZE = 8;
+const uint8_t VARSIZE = 5;
 
 }
 

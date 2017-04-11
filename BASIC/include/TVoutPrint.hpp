@@ -41,6 +41,7 @@ private:
 	void writeIdle(uint8_t);
 	void writeESC(uint8_t);
 	void writeLbracket(uint8_t);
+	uint8_t _buffer[192/8*192];
 	TVoutEx	_boundary;
 	State_t	_state;
 };
