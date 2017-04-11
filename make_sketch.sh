@@ -13,8 +13,6 @@ SRC="./BASIC/include/basic.hpp ./BASIC/include/basic_lexer.hpp ./BASIC/src/basic
 ./BASIC/include/basic_internalfuncs.hpp ./BASIC/src/basic_internalfuncs.cpp \
 ./BASIC/src/basic_parser_value.cpp ./BASIC/src/basic_sdfs.cpp \
 ./UTFT/src/utft_stream.cpp ./UTFT/include/utft_stream.hpp \
-./TVoutEx/TVoutEx.h ./TVoutEx/TVoutEx.cpp \
-./TVoutEx/VideoGen.h ./TVoutEx/VideoGen.cpp \
 ../libarduinoext/include/vt100.hpp \
 ../libarduinoext/include/arduino_logger.hpp ../libarduinoext/include/cps.hpp ../libarduinoext/include/helper.hpp \
 ../libarduinoext/include/math.hpp ../libarduinoext/include/bytearray.hpp ../libarduinoext/src/bytearray.cpp \

@@ -25,7 +25,7 @@
  * Paraeters
  */
 #define USE_REALS            1 // Real arithmetics
-#define USE_LONGINT          0 // Long integer support
+#define USE_LONGINT          1 // Long integer support
 #define USE_DUMP             1 // DUMP command support
 #define CLEAR_PROGRAM_MEMORY 1 // Clear program memory with 0xFF on NEW
 
@@ -60,7 +60,7 @@
 #define S_INPUT SERIAL_I
 
 // Output select
-#define S_OUTPUT SERIAL_O
+#define S_OUTPUT TVOUT_O
 
 #define USEUTFT		          0
 #define USETVOUT	          0
