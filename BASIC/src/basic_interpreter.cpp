@@ -1008,6 +1008,8 @@ Interpreter::readInput()
 			if (_inputPosition > 0) {
 				--_inputPosition;
 				_output.write(char(ASCII::BS));
+				_output.write(char(ASCII::SPACE));
+				_output.write(char(ASCII::BS));
 			}
 			break;
 		case char(ASCII::CR):
@@ -1015,8 +1017,12 @@ Interpreter::readInput()
 			_inputBuffer[i] = 0;
 			return (true);
 		default:
-			++_inputPosition;
-			_output.write(c);
+			// Only acept character if there is room for upcoming
+			// control one (line end or del/bs)
+			if (availableSize > 1) {
+				++_inputPosition;
+				_output.write(c);
+			}
 		}
 	}
 	return (false);

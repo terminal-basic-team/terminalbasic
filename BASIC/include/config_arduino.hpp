@@ -25,19 +25,19 @@
  * Paraeters
  */
 #define USE_REALS            1 // Real arithmetics
-#define USE_LONGINT          1 // Long integer support
+#define USE_LONGINT          0 // Long integer support
 #define USE_DUMP             1 // DUMP command support
 #define CLEAR_PROGRAM_MEMORY 1 // Clear program memory with 0xFF on NEW
 
 #define USE_SAVE_LOAD        1 // SAVE, LOAD and CHAIN commands support
 #if USE_SAVE_LOAD
-#define SAVE_LOAD_CHECKSUM   1 // Compute checksums while SAVE, LOAD and CHAIN
+#define SAVE_LOAD_CHECKSUM   0 // Compute checksums while SAVE, LOAD and CHAIN
 #endif
 
 /**
  * Used modules
  */
-#define USESD                1 // SDcard module
+#define USESD                0 // SDcard module
 #define USEARDUINOIO         1 // Arduino IO module
 /*
  * Math module (requires USE_REALS)
@@ -45,7 +45,7 @@
 #define USEMATH                 1
 #if USEMATH
 #define M_TRIGONOMETRIC         1 // SIN COS TAN COT
-#define M_REVERSE_TRIGONOMETRIC	1 // ACS ASN ATN
+#define M_REVERSE_TRIGONOMETRIC	0 // ACS ASN ATN
 #endif
 
 // Input variants
@@ -60,7 +60,7 @@
 #define S_INPUT SERIAL_I
 
 // Output select
-#define S_OUTPUT TVOUT_O
+#define S_OUTPUT SERIAL_O
 
 #define USEUTFT		          0
 #define USETVOUT	          0
@@ -100,13 +100,13 @@ const size_t PROGRAMSIZE = 6144;
 #elif defined (__AVR_ATmega128__) || defined (__AVR_ATmega128A__)
 const size_t PROGRAMSIZE = 3072;
 #elif defined (__AVR_ATmega328__) || defined (__AVR_ATmega328P__)
-const size_t PROGRAMSIZE = 1024;
+const size_t PROGRAMSIZE = 1000;
 #elif defined (__AVR_ATmega168__)
 const size_t PROGRAMSIZE = 384;
 #endif
 
 // Max size of the string constants/variables
-const uint8_t STRINGSIZE = 48;
+const uint8_t STRINGSIZE = 32;
 
 // Number of characters in variable name
 const uint8_t VARSIZE = 5;
