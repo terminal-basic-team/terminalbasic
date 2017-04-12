@@ -321,7 +321,8 @@ Parser::fImplicitAssignment(char *varName)
 /*
  * PRINT_LIST =
  * PRINT_ITEM |
- * PRINT_ITEM COMMA PRINT_LIST
+ * PRINT_ITEM COMMA PRINT_LIST |
+ * PRINT_ITEM SEMI PRINT_LIST
  */
 bool
 Parser::fPrintList()
@@ -341,7 +342,7 @@ Parser::fPrintList()
 				return (false);
 			break;
 		case Token::SEMI:
-			if (_lexer.getNext()) {
+			if (_lexer.getNext() && _lexer.getToken() != Token::COLON) {
 				if (!fPrintItem())
 					return (false);
 			} else
@@ -363,7 +364,8 @@ Parser::fPrintList()
 bool
 Parser::fPrintItem()
 {
-	if (_lexer.getToken() != Token::COMMA) {
+	Token t = _lexer.getToken();
+	if (_lexer.getToken() != Token::COMMA && _lexer.getToken() != Token::COLON) {
 		Value v;
 		if (_lexer.getToken() == Token::KW_TAB) {
 			if (_lexer.getNext() && _lexer.getToken() == Token::LPAREN &&
@@ -476,7 +478,8 @@ Parser::fSimpleExpression(Value &v)
 				if (v.type == Value::STRING &&
 				    v2.type == Value::STRING)
 					_interpreter.strConcat(v,v2);
-				v += v2;
+				else
+					v += v2;
 				continue;
 			} else
 				return (false);

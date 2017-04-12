@@ -206,7 +206,7 @@ Interpreter::step()
 		// waiting for user input command or program line
 	case SHELL:
 	{
-		print(ProgMemStrings::READY, VT100::BRIGHT);
+		print(ProgMemStrings::S_READY, VT100::BRIGHT);
 		newline();
 	}
 		// fall through
@@ -437,7 +437,13 @@ Interpreter::print(Real number)
 {
 	char buf[17];
 #ifdef ARDUINO
-	::dtostrf(number, 12, 9, buf);
+	uint8_t decWhole = 1;
+	Real n = number;
+	while (n > 1) {
+		n /= 10;
+		++decWhole;
+	}
+	::dtostrf(number, 9, 8-decWhole, buf);
 #else
 	::sprintf(buf, "% .7G", number);
 #endif
@@ -646,20 +652,19 @@ Interpreter::save()
 	};
 #if SAVE_LOAD_CHECKSUM
 	// Compute program checksum
-	size_t p;
-	for (p = 0; p < _program._textEnd; ++p)
+	for (size_t p = 0; p < _program._textEnd; ++p)
 		h.crc16 = _crc16_update(h.crc16, _program._text[p]);
-
+#endif
 	{
 		EEPROMClass e;
 		// Write program to EEPROM
-		for (p = 0; p < _program._textEnd; ++p) {
+		for (size_t p = 0; p < _program._textEnd; ++p) {
 			e.update(p + sizeof (EEpromHeader_t), _program._text[p]);
 			_output.print('.');
 		}
 	}
 	newline();
-	
+#if SAVE_LOAD_CHECKSUM	
 	// Compute checksum
 	uint16_t crc = eepromProgramChecksum(h.len);
 	
@@ -1076,25 +1081,22 @@ Interpreter::print(long i, VT100::TextAttr attr)
 
 void
 Interpreter::raiseError(ErrorType type, ErrorCodes errorCode)
-{
-	char buf[16];
-	if (type == DYNAMIC_ERROR)
-		strcpy_P(buf, progmemString(ProgMemStrings::S_DYNAMIC));
-	else // STATIC_ERROR
-		strcpy_P(buf, progmemString(ProgMemStrings::S_STATIC));
-	_output.print(buf);
-	_output.print(' ');
-	strcpy_P(buf, progmemString(ProgMemStrings::S_SEMANTIC));
-	_output.print(buf);
-	_output.print(' ');
-	strcpy_P(buf, progmemString(ProgMemStrings::S_ERROR));
-	_output.print(buf);
+{	
+	if (_program.current())
+		print(long(_program.current()->number), VT100::C_YELLOW);
 	_output.print(':');
-	if (type == DYNAMIC_ERROR) {
-		_output.println(uint8_t(errorCode));
-	} else { // STATIC_ERROR
-		_output.println(int(_parser.getError()));
-	}
+	if (type == DYNAMIC_ERROR)
+		print(ProgMemStrings::S_DYNAMIC);
+	else // STATIC_ERROR
+		print(ProgMemStrings::S_STATIC);
+	print(ProgMemStrings::S_SEMANTIC);
+	print(ProgMemStrings::S_ERROR, VT100::C_RED);
+	if (type == DYNAMIC_ERROR)
+		print(Integer(errorCode));
+	else // STATIC_ERROR
+		print(Integer(_parser.getError()));
+	newline();
+	
 	_state = SHELL;
 }
 
