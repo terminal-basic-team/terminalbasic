@@ -70,7 +70,7 @@ enum class Token : uint8_t
 	COM_CLS,       // 4
 	KW_DATA,       // 5
 	KW_DEF,        // 6
-	COM_DELAY,     // 7
+//	COM_DELAY,     // 7
 	KW_DIM,        // 8
 #if USE_DUMP
 	COM_DUMP,      // 9

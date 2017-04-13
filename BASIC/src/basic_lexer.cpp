@@ -101,7 +101,7 @@ const char sCHAIN[] PROGMEM = "CHAIN";        // 4
 const char sCLS[] PROGMEM = "CLS";            // 5
 const char sDATA[] PROGMEM = "DATA";          // 6
 const char sDEF[] PROGMEM = "DEF";            // 7
-const char sDELAY[] PROGMEM = "DELAY";        // 8
+//const char sDELAY[] PROGMEM = "DELAY";        // 8
 const char sDIM[] PROGMEM = "DIM";            // 9
 #if USE_DUMP
 const char sDUMP[] PROGMEM = "DUMP";          // 10
@@ -161,7 +161,7 @@ const char sCOMMA[] PROGMEM = ",";
 const char sPOW[] PROGMEM = "^";
 const char sLPAREN[] PROGMEM = "(";
 const char sRPAREN[] PROGMEM = ")";
-
+/*
 const char sREAL_IDENT[] PROGMEM = "REAL_IDENT";
 const char sINTEGER_IDENT[] PROGMEM = "INTEGER_IDENT";
 const char sLONGINT_IDENT[] PROGMEM = "LONGINT_IDENT";
@@ -171,7 +171,7 @@ const char sBOOL_IDENT[] PROGMEM = "BOOL_IDENT";
 const char sINTEGER[] PROGMEM = "C_INTEGER";
 const char sREAL[] PROGMEM = "C_REAL";
 const char sBOOLEAN[] PROGMEM = "C_BOOLEAN";
-const char sSTRING[] PROGMEM = "C_STRING";
+const char sSTRING[] PROGMEM = "C_STRING";*/
 
 PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 	sNOTOKENS,  // 0
@@ -186,7 +186,7 @@ PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 	sCLS,       // 4
 	sDATA,      // 5
 	sDEF,       // 6
-	sDELAY,     // 7
+//	sDELAY,     // 7
 	sDIM,       // 8
 #if USE_DUMP
 	sDUMP,      // 9
@@ -240,10 +240,10 @@ PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 	sPOW,
 	sLPAREN, sRPAREN,
 
-	sREAL_IDENT, sINTEGER_IDENT, sLONGINT_IDENT, sSTRING_IDENT,
+/*	sREAL_IDENT, sINTEGER_IDENT, sLONGINT_IDENT, sSTRING_IDENT,
 	sBOOL_IDENT,
 
-	sINTEGER, sREAL, sBOOLEAN, sSTRING
+	sINTEGER, sREAL, sBOOLEAN, sSTRING*/
 };
 
 static const uint8_t tokenTable[] PROGMEM = {
@@ -257,7 +257,7 @@ static const uint8_t tokenTable[] PROGMEM = {
 	'C', 'L', 'S'+0x80,                // 4
 	'D', 'A', 'T', 'A'+0x80,           // 5
 	'D', 'E', 'F'+0x80,                // 6
-	'D', 'E', 'L', 'A', 'Y'+0x80,      // 7
+//	'D', 'E', 'L', 'A', 'Y'+0x80,      // 7
 	'D', 'I', 'M'+0x80,                // 8
 #if USE_DUMP
 	'D', 'U', 'M', 'P'+0x80,           // 9
@@ -434,7 +434,7 @@ Lexer::getNext()
 			return true;
 		}
 	}
-	return (false);
+	return false;
 }
 
 void
