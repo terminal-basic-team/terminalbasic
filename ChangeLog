@@ -1,11 +1,11 @@
 r0.8.0 (12.04.2017) - Release, dedicated to International Day of
                       Human Space Flight.
-                      
+
    * Add support of modified TVout library to output to composite video
      and get 32x24 tv image and blinking cursor.
    * Add support of color highlighted output on HX8357B based 480x320
      TFT displays, using UTFT library.
-   
+
    Language core:
    * Add CHAIN command, loading program from internal EEPROM, preserving
      the state (variables and arrays).
@@ -13,7 +13,7 @@ r0.8.0 (12.04.2017) - Release, dedicated to International Day of
    * PRINT command accepts TAB construct, ';' symbol, empty strings and
      void print list. Passes first 6 tests from ANSI minimal basic test
      set.
-   
+
    SDFS module:
    * Add DCHAIN command, loading program from SD file, preserving
      the state (variables and arrays).
@@ -26,7 +26,7 @@ r0.7 (19.03.2017) Fix integer constants parsing bug; Fix arithmetic
       support; Use lightweight serail port Stream to save FLASH/SRAM
       space; Extend PRINT command to pass MINIMAL BASIC tests; SD card
       module uses sources in textual form to save and load programs.
-     
+
 r0.6.3 (28.02.2017) Fix Atmega2560 with external memory build
 			FIx input/output boundary objects usage
 			Fix listing of variables ids
@@ -68,9 +68,9 @@ r0.3 (07.12.2016)	Interpreter rewrited as FSM with short-time step() method. Thi
 			
 r0.2 (29.11.2016)	REM operator;
 			Multioperator lines with operators separated by semicolons;
-			Input both positive and negative numbers;
-			Modular structure with math functions module;
-			Bug fixes.
-     
+     Input both positive and negative numbers;
+     Modular structure with math functions module;
+     Bug fixes.
+
 r0.1 (25.11.2016)	Initial release. Editing of the program in memory,
       simple program can be executed.

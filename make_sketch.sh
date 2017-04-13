@@ -17,7 +17,7 @@ SRC="./BASIC/include/basic.hpp ./BASIC/include/basic_lexer.hpp ./BASIC/src/basic
 ../libarduinoext/include/arduino_logger.hpp ../libarduinoext/include/cps.hpp ../libarduinoext/include/helper.hpp \
 ../libarduinoext/include/math.hpp ../libarduinoext/include/bytearray.hpp ../libarduinoext/src/bytearray.cpp \
 ../libarduinoext/include/seriallight.hpp ../libarduinoext/src/seriallight.cpp \
-../libarduinoext/include/ascii.hpp README"
+../libarduinoext/include/ascii.hpp README ChangeLog COPYING"
 
 rm -rf $SKETCH
 mkdir -p $SKETCH
