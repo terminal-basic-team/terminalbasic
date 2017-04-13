@@ -95,7 +95,9 @@ enum class Token : uint8_t
 	KW_OPTION,
 	OP_OR,
 	KW_PRINT,
+#if USE_RANDOM
 	KW_RANDOMIZE,
+#endif
 	KW_READ,
 	KW_REM,
 	KW_RETURN,

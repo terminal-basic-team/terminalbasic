@@ -252,11 +252,13 @@ Parser::fOperator()
 		} else
 			_interpreter.newline();
 		break;
+#if USE_RANDOM
 	case Token::KW_RANDOMIZE:
 		if (_mode == EXECUTE)
 			_interpreter.randomize();
 		_lexer.getNext();
 		break;
+#endif
 	case Token::KW_REM:
 		while (_lexer.getNext());
 		break;

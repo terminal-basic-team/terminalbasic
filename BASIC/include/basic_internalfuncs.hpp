@@ -31,7 +31,9 @@ public:
 	InternalFunctions(FunctionBlock* = NULL);
 private:
 	static bool func_abs(Interpreter&);
+#if USE_RANDOM
 	static bool func_rnd(Interpreter&);
+#endif
 	static bool func_tim(Interpreter&);
 	
 	static const FunctionBlock::function funcs[] PROGMEM;

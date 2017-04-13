@@ -721,7 +721,7 @@ Interpreter::eepromProgramChecksum(uint16_t len)
 	newline();
 	return crc;
 }
-#endif
+#endif // SAVE_LOAD_CHECKSUM
 
 bool
 Interpreter::checkText(uint16_t &len)

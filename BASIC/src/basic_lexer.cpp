@@ -126,7 +126,9 @@ const char sON[] PROGMEM = "ON";              // 24
 const char sOPTION[] PROGMEM = "OPTION";      // 25
 const char sOP_OR[] PROGMEM = "OR";
 const char sPRINT[] PROGMEM = "PRINT";        // 26
+#if USE_RANDOM
 const char sRANDOMIZE[] PROGMEM = "RANDOMIZE";// 27
+#endif
 const char sREAD[] PROGMEM = "READ";          // 28
 const char sREM[] PROGMEM = "REM";            // 29
 const char sRETURN[] PROGMEM = "RETURN";      // 30
@@ -211,7 +213,9 @@ PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 	sOPTION,    // 24
 	sOP_OR,
 	sPRINT,     // 25
+#if USE_RANDOM
 	sRANDOMIZE,
+#endif
 	sREAD,
 	sREM,
 	sRETURN,
@@ -280,7 +284,9 @@ static const uint8_t tokenTable[] PROGMEM = {
 	'O', 'P', 'T', 'I', 'O', 'N'+0x80, // 24
 	'O', 'R'+0x80,
 	'P', 'R', 'I', 'N', 'T'+0x80,      // 25
+#if USE_RANDOM
 	'R', 'A', 'N', 'D', 'O', 'M', 'I', 'Z', 'E'+0x80, //26
+#endif
 	'R', 'E', 'A', 'D'+0x80,           // 27
 	'R', 'E', 'M'+0x80,
 	'R', 'E', 'T', 'U', 'R', 'N'+0x80,

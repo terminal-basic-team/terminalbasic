@@ -27,6 +27,7 @@
 #define USE_REALS            0 // Real arithmetics
 #define USE_LONGINT          0 // Long integer support
 #define USE_DUMP             0 // DUMP command support
+#define USE_RANDOM           1 // USE RND and RANDOMIZE
 #define CLEAR_PROGRAM_MEMORY 0 // Clear program memory with 0xFF on NEW
 
 #define USE_SAVE_LOAD        0 // SAVE, LOAD and CHAIN commands support
