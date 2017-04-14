@@ -379,30 +379,16 @@ Interpreter::print(const Parser::Value &v, VT100::TextAttr attr)
 
 	switch (v.type) {
 	case Parser::Value::BOOLEAN:
-		if (v.value.boolean)
-			print(Token::KW_TRUE);
-		else
-			print(Token::KW_FALSE);
-		break;
 #if USE_REALS
 	case Parser::Value::REAL:
-		this->print(v.value.real);
-		break;
 #endif
 #if USE_LONGINT
 	case Parser::Value::LONG_INTEGER:
-		if (v >= LongInteger(0))
-			_output.write(' ');
-		_output.print(v.value.longInteger);
-		break;
 #endif
 	case Parser::Value::INTEGER:
-		if (v >= Integer(0))
-			_output.write(' ');
-		_output.print(v.value.integer);
+		_output.print(v);
 		break;
-	case Parser::Value::STRING:
-	{
+	case Parser::Value::STRING: {
 		Program::StackFrame *f =
 		    _program.stackFrameByIndex(_program._sp);
 		if (f == NULL || f->_type != Program::StackFrame::STRING) {
@@ -431,26 +417,6 @@ Interpreter::print(char v)
 	_output.print(v);
 }
 
-#if USE_REALS
-void
-Interpreter::print(Real number)
-{
-	char buf[17];
-#ifdef ARDUINO
-	uint8_t decWhole = 1;
-	Real n = number;
-	while (n > 1) {
-		n /= 10;
-		++decWhole;
-	}
-	::dtostrf(number, 9, 8-decWhole, buf);
-#else
-	::sprintf(buf, "% .7G", number);
-#endif
-	print(buf);
-}
-#endif // USE_REALS
-
 void
 Interpreter::print(Lexer &l)
 {
@@ -464,8 +430,7 @@ Interpreter::print(Lexer &l)
 		case Token::C_BOOLEAN:
 			print(l.getValue(), VT100::C_CYAN);
 			break;
-		case Token::C_STRING:
-		{
+		case Token::C_STRING: {
 			AttrKeeper a(*this, VT100::C_MAGENTA);
 			_output.write("\"");
 			_output.print(l.id());
@@ -1087,8 +1052,9 @@ Interpreter::print(long i, VT100::TextAttr attr)
 
 void
 Interpreter::raiseError(ErrorType type, ErrorCodes errorCode)
-{	
-	if (_program.current())
+{
+	// Output Program line number if running program
+	if ((_state == EXECUTE) && (_program.current() != NULL))
 		print(long(_program.current()->number), VT100::C_YELLOW);
 	_output.print(':');
 	if (type == DYNAMIC_ERROR)

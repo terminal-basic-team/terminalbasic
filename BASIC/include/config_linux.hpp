@@ -24,14 +24,15 @@
 /**
  * Paraeters
  */
-#define USE_REALS	1 // Real arithmetics
-#define USE_LONGINT	1 // Long integer support
-#define USE_DUMP	1 // DUMP command support
-#define CLEAR_PROGRAM_MEMORY 1
+#define USE_REALS             1 // Real arithmetics
+#define USE_LONGINT           1 // Long integer support
+#define USE_DUMP              1 // DUMP command support
+#define CLEAR_PROGRAM_MEMORY  1
+#define USE_RANDOM            1 // USE RND and RANDOMIZE
 
-#define USE_SAVE_LOAD	1 // SAVE and LOAD commands support
+#define USE_SAVE_LOAD	      1 // SAVE and LOAD commands support
 #if USE_SAVE_LOAD
-#define SAVE_LOAD_CHECKSUM 1
+#define SAVE_LOAD_CHECKSUM    1
 #endif
 
 /**
@@ -40,13 +41,13 @@
 /*
  * Math module (requires USE_REALS)
  */
-#define USEMATH 	1
+#define USEMATH 	      1
 #if USEMATH
-#define M_TRIGONOMETRIC	1
+#define M_TRIGONOMETRIC	      1
 #endif
 
-#define USEARDUINOIO	1 // ARduino IO
-#define USESD		1 // SD card module
+#define USEARDUINOIO	      1 // ARduino IO
+#define USESD		      1 // SD card module
 
 namespace BASIC
 {

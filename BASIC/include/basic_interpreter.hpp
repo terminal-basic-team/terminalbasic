@@ -228,9 +228,6 @@ public:
 	// New print line
 	void newline();
 	void print(char);
-#if USE_REALS
-	void print(Real);
-#endif
 
 	void print(Integer, VT100::TextAttr = VT100::NO_ATTR);
 	void printTab(Integer);
