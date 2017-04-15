@@ -27,14 +27,18 @@ namespace BASIC
 
 static const uint8_t intFuncs[] PROGMEM = {
 	'A', 'B', 'S'+0x80,
+#if USE_RANDOM
 	'R', 'N', 'D'+0x80,
+#endif
 	'T', 'I', 'M', 'E'+0x80,
 	0
 };
 
 const FunctionBlock::function InternalFunctions::funcs[] PROGMEM = {
 	InternalFunctions::func_abs,
+#if USE_RANDOM
 	InternalFunctions::func_rnd,
+#endif
 	InternalFunctions::func_tim
 };
 
@@ -66,6 +70,7 @@ InternalFunctions::func_abs(Interpreter &i)
 		return (false);
 }
 
+#if USE_RANDOM
 bool
 InternalFunctions::func_rnd(Interpreter &i)
 {
@@ -77,6 +82,7 @@ InternalFunctions::func_rnd(Interpreter &i)
 	i.pushValue(v);
 	return (true);
 }
+#endif // USE_RANDOM
 
 bool
 InternalFunctions::func_tim(Interpreter &i)

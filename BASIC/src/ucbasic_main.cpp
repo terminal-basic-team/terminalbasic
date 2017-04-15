@@ -20,7 +20,6 @@
 #include "arduino_logger.hpp"
 #include "basic_program.hpp"
 #include "basic_arduinoio.hpp"
-
 #include "seriallight.hpp"
 
 #if USESD
@@ -80,7 +79,7 @@ static BASIC::Interpreter basic3(Serial3, Serial3, program3);
 #else
 static BASIC::Interpreter::Program program(BASIC::PROGRAMSIZE);
 #if USEUTFT
-static BASIC::Interpreter basic(Serial, utftPrint, program);
+static BASIC::Interpreter basic(SerialL, utftPrint, program);
 #elif USETVOUT
 static BASIC::Interpreter basic(SerialL, tvoutPrint, program);
 #else
@@ -110,7 +109,7 @@ setup()
 #if USEUTFT
 	utftPrint.begin();
 #endif
-
+	
 #if BASIC_MULTITERMINAL
 #if HAVE_HWSERIAL1
 	Serial1.begin(57600);
@@ -123,7 +122,7 @@ setup()
 #endif
 #endif
 
-	LOG_INIT(Serial);
+	LOG_INIT(SerialL);
 
 	LOG_TRACE;
 

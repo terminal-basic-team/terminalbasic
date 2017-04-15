@@ -24,15 +24,30 @@
 /**
  * Paraeters
  */
-#define USE_REALS	1 // Real arithmetics
-#define USE_LONGINT	1 // Long integer support
+#define USE_REALS             1 // Real arithmetics
+#define USE_LONGINT           1 // Long integer support
+#define USE_DUMP              1 // DUMP command support
+#define CLEAR_PROGRAM_MEMORY  1
+#define USE_RANDOM            1 // USE RND and RANDOMIZE
+
+#define USE_SAVE_LOAD	      1 // SAVE and LOAD commands support
+#if USE_SAVE_LOAD
+#define SAVE_LOAD_CHECKSUM    1
+#endif
 
 /**
  * Used modules
  */
-#define USEMATH		1 // Math (requires USE_REALS)
-#define USEARDUINOIO	1 // ARduino IO
-#define USESD		1
+/*
+ * Math module (requires USE_REALS)
+ */
+#define USEMATH 	      1
+#if USEMATH
+#define M_TRIGONOMETRIC	      1
+#endif
+
+#define USEARDUINOIO	      1 // ARduino IO
+#define USESD		      1 // SD card module
 
 namespace BASIC
 {
@@ -44,7 +59,7 @@ const bool TOKENIZE = true;
 const uint8_t PROGSTRINGSIZE = 80;
 
 // Number of bytes for program text, variables and stack
-const size_t PROGRAMSIZE = 16384;
+const size_t PROGRAMSIZE = 32768;
 
 // Max size of the string constants/variables
 const uint8_t STRINGSIZE = 64;

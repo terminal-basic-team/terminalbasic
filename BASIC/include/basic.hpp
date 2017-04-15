@@ -59,47 +59,61 @@ typedef float Real;
 enum class Token : uint8_t
 {
 	NOTOKENS = 0,
+	OP_AND,        // 1
+#if USE_DUMP
 	KW_ARRAYS,     // 1
+#endif
 	KW_BASE,       // 2
-	COM_CLS,       // 3
-	KW_DATA,       // 4
-	KW_DEF,        // 5
-	COM_DELAY,     // 6
-	KW_DIM,        // 7
-	COM_DUMP,      // 8
-	KW_END,        // 9
-	KW_FALSE,      // 10
-	KW_FOR,        // 11
-	KW_GOSUB,      // 12
-	KW_GOTO,       // 13
-	KW_GO,         // 14
-	KW_IF,
-	KW_INPUT,
-	KW_LET,
-	COM_LIST,
-	COM_LOAD,
-	COM_NEW,
+#if USE_SAVE_LOAD
+	COM_CHAIN,     // 3
+#endif
+	COM_CLS,       // 4
+	KW_DATA,       // 5
+	KW_DEF,        // 6
+//	COM_DELAY,     // 7
+	KW_DIM,        // 8
+#if USE_DUMP
+	COM_DUMP,      // 9
+#endif
+	KW_END,        // 10
+	KW_FALSE,      // 11
+	KW_FOR,        // 12
+	KW_GOSUB,      // 13
+	KW_GOTO,       // 14
+	KW_GO,         // 15
+	KW_IF,         // 16
+	KW_INPUT,      // 17
+	KW_LET,        // 18
+	COM_LIST,      // 19
+#if USE_SAVE_LOAD
+	COM_LOAD,      // 20
+#endif
+	COM_NEW,       // 21
 	KW_NEXT,
+	OP_NOT,
 	KW_ON,
 	KW_OPTION,
+	OP_OR,
 	KW_PRINT,
+#if USE_RANDOM
 	KW_RANDOMIZE,
+#endif
 	KW_READ,
 	KW_REM,
 	KW_RETURN,
 	COM_RUN,
+#if USE_SAVE_LOAD
 	COM_SAVE,
+#endif
 	KW_STEP,
 	KW_STOP,
 	KW_TAB,
-	KW_VARS,
 	KW_THEN,
 	KW_TO,
 	KW_TRUE,
-
-	OP_AND,
-	OP_NOT,
-	OP_OR,
+#if USE_DUMP
+	KW_VARS,
+#endif
 
 	// *
 	STAR,
@@ -156,7 +170,8 @@ enum class ProgMemStrings : uint8_t
 	S_DYNAMIC,
 	S_ERROR,
 	S_SEMANTIC,
-	READY,
+	S_AT,
+	S_READY,
 	BYTES,
 	AVAILABLE,
 	TERMINAL,
