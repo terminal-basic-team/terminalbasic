@@ -260,12 +260,18 @@ Interpreter::exec()
 	_lexer.init(_inputBuffer);
 	if (_lexer.getNext() && (_lexer.getToken() == Token::C_INTEGER)) {
 		Integer pLine = Integer(_lexer.getValue());
-		if (!_program.addLine(pLine, _inputBuffer+_lexer.getPointer())) {
-			raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
-			_state = SHELL;
-			return;
-		} else
+		uint8_t position = _lexer.getPointer();
+		_lexer.getNext();
+		if (_lexer.getToken() != Token::NOTOKENS) {
+			if (!_program.addLine(pLine, _inputBuffer+position)) {
+				raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
+				_state = SHELL;
+			} else
+				_state = PROGRAM_INPUT;
+		} else {
+			_program.removeLine(pLine);
 			_state = PROGRAM_INPUT;
+		}
 	} else {
 		_state = SHELL;
 		if (!_parser.parse(_inputBuffer))
@@ -471,7 +477,7 @@ Interpreter::gotoLine(const Parser::Value &l)
 		raiseError(DYNAMIC_ERROR, INTEGER_EXPRESSION_EXPECTED);
 		return;
 	}
-	Program::String *s = _program.stringByNumber(Integer(l));
+	Program::String *s = _program.lineByNumber(Integer(l));
 	if (s != NULL)
 		_program.jump(_program.stringIndex(s));
 	else

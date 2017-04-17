@@ -22,11 +22,11 @@
       <itemPath>src/basic_functionblock.cpp</itemPath>
       <itemPath>src/basic_internalfuncs.cpp</itemPath>
       <itemPath>src/basic_interpreter.cpp</itemPath>
-      <itemPath>src/basic_interpreter_program.cpp</itemPath>
       <itemPath>src/basic_lexer.cpp</itemPath>
       <itemPath>src/basic_math.cpp</itemPath>
       <itemPath>src/basic_parser.cpp</itemPath>
       <itemPath>src/basic_parser_value.cpp</itemPath>
+      <itemPath>src/basic_program.cpp</itemPath>
       <itemPath>src/basic_sdfs.cpp</itemPath>
       <itemPath>src/ucbasic_main.cpp</itemPath>
     </logicalFolder>
@@ -338,6 +338,12 @@
                             perm="755"
                             owner="root"
                             group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
         </packFileList>
       </packaging>
       <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
@@ -395,8 +401,6 @@
       </item>
       <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_math.cpp" ex="false" tool="1" flavor2="0">
@@ -404,6 +408,8 @@
       <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -427,10 +433,9 @@
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/SoftwareSerial/src</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/EEPROM/src</pElem>
+            <pElem>${ARDUINO_PATH}/libraries/SD/src</pElem>
             <pElem>include</pElem>
             <pElem>../../libarduinoext/include</pElem>
-            <pElem>../TVoutEx</pElem>
-            <pElem>${ARDUINO_PATH}/libraries/TVoutfonts</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>
@@ -532,8 +537,6 @@
       </item>
       <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_math.cpp" ex="false" tool="1" flavor2="0">
@@ -541,6 +544,8 @@
       <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -564,9 +569,9 @@
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/EEPROM/src</pElem>
             <pElem>${ARDUINO_PATH}/libraries/TVoutfonts</pElem>
             <pElem>${ARDUINO_PATH}/libraries/SD/src</pElem>
+            <pElem>${ARDUINO_PATH}/libraries/PS2Keyboard</pElem>
             <pElem>include</pElem>
             <pElem>../../libarduinoext/include</pElem>
-            <pElem>${ARDUINO_PATH}/libraries/PS2Keyboard</pElem>
             <pElem>../TVoutEx</pElem>
           </incDir>
           <incFile>
@@ -667,8 +672,6 @@
       </item>
       <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
       </item>
-      <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_math.cpp" ex="false" tool="1" flavor2="0">
@@ -676,6 +679,8 @@
       <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -704,10 +709,10 @@
             <pElem>${ARDUINO_PATH}/libraries/TVout</pElem>
             <pElem>${ARDUINO_PATH}/libraries/UTFT</pElem>
             <pElem>${ARDUINO_PATH}/libraries/PS2Keyboard</pElem>
+            <pElem>${ARDUINO_PATH}/libraries/SD/src</pElem>
             <pElem>include</pElem>
             <pElem>../../libarduinoext/include</pElem>
             <pElem>../TVoutEx</pElem>
-            <pElem>${ARDUINO_PATH}/libraries/SD/src</pElem>
             <pElem>../UTFT/include</pElem>
           </incDir>
           <incFile>
@@ -811,8 +816,6 @@
       </item>
       <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
       </item>
-      <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="8">
-      </item>
       <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_math.cpp" ex="false" tool="1" flavor2="0">
@@ -820,6 +823,8 @@
       <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -944,8 +949,6 @@
       </item>
       <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
       </item>
-      <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="8">
-      </item>
       <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_math.cpp" ex="false" tool="1" flavor2="0">
@@ -953,6 +956,8 @@
       <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1068,8 +1073,6 @@
       </item>
       <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
       </item>
-      <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="8">
-      </item>
       <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_math.cpp" ex="false" tool="1" flavor2="0">
@@ -1077,6 +1080,8 @@
       <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1203,8 +1208,6 @@
       </item>
       <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
       </item>
-      <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="8">
-      </item>
       <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_math.cpp" ex="false" tool="1" flavor2="8">
@@ -1212,6 +1215,8 @@
       <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1340,8 +1345,6 @@
       </item>
       <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_math.cpp" ex="false" tool="1" flavor2="0">
@@ -1349,6 +1352,8 @@
       <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1478,8 +1483,6 @@
       </item>
       <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
       </item>
-      <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="8">
-      </item>
       <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_math.cpp" ex="false" tool="1" flavor2="8">
@@ -1487,6 +1490,8 @@
       <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -1620,8 +1625,6 @@
       </item>
       <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
       </item>
-      <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="8">
-      </item>
       <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_math.cpp" ex="false" tool="1" flavor2="8">
@@ -1629,6 +1632,8 @@
       <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -1756,8 +1761,6 @@
       </item>
       <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
       </item>
-      <item path="src/basic_interpreter_program.cpp" ex="false" tool="1" flavor2="8">
-      </item>
       <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_math.cpp" ex="false" tool="1" flavor2="8">
@@ -1765,6 +1768,8 @@
       <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_sdfs.cpp" ex="true" tool="1" flavor2="8">
       </item>

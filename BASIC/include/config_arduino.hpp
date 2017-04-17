@@ -38,7 +38,7 @@
 /**
  * Used modules
  */
-#define USESD                1 // SDcard module
+#define USESD                0 // SDcard module
 #define USEARDUINOIO         1 // Arduino IO module
 /*
  * Math module (requires USE_REALS)
@@ -46,7 +46,7 @@
 #define USEMATH                 1
 #if USEMATH
 #define M_TRIGONOMETRIC         1 // SIN COS TAN COT
-#define M_REVERSE_TRIGONOMETRIC	1 // ACS ASN ATN
+#define M_REVERSE_TRIGONOMETRIC	0 // ACS ASN ATN
 #endif
 
 // Input variants
