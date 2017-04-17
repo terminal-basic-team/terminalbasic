@@ -54,9 +54,10 @@ AVRDUDE=${TOOLS}/bin/avrdude
 OBJCOPY=${TOOLS}/bin/avr-objcopy
 SIZE=${TOOLS}/bin/avr-size
 AVRDUDE_CONF=${TOOLS}/etc/avrdude.conf
+JAVA=/usr/lib/jvm/java-1.8.0-openjdk-i386/bin/java  
 
 BUILD:=$(shell cat "./build-${CONF}")
-VERSION:=0.7.0-${BUILD}
+VERSION:=0.8.0-${BUILD}
 
 # build
 build: .build-post
@@ -67,7 +68,7 @@ build: .build-post
 
 .build-post: .build-impl copy_${CONF}
 	echo $(shell expr ${BUILD} + 1) ; \
-	echo $(shell expr ${BUILD} + 1) > "./build-${CONF}"
+	#echo $(shell expr ${BUILD} + 1) > "./build-${CONF}"
 
 # clean
 clean: .clean-post
@@ -143,6 +144,10 @@ copy_Arduino_nano328 : ARCH=arduinoNANO
 copy_Arduino_nano328 : UCARCH=atmega328p
 copy_Arduino_nano328 : copy
 	
+copy_Arduino_pro328 : ARCH=arduinoPRO
+copy_Arduino_pro328 : UCARCH=atmega328p
+copy_Arduino_pro328 : copy
+	
 copy_Arduino_nano168 : ARCH=arduinoNANO
 copy_Arduino_nano168 : UCARCH=atmega168
 copy_Arduino_nano168 : copy
@@ -174,6 +179,11 @@ program_Arduino_mega2560 : ARCH=arduinoMEGA
 program_Arduino_mega2560 : UCARCH=atmega2560
 program_Arduino_mega2560 : PROGRAMMER=wiring
 program_Arduino_mega2560 : program_common
+	
+program_Arduino_mega2560_tvout : ARCH=arduinoMEGA
+program_Arduino_mega2560_tvout : UCARCH=atmega2560
+program_Arduino_mega2560_tvout : PROGRAMMER=wiring
+program_Arduino_mega2560_tvout : program_common
 
 copy:
 	${OBJCOPY} -O ihex -j .eeprom --set-section-flags=.eeprom=alloc,load \
@@ -186,6 +196,7 @@ copy:
 	${SIZE} -C --mcu=${UCARCH} ${CND_ARTIFACT_PATH_${CONF}}
 
 program_common:
+	echo ${VERSION}
 	${AVRDUDE} -D -C ${AVRDUDE_CONF} -v -c ${PROGRAMMER} -p ${UCARCH} \
 	  -P /dev/ttyUSB0 -b115200 -U flash:w:"${CND_ARTIFACT_PATH_${CONF}}_${VERSION}_${ARCH}-${UCARCH}.hex":i
 	#${AVRDUDE} -D -C ${AVRDUDE_CONF} -v -c wiring -p atmega2560 \

@@ -6,18 +6,20 @@
             <name>BASIC</name>
             <c-extensions/>
             <cpp-extensions>cpp</cpp-extensions>
-            <header-extensions>h,hpp</header-extensions>
+            <header-extensions>hpp</header-extensions>
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects>
                 <make-dep-project>../../libarduinoemulator</make-dep-project>
                 <make-dep-project>../libarduino</make-dep-project>
                 <make-dep-project>../arduinoext</make-dep-project>
                 <make-dep-project>../../libarduinoext</make-dep-project>
+                <make-dep-project>../../libarduino</make-dep-project>
             </make-dep-projects>
             <sourceRootList>
                 <sourceRootElem>include</sourceRootElem>
                 <sourceRootElem>src</sourceRootElem>
                 <sourceRootElem>../TVoutEx</sourceRootElem>
+                <sourceRootElem>../UTFT</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>
@@ -58,6 +60,10 @@
                 </confElem>
                 <confElem>
                     <name>Arduino_mega2560_tvout</name>
+                    <type>1</type>
+                </confElem>
+                <confElem>
+                    <name>Arduino_pro328</name>
                     <type>1</type>
                 </confElem>
             </confList>
