@@ -383,19 +383,24 @@ Parser::Value::operator-=(const Value &rhs)
 Parser::Value&
 Parser::Value::operator*=(const Value &rhs)
 {
+	switch (this->type) {
 #if USE_REALS
-	value.real = Real(*this) * Real(rhs);
-	type = Value::REAL;
-#elif USE_LONGINT
-	value.longInteger = LongInteger(*this) * LongInteger(rhs);
-	type = Value::LONG_INTEGER;
-#else
-	value.integer = Integer(*this) * Integer(rhs);
-	type = Value::INTEGER;
+	case REAL: this->value.real *= Real(rhs);
+		break;
 #endif
+#if USE_LONGINT
+	case LONG_INTEGER: this->value.longInteger *= LongInteger(rhs);
+		break;
+#endif
+	case INTEGER: this->value.integer *= Integer(rhs);
+		break;
+	default: break;
+	}
+
 	return (*this);
 }
 
+// '/' operation always return REAL if real numbers support used
 Parser::Value&
 Parser::Value::operator/=(const Value &rhs)
 {
@@ -540,7 +545,7 @@ Parser::Value::printTo(Print& p) const
 	switch (type) {
 	case BOOLEAN:
 	{
-		char buf[6];
+		char buf[6]; // Size, sufficient to store both 'TRUE' and 'FALSE
 		Token t;
 		if (value.boolean)
 			t = Token::KW_TRUE;
@@ -553,7 +558,7 @@ Parser::Value::printTo(Print& p) const
 #if USE_REALS
 	case REAL:
 	{
-		char buf[17];
+		char buf[11];
 #ifdef ARDUINO
 		uint8_t decWhole = 1;
 		Real n = value.real;
@@ -563,7 +568,7 @@ Parser::Value::printTo(Print& p) const
 		}
 		::dtostrf(value.real, 10, 8 - decWhole, buf);
 #else
-		::sprintf(buf, "% .7G", value.real);
+		::sprintf(buf, "% .8G", value.real);
 #endif // ARDUINO
 		return value.real > Real(0) ? p.print(buf) + 1 : p.print(buf);
 	}

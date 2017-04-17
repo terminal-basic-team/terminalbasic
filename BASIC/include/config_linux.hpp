@@ -41,9 +41,10 @@
 /*
  * Math module (requires USE_REALS)
  */
-#define USEMATH 	      1
+#define USEMATH 	        1
 #if USEMATH
-#define M_TRIGONOMETRIC	      1
+#define M_TRIGONOMETRIC         1 // SIN COS TAN COT
+#define M_REVERSE_TRIGONOMETRIC	1 // ACS ASN ATN
 #endif
 
 #define USEARDUINOIO	      1 // ARduino IO

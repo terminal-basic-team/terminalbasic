@@ -433,10 +433,9 @@
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/SoftwareSerial/src</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/EEPROM/src</pElem>
+            <pElem>${ARDUINO_PATH}/libraries/SD/src</pElem>
             <pElem>include</pElem>
             <pElem>../../libarduinoext/include</pElem>
-            <pElem>../TVoutEx</pElem>
-            <pElem>${ARDUINO_PATH}/libraries/TVoutfonts</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>
@@ -570,9 +569,9 @@
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/EEPROM/src</pElem>
             <pElem>${ARDUINO_PATH}/libraries/TVoutfonts</pElem>
             <pElem>${ARDUINO_PATH}/libraries/SD/src</pElem>
+            <pElem>${ARDUINO_PATH}/libraries/PS2Keyboard</pElem>
             <pElem>include</pElem>
             <pElem>../../libarduinoext/include</pElem>
-            <pElem>${ARDUINO_PATH}/libraries/PS2Keyboard</pElem>
             <pElem>../TVoutEx</pElem>
           </incDir>
           <incFile>
@@ -710,10 +709,10 @@
             <pElem>${ARDUINO_PATH}/libraries/TVout</pElem>
             <pElem>${ARDUINO_PATH}/libraries/UTFT</pElem>
             <pElem>${ARDUINO_PATH}/libraries/PS2Keyboard</pElem>
+            <pElem>${ARDUINO_PATH}/libraries/SD/src</pElem>
             <pElem>include</pElem>
             <pElem>../../libarduinoext/include</pElem>
             <pElem>../TVoutEx</pElem>
-            <pElem>${ARDUINO_PATH}/libraries/SD/src</pElem>
             <pElem>../UTFT/include</pElem>
           </incDir>
           <incFile>
