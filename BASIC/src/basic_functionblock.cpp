@@ -129,7 +129,11 @@ FunctionBlock::general_func(Interpreter &i, _funcInteger f)
 	 || v.type == Parser::Value::REAL
 #endif
 	) {
+#if USE_LONGINT
+		v = (*f)(LongInteger(v));
+#else
 		v = (*f)(Integer(v));
+#endif
 		i.pushValue(v);
 		return (true);
 	} else
