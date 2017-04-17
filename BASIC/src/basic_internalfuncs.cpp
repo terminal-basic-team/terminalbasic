@@ -105,7 +105,12 @@ InternalFunctions::func_int(Interpreter &i)
 	    ) {
 #if USE_REALS
 		v = math<Real>::floor(Real(v));
+#if USE_LONGINT
+		v = LongInteger(v);
+#else
+		v = Integer(v);
 #endif
+#endif // USE_REALS
 		i.pushValue(v);
 		return (true);
 	} else
