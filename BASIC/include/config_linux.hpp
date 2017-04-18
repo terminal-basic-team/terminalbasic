@@ -27,8 +27,9 @@
 #define USE_REALS             1 // Real arithmetics
 #define USE_LONGINT           1 // Long integer support
 #define USE_DUMP              1 // DUMP command support
-#define CLEAR_PROGRAM_MEMORY  1
-#define USE_RANDOM            1 // USE RND and RANDOMIZE
+#define CLEAR_PROGRAM_MEMORY  1 // Clear program memory on NEW
+#define USE_RANDOM            1 // Clear program memory with 0xFF on NEW
+#define USEMATRIX             1 // Matrix operations
 
 #define USE_SAVE_LOAD	      1 // SAVE and LOAD commands support
 #if USE_SAVE_LOAD
@@ -49,6 +50,8 @@
 
 #define USEARDUINOIO	      1 // ARduino IO
 #define USESD		      1 // SD card module
+
+#define SERIAL_PORT Serial
 
 namespace BASIC
 {

@@ -88,6 +88,9 @@ enum class Token : uint8_t
 #if USE_SAVE_LOAD
 	COM_LOAD,      // 20
 #endif
+#if USEMATRIX
+	KW_MAT,
+#endif
 	COM_NEW,       // 21
 	KW_NEXT,
 	OP_NOT,

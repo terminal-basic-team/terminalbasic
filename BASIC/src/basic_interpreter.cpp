@@ -635,10 +635,10 @@ Interpreter::save()
 		}
 	}
 	newline();
-#if SAVE_LOAD_CHECKSUM	
+#if SAVE_LOAD_CHECKSUM
 	// Compute checksum
 	uint16_t crc = eepromProgramChecksum(h.len);
-	
+
 	if (crc == h.crc16) {
 #endif
 		EEPROMClass e;
@@ -744,7 +744,7 @@ Interpreter::input()
 bool
 Interpreter::nextInput()
 {
-	Program::StackFrame *f = _program.currentStackFrame();
+	const Program::StackFrame *f = _program.currentStackFrame();
 	if (f != NULL && f->_type == Program::StackFrame::INPUT_OBJECT) {
 		_program.pop();
 		strcpy(_inputVarName, f->body.inputObject.name);
@@ -831,7 +831,6 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 	switch (f.type) {
 	case VF_BOOLEAN:
 	{
-
 		union
 		{
 			char *b;
@@ -903,7 +902,6 @@ Interpreter::set(ArrayFrame &f, size_t index, const Parser::Value &v)
 	switch (f.type) {
 	case VF_BOOLEAN:
 	{
-
 		union
 		{
 			uint8_t *b;
@@ -1285,7 +1283,7 @@ Interpreter::confirm()
 void
 Interpreter::strConcat(Parser::Value &v1, Parser::Value &v2)
 {
-	Program::StackFrame *f = _program.currentStackFrame();
+	const Program::StackFrame *f = _program.currentStackFrame();
 	if (f != NULL && f->_type == Program::StackFrame::STRING) {
 		_program.pop();
 		Program::StackFrame *ff = _program.currentStackFrame();
@@ -1387,7 +1385,7 @@ Interpreter::addArray(const char *name, uint8_t dim,
 #endif
 	}
 	
-	size_t dist = sizeof (ArrayFrame) + sizeof (size_t) * dim + num;
+	const size_t dist = sizeof (ArrayFrame) + sizeof (size_t) * dim + num;
 	if (_program._arraysEnd + dist >= _program._sp) {
 		raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
 		return (NULL);

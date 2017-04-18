@@ -79,15 +79,11 @@ static BASIC::Interpreter basic3(Serial3, Serial3, program3);
 #else
 static BASIC::Interpreter::Program program(BASIC::PROGRAMSIZE);
 #if USEUTFT
-static BASIC::Interpreter basic(SerialL, utftPrint, program);
+static BASIC::Interpreter basic(SERIAL_PORT, utftPrint, program);
 #elif USETVOUT
-static BASIC::Interpreter basic(SerialL3, tvoutPrint, program);
+static BASIC::Interpreter basic(SERIAL_PORT, tvoutPrint, program);
 #else
-#ifdef ARDUINO
-static BASIC::Interpreter basic(SerialL, SerialL, program);
-#else
-static BASIC::Interpreter basic(Serial, Serial, program);
-#endif
+static BASIC::Interpreter basic(SERIAL_PORT, SERIAL_PORT, program);
 #endif // USEUTFT
 #endif // BASIC_MULTITERMINAL
 
@@ -98,12 +94,7 @@ setup()
 	XMCRA |= 1ul<<7; // Switch ext mem iface on
 	XMCRB = 0;
 #endif
-#ifdef ARDUINO
-	Serial.begin(115200);
-	SerialL3.begin(115200);
-#else
-	Serial.begin(115200);
-#endif // ARDUINO
+	SERIAL_PORT.begin(115200);
 #if USETVOUT
 	tvoutPrint.begin();
 #endif

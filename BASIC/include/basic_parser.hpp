@@ -105,6 +105,9 @@ private:
 	bool fArray(uint8_t&);
 	bool fDimensions(uint8_t&);
 	bool fIdentifierExpr(const char*, Value&);
+#if USEMATRIX
+	bool fMatrixOperation();
+#endif
 	
 	// last static semantic error
 	ErrorCodes _error;

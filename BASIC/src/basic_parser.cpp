@@ -47,7 +47,8 @@
  *	KW_RETURN |
  *	KW_RANDOMIZE |
  *	GOTO_STATEMENT |
- *	COMMAND
+ *	COMMAND |
+ *	KW_MAT MATRIX_OPERATION
  * COMMAND = COM_DUMP | COM_DUMP KW_VARS | COM_DUMP KW_ARRAYS
  *	COM_LIST | COM_NEW | COM_RUN | COM_SAVE | COM_LOAD
  * ASSIGNMENT = KW_LET IMPLICIT_ASSIGNMENT | IMPLICIT_ASSIGNMENT
@@ -71,6 +72,7 @@
  * ARRAYS_LIST = VAR ARRAY | VAR ARRAY ARRAYS_LIST
  * ARRAY = LPAREN DIMENSIONS RPAREN
  * DIMENSIONS = C_INTEGER | C_INTEGER COMMA DIMENSIONS
+ * MATRIX_OPERATION = 
  */
 
 namespace BASIC
@@ -158,7 +160,8 @@ Parser::fOperators()
  *	KW_RETURN |
  *	KW_RANDOMIZE |
  *	GOTO_STATEMENT |
- *	COMMAND
+ *	COMMAND |
+ *      KW_MAT MATRIX_OPERATION
  */
 bool
 Parser::fOperator()
@@ -235,6 +238,12 @@ Parser::fOperator()
 			return (false);
 		break;
 	}
+#if USEMATRIX
+	case Token::KW_MAT:
+		if (!_lexer.getNext() || !fMatrixOperation())
+			return false;
+		break;
+#endif
 	case Token::KW_NEXT:
 		if (!_lexer.getNext() || (_lexer.getToken() != Token::REAL_IDENT
 		    && _lexer.getToken() != Token::INTEGER_IDENT))
@@ -366,10 +375,10 @@ Parser::fPrintList()
 bool
 Parser::fPrintItem()
 {
-	Token t = _lexer.getToken();
-	if (_lexer.getToken() != Token::COMMA && _lexer.getToken() != Token::COLON) {
+	const Token t = _lexer.getToken();
+	if (t != Token::COMMA && t != Token::COLON) { // printable tokens
 		Value v;
-		if (_lexer.getToken() == Token::KW_TAB) {
+		if (t == Token::KW_TAB) {
 			if (_lexer.getNext() && _lexer.getToken() == Token::LPAREN &&
 			    _lexer.getNext() && fExpression(v) &&
 			    _lexer.getToken() == Token::RPAREN) {
@@ -387,7 +396,7 @@ Parser::fPrintItem()
 				_interpreter.print(v);
 		}
 	}
-	return (true);
+	return true;
 }
 
 /*
@@ -405,7 +414,7 @@ Parser::fExpression(Value &v)
 		return (false);
 
 	while (true) {
-		Token t = _lexer.getToken();
+		const Token t = _lexer.getToken();
 		Value v2;
 		switch (t) {
 		case Token::LT:
@@ -570,7 +579,7 @@ Parser::fFinal(Value &v)
 {
 	LOG_TRACE;
 
-	Token t = _lexer.getToken();
+	const Token t = _lexer.getToken();
 	LOG(t);
 	while (true) {
 		switch (t) {
@@ -923,5 +932,14 @@ Parser::fIdentifierExpr(const char *varName, Value &v)
 			_interpreter.valueFromVar(v, varName);
 	return (true);
 }
+
+#if USEMATRIX
+bool
+Parser::fMatrixOperation()
+{
+	_lexer.getNext();
+	return true;
+}
+#endif
 
 }

@@ -29,6 +29,7 @@
 #define USE_DUMP             1 // DUMP command support
 #define USE_RANDOM           1 // USE RND and RANDOMIZE
 #define CLEAR_PROGRAM_MEMORY 1 // Clear program memory with 0xFF on NEW
+#define USEMATRIX            1 // Matrix operations
 
 #define USE_SAVE_LOAD        1 // SAVE, LOAD and CHAIN commands support
 #if USE_SAVE_LOAD
@@ -38,7 +39,7 @@
 /**
  * Used modules
  */
-#define USESD                0 // SDcard module
+#define USESD                1 // SDcard module
 #define USEARDUINOIO         1 // Arduino IO module
 /*
  * Math module (requires USE_REALS)
@@ -46,16 +47,21 @@
 #define USEMATH                 1
 #if USEMATH
 #define M_TRIGONOMETRIC         1 // SIN COS TAN COT
-#define M_REVERSE_TRIGONOMETRIC	0 // ACS ASN ATN
+#define M_REVERSE_TRIGONOMETRIC	1 // ACS ASN ATN
 #endif
+
+/*
+ * Input and output for single terminal mode
+ */
 
 // Input variants
 #define SERIAL_I 0 // Serial output
 
 // Output variants
-#define SERIAL_O 0 // Serial output
-#define UTFT_O   1 // UTFT output
-#define TVOUT_O  2 // TVout output
+#define SERIAL_O  0 // Serial output
+#define SERIAL3_O 1 // Serial output
+#define UTFT_O    2 // UTFT output
+#define TVOUT_O   3 // TVout output
 
 // Input select (SERIAL)
 #define S_INPUT SERIAL_I
@@ -66,7 +72,11 @@
 #define USEUTFT		          0
 #define USETVOUT	          0
 
-#if S_OUTPUT == UTFT_O
+#if S_OUTPUT == SERIAL_O
+#define SERIAL_PORT SerialL
+#elif S_OUTPUT == SERIAL3_O
+#define SERIAL_PORT SerialL3
+#elif S_OUTPUT == UTFT_O
 #undef USEUTFT
 #define USEUTFT		          1
 #elif S_OUTPUT == TVOUT_O
