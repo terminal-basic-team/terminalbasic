@@ -24,12 +24,49 @@
 namespace BASIC
 {
 
+static const uint8_t extEEPROMCommandTokens[] PROGMEM = {
+	'E', 'C', 'H', 'A', 'I', 'N'+0x80,
+	'E', 'L', 'O', 'A', 'D'+0x80,
+	'E', 'S', 'A', 'V', 'E'+0x80,
+	0
+};
+
+const FunctionBlock::function ExtEEPROM::_commands[] PROGMEM = {
+	ExtEEPROM::com_echain,
+	ExtEEPROM::com_eload,
+	ExtEEPROM::com_esave
+};
+
+ExtEEPROM::ExtEEPROM()
+{
+	commands = _commands;
+	commandTokens = extEEPROMCommandTokens;
+}
+
 void
 ExtEEPROM::_init()
 {
 	
 }
 
+bool
+ExtEEPROM::com_echain(Interpreter &i)
+{
+	return true;
 }
 
-#endif
+bool
+ExtEEPROM::com_eload(Interpreter &i)
+{
+	return true;
+}
+
+bool
+ExtEEPROM::com_esave(Interpreter &i)
+{
+	return true;
+}
+
+}
+
+#endif // USE_EXTEEPROM

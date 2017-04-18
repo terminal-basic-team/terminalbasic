@@ -30,7 +30,7 @@
 #define CLEAR_PROGRAM_MEMORY  1 // Clear program memory on NEW
 #define USE_RANDOM            1 // Clear program memory with 0xFF on NEW
 #define USE_MATRIX            1 // Matrix operations
-#define USE_EXTEEPROM         1
+#define USE_EXTEEPROM         1 // External EEPROM functions module
 
 #define USE_SAVE_LOAD	      1 // SAVE and LOAD commands support
 #if USE_SAVE_LOAD

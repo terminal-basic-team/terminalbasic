@@ -52,8 +52,7 @@ const FunctionBlock::command  ArduinoIO::_commands[] PROGMEM = {
 	ArduinoIO::comm_dwrite
 };
 
-ArduinoIO::ArduinoIO(FunctionBlock *next) :
-FunctionBlock(next)
+ArduinoIO::ArduinoIO()
 {
 	commands = _commands;
 	commandTokens = arduinoIOCommands;

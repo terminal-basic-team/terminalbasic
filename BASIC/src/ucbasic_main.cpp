@@ -133,10 +133,15 @@ setup()
 #if USEMATH
 	basic.addModule(&mathBlock);
 #endif
+
+#if USE_EXTEEPROM
+	basic.addModule(&extEeprom);
+#endif
 	
 #if USESD
 	basic.addModule(&sdfs);
 #endif
+	
 	basic.init();
 #if BASIC_MULTITERMINAL
 #if HAVE_HWSERIAL1

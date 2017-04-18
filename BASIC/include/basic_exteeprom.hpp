@@ -26,13 +26,29 @@
 
 #include "basic_functionblock.hpp"
 
+#if USE_EXTEEPROM
+#if EXTEEPROM_SIZE >= PROGRAMSIZE
+#define EXTEEPROM_PAGES_NUMBER = (EXTEEPROM_SIZE / PROGRAMSIZE)
+#define EXTEEPROM_PAGE_SIZE = PROGRAMSIZE 
+#else
+#define EXTEEPROM_PAGES_NUMBER = 1
+#define EXTEEPROM_PAGE_SIZE = EXTEEPROM_SIZE
+#endif
+#endif // USE_EXTEEPROM
+
 namespace BASIC
 {
 
 class ExtEEPROM : public FunctionBlock
 {
 public:
+	explicit ExtEEPROM();
+private:
+	static bool com_echain(Interpreter&);
+	static bool com_eload(Interpreter&);
+	static bool com_esave(Interpreter&);
 	
+	static const FunctionBlock::command _commands[] PROGMEM;
 // FunctionBlock interface
 public:
 	void _init() override;

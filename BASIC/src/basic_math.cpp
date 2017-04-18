@@ -75,8 +75,7 @@ const FunctionBlock::function Math::funcs[] PROGMEM = {
 #endif
 };
 
-Math::Math(FunctionBlock *next) :
-FunctionBlock(next)
+Math::Math()
 {
 	functions = funcs;
 	functionTokens = mathTokens;

@@ -30,7 +30,10 @@
 #define USE_RANDOM           0 // USE RND and RANDOMIZE
 #define CLEAR_PROGRAM_MEMORY 0 // Clear program memory with 0xFF on NEW
 #define USE_MATRIX           0 // Matrix operations
-#define USE_EXTEEPROM        0
+#define USE_EXTEEPROM        1 // External EEPROM functions module
+#if USE_EXTEEPROM
+#define EXTEEPROM_SIZE    32768 // Size in bytes
+#endif
 
 #define USE_SAVE_LOAD        0 // SAVE, LOAD and CHAIN commands support
 #if USE_SAVE_LOAD

@@ -30,12 +30,6 @@
 #include "config_linux.hpp"
 #endif
 
-#if USEMATH
-#if !USE_REALS
-#error Math module requires real arithmetics support
-#endif
-#endif
-
 /**
  * @brief Simple BASIC language interpreter package
  */

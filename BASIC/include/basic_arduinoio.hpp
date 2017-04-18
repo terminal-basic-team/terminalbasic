@@ -33,7 +33,7 @@ namespace BASIC
 class ArduinoIO : public FunctionBlock
 {
 public:
-	explicit ArduinoIO(FunctionBlock* =NULL);
+	explicit ArduinoIO();
 private:
 #if USE_REALS
 	static bool func_aread(Interpreter&);
