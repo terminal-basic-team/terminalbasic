@@ -81,7 +81,7 @@ enum class Token : uint8_t
 	KW_GOSUB,      // 13
 	KW_GOTO,       // 14
 	KW_GO,         // 15
-#if USEMATRIX
+#if USE_MATRIX
 	KW_IDN,
 #endif
 	KW_IF,         // 16
@@ -91,7 +91,7 @@ enum class Token : uint8_t
 #if USE_SAVE_LOAD
 	COM_LOAD,      // 20
 #endif
-#if USEMATRIX
+#if USE_MATRIX
 	KW_MAT,
 #endif
 	COM_NEW,       // 21
@@ -120,7 +120,7 @@ enum class Token : uint8_t
 #if USE_DUMP
 	KW_VARS,
 #endif
-#if USEMATRIX
+#if USE_MATRIX
 	KW_ZER,
 #endif
 

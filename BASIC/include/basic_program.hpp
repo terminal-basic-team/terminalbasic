@@ -123,7 +123,7 @@ public:
 		{
 			GosubReturn	gosubReturn;
 			uint8_t		arrayDimensions;
-			size_t		arrayDimension;
+			uint16_t	arrayDimension;
 			ForBody		forFrame;
 			InputBody	inputObject;
 			char		string[STRINGSIZE];

@@ -238,7 +238,7 @@ Parser::fOperator()
 			return false;
 		break;
 	}
-#if USEMATRIX
+#if USE_MATRIX
 	case Token::KW_MAT:
 		if (!_lexer.getNext() || !fMatrixOperation())
 			return false;
@@ -933,7 +933,7 @@ Parser::fIdentifierExpr(const char *varName, Value &v)
 	return true;
 }
 
-#if USEMATRIX
+#if USE_MATRIX
 bool
 Parser::fMatrixOperation()
 {

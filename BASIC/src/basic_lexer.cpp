@@ -115,7 +115,7 @@ const char sFOR[] PROGMEM = "FOR";            // 13
 const char sGOSUB[] PROGMEM = "GOSUB";        // 14
 const char sGOTO[] PROGMEM = "GOTO";          // 15
 const char sGO[] PROGMEM = "GO";              // 16
-#if USEMATRIX
+#if USE_MATRIX
 const char sIDN[] PROGMEM = "IDN";
 #endif
 const char sIF[] PROGMEM = "IF";              // 17
@@ -125,7 +125,7 @@ const char sLIST[] PROGMEM = "LIST";          // 20
 #if USE_SAVE_LOAD
 const char sLOAD[] PROGMEM = "LOAD";          // 21
 #endif
-#if USEMATRIX
+#if USE_MATRIX
 const char sMAT[] PROGMEM = "MAT";
 #endif
 const char sNEW[] PROGMEM = "NEW";            // 22
@@ -154,7 +154,7 @@ const char sTRUE[] PROGMEM = "TRUE";
 #if USE_DUMP
 const char sVARS[] PROGMEM = "VARS";
 #endif
-#if USEMATRIX
+#if USE_MATRIX
 const char sZER[] PROGMEM = "ZER";
 #endif
 
@@ -211,7 +211,7 @@ PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 	sGOSUB,     // 13
 	sGOTO,      // 14
 	sGO,        // 15
-#if USEMATRIX
+#if USE_MATRIX
 	sIDN,
 #endif
 	sIF,        // 16
@@ -221,7 +221,7 @@ PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 #if USE_SAVE_LOAD
 	sLOAD,      // 20
 #endif
-#if USEMATRIX
+#if USE_MATRIX
 	sMAT,
 #endif
 	sNEW,       // 21
@@ -250,7 +250,7 @@ PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 #if USE_DUMP
 	sVARS,
 #endif
-#if USEMATRIX
+#if USE_MATRIX
 	sZER,
 #endif
 
@@ -293,7 +293,7 @@ static const uint8_t tokenTable[] PROGMEM = {
 	'G', 'O', 'S', 'U', 'B'+0x80,      // 13
 	'G', 'O', 'T', 'O'+0x80,           // 14
 	'G', 'O'+0x80,                     // 15
-#if USEMATRIX
+#if USE_MATRIX
 	'I', 'D', 'N'+0x80,
 #endif
 	'I', 'F'+0x80,                     // 16
@@ -301,7 +301,7 @@ static const uint8_t tokenTable[] PROGMEM = {
 	'L', 'E', 'T'+0x80,                // 18
 	'L', 'I', 'S', 'T'+0x80,           // 19
 	'L', 'O', 'A', 'D'+0x80,           // 20
-#if USEMATRIX
+#if USE_MATRIX
 	'M', 'A', 'T'+0x80,
 #endif
 	'N', 'E', 'W'+0x80,                // 21
@@ -328,7 +328,7 @@ static const uint8_t tokenTable[] PROGMEM = {
 #if USE_DUMP
 	'V', 'A', 'R', 'S'+0x80,
 #endif
-#if USEMATRIX
+#if USE_MATRIX
 	'Z', 'E', 'R'+0x80,
 #endif
 	0

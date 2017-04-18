@@ -80,7 +80,7 @@ public:
 		_i._output.print("\x1B[0m");
 	}
 private:
-	
+
 	Interpreter &_i;
 	VT100::TextAttr _a;
 };
@@ -188,7 +188,7 @@ Interpreter::init()
 	print(VERSION, VT100::BRIGHT), newline();
 #if BASIC_MULTITERMINAL
 	print(ProgMemStrings::TERMINAL, NO_ATTR), print(Integer(_termno), BRIGHT),
-	_output.print(':'), _output.print(' ');
+	    _output.print(':'), _output.print(' ');
 #endif
 	print(long(_program.programSize - _program._arraysEnd), VT100::BRIGHT);
 	print(ProgMemStrings::BYTES), print(ProgMemStrings::AVAILABLE), newline();
@@ -199,7 +199,7 @@ void
 Interpreter::step()
 {
 	LOG_TRACE;
-	
+
 	char c;
 
 	switch (_state) {
@@ -236,7 +236,7 @@ Interpreter::step()
 			_state = VAR_INPUT;
 		}
 		break;
-	case EXECUTE: 
+	case EXECUTE:
 		c = char(ASCII::NUL);
 #ifdef ARDUINO
 		if (_input.available() > 0)
@@ -263,7 +263,7 @@ Interpreter::exec()
 		uint8_t position = _lexer.getPointer();
 		_lexer.getNext();
 		if (_lexer.getToken() != Token::NOTOKENS) {
-			if (!_program.addLine(pLine, _inputBuffer+position)) {
+			if (!_program.addLine(pLine, _inputBuffer + position)) {
 				raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
 				_state = SHELL;
 			} else
@@ -318,6 +318,7 @@ Interpreter::addModule(FunctionBlock *module)
 }
 
 #if USE_DUMP
+
 void
 Interpreter::dump(DumpMode mode)
 {
@@ -394,7 +395,8 @@ Interpreter::print(const Parser::Value &v, VT100::TextAttr attr)
 	case Parser::Value::INTEGER:
 		_output.print(v);
 		break;
-	case Parser::Value::STRING: {
+	case Parser::Value::STRING:
+	{
 		Program::StackFrame *f =
 		    _program.stackFrameByIndex(_program._sp);
 		if (f == NULL || f->_type != Program::StackFrame::STRING) {
@@ -436,13 +438,14 @@ Interpreter::print(Lexer &l)
 		case Token::C_BOOLEAN:
 			print(l.getValue(), VT100::C_CYAN);
 			break;
-		case Token::C_STRING: {
+		case Token::C_STRING:
+		{
 			AttrKeeper a(*this, VT100::C_MAGENTA);
 			_output.write("\"");
 			_output.print(l.id());
 			_output.write("\" ");
 		}
-		break;
+			break;
 		case Token::REAL_IDENT:
 		case Token::INTEGER_IDENT:
 #if USE_LONGINT
@@ -611,13 +614,14 @@ Interpreter::next(const char *varName)
 }
 
 #if USE_SAVE_LOAD
+
 void
 Interpreter::save()
 {
 	EEpromHeader_t h = {
 		// Program text buffer length
 		.len = _program._textEnd,
-		.magic_FFFFminuslen = uint16_t(0xFFFFu)-_program._textEnd,
+		.magic_FFFFminuslen = uint16_t(0xFFFFu) - _program._textEnd,
 		// Checksum
 		.crc16 = 0
 	};
@@ -667,7 +671,7 @@ Interpreter::chain()
 	uint16_t len;
 	if (!checkText(len))
 		return;
-	
+
 	_program.clearProg();
 	_program.moveData(len);
 	// Load programm memory without progress
@@ -677,13 +681,14 @@ Interpreter::chain()
 }
 
 #if SAVE_LOAD_CHECKSUM
+
 uint16_t
 Interpreter::eepromProgramChecksum(uint16_t len)
 {
 	EEPROMClass e;
 	// Compute checksum
 	uint16_t crc = 0, p;
-	for (p = sizeof (EEpromHeader_t); p < len+sizeof (EEpromHeader_t);
+	for (p = sizeof (EEpromHeader_t); p < len + sizeof (EEpromHeader_t);
 	    ++p) {
 		uint8_t b = e.read(p);
 		crc = _crc16_update(crc, b);
@@ -698,14 +703,14 @@ bool
 Interpreter::checkText(uint16_t &len)
 {
 	EEpromHeader_t h;
-	
+
 	{
 		EEPROMClass e;
 		e.get(0, h);
 	}
-	
+
 	if ((h.len > PROGRAMSIZE) ||
-	    (h.magic_FFFFminuslen != uint16_t(0xFFFF)-h.len)) {
+	    (h.magic_FFFFminuslen != uint16_t(0xFFFF) - h.len)) {
 		raiseError(DYNAMIC_ERROR, INTERNAL_ERROR);
 		return false;
 	}
@@ -831,6 +836,7 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 	switch (f.type) {
 	case VF_BOOLEAN:
 	{
+
 		union
 		{
 			char *b;
@@ -902,6 +908,7 @@ Interpreter::set(ArrayFrame &f, size_t index, const Parser::Value &v)
 	switch (f.type) {
 	case VF_BOOLEAN:
 	{
+
 		union
 		{
 			uint8_t *b;
@@ -1024,7 +1031,7 @@ Interpreter::print(Token t)
 	    uint8_t(t)])));
 	if (t < Token::STAR)
 		print(buf, VT100::TextAttr(uint8_t(VT100::BRIGHT) |
-		    uint8_t(VT100::C_GREEN)));
+	    uint8_t(VT100::C_GREEN)));
 	else
 		print(buf);
 }
@@ -1043,7 +1050,7 @@ Interpreter::printTab(Integer tabs)
 	if (tabs < 1)
 		raiseError(DYNAMIC_ERROR, INVALID_TAB_VALUE);
 	else
-		_output.print("\x1B["), _output.print(tabs-1), _output.print('C');
+		_output.print("\x1B["), _output.print(tabs - 1), _output.print('C');
 }
 
 void
@@ -1072,7 +1079,7 @@ Interpreter::raiseError(ErrorType type, ErrorCodes errorCode)
 	else // STATIC_ERROR
 		print(Integer(_parser.getError()));
 	newline();
-	
+
 	_state = SHELL;
 }
 
@@ -1095,7 +1102,7 @@ Interpreter::arrayElementIndex(ArrayFrame *f, size_t &index)
 	return (true);
 }
 
-Interpreter::VariableFrame*
+Interpreter::VariableFrame *
 Interpreter::setVariable(const char *name, const Parser::Value &v)
 {
 	size_t index = _program._textEnd;
@@ -1123,7 +1130,7 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 		dist += sizeof (LongInteger);
 	} else
 #endif
-	if (endsWith(name, '%')) {
+		if (endsWith(name, '%')) {
 		t = VF_INTEGER;
 		dist += sizeof (Integer);
 	} else if (endsWith(name, '!')) {
@@ -1206,7 +1213,7 @@ Interpreter::newArray(const char *name)
 	}
 }
 
-const Interpreter::VariableFrame*
+const Interpreter::VariableFrame *
 Interpreter::getVariable(const char *name)
 {
 	const VariableFrame *f = _program.variableByName(name);
@@ -1228,8 +1235,8 @@ Interpreter::pushString(const char *str)
 	strcpy(f->body.string, str);
 }
 
-size_t
-Interpreter::pushDimension(size_t dim)
+uint16_t
+Interpreter::pushDimension(uint16_t dim)
 {
 	Program::StackFrame *f =
 	    _program.push(Program::StackFrame::ARRAY_DIMENSION);
@@ -1306,13 +1313,13 @@ Interpreter::end()
 	_state = SHELL;
 }
 
-size_t
+uint16_t
 Interpreter::ArrayFrame::size() const
 {
-	size_t result = sizeof (Interpreter::ArrayFrame) +
-	    numDimensions * sizeof (size_t);
+	uint16_t result = sizeof (Interpreter::ArrayFrame) +
+	    numDimensions * sizeof (uint16_t);
 
-	size_t mul = 1;
+	uint16_t mul = 1;
 
 	for (uint8_t i = 0; i < numDimensions; ++i)
 		mul *= dimension[i] + 1;
@@ -1342,11 +1349,11 @@ Interpreter::ArrayFrame::size() const
 	return (result);
 }
 
-Interpreter::ArrayFrame*
+Interpreter::ArrayFrame *
 Interpreter::addArray(const char *name, uint8_t dim,
     uint32_t num)
 {
-	size_t index = _program._variablesEnd;
+	uint16_t index = _program._variablesEnd;
 	ArrayFrame *f;
 	for (f = _program.arrayByIndex(index); index < _program._arraysEnd;
 	    index += f->size(), f = _program.arrayByIndex(index)) {
@@ -1368,24 +1375,23 @@ Interpreter::addArray(const char *name, uint8_t dim,
 		num *= sizeof (LongInteger);
 	} else
 #endif
-	if (endsWith(name, '%')) {
+		if (endsWith(name, '%')) {
 		t = VF_INTEGER;
 		num *= sizeof (Integer);
 	} else if (endsWith(name, '!')) {
 		t = VF_BOOLEAN;
 		num *= sizeof (bool);
-	}
-	else { // real
+	} else { // real
 #if USE_REALS
 		t = VF_REAL;
 		num *= sizeof (Real);
-#else		// Integer
+#else  // Integer
 		t = VF_INTEGER;
 		num *= sizeof (Integer);
 #endif
 	}
-	
-	const size_t dist = sizeof (ArrayFrame) + sizeof (size_t) * dim + num;
+
+	const uint16_t dist = sizeof (ArrayFrame) + sizeof (size_t) * dim + num;
 	if (_program._arraysEnd + dist >= _program._sp) {
 		raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
 		return (NULL);

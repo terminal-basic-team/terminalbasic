@@ -105,7 +105,7 @@ private:
 	bool fArray(uint8_t&);
 	bool fDimensions(uint8_t&);
 	bool fIdentifierExpr(const char*, Value&);
-#if USEMATRIX
+#if USE_MATRIX
 	bool fMatrixOperation();
 #endif
 	

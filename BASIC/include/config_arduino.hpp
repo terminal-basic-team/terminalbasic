@@ -24,30 +24,31 @@
 /**
  * Paraeters
  */
-#define USE_REALS            1 // Real arithmetics
+#define USE_REALS            0 // Real arithmetics
 #define USE_LONGINT          0 // Long integer support
-#define USE_DUMP             1 // DUMP command support
-#define USE_RANDOM           1 // USE RND and RANDOMIZE
-#define CLEAR_PROGRAM_MEMORY 1 // Clear program memory with 0xFF on NEW
-#define USEMATRIX            1 // Matrix operations
+#define USE_DUMP             0 // DUMP command support
+#define USE_RANDOM           0 // USE RND and RANDOMIZE
+#define CLEAR_PROGRAM_MEMORY 0 // Clear program memory with 0xFF on NEW
+#define USE_MATRIX           0 // Matrix operations
+#define USE_EXTEEPROM        0
 
-#define USE_SAVE_LOAD        1 // SAVE, LOAD and CHAIN commands support
+#define USE_SAVE_LOAD        0 // SAVE, LOAD and CHAIN commands support
 #if USE_SAVE_LOAD
-#define SAVE_LOAD_CHECKSUM   1 // Compute checksums while SAVE, LOAD and CHAIN
+#define SAVE_LOAD_CHECKSUM   0 // Compute checksums while SAVE, LOAD and CHAIN
 #endif
 
 /**
  * Used modules
  */
-#define USESD                1 // SDcard module
-#define USEARDUINOIO         1 // Arduino IO module
+#define USESD                0 // SDcard module
+#define USEARDUINOIO         0 // Arduino IO module
 /*
  * Math module (requires USE_REALS)
  */
-#define USEMATH                 1
+#define USEMATH                 0
 #if USEMATH
-#define M_TRIGONOMETRIC         1 // SIN COS TAN COT
-#define M_REVERSE_TRIGONOMETRIC	1 // ACS ASN ATN
+#define M_TRIGONOMETRIC         0 // SIN COS TAN COT
+#define M_REVERSE_TRIGONOMETRIC	0 // ACS ASN ATN
 #endif
 
 /*

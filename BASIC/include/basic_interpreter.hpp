@@ -131,7 +131,7 @@ public:
 		 * @brief get frame size in bytes
 		 * @return size
 		 */
-		size_t size() const;
+		uint16_t size() const;
 
 		/**
 		 * @brief get array raw data pointer
@@ -176,7 +176,7 @@ public:
 		// Number of dimensions
 		uint8_t numDimensions;
 		// Actual dimensions values
-		size_t dimension[];
+		uint16_t dimension[];
 	};
 	// Interpreter FSM state
 
@@ -327,10 +327,10 @@ public:
 	void pushString(const char*);
 	/**
 	 * @brief push the next array dimesion on the stack
-	 * @param 
+	 * @param dim dimension value
 	 * @return 
 	 */
-	size_t pushDimension(size_t);
+	uint16_t pushDimension(uint16_t);
 	/**
 	 * @brief push the number of array dimesions on the stack
 	 * @param num number of dimensions

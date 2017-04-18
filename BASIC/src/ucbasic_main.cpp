@@ -38,6 +38,10 @@
 #include "TVoutPrint.hpp"
 #endif
 
+#if USE_EXTEEPROM
+#include "basic_exteeprom.hpp"
+#endif
+
 /**
  * Instantiating modules
  */
@@ -59,6 +63,10 @@ static BASIC::Math mathBlock;
 
 #if USEARDUINOIO
 static BASIC::ArduinoIO arduinoIo;
+#endif
+
+#if USE_EXTEEPROM
+static BASIC::ExtEEPROM extEeprom;
 #endif
 
 #if BASIC_MULTITERMINAL
