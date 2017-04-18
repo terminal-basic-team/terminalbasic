@@ -41,6 +41,7 @@
  * KW_GOSUB = "GOSUB"   // 13
  * KW_GOTO = "GOTO"     // 14
  * KW_GO = "GO"         // 15
+ * KW_IDN = "IDN"
  * KW_IF = "IF"         // 16
  * KW_INPUT = "INPUT"   // 17
  * KW_LET = "LET"       // 18
@@ -67,6 +68,7 @@
  * KW_TO = "TO"
  * KW_TRUE = "TRUE"
  * KW_VARS = "VARS"
+ * KW_ZER = "ZER"
  * 
  * STAR = '*'
  * SLASH = '/'
@@ -113,6 +115,9 @@ const char sFOR[] PROGMEM = "FOR";            // 13
 const char sGOSUB[] PROGMEM = "GOSUB";        // 14
 const char sGOTO[] PROGMEM = "GOTO";          // 15
 const char sGO[] PROGMEM = "GO";              // 16
+#if USEMATRIX
+const char sIDN[] PROGMEM = "IDN";
+#endif
 const char sIF[] PROGMEM = "IF";              // 17
 const char sINPUT[] PROGMEM = "INPUT";        // 18
 const char sLET[] PROGMEM = "LET";            // 19
@@ -148,6 +153,9 @@ const char sTO[] PROGMEM = "TO";
 const char sTRUE[] PROGMEM = "TRUE";
 #if USE_DUMP
 const char sVARS[] PROGMEM = "VARS";
+#endif
+#if USEMATRIX
+const char sZER[] PROGMEM = "ZER";
 #endif
 
 const char sSTAR[] PROGMEM = "*";
@@ -203,6 +211,9 @@ PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 	sGOSUB,     // 13
 	sGOTO,      // 14
 	sGO,        // 15
+#if USEMATRIX
+	sIDN,
+#endif
 	sIF,        // 16
 	sINPUT,     // 17
 	sLET,       // 18
@@ -238,6 +249,9 @@ PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 	sTRUE,
 #if USE_DUMP
 	sVARS,
+#endif
+#if USEMATRIX
+	sZER,
 #endif
 
 	sSTAR, sSLASH, sPLUS, sMINUS,
@@ -279,6 +293,9 @@ static const uint8_t tokenTable[] PROGMEM = {
 	'G', 'O', 'S', 'U', 'B'+0x80,      // 13
 	'G', 'O', 'T', 'O'+0x80,           // 14
 	'G', 'O'+0x80,                     // 15
+#if USEMATRIX
+	'I', 'D', 'N'+0x80,
+#endif
 	'I', 'F'+0x80,                     // 16
 	'I', 'N', 'P', 'U', 'T'+0x80,      // 17
 	'L', 'E', 'T'+0x80,                // 18
@@ -310,6 +327,9 @@ static const uint8_t tokenTable[] PROGMEM = {
 	'T', 'R', 'U', 'E'+0x80,
 #if USE_DUMP
 	'V', 'A', 'R', 'S'+0x80,
+#endif
+#if USEMATRIX
+	'Z', 'E', 'R'+0x80,
 #endif
 	0
 };
