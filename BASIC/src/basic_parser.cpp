@@ -388,7 +388,8 @@ Parser::fPrintItem()
 				return false;
 		} else {
 			if (!fExpression(v)) {
-				_error = EXPRESSION_EXPECTED;
+				if (_error == NO_ERROR)
+					_error = EXPRESSION_EXPECTED;
 				return false;
 			}
 
@@ -602,6 +603,11 @@ Parser::fFinal(Value &v)
 			_lexer.getNext();
 			return true;
 		case Token::C_STRING:
+			if (_lexer.getError() == Lexer::STRING_OVERFLOW) {
+				_error = STRING_OVERFLOW;
+				_lexer.getNext();
+				return false;
+			}
 			if (_mode == EXECUTE) {
 				_interpreter.pushString(_lexer.id());
 				v.type = Value::Type::STRING;

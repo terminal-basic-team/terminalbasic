@@ -380,6 +380,7 @@ Lexer::getNext()
 	LOG_TRACE;
 
 	_token = Token::NOTOKENS;
+	_error = NO_ERROR;
 	_valuePointer = 0;
 	while (SYM > 0) {
 		if (isdigit(SYM)) {
@@ -478,6 +479,8 @@ Lexer::pushSYM()
 {
 	if (_valuePointer < STRINGSIZE - 1)
 		_id[_valuePointer++] = SYM;
+	else
+		_error = STRING_OVERFLOW;
 	next();
 }
 
