@@ -33,11 +33,6 @@
 #include "bytearray.hpp"
 #include "version.h"
 #include "ascii.hpp"
-#ifdef ARDUINO
-#include "config_arduino.hpp"
-#else
-#include "config_linux.hpp"
-#endif
 
 namespace BASIC
 {
@@ -890,7 +885,7 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 	{
 		Program::StackFrame *fr = _program.currentStackFrame();
 		if (fr == NULL || fr->_type != Program::StackFrame::STRING) {
-			raiseError(DYNAMIC_ERROR, STRING_FRAME_SEARCH);
+			f.bytes[0] = 0;
 			return;
 		}
 		strcpy(f.bytes, fr->body.string);
@@ -1287,8 +1282,9 @@ Interpreter::confirm()
 	return (result);
 }
 
+#if USE_STRINGOPS
 void
-Interpreter::strConcat(Parser::Value &v1, Parser::Value &v2)
+Interpreter::strConcat()
 {
 	const Program::StackFrame *f = _program.currentStackFrame();
 	if (f != NULL && f->_type == Program::StackFrame::STRING) {
@@ -1306,6 +1302,24 @@ Interpreter::strConcat(Parser::Value &v1, Parser::Value &v2)
 	}
 	raiseError(DYNAMIC_ERROR, STRING_FRAME_SEARCH);
 }
+
+bool
+Interpreter::strCmp()
+{
+	const Program::StackFrame *f = _program.currentStackFrame();
+	if (f != NULL && f->_type == Program::StackFrame::STRING) {
+		_program.pop();
+		Program::StackFrame *ff = _program.currentStackFrame();
+		if (ff != NULL || ff->_type == Program::StackFrame::STRING) {
+			_program.pop();
+			return strncmp(ff->body.string, f->body.string,
+			    STRINGSIZE) == 0;
+		}
+	}
+	raiseError(DYNAMIC_ERROR, STRING_FRAME_SEARCH);
+	return false;
+}
+#endif
 
 void
 Interpreter::end()

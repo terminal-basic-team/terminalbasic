@@ -337,7 +337,10 @@ public:
 	 */
 	void pushDimensions(uint8_t);
 
-	void strConcat(Parser::Value&, Parser::Value&);
+#if USE_STRINGOPS
+	void strConcat();
+	bool strCmp();
+#endif
 	/**
 	 * @brief request user confirmation
 	 * @return 

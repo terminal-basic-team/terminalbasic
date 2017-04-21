@@ -25,12 +25,13 @@
  * Paraeters
  */
 #define USE_REALS            0 // Real arithmetics
+#define USE_STRINGOPS        0 // Basic string operations (concatenation and comparision)
 #define USE_LONGINT          0 // Long integer support
 #define USE_DUMP             0 // DUMP command support
 #define USE_RANDOM           0 // USE RND and RANDOMIZE
 #define CLEAR_PROGRAM_MEMORY 0 // Clear program memory with 0xFF on NEW
 #define USE_MATRIX           0 // Matrix operations
-#define USE_EXTEEPROM        1 // External EEPROM functions module
+#define USE_EXTEEPROM        0 // External EEPROM functions module
 #if USE_EXTEEPROM
 #define EXTEEPROM_SIZE    32768 // Size in bytes
 #endif

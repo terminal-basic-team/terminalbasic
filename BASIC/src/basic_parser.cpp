@@ -420,43 +420,43 @@ Parser::fExpression(Value &v)
 		switch (t) {
 		case Token::LT:
 			if (_lexer.getNext() && fSimpleExpression(v2)) {
-				v.value.boolean = v < v2;
-				v.type = Value::BOOLEAN;
+				v = v < v2;
 				continue;
 			} else
 				return false;
 		case Token::LTE:
 			if (_lexer.getNext() && fSimpleExpression(v2)) {
-				v.value.boolean = (v < v2) || (v == v2);
-				v.type = Value::BOOLEAN;
+				v = (v < v2) || (v == v2);
 				continue;
 			} else
 				return false;
 		case Token::GT:
 			if (_lexer.getNext() && fSimpleExpression(v2)) {
-				v.value.boolean = v > v2;
-				v.type = Value::BOOLEAN;
+				v = v > v2;
 				continue;
 			} else
 				return false;
 		case Token::GTE:
 			if (_lexer.getNext() && fSimpleExpression(v2)) {
-				v.value.boolean = (v > v2) || (v == v2);
-				v.type = Value::BOOLEAN;
+				v = (v > v2) || (v == v2);
 				continue;
 			} else
 				return false;
 		case Token::EQUALS:
 			if (_lexer.getNext() && fSimpleExpression(v2)) {
-				v.value.boolean = v == v2;
-				v.type = Value::BOOLEAN;
+#if USE_STRINGOPS
+				if (v.type == Value::STRING &&
+				    v2.type == Value::STRING)
+					v = _interpreter.strCmp();
+				else
+#endif
+					v = v == v2;
 				continue;
 			} else
 				return false;
 		case Token::NE:
 			if (_lexer.getNext() && fSimpleExpression(v2)) {
-				v.value.boolean = !(v == v2);
-				v.type = Value::BOOLEAN;
+				v = !(v == v2);
 				continue;
 			} else
 				return false;
@@ -487,10 +487,12 @@ Parser::fSimpleExpression(Value &v)
 		switch (t) {
 		case Token::PLUS:
 			if (_lexer.getNext() && fTerm(v2)) {
+#if USE_STRINGOPS
 				if (v.type == Value::STRING &&
 				    v2.type == Value::STRING)
-					_interpreter.strConcat(v,v2);
+					_interpreter.strConcat();
 				else
+#endif
 					v += v2;
 				continue;
 			} else
