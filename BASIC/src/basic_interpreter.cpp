@@ -776,7 +776,9 @@ Interpreter::doInput()
 			case Token::C_STRING:
 			case Token::REAL_IDENT:
 			case Token::INTEGER_IDENT:
+#if USE_LONGINT
 			case Token::LONGINT_IDENT:
+#endif
 			case Token::STRING_IDENT:
 			case Token::BOOL_IDENT:
 			{

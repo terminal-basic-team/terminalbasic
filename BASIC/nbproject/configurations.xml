@@ -364,6 +364,12 @@
                             perm="755"
                             owner="root"
                             group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
         </packFileList>
       </packaging>
       <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
@@ -884,8 +890,8 @@
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/SoftwareSerial/src</pElem>
             <pElem>include</pElem>
             <pElem>../arduinoext/include</pElem>
-            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/libraries/EEPROM/src</pElem>
-            <pElem>/opt/arduino-1.6.12/hardware/arduino/avr/variants/atmega64_128</pElem>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/EEPROM/src</pElem>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/variants/atmega64_128</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>

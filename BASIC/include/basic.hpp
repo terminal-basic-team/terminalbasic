@@ -155,7 +155,9 @@ enum class Token : uint8_t
 
 	REAL_IDENT,
 	INTEGER_IDENT,
+#if USE_LONGINT
 	LONGINT_IDENT,
+#endif
 	STRING_IDENT,
 	BOOL_IDENT,
 

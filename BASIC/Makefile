@@ -174,6 +174,11 @@ program_Arduino_UNO : ARCH=arduinoUNO
 program_Arduino_UNO : UCARCH=atmega328p
 program_Arduino_UNO : PROGRAMMER=arduino
 program_Arduino_UNO : program_common
+	
+program_Arduino_nano168 : ARCH=arduinoNANO
+program_Arduino_nano168 : UCARCH=atmega168
+program_Arduino_nano168 : PROGRAMMER=arduino
+program_Arduino_nano168 : program_common
 
 program_Arduino_mega2560 : ARCH=arduinoMEGA
 program_Arduino_mega2560 : UCARCH=atmega2560

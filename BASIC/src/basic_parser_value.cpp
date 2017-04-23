@@ -443,7 +443,7 @@ Parser::Value::printTo(Print& p) const
 #if USE_REALS
 	case REAL:
 	{
-		char buf[11];
+		char buf[14];
 #ifdef ARDUINO
 		uint8_t decWhole = 1;
 		Real n = value.real;
