@@ -142,7 +142,7 @@ Parser::Value::operator Integer() const
 	}
 }
 
-Parser::Value&
+Parser::Value &
 Parser::Value::operator-()
 {
 	switch (type) {
@@ -178,10 +178,15 @@ Parser::Value::operator<(const Value &rhs) const
 bool
 Parser::Value::operator==(const Value &rhs) const
 {
+#if USE_REALS
+	if (rhs.type == REAL)
+		return almost_equal(Real(*this), Real(rhs), 2);
+	else
+#endif
 	switch (this->type) {
 #if USE_REALS
 	case REAL:
-		return this->value.real == Real(rhs);
+		return almost_equal(this->value.real, Real(rhs), 2);
 #endif
 #if USE_LONGINT
 	case LONG_INTEGER:
@@ -197,6 +202,11 @@ Parser::Value::operator==(const Value &rhs) const
 bool
 Parser::Value::operator>(const Value &rhs) const
 {
+#if USE_REALS
+	if (rhs.type == REAL)
+		return Real(*this) > Real(rhs);
+	else
+#endif
 	switch (this->type) {
 #if USE_REALS
 	case REAL:
@@ -228,6 +238,11 @@ operator<=(const Parser::Value &l, const Parser::Value &r)
 Parser::Value &
 Parser::Value::operator+=(const Value &rhs)
 {
+#if USE_REALS
+	if (rhs.type == REAL)
+		*this = Real(*this) + Real(rhs);
+	else
+#endif
 	switch (this->type) {
 #if USE_REALS
 	case REAL: this->value.real += Real(rhs);
@@ -248,6 +263,11 @@ Parser::Value::operator+=(const Value &rhs)
 Parser::Value &
 Parser::Value::operator-=(const Value &rhs)
 {
+#if USE_REALS
+	if (rhs.type == REAL)
+		*this = Real(*this) - Real(rhs);
+	else
+#endif
 	switch (this->type) {
 #if USE_REALS
 	case REAL: this->value.real -= Real(rhs);
@@ -268,6 +288,11 @@ Parser::Value::operator-=(const Value &rhs)
 Parser::Value &
 Parser::Value::operator*=(const Value &rhs)
 {
+#if USE_REALS
+	if (rhs.type == REAL)
+		*this = Real(*this) * Real(rhs);
+	else
+#endif
 	switch (this->type) {
 #if USE_REALS
 	case REAL: this->value.real *= Real(rhs);
@@ -311,11 +336,11 @@ Parser::Value::powerMatchValue(const Value &rhs)
 	    && type != REAL
 #endif
 	    )
-		* this = LongInteger(*this);
+		*this = LongInteger(*this);
 #endif
 #if USE_REALS
 	if (rhs.type == REAL || rhs < Integer(0))
-		* this = Real(*this);
+		*this = Real(*this);
 #endif
 }
 
