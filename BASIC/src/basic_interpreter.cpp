@@ -466,12 +466,11 @@ Interpreter::run()
 void
 Interpreter::gotoLine(const Parser::Value &l)
 {
+	if (l.type != Parser::Value::INTEGER
 #if USE_LONGINT
-	if (l.type != Parser::Value::INTEGER &&
-	    l.type != Parser::Value::LONG_INTEGER) {
-#else
-	if (l.type != Parser::Value::INTEGER) {
+	&& l.type != Parser::Value::LONG_INTEGER
 #endif
+	) {
 		raiseError(DYNAMIC_ERROR, INTEGER_EXPRESSION_EXPECTED);
 		return;
 	}
@@ -493,10 +492,12 @@ Interpreter::pushReturnAddress(uint8_t textPosition)
 {
 	Program::StackFrame *f = _program.push(Program::StackFrame::
 	    SUBPROGRAM_RETURN);
-	if (f == NULL)
+	if (f != NULL) {
+		f->body.gosubReturn.calleeIndex = _program._current;
+		f->body.gosubReturn.textPosition = _program._textPosition +
+		    textPosition;
+	} else
 		raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
-	f->body.gosubReturn.calleeIndex = _program._current;
-	f->body.gosubReturn.textPosition = _program._textPosition + textPosition;
 }
 
 void
@@ -516,16 +517,18 @@ Interpreter::pushForLoop(const char *varName, uint8_t textPosition,
     const Parser::Value &v, const Parser::Value &vStep)
 {
 	Program::StackFrame *f = _program.push(Program::StackFrame::FOR_NEXT);
-	if (f == NULL)
-		raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
-	f->body.forFrame.calleeIndex = _program._current;
-	f->body.forFrame.textPosition = _program._textPosition + textPosition;
-	f->body.forFrame.finalvalue = v;
-	f->body.forFrame.stepValue = vStep;
+	if (f != NULL) {
+		f->body.forFrame.calleeIndex = _program._current;
+		f->body.forFrame.textPosition = _program._textPosition +
+		    textPosition;
+		f->body.forFrame.finalvalue = v;
+		f->body.forFrame.stepValue = vStep;
 
-	valueFromVar(f->body.forFrame.currentValue, varName);
-	strcpy(f->body.forFrame.varName, varName);
-	setVariable(varName, f->body.forFrame.currentValue);
+		valueFromVar(f->body.forFrame.currentValue, varName);
+		strcpy(f->body.forFrame.varName, varName);
+		setVariable(varName, f->body.forFrame.currentValue);
+	} else
+		raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
 }
 
 void
@@ -533,9 +536,10 @@ Interpreter::pushValue(const Parser::Value &v)
 {
 	Program::StackFrame *f = _program.push(Program::StackFrame::
 	    VALUE);
-	if (f == NULL)
+	if (f != NULL)
+		f->body.value = v;
+	else
 		raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
-	f->body.value = v;
 }
 
 void
@@ -543,9 +547,10 @@ Interpreter::pushInputObject(const char *varName)
 {
 	Program::StackFrame *f = _program.push(Program::StackFrame::
 	    INPUT_OBJECT);
-	if (f == NULL)
+	if (f != NULL)
+		strcpy(f->body.inputObject.name, varName);
+	else
 		raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
-	strcpy(f->body.inputObject.name, varName);
 }
 
 bool
@@ -776,9 +781,7 @@ Interpreter::doInput()
 			case Token::C_STRING:
 			case Token::REAL_IDENT:
 			case Token::INTEGER_IDENT:
-#if USE_LONGINT
 			case Token::LONGINT_IDENT:
-#endif
 			case Token::STRING_IDENT:
 			case Token::BOOL_IDENT:
 			{
@@ -1111,9 +1114,8 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 		if (res == 0) {
 			set(*f, v);
 			return (f);
-		} else if (res < 0) {
+		} else if (res < 0)
 			break;
-		}
 	}
 
 	if (f == NULL)
@@ -1321,7 +1323,7 @@ Interpreter::strCmp()
 	raiseError(DYNAMIC_ERROR, STRING_FRAME_SEARCH);
 	return false;
 }
-#endif
+#endif // USE_STRINGOPS
 
 void
 Interpreter::end()
