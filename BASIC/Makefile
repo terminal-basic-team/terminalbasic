@@ -48,7 +48,7 @@ MKDIR=mkdir
 CP=cp
 CCADMIN=CCadmin
 
-ARDUINO_PATH=/opt/arduino-1.8.1
+ARDUINO_PATH=/opt/arduino-1.8.2
 TOOLS = ${ARDUINO_PATH}/hardware/tools/avr
 AVRDUDE=${TOOLS}/bin/avrdude
 OBJCOPY=${TOOLS}/bin/avr-objcopy
@@ -57,7 +57,7 @@ AVRDUDE_CONF=${TOOLS}/etc/avrdude.conf
 JAVA=/usr/lib/jvm/java-1.8.0-openjdk-i386/bin/java  
 
 BUILD:=$(shell cat "./build-${CONF}")
-VERSION:=0.8.0-${BUILD}
+VERSION:=0.8.1-${BUILD}
 
 # build
 build: .build-post
@@ -68,7 +68,7 @@ build: .build-post
 
 .build-post: .build-impl copy_${CONF}
 	echo $(shell expr ${BUILD} + 1) ; \
-	#echo $(shell expr ${BUILD} + 1) > "./build-${CONF}"
+	echo $(shell expr ${BUILD} + 1) > "./build-${CONF}"
 
 # clean
 clean: .clean-post
