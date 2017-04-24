@@ -61,6 +61,7 @@
 
 // Input variants
 #define SERIAL_I 0 // Serial output
+#define SERIAL3_I 1 // Serial output
 
 // Output variants
 #define SERIAL_O  0 // Serial output
@@ -77,6 +78,11 @@
 #define USEUTFT		          0
 #define USETVOUT	          0
 
+#if S_INPUT == SERIAL_I
+#define SERIAL_PORT SerialL
+#elif S_INPUT == SERIAL3_I
+#define SERIAL_PORT SerialL3
+#endif
 #if S_OUTPUT == SERIAL_O
 #define SERIAL_PORT SerialL
 #elif S_OUTPUT == SERIAL3_O
@@ -119,10 +125,10 @@ const size_t PROGRAMSIZE = 3072;
 const size_t PROGRAMSIZE = 1000;
 #elif defined (__AVR_ATmega168__)
 const size_t PROGRAMSIZE = 512;
-#endif
+#endif // USE_EXTMEM
 
 // Max size of the string constants/variables
-const uint8_t STRINGSIZE = 48;
+const uint8_t STRINGSIZE = 64;
 
 // Number of characters in variable name
 const uint8_t VARSIZE = 5;
