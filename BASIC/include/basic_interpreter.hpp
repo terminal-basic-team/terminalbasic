@@ -60,20 +60,20 @@ public:
 	 */
 	enum ErrorCodes : uint8_t
 	{
-		NO_ERROR = 0,		// Ok
-		OUTTA_MEMORY,		// Out of memory
-		REDIMED_ARRAY,		// Attempt to define existing array
-		STACK_FRAME_ALLOCATION,	// Unable to allocate stack frame
-		ARRAY_DECLARATION,	// 
-		STRING_FRAME_SEARCH,	// Missing string frame
-		INVALID_NEXT,		// 
-		RETURN_WO_GOSUB,
-		NO_SUCH_STRING,
-		INVALID_VALUE_TYPE,
-		NO_SUCH_ARRAY,
-		INTEGER_EXPRESSION_EXPECTED, // Integer expression expected
-		BAD_CHECKSUM,		// Bad program checksum
-		INVALID_TAB_VALUE,
+		NO_ERROR = 0,			// Ok
+		OUTTA_MEMORY = 1,		// Out of memory
+		REDIMED_ARRAY = 2,		// Attempt to define existing array
+		STACK_FRAME_ALLOCATION = 3,	// Unable to allocate stack frame
+		ARRAY_DECLARATION = 4,		// 
+		STRING_FRAME_SEARCH = 5,	// Missing string frame
+		INVALID_NEXT = 6,		// 
+		RETURN_WO_GOSUB = 7,
+		NO_SUCH_STRING = 8,
+		INVALID_VALUE_TYPE = 9,
+		NO_SUCH_ARRAY = 10,
+		INTEGER_EXPRESSION_EXPECTED = 11,// Integer expression expected
+		BAD_CHECKSUM = 12,		// Bad program checksum
+		INVALID_TAB_VALUE = 13,
 		INTERNAL_ERROR = 255
 	};
 
@@ -230,7 +230,7 @@ public:
 	void print(char);
 
 	void print(Integer, VT100::TextAttr = VT100::NO_ATTR);
-	void printTab(Integer);
+	void printTab(const Parser::Value&);
 	void print(long, VT100::TextAttr = VT100::NO_ATTR);
 	void print(ProgMemStrings, VT100::TextAttr = VT100::NO_ATTR);
 	void print(Token);
@@ -362,7 +362,7 @@ private:
 
 	void print(Lexer&);
 
-	void raiseError(ErrorType, ErrorCodes = NO_ERROR);
+	void raiseError(ErrorType, ErrorCodes = NO_ERROR, bool = true);
 	/**
 	 * @brief read and buffer one symbol
 	 * @return input finished flag

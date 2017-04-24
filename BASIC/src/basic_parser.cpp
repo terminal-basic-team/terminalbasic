@@ -24,12 +24,6 @@
 #include "basic_interpreter.hpp"
 #include "basic_program.hpp"
 
-#ifdef ARDUINO
-#include "config_arduino.hpp"
-#else
-#include "config_linux.hpp"
-#endif
-
 /*
  * TEXT = OPERATORS | C_INTEGER OPERATORS
  * OPERATORS = OPERATOR | OPERATOR COLON OPERATORS
@@ -382,7 +376,7 @@ Parser::fPrintItem()
 			if (_lexer.getNext() && _lexer.getToken() == Token::LPAREN &&
 			    _lexer.getNext() && fExpression(v) &&
 			    _lexer.getToken() == Token::RPAREN) {
-				_interpreter.printTab(Integer(v));
+				_interpreter.printTab(v);
 				_lexer.getNext();
 			} else
 				return false;

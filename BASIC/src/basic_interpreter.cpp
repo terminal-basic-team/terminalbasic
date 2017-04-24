@@ -33,6 +33,7 @@
 #include "bytearray.hpp"
 #include "version.h"
 #include "ascii.hpp"
+#include "basic_math.hpp"
 
 namespace BASIC
 {
@@ -614,7 +615,6 @@ Interpreter::next(const char *varName)
 }
 
 #if USE_SAVE_LOAD
-
 void
 Interpreter::save()
 {
@@ -781,7 +781,9 @@ Interpreter::doInput()
 			case Token::C_STRING:
 			case Token::REAL_IDENT:
 			case Token::INTEGER_IDENT:
+#if USE_LONGINT
 			case Token::LONGINT_IDENT:
+#endif
 			case Token::STRING_IDENT:
 			case Token::BOOL_IDENT:
 			{
@@ -1045,12 +1047,17 @@ Interpreter::print(Integer i, VT100::TextAttr attr)
 }
 
 void
-Interpreter::printTab(Integer tabs)
+Interpreter::printTab(const Parser::Value &v)
 {
-	if (tabs < 1)
-		raiseError(DYNAMIC_ERROR, INVALID_TAB_VALUE);
-	else
+	Integer tabs;
+#if USE_REALS
+	if (v.type == Parser::Value::REAL)
+		tabs = math<Real>::round(v.value.real);
+#endif
+	if (tabs > 0)
 		_output.print("\x1B["), _output.print(tabs - 1), _output.print('C');
+	else
+		raiseError(DYNAMIC_ERROR, INVALID_TAB_VALUE, false);
 }
 
 void
@@ -1062,7 +1069,7 @@ Interpreter::print(long i, VT100::TextAttr attr)
 }
 
 void
-Interpreter::raiseError(ErrorType type, ErrorCodes errorCode)
+Interpreter::raiseError(ErrorType type, ErrorCodes errorCode, bool fatal)
 {
 	// Output Program line number if running program
 	if ((_state == EXECUTE) && (_program.current() != NULL))
@@ -1079,8 +1086,9 @@ Interpreter::raiseError(ErrorType type, ErrorCodes errorCode)
 	else // STATIC_ERROR
 		print(Integer(_parser.getError()));
 	newline();
-
-	_state = SHELL;
+	
+	if (fatal)
+		_state = SHELL;
 }
 
 bool

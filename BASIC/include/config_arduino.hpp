@@ -24,7 +24,7 @@
 /**
  * Paraeters
  */
-#define USE_REALS            0 // Real arithmetics
+#define USE_REALS            1 // Real arithmetics
 #define USE_STRINGOPS        0 // Basic string operations (concatenation and comparision)
 #define USE_LONGINT          0 // Long integer support
 #define USE_DUMP             0 // DUMP command support

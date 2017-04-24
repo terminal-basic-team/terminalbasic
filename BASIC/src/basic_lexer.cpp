@@ -405,6 +405,9 @@ Lexer::getNext()
 			_token = Token::SEMI;
 			next();
 			return true;
+		case '.':
+			decimalNumber();
+			return (true);
 		case ',':
 			_token = Token::COMMA;
 			next();
@@ -538,14 +541,26 @@ Lexer::decimalNumber()
 	_value.type = Parser::Value::INTEGER;
 	Integer *val = &_value.value.integer;
 #endif
-	*val = SYM - '0';
+#if USE_REALS
+	if (SYM == '.')
+		*val = 0;
+	else
+#endif
+		*val = SYM - '0';
 	while (SYM > 0) {
-		next();
-		if (isdigit(SYM)) {
-			*val *= Integer(10);
-			*val += SYM - '0';
-			continue;
+#if USE_REALS
+		if (SYM != '.') {
+			
+#endif
+			next();
+			if (isdigit(SYM)) {
+				*val *= Integer(10);
+				*val += SYM - '0';
+				continue;
+			}
+#if USE_REALS
 		}
+#endif
 		switch (SYM) {
 #if USE_REALS
 		case '.':
