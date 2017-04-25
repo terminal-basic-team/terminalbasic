@@ -33,7 +33,6 @@
 #include "bytearray.hpp"
 #include "version.h"
 #include "ascii.hpp"
-#include "basic_math.hpp"
 
 namespace BASIC
 {
@@ -48,32 +47,32 @@ public:
 		if (_a == VT100::NO_ATTR)
 			return;
 		if ((uint8_t(a) & uint8_t(VT100::BRIGHT)) != uint8_t(VT100::NO_ATTR))
-			_i._output.print("\x1B[1m");
+			_i.printEsc("1m");
 		if ((uint8_t(a) & uint8_t(VT100::UNDERSCORE)) != uint8_t(VT100::NO_ATTR))
-			_i._output.print("\x1B[4m");
+			_i.printEsc("4m");
 		if ((uint8_t(a) & uint8_t(VT100::REVERSE)) != uint8_t(VT100::NO_ATTR))
-			_i._output.print("\x1B[7m");
+			_i.printEsc("7m");
 		if ((uint8_t(a) & 0xF0) == VT100::C_YELLOW)
-			_i._output.print("\x1B[33m");
+			_i.printEsc("33m");
 		else if ((uint8_t(a) & 0xF0) == VT100::C_GREEN)
-			_i._output.print("\x1B[32m");
+			_i.printEsc("32m");
 		else if ((uint8_t(a) & 0xF0) == VT100::C_RED)
-			_i._output.print("\x1B[31m");
+			_i.printEsc("31m");
 		else if ((uint8_t(a) & 0xF0) == VT100::C_BLUE)
-			_i._output.print("\x1B[34m");
+			_i.printEsc("34m");
 		else if ((uint8_t(a) & 0xF0) == VT100::C_MAGENTA)
-			_i._output.print("\x1B[35m");
+			_i.printEsc("35m");
 		else if ((uint8_t(a) & 0xF0) == VT100::C_CYAN)
-			_i._output.print("\x1B[36m");
+			_i.printEsc("36m");
 		else if ((uint8_t(a) & 0xF0) == VT100::C_WHITE)
-			_i._output.print("\x1B[37m");
+			_i.printEsc("37m");
 	}
 
 	~AttrKeeper()
 	{
 		if (_a == VT100::NO_ATTR)
 			return;
-		_i._output.print("\x1B[0m");
+		_i.printEsc("0m");
 	}
 private:
 
@@ -278,7 +277,7 @@ Interpreter::exec()
 void
 Interpreter::cls()
 {
-	_output.print("\x1B[2J"), _output.print("\x1B[H");
+	printEsc("2J"), printEsc("H");
 }
 
 void
@@ -437,9 +436,9 @@ Interpreter::print(Lexer &l)
 		case Token::C_STRING:
 		{
 			AttrKeeper a(*this, VT100::C_MAGENTA);
-			_output.write("\"");
+			_output.write(uint8_t(ASCII::QUMARK));
 			_output.print(l.id());
-			_output.write("\" ");
+			_output.write(uint8_t(ASCII::QUMARK));
 		}
 			break;
 		case Token::REAL_IDENT:
@@ -1017,12 +1016,18 @@ Interpreter::print(const char *text, VT100::TextAttr attr)
 void
 Interpreter::print(ProgMemStrings index, VT100::TextAttr attr)
 {
+	AttrKeeper _a(*this, attr);
+
+	write(index), _output.print(' ');
+}
+
+void
+Interpreter::write(ProgMemStrings index)
+{
 	char buf[16];
 	strcpy_P(buf, progmemString(index));
 
-	AttrKeeper _a(*this, attr);
-
-	_output.print(buf), _output.print(' ');
+	_output.print(buf);
 }
 
 void
@@ -1047,6 +1052,12 @@ Interpreter::print(Integer i, VT100::TextAttr attr)
 }
 
 void
+Interpreter::printEsc(const char *str)
+{
+	write(ProgMemStrings::VT100_ESCSEQ), _output.print(str);
+}
+
+void
 Interpreter::printTab(const Parser::Value &v)
 {
 	Integer tabs;
@@ -1055,7 +1066,8 @@ Interpreter::printTab(const Parser::Value &v)
 		tabs = math<Real>::round(v.value.real);
 #endif
 	if (tabs > 0)
-		_output.print("\x1B["), _output.print(tabs - 1), _output.print('C');
+		write(ProgMemStrings::VT100_ESCSEQ), _output.print(tabs - 1),
+		    _output.print('C');
 	else
 		raiseError(DYNAMIC_ERROR, INVALID_TAB_VALUE, false);
 }

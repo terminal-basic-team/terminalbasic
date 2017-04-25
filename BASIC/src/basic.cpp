@@ -40,6 +40,7 @@ static const char strSTACK[] PROGMEM = "STACK";
 static const char strDIR[] PROGMEM = "DIR";
 static const char strREALLY[] PROGMEM = "REALLY";
 static const char strEND[] PROGMEM = "END";
+static const char strVT100_PROLOGUESEQ[] PROGMEM = "\x1B[";
 
 static PGM_P const progmemStrings[uint8_t(ProgMemStrings::NUM_STRINGS)] PROGMEM = {
 	strStatic, // STATIC
@@ -60,7 +61,8 @@ static PGM_P const progmemStrings[uint8_t(ProgMemStrings::NUM_STRINGS)] PROGMEM 
 	strSTACK, // STACK
 	strDIR, // DIR
 	strREALLY, // REALLY
-	strEND // END
+	strEND, // END
+	strVT100_PROLOGUESEQ // x1B[
 };
 
 uint8_t*

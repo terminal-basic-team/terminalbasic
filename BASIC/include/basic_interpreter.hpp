@@ -233,11 +233,14 @@ public:
 	void printTab(const Parser::Value&);
 	void print(long, VT100::TextAttr = VT100::NO_ATTR);
 	void print(ProgMemStrings, VT100::TextAttr = VT100::NO_ATTR);
+        void write(ProgMemStrings);
 	void print(Token);
 	void print(const char *, VT100::TextAttr = VT100::NO_ATTR);
 	// print value
 	void print(const Parser::Value&, VT100::TextAttr = VT100::NO_ATTR);
 
+	void printEsc(const char*);
+        
 	// run program
 	void run();
 	// goto new line
