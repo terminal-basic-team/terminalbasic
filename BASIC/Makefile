@@ -68,7 +68,7 @@ build: .build-post
 
 .build-post: .build-impl copy_${CONF}
 	echo $(shell expr ${BUILD} + 1) ; \
-	echo $(shell expr ${BUILD} + 1) > "./build-${CONF}"
+	#echo $(shell expr ${BUILD} + 1) > "./build-${CONF}"
 
 # clean
 clean: .clean-post
@@ -143,27 +143,27 @@ copy-pc:
 copy_Arduino_nano328 : ARCH=arduinoNANO
 copy_Arduino_nano328 : UCARCH=atmega328p
 copy_Arduino_nano328 : copy
-	
+
 copy_Arduino_pro328 : ARCH=arduinoPRO
 copy_Arduino_pro328 : UCARCH=atmega328p
 copy_Arduino_pro328 : copy
-	
+
 copy_Arduino_nano168 : ARCH=arduinoNANO
 copy_Arduino_nano168 : UCARCH=atmega168
 copy_Arduino_nano168 : copy
-	
+
 copy_Arduino_mega2560 : ARCH=arduinoMEGA
 copy_Arduino_mega2560 : UCARCH=atmega2560
 copy_Arduino_mega2560 : copy
-	
+
 copy_Arduino_mega2560_tvout : ARCH=arduinoMEGA
 copy_Arduino_mega2560_tvout : UCARCH=atmega2560
 copy_Arduino_mega2560_tvout : copy
-	
+
 copy_Atmega1284 : ARCH=mighty1284
 copy_Atmega1284 : UCARCH=atmega1284p
 copy_Atmega1284 : copy
-	
+
 copy_Arduino_UNO : ARCH=arduinoUNO
 copy_Arduino_UNO : UCARCH=atmega328p
 copy_Arduino_UNO : copy

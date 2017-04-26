@@ -240,6 +240,7 @@ public:
 	void print(const Parser::Value&, VT100::TextAttr = VT100::NO_ATTR);
 
 	void printEsc(const char*);
+	void printEsc(ProgMemStrings);
         
 	// run program
 	void run();

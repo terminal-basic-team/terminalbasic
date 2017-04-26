@@ -47,32 +47,34 @@ public:
 		if (_a == VT100::NO_ATTR)
 			return;
 		if ((uint8_t(a) & uint8_t(VT100::BRIGHT)) != uint8_t(VT100::NO_ATTR))
-			_i.printEsc("1m");
+			_i.printEsc(ProgMemStrings::VT100_BRIGHT);
 		if ((uint8_t(a) & uint8_t(VT100::UNDERSCORE)) != uint8_t(VT100::NO_ATTR))
-			_i.printEsc("4m");
+			_i.printEsc(ProgMemStrings::VT100_UNDERSCORE);
 		if ((uint8_t(a) & uint8_t(VT100::REVERSE)) != uint8_t(VT100::NO_ATTR))
-			_i.printEsc("7m");
+			_i.printEsc(ProgMemStrings::VT100_REVERSE);
+#if USE_COLORATTRIBUTES
 		if ((uint8_t(a) & 0xF0) == VT100::C_YELLOW)
-			_i.printEsc("33m");
+			_i.printEsc(ProgMemStrings::VT100_YELLOW);
 		else if ((uint8_t(a) & 0xF0) == VT100::C_GREEN)
-			_i.printEsc("32m");
+			_i.printEsc(ProgMemStrings::VT100_GREEN);
 		else if ((uint8_t(a) & 0xF0) == VT100::C_RED)
-			_i.printEsc("31m");
+			_i.printEsc(ProgMemStrings::VT100_RED);
 		else if ((uint8_t(a) & 0xF0) == VT100::C_BLUE)
-			_i.printEsc("34m");
+			_i.printEsc(ProgMemStrings::VT100_BLUE);
 		else if ((uint8_t(a) & 0xF0) == VT100::C_MAGENTA)
-			_i.printEsc("35m");
+			_i.printEsc(ProgMemStrings::VT100_MAGENTA);
 		else if ((uint8_t(a) & 0xF0) == VT100::C_CYAN)
-			_i.printEsc("36m");
+			_i.printEsc(ProgMemStrings::VT100_CYAN);
 		else if ((uint8_t(a) & 0xF0) == VT100::C_WHITE)
-			_i.printEsc("37m");
+			_i.printEsc(ProgMemStrings::VT100_WHITE);
+#endif
 	}
 
 	~AttrKeeper()
 	{
 		if (_a == VT100::NO_ATTR)
 			return;
-		_i.printEsc("0m");
+		_i.printEsc(ProgMemStrings::VT100_NOATTR);
 	}
 private:
 
@@ -277,7 +279,8 @@ Interpreter::exec()
 void
 Interpreter::cls()
 {
-	printEsc("2J"), printEsc("H");
+	printEsc(ProgMemStrings::VT100_CLS),
+	printEsc("H");
 }
 
 void
@@ -1055,6 +1058,13 @@ void
 Interpreter::printEsc(const char *str)
 {
 	write(ProgMemStrings::VT100_ESCSEQ), _output.print(str);
+}
+
+void
+Interpreter::printEsc(ProgMemStrings index)
+{
+	write(ProgMemStrings::VT100_ESCSEQ);
+	write(index);
 }
 
 void
