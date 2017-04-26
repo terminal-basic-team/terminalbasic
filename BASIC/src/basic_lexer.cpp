@@ -157,7 +157,6 @@ const char sVARS[] PROGMEM = "VARS";
 #if USE_MATRIX
 const char sZER[] PROGMEM = "ZER";
 #endif
-
 const char sSTAR[] PROGMEM = "*";
 const char sSLASH[] PROGMEM = "/";
 const char sPLUS[] PROGMEM = "+";
@@ -278,7 +277,9 @@ static const uint8_t tokenTable[] PROGMEM = {
 	'A', 'R', 'R', 'A', 'Y', 'S'+0x80, // 1
 #endif
 	'B', 'A', 'S', 'E'+0x80,           // 2
+#if USE_SAVE_LOAD
 	'C', 'H', 'A', 'I', 'N'+0x80,      // 3
+#endif
 	'C', 'L', 'S'+0x80,                // 4
 	'D', 'A', 'T', 'A'+0x80,           // 5
 	'D', 'E', 'F'+0x80,                // 6
@@ -300,7 +301,9 @@ static const uint8_t tokenTable[] PROGMEM = {
 	'I', 'N', 'P', 'U', 'T'+0x80,      // 17
 	'L', 'E', 'T'+0x80,                // 18
 	'L', 'I', 'S', 'T'+0x80,           // 19
+#if USE_SAVE_LOAD
 	'L', 'O', 'A', 'D'+0x80,           // 20
+#endif
 #if USE_MATRIX
 	'M', 'A', 'T'+0x80,
 #endif
@@ -318,7 +321,9 @@ static const uint8_t tokenTable[] PROGMEM = {
 	'R', 'E', 'M'+0x80,
 	'R', 'E', 'T', 'U', 'R', 'N'+0x80,
 	'R', 'U', 'N'+0x80,
+#if USE_SAVE_LOAD
 	'S', 'A', 'V', 'E'+0x80,
+#endif
 	'S', 'T', 'E', 'P'+0x80,
 	'S', 'T', 'O', 'P'+0x80,
 	'T', 'A', 'B'+0x80,
