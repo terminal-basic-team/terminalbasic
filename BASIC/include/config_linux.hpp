@@ -24,15 +24,15 @@
 /**
  * Paraeters
  */
-#define USE_REALS             1 // Real arithmetics
-#define USE_LONGINT           1 // Long integer support
-#define USE_DUMP              1 // DUMP command support
-#define CLEAR_PROGRAM_MEMORY  1 // Clear program memory on NEW
-#define USE_RANDOM            1 // Clear program memory with 0xFF on NEW
-#define USE_MATRIX            1 // Matrix operations
-#define USE_EXTEEPROM         1 // External EEPROM functions module
-
-#define USE_SAVE_LOAD	      1 // SAVE and LOAD commands support
+#define USE_REALS             0 // Real arithmetics
+#define USE_LONGINT           0 // Long integer support
+#define USE_DUMP              0 // DUMP command support
+#define CLEAR_PROGRAM_MEMORY  0 // Clear program memory on NEW
+#define USE_RANDOM            0 // Clear program memory with 0xFF on NEW
+#define USE_MATRIX            0 // Matrix operations
+#define USE_EXTEEPROM         0 // External EEPROM functions module
+#define USE_COLORATTRIBUTES   0 // Use vt100 color attributes
+#define USE_SAVE_LOAD	      0 // SAVE and LOAD commands support
 #if USE_SAVE_LOAD
 #define SAVE_LOAD_CHECKSUM    1
 #endif
@@ -43,14 +43,14 @@
 /*
  * Math module (requires USE_REALS)
  */
-#define USEMATH 	        1
+#define USEMATH 	        0
 #if USEMATH
 #define M_TRIGONOMETRIC         1 // SIN COS TAN COT
 #define M_REVERSE_TRIGONOMETRIC	1 // ACS ASN ATN
 #endif
 
-#define USEARDUINOIO	      1 // ARduino IO
-#define USESD		      1 // SD card module
+#define USEARDUINOIO	      0 // ARduino IO
+#define USESD		      0 // SD card module
 
 #define SERIAL_PORT Serial
 

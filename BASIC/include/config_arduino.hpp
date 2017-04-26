@@ -45,7 +45,7 @@
 /**
  * Used modules
  */
-#define USESD                1 // SDcard module
+#define USESD                0 // SDcard module
 #define USEARDUINOIO         1 // Arduino IO module
 /*
  * Math module (requires USE_REALS)
@@ -61,20 +61,20 @@
  */
 
 // Input variants
-#define SERIAL_I 0 // Serial output
-#define SERIAL3_I 1 // Serial output
+#define SERIAL_I 0 // SerialL input
+#define SERIAL3_I 1 // SerialL3 input
 
 // Output variants
-#define SERIAL_O  0 // Serial output
-#define SERIAL3_O 1 // Serial output
+#define SERIAL_O  0 // SerialL output
+#define SERIAL3_O 1 // SerialL3 output
 #define UTFT_O    2 // UTFT output
 #define TVOUT_O   3 // TVout output
 
 // Input select (SERIAL)
-#define S_INPUT SERIAL3_I
+#define S_INPUT SERIAL_I
 
 // Output select
-#define S_OUTPUT TVOUT_O
+#define S_OUTPUT SERIAL_O
 
 #define USEUTFT		          0
 #define USETVOUT	          0
@@ -100,7 +100,7 @@
 #define BASIC_MULTITERMINAL       0
 
 // Use external memory
-#define USE_EXTMEM                1
+#define USE_EXTMEM                0
 #if USE_EXTMEM
 #define EXTMEM_ADDRESS 0x8000
 #define EXTMEM_SIZE    32768
@@ -123,7 +123,7 @@ const size_t PROGRAMSIZE = 4096;
 #elif defined (__AVR_ATmega128__) || defined (__AVR_ATmega128A__)
 const size_t PROGRAMSIZE = 3072;
 #elif defined (__AVR_ATmega328__) || defined (__AVR_ATmega328P__)
-const size_t PROGRAMSIZE = 1000;
+const size_t PROGRAMSIZE = 1024;
 #elif defined (__AVR_ATmega168__)
 const size_t PROGRAMSIZE = 512;
 #endif // USE_EXTMEM
