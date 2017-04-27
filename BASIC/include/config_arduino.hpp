@@ -25,7 +25,7 @@
  * Paraeters
  */
 #define USE_REALS            0 // Real arithmetics
-#define USE_STRINGOPS        1 // Basic string operations (concatenation and comparision)
+#define USE_STRINGOPS        0 // Basic string operations (concatenation and comparision)
 #define USE_LONGINT          0 // Long integer support
 #define USE_DUMP             0 // DUMP command support
 #define USE_RANDOM           0 // USE RND and RANDOMIZE
@@ -40,9 +40,9 @@
 #define EXTEEPROM_SIZE    32768 // Size in bytes
 #endif
 
-#define USE_SAVE_LOAD        0 // SAVE, LOAD and CHAIN commands support
+#define USE_SAVE_LOAD        1 // SAVE, LOAD and CHAIN commands support
 #if USE_SAVE_LOAD
-#define SAVE_LOAD_CHECKSUM   1 // Compute checksums while SAVE, LOAD and CHAIN
+#define SAVE_LOAD_CHECKSUM   0 // Compute checksums while SAVE, LOAD and CHAIN
 #endif
 
 /**
@@ -128,7 +128,7 @@ const size_t PROGRAMSIZE = 3072;
 #elif defined (__AVR_ATmega328__) || defined (__AVR_ATmega328P__)
 const size_t PROGRAMSIZE = 1024;
 #elif defined (__AVR_ATmega168__)
-const size_t PROGRAMSIZE = 512;
+const size_t PROGRAMSIZE = 384;
 #endif // USE_EXTMEM
 
 // Max size of the string constants/variables

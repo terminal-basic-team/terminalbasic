@@ -1078,7 +1078,9 @@ Interpreter::printTab(const Parser::Value &v)
 #if USE_REALS
 	if (v.type == Parser::Value::REAL)
 		tabs = math<Real>::round(v.value.real);
+	else
 #endif
+		tabs = Integer(v);
 	if (tabs > 0)
 		write(ProgMemStrings::VT100_ESCSEQ), _output.print(tabs - 1),
 		    _output.print('C');
