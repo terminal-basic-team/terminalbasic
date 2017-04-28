@@ -31,7 +31,10 @@
 #define USE_RANDOM            0 // Clear program memory with 0xFF on NEW
 #define USE_MATRIX            0 // Matrix operations
 #define USE_EXTEEPROM         0 // External EEPROM functions module
+#define USE_TEXTATTRIBUTES    0 // Use vt100 text attributes
+#if USE_TEXTATTRIBUTES
 #define USE_COLORATTRIBUTES   0 // Use vt100 color attributes
+#endif
 #define USE_SAVE_LOAD	      0 // SAVE and LOAD commands support
 #if USE_SAVE_LOAD
 #define SAVE_LOAD_CHECKSUM    1
@@ -61,16 +64,16 @@ namespace BASIC
 const bool TOKENIZE = true;
 
 // Max size of the program line
-const uint8_t PROGSTRINGSIZE = 80;
+const uint8_t PROGSTRINGSIZE = 41;
 
 // Number of bytes for program text, variables and stack
-const size_t PROGRAMSIZE = 32768;
+const size_t PROGRAMSIZE = 512;
 
 // Max size of the string constants/variables
-const uint8_t STRINGSIZE = 59;
+const uint8_t STRINGSIZE = 33;
 
 // Number of characters in variable name
-const uint8_t VARSIZE = 16;
+const uint8_t VARSIZE = 3;
 
 }
 

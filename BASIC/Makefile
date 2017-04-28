@@ -68,7 +68,7 @@ build: .build-post
 
 .build-post: .build-impl copy_${CONF}
 	echo $(shell expr ${BUILD} + 1) ; \
-	#echo $(shell expr ${BUILD} + 1) > "./build-${CONF}"
+	echo $(shell expr ${BUILD} + 1) > "./build-${CONF}"
 
 # clean
 clean: .clean-post

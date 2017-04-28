@@ -44,6 +44,7 @@ public:
 	explicit AttrKeeper(Interpreter &i, VT100::TextAttr a) :
 	_i(i), _a(a)
 	{
+#if USE_TEXTATTRIBUTES
 		if (_a == VT100::NO_ATTR)
 			return;
 		if ((uint8_t(a) & uint8_t(VT100::BRIGHT)) != uint8_t(VT100::NO_ATTR))
@@ -68,13 +69,16 @@ public:
 		else if ((uint8_t(a) & 0xF0) == VT100::C_WHITE)
 			_i.printEsc(ProgMemStrings::VT100_WHITE);
 #endif
+#endif // USE_TEXTATTRIBUTES
 	}
 
 	~AttrKeeper()
 	{
+#if USE_TEXTATTRIBUTES
 		if (_a == VT100::NO_ATTR)
 			return;
 		_i.printEsc(ProgMemStrings::VT100_NOATTR);
+#endif
 	}
 private:
 
@@ -1074,7 +1078,9 @@ Interpreter::printTab(const Parser::Value &v)
 #if USE_REALS
 	if (v.type == Parser::Value::REAL)
 		tabs = math<Real>::round(v.value.real);
+	else
 #endif
+		tabs = Integer(v);
 	if (tabs > 0)
 		write(ProgMemStrings::VT100_ESCSEQ), _output.print(tabs - 1),
 		    _output.print('C');
