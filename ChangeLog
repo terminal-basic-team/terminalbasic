@@ -1,3 +1,17 @@
+r0.8.1 (28.04.2017) - Release, dedicated to my wedding anniversary
+                      :).
+
+   * Add deletion of the program lines by entering line number with
+     empty string.
+   * Add functions INT, SGN, CHR$.
+   * Add string overflow errors (passes test 7 ANSI MINIMAL BASIC).
+   * Add TAB argument exceptions (passes test 8 ANSI MINIMAL BASIC).
+   * Optimisations, reducing FLASH/SRAM requirements. The smallest
+     (and almost useless :) ) variant can be forced into Atmega 168...
+   * Add string equality operator.
+   * Add many condition compilation options.
+   * Fix a couple of bugs.
+
 r0.8.0 (12.04.2017) - Release, dedicated to International Day of
                       Human Space Flight.
 
