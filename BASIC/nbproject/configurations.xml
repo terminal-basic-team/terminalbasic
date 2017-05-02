@@ -6,6 +6,7 @@
       <itemPath>include/basic_arduinoio.hpp</itemPath>
       <itemPath>include/basic_exteeprom.hpp</itemPath>
       <itemPath>include/basic_functionblock.hpp</itemPath>
+      <itemPath>include/basic_gfx.hpp</itemPath>
       <itemPath>include/basic_internalfuncs.hpp</itemPath>
       <itemPath>include/basic_interpreter.hpp</itemPath>
       <itemPath>include/basic_lexer.hpp</itemPath>
@@ -22,6 +23,7 @@
       <itemPath>src/basic_arduinoio.cpp</itemPath>
       <itemPath>src/basic_exteeprom.cpp</itemPath>
       <itemPath>src/basic_functionblock.cpp</itemPath>
+      <itemPath>src/basic_gfx.cpp</itemPath>
       <itemPath>src/basic_internalfuncs.cpp</itemPath>
       <itemPath>src/basic_interpreter.cpp</itemPath>
       <itemPath>src/basic_lexer.cpp</itemPath>
@@ -412,6 +414,12 @@
                             perm="755"
                             owner="root"
                             group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
         </packFileList>
       </packaging>
       <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
@@ -441,6 +449,8 @@
       </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_internalfuncs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_interpreter.hpp" ex="false" tool="3" flavor2="0">
@@ -468,6 +478,8 @@
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -581,6 +593,8 @@
       </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_internalfuncs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_interpreter.hpp" ex="false" tool="3" flavor2="0">
@@ -608,6 +622,8 @@
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -722,6 +738,8 @@
       </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_internalfuncs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_interpreter.hpp" ex="false" tool="3" flavor2="0">
@@ -749,6 +767,8 @@
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -870,6 +890,8 @@
       </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_internalfuncs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_interpreter.hpp" ex="false" tool="3" flavor2="0">
@@ -897,6 +919,8 @@
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1007,6 +1031,8 @@
       </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_internalfuncs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_interpreter.hpp" ex="false" tool="3" flavor2="0">
@@ -1034,6 +1060,8 @@
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1135,6 +1163,8 @@
       </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_internalfuncs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_interpreter.hpp" ex="false" tool="3" flavor2="0">
@@ -1162,6 +1192,8 @@
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1274,6 +1306,8 @@
       </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_internalfuncs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_interpreter.hpp" ex="false" tool="3" flavor2="0">
@@ -1301,6 +1335,8 @@
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1415,6 +1451,8 @@
       </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_internalfuncs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_interpreter.hpp" ex="false" tool="3" flavor2="0">
@@ -1442,6 +1480,8 @@
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1557,6 +1597,8 @@
       </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_internalfuncs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_interpreter.hpp" ex="false" tool="3" flavor2="0">
@@ -1584,6 +1626,8 @@
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -1703,6 +1747,8 @@
       </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_internalfuncs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_interpreter.hpp" ex="false" tool="3" flavor2="0">
@@ -1730,6 +1776,8 @@
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -1843,6 +1891,8 @@
       </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_internalfuncs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_interpreter.hpp" ex="false" tool="3" flavor2="0">
@@ -1870,6 +1920,8 @@
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="8">
       </item>
