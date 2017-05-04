@@ -32,7 +32,9 @@ public:
 private:
 	static bool func_abs(Interpreter&);
 	static bool func_chr(Interpreter&);
+#if USE_REALS
 	static bool func_int(Interpreter&);
+#endif
 #if USE_RANDOM
 	static bool func_rnd(Interpreter&);
 #endif

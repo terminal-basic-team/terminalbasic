@@ -513,6 +513,7 @@ Lexer::fitst_LT()
 		_token = Token::LT;
 		return;
 	}
+	
 	next();
 }
 

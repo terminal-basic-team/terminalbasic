@@ -17,8 +17,10 @@
  */
 
 #include "basic_arduinoio.hpp"
-#include "Arduino.h"
 
+#if USEARDUINOIO
+
+#include "Arduino.h"
 #include <assert.h>
 
 namespace BASIC
@@ -142,3 +144,5 @@ ArduinoIO::aread_i(INT v)
 #undef INT
 
 }
+
+#endif // USEARDUINOIO
