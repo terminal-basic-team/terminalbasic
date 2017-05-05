@@ -105,6 +105,7 @@ Interpreter::Program::lineByNumber(uint16_t number, uint16_t index)
 uint8_t
 Interpreter::Program::StackFrame::size(Type t)
 {
+#if OPT == OPT_SPEED
 	switch (t) {
 	case SUBPROGRAM_RETURN:
 		return (sizeof (Type) + sizeof (GosubReturn));
@@ -123,6 +124,24 @@ Interpreter::Program::StackFrame::size(Type t)
 	default:
 		return (0);
 	}
+#else
+	if (t == SUBPROGRAM_RETURN)
+		return (sizeof (Type) + sizeof (GosubReturn));
+	else if (t == FOR_NEXT)
+		return (sizeof (Type) + sizeof (ForBody));
+	else if (t == STRING)
+		return (sizeof (Type) + STRINGSIZE);
+	else if (t == ARRAY_DIMENSION)
+		return (sizeof (Type) + sizeof (uint16_t));
+	else if (t == ARRAY_DIMENSIONS)
+		return (sizeof (Type) + sizeof (uint8_t));
+	else if (t == VALUE)
+		return (sizeof (Type) + sizeof (Parser::Value));
+	else if (t == INPUT_OBJECT)
+		return (sizeof (Type) + sizeof (InputBody));
+	else
+		return 0;
+#endif
 }
 
 void

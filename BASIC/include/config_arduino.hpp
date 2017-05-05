@@ -29,7 +29,7 @@
 #define USE_LONGINT          0 // Long integer support
 #define USE_DUMP             0 // DUMP command support
 #define USE_RANDOM           0 // USE RND and RANDOMIZE
-#define CLEAR_PROGRAM_MEMORY 0 // Clear program memory with 0xFF on NEW
+#define CLEAR_PROGRAM_MEMORY 1 // Clear program memory with 0xFF on NEW
 #define USE_MATRIX           0 // Matrix operations
 #define USE_TEXTATTRIBUTES   0 // Use vt100 text attributes
 #if USE_TEXTATTRIBUTES
@@ -118,7 +118,7 @@
 namespace BASIC
 {
 // Max size of the program line
-const uint8_t PROGSTRINGSIZE = 41;
+const uint8_t PROGSTRINGSIZE = 49;
 
 // Number of bytes for program text, variables and stack
 #if USE_EXTMEM

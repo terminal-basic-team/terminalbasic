@@ -92,7 +92,6 @@ Interpreter::valueFromVar(Parser::Value &v, const char *varName)
 	const Interpreter::VariableFrame *f = getVariable(varName);
 	if (f == NULL)
 		return;
-
 	switch (f->type) {
 	case VF_INTEGER:
 		v = f->get<Integer>();
@@ -1042,6 +1041,26 @@ Interpreter::write(ProgMemStrings index)
 	_output.print(buf);
 }
 
+#if USE_MATRIX
+void
+Interpreter::zeroMatrix(const char *name)
+{
+	ArrayFrame *array = _program.arrayByName(name);
+	if (array == nullptr || array->numDimensions != 2)
+		raiseError(DYNAMIC_ERROR, NO_SUCH_ARRAY);
+	else {
+		for (uint16_t index = 0; index<array->numElements(); ++index) {
+			if (array->type = VF_INTEGER)
+				array->set(index, Integer(0));
+#if USE_REALS
+			else if (array->type = VF_REAL)
+				array->set(index, Real(0));
+#endif
+		}
+	}
+}
+#endif
+
 void
 Interpreter::print(Token t)
 {
@@ -1375,13 +1394,11 @@ Interpreter::end()
 uint16_t
 Interpreter::ArrayFrame::size() const
 {
+	// Header with dimensions vector
 	uint16_t result = sizeof (Interpreter::ArrayFrame) +
 	    numDimensions * sizeof (uint16_t);
-
-	uint16_t mul = 1;
-
-	for (uint8_t i = 0; i < numDimensions; ++i)
-		mul *= dimension[i] + 1;
+	
+	uint16_t mul = numElements();
 
 	switch (type) {
 	case VF_INTEGER:
@@ -1406,6 +1423,19 @@ Interpreter::ArrayFrame::size() const
 	result += mul;
 
 	return (result);
+}
+
+uint16_t
+Interpreter::ArrayFrame::numElements() const
+{
+	uint16_t mul = 1;
+	
+	// Every dimension is from 0 to dimension[i], thats why 
+	// it is increased by 1
+	for (uint8_t i = 0; i < numDimensions; ++i)
+		mul *= dimension[i] + 1;
+	
+	return mul;
 }
 
 Interpreter::ArrayFrame *

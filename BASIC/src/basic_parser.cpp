@@ -623,16 +623,13 @@ Parser::fFactor(Value &v)
 		Token t = _lexer.getToken();
 		LOG(t);
 		Value v2;
-		switch (t) {
-		case Token::POW:
+		if (t == Token::POW) {
 			if (_lexer.getNext() && fFinal(v2)) {
 				v ^= v2;
-				continue;
 			} else
 				return false;
-		default:
+		} else
 			return true;
-		}
 	}
 }
 
@@ -769,8 +766,7 @@ Parser::fIfStatement()
 {
 	Token t = _lexer.getToken();
 	LOG(t);
-	switch (t) {
-	case Token::KW_THEN:
+	if (t == Token::KW_THEN) {
 		if (_lexer.getNext()) {
 			if (_lexer.getToken() == Token::C_INTEGER) {
 				if (_mode == EXECUTE)
@@ -780,12 +776,10 @@ Parser::fIfStatement()
 			} else if (fOperators())
 				return true;
 		}
-		break;
-	default:
+	} else
 		if (fGotoStatement())
 			return true;
-		break;
-	}
+	
 	return false;
 }
 
@@ -1079,6 +1073,7 @@ Parser::fMatrixOperation()
 				return false;
 			switch (_lexer.getToken()) {
 			case Token::KW_ZER: // Zero matrix
+				_interpreter.zeroMatrix(buf);
 				break;
 			case Token::KW_IDN: // Identity matrix
 				break;
@@ -1092,10 +1087,27 @@ Parser::fMatrixOperation()
 		_lexer.getNext();
 	}
 		return true;
-	default :
-		return false;
+	case Token::KW_PRINT:
+		if (_lexer.getNext() || fMatrixPrint())
+			return true;
 	}
+	return false;
 }
+
+bool
+Parser::fMatrixPrint()
+{
+	switch (_lexer.getToken()) {
+	case Token::INTEGER_IDENT:
+#if USE_REALS
+	case Token::REAL_IDENT:
 #endif
+		_lexer.getNext();
+		return true;
+	}
+	return  false;
+}
+
+#endif // USE_MATRIX
 
 }

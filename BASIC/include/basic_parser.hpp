@@ -108,6 +108,7 @@ private:
 	bool fIdentifierExpr(const char*, Value&);
 #if USE_MATRIX
 	bool fMatrixOperation();
+	bool fMatrixPrint();
 #endif
 	
 	// last static semantic error

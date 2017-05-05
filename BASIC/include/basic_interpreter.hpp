@@ -132,6 +132,8 @@ public:
 		 * @return size
 		 */
 		uint16_t size() const;
+		
+		uint16_t numElements() const;
 
 		/**
 		 * @brief get array raw data pointer
@@ -160,13 +162,23 @@ public:
 		template <typename T>
 		T get(uint16_t index) const
 		{
-			union
+			const union
 			{
 				const uint8_t *b;
 				const T *i;
-			} _U;
-			_U.b = this->data();
+			} _U = { .b = this->data() };
 			return _U.i[index];
+		}
+		
+		template <typename T>
+		void set(uint16_t index, T val)
+		{
+			union
+			{
+				uint8_t *b;
+				T *i;
+			} _U = { .b = this->data() };
+			_U.i[index] = val;
 		}
 
 		// Array data
@@ -229,6 +241,10 @@ public:
 	void newline();
 	void print(char);
 
+#if USE_MATRIX
+	void zeroMatrix(const char*);
+#endif
+	
 	void print(Integer, VT100::TextAttr = VT100::NO_ATTR);
 	void printTab(const Parser::Value&);
 	void print(long, VT100::TextAttr = VT100::NO_ATTR);
