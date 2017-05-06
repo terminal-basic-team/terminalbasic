@@ -109,6 +109,7 @@ private:
 #if USE_MATRIX
 	bool fMatrixOperation();
 	bool fMatrixPrint();
+	bool fMatrixExpression(const char*);
 #endif
 	
 	// last static semantic error

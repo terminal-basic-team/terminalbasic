@@ -135,6 +135,8 @@ public:
 		 */
 		uint16_t size() const;
 		
+		uint16_t dataSize() const;
+		
 		uint16_t numElements() const;
 
 		/**
@@ -247,10 +249,33 @@ public:
 	void print(char);
 
 #if USE_MATRIX
+	/**
+	 * @bief Matrix expression oprations
+	 */
+	enum MatrixOperation_t : uint8_t
+	{
+		MO_NOP,
+		MO_SUM,
+		MO_SUB,
+		MO_MUL,
+		MO_TRANSPOSE,
+		MO_INVERT,
+		MO_SCALE
+	};
+	
 	void zeroMatrix(const char*);
 	void onesMatrix(const char*);
 	void identMatrix(const char*);
 	void printMatrix(const char*);
+	/**
+	 * @brief Assign matrix a result of matrix operation
+	 * @param name Name of the matrix to assign to
+	 * @param first First and possible the only matrix expression operand
+	 * @param second Second optional matrix exprerssion operand
+	 * @param op Operation type
+	 */
+	void assignMatrix(const char*, const char*, const char* = nullptr,
+	    MatrixOperation_t = MO_NOP);
 #endif
 	
 	void print(Integer, VT100::TextAttr = VT100::NO_ATTR);
@@ -384,6 +409,7 @@ private:
 	class AttrKeeper;
 #if USE_MATRIX
 	void fillMatrix(const char*, const Parser::Value&);
+	void setMatrixSize(ArrayFrame&, uint16_t, uint16_t);
 #endif
 	// Get next input object from stack
 	bool nextInput();

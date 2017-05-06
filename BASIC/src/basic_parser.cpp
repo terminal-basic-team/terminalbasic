@@ -23,6 +23,7 @@
 #include "basic_parser.hpp"
 #include "basic_interpreter.hpp"
 #include "basic_program.hpp"
+#include "config_linux.hpp"
 
 /*
  * TEXT = OPERATORS | C_INTEGER OPERATORS
@@ -1063,29 +1064,19 @@ Parser::fMatrixOperation()
 	if (fVar(buf)) {
 		if (!_lexer.getNext())
 			return false;
-		if (_lexer.getToken() == Token::EQUALS ) {
-			if (!_lexer.getNext())
+		if (_lexer.getToken() == Token::EQUALS) {
+			if (_lexer.getNext() && fMatrixExpression(buf)) {
+				_lexer.getNext();
+				return true;
+			} else
 				return false;
-			switch (_lexer.getToken()) {
-			case Token::KW_ZER: // Zero matrix
-				_interpreter.zeroMatrix(buf);
-				break;
-			case Token::KW_CON: // Ones matrix
-				_interpreter.onesMatrix(buf);
-				break;
-			case Token::KW_IDN: // Identity matrix
-				_interpreter.identMatrix(buf);
-				break;
-			default:
-				return false;
-			}
-			_lexer.getNext();
-			return true;
 		} else
 			return false;
 	} else if (_lexer.getToken() == Token::KW_PRINT) {
-		if (_lexer.getNext() && fMatrixPrint())
+		if (_lexer.getNext() && fMatrixPrint()) {
+			_lexer.getNext();
 			return true;
+		}
 	}
 	return false;
 }
@@ -1096,10 +1087,54 @@ Parser::fMatrixPrint()
 	char buf[VARSIZE];
 	if (fVar(buf)) {
 		_interpreter.printMatrix(buf);
-		_lexer.getNext();
 		return true;
 	} else
 		return false;
+}
+
+bool
+Parser::fMatrixExpression(const char *buf)
+{
+	switch (_lexer.getToken()) {
+	case Token::KW_ZER: // Zero matrix
+		_interpreter.zeroMatrix(buf);
+		return true;
+	case Token::KW_CON: // Ones matrix
+		_interpreter.onesMatrix(buf);
+		return true;
+	case Token::KW_IDN: // Identity matrix
+		_interpreter.identMatrix(buf);
+		return true;
+	case Token::LPAREN: { // Scalar
+		Value v;
+		if (_lexer.getNext() && fExpression(v) &&
+		    _lexer.getToken() == Token::RPAREN) {
+			
+		} else
+			return false;
+	}
+	default:
+		break;
+	}
+	
+	char first[VARSIZE];
+	if (fVar(first)) { // Matrix expression
+		if (_lexer.getNext()) {
+			switch (_lexer.getToken()) {
+			case Token::PLUS:
+			case Token::MINUS:
+			case Token::POW:
+				break;
+			}
+			char second[VARSIZE];
+			if (fVar(second)) {
+				return true;
+			} else
+				return false;
+		}
+		_interpreter.assignMatrix(buf, first);
+		return true;
+	}
 }
 
 #endif // USE_MATRIX

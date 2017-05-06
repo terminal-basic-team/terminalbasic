@@ -438,6 +438,7 @@ Interpreter::print(Lexer &l)
 	if (t <= Token::RPAREN)
 		print(t);
 	else {
+#if OPT == OPT_SPEED
 		switch (t) {
 		case Token::C_INTEGER:
 		case Token::C_REAL:
@@ -464,6 +465,19 @@ Interpreter::print(Lexer &l)
 		default:
 			_output.print('?');
 		}
+#else
+		if (t >= Token::C_INTEGER && t <= Token::C_BOOLEAN)
+			print(l.getValue(), VT100::C_CYAN);
+		else if (t == Token::C_STRING) {
+			AttrKeeper a(*this, VT100::C_MAGENTA);
+			_output.write(uint8_t(ASCII::QUMARK));
+			_output.print(l.id());
+			_output.write(uint8_t(ASCII::QUMARK));
+		} else if (t >= Token::INTEGER_IDENT && t <= Token::STRING_IDENT)
+			print(l.id(), VT100::C_BLUE);
+		else
+			_output.print('?');
+#endif
 	}
 }
 
@@ -1122,6 +1136,48 @@ Interpreter::printMatrix(const char *name)
 	}
 }
 
+void
+Interpreter::setMatrixSize(ArrayFrame &array, uint16_t rows, uint16_t columns)
+{
+	const uint16_t oldSize = array.size();
+	array.dimension[0] = rows, array.dimension[1] = columns;
+	const uint16_t newSize = array.size();
+	int32_t delta = newSize - oldSize;
+	const uint16_t aIndex = _program.arrayIndex(&array);
+	if (_program._arraysEnd + delta >= _program._sp) {
+		raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
+		return;
+	} else {
+		const uint16_t oldIndex = aIndex+oldSize;
+		const uint16_t newIndex = aIndex+newSize;
+		memmove(_program._text + newIndex, _program._text + oldIndex,
+		    _program._arraysEnd-oldIndex);
+		memset(array.data(), 0, array.dataSize());
+		_program._arraysEnd += delta;
+	}
+}
+
+void
+Interpreter::assignMatrix(const char *name, const char *first, const char *second,
+    MatrixOperation_t op)
+{
+	ArrayFrame *array = _program.arrayByName(name);
+	ArrayFrame *arrayFirst = _program.arrayByName(first);
+	
+	if (array != nullptr && array->numDimensions == 2 && arrayFirst !=
+	    nullptr && arrayFirst->numDimensions == 2) {
+		switch (op) {
+		case MO_NOP:
+			setMatrixSize(*array, arrayFirst->dimension[0],
+			    arrayFirst->dimension[1]);
+			break;
+		default:
+			break;
+		}
+	} else
+		raiseError(DYNAMIC_ERROR, NO_SUCH_ARRAY);
+}
+
 #endif // USE_MATRIX
 
 void
@@ -1460,6 +1516,15 @@ Interpreter::ArrayFrame::size() const
 	uint16_t result = sizeof (Interpreter::ArrayFrame) +
 	    numDimensions * sizeof (uint16_t);
 	
+	uint16_t mul = dataSize();
+	result += mul;
+
+	return (result);
+}
+
+uint16_t
+Interpreter::ArrayFrame::dataSize() const
+{
 	uint16_t mul = numElements();
 
 	switch (type) {
@@ -1480,11 +1545,9 @@ Interpreter::ArrayFrame::size() const
 		mul *= sizeof (bool);
 		break;
 	default:
-		mul = 1;
+		break;
 	}
-	result += mul;
-
-	return (result);
+	return mul;
 }
 
 bool
