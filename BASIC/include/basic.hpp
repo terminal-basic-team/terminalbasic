@@ -41,6 +41,9 @@ typedef int16_t Integer;
 #if USE_LONGINT
 // long integer type
 typedef int32_t LongInteger;
+typedef LongInteger INT;
+#else
+typedef Integer INT;
 #endif
 // floating point type
 #if USE_REALS
@@ -62,6 +65,9 @@ enum class Token : uint8_t
 	COM_CHAIN,     // 3
 #endif
 	COM_CLS,       // 4
+#if USE_MATRIX
+	KW_CON,
+#endif
 	KW_DATA,       // 5
 	KW_DEF,        // 6
 //	COM_DELAY,     // 7
@@ -153,8 +159,8 @@ enum class Token : uint8_t
 	// )
 	RPAREN,
 
-	REAL_IDENT,
 	INTEGER_IDENT,
+	REAL_IDENT,
 #if USE_LONGINT
 	LONGINT_IDENT,
 #endif

@@ -74,6 +74,8 @@ public:
 		INTEGER_EXPRESSION_EXPECTED = 11,// Integer expression expected
 		BAD_CHECKSUM = 12,		// Bad program checksum
 		INVALID_TAB_VALUE = 13,
+		INVALID_ELEMENT_INDEX = 14,
+		SQUARE_MATRIX_EXPECTED = 15,
 		INTERNAL_ERROR = 255
 	};
 
@@ -170,6 +172,9 @@ public:
 			return _U.i[index];
 		}
 		
+		bool get(uint16_t, Parser::Value&) const;
+		bool set(uint16_t, const Parser::Value&);
+		
 		template <typename T>
 		void set(uint16_t index, T val)
 		{
@@ -243,6 +248,9 @@ public:
 
 #if USE_MATRIX
 	void zeroMatrix(const char*);
+	void onesMatrix(const char*);
+	void identMatrix(const char*);
+	void printMatrix(const char*);
 #endif
 	
 	void print(Integer, VT100::TextAttr = VT100::NO_ATTR);
@@ -348,9 +356,8 @@ public:
 	/**
 	 * @brief push the next array dimesion on the stack
 	 * @param dim dimension value
-	 * @return 
 	 */
-	uint16_t pushDimension(uint16_t);
+	void pushDimension(uint16_t);
 	/**
 	 * @brief push the number of array dimesions on the stack
 	 * @param num number of dimensions
@@ -375,6 +382,9 @@ public:
 	Program &_program;
 private:
 	class AttrKeeper;
+#if USE_MATRIX
+	void fillMatrix(const char*, const Parser::Value&);
+#endif
 	// Get next input object from stack
 	bool nextInput();
 	// Place input values to objects

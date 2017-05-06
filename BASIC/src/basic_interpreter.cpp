@@ -914,13 +914,13 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 	}
 }
 
+
 void
 Interpreter::set(ArrayFrame &f, uint16_t index, const Parser::Value &v)
 {
 	switch (f.type) {
 	case VF_BOOLEAN:
 	{
-
 		union
 		{
 			uint8_t *b;
@@ -972,8 +972,9 @@ Interpreter::set(ArrayFrame &f, uint16_t index, const Parser::Value &v)
 #endif
 	default:
 		raiseError(DYNAMIC_ERROR, INVALID_VALUE_TYPE);
-	};
+	}
 }
+
 
 bool
 Interpreter::readInput()
@@ -1045,21 +1046,83 @@ Interpreter::write(ProgMemStrings index)
 void
 Interpreter::zeroMatrix(const char *name)
 {
+	fillMatrix(name, 0);
+}
+
+void
+Interpreter::onesMatrix(const char *name)
+{
+	fillMatrix(name, 1);
+}
+
+void
+Interpreter::identMatrix(const char *name)
+{
+	ArrayFrame *array = _program.arrayByName(name);
+	if (array == nullptr || array->numDimensions != 2)
+		raiseError(DYNAMIC_ERROR, NO_SUCH_ARRAY);
+	else {
+		if (array->dimension[0] != array->dimension[1]) {
+			raiseError(DYNAMIC_ERROR, SQUARE_MATRIX_EXPECTED);
+		} else {
+			for (uint16_t row = 0; row <= array->dimension[0]; ++row) {
+				for (uint16_t column = 0; column <= array->dimension[1];
+				    ++column) {
+					Parser::Value v;
+					if (row == column)
+						v = 1;
+					else
+						v = 0;
+					if (!array->set(row*(array->dimension[1]+1)+column,
+					    v))
+						raiseError(DYNAMIC_ERROR,
+						    INVALID_ELEMENT_INDEX);
+				}
+			}
+		}
+	}
+}
+
+void
+Interpreter::fillMatrix(const char *name, const Parser::Value &v)
+{
 	ArrayFrame *array = _program.arrayByName(name);
 	if (array == nullptr || array->numDimensions != 2)
 		raiseError(DYNAMIC_ERROR, NO_SUCH_ARRAY);
 	else {
 		for (uint16_t index = 0; index<array->numElements(); ++index) {
-			if (array->type = VF_INTEGER)
-				array->set(index, Integer(0));
-#if USE_REALS
-			else if (array->type = VF_REAL)
-				array->set(index, Real(0));
-#endif
+			if (!array->set(index, v)) {
+				raiseError(DYNAMIC_ERROR, INVALID_ELEMENT_INDEX);
+				return;
+			}
 		}
 	}
 }
-#endif
+
+void
+Interpreter::printMatrix(const char *name)
+{
+	ArrayFrame *array = _program.arrayByName(name);
+	if (array == nullptr || array->numDimensions != 2)
+		raiseError(DYNAMIC_ERROR, NO_SUCH_ARRAY);
+	else {
+		for (uint16_t row = 0; row <= array->dimension[0]; ++row) {
+			for (uint16_t column = 0; column <= array->dimension[1];
+			    ++column) {
+				Parser::Value v;
+				if (array->get(row*(array->dimension[1]+1)+column,
+				    v))
+					this->print(v), _output.write(' ');
+				else
+					raiseError(DYNAMIC_ERROR,
+					    INVALID_ELEMENT_INDEX);
+			}
+			this->newline();
+		}
+	}
+}
+
+#endif // USE_MATRIX
 
 void
 Interpreter::print(Token t)
@@ -1238,6 +1301,7 @@ Interpreter::setArrayElement(const char *name, const Parser::Value &v)
 	}
 
 	set(*f, index, v);
+	//f->set(index, v);
 }
 
 void
@@ -1294,17 +1358,15 @@ Interpreter::pushString(const char *str)
 	strcpy(f->body.string, str);
 }
 
-uint16_t
+void
 Interpreter::pushDimension(uint16_t dim)
 {
 	Program::StackFrame *f =
 	    _program.push(Program::StackFrame::ARRAY_DIMENSION);
-	if (f == NULL) {
+	if (f == NULL)
 		raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
-		return 0;
-	}
-	f->body.arrayDimension = dim;
-	return (_program._sp);
+	else
+		f->body.arrayDimension = dim;
 }
 
 void
@@ -1423,6 +1485,62 @@ Interpreter::ArrayFrame::size() const
 	result += mul;
 
 	return (result);
+}
+
+bool
+Interpreter::ArrayFrame::get(uint16_t index, Parser::Value& v) const
+{
+	assert(index < numElements());
+	if (index < numElements()) {
+		switch (type)
+		{
+		case VF_INTEGER:
+			v = get<Integer>(index);
+			return true;
+#if USE_LONGINT
+		case VF_LONG_INTEGER:
+			v = get<LongInteger>(index);
+			return true;
+#endif
+#if USE_REALS
+		case VF_REAL:
+			v = get<Real>(index);
+			return true;
+#endif
+		case VF_BOOLEAN:
+			v = get<bool>(index);
+			return true;
+		}
+	}
+	return false;
+}
+
+bool
+Interpreter::ArrayFrame::set(uint16_t index, const Parser::Value &v)
+{
+	assert(index < numElements());
+	if (index < numElements()) {
+		switch (type)
+		{
+		case VF_INTEGER:
+			set(index, Integer(v));
+			return true;
+#if USE_LONGINT
+		case VF_LONG_INTEGER:
+			set(index, LongInteger(v));
+			return true;
+#endif
+#if USE_REALS
+		case VF_REAL:
+			set(index, Real(v));
+			return true;
+#endif
+		case VF_BOOLEAN:
+			set(index, bool(v));
+			return true;
+		}
+	}
+	return false;
 }
 
 uint16_t

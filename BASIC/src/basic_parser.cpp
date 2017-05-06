@@ -66,7 +66,9 @@
  * ARRAYS_LIST = VAR ARRAY | VAR ARRAY ARRAYS_LIST
  * ARRAY = LPAREN DIMENSIONS RPAREN
  * DIMENSIONS = C_INTEGER | C_INTEGER COMMA DIMENSIONS
- * MATRIX_OPERATION = 
+ * MATRIX_OPERATION =
+ *      PRINT MATRIX_PRINT |
+ *      VAR EQUALS MATRIX_EXPRESSION
  */
 
 namespace BASIC
@@ -181,8 +183,7 @@ Parser::fOperator()
 		if (!_lexer.getNext())
 			return false;
 		return (fForConds());
-	case Token::KW_GOSUB:
-	{
+	case Token::KW_GOSUB: {
 		Value v;
 		if (!_lexer.getNext() || !fExpression(v)) {
 			_error = EXPRESSION_EXPECTED;
@@ -195,8 +196,7 @@ Parser::fOperator()
 		_stopParse = true;
 		break;
 	}
-	case Token::KW_IF:
-	{
+	case Token::KW_IF: {
 		Value v;
 		if (!_lexer.getNext() || !fExpression(v)) {
 			_error = EXPRESSION_EXPECTED;
@@ -215,7 +215,6 @@ Parser::fOperator()
 		return (res);
 	}
 	case Token::KW_INPUT:
-	{
 		if (!fVarList()) {
 			_error = VARIABLES_LIST_EXPECTED;
 			return false;
@@ -224,29 +223,27 @@ Parser::fOperator()
 			_stopParse = true;
 		}
 		break;
-	}
-	case Token::KW_LET:
-	{
+	case Token::KW_LET: {
 		char vName[VARSIZE];
 		if (!_lexer.getNext() || !fImplicitAssignment(vName))
 			return false;
-		break;
 	}
+		break;
 #if USE_MATRIX
 	case Token::KW_MAT:
 		if (!_lexer.getNext() || !fMatrixOperation())
 			return false;
 		break;
 #endif
-	case Token::KW_NEXT:
-		if (!_lexer.getNext() || (_lexer.getToken() != Token::REAL_IDENT
-		    && _lexer.getToken() != Token::INTEGER_IDENT))
+	case Token::KW_NEXT: {
+		char vName[VARSIZE];
+		if (!_lexer.getNext() || !fVar(vName))
 			return false;
-		if (_mode == EXECUTE) {
+		if (_mode == EXECUTE)
 			_stopParse = !_interpreter.next(_lexer.id());
-		}
 		if (!_stopParse)
 			_lexer.getNext();
+	}
 		break;
 	case Token::KW_PRINT:
 		if (_lexer.getNext()) {
@@ -956,7 +953,7 @@ Parser::fVarList()
 bool
 Parser::fVar(char *varName)
 {
-	if ((_lexer.getToken() >= Token::REAL_IDENT) &&
+	if ((_lexer.getToken() >= Token::INTEGER_IDENT) &&
 	    (_lexer.getToken() <= Token::BOOL_IDENT)) {
 		strcpy(varName, _lexer.id());
 		return true;
@@ -1054,41 +1051,40 @@ Parser::fIdentifierExpr(const char *varName, Value &v)
 }
 
 #if USE_MATRIX
+/*
+ * MATRIX_OPERATION =
+ *     PRINT MATRIX_PRINT |
+ *     VAR EQUALS MATRIX_EXPRESSION
+ */
 bool
 Parser::fMatrixOperation()
 {
-	switch (_lexer.getToken()) {
-	case Token::INTEGER_IDENT:
-#if USE_REALS
-	case Token::REAL_IDENT:
-#endif
-	{
-		char buf[VARSIZE];
-		strcpy(buf, _lexer.id());
+	char buf[VARSIZE];
+	if (fVar(buf)) {
 		if (!_lexer.getNext())
 			return false;
-		switch (_lexer.getToken()) {
-		case Token::EQUALS:
+		if (_lexer.getToken() == Token::EQUALS ) {
 			if (!_lexer.getNext())
 				return false;
 			switch (_lexer.getToken()) {
 			case Token::KW_ZER: // Zero matrix
 				_interpreter.zeroMatrix(buf);
 				break;
+			case Token::KW_CON: // Ones matrix
+				_interpreter.onesMatrix(buf);
+				break;
 			case Token::KW_IDN: // Identity matrix
+				_interpreter.identMatrix(buf);
 				break;
 			default:
 				return false;
 			}
-			break;
-		default:
+			_lexer.getNext();
+			return true;
+		} else
 			return false;
-		}
-		_lexer.getNext();
-	}
-		return true;
-	case Token::KW_PRINT:
-		if (_lexer.getNext() || fMatrixPrint())
+	} else if (_lexer.getToken() == Token::KW_PRINT) {
+		if (_lexer.getNext() && fMatrixPrint())
 			return true;
 	}
 	return false;
@@ -1097,15 +1093,13 @@ Parser::fMatrixOperation()
 bool
 Parser::fMatrixPrint()
 {
-	switch (_lexer.getToken()) {
-	case Token::INTEGER_IDENT:
-#if USE_REALS
-	case Token::REAL_IDENT:
-#endif
+	char buf[VARSIZE];
+	if (fVar(buf)) {
+		_interpreter.printMatrix(buf);
 		_lexer.getNext();
 		return true;
-	}
-	return  false;
+	} else
+		return false;
 }
 
 #endif // USE_MATRIX

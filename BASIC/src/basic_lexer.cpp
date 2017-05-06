@@ -30,6 +30,7 @@
  * KW_BASE = "BASE"     // 2
  * COM_CHAIN = "CHAIN"  // 3
  * COM_CLS = "CLS"      // 4
+ * KW_CON = "CON"
  * KW_DATA = "DATA"     // 5
  * KW_DEF = "DEF"       // 6
  * COM_DELAY = "DELAY"  // 7
@@ -102,6 +103,9 @@ const char sBASE[] PROGMEM = "BASE";          // 3
 const char sCHAIN[] PROGMEM = "CHAIN";        // 4
 #endif
 const char sCLS[] PROGMEM = "CLS";            // 5
+#if USE_MATRIX
+const char sCON[] PROGMEM = "CON";            // 5
+#endif
 const char sDATA[] PROGMEM = "DATA";          // 6
 const char sDEF[] PROGMEM = "DEF";            // 7
 //const char sDELAY[] PROGMEM = "DELAY";        // 8
@@ -175,8 +179,8 @@ const char sPOW[] PROGMEM = "^";
 const char sLPAREN[] PROGMEM = "(";
 const char sRPAREN[] PROGMEM = ")";
 /*
-const char sREAL_IDENT[] PROGMEM = "REAL_IDENT";
 const char sINTEGER_IDENT[] PROGMEM = "INTEGER_IDENT";
+const char sREAL_IDENT[] PROGMEM = "REAL_IDENT";
 const char sLONGINT_IDENT[] PROGMEM = "LONGINT_IDENT";
 const char sSTRING_IDENT[] PROGMEM = "STRING_IDENT";
 const char sBOOL_IDENT[] PROGMEM = "BOOL_IDENT";
@@ -197,6 +201,9 @@ PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 	sCHAIN,     // 3
 #endif
 	sCLS,       // 4
+#if USE_MATRIX
+	sCON,
+#endif
 	sDATA,      // 5
 	sDEF,       // 6
 //	sDELAY,     // 7
@@ -264,7 +271,7 @@ PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 	sPOW,
 	sLPAREN, sRPAREN,
 
-/*	sREAL_IDENT, sINTEGER_IDENT, sLONGINT_IDENT, sSTRING_IDENT,
+/*	sINTEGER_IDENT, sREAL_IDENT, sLONGINT_IDENT, sSTRING_IDENT,
 	sBOOL_IDENT,
 
 	sINTEGER, sREAL, sBOOLEAN, sSTRING*/
@@ -281,6 +288,9 @@ static const uint8_t tokenTable[] PROGMEM = {
 	'C', 'H', 'A', 'I', 'N'+0x80,      // 3
 #endif
 	'C', 'L', 'S'+0x80,                // 4
+#if USE_MATRIX
+	'C', 'O', 'N'+0x80,
+#endif
 	'D', 'A', 'T', 'A'+0x80,           // 5
 	'D', 'E', 'F'+0x80,                // 6
 //	'D', 'E', 'L', 'A', 'Y'+0x80,      // 7
