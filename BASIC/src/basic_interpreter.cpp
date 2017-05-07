@@ -1060,13 +1060,13 @@ Interpreter::write(ProgMemStrings index)
 void
 Interpreter::zeroMatrix(const char *name)
 {
-	fillMatrix(name, 0);
+	fillMatrix(name, Integer(0));
 }
 
 void
 Interpreter::onesMatrix(const char *name)
 {
-	fillMatrix(name, 1);
+	fillMatrix(name, Integer(1));
 }
 
 void
@@ -1084,9 +1084,9 @@ Interpreter::identMatrix(const char *name)
 				    ++column) {
 					Parser::Value v;
 					if (row == column)
-						v = 1;
+						v = Integer(1);
 					else
-						v = 0;
+						v = Integer(0);
 					if (!array->set(row*(array->dimension[1]+1)+column,
 					    v))
 						raiseError(DYNAMIC_ERROR,
@@ -1152,7 +1152,6 @@ Interpreter::setMatrixSize(ArrayFrame &array, uint16_t rows, uint16_t columns)
 		const uint16_t newIndex = aIndex+newSize;
 		memmove(_program._text + newIndex, _program._text + oldIndex,
 		    _program._arraysEnd-oldIndex);
-		memset(array.data(), 0, array.dataSize());
 		_program._arraysEnd += delta;
 	}
 }
@@ -1188,7 +1187,7 @@ Interpreter::print(Token t)
 	    uint8_t(t)])));
 	if (t < Token::STAR)
 		print(buf, VT100::TextAttr(uint8_t(VT100::BRIGHT) |
-	    uint8_t(VT100::C_GREEN)));
+		    uint8_t(VT100::C_GREEN)));
 	else
 		print(buf);
 }
