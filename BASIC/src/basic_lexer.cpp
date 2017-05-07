@@ -163,6 +163,9 @@ const char sZER[] PROGMEM = "ZER";
 #endif
 const char sSTAR[] PROGMEM = "*";
 const char sSLASH[] PROGMEM = "/";
+#if USE_REALS
+const char sBACK_SLASH[] PROGMEM = "\\";
+#endif
 const char sPLUS[] PROGMEM = "+";
 const char sMINUS[] PROGMEM = "-";
 const char sEQUALS[] PROGMEM = "=";
@@ -260,7 +263,12 @@ PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 	sZER,
 #endif
 
-	sSTAR, sSLASH, sPLUS, sMINUS,
+	sSTAR,
+	sSLASH,
+#if USE_REALS
+	sBACK_SLASH,
+#endif
+	sPLUS, sMINUS,
 
 	sEQUALS,
 	sCOLON, sSEMI,
@@ -461,6 +469,12 @@ Lexer::getNext()
 			_token = Token::SLASH;
 			next();
 			return true;
+#if USE_REALS
+		case '\\':
+			_token = Token::BACK_SLASH;
+			next();
+			return true;
+#endif
 		case '^':
 			_token = Token::POW;
 			next();

@@ -128,6 +128,9 @@ enum class Token : uint8_t
 	STAR,
 	// /
 	SLASH,
+#if USE_REALS
+	BACK_SLASH,
+#endif
 	// +
 	PLUS,
 	// -
