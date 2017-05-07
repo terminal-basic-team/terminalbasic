@@ -1106,9 +1106,14 @@ Parser::fMatrixExpression(const char *buf)
 		return true;
 	case Token::LPAREN: { // Scalar
 		Value v;
+		char first[VARSIZE];
 		if (_lexer.getNext() && fExpression(v) &&
-		    _lexer.getToken() == Token::RPAREN) {
-			
+		    _lexer.getToken() == Token::RPAREN &&
+		    _lexer.getNext() && _lexer.getToken() == Token::STAR &&
+		    _lexer.getNext() && fVar(first)) {
+			_interpreter.pushValue(v);
+			_interpreter.assignMatrix(buf, first, nullptr,
+			    Interpreter::MO_SCALE);
 		} else
 			return false;
 	}

@@ -1170,6 +1170,24 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 			setMatrixSize(*array, arrayFirst->dimension[0],
 			    arrayFirst->dimension[1]);
 			break;
+		case MO_SCALE: {
+			Parser::Value v;
+			if (!popValue(v)) {
+				raiseError(DYNAMIC_ERROR, INTERNAL_ERROR);
+				return;
+			}
+			setMatrixSize(*array, arrayFirst->dimension[0],
+			    arrayFirst->dimension[1]);
+			Parser::Value elm;
+			for (uint16_t index = 0; index<array->numElements(); ++index) {
+				if (!arrayFirst->get(index, elm) ||
+				    !array->set(index, elm*=v)) {
+					raiseError(DYNAMIC_ERROR, INVALID_ELEMENT_INDEX);
+					return;
+				}
+			}
+		}
+			break;
 		default:
 			break;
 		}

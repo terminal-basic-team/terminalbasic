@@ -255,12 +255,12 @@ public:
 	enum MatrixOperation_t : uint8_t
 	{
 		MO_NOP,
+		MO_SCALE,
 		MO_SUM,
 		MO_SUB,
 		MO_MUL,
 		MO_TRANSPOSE,
-		MO_INVERT,
-		MO_SCALE
+		MO_INVERT
 	};
 	
 	void zeroMatrix(const char*);
