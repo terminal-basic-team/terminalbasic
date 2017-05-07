@@ -70,16 +70,18 @@
  */
 
 // Input variants
-#define SERIAL_I 0 // SerialL input
-#define SERIAL3_I 1 // SerialL3 input
+#define SERIAL_I  0 // Serial input
+#define SERIALL_I 1 // SerialL input
+#define SERIAL3_I 2 // SerialL3 input
 
 // Output variants
 #define SERIAL_O  0 // SerialL output
-#define SERIAL3_O 1 // SerialL3 output
-#define UTFT_O    2 // UTFT output
-#define TVOUT_O   3 // TVout output
+#define SERIALL_O 1 // SerialL output
+#define SERIAL3_O 2 // SerialL3 output
+#define UTFT_O    3 // UTFT output
+#define TVOUT_O   4 // TVout output
 
-// Input select (SERIAL)
+// Input select 
 #define S_INPUT SERIAL_I
 
 // Output select
@@ -89,11 +91,15 @@
 #define USETVOUT	          0
 
 #if S_INPUT == SERIAL_I
+#define SERIAL_PORT Serial
+#elif S_INPUT == SERIALL_I
 #define SERIAL_PORT SerialL
 #elif S_INPUT == SERIAL3_I
 #define SERIAL_PORT SerialL3
 #endif
 #if S_OUTPUT == SERIAL_O
+#define SERIAL_PORT Serial
+#elif S_OUTPUT == SERIALL_O
 #define SERIAL_PORT SerialL
 #elif S_OUTPUT == SERIAL3_O
 #define SERIAL_PORT SerialL3
@@ -117,6 +123,8 @@
 
 namespace BASIC
 {
+// Tokenize keywords in program text
+const bool TOKENIZE = true;
 // Max size of the program line
 const uint8_t PROGSTRINGSIZE = 49;
 
