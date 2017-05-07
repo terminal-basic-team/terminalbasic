@@ -23,7 +23,6 @@
 #include "basic_parser.hpp"
 #include "basic_interpreter.hpp"
 #include "basic_program.hpp"
-#include "config_linux.hpp"
 
 /*
  * TEXT = OPERATORS | C_INTEGER OPERATORS
