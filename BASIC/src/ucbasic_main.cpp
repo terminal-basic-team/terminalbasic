@@ -19,9 +19,12 @@
 #include "basic.hpp"
 #include "arduino_logger.hpp"
 #include "basic_program.hpp"
-#include "basic_arduinoio.hpp"
 #ifdef ARDUINO
 #include "seriallight.hpp"
+#endif
+
+#if USEARDUINOIO
+#include "basic_arduinoio.hpp"
 #endif
 
 #if USESD

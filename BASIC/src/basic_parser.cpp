@@ -66,7 +66,9 @@
  * ARRAYS_LIST = VAR ARRAY | VAR ARRAY ARRAYS_LIST
  * ARRAY = LPAREN DIMENSIONS RPAREN
  * DIMENSIONS = C_INTEGER | C_INTEGER COMMA DIMENSIONS
- * MATRIX_OPERATION = 
+ * MATRIX_OPERATION =
+ *      PRINT MATRIX_PRINT |
+ *      VAR EQUALS MATRIX_EXPRESSION
  */
 
 namespace BASIC
@@ -181,8 +183,7 @@ Parser::fOperator()
 		if (!_lexer.getNext())
 			return false;
 		return (fForConds());
-	case Token::KW_GOSUB:
-	{
+	case Token::KW_GOSUB: {
 		Value v;
 		if (!_lexer.getNext() || !fExpression(v)) {
 			_error = EXPRESSION_EXPECTED;
@@ -195,8 +196,7 @@ Parser::fOperator()
 		_stopParse = true;
 		break;
 	}
-	case Token::KW_IF:
-	{
+	case Token::KW_IF: {
 		Value v;
 		if (!_lexer.getNext() || !fExpression(v)) {
 			_error = EXPRESSION_EXPECTED;
@@ -215,7 +215,6 @@ Parser::fOperator()
 		return (res);
 	}
 	case Token::KW_INPUT:
-	{
 		if (!fVarList()) {
 			_error = VARIABLES_LIST_EXPECTED;
 			return false;
@@ -224,29 +223,27 @@ Parser::fOperator()
 			_stopParse = true;
 		}
 		break;
-	}
-	case Token::KW_LET:
-	{
+	case Token::KW_LET: {
 		char vName[VARSIZE];
 		if (!_lexer.getNext() || !fImplicitAssignment(vName))
 			return false;
-		break;
 	}
+		break;
 #if USE_MATRIX
 	case Token::KW_MAT:
 		if (!_lexer.getNext() || !fMatrixOperation())
 			return false;
 		break;
 #endif
-	case Token::KW_NEXT:
-		if (!_lexer.getNext() || (_lexer.getToken() != Token::REAL_IDENT
-		    && _lexer.getToken() != Token::INTEGER_IDENT))
+	case Token::KW_NEXT: {
+		char vName[VARSIZE];
+		if (!_lexer.getNext() || !fVar(vName))
 			return false;
-		if (_mode == EXECUTE) {
+		if (_mode == EXECUTE)
 			_stopParse = !_interpreter.next(_lexer.id());
-		}
 		if (!_stopParse)
 			_lexer.getNext();
+	}
 		break;
 	case Token::KW_PRINT:
 		if (_lexer.getNext()) {
@@ -411,6 +408,7 @@ Parser::fExpression(Value &v)
 	while (true) {
 		const Token t = _lexer.getToken();
 		Value v2;
+#if OPT == OPT_SPEED
 		switch (t) {
 		case Token::LT:
 			if (_lexer.getNext() && fSimpleExpression(v2)) {
@@ -449,6 +447,7 @@ Parser::fExpression(Value &v)
 			} else
 				return false;
 		case Token::NE:
+		case Token::NEA:
 			if (_lexer.getNext() && fSimpleExpression(v2)) {
 				v = !(v == v2);
 				continue;
@@ -457,6 +456,34 @@ Parser::fExpression(Value &v)
 		default:
 			return true;
 		}
+#else
+		if (t == Token::LT || t == Token::LTE || t == Token::GT ||
+		    t == Token::GTE || t == Token::EQUALS || t == Token::NE ||
+		    t == Token::NEA) {
+			if (!_lexer.getNext() || !fSimpleExpression(v2))
+				return false;
+			
+			if (t == Token::LT)
+				v = v < v2;
+			else if (t == Token::LTE)
+				v = (v < v2) || (v == v2);
+			else if (t == Token::GT)
+				v = v > v2;
+			else if (t ==Token::GTE)
+				v = (v > v2) || (v == v2);
+			else if (t == Token::EQUALS) {
+#if USE_STRINGOPS
+				if (v.type == Value::STRING &&
+				    v2.type == Value::STRING)
+					v = _interpreter.strCmp();
+				else
+#endif // USE_STRINGOPS
+					v = v == v2;
+			} else if (t == Token::NE || t == Token::NEA)
+				v = !(v == v2);
+		} else
+			return true;
+#endif
 		v.type = Value::BOOLEAN;
 	}
 }
@@ -478,6 +505,7 @@ Parser::fSimpleExpression(Value &v)
 		Token t = _lexer.getToken();
 		LOG(t);
 		Value v2;
+#if OPT == OPT_SPEED
 		switch (t) {
 		case Token::PLUS:
 			if (_lexer.getNext() && fTerm(v2)) {
@@ -506,6 +534,25 @@ Parser::fSimpleExpression(Value &v)
 		default:
 			return true;
 		}
+#else
+		if (t == Token::PLUS || t == Token::MINUS || t == Token::OP_OR) {
+			if (!_lexer.getNext() || !fTerm(v2))
+				return false;
+			if (t == Token::PLUS) {
+#if USE_STRINGOPS
+				if (v.type == Value::STRING &&
+				    v2.type == Value::STRING)
+					_interpreter.strConcat();
+				else
+#endif
+					v += v2;
+			} else if (t == Token::MINUS)
+				v -= v2;
+			else if (t == Token::OP_OR)
+				v |= v2;
+		} else
+			return true;
+#endif
 	}
 }
 
@@ -521,6 +568,7 @@ Parser::fTerm(Value &v)
 		Token t = _lexer.getToken();
 		LOG(t);
 		Value v2;
+#if OPT == OPT_SPEED
 		switch (t) {
 		case Token::STAR:
 			if (_lexer.getNext() && fFactor(v2)) {
@@ -543,6 +591,20 @@ Parser::fTerm(Value &v)
 		default:
 			return true;
 		}
+#else
+		if (t == Token::STAR || t == Token::SLASH || t == Token::OP_AND) {
+			if (!_lexer.getNext() || !fFactor(v2))
+				return false;
+			
+			if (t == Token::STAR)
+				v *= v2;
+			else if (t == Token::SLASH)
+				v /= v2;
+			else if (t == Token::OP_AND)
+				v &= v2;
+		} else
+			return true;
+#endif
 	}
 }
 
@@ -558,16 +620,13 @@ Parser::fFactor(Value &v)
 		Token t = _lexer.getToken();
 		LOG(t);
 		Value v2;
-		switch (t) {
-		case Token::POW:
+		if (t == Token::POW) {
 			if (_lexer.getNext() && fFinal(v2)) {
 				v ^= v2;
-				continue;
 			} else
 				return false;
-		default:
+		} else
 			return true;
-		}
 	}
 }
 
@@ -578,7 +637,9 @@ Parser::fFinal(Value &v)
 
 	const Token t = _lexer.getToken();
 	LOG(t);
+
 	while (true) {
+#if OPT == OPT_SPEED
 		switch (t) {
 		case Token::MINUS:
 			if (!_lexer.getNext() || !fFinal(v))
@@ -637,7 +698,64 @@ Parser::fFinal(Value &v)
 		}
 			return false;
 		}
+#else
+		if (t == Token::MINUS) {
+			if (!_lexer.getNext() || !fFinal(v))
+				return false;
+			if (_mode == EXECUTE)
+				v.switchSign();
+			return true;
+		} else if (t == Token::OP_NOT) {
+			if (!_lexer.getNext() || !fFinal(v))
+				return false;
+			if (_mode == EXECUTE)
+				v.notOp();
+			return true;
+		} else if (t == Token::C_INTEGER || t == Token::C_REAL) {
+			if (_mode == EXECUTE)
+				v = _lexer.getValue();
+			_lexer.getNext();
+			return true;
+		} else if (t == Token::C_STRING) {
+			if (_lexer.getError() == Lexer::STRING_OVERFLOW) {
+				_error = STRING_OVERFLOW;
+				_lexer.getNext();
+				return false;
+			}
+			if (_mode == EXECUTE) {
+				_interpreter.pushString(_lexer.id());
+				v.type = Value::Type::STRING;
+			}
+			_lexer.getNext();
+			return true;
+		} else if (t == Token::LPAREN) {
+			if (!_lexer.getNext() || !fExpression(v))
+				return false;
+			if (_lexer.getToken() != Token::RPAREN)
+				return false;
+			else {
+				_lexer.getNext();
+				return true;
+			}
+		} else if (t == Token::KW_TRUE) {
+			if (_mode == EXECUTE)
+				v = true;
+			_lexer.getNext();
+			return true;
+		} else if (t == Token::KW_FALSE) {
+			if (_mode == EXECUTE)
+				v = false;
+			_lexer.getNext();
+			return true;
+		} else {
+			char varName[VARSIZE];
+			if (fVar(varName))
+				return fIdentifierExpr(varName, v);
+			return false;
+		}
+#endif
 	}
+
 }
 
 bool
@@ -645,8 +763,7 @@ Parser::fIfStatement()
 {
 	Token t = _lexer.getToken();
 	LOG(t);
-	switch (t) {
-	case Token::KW_THEN:
+	if (t == Token::KW_THEN) {
 		if (_lexer.getNext()) {
 			if (_lexer.getToken() == Token::C_INTEGER) {
 				if (_mode == EXECUTE)
@@ -656,12 +773,10 @@ Parser::fIfStatement()
 			} else if (fOperators())
 				return true;
 		}
-		break;
-	default:
+	} else
 		if (fGotoStatement())
 			return true;
-		break;
-	}
+	
 	return false;
 }
 
@@ -838,7 +953,7 @@ Parser::fVarList()
 bool
 Parser::fVar(char *varName)
 {
-	if ((_lexer.getToken() >= Token::REAL_IDENT) &&
+	if ((_lexer.getToken() >= Token::INTEGER_IDENT) &&
 	    (_lexer.getToken() <= Token::BOOL_IDENT)) {
 		strcpy(varName, _lexer.id());
 		return true;
@@ -936,42 +1051,91 @@ Parser::fIdentifierExpr(const char *varName, Value &v)
 }
 
 #if USE_MATRIX
+/*
+ * MATRIX_OPERATION =
+ *     PRINT MATRIX_PRINT |
+ *     VAR EQUALS MATRIX_EXPRESSION
+ */
 bool
 Parser::fMatrixOperation()
 {
-	switch (_lexer.getToken()) {
-	case Token::INTEGER_IDENT:
-#if USE_REALS
-	case Token::REAL_IDENT:
-#endif
-	{
-		char buf[VARSIZE];
-		strcpy(buf, _lexer.id());
+	char buf[VARSIZE];
+	if (fVar(buf)) {
 		if (!_lexer.getNext())
 			return false;
-		switch (_lexer.getToken()) {
-		case Token::EQUALS:
-			if (!_lexer.getNext())
+		if (_lexer.getToken() == Token::EQUALS) {
+			if (_lexer.getNext() && fMatrixExpression(buf)) {
+				_lexer.getNext();
+				return true;
+			} else
 				return false;
-			switch (_lexer.getToken()) {
-			case Token::KW_ZER: // Zero matrix
-				break;
-			case Token::KW_IDN: // Identity matrix
-				break;
-			default:
-				return false;
-			}
-			break;
-		default:
+		} else
 			return false;
+	} else if (_lexer.getToken() == Token::KW_PRINT) {
+		if (_lexer.getNext() && fMatrixPrint()) {
+			_lexer.getNext();
+			return true;
 		}
-		_lexer.getNext();
 	}
+	return false;
+}
+
+bool
+Parser::fMatrixPrint()
+{
+	char buf[VARSIZE];
+	if (fVar(buf)) {
+		_interpreter.printMatrix(buf);
 		return true;
-	default :
+	} else
 		return false;
+}
+
+bool
+Parser::fMatrixExpression(const char *buf)
+{
+	switch (_lexer.getToken()) {
+	case Token::KW_ZER: // Zero matrix
+		_interpreter.zeroMatrix(buf);
+		return true;
+	case Token::KW_CON: // Ones matrix
+		_interpreter.onesMatrix(buf);
+		return true;
+	case Token::KW_IDN: // Identity matrix
+		_interpreter.identMatrix(buf);
+		return true;
+	case Token::LPAREN: { // Scalar
+		Value v;
+		if (_lexer.getNext() && fExpression(v) &&
+		    _lexer.getToken() == Token::RPAREN) {
+			
+		} else
+			return false;
+	}
+	default:
+		break;
+	}
+	
+	char first[VARSIZE];
+	if (fVar(first)) { // Matrix expression
+		if (_lexer.getNext()) {
+			switch (_lexer.getToken()) {
+			case Token::PLUS:
+			case Token::MINUS:
+			case Token::POW:
+				break;
+			}
+			char second[VARSIZE];
+			if (fVar(second)) {
+				return true;
+			} else
+				return false;
+		}
+		_interpreter.assignMatrix(buf, first);
+		return true;
 	}
 }
-#endif
+
+#endif // USE_MATRIX
 
 }

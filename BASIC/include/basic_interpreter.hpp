@@ -74,6 +74,8 @@ public:
 		INTEGER_EXPRESSION_EXPECTED = 11,// Integer expression expected
 		BAD_CHECKSUM = 12,		// Bad program checksum
 		INVALID_TAB_VALUE = 13,
+		INVALID_ELEMENT_INDEX = 14,
+		SQUARE_MATRIX_EXPECTED = 15,
 		INTERNAL_ERROR = 255
 	};
 
@@ -132,6 +134,10 @@ public:
 		 * @return size
 		 */
 		uint16_t size() const;
+		
+		uint16_t dataSize() const;
+		
+		uint16_t numElements() const;
 
 		/**
 		 * @brief get array raw data pointer
@@ -139,8 +145,8 @@ public:
 		 */
 		uint8_t *data()
 		{
-			return (reinterpret_cast<uint8_t*> (this+1) +
-			    sizeof (size_t) * numDimensions);
+			return reinterpret_cast<uint8_t*> (this+1) +
+			    sizeof(uint16_t) * numDimensions;
 		}
 
 		/**
@@ -148,8 +154,8 @@ public:
 		 */
 		const uint8_t *data() const
 		{
-			return (reinterpret_cast<const uint8_t*> (this+1) +
-			    sizeof (size_t) * numDimensions);
+			return reinterpret_cast<const uint8_t*> (this+1) +
+			    sizeof(uint16_t) * numDimensions;
 		}
 
 		/**
@@ -158,15 +164,28 @@ public:
 		 * @return value
 		 */
 		template <typename T>
-		T get(size_t index) const
+		T get(uint16_t index) const
 		{
-			union
+			const union
 			{
 				const uint8_t *b;
 				const T *i;
-			} _U;
-			_U.b = this->data();
+			} _U = { .b = this->data() };
 			return _U.i[index];
+		}
+		
+		bool get(uint16_t, Parser::Value&) const;
+		bool set(uint16_t, const Parser::Value&);
+		
+		template <typename T>
+		void set(uint16_t index, T val)
+		{
+			union
+			{
+				uint8_t *b;
+				T *i;
+			} _U = { .b = this->data() };
+			_U.i[index] = val;
 		}
 
 		// Array data
@@ -229,6 +248,36 @@ public:
 	void newline();
 	void print(char);
 
+#if USE_MATRIX
+	/**
+	 * @bief Matrix expression oprations
+	 */
+	enum MatrixOperation_t : uint8_t
+	{
+		MO_NOP,
+		MO_SUM,
+		MO_SUB,
+		MO_MUL,
+		MO_TRANSPOSE,
+		MO_INVERT,
+		MO_SCALE
+	};
+	
+	void zeroMatrix(const char*);
+	void onesMatrix(const char*);
+	void identMatrix(const char*);
+	void printMatrix(const char*);
+	/**
+	 * @brief Assign matrix a result of matrix operation
+	 * @param name Name of the matrix to assign to
+	 * @param first First and possible the only matrix expression operand
+	 * @param second Second optional matrix exprerssion operand
+	 * @param op Operation type
+	 */
+	void assignMatrix(const char*, const char*, const char* = nullptr,
+	    MatrixOperation_t = MO_NOP);
+#endif
+	
 	void print(Integer, VT100::TextAttr = VT100::NO_ATTR);
 	void printTab(const Parser::Value&);
 	void print(long, VT100::TextAttr = VT100::NO_ATTR);
@@ -295,7 +344,7 @@ public:
 	 * @param v value to set
 	 */
 	void set(VariableFrame&, const Parser::Value&);
-	void set(ArrayFrame&, size_t, const Parser::Value&);
+	void set(ArrayFrame&, uint16_t, const Parser::Value&);
 	/**
 	 * @brief set a new value and possibly create new variable
 	 * @param name variable name
@@ -332,9 +381,8 @@ public:
 	/**
 	 * @brief push the next array dimesion on the stack
 	 * @param dim dimension value
-	 * @return 
 	 */
-	uint16_t pushDimension(uint16_t);
+	void pushDimension(uint16_t);
 	/**
 	 * @brief push the number of array dimesions on the stack
 	 * @param num number of dimensions
@@ -359,6 +407,10 @@ public:
 	Program &_program;
 private:
 	class AttrKeeper;
+#if USE_MATRIX
+	void fillMatrix(const char*, const Parser::Value&);
+	void setMatrixSize(ArrayFrame&, uint16_t, uint16_t);
+#endif
 	// Get next input object from stack
 	bool nextInput();
 	// Place input values to objects
@@ -381,7 +433,7 @@ private:
 	 */
 	ArrayFrame *addArray(const char*, uint8_t, uint32_t);
 
-	bool arrayElementIndex(ArrayFrame*, size_t&);
+	bool arrayElementIndex(ArrayFrame*, uint16_t&);
 #if USE_SAVE_LOAD
 	/**
 	 * @brief Check program text
@@ -415,8 +467,10 @@ private:
 	uint8_t			 _inputPosition;
 	// Input variable name string;
 	char			 _inputVarName[VARSIZE];
+#if BASIC_MULTITERMINAL
 	static uint8_t		 _termnoGen;
 	uint8_t			 _termno;
+#endif
 };
 
 }

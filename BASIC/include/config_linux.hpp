@@ -24,18 +24,18 @@
 /**
  * Paraeters
  */
-#define USE_REALS             0 // Real arithmetics
+#define USE_REALS             1 // Real arithmetics
 #define USE_LONGINT           0 // Long integer support
-#define USE_DUMP              0 // DUMP command support
-#define CLEAR_PROGRAM_MEMORY  0 // Clear program memory on NEW
-#define USE_RANDOM            0 // Clear program memory with 0xFF on NEW
-#define USE_MATRIX            0 // Matrix operations
+#define USE_DUMP              1 // DUMP command support
+#define CLEAR_PROGRAM_MEMORY  1 // Clear program memory on NEW
+#define USE_RANDOM            1 // Clear program memory with 0xFF on NEW
+#define USE_MATRIX            1 // Matrix operations
 #define USE_EXTEEPROM         0 // External EEPROM functions module
-#define USE_TEXTATTRIBUTES    0 // Use vt100 text attributes
+#define USE_TEXTATTRIBUTES    1 // Use vt100 text attributes
 #if USE_TEXTATTRIBUTES
-#define USE_COLORATTRIBUTES   0 // Use vt100 color attributes
+#define USE_COLORATTRIBUTES   1 // Use vt100 color attributes
 #endif
-#define USE_SAVE_LOAD	      0 // SAVE and LOAD commands support
+#define USE_SAVE_LOAD	      1 // SAVE and LOAD commands support
 #if USE_SAVE_LOAD
 #define SAVE_LOAD_CHECKSUM    1
 #endif
@@ -46,34 +46,35 @@
 /*
  * Math module (requires USE_REALS)
  */
-#define USEMATH 	        0
+#define USEMATH 	        1
 #if USEMATH
 #define M_TRIGONOMETRIC         1 // SIN COS TAN COT
 #define M_REVERSE_TRIGONOMETRIC	1 // ACS ASN ATN
 #endif
 
-#define USEARDUINOIO	      0 // ARduino IO
-#define USESD		      0 // SD card module
+#define USEARDUINOIO	      1 // ARduino IO
+#define USESD		      1 // SD card module
+
+#define OPT_SPEED     1
+#define OPT_SIZE      2
+#define OPT           OPT_SIZE
 
 #define SERIAL_PORT Serial
 
 namespace BASIC
 {
 
-// Tokenize keywords in program text
-const bool TOKENIZE = true;
-
 // Max size of the program line
-const uint8_t PROGSTRINGSIZE = 41;
+const uint8_t PROGSTRINGSIZE = 73;
 
 // Number of bytes for program text, variables and stack
-const size_t PROGRAMSIZE = 512;
+const uint16_t PROGRAMSIZE = 2048;
 
 // Max size of the string constants/variables
-const uint8_t STRINGSIZE = 33;
+const uint8_t STRINGSIZE = 65;
 
 // Number of characters in variable name
-const uint8_t VARSIZE = 3;
+const uint8_t VARSIZE = 5;
 
 }
 
