@@ -131,7 +131,7 @@ const uint16_t PROGRAMSIZE = 4096;
 const uint16_t PROGRAMSIZE = 3072;
 #elif defined (__AVR_ATmega328__) || defined (__AVR_ATmega328P__)
 const uint16_t PROGRAMSIZE = 1024;
-#elif defined (__AVR_ATmega168__)
+#elif defined (__AVR_ATmega168__) || defined (__AVR_ATmega168P__)
 const uint16_t PROGRAMSIZE = 384;
 #endif // USE_EXTMEM
 

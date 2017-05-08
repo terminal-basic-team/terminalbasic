@@ -151,6 +151,10 @@ copy_Arduino_pro328 : copy
 copy_Arduino_nano168 : ARCH=arduinoNANO
 copy_Arduino_nano168 : UCARCH=atmega168
 copy_Arduino_nano168 : copy
+	
+copy_Arduino_nano168p : ARCH=arduinoNANO
+copy_Arduino_nano168p : UCARCH=atmega168p
+copy_Arduino_nano168p : copy
 
 copy_Arduino_mega2560 : ARCH=arduinoMEGA
 copy_Arduino_mega2560 : UCARCH=atmega2560
@@ -176,8 +180,8 @@ program_Arduino_UNO : PROGRAMMER=arduino
 program_Arduino_UNO : program_common
 	
 program_Arduino_nano168 : ARCH=arduinoNANO
-program_Arduino_nano168 : UCARCH=atmega168
-program_Arduino_nano168 : PROGRAMMER=arduino
+program_Arduino_nano168 : UCARCH=atmega168p
+program_Arduino_nano168 : PROGRAMMER=usbasp
 program_Arduino_nano168 : program_common
 
 program_Arduino_mega2560 : ARCH=arduinoMEGA
