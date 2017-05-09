@@ -66,6 +66,10 @@
                     <name>Arduino_pro328</name>
                     <type>1</type>
                 </confElem>
+                <confElem>
+                    <name>Arduino_nano168p</name>
+                    <type>1</type>
+                </confElem>
             </confList>
             <formatting>
                 <project-formatting-style>false</project-formatting-style>
