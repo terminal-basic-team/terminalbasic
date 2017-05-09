@@ -444,6 +444,7 @@ Interpreter::print(Lexer &l)
 		case Token::C_REAL:
 		case Token::C_BOOLEAN:
 			print(l.getValue(), VT100::C_CYAN);
+			_output.write(' ');
 			break;
 		case Token::C_STRING:
 		{
