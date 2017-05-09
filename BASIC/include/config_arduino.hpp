@@ -83,7 +83,7 @@
 #define S_INPUT SERIAL_I
 
 // Output select
-#define S_OUTPUT UTFT_O
+#define S_OUTPUT SERIAL_O
 
 #define USEUTFT		          0
 #define USETVOUT	          0
