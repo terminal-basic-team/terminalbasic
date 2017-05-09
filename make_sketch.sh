@@ -12,6 +12,7 @@ SRC="./BASIC/include/basic.hpp ./BASIC/include/basic_lexer.hpp ./BASIC/src/basic
 ./BASIC/src/basic_functionblock.cpp ./BASIC/src/basic_arduinoio.cpp ./BASIC/src/basic_math.cpp \
 ./BASIC/include/basic_parser_value.hpp ./BASIC/include/basic_sdfs.hpp \
 ./BASIC/include/basic_internalfuncs.hpp ./BASIC/src/basic_internalfuncs.cpp \
+./BASIC/include/basic_gfx.hpp ./BASIC/src/basic_gfx.cpp \
 ./BASIC/src/basic_parser_value.cpp ./BASIC/src/basic_sdfs.cpp \
 ./UTFT/src/utft_stream.cpp ./UTFT/include/utft_stream.hpp \
 ../libarduinoext/include/vt100.hpp \

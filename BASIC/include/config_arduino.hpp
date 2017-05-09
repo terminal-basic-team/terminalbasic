@@ -45,6 +45,8 @@
 #define SAVE_LOAD_CHECKSUM   0 // Compute checksums while SAVE, LOAD and CHAIN
 #endif
 
+#define USE_GFX              0 // GFX module
+
 /**
  * Used modules
  */
@@ -55,9 +57,13 @@
  */
 #define USEMATH                 0
 #if USEMATH
-#define M_TRIGONOMETRIC         1 // SIN COS TAN COT
-#define M_REVERSE_TRIGONOMETRIC	1 // ACS ASN ATN
+#define M_TRIGONOMETRIC         0 // SIN COS TAN COT
+#define M_REVERSE_TRIGONOMETRIC	0 // ACS ASN ATN
 #endif
+
+#define OPT_SPEED     1
+#define OPT_SIZE      2
+#define OPT           OPT_SIZE
 
 /*
  * Input and output for single terminal mode
@@ -111,24 +117,22 @@
 
 namespace BASIC
 {
-// Tokenize keywords in program text
-const bool TOKENIZE = true;
 // Max size of the program line
 const uint8_t PROGSTRINGSIZE = 41;
 
 // Number of bytes for program text, variables and stack
 #if USE_EXTMEM
-const size_t PROGRAMSIZE = EXTMEM_SIZE;
+const uint16_t PROGRAMSIZE = EXTMEM_SIZE;
 #elif defined (__AVR_ATmega1284__) || defined (__AVR_ATmega1284P__)
-const size_t PROGRAMSIZE = 14848;
+const uint16_t PROGRAMSIZE = 14848;
 #elif defined (__AVR_ATmega2560__)
-const size_t PROGRAMSIZE = 4096;
+const uint16_t PROGRAMSIZE = 4096;
 #elif defined (__AVR_ATmega128__) || defined (__AVR_ATmega128A__)
-const size_t PROGRAMSIZE = 3072;
+const uint16_t PROGRAMSIZE = 3072;
 #elif defined (__AVR_ATmega328__) || defined (__AVR_ATmega328P__)
-const size_t PROGRAMSIZE = 1024;
-#elif defined (__AVR_ATmega168__)
-const size_t PROGRAMSIZE = 384;
+const uint16_t PROGRAMSIZE = 1024;
+#elif defined (__AVR_ATmega168__) || defined (__AVR_ATmega168P__)
+const uint16_t PROGRAMSIZE = 384;
 #endif // USE_EXTMEM
 
 // Max size of the string constants/variables
