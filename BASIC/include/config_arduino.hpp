@@ -102,7 +102,9 @@
 #define USEUTFT		          1
 #elif S_OUTPUT == TVOUT_O
 #undef USETVOUT
-#define USETVOUT	          1
+#define USETVOUT	         1
+#define TVOUT_HORIZ	240
+#define TVOUT_VERT	192
 #endif
 
 // Use multiterminal mode
