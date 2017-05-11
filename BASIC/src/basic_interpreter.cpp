@@ -1173,55 +1173,108 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 	ArrayFrame *array = _program.arrayByName(name);
 	ArrayFrame *arrayFirst = _program.arrayByName(first);
 	
-	if (array != nullptr && array->numDimensions == 2 && arrayFirst !=
-	    nullptr && arrayFirst->numDimensions == 2) {
+	if (array == nullptr ||
+	    array->numDimensions != 2 ||
+	    arrayFirst == nullptr ||
+	    arrayFirst->numDimensions != 2) {
+		raiseError(DYNAMIC_ERROR, NO_SUCH_ARRAY);
+		return;
+	}
+	
+	// If first right side operand is not the target mat, resize
+	// target according to source and copy it's data
+	if (array != arrayFirst) {
 		setMatrixSize(*array, arrayFirst->dimension[0],
 		    arrayFirst->dimension[1]);
+		// If matrices are of the same type, simply memcpy
+		// In other case assign members through the Value
+		// converter
 		if (array->type == arrayFirst->type)
 			memcpy(array->data(), arrayFirst->data(), array->dataSize());
-		switch (op) {
-		case MO_NOP:
-			break;
-		case MO_SCALE: {
-			Parser::Value v;
-			if (!popValue(v)) {
-				raiseError(DYNAMIC_ERROR, INTERNAL_ERROR);
-				return;
-			}
-			Parser::Value elm;
-			for (uint16_t index = 0; index<array->numElements(); ++index) {
-				if (!array->get(index, elm) ||
-				    !array->set(index, elm*=v)) {
-					raiseError(DYNAMIC_ERROR, INVALID_ELEMENT_INDEX);
+		else {
+			Parser::Value val;
+			for (uint16_t index = 0; index<array->numElements();
+			    ++index) {
+				if (!arrayFirst->get(index, val) ||
+				    !array->set(index, val)) {
+					raiseError(DYNAMIC_ERROR, INTERNAL_ERROR);
 					return;
 				}
 			}
 		}
-			break;
-		case MO_TRANSPOSE: {
-			const uint16_t s = arrayFirst->dimension[0] *
-			     arrayFirst->dimension[1];
-			switch (array->type) {
-			case VF_INTEGER:
-				Matrix<Integer>::transpose(
-				    reinterpret_cast<Integer*>(array->data()),
-				    array->dimension[0]+1, array->dimension[1]+1);
-				break;
-			case VF_REAL:
-				Matrix<Real>::transpose(
-				    reinterpret_cast<Real*>(array->data()),
-				    array->dimension[0]+1, array->dimension[1]+1);
-				break;
+	}
+	switch (op) {
+	case MO_NOP: // simple assign, already done
+		break;
+	case MO_SCALE: { // multiply by scalar
+		Parser::Value v;
+		if (!popValue(v)) {
+			raiseError(DYNAMIC_ERROR, INTERNAL_ERROR);
+			return;
+		}
+		Parser::Value elm;
+		for (uint16_t index = 0; index<array->numElements(); ++index) {
+			if (!array->get(index, elm) ||
+			    !array->set(index, elm*=v)) {
+				raiseError(DYNAMIC_ERROR, INVALID_ELEMENT_INDEX);
+				return;
 			}
-			setMatrixSize(*array, arrayFirst->dimension[1],
-			    arrayFirst->dimension[0]);
 		}
+	}
+		break;
+	case MO_TRANSPOSE: { // source mat already have been copied,
+			     // performng in-place transpose
+		const uint16_t s = arrayFirst->dimension[0] *
+		     arrayFirst->dimension[1];
+		switch (array->type) {
+		case VF_INTEGER:
+			Matrix<Integer>::transpose(
+			    reinterpret_cast<Integer*>(array->data()),
+			    array->dimension[0]+1, array->dimension[1]+1);
 			break;
-		default:
+		case VF_REAL:
+			Matrix<Real>::transpose(
+			    reinterpret_cast<Real*>(array->data()),
+			    array->dimension[0]+1, array->dimension[1]+1);
 			break;
 		}
-	} else
-		raiseError(DYNAMIC_ERROR, NO_SUCH_ARRAY);
+		setMatrixSize(*array, arrayFirst->dimension[1],
+		    arrayFirst->dimension[0]);
+	}
+		break;
+	case MO_SUM:
+	case MO_SUB: {
+		ArrayFrame *arraySecond;
+		if (second == nullptr ||
+		    (arraySecond = _program.arrayByName(second)) == nullptr) {
+			raiseError(DYNAMIC_ERROR, NO_SUCH_ARRAY);
+			return;
+		}
+		if (arraySecond->numDimensions != 2 ||
+		    arraySecond->dimension[0] != array->dimension[0] ||
+		    arraySecond->dimension[1] != array->dimension[1]) {
+			raiseError(DYNAMIC_ERROR, DIMENSIONS_MISMATCH);
+			return;
+		}
+		Parser::Value val, valOld;
+		for (uint16_t index = 0; index<array->numElements(); ++index) {
+			if (arraySecond->get(index, val) &&
+			    array->get(index, valOld)) {
+				if (op == MO_SUM)
+					valOld += val;
+				else // MO_SUB
+					valOld -=val;
+				if (array->set(index, valOld))
+					continue;
+			}
+			raiseError(DYNAMIC_ERROR, INTERNAL_ERROR);
+			return;
+		}
+	}
+		break;
+	default:
+		break;
+	}
 }
 
 #endif // USE_MATRIX
