@@ -116,6 +116,9 @@ enum class Token : uint8_t
 	KW_TAB,
 	KW_THEN,
 	KW_TO,
+#if USE_MATRIX
+	KW_TRN,
+#endif
 	KW_TRUE,
 #if USE_DUMP
 	KW_VARS,

@@ -67,6 +67,7 @@
  * KW_TAB = "TAB"
  * KW_THEN = "THEN"
  * KW_TO = "TO"
+ * KW_TRN = "TRN"
  * KW_TRUE = "TRUE"
  * KW_VARS = "VARS"
  * KW_ZER = "ZER"
@@ -154,6 +155,9 @@ const char sSTOP[] PROGMEM = "STOP";
 const char sTAB[] PROGMEM = "TAB";
 const char sTHEN[] PROGMEM = "THEN";
 const char sTO[] PROGMEM = "TO";
+#if USE_MATRIX
+const char sTRN[] PROGMEM = "TRN";
+#endif
 const char sTRUE[] PROGMEM = "TRUE";
 #if USE_DUMP
 const char sVARS[] PROGMEM = "VARS";
@@ -255,6 +259,9 @@ PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 	sTAB,
 	sTHEN,
 	sTO,
+#if USE_MATRIX
+	sTRN,
+#endif
 	sTRUE,
 #if USE_DUMP
 	sVARS,
@@ -347,6 +354,9 @@ static const uint8_t tokenTable[] PROGMEM = {
 	'T', 'A', 'B'+0x80,
 	'T', 'H', 'E', 'N'+0x80,
 	'T', 'O'+0x80,
+#if USE_MATRIX
+	'T', 'R', 'N'+0x80,
+#endif
 	'T', 'R', 'U', 'E'+0x80,
 #if USE_DUMP
 	'V', 'A', 'R', 'S'+0x80,

@@ -1133,6 +1133,19 @@ Parser::fMatrixExpression(const char *buf)
 		} else
 			return false;
 	}
+		break;
+	case Token::KW_TRN: {
+		char first[VARSIZE];
+		if (_lexer.getNext() && _lexer.getToken() == Token::LPAREN &&
+		    _lexer.getNext() && fVar(first) &&
+		    _lexer.getNext() && _lexer.getToken() == Token::RPAREN) {
+			_interpreter.assignMatrix(buf, first, nullptr,
+			    Interpreter::MO_TRANSPOSE);
+			return true;
+		} else
+			return false;
+	}
+		break;
 	default:
 		break;
 	}

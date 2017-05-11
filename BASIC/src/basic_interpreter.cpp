@@ -1189,6 +1189,13 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 			}
 		}
 			break;
+		case MO_TRANSPOSE: {
+			const uint16_t s = arrayFirst->dimension[0] *
+			     arrayFirst->dimension[1];
+			setMatrixSize(*array, arrayFirst->dimension[1],
+			    arrayFirst->dimension[0]);
+		}
+			break;
 		default:
 			break;
 		}
