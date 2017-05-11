@@ -1153,16 +1153,25 @@ Parser::fMatrixExpression(const char *buf)
 	char first[VARSIZE];
 	if (fVar(first)) { // Matrix expression
 		if (_lexer.getNext()) {
+			Interpreter::MatrixOperation_t mo;
 			switch (_lexer.getToken()) {
 			case Token::PLUS:
-			case Token::MINUS:
-			case Token::POW:
+				mo = Interpreter::MO_SUM;
 				break;
+			case Token::MINUS:
+				mo = Interpreter::MO_SUB;
+				break;
+			case Token::STAR:
+				mo = Interpreter::MO_MUL;
+				break;
+			default:
+				return false;
 			}
 			char second[VARSIZE];
-			if (fVar(second)) {
-				return true;
-			} else
+			if (_lexer.getNext() && fVar(second))
+				_interpreter.assignMatrix(buf, first, second,
+				    mo);
+			else
 				return false;
 		}
 		_interpreter.assignMatrix(buf, first);

@@ -16,16 +16,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "math.hpp"
 #include <string.h>
 #include <assert.h>
 
-#include <EEPROM.h>
 #include <stdbool.h>
 
-#include "helper.hpp"
-#include <util/crc16.h>
+#include "basic.hpp"
 
+#if USE_SAVE_LOAD
+#include <EEPROM.h>
+#if SAVE_LOAD_CHECKSUM
+#include <util/crc16.h>
+#endif
+#endif // USE_SAVE_LOAD
+
+#include "helper.hpp"
+#include "math.hpp"
 #include "basic_interpreter.hpp"
 #include "basic_program.hpp"
 #include "basic_parser_value.hpp"
@@ -33,6 +39,9 @@
 #include "bytearray.hpp"
 #include "version.h"
 #include "ascii.hpp"
+#if USE_MATRIX
+#include "matrix.hpp"
+#endif
 
 namespace BASIC
 {
@@ -399,7 +408,7 @@ Interpreter::print(const Parser::Value &v, VT100::TextAttr attr)
 	case Parser::Value::LONG_INTEGER:
 #endif
 	case Parser::Value::INTEGER:
-		_output.print(v);
+		_output.print(v), _output.write(' ');
 		break;
 	case Parser::Value::STRING:
 	{
@@ -1166,10 +1175,12 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 	
 	if (array != nullptr && array->numDimensions == 2 && arrayFirst !=
 	    nullptr && arrayFirst->numDimensions == 2) {
+		setMatrixSize(*array, arrayFirst->dimension[0],
+		    arrayFirst->dimension[1]);
+		if (array->type == arrayFirst->type)
+			memcpy(array->data(), arrayFirst->data(), array->dataSize());
 		switch (op) {
 		case MO_NOP:
-			setMatrixSize(*array, arrayFirst->dimension[0],
-			    arrayFirst->dimension[1]);
 			break;
 		case MO_SCALE: {
 			Parser::Value v;
@@ -1177,11 +1188,9 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 				raiseError(DYNAMIC_ERROR, INTERNAL_ERROR);
 				return;
 			}
-			setMatrixSize(*array, arrayFirst->dimension[0],
-			    arrayFirst->dimension[1]);
 			Parser::Value elm;
 			for (uint16_t index = 0; index<array->numElements(); ++index) {
-				if (!arrayFirst->get(index, elm) ||
+				if (!array->get(index, elm) ||
 				    !array->set(index, elm*=v)) {
 					raiseError(DYNAMIC_ERROR, INVALID_ELEMENT_INDEX);
 					return;
@@ -1192,6 +1201,18 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 		case MO_TRANSPOSE: {
 			const uint16_t s = arrayFirst->dimension[0] *
 			     arrayFirst->dimension[1];
+			switch (array->type) {
+			case VF_INTEGER:
+				Matrix<Integer>::transpose(
+				    reinterpret_cast<Integer*>(array->data()),
+				    array->dimension[0]+1, array->dimension[1]+1);
+				break;
+			case VF_REAL:
+				Matrix<Real>::transpose(
+				    reinterpret_cast<Real*>(array->data()),
+				    array->dimension[0]+1, array->dimension[1]+1);
+				break;
+			}
 			setMatrixSize(*array, arrayFirst->dimension[1],
 			    arrayFirst->dimension[0]);
 		}
