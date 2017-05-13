@@ -1232,12 +1232,21 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 			    reinterpret_cast<Integer*>(array->data()),
 			    array->dimension[0]+1, array->dimension[1]+1);
 			break;
+#if USE_LONGINT
+		case VF_LONG_INTEGER:
+			Matrix<Integer>::transpose(
+			    reinterpret_cast<LongInteger*>(array->data()),
+			    array->dimension[0]+1, array->dimension[1]+1);
+			break;	
+#endif
+#if USE_REALS
 		case VF_REAL:
 			Matrix<Real>::transpose(
 			    reinterpret_cast<Real*>(array->data()),
 			    array->dimension[0]+1, array->dimension[1]+1);
 			break;
 		}
+#endif
 		setMatrixSize(*array, arrayFirst->dimension[1],
 		    arrayFirst->dimension[0]);
 	}
@@ -1272,8 +1281,67 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 		}
 	}
 		break;
+	case MO_MUL: {
+		ArrayFrame *arraySecond;
+		if (second == nullptr ||
+		    (arraySecond = _program.arrayByName(second)) == nullptr ||
+		    arraySecond->type != arrayFirst->type) {
+			raiseError(DYNAMIC_ERROR, NO_SUCH_ARRAY);
+			return;
+		}
+		if (arraySecond->numDimensions != 2 ||
+		    arraySecond->dimension[0] != arrayFirst->dimension[1]) {
+			raiseError(DYNAMIC_ERROR, DIMENSIONS_MISMATCH);
+			return;
+		}
+		const uint16_t r = arrayFirst->dimension[0]+1;
+		const uint16_t c = arraySecond->dimension[1]+1;
+		uint8_t eSize;
+		switch (arrayFirst->type) {
+		case VF_INTEGER:
+			eSize = sizeof (Integer); break;
+#if USE_REALS
+		case VF_REAL:
+			eSize = sizeof (Real); break;
+#endif
+		default:
+			return;
+		}
+		const uint16_t bufSize = r*c*eSize;
+		if (_program._arraysEnd+eSize >= _program._sp) {
+			raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
+			return;
+		}
+		uint8_t *tbuf = reinterpret_cast<uint8_t*>(_program._text+
+		    _program._arraysEnd);
+		switch (arrayFirst->type) {
+		case VF_INTEGER:
+			Matrix<Integer>::mul(
+			    reinterpret_cast<Integer*>(arrayFirst->data()),
+			    arrayFirst->dimension[0]+1, arrayFirst->dimension[1]+1,
+			    reinterpret_cast<Integer*>(arraySecond->data()),
+			    arraySecond->dimension[0]+1, arraySecond->dimension[1]+1,
+			    reinterpret_cast<Integer*>(tbuf));
+			break;
+#if USE_REALS
+		case VF_REAL:
+			Matrix<Real>::mul(
+			    reinterpret_cast<Real*>(arrayFirst->data()),
+			    arrayFirst->dimension[0]+1, arrayFirst->dimension[1]+1,
+			    reinterpret_cast<Real*>(arraySecond->data()),
+			    arraySecond->dimension[0]+1, arraySecond->dimension[1]+1,
+			    reinterpret_cast<Real*>(tbuf));
+			break;
+#endif
+		default:
+			return;
+		}
+		setMatrixSize(*array, r-1, c-1);
+		memcpy(array->data(), tbuf, bufSize);
+	}
+		return;
 	default:
-		break;
+		return;
 	}
 }
 
