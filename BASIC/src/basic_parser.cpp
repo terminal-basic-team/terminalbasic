@@ -1168,10 +1168,11 @@ Parser::fMatrixExpression(const char *buf)
 				return false;
 			}
 			char second[VARSIZE];
-			if (_lexer.getNext() && fVar(second))
+			if (_lexer.getNext() && fVar(second)) {
 				_interpreter.assignMatrix(buf, first, second,
 				    mo);
-			else
+				return true;
+			} else
 				return false;
 		}
 		_interpreter.assignMatrix(buf, first);
