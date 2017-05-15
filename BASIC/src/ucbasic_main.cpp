@@ -109,7 +109,7 @@ setup()
 #endif
 	SERIAL_PORT.begin(115200);
 #if USETVOUT
-	tvoutPrint.begin(PAL, TVOUT_HORIZ, TVOUT_VERT);
+	tvoutPrint.begin(PAL);
 #endif
 #if USEUTFT
 	utftPrint.begin();

@@ -132,6 +132,12 @@
                             perm="755"
                             owner="root"
                             group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
         </packFileList>
       </packaging>
       <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
@@ -534,7 +540,7 @@
           </incFile>
           <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -fno-threadsafe-statics -MMD -mmcu=atmega2560 -ffunction-sections -fdata-sections -flto -fno-rtti -mcall-prologues</commandLine>
           <preprocessorList>
-            <Elem>ARDUINO=10801</Elem>
+            <Elem>ARDUINO=10802</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_MEGA2560</Elem>
             <Elem>F_CPU=16000000L</Elem>
@@ -1382,9 +1388,9 @@
             <pElem>${ARDUINO_PATH}/libraries/TVoutfonts</pElem>
             <pElem>${ARDUINO_PATH}/libraries/UTFT</pElem>
             <pElem>${ARDUINO_PATH}/libraries/SD/src</pElem>
-            <pElem>${ARDUINO_PATH}/libraries/TVoutEx</pElem>
             <pElem>include</pElem>
             <pElem>../../libarduinoext/include</pElem>
+            <pElem>../../tvoutex/TVoutEx</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>
@@ -1404,6 +1410,18 @@
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/terminal-basic</output>
           <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../tvoutex/livbtvoutex"
+                            CT="3"
+                            CN="Arduino_MEGA2560"
+                            AC="true"
+                            BL="true"
+                            WD="../../tvoutex/livbtvoutex"
+                            BC="${MAKE}  -f Makefile CONF=Arduino_MEGA2560"
+                            CC="${MAKE}  -f Makefile CONF=Arduino_MEGA2560 clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblivbtvoutex.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../../libarduinoext"
                             CT="3"
