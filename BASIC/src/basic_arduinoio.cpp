@@ -79,7 +79,7 @@ ArduinoIO::func_aread_int(Interpreter &i)
 bool
 ArduinoIO::func_dread(Interpreter &i)
 {
-	Integer v;
+	INT v;
 	if (getIntegerFromStack(i, v)) {
 		pinMode(v, INPUT);
 		i.pushValue(bool(digitalRead(v)));
@@ -91,9 +91,9 @@ ArduinoIO::func_dread(Interpreter &i)
 bool
 ArduinoIO::comm_awrite(Interpreter &i)
 {
-	Integer v;
+	INT v;
 	if (getIntegerFromStack(i, v)) {
-		Integer v2;
+		INT v2;
 		if (getIntegerFromStack(i, v2)) {
 			pinMode(v2, OUTPUT);
 			analogWrite(v2, v);
@@ -110,7 +110,7 @@ ArduinoIO::comm_dwrite(Interpreter &i)
 	Parser::Value v(false);
 	i.popValue(v);
 	if (v.type == Parser::Value::BOOLEAN) {
-		Integer v2;
+		INT v2;
 		if (getIntegerFromStack(i, v2)) {
 			pinMode(v2, OUTPUT);
 			digitalWrite(v2, bool(v));
