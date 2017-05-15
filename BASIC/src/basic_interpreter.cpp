@@ -1234,7 +1234,7 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 			break;
 #if USE_LONGINT
 		case VF_LONG_INTEGER:
-			Matrix<Integer>::transpose(
+			Matrix<LongInteger>::transpose(
 			    reinterpret_cast<LongInteger*>(array->data()),
 			    array->dimension[0]+1, array->dimension[1]+1);
 			break;	
@@ -1300,6 +1300,10 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 		switch (arrayFirst->type) {
 		case VF_INTEGER:
 			eSize = sizeof (Integer); break;
+#if USE_LONGINT
+		case VF_LONG_INTEGER:
+			eSize = sizeof (LongInteger); break;
+#endif
 #if USE_REALS
 		case VF_REAL:
 			eSize = sizeof (Real); break;
@@ -1323,6 +1327,16 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 			    arraySecond->dimension[0]+1, arraySecond->dimension[1]+1,
 			    reinterpret_cast<Integer*>(tbuf));
 			break;
+#if USE_LONGINT
+		case VF_LONG_INTEGER:
+			Matrix<Real>::mul(
+			    reinterpret_cast<LongInteger*>(arrayFirst->data()),
+			    arrayFirst->dimension[0]+1, arrayFirst->dimension[1]+1,
+			    reinterpret_cast<LongInteger*>(arraySecond->data()),
+			    arraySecond->dimension[0]+1, arraySecond->dimension[1]+1,
+			    reinterpret_cast<LongInteger*>(tbuf));
+			break;
+#endif
 #if USE_REALS
 		case VF_REAL:
 			Matrix<Real>::mul(
@@ -1339,6 +1353,8 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 		setMatrixSize(*array, r-1, c-1);
 		memcpy(array->data(), tbuf, bufSize);
 	}
+		return;
+	case MO_INVERT:
 		return;
 	default:
 		return;
