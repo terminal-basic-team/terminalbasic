@@ -80,7 +80,6 @@ bool
 ArduinoIO::func_dread(Interpreter &i)
 {
 	INT v;
-	
 	if (getIntegerFromStack(i, v)) {
 		pinMode(v, INPUT);
 		i.pushValue(bool(digitalRead(v)));
