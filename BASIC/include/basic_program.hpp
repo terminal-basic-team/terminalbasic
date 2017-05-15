@@ -65,7 +65,9 @@ public:
 			// Value frame
 			VALUE,
 			// Input object frame
-			INPUT_OBJECT
+			INPUT_OBJECT,
+			// Result frame
+			RESULT
 		};
 
 		/**

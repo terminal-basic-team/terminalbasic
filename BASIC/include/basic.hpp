@@ -86,6 +86,9 @@ enum class Token : uint8_t
 #endif
 	KW_IF,         // 16
 	KW_INPUT,      // 17
+#if USE_MATRIX
+	KW_INV,
+#endif
 	KW_LET,        // 18
 	COM_LIST,      // 19
 #if USE_SAVE_LOAD

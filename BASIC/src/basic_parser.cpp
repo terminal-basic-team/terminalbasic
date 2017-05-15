@@ -1110,6 +1110,8 @@ Parser::fMatrixPrint()
 bool
 Parser::fMatrixExpression(const char *buf)
 {
+	Interpreter::MatrixOperation_t mo;
+	
 	switch (_lexer.getToken()) {
 	case Token::KW_ZER: // Zero matrix
 		_interpreter.zeroMatrix(buf);
@@ -1134,13 +1136,16 @@ Parser::fMatrixExpression(const char *buf)
 			return false;
 	}
 		break;
-	case Token::KW_TRN: {
+	case Token::KW_TRN:
+		mo = Interpreter::MO_TRANSPOSE;
+	case Token::KW_INV:
+		mo = Interpreter::MO_INVERT;
+	{
 		char first[VARSIZE];
 		if (_lexer.getNext() && _lexer.getToken() == Token::LPAREN &&
 		    _lexer.getNext() && fVar(first) &&
 		    _lexer.getNext() && _lexer.getToken() == Token::RPAREN) {
-			_interpreter.assignMatrix(buf, first, nullptr,
-			    Interpreter::MO_TRANSPOSE);
+			_interpreter.assignMatrix(buf, first, nullptr, mo);
 			return true;
 		} else
 			return false;
@@ -1153,7 +1158,6 @@ Parser::fMatrixExpression(const char *buf)
 	char first[VARSIZE];
 	if (fVar(first)) { // Matrix expression
 		if (_lexer.getNext()) {
-			Interpreter::MatrixOperation_t mo;
 			switch (_lexer.getToken()) {
 			case Token::PLUS:
 				mo = Interpreter::MO_SUM;

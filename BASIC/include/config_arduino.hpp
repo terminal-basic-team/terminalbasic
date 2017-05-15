@@ -24,16 +24,16 @@
 /**
  * Paraeters
  */
-#define USE_REALS            0 // Real arithmetics
-#define USE_STRINGOPS        0 // Basic string operations (concatenation and comparision)
+#define USE_REALS            1 // Real arithmetics
+#define USE_STRINGOPS        1 // Basic string operations (concatenation and comparision)
 #define USE_LONGINT          0 // Long integer support
-#define USE_DUMP             0 // DUMP command support
-#define USE_RANDOM           0 // USE RND and RANDOMIZE
-#define CLEAR_PROGRAM_MEMORY 0 // Clear program memory with 0xFF on NEW
-#define USE_MATRIX           0 // Matrix operations
-#define USE_TEXTATTRIBUTES   0 // Use vt100 text attributes
+#define USE_DUMP             1 // DUMP command support
+#define USE_RANDOM           1 // Use RND and RANDOMIZE
+#define CLEAR_PROGRAM_MEMORY 1 // Clear program memory with 0xFF on NEW
+#define USE_MATRIX           1 // Matrix operations
+#define USE_TEXTATTRIBUTES   1 // Use vt100 text attributes
 #if USE_TEXTATTRIBUTES
-#define USE_COLORATTRIBUTES  0 // Use vt100 color attributes
+#define USE_COLORATTRIBUTES  1 // Use vt100 color attributes
 #endif
 #define USE_EXTEEPROM        0 // External EEPROM functions module
 #if USE_EXTEEPROM
@@ -42,7 +42,7 @@
 
 #define USE_SAVE_LOAD        1 // SAVE, LOAD and CHAIN commands support
 #if USE_SAVE_LOAD
-#define SAVE_LOAD_CHECKSUM   0 // Compute checksums while SAVE, LOAD and CHAIN
+#define SAVE_LOAD_CHECKSUM   1 // Compute checksums while SAVE, LOAD and CHAIN
 #endif
 
 #define USE_GFX              0 // GFX module
@@ -51,14 +51,14 @@
  * Used modules
  */
 #define USESD                0 // SDcard module
-#define USEARDUINOIO         0 // Arduino IO module
+#define USEARDUINOIO         1 // Arduino IO module
 /*
  * Math module (requires USE_REALS)
  */
-#define USEMATH                 0
+#define USEMATH                 1
 #if USEMATH
-#define M_TRIGONOMETRIC         0 // SIN COS TAN COT
-#define M_REVERSE_TRIGONOMETRIC	0 // ACS ASN ATN
+#define M_TRIGONOMETRIC         1 // SIN COS TAN COT
+#define M_REVERSE_TRIGONOMETRIC	1 // ACS ASN ATN
 #endif
 
 #define OPT_SPEED     1
@@ -82,10 +82,10 @@
 #define TVOUT_O   4 // TVout output
 
 // Input select 
-#define S_INPUT SERIAL_I
+#define S_INPUT SERIALL_I
 
 // Output select
-#define S_OUTPUT SERIAL_O
+#define S_OUTPUT SERIALL_O
 
 #define USEUTFT		          0
 #define USETVOUT	          0
@@ -127,7 +127,7 @@ namespace BASIC
 {
 
 // Max size of the program line
-const uint8_t PROGSTRINGSIZE = 41;
+const uint8_t PROGSTRINGSIZE = 73;
 
 // Number of bytes for program text, variables and stack
 #if USE_EXTMEM
@@ -145,10 +145,10 @@ const uint16_t PROGRAMSIZE = 384;
 #endif // USE_EXTMEM
 
 // Max size of the string constants/variables
-const uint8_t STRINGSIZE = 33;
+const uint8_t STRINGSIZE = 65;
 
 // Number of characters in variable name
-const uint8_t VARSIZE = 3;
+const uint8_t VARSIZE = 5;
 
 }
 

@@ -118,6 +118,7 @@ Interpreter::Program::StackFrame::size(Type t)
 	case ARRAY_DIMENSIONS:
 		return (sizeof (Type) + sizeof (uint8_t));
 	case VALUE:
+	case RESULT:
 		return (sizeof (Type) + sizeof (Parser::Value));
 	case INPUT_OBJECT:
 		return (sizeof (Type) + sizeof (InputBody));
@@ -135,7 +136,7 @@ Interpreter::Program::StackFrame::size(Type t)
 		return (sizeof (Type) + sizeof (uint16_t));
 	else if (t == ARRAY_DIMENSIONS)
 		return (sizeof (Type) + sizeof (uint8_t));
-	else if (t == VALUE)
+	else if (t == VALUE || t == RESULT)
 		return (sizeof (Type) + sizeof (Parser::Value));
 	else if (t == INPUT_OBJECT)
 		return (sizeof (Type) + sizeof (InputBody));
@@ -268,7 +269,7 @@ Interpreter::Program::stackFrameByIndex(uint16_t index)
 	if ((index > 0) && (index < programSize))
 		return (reinterpret_cast<StackFrame*> (_text + index));
 	else
-		return (NULL);
+		return NULL;
 }
 
 Interpreter::Program::StackFrame*
@@ -277,7 +278,7 @@ Interpreter::Program::currentStackFrame()
 	if (_sp < programSize)
 		return (stackFrameByIndex(_sp));
 	else
-		return (NULL);
+		return NULL;
 }
 
 Interpreter::ArrayFrame*
@@ -323,6 +324,8 @@ Interpreter::Program::addLine(uint16_t num, const char *line)
 	uint8_t position = 0, lexerPosition = _lexer.getPointer();
 
 	while (_lexer.getNext()) {
+		if (position >= (PROGSTRINGSIZE-1))
+			return false;
 		uint8_t t = uint8_t(0x80) + uint8_t(_lexer.getToken());
 		if (_lexer.getToken() < Token::STAR) { // One byte tokens
 			tempBuffer[position++] = t;
@@ -340,12 +343,16 @@ Interpreter::Program::addLine(uint16_t num, const char *line)
 		} else if (_lexer.getToken() == Token::C_INTEGER) {
 			tempBuffer[position++] = t;
 #if USE_LONGINT
+			if ((position + 4) >= PROGSTRINGSIZE-1)
+				return false;
 			LongInteger v = LongInteger(_lexer.getValue());
 			tempBuffer[position++] = v >> 24;
 			tempBuffer[position++] = (v >> 16) & 0xFF;
 			tempBuffer[position++] = (v >> 8) & 0xFF;
 			tempBuffer[position++] = v & 0xFF;
 #else
+			if ((position + 2) >= PROGSTRINGSIZE-1)
+				return false;
 			Integer v = Integer(_lexer.getValue());
 			tempBuffer[position++] = (v >> 8) & 0xFF;
 			tempBuffer[position++] = v & 0xFF;
@@ -355,9 +362,11 @@ Interpreter::Program::addLine(uint16_t num, const char *line)
 			while (line[lexerPosition] == ' ' ||
 			    line[lexerPosition] == '\t')
 				++lexerPosition;
-			memcpy(tempBuffer + position, line + lexerPosition,
-			    _lexer.getPointer() - lexerPosition);
-			position += _lexer.getPointer() - lexerPosition;
+			const uint8_t siz = _lexer.getPointer() - lexerPosition;
+			if ((position + siz) >= PROGSTRINGSIZE-1)
+				return false;
+			memcpy(tempBuffer + position, line + lexerPosition, siz);
+			position += siz;
 			lexerPosition = _lexer.getPointer();
 		}
 	}
@@ -365,7 +374,7 @@ Interpreter::Program::addLine(uint16_t num, const char *line)
 	size = position;
 	line = tempBuffer;
 
-	return (addLine(num, line, size));
+	return addLine(num, line, size);
 }
 
 void
@@ -423,7 +432,7 @@ Interpreter::Program::addLine(uint16_t num, const char *text, uint16_t len)
 bool
 Interpreter::Program::insert(uint16_t num, const char *text, uint8_t len)
 {
-	assert(len < PROGSTRINGSIZE);
+	assert(len <= PROGSTRINGSIZE);
 	const uint8_t strLen = sizeof (String) + len;
 
 	if (_arraysEnd + strLen >= _sp)

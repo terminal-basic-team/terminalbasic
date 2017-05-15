@@ -538,7 +538,7 @@ Interpreter::pushReturnAddress(uint8_t textPosition)
 void
 Interpreter::returnFromSub()
 {
-	Program::StackFrame *f = _program.stackFrameByIndex(_program._sp);
+	Program::StackFrame *f = _program.currentStackFrame();
 	if ((f != NULL) && (f->_type == Program::StackFrame::SUBPROGRAM_RETURN)) {
 		_program.jump(f->body.gosubReturn.calleeIndex);
 		_program._textPosition = f->body.gosubReturn.textPosition;
@@ -591,7 +591,7 @@ Interpreter::pushInputObject(const char *varName)
 bool
 Interpreter::popValue(Parser::Value &v)
 {
-	Program::StackFrame *f = _program.stackFrameByIndex(_program._sp);
+	Program::StackFrame *f = _program.currentStackFrame();
 	if ((f != NULL) && (f->_type == Program::StackFrame::VALUE)) {
 		v = f->body.value;
 		_program.pop();
@@ -605,7 +605,7 @@ Interpreter::popValue(Parser::Value &v)
 bool
 Interpreter::popString(const char *&str)
 {
-	Program::StackFrame *f = _program.stackFrameByIndex(_program._sp);
+	Program::StackFrame *f = _program.currentStackFrame();
 	if ((f != NULL) && (f->_type == Program::StackFrame::STRING)) {
 		str = f->body.string;
 		_program.pop();
@@ -625,7 +625,7 @@ Interpreter::randomize()
 bool
 Interpreter::next(const char *varName)
 {
-	Program::StackFrame *f = _program.stackFrameByIndex(_program._sp);
+	Program::StackFrame *f = _program.currentStackFrame();
 	if ((f != NULL) && (f->_type == Program::StackFrame::FOR_NEXT) &&
 	    (strcmp(f->body.forFrame.varName, varName) == 0)) { // Correct frame
 		f->body.forFrame.currentValue += f->body.forFrame.stepValue;
@@ -1329,7 +1329,7 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 			break;
 #if USE_LONGINT
 		case VF_LONG_INTEGER:
-			Matrix<Real>::mul(
+			Matrix<LongInteger>::mul(
 			    reinterpret_cast<LongInteger*>(arrayFirst->data()),
 			    arrayFirst->dimension[0]+1, arrayFirst->dimension[1]+1,
 			    reinterpret_cast<LongInteger*>(arraySecond->data()),
@@ -1354,7 +1354,64 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 		memcpy(array->data(), tbuf, bufSize);
 	}
 		return;
-	case MO_INVERT:
+	case MO_INVERT: {
+		if (array->dimension[0] != array->dimension[1]) {
+			raiseError(DYNAMIC_ERROR, DIMENSIONS_MISMATCH);
+			return;
+		}
+		const uint16_t r = array->dimension[0]+1;
+		uint8_t eSize;
+		switch (arrayFirst->type) {
+		case VF_INTEGER:
+			eSize = sizeof (Integer); break;
+#if USE_LONGINT
+		case VF_LONG_INTEGER:
+			eSize = sizeof (LongInteger); break;
+#endif
+#if USE_REALS
+		case VF_REAL:
+			eSize = sizeof (Real); break;
+#endif
+		default:
+			return;
+		}
+		const uint16_t bufSize = (r+r+r*r)*eSize;
+		if (_program._arraysEnd+eSize >= _program._sp) {
+			raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
+			return;
+		}
+		uint8_t *tbuf = reinterpret_cast<uint8_t*>(_program._text+
+		    _program._arraysEnd);
+		bool res = false;
+		switch (array->type) {
+		case VF_INTEGER:
+			res = Matrix<Integer>::invert(
+			    reinterpret_cast<Integer*>(array->data()),
+			    r, reinterpret_cast<Integer*>(tbuf));
+			break;
+#if USE_LONGINT
+		case VF_LONG_INTEGER:
+			res = Matrix<LongInteger>::invert(
+			    reinterpret_cast<LongInteger*>(array->data()),
+			    r, reinterpret_cast<LongInteger*>(tbuf));
+			break;
+#endif
+#if USE_REALS
+		case VF_REAL:
+			res = Matrix<Real>::invert(
+			    reinterpret_cast<Real*>(array->data()),
+			    r, reinterpret_cast<Real*>(tbuf));
+			break;
+#endif
+		default:
+			break;
+		}
+		Program::StackFrame *f = _program.push(Program::StackFrame::RESULT);
+		if (f != nullptr)
+			f->body.value = res;
+		else
+			raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
+	}
 		return;
 	default:
 		return;

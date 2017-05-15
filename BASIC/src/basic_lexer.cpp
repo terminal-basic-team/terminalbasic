@@ -45,6 +45,7 @@
  * KW_IDN = "IDN"
  * KW_IF = "IF"         // 16
  * KW_INPUT = "INPUT"   // 17
+ * KW_INV = "INV"
  * KW_LET = "LET"       // 18
  * COM_LIST = "LIST"    // 19
  * COM_LOAD = "LOAD"    // 20
@@ -125,6 +126,9 @@ const char sIDN[] PROGMEM = "IDN";
 #endif
 const char sIF[] PROGMEM = "IF";              // 17
 const char sINPUT[] PROGMEM = "INPUT";        // 18
+#if USE_MATRIX
+const char sINV[] PROGMEM = "INV";	      // 18
+#endif
 const char sLET[] PROGMEM = "LET";            // 19
 const char sLIST[] PROGMEM = "LIST";          // 20
 #if USE_SAVE_LOAD
@@ -229,6 +233,9 @@ PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 #endif
 	sIF,        // 16
 	sINPUT,     // 17
+#if USE_MATRIX
+	sINV,
+#endif
 	sLET,       // 18
 	sLIST,      // 19
 #if USE_SAVE_LOAD
@@ -324,6 +331,9 @@ static const uint8_t tokenTable[] PROGMEM = {
 #endif
 	'I', 'F'+0x80,                     // 16
 	'I', 'N', 'P', 'U', 'T'+0x80,      // 17
+#if USE_MATRIX
+	'I', 'N', 'V'+0x80,
+#endif
 	'L', 'E', 'T'+0x80,                // 18
 	'L', 'I', 'S', 'T'+0x80,           // 19
 #if USE_SAVE_LOAD
