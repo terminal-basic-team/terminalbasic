@@ -436,9 +436,15 @@ Lexer::getNext()
 	_error = NO_ERROR;
 	_valuePointer = 0;
 	while (SYM > 0) {
-		if (isdigit(SYM)) {
+		if (SYM >= 0x80) {
+			_token = Token(SYM & 0x7F);
+			next();
+			if (_token == Token::C_INTEGER)
+				binaryInteger();
+			return true;
+		} else if (isdigit(SYM)) {
 			decimalNumber();
-			return (true);
+			return true;
 		} else if (isalpha(SYM)) {
 			uint8_t index;
 			uint8_t *pos = (uint8_t*)_string+_pointer;
@@ -446,7 +452,11 @@ Lexer::getNext()
 				_token = Token(index);
 				_pointer += uint8_t(pos - ((uint8_t*)_string+
 				    _pointer));
-				return (true);
+				return true;
+			} else {
+				pushSYM();
+				ident();
+				return true;
 			}
 		}
 		switch (SYM) {
@@ -520,16 +530,7 @@ Lexer::getNext()
 			next();
 			break;
 		default:
-			if (SYM >= 0x80) {
-				_token = Token(SYM & 0x7F);
-				next();
-				if (_token == Token::C_INTEGER)
-					binaryInteger();
-			} else if (isalpha(SYM)) {
-				pushSYM();
-				ident();
-			} else
-				next();
+			next();
 			return true;
 		}
 	}

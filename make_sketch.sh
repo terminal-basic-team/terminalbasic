@@ -15,7 +15,7 @@ SRC="./BASIC/include/basic.hpp ./BASIC/include/basic_lexer.hpp ./BASIC/src/basic
 ./BASIC/include/basic_gfx.hpp ./BASIC/src/basic_gfx.cpp \
 ./BASIC/src/basic_parser_value.cpp ./BASIC/src/basic_sdfs.cpp \
 ./UTFT/src/utft_stream.cpp ./UTFT/include/utft_stream.hpp \
-../libarduinoext/include/vt100.hpp \
+../libarduinoext/include/vt100.hpp ../libarduinoext/include/matrix.hpp ../libarduinoext/include/types.hpp \
 ../libarduinoext/include/arduino_logger.hpp ../libarduinoext/include/cps.hpp ../libarduinoext/include/helper.hpp \
 ../libarduinoext/include/math.hpp ../libarduinoext/include/bytearray.hpp ../libarduinoext/src/bytearray.cpp \
 ../libarduinoext/include/seriallight.hpp ../libarduinoext/src/seriallight.cpp \
@@ -40,4 +40,4 @@ do
 done
 
 cd ./sketch
-tar -czvf ./terminal-basic-${VER}-src.tar.gz ./terminal-basic-${VER} ../../tvoutex/TVoutEx
+tar -czvf ./terminal-basic-${VER}-src.tar.gz ./terminal-basic-${VER} ../../tvoutex/TVoutEx ../../libsdcard/SDCard
