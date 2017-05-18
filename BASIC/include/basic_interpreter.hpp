@@ -268,6 +268,7 @@ public:
 	void onesMatrix(const char*);
 	void identMatrix(const char*);
 	void printMatrix(const char*);
+	void matrixDet(const char*);
 	/**
 	 * @brief Assign matrix a result of matrix operation
 	 * @param name Name of the matrix to assign to
@@ -308,7 +309,7 @@ public:
 	// save for loop
 	void pushForLoop(const char*, uint8_t, const Parser::Value&,
 	    const Parser::Value&);
-	void pushValue(const Parser::Value&);
+	bool pushValue(const Parser::Value&);
 	void pushInputObject(const char*);
 	bool popValue(Parser::Value&);
 	bool popString(const char*&);
@@ -404,6 +405,8 @@ public:
 	{
 		_parser.stop();
 	}
+	
+	bool pushResult();
 
 	Program &_program;
 private:
@@ -468,6 +471,8 @@ private:
 	uint8_t			 _inputPosition;
 	// Input variable name string;
 	char			 _inputVarName[VARSIZE];
+	// Global RESULT() variable
+	Parser::Value		 _result;
 #if BASIC_MULTITERMINAL
 	static uint8_t		 _termnoGen;
 	uint8_t			 _termno;

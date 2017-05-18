@@ -100,12 +100,7 @@ InternalFunctions::func_chr(Interpreter &i)
 bool
 InternalFunctions::func_result(Interpreter &i)
 {
-	Interpreter::Program::StackFrame *f = i._program.currentStackFrame();
-	if (f != NULL && f->_type == Interpreter::Program::StackFrame::RESULT) {
-		f->_type = Interpreter::Program::StackFrame::VALUE;
-		return true;
-	} else
-		return false;
+	return i.pushResult();
 }
 
 #if USE_REALS

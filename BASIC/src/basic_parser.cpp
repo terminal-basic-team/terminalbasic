@@ -68,6 +68,7 @@
  * DIMENSIONS = C_INTEGER | C_INTEGER COMMA DIMENSIONS
  * MATRIX_OPERATION =
  *      PRINT MATRIX_PRINT |
+ *	DET VAR
  *      VAR EQUALS MATRIX_EXPRESSION
  */
 
@@ -1070,6 +1071,7 @@ Parser::fIdentifierExpr(const char *varName, Value &v)
 /*
  * MATRIX_OPERATION =
  *     PRINT MATRIX_PRINT |
+ *     DET VAR |
  *     VAR EQUALS MATRIX_EXPRESSION
  */
 bool
@@ -1089,6 +1091,12 @@ Parser::fMatrixOperation()
 			return false;
 	} else if (_lexer.getToken() == Token::KW_PRINT) {
 		if (_lexer.getNext() && fMatrixPrint()) {
+			_lexer.getNext();
+			return true;
+		}
+	} else if (_lexer.getToken() == Token::KW_DET) {
+		if (_lexer.getNext() && fVar(buf)) {
+			_interpreter.matrixDet(buf);
 			_lexer.getNext();
 			return true;
 		}

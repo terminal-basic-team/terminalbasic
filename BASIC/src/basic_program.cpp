@@ -118,7 +118,6 @@ Interpreter::Program::StackFrame::size(Type t)
 	case ARRAY_DIMENSIONS:
 		return (sizeof (Type) + sizeof (uint8_t));
 	case VALUE:
-	case RESULT:
 		return (sizeof (Type) + sizeof (Parser::Value));
 	case INPUT_OBJECT:
 		return (sizeof (Type) + sizeof (InputBody));
@@ -136,7 +135,7 @@ Interpreter::Program::StackFrame::size(Type t)
 		return (sizeof (Type) + sizeof (uint16_t));
 	else if (t == ARRAY_DIMENSIONS)
 		return (sizeof (Type) + sizeof (uint8_t));
-	else if (t == VALUE || t == RESULT)
+	else if (t == VALUE)
 		return (sizeof (Type) + sizeof (Parser::Value));
 	else if (t == INPUT_OBJECT)
 		return (sizeof (Type) + sizeof (InputBody));

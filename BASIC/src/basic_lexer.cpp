@@ -33,6 +33,7 @@
  * KW_CON = "CON"
  * KW_DATA = "DATA"     // 5
  * KW_DEF = "DEF"       // 6
+ * KW_DET = "DET"
  * COM_DELAY = "DELAY"  // 7
  * KW_DIM = "DIM"       // 8
  * COM_DUMP = "DUMP"    // 9
@@ -111,6 +112,9 @@ const char sCON[] PROGMEM = "CON";            // 5
 const char sDATA[] PROGMEM = "DATA";          // 6
 const char sDEF[] PROGMEM = "DEF";            // 7
 //const char sDELAY[] PROGMEM = "DELAY";        // 8
+#if USE_MATRIX
+const char sDET[] PROGMEM = "DET";            // 5
+#endif
 const char sDIM[] PROGMEM = "DIM";            // 9
 #if USE_DUMP
 const char sDUMP[] PROGMEM = "DUMP";          // 10
@@ -218,6 +222,9 @@ PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 	sDATA,      // 5
 	sDEF,       // 6
 //	sDELAY,     // 7
+#if USE_MATRIX
+	sDET,
+#endif
 	sDIM,       // 8
 #if USE_DUMP
 	sDUMP,      // 9
@@ -316,6 +323,9 @@ static const uint8_t tokenTable[] PROGMEM = {
 	'D', 'A', 'T', 'A'+0x80,           // 5
 	'D', 'E', 'F'+0x80,                // 6
 //	'D', 'E', 'L', 'A', 'Y'+0x80,      // 7
+#if USE_MATRIX
+	'D', 'E', 'T'+0x80,
+#endif
 	'D', 'I', 'M'+0x80,                // 8
 #if USE_DUMP
 	'D', 'U', 'M', 'P'+0x80,           // 9

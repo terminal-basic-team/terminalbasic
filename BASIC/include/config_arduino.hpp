@@ -85,7 +85,7 @@
 #define S_INPUT SERIALL_I
 
 // Output select
-#define S_OUTPUT TVOUT_O
+#define S_OUTPUT SERIALL_O
 
 #define USEUTFT		          0
 #define USETVOUT	          0
@@ -115,7 +115,7 @@
 #define BASIC_MULTITERMINAL       0
 
 // Use external memory
-#define USE_EXTMEM                1
+#define USE_EXTMEM                0
 #if USE_EXTMEM
 #define EXTMEM_ADDRESS 0x8000
 #define EXTMEM_SIZE    32768
@@ -133,7 +133,7 @@ const uint16_t PROGRAMSIZE = EXTMEM_SIZE;
 #elif defined (__AVR_ATmega1284__) || defined (__AVR_ATmega1284P__)
 const uint16_t PROGRAMSIZE = 14848;
 #elif defined (__AVR_ATmega2560__)
-const uint16_t PROGRAMSIZE = 4096;
+const uint16_t PROGRAMSIZE = 6144;
 #elif defined (__AVR_ATmega128__) || defined (__AVR_ATmega128A__)
 const uint16_t PROGRAMSIZE = 3072;
 #elif defined (__AVR_ATmega328__) || defined (__AVR_ATmega328P__)

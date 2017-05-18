@@ -566,15 +566,18 @@ Interpreter::pushForLoop(const char *varName, uint8_t textPosition,
 		raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
 }
 
-void
+bool
 Interpreter::pushValue(const Parser::Value &v)
 {
 	Program::StackFrame *f = _program.push(Program::StackFrame::
 	    VALUE);
-	if (f != NULL)
+	if (f != NULL) {
 		f->body.value = v;
-	else
+		return true;
+	} else {
 		raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
+		return false;
+	}
 }
 
 void
@@ -1147,6 +1150,34 @@ Interpreter::printMatrix(const char *name)
 }
 
 void
+Interpreter::matrixDet(const char *name)
+{
+	ArrayFrame *array = _program.arrayByName(name);
+	if (array == nullptr)
+		raiseError(DYNAMIC_ERROR, NO_SUCH_ARRAY);
+	else if (array->numDimensions != 2)
+		raiseError(DYNAMIC_ERROR, DIMENSIONS_MISMATCH);
+	else if (array->dimension[0] != array->dimension[1])
+		raiseError(DYNAMIC_ERROR, SQUARE_MATRIX_EXPECTED);
+	else {
+		switch (array->type) {
+		case VF_INTEGER:
+			_result = Integer(0); break;
+#if USE_LONGINT
+		case VF_LONG_INTEGER:
+			_result = LongInteger(0); break;
+#endif
+#if USE_REALS
+		case VF_REAL:
+			_result = Real(0); break;
+#endif
+		default:
+			_result = false;
+		}
+	}
+}
+
+void
 Interpreter::setMatrixSize(ArrayFrame &array, uint16_t rows, uint16_t columns)
 {
 	const uint16_t oldSize = array.size();
@@ -1406,11 +1437,7 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 		default:
 			break;
 		}
-		Program::StackFrame *f = _program.push(Program::StackFrame::RESULT);
-		if (f != nullptr)
-			f->body.value = res;
-		else
-			raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
+		_result = res;
 	}
 		return;
 	default:
@@ -1419,6 +1446,12 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 }
 
 #endif // USE_MATRIX
+
+bool
+Interpreter::pushResult()
+{
+	return pushValue(_result);
+}
 
 void
 Interpreter::print(Token t)
