@@ -112,9 +112,9 @@ public:
 			{
 				const char *b;
 				const T *i;
-			} _U;
-			_U.b = bytes;
-			return *_U.i;
+			} U;
+			U.b = bytes;
+			return *U.i;
 		}
 
 		// Variable name
@@ -171,8 +171,8 @@ public:
 			{
 				const uint8_t *b;
 				const T *i;
-			} _U = { .b = this->data() };
-			return _U.i[index];
+			} U = { .b = this->data() };
+			return U.i[index];
 		}
 		
 		bool get(uint16_t, Parser::Value&) const;
@@ -185,8 +185,8 @@ public:
 			{
 				uint8_t *b;
 				T *i;
-			} _U = { .b = this->data() };
-			_U.i[index] = val;
+			} U = { .b = this->data() };
+			U.i[index] = val;
 		}
 
 		// Array data

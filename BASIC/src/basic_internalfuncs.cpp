@@ -177,7 +177,7 @@ InternalFunctions::func_tim(Interpreter &i)
 #else
 #define TYP Integer
 #endif
-	i.pushValue(TYP(millis()) / TYP(1000));
+	i.pushValue(TYP(TYP(millis()) / TYP(1000)));
 	return true;
 }
 

@@ -30,7 +30,7 @@
 #define USE_DUMP             1 // DUMP command support
 #define USE_RANDOM           1 // Use RND and RANDOMIZE
 #define CLEAR_PROGRAM_MEMORY 1 // Clear program memory with 0xFF on NEW
-#define USE_MATRIX           1 // Matrix operations
+#define USE_MATRIX           0 // Matrix operations
 #define USE_TEXTATTRIBUTES   1 // Use vt100 text attributes
 #if USE_TEXTATTRIBUTES
 #define USE_COLORATTRIBUTES  1 // Use vt100 color attributes
@@ -40,9 +40,9 @@
 #define EXTEEPROM_SIZE    32768 // Size in bytes
 #endif
 
-#define USE_SAVE_LOAD        1 // SAVE, LOAD and CHAIN commands support
+#define USE_SAVE_LOAD        0 // SAVE, LOAD and CHAIN commands support
 #if USE_SAVE_LOAD
-#define SAVE_LOAD_CHECKSUM   1 // Compute checksums while SAVE, LOAD and CHAIN
+#define SAVE_LOAD_CHECKSUM   0 // Compute checksums while SAVE, LOAD and CHAIN
 #endif
 
 #define USE_GFX              0 // GFX module
@@ -51,7 +51,7 @@
  * Used modules
  */
 #define USESD                0 // SDcard module
-#define USEARDUINOIO         1 // Arduino IO module
+#define USEARDUINOIO         0 // Arduino IO module
 /*
  * Math module (requires USE_REALS)
  */
@@ -82,10 +82,10 @@
 #define TVOUT_O   4 // TVout output
 
 // Input select 
-#define S_INPUT SERIALL_I
+#define S_INPUT SERIAL_I
 
 // Output select
-#define S_OUTPUT SERIALL_O
+#define S_OUTPUT SERIAL_O
 
 #define USEUTFT		          0
 #define USETVOUT	          0
@@ -140,6 +140,8 @@ const uint16_t PROGRAMSIZE = 3072;
 const uint16_t PROGRAMSIZE = 1024;
 #elif defined (__AVR_ATmega168__) || defined (__AVR_ATmega168P__)
 const uint16_t PROGRAMSIZE = 384;
+#else
+const uint16_t PROGRAMSIZE = 1024;
 #endif // USE_EXTMEM
 
 // Max size of the string constants/variables

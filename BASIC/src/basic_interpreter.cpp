@@ -880,9 +880,9 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 		{
 			char *b;
 			bool *i;
-		} _U;
-		_U.b = f.bytes;
-		*_U.i = bool(v);
+		} U;
+		U.b = f.bytes;
+		*U.i = bool(v);
 	}
 		break;
 	case VF_INTEGER:
@@ -892,9 +892,9 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 		{
 			char *b;
 			Integer *i;
-		} _U;
-		_U.b = f.bytes;
-		*_U.i = Integer(v);
+		} U;
+		U.b = f.bytes;
+		*U.i = Integer(v);
 	}
 		break;
 #if USE_LONGINT
@@ -905,9 +905,9 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 		{
 			char *b;
 			LongInteger *i;
-		} _U;
-		_U.b = f.bytes;
-		*_U.i = LongInteger(v);
+		} U;
+		U.b = f.bytes;
+		*U.i = LongInteger(v);
 	}
 		break;
 #endif
@@ -919,9 +919,9 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 		{
 			char *b;
 			Real *r;
-		} _U;
-		_U.b = f.bytes;
-		*_U.r = Real(v);
+		} U;
+		U.b = f.bytes;
+		*U.r = Real(v);
 	}
 		break;
 #endif
@@ -952,9 +952,9 @@ Interpreter::set(ArrayFrame &f, uint16_t index, const Parser::Value &v)
 		{
 			uint8_t *b;
 			bool *i;
-		} _U;
-		_U.b = f.data();
-		_U.i[index] = bool(v);
+		} U;
+		U.b = f.data();
+		U.i[index] = bool(v);
 	}
 		break;
 	case VF_INTEGER:
@@ -964,9 +964,9 @@ Interpreter::set(ArrayFrame &f, uint16_t index, const Parser::Value &v)
 		{
 			uint8_t *b;
 			Integer *i;
-		} _U;
-		_U.b = f.data();
-		_U.i[index] = Integer(v);
+		} U;
+		U.b = f.data();
+		U.i[index] = Integer(v);
 	}
 		break;
 #if USE_LONGINT
@@ -977,9 +977,9 @@ Interpreter::set(ArrayFrame &f, uint16_t index, const Parser::Value &v)
 		{
 			uint8_t *b;
 			LongInteger *i;
-		} _U;
-		_U.b = f.data();
-		_U.i[index] = LongInteger(v);
+		} U;
+		U.b = f.data();
+		U.i[index] = LongInteger(v);
 	}
 		break;
 #endif
