@@ -991,9 +991,9 @@ Interpreter::set(ArrayFrame &f, uint16_t index, const Parser::Value &v)
 		{
 			uint8_t *b;
 			Real *r;
-		} _U;
-		_U.b = f.data();
-		_U.r[index] = Real(v);
+		} U;
+		U.b = f.data();
+		U.r[index] = Real(v);
 	}
 		break;
 #endif

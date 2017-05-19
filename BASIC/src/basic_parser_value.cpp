@@ -469,7 +469,7 @@ Parser::Value::printTo(Print& p) const
 	case REAL:
 	{
 		char buf[15];
-#ifdef ARDUINO
+#ifdef __AVR_ARCH__
 		uint8_t decWhole = 1;
 		Real n = math<Real>::abs(value.real);
 		while (n >= Real(10)) {
