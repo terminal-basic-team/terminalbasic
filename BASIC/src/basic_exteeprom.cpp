@@ -18,16 +18,23 @@
 
 #include "basic.hpp"
 #include "basic_exteeprom.hpp"
+#include "basic_interpreter.hpp"
+#include "basic_program.hpp"
 
 #if USE_EXTEEPROM
+
+#include <i2ceeprom.hpp>
+#include <seriallight.hpp>
 
 namespace BASIC
 {
 
+static AT28C256 i2c_eeprom(0x50);
+
 static const uint8_t extEEPROMCommandTokens[] PROGMEM = {
-	'E', 'C', 'H', 'A', 'I', 'N'+0x80,
-	'E', 'L', 'O', 'A', 'D'+0x80,
-	'E', 'S', 'A', 'V', 'E'+0x80,
+	'E', 'C', 'H', 'A', 'I', 'N' + 0x80,
+	'E', 'L', 'O', 'A', 'D' + 0x80,
+	'E', 'S', 'A', 'V', 'E' + 0x80,
 	0
 };
 
@@ -44,10 +51,8 @@ ExtEEPROM::ExtEEPROM()
 }
 
 void
-ExtEEPROM::_init()
-{
-	
-}
+ExtEEPROM::_init() {
+ }
 
 bool
 ExtEEPROM::com_echain(Interpreter &i)
@@ -64,7 +69,24 @@ ExtEEPROM::com_eload(Interpreter &i)
 bool
 ExtEEPROM::com_esave(Interpreter &i)
 {
+	SerialL.println(__PRETTY_FUNCTION__);
+	INT zoneNumber;
+	if (!getIntegerFromStack(i, zoneNumber)) return false;
+
+	SerialL.println("Correct zone");
 	return true;
+	const uint16_t zoneAddr = zoneNumber*PROGRAMSIZE;
+	if (zoneAddr+PROGRAMSIZE > AT28C256::size)
+		return false;
+	SerialL.print("Correct zone address ");
+	SerialL.println(zoneAddr, DEC);
+	// Write program to EEPROM
+	for (uint16_t p = 0; p < PROGRAMSIZE; ++p) {
+		if (!i2c_eeprom.writeByte(zoneAddr+p, i._program._text[p]))
+			return false;
+		else
+			i.print('.');
+	}
 }
 
 }
