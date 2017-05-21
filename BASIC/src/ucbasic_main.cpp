@@ -107,7 +107,7 @@ setup()
 #if USE_EXTEEPROM
 	Wire.begin();
 	Wire.setClock(400000);
-#endif	
+#endif
 #if USE_EXTMEM
 	XMCRA |= 1ul<<7; // Switch ext mem iface on
 	XMCRB = 0;
@@ -132,7 +132,7 @@ setup()
 #endif
 #endif
 
-	LOG_INIT(SerialL);
+	LOG_INIT(SERIAL_PORT);
 
 	LOG_TRACE;
 

@@ -18,10 +18,11 @@
 
 #include "basic.hpp"
 #include "basic_exteeprom.hpp"
-#include "basic_interpreter.hpp"
-#include "basic_program.hpp"
 
 #if USE_EXTEEPROM
+
+#include "basic_interpreter.hpp"
+#include "basic_program.hpp"
 
 #include <i2ceeprom.hpp>
 #include <seriallight.hpp>
@@ -44,6 +45,14 @@ const FunctionBlock::function ExtEEPROM::_commands[] PROGMEM = {
 	ExtEEPROM::com_esave
 };
 
+class ZoneInfo
+{
+	uint16_t crc_16;
+	uint16_t text_end;
+	uint16_t vars_end;
+	uint16_t arrays_end;
+};
+
 ExtEEPROM::ExtEEPROM()
 {
 	commands = _commands;
@@ -51,8 +60,9 @@ ExtEEPROM::ExtEEPROM()
 }
 
 void
-ExtEEPROM::_init() {
- }
+ExtEEPROM::_init()
+{
+}
 
 bool
 ExtEEPROM::com_echain(Interpreter &i)
@@ -63,30 +73,50 @@ ExtEEPROM::com_echain(Interpreter &i)
 bool
 ExtEEPROM::com_eload(Interpreter &i)
 {
+	INT zoneNumber;
+	if (!getIntegerFromStack(i, zoneNumber))
+            return false;
+
+	const uint16_t zoneAddr = zoneNumber*PROGRAMSIZE;
+	if (zoneAddr+PROGRAMSIZE > AT28C256::size)
+		return false;
+	// Read program from EEPROM
+	i.newProgram();
+	for (uint16_t p = 0; p < PROGRAMSIZE; ++p) {
+		delay(5);
+		if (!i2c_eeprom.readByte(zoneAddr+p, reinterpret_cast<uint8_t&>(
+		    i._program._text[p])))
+			return false;
+		else {
+			//i.print('.');
+			i.print(Integer(i._program._text[p]));
+			i.print(' ');
+		}
+	}
+	i.newline();
 	return true;
 }
 
 bool
 ExtEEPROM::com_esave(Interpreter &i)
 {
-	SerialL.println(__PRETTY_FUNCTION__);
 	INT zoneNumber;
-	if (!getIntegerFromStack(i, zoneNumber)) return false;
+	if (!getIntegerFromStack(i, zoneNumber))
+            return false;
 
-	SerialL.println("Correct zone");
-	return true;
 	const uint16_t zoneAddr = zoneNumber*PROGRAMSIZE;
 	if (zoneAddr+PROGRAMSIZE > AT28C256::size)
 		return false;
-	SerialL.print("Correct zone address ");
-	SerialL.println(zoneAddr, DEC);
 	// Write program to EEPROM
 	for (uint16_t p = 0; p < PROGRAMSIZE; ++p) {
+		delay(5);
 		if (!i2c_eeprom.writeByte(zoneAddr+p, i._program._text[p]))
 			return false;
 		else
 			i.print('.');
 	}
+	i.newline();
+	return true;
 }
 
 }
