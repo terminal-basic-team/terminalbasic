@@ -102,23 +102,23 @@ Interpreter::valueFromVar(Parser::Value &v, const char *varName)
 	if (f == NULL)
 		return;
 	switch (f->type) {
-	case VF_INTEGER:
+	case Parser::Value::INTEGER:
 		v = f->get<Integer>();
 		break;
 #if USE_LONGINT
-	case VF_LONG_INTEGER:
+	case Parser::Value::LONG_INTEGER:
 		v = f->get<LongInteger>();
 		break;
 #endif
 #if USE_REALS
-	case VF_REAL:
+	case Parser::Value::REAL:
 		v = f->get<Real>();
 		break;
 #endif
-	case VF_BOOLEAN:
+	case Parser::Value::BOOLEAN:
 		v = f->get<bool>();
 		break;
-	case VF_STRING:
+	case Parser::Value::STRING:
 	{
 		v.type = Parser::Value::STRING;
 		Program::StackFrame *fr =
@@ -148,24 +148,21 @@ Interpreter::valueFromArray(Parser::Value &v, const char *name)
 		return false;
 	}
 
+	v.type = f->type;
 	switch (f->type) {
-	case VF_BOOLEAN:
-		v.type = Parser::Value::BOOLEAN;
+	case Parser::Value::BOOLEAN:
 		v.value.boolean = f->get<bool>(index);
 		break;
-	case VF_INTEGER:
-		v.type = Parser::Value::INTEGER;
+	case Parser::Value::INTEGER:
 		v.value.integer = f->get<Integer>(index);
 		break;
 #if USE_LONGINT
-	case VF_LONG_INTEGER:
-		v.type = Parser::Value::LONG_INTEGER;
+	case Parser::Value::LONG_INTEGER:
 		v.value.longInteger = f->get<LongInteger>(index);
 		break;
 #endif
 #if USE_REALS
-	case VF_REAL:
-		v.type = Parser::Value::REAL;
+	case Parser::Value::REAL:
 		v.value.real = f->get<Real>(index);
 		break;
 #endif
@@ -873,9 +870,8 @@ void
 Interpreter::set(VariableFrame &f, const Parser::Value &v)
 {
 	switch (f.type) {
-	case VF_BOOLEAN:
+	case Parser::Value::BOOLEAN:
 	{
-
 		union
 		{
 			char *b;
@@ -885,9 +881,8 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 		*U.i = bool(v);
 	}
 		break;
-	case VF_INTEGER:
+	case Parser::Value::INTEGER:
 	{
-
 		union
 		{
 			char *b;
@@ -898,7 +893,7 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 	}
 		break;
 #if USE_LONGINT
-	case VF_LONG_INTEGER:
+	case Parser::Value::LONG_INTEGER:
 	{
 
 		union
@@ -912,9 +907,8 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 		break;
 #endif
 #if USE_REALS
-	case VF_REAL:
+	case Parser::Value::REAL:
 	{
-
 		union
 		{
 			char *b;
@@ -925,7 +919,7 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 	}
 		break;
 #endif
-	case VF_STRING:
+	case Parser::Value::STRING:
 	{
 		Program::StackFrame *fr = _program.currentStackFrame();
 		if (fr == NULL || fr->_type != Program::StackFrame::STRING) {
@@ -946,7 +940,7 @@ void
 Interpreter::set(ArrayFrame &f, uint16_t index, const Parser::Value &v)
 {
 	switch (f.type) {
-	case VF_BOOLEAN:
+	case Parser::Value::BOOLEAN:
 	{
 		union
 		{
@@ -957,9 +951,8 @@ Interpreter::set(ArrayFrame &f, uint16_t index, const Parser::Value &v)
 		U.i[index] = bool(v);
 	}
 		break;
-	case VF_INTEGER:
+	case Parser::Value::INTEGER:
 	{
-
 		union
 		{
 			uint8_t *b;
@@ -970,9 +963,8 @@ Interpreter::set(ArrayFrame &f, uint16_t index, const Parser::Value &v)
 	}
 		break;
 #if USE_LONGINT
-	case VF_LONG_INTEGER:
+	case Parser::Value::LONG_INTEGER:
 	{
-
 		union
 		{
 			uint8_t *b;
@@ -984,9 +976,8 @@ Interpreter::set(ArrayFrame &f, uint16_t index, const Parser::Value &v)
 		break;
 #endif
 #if USE_REALS
-	case VF_REAL:
+	case Parser::Value::REAL:
 	{
-
 		union
 		{
 			uint8_t *b;
@@ -1160,16 +1151,44 @@ Interpreter::matrixDet(const char *name)
 	else if (array->dimension[0] != array->dimension[1])
 		raiseError(DYNAMIC_ERROR, SQUARE_MATRIX_EXPECTED);
 	else {
+		const uint8_t eSize = Parser::Value::size(array->type);
+		if (eSize == 0)
+			return;
+		const uint16_t bufSize = (array->dimension[0]+1)*
+		    (array->dimension[0]+1)*eSize;
+		if (_program._arraysEnd+bufSize >= _program._sp) {
+			raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
+			return;
+		}
+		uint8_t *tbuf = reinterpret_cast<uint8_t*>(_program._text+
+		    _program._arraysEnd);
+		_result.type = array->type;
 		switch (array->type) {
-		case VF_INTEGER:
-			_result = Integer(0); break;
+		case Parser::Value::INTEGER: {
+			Integer r;
+			if (!Matrix<Integer>::determinant(
+			    reinterpret_cast<const Integer*>(array->data()),
+			    array->dimension[0]+1, r,
+			    reinterpret_cast<Integer*>(tbuf)))
+				_result = false;
+			_result.value.integer = r;
+		}
+		break;
 #if USE_LONGINT
-		case VF_LONG_INTEGER:
+		case Parser::Value::LONG_INTEGER:
 			_result = LongInteger(0); break;
 #endif
 #if USE_REALS
-		case VF_REAL:
-			_result = Real(0); break;
+		case Parser::Value::REAL: {
+			Real r;
+			if (!Matrix<Real>::determinant(
+			    reinterpret_cast<const Real*>(array->data()),
+			    array->dimension[0]+1, r,
+			    reinterpret_cast<Real*>(tbuf)))
+				_result = false;
+			_result.value.real = r;
+		}
+		break;
 #endif
 		default:
 			_result = false;
@@ -1211,6 +1230,10 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 		raiseError(DYNAMIC_ERROR, NO_SUCH_ARRAY);
 		return;
 	}
+	
+	const uint8_t eSize = Parser::Value::size(arrayFirst->type);
+	if (eSize == 0)
+		return;
 	
 	// If first right side operand is not the target mat, resize
 	// target according to source and copy it's data
@@ -1258,20 +1281,20 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 		const uint16_t s = arrayFirst->dimension[0] *
 		     arrayFirst->dimension[1];
 		switch (array->type) {
-		case VF_INTEGER:
+		case Parser::Value::INTEGER:
 			Matrix<Integer>::transpose(
 			    reinterpret_cast<Integer*>(array->data()),
 			    array->dimension[0]+1, array->dimension[1]+1);
 			break;
 #if USE_LONGINT
-		case VF_LONG_INTEGER:
+		case Parser::Value::LONG_INTEGER:
 			Matrix<LongInteger>::transpose(
 			    reinterpret_cast<LongInteger*>(array->data()),
 			    array->dimension[0]+1, array->dimension[1]+1);
 			break;	
 #endif
 #if USE_REALS
-		case VF_REAL:
+		case Parser::Value::REAL:
 			Matrix<Real>::transpose(
 			    reinterpret_cast<Real*>(array->data()),
 			    array->dimension[0]+1, array->dimension[1]+1);
@@ -1327,30 +1350,16 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 		}
 		const uint16_t r = arrayFirst->dimension[0]+1;
 		const uint16_t c = arraySecond->dimension[1]+1;
-		uint8_t eSize;
-		switch (arrayFirst->type) {
-		case VF_INTEGER:
-			eSize = sizeof (Integer); break;
-#if USE_LONGINT
-		case VF_LONG_INTEGER:
-			eSize = sizeof (LongInteger); break;
-#endif
-#if USE_REALS
-		case VF_REAL:
-			eSize = sizeof (Real); break;
-#endif
-		default:
-			return;
-		}
+		
 		const uint16_t bufSize = r*c*eSize;
-		if (_program._arraysEnd+eSize >= _program._sp) {
+		if (_program._arraysEnd+bufSize >= _program._sp) {
 			raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
 			return;
 		}
 		uint8_t *tbuf = reinterpret_cast<uint8_t*>(_program._text+
 		    _program._arraysEnd);
 		switch (arrayFirst->type) {
-		case VF_INTEGER:
+		case Parser::Value::INTEGER:
 			Matrix<Integer>::mul(
 			    reinterpret_cast<Integer*>(arrayFirst->data()),
 			    arrayFirst->dimension[0]+1, arrayFirst->dimension[1]+1,
@@ -1359,7 +1368,7 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 			    reinterpret_cast<Integer*>(tbuf));
 			break;
 #if USE_LONGINT
-		case VF_LONG_INTEGER:
+		case Parser::Value::LONG_INTEGER:
 			Matrix<LongInteger>::mul(
 			    reinterpret_cast<LongInteger*>(arrayFirst->data()),
 			    arrayFirst->dimension[0]+1, arrayFirst->dimension[1]+1,
@@ -1369,7 +1378,7 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 			break;
 #endif
 #if USE_REALS
-		case VF_REAL:
+		case Parser::Value::REAL:
 			Matrix<Real>::mul(
 			    reinterpret_cast<Real*>(arrayFirst->data()),
 			    arrayFirst->dimension[0]+1, arrayFirst->dimension[1]+1,
@@ -1391,23 +1400,8 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 			return;
 		}
 		const uint16_t r = array->dimension[0]+1;
-		uint8_t eSize;
-		switch (arrayFirst->type) {
-		case VF_INTEGER:
-			eSize = sizeof (Integer); break;
-#if USE_LONGINT
-		case VF_LONG_INTEGER:
-			eSize = sizeof (LongInteger); break;
-#endif
-#if USE_REALS
-		case VF_REAL:
-			eSize = sizeof (Real); break;
-#endif
-		default:
-			return;
-		}
 		const uint16_t bufSize = (r+r+r*r)*eSize;
-		if (_program._arraysEnd+eSize >= _program._sp) {
+		if (_program._arraysEnd+bufSize >= _program._sp) {
 			raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
 			return;
 		}
@@ -1415,20 +1409,20 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 		    _program._arraysEnd);
 		bool res = false;
 		switch (array->type) {
-		case VF_INTEGER:
+		case Parser::Value::INTEGER:
 			res = Matrix<Integer>::invert(
 			    reinterpret_cast<Integer*>(array->data()),
 			    r, reinterpret_cast<Integer*>(tbuf));
 			break;
 #if USE_LONGINT
-		case VF_LONG_INTEGER:
+		case Parser::Value::LONG_INTEGER:
 			res = Matrix<LongInteger>::invert(
 			    reinterpret_cast<LongInteger*>(array->data()),
 			    r, reinterpret_cast<LongInteger*>(tbuf));
 			break;
 #endif
 #if USE_REALS
-		case VF_REAL:
+		case Parser::Value::REAL:
 			res = Matrix<Real>::invert(
 			    reinterpret_cast<Real*>(array->data()),
 			    r, reinterpret_cast<Real*>(tbuf));
@@ -1574,28 +1568,28 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 		f = reinterpret_cast<VariableFrame*> (_program._text + index);
 
 	uint16_t dist = sizeof(VariableFrame);
-	Type t;
+	Parser::Value::Type t;
 #if USE_LONGINT
 	if (endsWith(name, "%%")) {
-		t = VF_LONG_INTEGER;
+		t = Parser::Value::LONG_INTEGER;
 		dist += sizeof(LongInteger);
 	} else
 #endif
 		if (endsWith(name, '%')) {
-		t = VF_INTEGER;
+		t = Parser::Value::INTEGER;
 		dist += sizeof(Integer);
 	} else if (endsWith(name, '!')) {
-		t = VF_BOOLEAN;
+		t = Parser::Value::BOOLEAN;
 		dist += sizeof(bool);
 	} else if (endsWith(name, '$')) {
-		t = VF_STRING;
+		t = Parser::Value::STRING;
 		dist += STRINGSIZE;
 	} else {
 #if USE_REALS
-		t = VF_REAL;
+		t = Parser::Value::REAL;
 		dist += sizeof(Real);
 #else
-		t = VF_INTEGER;
+		t = Parser::Value::INTEGER;
 		dist += sizeof(Integer);
 #endif
 	}
@@ -1630,7 +1624,6 @@ Interpreter::setArrayElement(const char *name, const Parser::Value &v)
 	}
 
 	set(*f, index, v);
-	//f->set(index, v);
 }
 
 void
@@ -1801,20 +1794,20 @@ Interpreter::ArrayFrame::dataSize() const
 	uint16_t mul = numElements();
 
 	switch (type) {
-	case VF_INTEGER:
+	case Parser::Value::INTEGER:
 		mul *= sizeof (Integer);
 		break;
 #if USE_LONGINT
-	case VF_LONG_INTEGER:
+	case Parser::Value::LONG_INTEGER:
 		mul *= sizeof (LongInteger);
 		break;
 #endif
 #if USE_REALS
-	case VF_REAL:
+	case Parser::Value::REAL:
 		mul *= sizeof (Real);
 		break;
 #endif
-	case VF_BOOLEAN:
+	case Parser::Value::BOOLEAN:
 		mul *= sizeof (bool);
 		break;
 	default:
@@ -1828,22 +1821,21 @@ Interpreter::ArrayFrame::get(uint16_t index, Parser::Value& v) const
 {
 	assert(index < numElements());
 	if (index < numElements()) {
-		switch (type)
-		{
-		case VF_INTEGER:
+		switch (type) {
+		case Parser::Value::INTEGER:
 			v = get<Integer>(index);
 			return true;
 #if USE_LONGINT
-		case VF_LONG_INTEGER:
+		case Parser::Value::LONG_INTEGER:
 			v = get<LongInteger>(index);
 			return true;
 #endif
 #if USE_REALS
-		case VF_REAL:
+		case Parser::Value::REAL:
 			v = get<Real>(index);
 			return true;
 #endif
-		case VF_BOOLEAN:
+		case Parser::Value::BOOLEAN:
 			v = get<bool>(index);
 			return true;
 		}
@@ -1856,22 +1848,21 @@ Interpreter::ArrayFrame::set(uint16_t index, const Parser::Value &v)
 {
 	assert(index < numElements());
 	if (index < numElements()) {
-		switch (type)
-		{
-		case VF_INTEGER:
+		switch (type) {
+		case Parser::Value::INTEGER:
 			set(index, Integer(v));
 			return true;
 #if USE_LONGINT
-		case VF_LONG_INTEGER:
+		case Parser::Value::LONG_INTEGER:
 			set(index, LongInteger(v));
 			return true;
 #endif
 #if USE_REALS
-		case VF_REAL:
+		case Parser::Value::REAL:
 			set(index, Real(v));
 			return true;
 #endif
-		case VF_BOOLEAN:
+		case Parser::Value::BOOLEAN:
 			set(index, bool(v));
 			return true;
 		}
@@ -1911,25 +1902,25 @@ Interpreter::addArray(const char *name, uint8_t dim,
 	if (f == NULL)
 		f = reinterpret_cast<ArrayFrame*> (_program._text + index);
 
-	Type t;
+	Parser::Value::Type t;
 #if USE_LONGINT
 	if (endsWith(name, "%%")) {
-		t = VF_LONG_INTEGER;
+		t = Parser::Value::LONG_INTEGER;
 		num *= sizeof (LongInteger);
 	} else
 #endif
 		if (endsWith(name, '%')) {
-		t = VF_INTEGER;
+		t = Parser::Value::INTEGER;
 		num *= sizeof (Integer);
 	} else if (endsWith(name, '!')) {
-		t = VF_BOOLEAN;
+		t = Parser::Value::BOOLEAN;
 		num *= sizeof (bool);
 	} else { // real
 #if USE_REALS
-		t = VF_REAL;
+		t = Parser::Value::REAL;
 		num *= sizeof (Real);
 #else  // Integer
-		t = VF_INTEGER;
+		t = Parser::Value::INTEGER;
 		num *= sizeof (Integer);
 #endif
 	}

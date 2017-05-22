@@ -95,6 +95,8 @@ public:
 	void switchSign();
 	void notOp();
 	
+	static size_t size(Type);
+	
 	Type type;
 	Body value;
 private:

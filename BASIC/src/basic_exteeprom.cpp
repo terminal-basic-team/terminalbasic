@@ -30,7 +30,7 @@
 namespace BASIC
 {
 
-static AT28C256 i2c_eeprom(0x50);
+static AT28C256C i2c_eeprom(0x50);
 
 static const uint8_t extEEPROMCommandTokens[] PROGMEM = {
 	'E', 'C', 'H', 'A', 'I', 'N' + 0x80,
@@ -78,7 +78,7 @@ ExtEEPROM::com_eload(Interpreter &i)
             return false;
 
 	const uint16_t zoneAddr = zoneNumber*PROGRAMSIZE;
-	if (zoneAddr+PROGRAMSIZE > AT28C256::size)
+	if (zoneAddr+PROGRAMSIZE > AT28C256C::size)
 		return false;
 	// Read program from EEPROM
 	i.newProgram();
@@ -105,7 +105,7 @@ ExtEEPROM::com_esave(Interpreter &i)
             return false;
 
 	const uint16_t zoneAddr = zoneNumber*PROGRAMSIZE;
-	if (zoneAddr+PROGRAMSIZE > AT28C256::size)
+	if (zoneAddr+PROGRAMSIZE > AT28C256C::size)
 		return false;
 	// Write program to EEPROM
 	for (uint16_t p = 0; p < PROGRAMSIZE; ++p) {

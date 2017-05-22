@@ -40,22 +40,6 @@ public:
 	class CPS_PACKED Program;
 
 	/**
-	 * Variable type
-	 */
-	enum Type : uint8_t
-	{
-		VF_INTEGER = 0,
-#if USE_LONGINT
-		VF_LONG_INTEGER,
-#endif
-#if USE_REALS
-		VF_REAL,
-#endif
-		VF_BOOLEAN,
-		VF_STRING
-	};
-
-	/**
 	 * Dynamic (runtime error codes)
 	 */
 	enum ErrorCodes : uint8_t
@@ -120,7 +104,7 @@ public:
 		// Variable name
 		char name[VARSIZE];
 		// Variable type
-		Type type;
+		Parser::Value::Type type;
 		// Frame body
 		char bytes[];
 	};
@@ -192,7 +176,7 @@ public:
 		// Array data
 		char name[VARSIZE];
 		// Array type
-		Type type;
+		Parser::Value::Type type;
 		// Number of dimensions
 		uint8_t numDimensions;
 		// Actual dimensions values

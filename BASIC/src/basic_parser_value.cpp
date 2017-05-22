@@ -417,6 +417,27 @@ Parser::Value::notOp()
 	}
 }
 
+size_t
+Parser::Value::size(Type t)
+{
+	switch (t) {
+	case INTEGER:
+		return sizeof(Integer);
+#if USE_LONGINT
+	case LONG_INTEGER:
+		return sizeof(LongInteger);	
+#endif
+#if USE_REALS
+	case REAL:
+		return sizeof(Real);	
+#endif
+	case BOOLEAN:
+		return sizeof(bool);
+	case STRING:
+		return 0;
+	}
+}
+
 Parser::Value &
 Parser::Value::operator|=(const Value &v)
 {
