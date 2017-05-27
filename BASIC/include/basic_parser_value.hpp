@@ -25,7 +25,7 @@
 namespace BASIC
 {
 
-class CPS_PACKED Parser::Value : public Printable
+class EXT_PACKED Parser::Value : public Printable
 {
 public:
 
@@ -41,13 +41,13 @@ public:
 		BOOLEAN, STRING
 	};
 
-	struct CPS_PACKED String
+	struct EXT_PACKED String
 	{
 		uint8_t size;
 		//char string[STRINGSIZE];
 	};
 
-	union CPS_PACKED Body
+	union EXT_PACKED Body
 	{
 #if USE_LONGINT
 		LongInteger longInteger;

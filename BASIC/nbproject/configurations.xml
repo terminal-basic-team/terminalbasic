@@ -524,6 +524,7 @@
             <pElem>${ARDUINO_PATH}/libraries/TVout</pElem>
             <pElem>${ARDUINO_PATH}/libraries/UTFT</pElem>
             <pElem>${ARDUINO_PATH}/libraries/PS2Keyboard</pElem>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/Wire/src</pElem>
             <pElem>${ARDUINO_PATH}/libraries/SD/src</pElem>
             <pElem>include</pElem>
             <pElem>../../libarduinoext/include</pElem>

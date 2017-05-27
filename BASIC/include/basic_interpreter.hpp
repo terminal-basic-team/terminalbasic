@@ -37,7 +37,7 @@ public:
 	/**
 	 * @brief BASIC program memory
 	 */
-	class CPS_PACKED Program;
+	class EXT_PACKED Program;
 
 	/**
 	 * Dynamic (runtime error codes)
@@ -76,7 +76,7 @@ public:
 	/**
 	 * @brief variable memory frame
 	 */
-	struct CPS_PACKED VariableFrame
+	struct EXT_PACKED VariableFrame
 	{
 		/**
 		 * @brief size of the initialized frame

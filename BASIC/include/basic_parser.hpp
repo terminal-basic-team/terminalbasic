@@ -22,7 +22,7 @@
 #include <stdlib.h>
 #include <inttypes.h>
 
-#include "cps.hpp"
+#include "arduinoext.hpp"
 #include "basic.hpp"
 #include "basic_internalfuncs.hpp"
 
@@ -52,7 +52,7 @@ public:
 		STRING_OVERFLOW = 6
 	};
 	
-	class CPS_PACKED Value;
+	class EXT_PACKED Value;
 	/**
 	 * @brief constructor
 	 * @param lexer Lexical analyzer object refertence

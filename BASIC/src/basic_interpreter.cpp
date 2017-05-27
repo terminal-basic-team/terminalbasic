@@ -1154,8 +1154,9 @@ Interpreter::matrixDet(const char *name)
 		const uint8_t eSize = Parser::Value::size(array->type);
 		if (eSize == 0)
 			return;
-		const uint16_t bufSize = (array->dimension[0]+1)*
-		    (array->dimension[0]+1)*eSize;
+		uint16_t bufSize = 0;
+		for (uint16_t i=1; i<array->dimension[0]+1; ++i)
+			bufSize += i*i*eSize;
 		if (_program._arraysEnd+bufSize >= _program._sp) {
 			raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
 			return;
@@ -1176,7 +1177,13 @@ Interpreter::matrixDet(const char *name)
 		break;
 #if USE_LONGINT
 		case Parser::Value::LONG_INTEGER:
-			_result = LongInteger(0); break;
+			LongInteger r;
+			if (!Matrix<LongInteger>::determinant(
+			    reinterpret_cast<const LongInteger*>(array->data()),
+			    array->dimension[0]+1, r,
+			    reinterpret_cast<LongInteger*>(tbuf)))
+				_result = false;
+			_result.value.longInteger = r;
 #endif
 #if USE_REALS
 		case Parser::Value::REAL: {

@@ -166,7 +166,7 @@ Parser::Value::operator-()
 		// undefined
 		break;
 	}
-	return (*this);
+	return *this;
 }
 
 bool

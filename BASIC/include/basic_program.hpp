@@ -32,7 +32,7 @@ public:
 	/**
 	 * @brief BASIC program string object
 	 */
-	struct CPS_PACKED String
+	struct EXT_PACKED String
 	{
 		// string decimal number (label)
 		uint16_t number;
@@ -45,7 +45,7 @@ public:
 	/**
 	 * @program stack frame object
 	 */
-	struct CPS_PACKED StackFrame
+	struct EXT_PACKED StackFrame
 	{
 		/**
 		 * @brief Stack frame type
@@ -71,7 +71,7 @@ public:
 		/**
 		 * @brief FOR-loop state frame body
 		 */
-		struct CPS_PACKED ForBody
+		struct EXT_PACKED ForBody
 		{
 			// Program counter on loop begin
 			uint16_t	calleeIndex;
@@ -91,7 +91,7 @@ public:
 		/**
 		 * @brief Subprogram return address frame body
 		 */
-		struct CPS_PACKED GosubReturn
+		struct EXT_PACKED GosubReturn
 		{
 			// Program counter of the colee string
 			uint16_t calleeIndex;
@@ -102,7 +102,7 @@ public:
 		/**
 		 * @brief Input object frame body
 		 */
-		struct CPS_PACKED InputBody
+		struct EXT_PACKED InputBody
 		{
 			enum Type : uint8_t
 			{
@@ -115,11 +115,11 @@ public:
 
 		static uint8_t size(Type);
 		
-		uint8_t size() const { return (size(this->_type)); }
+		uint8_t size() const { return size(this->_type); }
 
 		Type _type;
 
-		union CPS_PACKED Body
+		union EXT_PACKED Body
 		{
 			GosubReturn	gosubReturn;
 			uint8_t		arrayDimensions;
