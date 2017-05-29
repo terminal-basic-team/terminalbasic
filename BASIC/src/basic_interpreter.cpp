@@ -479,8 +479,8 @@ Interpreter::print(Lexer &l)
 #if USE_LONGINT
 		case Token::LONGINT_IDENT:
 #endif
-		case Token::BOOL_IDENT:
 		case Token::STRING_IDENT:
+		case Token::BOOL_IDENT:
 			print(l.id(), VT100::C_BLUE);
 			break;
 		default:
@@ -494,7 +494,7 @@ Interpreter::print(Lexer &l)
 			_output.write(uint8_t(ASCII::QUMARK));
 			_output.print(l.id());
 			_output.write(uint8_t(ASCII::QUMARK));
-		} else if (t >= Token::INTEGER_IDENT && t <= Token::STRING_IDENT)
+		} else if (t >= Token::INTEGER_IDENT && t <= Token::BOOL_IDENT)
 			print(l.id(), VT100::C_BLUE);
 		else
 			_output.print('?');
