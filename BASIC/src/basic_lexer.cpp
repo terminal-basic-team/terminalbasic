@@ -450,6 +450,10 @@ Lexer::getNext()
 			uint8_t *pos = (uint8_t*)_string+_pointer;
 			if ((pos = scanTable(pos, tokenTable, index)) != NULL) {
 				_token = Token(index);
+				if (_token == Token::KW_TRUE)
+					_value = true, _token = Token::C_BOOLEAN;
+				else if (_token == Token::KW_FALSE)
+					_value = false, _token = Token::C_BOOLEAN;
 				_pointer += uint8_t(pos - ((uint8_t*)_string+
 				    _pointer));
 				return true;

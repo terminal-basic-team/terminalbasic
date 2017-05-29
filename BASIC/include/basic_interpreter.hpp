@@ -189,6 +189,7 @@ public:
 		SHELL,		// Wait for user input of line or command
 		PROGRAM_INPUT,	// 
 		COLLECT_INPUT,	//
+		EXEC_INT,	// Interactive execute
 		EXECUTE,	// Runniong the program
 		VAR_INPUT,	// Input of the variable value
 		GET_VAR_VALUE,
