@@ -674,6 +674,7 @@ Parser::fFinal(Value &v)
 			return true;
 		case Token::C_INTEGER:
 		case Token::C_REAL:
+		case Token::C_BOOLEAN:
 			if (_mode == EXECUTE)
 				v = _lexer.getValue();
 			_lexer.getNext();
@@ -699,16 +700,6 @@ Parser::fFinal(Value &v)
 				_lexer.getNext();
 				return true;
 			}
-		case Token::KW_TRUE:
-			if (_mode == EXECUTE)
-				v = true;
-			_lexer.getNext();
-			return true;
-		case Token::KW_FALSE:
-			if (_mode == EXECUTE)
-				v = false;
-			_lexer.getNext();
-			return true;
 		default:
 		{
 			char varName[VARSIZE];
@@ -730,7 +721,8 @@ Parser::fFinal(Value &v)
 			if (_mode == EXECUTE)
 				v.notOp();
 			return true;
-		} else if (t == Token::C_INTEGER || t == Token::C_REAL) {
+		} else if (t == Token::C_INTEGER || t == Token::C_REAL ||
+		    t == Token::C_BOOLEAN) {
 			if (_mode == EXECUTE)
 				v = _lexer.getValue();
 			_lexer.getNext();
@@ -756,16 +748,6 @@ Parser::fFinal(Value &v)
 				_lexer.getNext();
 				return true;
 			}
-		} else if (t == Token::KW_TRUE) {
-			if (_mode == EXECUTE)
-				v = true;
-			_lexer.getNext();
-			return true;
-		} else if (t == Token::KW_FALSE) {
-			if (_mode == EXECUTE)
-				v = false;
-			_lexer.getNext();
-			return true;
 		} else {
 			char varName[VARSIZE];
 			if (fVar(varName))
