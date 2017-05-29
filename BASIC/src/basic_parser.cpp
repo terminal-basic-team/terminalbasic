@@ -776,6 +776,8 @@ Parser::fIfStatement()
 				while (fOperators(res)) {
 					if (!res)
 						return false;
+					else
+						_lexer.getNext();
 				}
 				return true;
 			}
