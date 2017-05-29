@@ -198,7 +198,8 @@ Interpreter::init()
 	print(ProgMemStrings::S_VERSION);
 	print(VERSION, VT100::BRIGHT), newline();
 #if BASIC_MULTITERMINAL
-	print(ProgMemStrings::TERMINAL, NO_ATTR), print(Integer(_termno), BRIGHT),
+	print(ProgMemStrings::TERMINAL, VT100::NO_ATTR),
+	    print(Integer(_termno), VT100::BRIGHT),
 	    _output.print(':'), _output.print(' ');
 #endif
 	print(long(_program.programSize - _program._arraysEnd), VT100::BRIGHT);
@@ -252,7 +253,7 @@ Interpreter::step()
 		break;
 	case EXECUTE: {
 		c = char(ASCII::NUL);
-#ifdef ARDUINO
+#if defined(ARDUINO) || BASIC_MULTITERMINAL
 		if (_input.available() > 0)
 			c = _input.read();
 #endif

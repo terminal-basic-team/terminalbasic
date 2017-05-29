@@ -356,11 +356,14 @@ public:
 	 * @return frame pointer
 	 */
 	const VariableFrame *getVariable(const char*);
-
+	/**
+	 * @brief Fill value object with the value of a variable
+	 * @param val value object
+	 * @param var name of the variable
+	 */
 	void valueFromVar(Parser::Value&, const char*);
 
 	bool valueFromArray(Parser::Value&, const char*);
-
 	/**
 	 * @brief push string constant on the stack
 	 */

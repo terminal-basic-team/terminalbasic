@@ -522,7 +522,6 @@
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/SPI/src</pElem>
             <pElem>${ARDUINO_PATH}/libraries/TVoutfonts</pElem>
             <pElem>${ARDUINO_PATH}/libraries/TVout</pElem>
-            <pElem>${ARDUINO_PATH}/libraries/UTFT</pElem>
             <pElem>${ARDUINO_PATH}/libraries/PS2Keyboard</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/Wire/src</pElem>
             <pElem>${ARDUINO_PATH}/libraries/SD/src</pElem>
@@ -531,6 +530,7 @@
             <pElem>../TVoutEx</pElem>
             <pElem>../UTFT/include</pElem>
             <pElem>../../libsdcard/SDCard</pElem>
+            <pElem>../../libutft/UTFT</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>
@@ -550,6 +550,18 @@
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/terminal-basic</output>
           <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../libutft"
+                            CT="3"
+                            CN="Arduino_mega2560"
+                            AC="true"
+                            BL="true"
+                            WD="../../libutft"
+                            BC="${MAKE}  -f Makefile CONF=Arduino_mega2560"
+                            CC="${MAKE}  -f Makefile CONF=Arduino_mega2560 clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibutft.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../../libarduinoext"
                             CT="3"
@@ -684,19 +696,19 @@
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/SoftwareSerial/src</pElem>
             <pElem>include</pElem>
-            <pElem>../arduinoext/include</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/EEPROM/src</pElem>
-            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/variants/atmega64_128</pElem>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/variants/crumbuino128</pElem>
+            <pElem>../../libarduinoext/include</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>
           </incFile>
           <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -fno-threadsafe-statics -MMD -mmcu=atmega128a -ffunction-sections -fdata-sections -flto</commandLine>
           <preprocessorList>
-            <Elem>ARDUINO=10801</Elem>
+            <Elem>ARDUINO=10802</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_UNO</Elem>
-            <Elem>F_CPU=8000000L</Elem>
+            <Elem>F_CPU=16000000L</Elem>
           </preprocessorList>
           <warningLevel>2</warningLevel>
         </ccTool>
@@ -704,24 +716,24 @@
           <output>${CND_DISTDIR}/${CND_CONF}/basic</output>
           <linkerLibItems>
             <linkerLibProjectItem>
-              <makeArtifact PL="../arduinoext"
+              <makeArtifact PL="../../libarduinoext"
                             CT="3"
                             CN="Atmega_128a"
                             AC="false"
                             BL="true"
-                            WD="../arduinoext"
+                            WD="../../libarduinoext"
                             BC="${MAKE}  -f Makefile CONF=Atmega_128a"
                             CC="${MAKE}  -f Makefile CONF=Atmega_128a clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libarduinoext.a">
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinoext.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../libarduino"
+              <makeArtifact PL="../../libarduino"
                             CT="3"
                             CN="Atmega_128a"
-                            AC="true"
+                            AC="false"
                             BL="true"
-                            WD="../libarduino"
+                            WD="../../libarduino"
                             BC="${MAKE}  -f Makefile CONF=Atmega_128a"
                             CC="${MAKE}  -f Makefile CONF=Atmega_128a clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/libarduino.a">

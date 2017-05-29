@@ -27,22 +27,22 @@
 #define USE_REALS            1 // Real arithmetics
 #define USE_STRINGOPS        1 // Basic string operations (concatenation and comparision)
 #define USE_LONGINT          0 // Long integer support
-#define USE_DUMP             0 // DUMP command support
+#define USE_DUMP             1 // DUMP command support
 #define USE_RANDOM           1 // Use RND and RANDOMIZE
 #define CLEAR_PROGRAM_MEMORY 1 // Clear program memory with 0xFF on NEW
-#define USE_MATRIX           0 // Matrix operations
-#define USE_TEXTATTRIBUTES   1 // Use vt100 text attributes
+#define USE_MATRIX           1 // Matrix operations
+#define USE_TEXTATTRIBUTES   0 // Use vt100 text attributes
 #if USE_TEXTATTRIBUTES
-#define USE_COLORATTRIBUTES  1 // Use vt100 color attributes
+#define USE_COLORATTRIBUTES  0 // Use vt100 color attributes
 #endif
-#define USE_EXTEEPROM        1 // External EEPROM functions module
+#define USE_EXTEEPROM        0 // External EEPROM functions module
 #if USE_EXTEEPROM
 #define EXTEEPROM_SIZE    32768 // Size in bytes
 #endif
 
 #define USE_SAVE_LOAD        1 // SAVE, LOAD and CHAIN commands support
 #if USE_SAVE_LOAD
-#define SAVE_LOAD_CHECKSUM   0 // Compute checksums while SAVE, LOAD and CHAIN
+#define SAVE_LOAD_CHECKSUM   1 // Compute checksums while SAVE, LOAD and CHAIN
 #endif
 
 #define USE_GFX              0 // GFX module
@@ -112,10 +112,15 @@
 #endif
 
 // Use multiterminal mode
-#define BASIC_MULTITERMINAL       0
+#define BASIC_MULTITERMINAL       1
+#if BASIC_MULTITERMINAL
+#define SERIAL_PORT1 SerialL1
+#define SERIAL_PORT2 SerialL2
+#define SERIAL_PORT3 SerialL3
+#endif
 
 // Use external memory
-#define USE_EXTMEM                0
+#define USE_EXTMEM                1
 #if USE_EXTMEM
 #define EXTMEM_ADDRESS 0x8000
 #define EXTMEM_SIZE    32768
