@@ -972,7 +972,8 @@ Parser::fVar(char *varName)
 {
 	if ((_lexer.getToken() >= Token::INTEGER_IDENT) &&
 	    (_lexer.getToken() <= Token::BOOL_IDENT)) {
-		strcpy(varName, _lexer.id());
+		strncpy(varName, _lexer.id(), VARSIZE);
+		varName[VARSIZE-1] = 0;
 		return true;
 	} else
 		return false;

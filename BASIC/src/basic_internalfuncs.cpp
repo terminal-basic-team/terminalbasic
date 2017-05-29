@@ -33,7 +33,7 @@ static const uint8_t intFuncs[] PROGMEM = {
 #if USE_REALS
 	'I', 'N', 'T'+0x80,
 #endif
-	'R', 'E', 'S', 'U', 'L', 'T'+0x80,
+	'R', 'E', 'S'+0x80,
 #if USE_RANDOM
 	'R', 'N', 'D'+0x80,
 #endif
