@@ -253,7 +253,12 @@ private:
 	bool addLine(uint16_t, const char*, uint16_t);
 	// End of program text
 	uint16_t _textEnd;
-	uint16_t _current, _variablesEnd, _arraysEnd, _sp, _jump;
+	// End of variables area
+	uint16_t _variablesEnd;
+	uint16_t _arraysEnd, _sp, _jump;
+	// Current line index
+	uint16_t _current;
+	uint8_t  _pc;
 	bool _jumpFlag;
 	uint8_t _textPosition;
 };

@@ -230,7 +230,10 @@ Interpreter::step()
 		// collection input buffer
 	case COLLECT_INPUT:
 		if (readInput())
-			exec();
+			_state = EXEC_INT;
+		break;
+	case EXEC_INT:
+		exec();
 		break;
 	case VAR_INPUT:
 		if (nextInput()) {
@@ -253,11 +256,14 @@ Interpreter::step()
 		if (_input.available() > 0)
 			c = _input.read();
 #endif
-		if (_program._current < _program._textEnd && c != char(ASCII::EOT)) {
+		if (_program.current() != nullptr &&
+		    c != char(ASCII::EOT)) {
 			Program::String *s = _program.current();
-			if (!_parser.parse(s->text + _program._textPosition))
+			bool res;
+			if (!_parser.parse(s->text + _program._textPosition, res))
+				_program.getString();
+			if (!res)
 				raiseError(STATIC_ERROR);
-			_program.getString();
 		} else
 			_state = SHELL;
 	default:
@@ -269,7 +275,8 @@ void
 Interpreter::exec()
 {
 	_lexer.init(_inputBuffer);
-	if (_lexer.getNext() && (_lexer.getToken() == Token::C_INTEGER)) {
+	if (_inputPosition == 0 && _lexer.getNext() &&
+	    (_lexer.getToken() == Token::C_INTEGER)) {
 		Integer pLine = Integer(_lexer.getValue());
 		uint8_t position = _lexer.getPointer();
 		_lexer.getNext();
@@ -284,9 +291,13 @@ Interpreter::exec()
 			_state = PROGRAM_INPUT;
 		}
 	} else {
-		_state = SHELL;
-		if (!_parser.parse(_inputBuffer))
+		bool res;
+		if (!_parser.parse(_inputBuffer+_inputPosition, res))
+			if (_state == EXEC_INT)
+				_state = SHELL;
+		if (!res)
 			raiseError(STATIC_ERROR);
+		_inputPosition = _lexer.getPointer();
 	}
 }
 
@@ -999,7 +1010,7 @@ Interpreter::readInput()
 {
 	int a = _input.available();
 	if (a <= 0)
-		return (false);
+		return false;
 
 	const uint8_t availableSize = PROGSTRINGSIZE - 1 - _inputPosition;
 	a = min(a, availableSize);
@@ -1022,7 +1033,8 @@ Interpreter::readInput()
 		case char(ASCII::CR):
 			_output.println();
 			_inputBuffer[i] = 0;
-			return (true);
+			_inputPosition = 0;
+			return true;
 		default:
 			// Only acept character if there is room for upcoming
 			// control one (line end or del/bs)
@@ -1032,7 +1044,7 @@ Interpreter::readInput()
 			}
 		}
 	}
-	return (false);
+	return false;
 }
 
 void

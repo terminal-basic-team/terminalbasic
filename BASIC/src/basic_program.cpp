@@ -40,22 +40,25 @@ Interpreter::Program::getString()
 	if (_jumpFlag) {
 		_current = _jump;
 		_jumpFlag = false;
-		return (current());
+		return current();
 	}
 	if (_current >= _textEnd)
-		return (NULL);
+		return nullptr;
 	else {
 		Program::String *result = current();
 		_current += result->size;
 		_textPosition = 0;
-		return (result);
+		return result;
 	}
 }
 
 Interpreter::Program::String*
 Interpreter::Program::current() const
 {
-	return (stringByIndex(_current));
+	if (_current < _textEnd)
+		return stringByIndex(_current);
+	else
+		return nullptr;
 }
 
 Interpreter::Program::String*
@@ -99,7 +102,7 @@ Interpreter::Program::lineByNumber(uint16_t number, uint16_t index)
 			}
 		}
 	}
-	return (result);
+	return result;
 }
 
 uint8_t
@@ -108,7 +111,7 @@ Interpreter::Program::StackFrame::size(Type t)
 #if OPT == OPT_SPEED
 	switch (t) {
 	case SUBPROGRAM_RETURN:
-		return (sizeof (Type) + sizeof (GosubReturn));
+		return sizeof (Type) + sizeof (GosubReturn);
 	case FOR_NEXT:
 		return (sizeof (Type) + sizeof (ForBody));
 	case STRING:
@@ -122,7 +125,7 @@ Interpreter::Program::StackFrame::size(Type t)
 	case INPUT_OBJECT:
 		return (sizeof (Type) + sizeof (InputBody));
 	default:
-		return (0);
+		return 0;
 	}
 #else
 	if (t == SUBPROGRAM_RETURN)
@@ -182,7 +185,7 @@ Interpreter::Program::variableByName(const char *name)
 	    f = variableByIndex(index)) {
 		int8_t res = strcmp(name, f->name);
 		if (res == 0) {
-			return (f);
+			return f;
 		} else if (res < 0)
 			break;
 		index += f->size();
@@ -193,19 +196,19 @@ Interpreter::Program::variableByName(const char *name)
 uint16_t
 Interpreter::Program::stringIndex(const String *s) const
 {
-	return (((char*) s) - _text);
+	return ((char*) s) - _text;
 }
 
 uint16_t
 Interpreter::Program::variableIndex(VariableFrame *f) const
 {
-	return (((char*) f) - _text);
+	return ((char*) f) - _text;
 }
 
 uint16_t
 Interpreter::Program::arrayIndex(ArrayFrame *f) const
 {
-	return (((char*) f) - _text);
+	return ((char*) f) - _text;
 }
 
 Interpreter::Program::StackFrame*
@@ -213,13 +216,13 @@ Interpreter::Program::push(StackFrame::Type t)
 {
 	uint8_t s = StackFrame::size(t);
 	if ((_sp - s) < _arraysEnd)
-		return (NULL);
+		return nullptr;
 
 	_sp -= StackFrame::size(t);
 	StackFrame *f = stackFrameByIndex(_sp);
 	if (f != NULL)
 		f->_type = t;
-	return (f);
+	return f;
 }
 
 void
@@ -266,18 +269,18 @@ Interpreter::Program::StackFrame*
 Interpreter::Program::stackFrameByIndex(uint16_t index)
 {
 	if ((index > 0) && (index < programSize))
-		return (reinterpret_cast<StackFrame*> (_text + index));
+		return reinterpret_cast<StackFrame*> (_text + index);
 	else
-		return NULL;
+		return nullptr;
 }
 
 Interpreter::Program::StackFrame*
 Interpreter::Program::currentStackFrame()
 {
 	if (_sp < programSize)
-		return (stackFrameByIndex(_sp));
+		return stackFrameByIndex(_sp);
 	else
-		return NULL;
+		return nullptr;
 }
 
 Interpreter::ArrayFrame*
@@ -290,11 +293,11 @@ Interpreter::Program::arrayByName(const char *name)
 	    f = arrayByIndex(index)) {
 		int8_t res = strcmp(name, f->name);
 		if (res == 0) {
-			return (f);
+			return f;
 		} else if (res < 0)
 			break;
 	}
-	return NULL;
+	return nullptr;
 }
 
 Interpreter::VariableFrame*
@@ -440,7 +443,7 @@ Interpreter::Program::insert(uint16_t num, const char *text, uint8_t len)
 	memmove(_text + _current + strLen, _text + _current,
 	    _arraysEnd - _current);
 
-	String *cur = current();
+	String *cur = stringByIndex(_current);
 	cur->number = num;
 	cur->size = strLen;
 	memcpy(cur->text, text, len);

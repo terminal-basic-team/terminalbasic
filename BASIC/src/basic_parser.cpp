@@ -98,7 +98,7 @@ Parser::stop()
 }
 
 bool
-Parser::parse(const char *s)
+Parser::parse(const char *s, bool &ok)
 {
 	LOG_TRACE;
 
@@ -106,39 +106,42 @@ Parser::parse(const char *s)
 	_stopParse = false;
 	_error = NO_ERROR;
 	
-	if (_lexer.getNext())
-		return (fOperators());
-	else
-		return true;
+	if (_lexer.getNext()) {
+		return fOperators(ok);
+	} else {
+		ok = true;
+		return false;
+	}
 }
 
 /*
  * OPERATORS = OPERATOR | OPERATOR COLON OPERATORS
  */
 bool
-Parser::fOperators()
+Parser::fOperators(bool &ok)
 {
 	Token t;
-	do {
-		if (!fOperator()) {
-			if (_error == NO_ERROR)
-				_error = OPERATOR_EXPECTED;
-			return false;
-		}
-		if (_stopParse)
-			break;
-		t = _lexer.getToken();
-		if (t == Token::COLON) {
-			if (_lexer.getNext())
-				continue;
-			else
-				break;
-		} else if (t == Token::NOTOKENS)
-			break;
-		else
-			return false;
-	} while (true);
-	return true;
+	if (!fOperator()) {
+		if (_error == NO_ERROR)
+			_error = OPERATOR_EXPECTED;
+		ok = false;
+		return true;
+	}
+	if (_stopParse) {
+		ok = true;
+		return true;
+	}
+	t = _lexer.getToken();
+	if (t == Token::COLON) {
+		ok = true;
+		return true;
+	} else if (t == Token::NOTOKENS) {
+		ok = true;
+		return false;
+	} else {
+		ok = false;
+		return true;
+	}
 }
 
 /*
@@ -221,7 +224,6 @@ Parser::fOperator()
 			return false;
 		} else if (_mode == EXECUTE) {
 			_interpreter.input();
-			_stopParse = true;
 		}
 		break;
 	case Token::KW_LET: {
@@ -782,17 +784,17 @@ Parser::fIfStatement()
 	LOG(t);
 	if (t == Token::KW_THEN) {
 		if (_lexer.getNext()) {
+			bool res;
 			if (_lexer.getToken() == Token::C_INTEGER) {
 				if (_mode == EXECUTE)
 					_interpreter.gotoLine(_lexer.getValue());
 				_lexer.getNext();
 				return true;
-			} else if (fOperators())
+			} else if (fOperators(res))
 				return true;
 		}
-	} else
-		if (fGotoStatement())
-			return true;
+	} else if (fGotoStatement())
+		return true;
 	
 	return false;
 }
