@@ -207,7 +207,6 @@ public:
 
 	StackFrame *stackFrameByIndex(uint16_t index);
 	StackFrame *currentStackFrame();
-	
 	/**
 	 * @brief create new stack frame of given type and get its pointer
 	 * @param type
@@ -228,6 +227,10 @@ public:
 	 * @return flag of success
 	 */
 	bool addLine(uint16_t, const char*);
+	/**
+	 * @brief Remove program line
+	 * @param num line number
+	 */
 	void removeLine(uint16_t);
 	/**
 	 * @brief Insert line at current position
@@ -245,9 +248,9 @@ private:
 	void pushBottom(StackFrame*);
 	/**
 	 * @brief Add tokenized program line
-	 * @param num
-	 * @param text
-	 * @param len
+	 * @param num line number
+	 * @param text line body w/o number
+	 * @param len line body length
 	 * @return flag of success
 	 */
 	bool addLine(uint16_t, const char*, uint16_t);
@@ -255,12 +258,15 @@ private:
 	uint16_t _textEnd;
 	// End of variables area
 	uint16_t _variablesEnd;
-	uint16_t _arraysEnd, _sp, _jump;
+	uint16_t _arraysEnd, _sp;
 	// Current line index
 	uint16_t _current;
-	uint8_t  _pc;
-	bool _jumpFlag;
+	// Position in current line
 	uint8_t _textPosition;
+	// Jump flag
+	bool _jumpFlag;
+	// Jump pointer
+	uint16_t _jump;
 };
 
 }

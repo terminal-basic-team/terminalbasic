@@ -129,7 +129,7 @@ Parser::fOperators(bool &ok)
 	}
 	if (_stopParse) {
 		ok = true;
-		return true;
+		return false;
 	}
 	t = _lexer.getToken();
 	if (t == Token::COLON) {
@@ -790,8 +790,13 @@ Parser::fIfStatement()
 					_interpreter.gotoLine(_lexer.getValue());
 				_lexer.getNext();
 				return true;
-			} else if (fOperators(res))
+			} else {
+				while (fOperators(res)) {
+					if (!res)
+						return false;
+				}
 				return true;
+			}
 		}
 	} else if (fGotoStatement())
 		return true;
@@ -812,7 +817,6 @@ Parser::fGotoStatement()
 		}
 		if (_mode == EXECUTE) {
 			_interpreter.gotoLine(v.value.integer);
-			_stopParse = true;
 		}
 		return true;
 	} else

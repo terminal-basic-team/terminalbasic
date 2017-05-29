@@ -250,22 +250,25 @@ Interpreter::step()
 			_state = VAR_INPUT;
 		}
 		break;
-	case EXECUTE:
+	case EXECUTE: {
 		c = char(ASCII::NUL);
 #ifdef ARDUINO
 		if (_input.available() > 0)
 			c = _input.read();
 #endif
-		if (_program.current() != nullptr &&
-		    c != char(ASCII::EOT)) {
-			Program::String *s = _program.current();
+		Program::String *s = _program.current();
+		if (s != nullptr && c != char(ASCII::EOT)) {
 			bool res;
 			if (!_parser.parse(s->text + _program._textPosition, res))
 				_program.getString();
+			else
+				_program._textPosition += _lexer.getPointer();
 			if (!res)
 				raiseError(STATIC_ERROR);
 		} else
 			_state = SHELL;
+	}
+	// Fall through
 	default:
 		break;
 	}
@@ -656,7 +659,7 @@ Interpreter::next(const char *varName)
 	} else // Incorrect frame
 		raiseError(DYNAMIC_ERROR, INVALID_NEXT);
 
-	return (false);
+	return false;
 }
 
 #if USE_SAVE_LOAD
