@@ -238,6 +238,31 @@ public:
 	 * @param text line text
 	 */
 	bool insert(uint16_t, const char*, uint8_t);
+	
+	const uint16_t textEnd() const { return _textEnd; }
+	void setTextEnd(uint16_t newVal)
+	{
+		_textEnd = newVal;
+	}
+	
+	const uint16_t varsEnd() const { return _variablesEnd; }
+	void setVarsEnd(uint16_t newVal)
+	{
+		_variablesEnd = newVal;
+	}
+	
+	const uint16_t arraysEnd() const { return _arraysEnd; }
+	void setArraysEnd(uint16_t newVal)
+	{
+		_arraysEnd = newVal;
+	}
+	
+	const uint16_t sp() const { return _sp; }
+	void setSP(uint16_t newVal)
+	{
+		_sp = newVal;
+	}
+	
 #if USE_EXTMEM
 	char *_text;
 #else
