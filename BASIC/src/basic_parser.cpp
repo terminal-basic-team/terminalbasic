@@ -98,7 +98,7 @@ Parser::stop()
 }
 
 bool
-Parser::parse(const char *s)
+Parser::parse(const char *s, bool &ok)
 {
 	LOG_TRACE;
 
@@ -106,39 +106,42 @@ Parser::parse(const char *s)
 	_stopParse = false;
 	_error = NO_ERROR;
 	
-	if (_lexer.getNext())
-		return (fOperators());
-	else
-		return true;
+	if (_lexer.getNext()) {
+		return fOperators(ok);
+	} else {
+		ok = true;
+		return false;
+	}
 }
 
 /*
  * OPERATORS = OPERATOR | OPERATOR COLON OPERATORS
  */
 bool
-Parser::fOperators()
+Parser::fOperators(bool &ok)
 {
 	Token t;
-	do {
-		if (!fOperator()) {
-			if (_error == NO_ERROR)
-				_error = OPERATOR_EXPECTED;
-			return false;
-		}
-		if (_stopParse)
-			break;
-		t = _lexer.getToken();
-		if (t == Token::COLON) {
-			if (_lexer.getNext())
-				continue;
-			else
-				break;
-		} else if (t == Token::NOTOKENS)
-			break;
-		else
-			return false;
-	} while (true);
-	return true;
+	if (!fOperator()) {
+		if (_error == NO_ERROR)
+			_error = OPERATOR_EXPECTED;
+		ok = false;
+		return true;
+	}
+	if (_stopParse) {
+		ok = true;
+		return false;
+	}
+	t = _lexer.getToken();
+	if (t == Token::COLON) {
+		ok = true;
+		return true;
+	} else if (t == Token::NOTOKENS) {
+		ok = true;
+		return false;
+	} else {
+		ok = false;
+		return true;
+	}
 }
 
 /*
@@ -221,7 +224,6 @@ Parser::fOperator()
 			return false;
 		} else if (_mode == EXECUTE) {
 			_interpreter.input();
-			_stopParse = true;
 		}
 		break;
 	case Token::KW_LET: {
@@ -672,6 +674,7 @@ Parser::fFinal(Value &v)
 			return true;
 		case Token::C_INTEGER:
 		case Token::C_REAL:
+		case Token::C_BOOLEAN:
 			if (_mode == EXECUTE)
 				v = _lexer.getValue();
 			_lexer.getNext();
@@ -697,16 +700,6 @@ Parser::fFinal(Value &v)
 				_lexer.getNext();
 				return true;
 			}
-		case Token::KW_TRUE:
-			if (_mode == EXECUTE)
-				v = true;
-			_lexer.getNext();
-			return true;
-		case Token::KW_FALSE:
-			if (_mode == EXECUTE)
-				v = false;
-			_lexer.getNext();
-			return true;
 		default:
 		{
 			char varName[VARSIZE];
@@ -728,7 +721,8 @@ Parser::fFinal(Value &v)
 			if (_mode == EXECUTE)
 				v.notOp();
 			return true;
-		} else if (t == Token::C_INTEGER || t == Token::C_REAL) {
+		} else if (t == Token::C_INTEGER || t == Token::C_REAL ||
+		    t == Token::C_BOOLEAN) {
 			if (_mode == EXECUTE)
 				v = _lexer.getValue();
 			_lexer.getNext();
@@ -754,16 +748,6 @@ Parser::fFinal(Value &v)
 				_lexer.getNext();
 				return true;
 			}
-		} else if (t == Token::KW_TRUE) {
-			if (_mode == EXECUTE)
-				v = true;
-			_lexer.getNext();
-			return true;
-		} else if (t == Token::KW_FALSE) {
-			if (_mode == EXECUTE)
-				v = false;
-			_lexer.getNext();
-			return true;
 		} else {
 			char varName[VARSIZE];
 			if (fVar(varName))
@@ -782,17 +766,24 @@ Parser::fIfStatement()
 	LOG(t);
 	if (t == Token::KW_THEN) {
 		if (_lexer.getNext()) {
+			bool res;
 			if (_lexer.getToken() == Token::C_INTEGER) {
 				if (_mode == EXECUTE)
 					_interpreter.gotoLine(_lexer.getValue());
 				_lexer.getNext();
 				return true;
-			} else if (fOperators())
+			} else {
+				while (fOperators(res)) {
+					if (!res)
+						return false;
+					else
+						_lexer.getNext();
+				}
 				return true;
+			}
 		}
-	} else
-		if (fGotoStatement())
-			return true;
+	} else if (fGotoStatement())
+		return true;
 	
 	return false;
 }
@@ -810,7 +801,6 @@ Parser::fGotoStatement()
 		}
 		if (_mode == EXECUTE) {
 			_interpreter.gotoLine(v.value.integer);
-			_stopParse = true;
 		}
 		return true;
 	} else
@@ -972,7 +962,6 @@ Parser::fVar(char *varName)
 {
 	if ((_lexer.getToken() >= Token::INTEGER_IDENT) &&
 	    (_lexer.getToken() <= Token::BOOL_IDENT)) {
-		strncpy(varName, _lexer.id(), VARSIZE);
 		return true;
 	} else
 		return false;

@@ -17,10 +17,10 @@
  */
 
 #include "basic.hpp"
-#include "basic_exteeprom.hpp"
 
 #if USE_EXTEEPROM
 
+#include "basic_exteeprom.hpp"
 #include "basic_interpreter.hpp"
 #include "basic_program.hpp"
 
@@ -44,6 +44,15 @@ const FunctionBlock::function ExtEEPROM::_commands[] PROGMEM = {
 	ExtEEPROM::com_eload,
 	ExtEEPROM::com_esave
 };
+
+struct EXT_PACKED ZoneHeader
+{
+	uint16_t number;
+	uint16_t crc;
+	uint16_t textEnd, varsEnd, arraysEnd, sp;
+};
+
+static constexpr const uint16_t zoneSize = PROGRAMSIZE+sizeof(ZoneHeader);
 
 class ZoneInfo
 {
@@ -77,23 +86,28 @@ ExtEEPROM::com_eload(Interpreter &i)
 	if (!getIntegerFromStack(i, zoneNumber))
             return false;
 
-	const uint16_t zoneAddr = zoneNumber*PROGRAMSIZE;
-	if (zoneAddr+PROGRAMSIZE > AT28C256C::size)
+	const uint16_t zoneAddr = zoneNumber*zoneSize;
+	if (zoneAddr+zoneSize > AT28C256C::size)
 		return false;
 	// Read program from EEPROM
 	i.newProgram();
+	ZoneHeader h;
+	if (!i2c_eeprom.read(zoneAddr, h))
+		return false;
 	for (uint16_t p = 0; p < PROGRAMSIZE; ++p) {
 		delay(5);
-		if (!i2c_eeprom.readByte(zoneAddr+p, reinterpret_cast<uint8_t&>(
-		    i._program._text[p])))
+		if (!i2c_eeprom.readByte(zoneAddr+p+sizeof(ZoneHeader),
+		    reinterpret_cast<uint8_t&>(i._program._text[p])))
 			return false;
-		else {
-			//i.print('.');
-			i.print(Integer(i._program._text[p]));
-			i.print(' ');
-		}
+		else
+			i.print('.');
 	}
 	i.newline();
+	i._program.setTextEnd(h.textEnd);
+	i._program.setVarsEnd(h.varsEnd);
+	i._program.setArraysEnd(h.arraysEnd);
+	i._program.setSP(h.sp);
+	
 	return true;
 }
 
@@ -104,10 +118,17 @@ ExtEEPROM::com_esave(Interpreter &i)
 	if (!getIntegerFromStack(i, zoneNumber))
             return false;
 
-	const uint16_t zoneAddr = zoneNumber*PROGRAMSIZE;
-	if (zoneAddr+PROGRAMSIZE > AT28C256C::size)
+	const uint16_t zoneAddr = zoneNumber*zoneSize;
+	if (zoneAddr+zoneSize > AT28C256C::size)
 		return false;
 	// Write program to EEPROM
+	ZoneHeader h;
+	h.textEnd = i._program.textEnd();
+	h.varsEnd = i._program.varsEnd();
+	h.arraysEnd = i._program.arraysEnd();
+	h.sp = i._program.sp();
+	if (!i2c_eeprom.write(zoneAddr, h))
+		return false;
 	for (uint16_t p = 0; p < PROGRAMSIZE; ++p) {
 		delay(5);
 		if (!i2c_eeprom.writeByte(zoneAddr+p, i._program._text[p]))

@@ -63,9 +63,10 @@ public:
 	/**
 	 * @brief Parse a text string
 	 * @param str string to parse
-	 * @return successfull parsing flag
+	 * @param ok successfull parsing flag
+	 * @return end of parsed string
 	 */
-	bool parse(const char*);
+	bool parse(const char*, bool&);
 	
 	void stop();
 	/**
@@ -86,7 +87,7 @@ private:
 	{
 		SCAN = 0, EXECUTE
 	};
-	bool fOperators();
+	bool fOperators(bool&);
 	bool fOperator();
 	bool fImplicitAssignment(char*);
 	bool fPrintList();

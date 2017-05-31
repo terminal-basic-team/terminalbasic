@@ -61,6 +61,13 @@
 
 #define SERIAL_PORT Serial
 
+#define BASIC_MULTITERMINAL       1
+#if BASIC_MULTITERMINAL
+#define SERIAL_PORT1 Serial1
+#define SERIAL_PORT2 Serial2
+#define SERIAL_PORT3 Serial3
+#endif
+
 namespace BASIC
 {
 
@@ -68,7 +75,7 @@ namespace BASIC
 const uint8_t PROGSTRINGSIZE = 73;
 
 // Number of bytes for program text, variables and stack
-const uint16_t PROGRAMSIZE = 2048;
+const uint16_t PROGRAMSIZE = 4096;
 
 // Max size of the string constants/variables
 const uint8_t STRINGSIZE = 65;
@@ -77,7 +84,5 @@ const uint8_t STRINGSIZE = 65;
 const uint8_t VARSIZE = 5;
 
 }
-
-#define BASIC_MULTITERMINAL 0
 
 #endif

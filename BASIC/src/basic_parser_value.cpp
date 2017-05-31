@@ -482,7 +482,8 @@ Parser::Value::printTo(Print& p) const
 			t = Token::KW_TRUE;
 		else
 			t = Token::KW_FALSE;
-		strcpy_P(buf, Lexer::tokenStrings[uint8_t(t)]);
+		strcpy_P(buf, (PGM_P)pgm_read_word(&(Lexer::
+		    tokenStrings[uint8_t(t)])));
 		return p.print(buf);
 	}
 		break;
