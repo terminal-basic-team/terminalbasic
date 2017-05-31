@@ -301,7 +301,7 @@ Interpreter::exec()
 				_state = SHELL;
 		if (!res)
 			raiseError(STATIC_ERROR);
-		_inputPosition = _lexer.getPointer();
+		_inputPosition += _lexer.getPointer();
 	}
 }
 
