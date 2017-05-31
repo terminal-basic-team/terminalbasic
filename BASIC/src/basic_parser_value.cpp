@@ -502,7 +502,7 @@ Parser::Value::printTo(Print& p) const
 		else
 			::dtostre(value.real, buf, 7, DTOSTR_ALWAYS_SIGN);
 #else
-		::sprintf(buf, "% .8G", value.real);
+		::sprintf(buf, "%- 10.7G", value.real);
 #endif // ARDUINO
 		return p.print(buf);
 	}

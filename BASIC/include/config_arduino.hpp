@@ -137,7 +137,7 @@ const uint16_t PROGRAMSIZE = 6144;
 #elif defined (__AVR_ATmega128__) || defined (__AVR_ATmega128A__)
 const uint16_t PROGRAMSIZE = 3072;
 #elif defined (__AVR_ATmega328__) || defined (__AVR_ATmega328P__)
-const uint16_t PROGRAMSIZE = 512;
+const uint16_t PROGRAMSIZE = 1024;
 #elif defined (__AVR_ATmega168__) || defined (__AVR_ATmega168P__)
 const uint16_t PROGRAMSIZE = 384;
 #else
