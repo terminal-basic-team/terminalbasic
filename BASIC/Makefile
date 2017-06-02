@@ -57,7 +57,7 @@ AVRDUDE_CONF=${TOOLS}/etc/avrdude.conf
 JAVA=/usr/lib/jvm/java-1.8.0-openjdk-i386/bin/java  
 
 BUILD:=$(shell cat "./build-${CONF}")
-VERSION:=0.8.2-${BUILD}
+VERSION:=1.0-a1-${BUILD}
 
 # build
 build: .build-post
@@ -147,6 +147,10 @@ copy_Arduino_nano328 : copy
 copy_Arduino_pro328 : ARCH=arduinoPRO
 copy_Arduino_pro328 : UCARCH=atmega328p
 copy_Arduino_pro328 : copy
+	
+copy_Atmega_128a : ARCH=arduino
+copy_Atmega_128a : UCARCH=atmega128a
+copy_Atmega_128a : copy
 
 copy_Arduino_nano168 : ARCH=arduinoNANO
 copy_Arduino_nano168 : UCARCH=atmega168

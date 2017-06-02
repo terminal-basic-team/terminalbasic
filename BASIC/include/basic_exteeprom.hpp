@@ -26,16 +26,6 @@
 
 #include "basic_functionblock.hpp"
 
-#if USE_EXTEEPROM
-#if EXTEEPROM_SIZE >= PROGRAMSIZE
-#define EXTEEPROM_PAGES_NUMBER = (EXTEEPROM_SIZE / PROGRAMSIZE)
-#define EXTEEPROM_PAGE_SIZE = PROGRAMSIZE 
-#else
-#define EXTEEPROM_PAGES_NUMBER = 1
-#define EXTEEPROM_PAGE_SIZE = EXTEEPROM_SIZE
-#endif
-#endif // USE_EXTEEPROM
-
 namespace BASIC
 {
 

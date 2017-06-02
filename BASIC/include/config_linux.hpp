@@ -25,11 +25,11 @@
  * Paraeters
  */
 #define USE_REALS             1 // Real arithmetics
-#define USE_LONGINT           0 // Long integer support
+#define USE_LONGINT           1 // Long integer support
 #define USE_DUMP              1 // DUMP command support
 #define CLEAR_PROGRAM_MEMORY  1 // Clear program memory on NEW
 #define USE_RANDOM            1 // Clear program memory with 0xFF on NEW
-#define USE_MATRIX            0 // Matrix operations
+#define USE_MATRIX            1 // Matrix operations
 #define USE_EXTEEPROM         0 // External EEPROM functions module
 #define USE_TEXTATTRIBUTES    1 // Use vt100 text attributes
 #if USE_TEXTATTRIBUTES
@@ -57,9 +57,16 @@
 
 #define OPT_SPEED     1
 #define OPT_SIZE      2
-#define OPT           OPT_SIZE
+#define OPT           OPT_SPEED
 
 #define SERIAL_PORT Serial
+
+#define BASIC_MULTITERMINAL       0
+#if BASIC_MULTITERMINAL
+#define SERIAL_PORT1 Serial1
+#define SERIAL_PORT2 Serial2
+#define SERIAL_PORT3 Serial3
+#endif
 
 namespace BASIC
 {
@@ -68,7 +75,7 @@ namespace BASIC
 const uint8_t PROGSTRINGSIZE = 73;
 
 // Number of bytes for program text, variables and stack
-const uint16_t PROGRAMSIZE = 2048;
+const uint16_t PROGRAMSIZE = 32768;
 
 // Max size of the string constants/variables
 const uint8_t STRINGSIZE = 65;
@@ -77,7 +84,5 @@ const uint8_t STRINGSIZE = 65;
 const uint8_t VARSIZE = 5;
 
 }
-
-#define BASIC_MULTITERMINAL 0
 
 #endif

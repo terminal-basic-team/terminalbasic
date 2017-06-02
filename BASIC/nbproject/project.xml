@@ -10,10 +10,13 @@
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects>
                 <make-dep-project>../../libarduinoemulator</make-dep-project>
+                <make-dep-project>../../libutft</make-dep-project>
                 <make-dep-project>../libarduino</make-dep-project>
                 <make-dep-project>../arduinoext</make-dep-project>
                 <make-dep-project>../../libarduinoext</make-dep-project>
                 <make-dep-project>../../libarduino</make-dep-project>
+                <make-dep-project>../../tvoutex/livbtvoutex</make-dep-project>
+                <make-dep-project>../../libsdcard/libsdcard</make-dep-project>
             </make-dep-projects>
             <sourceRootList>
                 <sourceRootElem>include</sourceRootElem>
@@ -72,7 +75,10 @@
                 </confElem>
             </confList>
             <formatting>
-                <project-formatting-style>false</project-formatting-style>
+                <project-formatting-style>true</project-formatting-style>
+                <c-style>Default_1|OpenBSD</c-style>
+                <cpp-style>ANSI_0|OpenBSD</cpp-style>
+                <header-style>ANSI_1|OpenBSD</header-style>
             </formatting>
         </data>
     </configuration>
