@@ -76,6 +76,29 @@ ExtEEPROM::_init()
 bool
 ExtEEPROM::com_echain(Interpreter &i)
 {
+	INT zoneNumber;
+	if (!getIntegerFromStack(i, zoneNumber))
+		return false;
+
+	const uint16_t zoneAddr = zoneNumber*zoneSize;
+	if (zoneAddr+zoneSize > AT28C256C::size)
+		return false;
+	// Read program from EEPROM
+	ZoneHeader h;
+	if (!i2c_eeprom.read(zoneAddr, h))
+		return false;
+	i._program.clearProg();
+	i._program.moveData(h.textEnd);
+	for (uint16_t p = 0; p < h.textEnd; ++p) {
+		delay(5);
+		if (!i2c_eeprom.readByte(zoneAddr+p+sizeof(ZoneHeader),
+		    reinterpret_cast<uint8_t&>(i._program._text[p])))
+			return false;
+		else
+			i.print('.');
+	}
+	i.newline();
+	
 	return true;
 }
 

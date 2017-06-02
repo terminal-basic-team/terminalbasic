@@ -64,4 +64,4 @@ do
 done
 
 cd ./sketch
-tar -czvf ./terminal-basic-${VER}-src.tar.gz ./terminal-basic-${VER} ../../tvoutex/TVoutEx ../../libsdcard/SDCard
+tar -czvf ./terminal-basic-${VER}-src.tar.gz ./terminal-basic-${VER} ../../tvoutex/TVoutEx ../../libsdcard/SDCard ../../libutft/UTFT
