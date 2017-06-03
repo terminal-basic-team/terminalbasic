@@ -94,10 +94,9 @@ ExtEEPROM::com_echain(Interpreter &i)
 		if (!i2c_eeprom.readByte(zoneAddr+p+sizeof(ZoneHeader),
 		    reinterpret_cast<uint8_t&>(i._program._text[p])))
 			return false;
-		else
-			i.print('.');
 	}
 	i.newline();
+	i._program.jump(0);
 	
 	return true;
 }
@@ -117,9 +116,9 @@ ExtEEPROM::com_eload(Interpreter &i)
 	ZoneHeader h;
 	if (!i2c_eeprom.read(zoneAddr, h))
 		return false;
-	for (uint16_t p = 0; p < PROGRAMSIZE; ++p) {
+	for (uint16_t p = 0; p<h.arraysEnd; ++p) {
 		delay(5);
-		if (!i2c_eeprom.readByte(zoneAddr+p+sizeof(ZoneHeader),
+		if (!i2c_eeprom.readByte(zoneAddr+sizeof(ZoneHeader)+p,
 		    reinterpret_cast<uint8_t&>(i._program._text[p])))
 			return false;
 		else
@@ -152,9 +151,10 @@ ExtEEPROM::com_esave(Interpreter &i)
 	h.sp = i._program.sp();
 	if (!i2c_eeprom.write(zoneAddr, h))
 		return false;
-	for (uint16_t p = 0; p < PROGRAMSIZE; ++p) {
+	for (uint16_t p = 0; p<h.arraysEnd; ++p) {
 		delay(5);
-		if (!i2c_eeprom.writeByte(zoneAddr+p, i._program._text[p]))
+		if (!i2c_eeprom.writeByte(zoneAddr+sizeof(ZoneHeader)+p,
+		    i._program._text[p]))
 			return false;
 		else
 			i.print('.');
