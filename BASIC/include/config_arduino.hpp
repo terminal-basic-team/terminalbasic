@@ -70,16 +70,20 @@
  */
 
 // Input variants
-#define SERIAL_I  0 // Serial input
-#define SERIALL_I 1 // SerialL input
-#define SERIAL3_I 2 // SerialL3 input
+#define SERIAL_I   0 // Serial input
+#define SERIALL_I  1 // SerialL input
+#define SERIALL1_I 2 // SerialL1 input
+#define SERIALL2_I 3 // SerialL2 input
+#define SERIALL3_I 4 // SerialL3 input
 
 // Output variants
-#define SERIAL_O  0 // SerialL output
-#define SERIALL_O 1 // SerialL output
-#define SERIAL3_O 2 // SerialL3 output
-#define UTFT_O    3 // UTFT output
-#define TVOUT_O   4 // TVout output
+#define SERIAL_O   0 // SerialL output
+#define SERIALL_O  1 // SerialL output
+#define SERIALL1_O 2 // SerialL1 output
+#define SERIALL2_O 3 // SerialL2 output
+#define SERIALL3_O 4 // SerialL3 output
+#define UTFT_O     5 // UTFT output
+#define TVOUT_O    6 // TVout output
 
 // Input select 
 #define S_INPUT SERIALL_I
@@ -94,25 +98,25 @@
 #define SERIAL_PORT Serial
 #elif S_INPUT == SERIALL_I
 #define SERIAL_PORT SerialL
-#elif S_INPUT == SERIAL3_I
+#elif S_INPUT == SERIALL3_I
 #define SERIAL_PORT SerialL3
 #endif
 #if S_OUTPUT == SERIAL_O
 #define SERIAL_PORT Serial
 #elif S_OUTPUT == SERIALL_O
 #define SERIAL_PORT SerialL
-#elif S_OUTPUT == SERIAL3_O
+#elif S_OUTPUT == SERIALL3_O
 #define SERIAL_PORT SerialL3
 #elif S_OUTPUT == UTFT_O
 #undef USEUTFT
 #define USEUTFT		          1
 #elif S_OUTPUT == TVOUT_O
 #undef USETVOUT
-#define USETVOUT	         1
+#define USETVOUT	          1
 #endif
 
 // Use multiterminal mode
-#define BASIC_MULTITERMINAL       1
+#define BASIC_MULTITERMINAL       0
 #if BASIC_MULTITERMINAL
 #define SERIAL_PORT1 SerialL1
 #define SERIAL_PORT2 SerialL2

@@ -1025,6 +1025,8 @@ Interpreter::readInput()
 	for (uint8_t i = _inputPosition; i < end; ++i) {
 		char c = _inputBuffer[i];
 		switch (c) {
+		case char(ASCII::HT):
+                        break;
 		case char(ASCII::BS):
 		case char(ASCII::DEL):
 			if (_inputPosition > 0) {

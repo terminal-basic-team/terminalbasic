@@ -76,9 +76,9 @@
             </confList>
             <formatting>
                 <project-formatting-style>true</project-formatting-style>
-                <c-style>Default_1|OpenBSD</c-style>
-                <cpp-style>ANSI_0|OpenBSD</cpp-style>
-                <header-style>ANSI_1|OpenBSD</header-style>
+                <c-style>ANSI|ANSI</c-style>
+                <cpp-style>ANSI|ANSI</cpp-style>
+                <header-style>OpenSolaris_0|OpenBSD</header-style>
             </formatting>
         </data>
     </configuration>
