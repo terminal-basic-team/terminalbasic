@@ -498,7 +498,7 @@ Parser::Value::printTo(Print& p) const
 			n /= Real(10);
 			++decWhole;
 		}
-		if (decWhole < 4)
+		if (math<Real>::abs(value.real) >= Real(0.1) && decWhole < 4)
 			::dtostrf(value.real, 10, 8 - decWhole, buf);
 		else
 			::dtostre(value.real, buf, 7, DTOSTR_ALWAYS_SIGN);

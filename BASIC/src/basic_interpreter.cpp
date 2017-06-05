@@ -1324,8 +1324,9 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 			    reinterpret_cast<Real*>(array->data()),
 			    array->dimension[0]+1, array->dimension[1]+1);
 			break;
-		}
 #endif
+		}
+
 		setMatrixSize(*array, arrayFirst->dimension[1],
 		    arrayFirst->dimension[0]);
 	}
