@@ -21,6 +21,8 @@
 #include "math.hpp"
 #include "basic_lexer.hpp"
 
+#include "seriallight.hpp"
+
 namespace BASIC
 {
 
@@ -494,6 +496,7 @@ Parser::Value::printTo(Print& p) const
 #ifdef __AVR_ARCH__
 		uint8_t decWhole = 1;
 		Real n = math<Real>::abs(value.real);
+		SERIAL_PORT.println(n);
 		while (n >= Real(10)) {
 			n /= Real(10);
 			++decWhole;

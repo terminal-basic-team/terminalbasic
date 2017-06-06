@@ -28,9 +28,9 @@
 #define USE_STRINGOPS        1 // Basic string operations (concatenation and comparision)
 #define USE_LONGINT          0 // Long integer support
 #define USE_DUMP             1 // DUMP command support
-#define USE_RANDOM           1 // Use RND and RANDOMIZE
+#define USE_RANDOM           0 // Use RND and RANDOMIZE
 #define CLEAR_PROGRAM_MEMORY 1 // Clear program memory with 0xFF on NEW
-#define USE_MATRIX           1 // Matrix operations
+#define USE_MATRIX           0 // Matrix operations
 #define USE_TEXTATTRIBUTES   0 // Use vt100 text attributes
 #if USE_TEXTATTRIBUTES
 #define USE_COLORATTRIBUTES  0 // Use vt100 color attributes
@@ -40,7 +40,7 @@
 #define EXTEEPROM_SIZE    32768 // Size in bytes
 #endif
 
-#define USE_SAVE_LOAD        1 // SAVE, LOAD and CHAIN commands support
+#define USE_SAVE_LOAD        0 // SAVE, LOAD and CHAIN commands support
 #if USE_SAVE_LOAD
 #define SAVE_LOAD_CHECKSUM   1 // Compute checksums while SAVE, LOAD and CHAIN
 #endif
@@ -51,11 +51,11 @@
  * Used modules
  */
 #define USESD                0 // SDcard module
-#define USEARDUINOIO         1 // Arduino IO module
+#define USEARDUINOIO         0 // Arduino IO module
 /*
  * Math module (requires USE_REALS)
  */
-#define USEMATH                 1
+#define USEMATH                 0
 #if USEMATH
 #define M_TRIGONOMETRIC         1 // SIN COS TAN COT
 #define M_REVERSE_TRIGONOMETRIC	1 // ACS ASN ATN
@@ -89,7 +89,7 @@
 #define S_INPUT SERIALL_I
 
 // Output select
-#define S_OUTPUT SERIALL_O
+#define S_OUTPUT TVOUT_O
 
 #define USEUTFT		          0
 #define USETVOUT	          0
@@ -113,6 +113,11 @@
 #elif S_OUTPUT == TVOUT_O
 #undef USETVOUT
 #define USETVOUT	          1
+#endif
+
+#if USETVOUT
+#define TVOUT_HORIZ 240
+#define TVOUT_VERT 192
 #endif
 
 // Use multiterminal mode

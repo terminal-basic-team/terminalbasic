@@ -56,6 +56,7 @@
 static UTFT	utft(CTE32HR, 38, 39, 40, 41);
 static UTFTTerminal utftPrint(utft);
 #elif USETVOUT
+static uint8_t		tvOutBuf[TVoutEx::bufferSize(TVOUT_HORIZ, TVOUT_VERT)];
 static TVoutEx		tvOut;
 static TVoutPrint	tvoutPrint;
 #endif
@@ -115,7 +116,7 @@ setup()
 #endif
 	SERIAL_PORT.begin(115200);
 #if USETVOUT
-	tvoutPrint.begin(tvOut, PAL);
+	tvOut.begin(PAL, TVOUT_HORIZ, TVOUT_VERT, tvOutBuf);
 #endif
 #if USEUTFT
 	utftPrint.begin();
