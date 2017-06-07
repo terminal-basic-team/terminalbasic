@@ -494,9 +494,9 @@ Parser::Value::printTo(Print& p) const
 	{
 		char buf[15];
 #ifdef __AVR_ARCH__
-		uint8_t decWhole = 1;
+		int8_t decWhole = 1;
 		Real n = math<Real>::abs(value.real);
-		SERIAL_PORT.println(n);
+                
 		while (n >= Real(10)) {
 			n /= Real(10);
 			++decWhole;
