@@ -34,7 +34,7 @@ GFXModule::command_circle(Interpreter &i)
 {
 	uint8_t x,y,r;
 	Color_t c;
-	TVoutEx::instance()->draw_circle(x,y,r,c);
+	TVoutEx::instance()->drawCircle(x,y,r,c);
 }
 
 }

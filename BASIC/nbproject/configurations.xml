@@ -549,6 +549,7 @@
             <pElem>../UTFT/include</pElem>
             <pElem>../../libsdcard/SDCard</pElem>
             <pElem>../../libutft/UTFT</pElem>
+            <pElem>../../tvoutex/TVoutEx</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>
@@ -578,6 +579,18 @@
                             BC="${MAKE}  -f Makefile CONF=Arduino_mega2560"
                             CC="${MAKE}  -f Makefile CONF=Arduino_mega2560 clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibutft.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../tvoutex/livbtvoutex"
+                            CT="3"
+                            CN="Arduino_MEGA2560"
+                            AC="false"
+                            BL="true"
+                            WD="../../tvoutex/livbtvoutex"
+                            BC="${MAKE}  -f Makefile CONF=Arduino_MEGA2560"
+                            CC="${MAKE}  -f Makefile CONF=Arduino_MEGA2560 clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblivbtvoutex.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>

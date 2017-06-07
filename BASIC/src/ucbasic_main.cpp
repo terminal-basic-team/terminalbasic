@@ -41,7 +41,7 @@
 
 #if USETVOUT
 #include "TVoutPrint.hpp"
-#include "fontALL.h"
+#include "fonts/Font6x8.h"
 #endif
 
 #if USE_EXTEEPROM
@@ -118,7 +118,7 @@ setup()
 	SERIAL_PORT.begin(115200);
 #if USETVOUT
 	tvOut.begin(PAL, TVOUT_HORIZ, TVOUT_VERT, tvOutBuf);
-        tvOut.selectFont(font6x8);
+        tvOut.selectFont(Font6x8);
 #endif
 #if USEUTFT
 	utftPrint.begin();
