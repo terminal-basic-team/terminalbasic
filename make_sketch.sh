@@ -16,6 +16,8 @@ SRC="	./BASIC/include/basic.hpp  \
 	./BASIC/src/basic_parser.cpp \
 	./BASIC/src/basic_interpreter.cpp \
 	./BASIC/src/basic_program.cpp \
+	./BASIC/include/basic_exteeprom.hpp \
+	./BASIC/src/basic_exteeprom.cpp \
 	./BASIC/include/basic_functionblock.hpp \
 	./BASIC/include/basic_arduinoio.hpp \
 	./BASIC/include/basic_math.hpp \
@@ -35,6 +37,7 @@ SRC="	./BASIC/include/basic.hpp  \
 	../libarduinoext/include/vt100.hpp \
 	../libarduinoext/include/matrix.hpp \
 	../libarduinoext/include/types.hpp \
+	../libarduinoext/include/i2ceeprom.hpp \
 	../libarduinoext/include/arduino_logger.hpp \
 	../libarduinoext/include/arduinoext.hpp \
 	../libarduinoext/include/helper.hpp \

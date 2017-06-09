@@ -27,22 +27,22 @@
 #define USE_REALS            1 // Real arithmetics
 #define USE_STRINGOPS        1 // Basic string operations (concatenation and comparision)
 #define USE_LONGINT          0 // Long integer support
-#define USE_DUMP             1 // DUMP command support
+#define USE_DUMP             0 // DUMP command support
 #define USE_RANDOM           1 // Use RND and RANDOMIZE
 #define CLEAR_PROGRAM_MEMORY 1 // Clear program memory with 0xFF on NEW
-#define USE_MATRIX           1 // Matrix operations
-#define USE_TEXTATTRIBUTES   0 // Use vt100 text attributes
+#define USE_MATRIX           0 // Matrix operations
+#define USE_TEXTATTRIBUTES   1 // Use vt100 text attributes
 #if USE_TEXTATTRIBUTES
-#define USE_COLORATTRIBUTES  0 // Use vt100 color attributes
+#define USE_COLORATTRIBUTES  1 // Use vt100 color attributes
 #endif
-#define USE_EXTEEPROM        0 // External EEPROM functions module
+#define USE_EXTEEPROM        1 // External EEPROM functions module
 #if USE_EXTEEPROM
 #define EXTEEPROM_SIZE    32768 // Size in bytes
 #endif
 
 #define USE_SAVE_LOAD        1 // SAVE, LOAD and CHAIN commands support
 #if USE_SAVE_LOAD
-#define SAVE_LOAD_CHECKSUM   1 // Compute checksums while SAVE, LOAD and CHAIN
+#define SAVE_LOAD_CHECKSUM   0 // Compute checksums while SAVE, LOAD and CHAIN
 #endif
 
 #define USE_GFX              0 // GFX module
@@ -58,7 +58,7 @@
 #define USEMATH                 1
 #if USEMATH
 #define M_TRIGONOMETRIC         1 // SIN COS TAN COT
-#define M_REVERSE_TRIGONOMETRIC	1 // ACS ASN ATN
+#define M_REVERSE_TRIGONOMETRIC	0 // ACS ASN ATN
 #endif
 
 #define OPT_SPEED     1
@@ -70,16 +70,22 @@
  */
 
 // Input variants
-#define SERIAL_I  0 // Serial input
-#define SERIALL_I 1 // SerialL input
-#define SERIAL3_I 2 // SerialL3 input
+#define SERIAL_I   0 // Serial input
+#define SERIALL_I  1 // SerialL input
+#define SERIALL1_I 2 // SerialL1 input
+#define SERIALL2_I 3 // SerialL2 input
+#define SERIALL3_I 4 // SerialL3 input
 
 // Output variants
-#define SERIAL_O  0 // SerialL output
-#define SERIALL_O 1 // SerialL output
-#define SERIAL3_O 2 // SerialL3 output
-#define UTFT_O    3 // UTFT output
-#define TVOUT_O   4 // TVout output
+#define SERIAL_O   0 // SerialL output
+#define SERIALL_O  1 // SerialL output
+#define SERIALL1_O 2 // SerialL1 output
+#define SERIALL2_O 3 // SerialL2 output
+#define SERIALL3_O 4 // SerialL3 output
+#define UTFT_O     5 // UTFT output
+#define TVOUT_O    6 // TVout output
+	#define TVOUT_HORIZ 240
+	#define TVOUT_VERT 192
 
 // Input select 
 #define S_INPUT SERIALL_I
@@ -90,29 +96,8 @@
 #define USEUTFT		          0
 #define USETVOUT	          0
 
-#if S_INPUT == SERIAL_I
-#define SERIAL_PORT Serial
-#elif S_INPUT == SERIALL_I
-#define SERIAL_PORT SerialL
-#elif S_INPUT == SERIAL3_I
-#define SERIAL_PORT SerialL3
-#endif
-#if S_OUTPUT == SERIAL_O
-#define SERIAL_PORT Serial
-#elif S_OUTPUT == SERIALL_O
-#define SERIAL_PORT SerialL
-#elif S_OUTPUT == SERIAL3_O
-#define SERIAL_PORT SerialL3
-#elif S_OUTPUT == UTFT_O
-#undef USEUTFT
-#define USEUTFT		          1
-#elif S_OUTPUT == TVOUT_O
-#undef USETVOUT
-#define USETVOUT	         1
-#endif
-
 // Use multiterminal mode
-#define BASIC_MULTITERMINAL       1
+#define BASIC_MULTITERMINAL       0
 #if BASIC_MULTITERMINAL
 #define SERIAL_PORT1 SerialL1
 #define SERIAL_PORT2 SerialL2
@@ -120,7 +105,7 @@
 #endif
 
 // Use external memory
-#define USE_EXTMEM                1
+#define USE_EXTMEM                0
 #if USE_EXTMEM
 #define EXTMEM_ADDRESS 0x8000
 #define EXTMEM_SIZE    32768
