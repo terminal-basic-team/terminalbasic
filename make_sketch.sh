@@ -37,6 +37,7 @@ SRC="	./BASIC/include/basic.hpp  \
 	../libarduinoext/include/vt100.hpp \
 	../libarduinoext/include/matrix.hpp \
 	../libarduinoext/include/types.hpp \
+	../libarduinoext/include/i2ceeprom.hpp \
 	../libarduinoext/include/arduino_logger.hpp \
 	../libarduinoext/include/arduinoext.hpp \
 	../libarduinoext/include/helper.hpp \
