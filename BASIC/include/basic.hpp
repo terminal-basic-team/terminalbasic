@@ -22,8 +22,6 @@
 #include <stdio.h>
 #include <inttypes.h>
 
-#include "helper.hpp"
-
 #ifdef ARDUINO
 #include "config_arduino.hpp"
 #elif defined __linux__
@@ -64,7 +62,6 @@
  */
 namespace BASIC
 {
-
 // integer type
 typedef int16_t Integer;
 #if USE_LONGINT

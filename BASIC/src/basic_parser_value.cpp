@@ -495,12 +495,19 @@ Parser::Value::printTo(Print& p) const
 		int8_t decWhole = 1;
 		Real n = math<Real>::abs(value.real);
                 
-		while (n >= Real(10)) {
-			n /= Real(10);
-			++decWhole;
+		if (n >= Real(1)) {
+			while (n >= Real(10)) {
+				n /= Real(10);
+				++decWhole;
+			}
+		} else {
+			while (n < Real(1)) {
+				n *= Real(10);
+				--decWhole;
+			}
 		}
-		if (math<Real>::abs(value.real) >= Real(0.1) && decWhole < 4)
-			::dtostrf(value.real, 10, 8 - decWhole, buf);
+		if (decWhole >= -3 && decWhole <= 8)
+			::dtostrf(value.real, 14, 8 - decWhole, buf);
 		else
 			::dtostre(value.real, buf, 7, DTOSTR_ALWAYS_SIGN);
 #else

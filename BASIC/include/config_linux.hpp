@@ -20,6 +20,7 @@
 #define CONFIG_LINUX_HPP
 
 #include <stdint.h>
+#include "Arduino.h"
 
 /**
  * Paraeters
@@ -58,6 +59,9 @@
 #define OPT_SPEED     1
 #define OPT_SIZE      2
 #define OPT           OPT_SPEED
+
+#define USEUTFT		          0
+#define USETVOUT	          0
 
 #define SERIAL_PORT Serial
 

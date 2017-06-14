@@ -338,7 +338,7 @@ Parser::fPrintList()
 		return false;
 	
 	while (true) {
-		Token t = _lexer.getToken();
+		const Token t = _lexer.getToken();
 		switch (t) {
 		case Token::COMMA:
 			if (_mode == EXECUTE)
@@ -505,7 +505,7 @@ Parser::fSimpleExpression(Value &v)
 		return false;
 
 	while (true) {
-		Token t = _lexer.getToken();
+		const Token t = _lexer.getToken();
 		LOG(t);
 		Value v2;
 #if OPT == OPT_SPEED
@@ -568,7 +568,7 @@ Parser::fTerm(Value &v)
 		return false;
 
 	while (true) {
-		Token t = _lexer.getToken();
+		const Token t = _lexer.getToken();
 		LOG(t);
 		Value v2;
 #if OPT == OPT_SPEED
@@ -636,7 +636,7 @@ Parser::fFactor(Value &v)
 		return false;
 
 	while (true) {
-		Token t = _lexer.getToken();
+		const Token t = _lexer.getToken();
 		LOG(t);
 		Value v2;
 		if (t == Token::POW) {
@@ -762,7 +762,7 @@ Parser::fFinal(Value &v)
 bool
 Parser::fIfStatement()
 {
-	Token t = _lexer.getToken();
+	const Token t = _lexer.getToken();
 	LOG(t);
 	if (t == Token::KW_THEN) {
 		if (_lexer.getNext()) {
@@ -791,7 +791,7 @@ Parser::fIfStatement()
 bool
 Parser::fGotoStatement()
 {
-	Token t = _lexer.getToken();
+	const Token t = _lexer.getToken();
 	LOG(t);
 	if (t == Token::KW_GOTO) {
 		Value v;
@@ -810,7 +810,7 @@ Parser::fGotoStatement()
 bool
 Parser::fCommand()
 {
-	Token t = _lexer.getToken();
+	const Token t = _lexer.getToken();
 	LOG(t);
 	switch (t) {
 #if USE_SAVE_LOAD
