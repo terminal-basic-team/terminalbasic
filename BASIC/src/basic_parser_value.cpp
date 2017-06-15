@@ -20,6 +20,7 @@
 
 #include "math.hpp"
 #include "basic_lexer.hpp"
+#include "ascii.hpp"
 
 namespace BASIC
 {
@@ -520,15 +521,15 @@ Parser::Value::printTo(Print& p) const
 #if USE_LONGINT
 	case Parser::Value::LONG_INTEGER:
 		if (value.longInteger >= LongInteger(0))
-			p.write(' ');
+			p.print(char(ASCII::SPACE));
 		return p.print(value.longInteger) + 1;
 #endif // USE_LONGINT
 	case Parser::Value::INTEGER:
 		if (value.integer >= Integer(0))
-			p.write(' ');
+			p.print(char(ASCII::SPACE));
 		return p.print(value.integer) + 1;
 	default:
-		return p.print('?');
+		return p.print(char(ASCII::QMARK));
 	}
 }
 

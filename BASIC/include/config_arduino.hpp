@@ -27,7 +27,7 @@
 #define USE_REALS            1 // Real arithmetics
 #define USE_STRINGOPS        1 // Basic string operations (concatenation and comparision)
 #define USE_LONGINT          0 // Long integer support
-#define USE_DUMP             0 // DUMP command support
+#define USE_DUMP             1 // DUMP command support
 #define USE_RANDOM           1 // Use RND and RANDOMIZE
 #define CLEAR_PROGRAM_MEMORY 1 // Clear program memory with 0xFF on NEW
 #define USE_MATRIX           0 // Matrix operations
