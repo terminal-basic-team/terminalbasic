@@ -231,6 +231,7 @@ enum class ProgMemStrings : uint8_t
 	S_VARS,
 	S_ARRAYS,
 	S_STACK,
+#if USESD
 	S_DIR,
 #endif
 	S_REALLY,
