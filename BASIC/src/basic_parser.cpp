@@ -812,19 +812,20 @@ Parser::fCommand()
 {
 	const Token t = _lexer.getToken();
 	LOG(t);
+	typedef void (Interpreter::*func)();
+	func f = nullptr;
 	switch (t) {
 #if USE_SAVE_LOAD
 	case Token::COM_CHAIN:
-		if (_mode == EXECUTE)
-			_interpreter.chain();
-		_lexer.getNext();
-		return true;
+		f = &Interpreter::chain;
+		break;
 #endif
 	case Token::COM_CLS:
-		if (_mode == EXECUTE)
-			_interpreter.cls();
-		_lexer.getNext();
-		return true;
+		f = &Interpreter::cls;
+		break;
+	case Token::COM_CONT:
+		f = &Interpreter::cont;
+		break;
 #if USE_DUMP
 	case Token::COM_DUMP:
 	{
@@ -867,27 +868,19 @@ Parser::fCommand()
 		return true;
 #if USE_SAVE_LOAD
 	case Token::COM_LOAD:
-		if (_mode == EXECUTE)
-			_interpreter.load();
-		_lexer.getNext();
-		return true;
+		f = &Interpreter::load;
+		break;
 #endif
 	case Token::COM_NEW:
-		if (_mode == EXECUTE)
-			_interpreter.newProgram();
-		_lexer.getNext();
-		return true;
+		f = &Interpreter::newProgram;
+		break;
 	case Token::COM_RUN:
-		if (_mode == EXECUTE)
-			_interpreter.run();
-		_lexer.getNext();
-		return true;
+		f = &Interpreter::run;
+		break;
 #if USE_SAVE_LOAD
 	case Token::COM_SAVE:
-		if (_mode == EXECUTE)
-			_interpreter.save();
-		_lexer.getNext();
-		return true;
+		f = &Interpreter::save;
+		break;
 #endif
 	case Token::REAL_IDENT:
 	case Token::INTEGER_IDENT:
@@ -910,8 +903,15 @@ Parser::fCommand()
 			return (*c)(_interpreter);
 		}
 	default:
-		return false;
+		break;
 	}
+	if (f != nullptr) {
+		if (_mode == EXECUTE)
+			(_interpreter.*f)();
+		_lexer.getNext();
+		return true;
+	}
+	return false;
 }
 
 /*
