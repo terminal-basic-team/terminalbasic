@@ -143,7 +143,7 @@ scanTable(const uint8_t *token, const uint8_t table[], uint8_t &index)
 PGM_P
 progmemString(ProgMemStrings index)
 {
-	return (PGM_P)pgm_read_word(&progmemStrings[uint8_t(index)]);
+	return (PGM_P)pgm_read_ptr(&progmemStrings[uint8_t(index)]);
 }
 
 }
