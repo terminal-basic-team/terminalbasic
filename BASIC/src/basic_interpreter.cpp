@@ -366,6 +366,12 @@ Interpreter::exec()
 }
 
 void
+Interpreter::cont()
+{
+	_state = EXECUTE;
+}
+
+void
 Interpreter::cls()
 {
 	printEsc(ProgMemStrings::VT100_CLS),

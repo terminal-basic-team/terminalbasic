@@ -223,6 +223,7 @@ public:
 	void exec();
 	// Clear screen
 	void cls();
+	void cont();
 	// Output program memory
 	void list(uint16_t = 1, uint16_t = 0);
 #if USE_DUMP

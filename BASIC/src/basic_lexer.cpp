@@ -106,6 +106,7 @@ const char sBASE[] PROGMEM = "BASE";          // 3
 const char sCHAIN[] PROGMEM = "CHAIN";        // 4
 #endif
 const char sCLS[] PROGMEM = "CLS";            // 5
+const char sCONT[] PROGMEM = "CONT";
 #if USE_MATRIX
 const char sCON[] PROGMEM = "CON";            // 5
 #endif
@@ -216,6 +217,7 @@ PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 	sCHAIN,     // 3
 #endif
 	sCLS,       // 4
+	sCONT,
 #if USE_MATRIX
 	sCON,
 #endif
@@ -317,6 +319,7 @@ static const uint8_t tokenTable[] PROGMEM = {
 	'C', 'H', 'A', 'I', 'N'+0x80,      // 3
 #endif
 	'C', 'L', 'S'+0x80,                // 4
+	'C', 'O', 'N', 'T'+0x80,
 #if USE_MATRIX
 	'C', 'O', 'N'+0x80,
 #endif

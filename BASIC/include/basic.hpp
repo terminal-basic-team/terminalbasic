@@ -91,6 +91,7 @@ enum class Token : uint8_t
 	COM_CHAIN,     // 3
 #endif
 	COM_CLS,       // 4
+	COM_CONT,
 #if USE_MATRIX
 	KW_CON,
 #endif
