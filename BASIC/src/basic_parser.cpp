@@ -376,7 +376,8 @@ Parser::fPrintItem()
 			if (_lexer.getNext() && _lexer.getToken() == Token::LPAREN &&
 			    _lexer.getNext() && fExpression(v) &&
 			    _lexer.getToken() == Token::RPAREN) {
-				_interpreter.printTab(v);
+				if (_mode == EXECUTE)
+					_interpreter.printTab(v);
 				_lexer.getNext();
 			} else
 				return false;
@@ -517,7 +518,7 @@ Parser::fSimpleExpression(Value &v)
 				    v2.type == Value::STRING)
 					_interpreter.strConcat();
 				else
-#endif
+#endif // USE_STRINGOPS
 					v += v2;
 				continue;
 			} else
