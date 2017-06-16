@@ -37,7 +37,9 @@ static const char strOF[] PROGMEM = "OF";
 static const char strVARS[] PROGMEM = "VARS";
 static const char strARRAYS[] PROGMEM = "ARRAYS";
 static const char strSTACK[] PROGMEM = "STACK";
+#if USESD
 static const char strDIR[] PROGMEM = "DIR";
+#endif
 static const char strREALLY[] PROGMEM = "REALLY";
 static const char strEND[] PROGMEM = "END";
 static const char strVT100_PROLOGUESEQ[] PROGMEM = "\x1B[";
@@ -75,7 +77,9 @@ static PGM_P const progmemStrings[uint8_t(ProgMemStrings::NUM_STRINGS)] PROGMEM 
 	strVARS, // VARS
 	strARRAYS, // ARRAYS
 	strSTACK, // STACK
+#if USESD
 	strDIR, // DIR
+#endif
 	strREALLY, // REALLY
 	strEND, // END
 	strVT100_PROLOGUESEQ, // x1B[

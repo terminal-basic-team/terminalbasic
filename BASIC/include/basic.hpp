@@ -232,6 +232,7 @@ enum class ProgMemStrings : uint8_t
 	S_ARRAYS,
 	S_STACK,
 	S_DIR,
+#endif
 	S_REALLY,
 	S_END,
         VT100_ESCSEQ,
