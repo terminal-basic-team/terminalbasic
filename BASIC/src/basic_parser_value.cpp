@@ -353,7 +353,7 @@ Parser::Value::operator^=(const Value &rhs)
 	case INTEGER:
 	{
 		Integer r = 1;
-		for (Integer i = 0; i < Integer(rhs); ++i)
+		for (Integer i = Integer(rhs); i > 0; --i)
 			r *= value.integer;
 		value.integer = r;
 	}
@@ -362,7 +362,7 @@ Parser::Value::operator^=(const Value &rhs)
 	case LONG_INTEGER:
 	{
 		LongInteger r = 1;
-		for (LongInteger i = 0; i < LongInteger(rhs); ++i)
+		for (LongInteger i = LongInteger(rhs); i > 0 ; --i)
 			r *= value.longInteger;
 		value.longInteger = r;
 	}
