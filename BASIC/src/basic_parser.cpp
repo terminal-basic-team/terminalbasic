@@ -23,6 +23,7 @@
 #include "basic_parser.hpp"
 #include "basic_interpreter.hpp"
 #include "basic_program.hpp"
+#include "ascii.hpp"
 
 /*
  * TEXT = OPERATORS | C_INTEGER OPERATORS
@@ -168,13 +169,13 @@ Parser::fOperator()
 {
 	LOG_TRACE;
 
-	Token t = _lexer.getToken();
+	const Token t = _lexer.getToken();
 	LOG(t);
 	switch (t) {
 	case Token::KW_DIM:
-		if (!_lexer.getNext())
-			return false;
-		return (fArrayList());
+		if (_lexer.getNext())
+			return fArrayList();
+		return false;
 	case Token::KW_END:
 		_interpreter._program.reset();
 	case Token::KW_STOP:
@@ -184,9 +185,9 @@ Parser::fOperator()
 		_lexer.getNext();
 		break;
 	case Token::KW_FOR:
-		if (!_lexer.getNext())
-			return false;
-		return (fForConds());
+		if (_lexer.getNext())
+			return fForConds();
+		return false;
 	case Token::KW_GOSUB: {
 		Value v;
 		if (!_lexer.getNext() || !fExpression(v)) {
@@ -222,9 +223,8 @@ Parser::fOperator()
 		if (!fVarList()) {
 			_error = VARIABLES_LIST_EXPECTED;
 			return false;
-		} else if (_mode == EXECUTE) {
+		} else if (_mode == EXECUTE)
 			_interpreter.input();
-		}
 		break;
 	case Token::KW_LET: {
 		char vName[VARSIZE];

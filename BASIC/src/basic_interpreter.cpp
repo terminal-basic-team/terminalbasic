@@ -1545,7 +1545,7 @@ Interpreter::pushResult()
 void
 Interpreter::print(Token t)
 {
-	char buf[16];
+	char buf[10];
 	strcpy_P(buf, (PGM_P) pgm_read_word(&(Lexer::tokenStrings[
 	    uint8_t(t)])));
 	if (t < Token::STAR)
