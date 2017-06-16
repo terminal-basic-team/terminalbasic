@@ -41,6 +41,8 @@
 #define SAVE_LOAD_CHECKSUM    1
 #endif
 
+#define AUTOCAPITALIZE        0 // Convert all input to upper register
+
 /**
  * Used modules
  */
