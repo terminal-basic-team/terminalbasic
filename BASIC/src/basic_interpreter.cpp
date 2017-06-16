@@ -1108,7 +1108,9 @@ Interpreter::readInput()
 			_inputPosition = 0;
 			return true;
 		default:
-			toupper(c);
+#if AUTOCAPITALIZE
+			c = toupper(c);
+#endif
 			// Only acept character if there is room for upcoming
 			// control one (line end or del/bs)
 			if (availableSize > 1) {

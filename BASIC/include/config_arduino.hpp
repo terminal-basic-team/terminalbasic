@@ -45,6 +45,7 @@
 #define SAVE_LOAD_CHECKSUM   0 // Compute checksums while SAVE, LOAD and CHAIN
 #endif
 
+#define AUTOCAPITALIZE       0 // Convert all input to upper register
 #define USE_GFX              0 // GFX module
 
 /**
