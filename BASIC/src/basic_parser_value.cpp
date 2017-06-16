@@ -374,7 +374,7 @@ Parser::Value::operator^=(const Value &rhs)
 		break;
 #endif
 	}
-	return (*this);
+	return *this;
 }
 
 void

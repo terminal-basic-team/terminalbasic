@@ -86,15 +86,15 @@ FunctionBlock::_getFunction(const char *name) const
 FunctionBlock::command
 FunctionBlock::_getCommand(const char *name) const
 {
-	if (commandTokens == NULL)
-		return (NULL);
+	if (commandTokens == nullptr)
+		return nullptr;
 	
 	uint8_t index;
 	if (scanTable((const uint8_t*)name, commandTokens, index))
 		return (reinterpret_cast<FunctionBlock::command>(
 		    pgm_read_ptr(&commands[index])));
 
-	return (NULL);
+	return nullptr;
 }
 
 #if USE_REALS
@@ -123,9 +123,9 @@ FunctionBlock::general_func(Interpreter &i, _funcInteger f)
 	if (getIntegerFromStack(i, v)) {
 		v = (*f)(v);
 		i.pushValue(v);
-		return (true);
+		return true;
 	} else
-		return (false);
+		return false;
 }
 
 bool

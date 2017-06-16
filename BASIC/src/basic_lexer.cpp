@@ -418,7 +418,7 @@ Lexer::getTokenString(Token t) const
 			++index;
 		c=pgm_read_byte(++result);
 	}
-	return NULL;
+	return nullptr;
 }
 
 void

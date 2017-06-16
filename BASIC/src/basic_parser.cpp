@@ -216,7 +216,7 @@ Parser::fOperator()
 			res = false;
 		}
 		_mode = EXECUTE;
-		return (res);
+		return res;
 	}
 	case Token::KW_INPUT:
 		if (!fVarList()) {
@@ -342,7 +342,7 @@ Parser::fPrintList()
 		switch (t) {
 		case Token::COMMA:
 			if (_mode == EXECUTE)
-				_interpreter.print('\t');
+				_interpreter.print(char(ASCII::HT));
 			if (!_lexer.getNext() || !fPrintItem())
 				return false;
 			break;
@@ -547,7 +547,7 @@ Parser::fSimpleExpression(Value &v)
 				    v2.type == Value::STRING)
 					_interpreter.strConcat();
 				else
-#endif
+#endif // USE_STRINGOPS
 					v += v2;
 			} else if (t == Token::MINUS)
 				v -= v2;
@@ -555,7 +555,7 @@ Parser::fSimpleExpression(Value &v)
 				v |= v2;
 		} else
 			return true;
-#endif
+#endif // OPT == OPT_SPEED
 	}
 }
 
@@ -799,9 +799,8 @@ Parser::fGotoStatement()
 			_error = EXPRESSION_EXPECTED;
 			return false;
 		}
-		if (_mode == EXECUTE) {
+		if (_mode == EXECUTE)
 			_interpreter.gotoLine(v.value.integer);
-		}
 		return true;
 	} else
 		return false;

@@ -1560,7 +1560,7 @@ Interpreter::print(Integer i, VT100::TextAttr attr)
 {
 	AttrKeeper _a(*this, attr);
 
-	_output.print(i), _output.print(' ');
+	_output.print(i), _output.print(char(ASCII::SPACE));
 }
 
 void
