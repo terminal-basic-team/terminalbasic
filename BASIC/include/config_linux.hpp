@@ -40,7 +40,7 @@
 #if USE_SAVE_LOAD
 #define SAVE_LOAD_CHECKSUM    1
 #endif
-
+#define USESTOPCONT           0
 #define AUTOCAPITALIZE        0 // Convert all input to upper register
 
 /**

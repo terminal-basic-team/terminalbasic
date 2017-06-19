@@ -178,7 +178,9 @@ Parser::fOperator()
 		return false;
 	case Token::KW_END:
 		_interpreter._program.reset();
+#if USESTOPCONT
 	case Token::KW_STOP:
+#endif
 		if (_mode == EXECUTE)
 			_interpreter.end();
 		_stopParse = true;
@@ -823,9 +825,11 @@ Parser::fCommand()
 	case Token::COM_CLS:
 		f = &Interpreter::cls;
 		break;
+#if USESTOPCONT
 	case Token::COM_CONT:
 		f = &Interpreter::cont;
 		break;
+#endif
 #if USE_DUMP
 	case Token::COM_DUMP:
 	{

@@ -364,13 +364,13 @@ Interpreter::exec()
 		_inputPosition += _lexer.getPointer();
 	}
 }
-
+#if USESTOPCONT
 void
 Interpreter::cont()
 {
 	_state = EXECUTE;
 }
-
+#endif
 void
 Interpreter::cls()
 {
