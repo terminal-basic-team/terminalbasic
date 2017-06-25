@@ -364,7 +364,13 @@ Interpreter::exec()
 		_inputPosition += _lexer.getPointer();
 	}
 }
-
+#if USESTOPCONT
+void
+Interpreter::cont()
+{
+	_state = EXECUTE;
+}
+#endif
 void
 Interpreter::cls()
 {
@@ -1102,7 +1108,9 @@ Interpreter::readInput()
 			_inputPosition = 0;
 			return true;
 		default:
-			toupper(c);
+#if AUTOCAPITALIZE
+			c = toupper(c);
+#endif
 			// Only acept character if there is room for upcoming
 			// control one (line end or del/bs)
 			if (availableSize > 1) {
@@ -1537,7 +1545,7 @@ Interpreter::pushResult()
 void
 Interpreter::print(Token t)
 {
-	char buf[16];
+	char buf[10];
 	strcpy_P(buf, (PGM_P) pgm_read_word(&(Lexer::tokenStrings[
 	    uint8_t(t)])));
 	if (t < Token::STAR)
@@ -1552,7 +1560,7 @@ Interpreter::print(Integer i, VT100::TextAttr attr)
 {
 	AttrKeeper _a(*this, attr);
 
-	_output.print(i), _output.print(' ');
+	_output.print(i), _output.print(char(ASCII::SPACE));
 }
 
 void

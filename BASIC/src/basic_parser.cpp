@@ -23,6 +23,7 @@
 #include "basic_parser.hpp"
 #include "basic_interpreter.hpp"
 #include "basic_program.hpp"
+#include "ascii.hpp"
 
 /*
  * TEXT = OPERATORS | C_INTEGER OPERATORS
@@ -168,25 +169,27 @@ Parser::fOperator()
 {
 	LOG_TRACE;
 
-	Token t = _lexer.getToken();
+	const Token t = _lexer.getToken();
 	LOG(t);
 	switch (t) {
 	case Token::KW_DIM:
-		if (!_lexer.getNext())
-			return false;
-		return (fArrayList());
+		if (_lexer.getNext())
+			return fArrayList();
+		return false;
 	case Token::KW_END:
 		_interpreter._program.reset();
+#if USESTOPCONT
 	case Token::KW_STOP:
+#endif
 		if (_mode == EXECUTE)
 			_interpreter.end();
 		_stopParse = true;
 		_lexer.getNext();
 		break;
 	case Token::KW_FOR:
-		if (!_lexer.getNext())
-			return false;
-		return (fForConds());
+		if (_lexer.getNext())
+			return fForConds();
+		return false;
 	case Token::KW_GOSUB: {
 		Value v;
 		if (!_lexer.getNext() || !fExpression(v)) {
@@ -216,15 +219,14 @@ Parser::fOperator()
 			res = false;
 		}
 		_mode = EXECUTE;
-		return (res);
+		return res;
 	}
 	case Token::KW_INPUT:
 		if (!fVarList()) {
 			_error = VARIABLES_LIST_EXPECTED;
 			return false;
-		} else if (_mode == EXECUTE) {
+		} else if (_mode == EXECUTE)
 			_interpreter.input();
-		}
 		break;
 	case Token::KW_LET: {
 		char vName[VARSIZE];
@@ -342,7 +344,7 @@ Parser::fPrintList()
 		switch (t) {
 		case Token::COMMA:
 			if (_mode == EXECUTE)
-				_interpreter.print('\t');
+				_interpreter.print(char(ASCII::HT));
 			if (!_lexer.getNext() || !fPrintItem())
 				return false;
 			break;
@@ -376,7 +378,8 @@ Parser::fPrintItem()
 			if (_lexer.getNext() && _lexer.getToken() == Token::LPAREN &&
 			    _lexer.getNext() && fExpression(v) &&
 			    _lexer.getToken() == Token::RPAREN) {
-				_interpreter.printTab(v);
+				if (_mode == EXECUTE)
+					_interpreter.printTab(v);
 				_lexer.getNext();
 			} else
 				return false;
@@ -517,7 +520,7 @@ Parser::fSimpleExpression(Value &v)
 				    v2.type == Value::STRING)
 					_interpreter.strConcat();
 				else
-#endif
+#endif // USE_STRINGOPS
 					v += v2;
 				continue;
 			} else
@@ -547,7 +550,7 @@ Parser::fSimpleExpression(Value &v)
 				    v2.type == Value::STRING)
 					_interpreter.strConcat();
 				else
-#endif
+#endif // USE_STRINGOPS
 					v += v2;
 			} else if (t == Token::MINUS)
 				v -= v2;
@@ -555,7 +558,7 @@ Parser::fSimpleExpression(Value &v)
 				v |= v2;
 		} else
 			return true;
-#endif
+#endif // OPT == OPT_SPEED
 	}
 }
 
@@ -799,9 +802,8 @@ Parser::fGotoStatement()
 			_error = EXPRESSION_EXPECTED;
 			return false;
 		}
-		if (_mode == EXECUTE) {
+		if (_mode == EXECUTE)
 			_interpreter.gotoLine(v.value.integer);
-		}
 		return true;
 	} else
 		return false;
@@ -812,19 +814,22 @@ Parser::fCommand()
 {
 	const Token t = _lexer.getToken();
 	LOG(t);
+	typedef void (Interpreter::*func)();
+	func f = nullptr;
 	switch (t) {
 #if USE_SAVE_LOAD
 	case Token::COM_CHAIN:
-		if (_mode == EXECUTE)
-			_interpreter.chain();
-		_lexer.getNext();
-		return true;
+		f = &Interpreter::chain;
+		break;
 #endif
 	case Token::COM_CLS:
-		if (_mode == EXECUTE)
-			_interpreter.cls();
-		_lexer.getNext();
-		return true;
+		f = &Interpreter::cls;
+		break;
+#if USESTOPCONT
+	case Token::COM_CONT:
+		f = &Interpreter::cont;
+		break;
+#endif
 #if USE_DUMP
 	case Token::COM_DUMP:
 	{
@@ -867,27 +872,19 @@ Parser::fCommand()
 		return true;
 #if USE_SAVE_LOAD
 	case Token::COM_LOAD:
-		if (_mode == EXECUTE)
-			_interpreter.load();
-		_lexer.getNext();
-		return true;
+		f = &Interpreter::load;
+		break;
 #endif
 	case Token::COM_NEW:
-		if (_mode == EXECUTE)
-			_interpreter.newProgram();
-		_lexer.getNext();
-		return true;
+		f = &Interpreter::newProgram;
+		break;
 	case Token::COM_RUN:
-		if (_mode == EXECUTE)
-			_interpreter.run();
-		_lexer.getNext();
-		return true;
+		f = &Interpreter::run;
+		break;
 #if USE_SAVE_LOAD
 	case Token::COM_SAVE:
-		if (_mode == EXECUTE)
-			_interpreter.save();
-		_lexer.getNext();
-		return true;
+		f = &Interpreter::save;
+		break;
 #endif
 	case Token::REAL_IDENT:
 	case Token::INTEGER_IDENT:
@@ -910,8 +907,15 @@ Parser::fCommand()
 			return (*c)(_interpreter);
 		}
 	default:
-		return false;
+		break;
 	}
+	if (f != nullptr) {
+		if (_mode == EXECUTE)
+			(_interpreter.*f)();
+		_lexer.getNext();
+		return true;
+	}
+	return false;
 }
 
 /*
