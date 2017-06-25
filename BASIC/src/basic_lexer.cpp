@@ -408,7 +408,7 @@ Logger&
 operator<<(Logger &logger, Token tok)
 {
 	char buf[12];
-	strcpy_P(buf, (PGM_P) pgm_read_word(&(Lexer::tokenStrings[tok])));
+	strcpy_P(buf, (PGM_P) pgm_read_word(&(Lexer::tokenStrings[uint8_t(tok)])));
 
 	logger.log(buf);
 	return (logger);
