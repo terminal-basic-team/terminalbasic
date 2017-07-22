@@ -57,7 +57,7 @@ AVRDUDE_CONF=${TOOLS}/etc/avrdude.conf
 JAVA=/usr/lib/jvm/java-1.8.0-openjdk-i386/bin/java  
 
 BUILD:=$(shell cat "./build-${CONF}")
-VERSION:=1.0-a2-${BUILD}
+VERSION:=1.0-a3-${BUILD}
 
 # build
 build: .build-post
