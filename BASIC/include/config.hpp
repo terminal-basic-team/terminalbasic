@@ -70,7 +70,7 @@
 #define USE_DUMP              1
 #define CLEAR_PROGRAM_MEMORY  1 // Clear program memory on NEW
 #define USE_RANDOM            1 // Clear program memory with 0xFF on NEW
-#define USE_MATRIX            1 // Matrix operations
+#define USE_MATRIX            0 // Matrix operations
 
 #define USE_TEXTATTRIBUTES    1 // Use vt100 text attributes
 #if USE_TEXTATTRIBUTES
@@ -98,7 +98,10 @@
 #define EXTEEPROM_SIZE       32768
 #endif // USE_EXTEEPROM
 
-#define USE_DOLOOP           1
-#define LOOP_INDENT          1
+#define USE_DOLOOP           0
+/*
+ * Indention of the loop bodies
+ */
+#define LOOP_INDENT          0
 
 #endif // CONFIG_HPP
