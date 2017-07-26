@@ -15,6 +15,7 @@
       <itemPath>include/basic_parser_value.hpp</itemPath>
       <itemPath>include/basic_program.hpp</itemPath>
       <itemPath>include/basic_sdfs.hpp</itemPath>
+      <itemPath>include/config.hpp</itemPath>
       <itemPath>include/config_arduino.hpp</itemPath>
       <itemPath>include/config_linux.hpp</itemPath>
     </logicalFolder>
@@ -185,6 +186,8 @@
       </item>
       <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
@@ -328,6 +331,8 @@
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -474,6 +479,8 @@
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -666,6 +673,8 @@
       </item>
       <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
@@ -807,6 +816,8 @@
       </item>
       <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
@@ -938,6 +949,8 @@
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1081,6 +1094,8 @@
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1228,6 +1243,8 @@
       </item>
       <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
@@ -1373,6 +1390,8 @@
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1536,6 +1555,8 @@
       </item>
       <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
@@ -1679,6 +1700,8 @@
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1824,6 +1847,8 @@
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
