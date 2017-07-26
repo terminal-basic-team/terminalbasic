@@ -382,15 +382,26 @@ void
 Interpreter::list(uint16_t start, uint16_t stop)
 {
 	_program.reset();
+#if LOOP_INDENT
+	_loopIndent = 0;
+#endif
 	for (Program::String *s = _program.getString(); s != NULL;
 	    s = _program.getString()) {
+		// Output onlyselected lines subrange
 		if (s->number < start)
 			continue;
 		if (stop > 0 && s->number > stop)
 			break;
 
+		// Output line number
 		print(long(s->number), VT100::C_YELLOW);
-
+		//If enabled, do indention of the operators string
+#if LOOP_INDENT
+	    for (uint8_t i=0; i<_loopIndent; ++i) {
+		_output.print(char(ASCII::SPACE)),
+		_output.print(char(ASCII::SPACE));
+	    }
+#endif
 		Lexer lex;
 		lex.init(s->text);
 		while (lex.getNext()) {
@@ -399,6 +410,12 @@ Interpreter::list(uint16_t start, uint16_t stop)
 				print(s->text + lex.getPointer());
 				break;
 			}
+#if LOOP_INDENT
+			else if (lex.getToken() == Token::KW_FOR)
+				++_loopIndent;
+			else if (lex.getToken() == Token::KW_NEXT)
+				--_loopIndent;
+#endif
 		}
 		newline();
 	}

@@ -96,9 +96,9 @@ Parser::Value::operator bool() const
 		return (bool(value.real));
 #endif // USE_REALS
 	case BOOLEAN:
-		return (value.boolean);
+		return value.boolean;
 	default:
-		return (false);
+		return false;
 	}
 }
 

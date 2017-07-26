@@ -19,6 +19,9 @@
 #ifndef INTERPRETER_HPP
 #define INTERPRETER_HPP
 
+#include <cstdint>
+
+
 #include "basic.hpp"
 #include "basic_lexer.hpp"
 #include "basic_parser.hpp"
@@ -466,6 +469,9 @@ private:
 	char			 _inputVarName[VARSIZE];
 	// Global RESULT() variable
 	Parser::Value		 _result;
+#if LOOP_INDENT
+	uint8_t			_loopIndent;
+#endif
 #if BASIC_MULTITERMINAL
 	static uint8_t		 _termnoGen;
 	uint8_t			 _termno;
