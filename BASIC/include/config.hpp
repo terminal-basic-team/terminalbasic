@@ -78,7 +78,7 @@
 #endif
 #define USE_SAVE_LOAD         1 // SAVE, LOAD and CHAIN commands support
 #if USE_SAVE_LOAD
-#define SAVE_LOAD_CHECKSUM    0 // Compute checksums while SAVE, LOAD and CHAIN
+#define SAVE_LOAD_CHECKSUM    1 // Compute checksums while SAVE, LOAD and CHAIN
 #endif // USE_SAVE_LOAD
 #define USESTOPCONT           1
 #define AUTOCAPITALIZE        0 // Convert all input to upper register
@@ -87,7 +87,7 @@
 #define OPT_SIZE      2
 #define OPT           OPT_SIZE
 
-#define USESD                1 // SDcard module
+#define USESD                0 // SDcard module
 #define USEARDUINOIO         1 // Arduino IO module
 
 #define USE_EXTEEPROM        0 // External EEPROM functions module
@@ -99,5 +99,6 @@
 #endif // USE_EXTEEPROM
 
 #define USE_DOLOOP           1
+#define LOOP_INDENT          1
 
 #endif // CONFIG_HPP

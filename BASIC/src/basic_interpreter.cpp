@@ -395,14 +395,31 @@ Interpreter::list(uint16_t start, uint16_t stop)
 
 		// Output line number
 		print(long(s->number), VT100::C_YELLOW);
-		//If enabled, do indention of the operators string
-#if LOOP_INDENT
-	    for (uint8_t i=0; i<_loopIndent; ++i) {
-		_output.print(char(ASCII::SPACE)),
-		_output.print(char(ASCII::SPACE));
-	    }
-#endif
+		
 		Lexer lex;
+#if LOOP_INDENT
+                lex.init(s->text);
+		int8_t diff = 0;
+                while (lex.getNext()) {
+			if (lex.getToken() == Token::KW_FOR)
+				++diff;
+			else if (lex.getToken() == Token::KW_NEXT)
+				--diff;
+		}
+		if (diff < 0) {
+			if (_loopIndent > -diff)
+				_loopIndent += diff;
+			else
+				_loopIndent = 0;
+		}
+		//If enabled, do indention of the operators string
+		for (uint8_t i=0; i<_loopIndent; ++i) {
+			_output.print(char(ASCII::SPACE)),
+			_output.print(char(ASCII::SPACE));
+		}
+		if (diff > 0)
+			_loopIndent += diff;
+#endif
 		lex.init(s->text);
 		while (lex.getNext()) {
 			print(lex);
@@ -410,12 +427,6 @@ Interpreter::list(uint16_t start, uint16_t stop)
 				print(s->text + lex.getPointer());
 				break;
 			}
-#if LOOP_INDENT
-			else if (lex.getToken() == Token::KW_FOR)
-				++_loopIndent;
-			else if (lex.getToken() == Token::KW_NEXT)
-				--_loopIndent;
-#endif
 		}
 		newline();
 	}

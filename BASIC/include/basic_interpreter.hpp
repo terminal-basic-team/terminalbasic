@@ -19,9 +19,6 @@
 #ifndef INTERPRETER_HPP
 #define INTERPRETER_HPP
 
-#include <cstdint>
-
-
 #include "basic.hpp"
 #include "basic_lexer.hpp"
 #include "basic_parser.hpp"
