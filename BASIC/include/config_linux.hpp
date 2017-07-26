@@ -22,17 +22,6 @@
 #include "Arduino.h"
 #include "config.hpp"
 
-/**
- * Used modules
- */
-
-#define USEARDUINOIO	      1 // ARduino IO
-#define USESD		      1 // SD card module
-
-#define OPT_SPEED     1
-#define OPT_SIZE      2
-#define OPT           OPT_SPEED
-
 #define USEUTFT		          0
 #define USETVOUT	          0
 

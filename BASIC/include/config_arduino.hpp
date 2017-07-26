@@ -29,32 +29,8 @@
 /**
  * Parameters
  */
-#define USE_EXTEEPROM        1 // External EEPROM functions module
-#if USE_EXTEEPROM
-#define EXTEEPROM_SIZE    32768 // Size in bytes
-#endif
 
-#define USESTOPCONT          1
-#define AUTOCAPITALIZE       0 // Convert all input to upper register
 #define USE_GFX              0 // GFX module
-
-/**
- * Used modules
- */
-#define USESD                0 // SDcard module
-#define USEARDUINOIO         1 // Arduino IO module
-/*
- * Math module (requires USE_REALS)
- */
-#define USEMATH                 1
-#if USEMATH
-#define M_TRIGONOMETRIC         1 // SIN COS TAN COT
-#define M_REVERSE_TRIGONOMETRIC	0 // ACS ASN ATN
-#endif
-
-#define OPT_SPEED     1
-#define OPT_SIZE      2
-#define OPT           OPT_SIZE
 
 /*
  * Input and output for single terminal mode

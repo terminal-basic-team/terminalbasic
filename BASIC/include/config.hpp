@@ -37,7 +37,7 @@
  * When enabled, all variables and arrays, which names are not ending with "$ ! %"
  * are treated as reals. Mathematical functions support depend on this option
  */
-#define USE_REALS             1
+#define USE_REALS               1
 
 #if USE_REALS
 /*
@@ -51,16 +51,27 @@
  */
 #define M_TRIGONOMETRIC         1
 /*
+ * ACS ASN ATN
  */
-#define M_REVERSE_TRIGONOMETRIC	1 // ACS ASN ATN
-#endif
+#define M_REVERSE_TRIGONOMETRIC	1
+#endif // USEMATH
 
-#define USE_LONGINT           0 // Long integer support
-#define USE_DUMP              1 // DUMP command support
+#endif // USE_REALS
+
+/*
+ * Support of 4-byte integer datatype
+ * Functions, variables and arrays of long integer type ends with double % mark
+ */
+#define USE_LONGINT           0
+/**
+ * DUMP command support
+ * This command can be used to see BASIC memory image, variables and arrays list
+ */
+#define USE_DUMP              1
 #define CLEAR_PROGRAM_MEMORY  1 // Clear program memory on NEW
 #define USE_RANDOM            1 // Clear program memory with 0xFF on NEW
 #define USE_MATRIX            1 // Matrix operations
-#define USE_EXTEEPROM         0 // External EEPROM functions module
+
 #define USE_TEXTATTRIBUTES    1 // Use vt100 text attributes
 #if USE_TEXTATTRIBUTES
 #define USE_COLORATTRIBUTES   1 // Use vt100 color attributes
@@ -68,8 +79,25 @@
 #define USE_SAVE_LOAD         1 // SAVE, LOAD and CHAIN commands support
 #if USE_SAVE_LOAD
 #define SAVE_LOAD_CHECKSUM    0 // Compute checksums while SAVE, LOAD and CHAIN
-#endif
+#endif // USE_SAVE_LOAD
 #define USESTOPCONT           1
 #define AUTOCAPITALIZE        0 // Convert all input to upper register
 
-#endif
+#define OPT_SPEED     1
+#define OPT_SIZE      2
+#define OPT           OPT_SIZE
+
+#define USESD                1 // SDcard module
+#define USEARDUINOIO         1 // Arduino IO module
+
+#define USE_EXTEEPROM        0 // External EEPROM functions module
+#if USE_EXTEEPROM
+/*
+ * Size in bytes
+ */
+#define EXTEEPROM_SIZE       32768
+#endif // USE_EXTEEPROM
+
+#define USE_DOLOOP           1
+
+#endif // CONFIG_HPP
