@@ -22,6 +22,8 @@
 #include <stdio.h>
 #include <inttypes.h>
 
+#include <Arduino.h>
+
 #ifdef ARDUINO
 #include "config_arduino.hpp"
 #elif defined __linux__
