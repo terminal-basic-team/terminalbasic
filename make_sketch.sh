@@ -7,6 +7,7 @@ SRC_PATH=${SKETCH}/terminal-basic
 SRC="	./BASIC/include/basic.hpp  \
 	./BASIC/include/basic_lexer.hpp  \
 	./BASIC/src/basic_lexer.cpp  \
+	./BASIC/include/config.hpp \
 	./BASIC/include/config_arduino.hpp \
 	./BASIC/include/version.h \
 	./BASIC/src/basic.cpp \
