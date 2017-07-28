@@ -196,6 +196,7 @@ Interpreter::init()
 
 	print(ProgMemStrings::TERMINAL, VT100::BRIGHT);
 	print(ProgMemStrings::S_TERMINAL_BASIC, VT100::BRIGHT);
+	newline();
 	print(ProgMemStrings::S_VERSION);
 	print(VERSION, VT100::BRIGHT), newline();
 #if BASIC_MULTITERMINAL
