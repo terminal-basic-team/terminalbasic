@@ -68,11 +68,22 @@
  * This command can be used to see BASIC memory image, variables and arrays list
  */
 #define USE_DUMP              1
-#define CLEAR_PROGRAM_MEMORY  1 // Clear program memory on NEW
-#define USE_RANDOM            1 // Clear program memory with 0xFF on NEW
-#define USE_MATRIX            0 // Matrix operations
-
-#define USE_TEXTATTRIBUTES    1 // Use vt100 text attributes
+/*
+ * Clear program memory on NEW command
+ */
+#define CLEAR_PROGRAM_MEMORY  1
+/*
+ * RANDOMIZE command and RND() function support
+ */
+#define USE_RANDOM            1
+/*
+ * Support of Darthmouth BASIX-style matrix operations
+ */
+#define USE_MATRIX            1
+/*
+ * Use vt100 text attributes
+ */
+#define USE_TEXTATTRIBUTES    1
 #if USE_TEXTATTRIBUTES
 #define USE_COLORATTRIBUTES   1 // Use vt100 color attributes
 #endif
@@ -80,14 +91,17 @@
 #if USE_SAVE_LOAD
 #define SAVE_LOAD_CHECKSUM    1 // Compute checksums while SAVE, LOAD and CHAIN
 #endif // USE_SAVE_LOAD
+/*
+ * STOP and CONTINUE commands support
+ */
 #define USESTOPCONT           1
 #define AUTOCAPITALIZE        0 // Convert all input to upper register
 
 #define OPT_SPEED     1
 #define OPT_SIZE      2
-#define OPT           OPT_SIZE
+#define OPT           OPT_SPEED
 
-#define USESD                0 // SDcard module
+#define USESD                1 // SDcard module
 #define USEARDUINOIO         1 // Arduino IO module
 
 #define USE_EXTEEPROM        0 // External EEPROM functions module
@@ -98,10 +112,10 @@
 #define EXTEEPROM_SIZE       32768
 #endif // USE_EXTEEPROM
 
-#define USE_DOLOOP           0
+#define USE_DOLOOP           1
 /*
  * Indention of the loop bodies
  */
-#define LOOP_INDENT          0
+#define LOOP_INDENT          1
 
 #endif // CONFIG_HPP
