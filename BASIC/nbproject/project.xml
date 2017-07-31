@@ -11,6 +11,7 @@
             <make-dep-projects>
                 <make-dep-project>../../libarduinoemulator</make-dep-project>
                 <make-dep-project>../../libutft</make-dep-project>
+                <make-dep-project>../../libps2uart/libps2uart</make-dep-project>
                 <make-dep-project>../libarduino</make-dep-project>
                 <make-dep-project>../arduinoext</make-dep-project>
                 <make-dep-project>../../libarduinoext</make-dep-project>
@@ -76,9 +77,9 @@
             </confList>
             <formatting>
                 <project-formatting-style>true</project-formatting-style>
-                <c-style>OpenSolaris_1|OpenBSD</c-style>
-                <cpp-style>OpenSolaris_2|OpenBSD</cpp-style>
-                <header-style>OpenSolaris_0|OpenBSD</header-style>
+                <c-style>OpenBSD</c-style>
+                <cpp-style>OpenBSD</cpp-style>
+                <header-style>OpenBSD</header-style>
             </formatting>
         </data>
     </configuration>

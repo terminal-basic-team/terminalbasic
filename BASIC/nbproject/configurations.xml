@@ -1343,24 +1343,24 @@
           <output>${CND_DISTDIR}/${CND_CONF}/basic.elf</output>
           <linkerLibItems>
             <linkerLibProjectItem>
-              <makeArtifact PL="../arduinoext"
+              <makeArtifact PL="../../libps2uart/libps2uart"
                             CT="3"
-                            CN="Atmega1284"
-                            AC="false"
+                            CN="Arduino_1284p"
+                            AC="true"
                             BL="true"
-                            WD="../arduinoext"
-                            BC="${MAKE}  -f Makefile CONF=Atmega1284"
-                            CC="${MAKE}  -f Makefile CONF=Atmega1284 clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libarduinoext.a">
+                            WD="../../libps2uart/libps2uart"
+                            BC="${MAKE}  -f Makefile CONF=Arduino_1284p"
+                            CC="${MAKE}  -f Makefile CONF=Arduino_1284p clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibps2uart.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../libarduino"
+              <makeArtifact PL="../../libarduino"
                             CT="3"
                             CN="Atmega_1284"
-                            AC="true"
+                            AC="false"
                             BL="true"
-                            WD="../libarduino"
+                            WD="../../libarduino"
                             BC="${MAKE}  -f Makefile CONF=Atmega_1284"
                             CC="${MAKE}  -f Makefile CONF=Atmega_1284 clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/libarduino.a">
