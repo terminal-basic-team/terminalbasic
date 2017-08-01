@@ -1314,16 +1314,18 @@
           <standard>8</standard>
           <incDir>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
-            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/variants/avr_developers</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/EEPROM/src</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/SoftwareSerial/src</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/SPI/src</pElem>
             <pElem>${ARDUINO_PATH}/libraries/TVoutfonts</pElem>
-            <pElem>${ARDUINO_PATH}/libraries/TVout</pElem>
             <pElem>${ARDUINO_PATH}/libraries/UTFT</pElem>
             <pElem>${ARDUINO_PATH}/libraries/SD/src</pElem>
             <pElem>include</pElem>
-            <pElem>../arduinoext/include</pElem>
+            <pElem>../../libarduino/include/variants/avr_developers</pElem>
+            <pElem>../../libarduinoext/include</pElem>
+            <pElem>../../libsdcard/SDCard</pElem>
+            <pElem>../../libps2uart/ps2uartKeyboard</pElem>
+            <pElem>../../tvoutex/TVoutEx</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>
@@ -1343,6 +1345,18 @@
           <output>${CND_DISTDIR}/${CND_CONF}/basic.elf</output>
           <linkerLibItems>
             <linkerLibProjectItem>
+              <makeArtifact PL="../../libsdcard/libsdcard"
+                            CT="3"
+                            CN="Arduino_1284"
+                            AC="true"
+                            BL="true"
+                            WD="../../libsdcard/libsdcard"
+                            BC="${MAKE}  -f Makefile CONF=Arduino_1284"
+                            CC="${MAKE}  -f Makefile CONF=Arduino_1284 clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibsdcard.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
               <makeArtifact PL="../../libps2uart/libps2uart"
                             CT="3"
                             CN="Arduino_1284p"
@@ -1352,6 +1366,30 @@
                             BC="${MAKE}  -f Makefile CONF=Arduino_1284p"
                             CC="${MAKE}  -f Makefile CONF=Arduino_1284p clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibps2uart.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../tvoutex/livbtvoutex"
+                            CT="3"
+                            CN="Arduino_1284"
+                            AC="true"
+                            BL="true"
+                            WD="../../tvoutex/livbtvoutex"
+                            BC="${MAKE}  -f Makefile CONF=Arduino_1284"
+                            CC="${MAKE}  -f Makefile CONF=Arduino_1284 clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblivbtvoutex.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../libarduinoext"
+                            CT="3"
+                            CN="Atmega1284"
+                            AC="true"
+                            BL="true"
+                            WD="../../libarduinoext"
+                            BC="${MAKE}  -f Makefile CONF=Atmega1284"
+                            CC="${MAKE}  -f Makefile CONF=Atmega1284 clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinoext.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>

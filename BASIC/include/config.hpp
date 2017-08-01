@@ -99,7 +99,7 @@
 
 #define OPT_SPEED     1
 #define OPT_SIZE      2
-#define OPT           OPT_SPEED
+#define OPT           OPT_SIZE
 
 #define USESD                1 // SDcard module
 #define USEARDUINOIO         1 // Arduino IO module

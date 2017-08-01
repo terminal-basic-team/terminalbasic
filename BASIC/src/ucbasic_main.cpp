@@ -27,6 +27,10 @@
 #include "basic_arduinoio.hpp"
 #endif
 
+#if USEPS2USARTKB
+#include "ps2uartstream.hpp"
+#endif
+
 #if USESD
 #include "basic_sdfs.hpp"
 #endif
@@ -41,7 +45,7 @@
 
 #if USETVOUT
 #include "TVoutPrint.hpp"
-#include "fonts/Font6x8.h"
+#include "utility/Font6x8.h"
 #endif
 
 #if USE_EXTEEPROM
@@ -78,6 +82,10 @@ static BASIC::ArduinoIO arduinoIo;
 static BASIC::ExtEEPROM extEeprom;
 #endif
 
+#if USEPS2USARTKB
+static PS2UARTKeyboardStream ps2usartStream;
+#endif
+
 #if BASIC_MULTITERMINAL
 static BASIC::Interpreter::Program program(BASIC::PROGRAMSIZE / 5);
 static BASIC::Interpreter basic(SERIAL_PORT, SERIAL_PORT, program);
@@ -97,6 +105,10 @@ static BASIC::Interpreter basic3(SERIAL_PORT3, SERIAL_PORT3, program3);
 static BASIC::Interpreter::Program program(BASIC::PROGRAMSIZE);
 #if USEUTFT
 static BASIC::Interpreter basic(SERIAL_PORT, utftPrint, program);
+#elif (USEPS2USARTKB && USETVOUT)
+static BASIC::Interpreter basic(ps2usartStream, tvoutPrint, program);
+#elif USEPS2USARTKB
+static BASIC::Interpreter basic(ps2usartStream, SERIAL_PORT, program);
 #elif USETVOUT
 static BASIC::Interpreter basic(SERIAL_PORT, tvoutPrint, program);
 #else
@@ -115,10 +127,15 @@ setup()
 	XMCRA |= 1ul<<7; // Switch ext mem iface on
 	XMCRB = 0;
 #endif
+#ifdef SERIAL_PORT
 	SERIAL_PORT.begin(115200);
+#endif
 #if USETVOUT
 	tvOut.begin(PAL, TVOUT_HORIZ, TVOUT_VERT, tvOutBuf);
         tvOut.selectFont(Font6x8);
+#endif
+#if USEPS2USARTKB
+        ps2usartStream.begin();
 #endif
 #if USEUTFT
 	utftPrint.begin();

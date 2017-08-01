@@ -31,11 +31,18 @@
 #endif
 
 #if S_INPUT == SERIAL_I
-#define SERIAL_PORT Serial
+    #define SERIAL_PORT Serial
 #elif S_INPUT == SERIALL_I
-#define SERIAL_PORT SerialL
+    #define SERIAL_PORT SerialL
+#elif S_INPUT == SERIALL1_I
+    #define SERIAL_PORT SerialL1
+#elif S_INPUT == SERIALL2_I
+    #define SERIAL_PORT SerialL2
 #elif S_INPUT == SERIALL3_I
-#define SERIAL_PORT SerialL3
+    #define SERIAL_PORT SerialL3
+#elif S_INPUT == PS2UARTKB_I
+#undef USEPS2USARTKB
+#define USEPS2USARTKB     1
 #endif
 #if S_OUTPUT == SERIAL_O
 #define SERIAL_PORT Serial
