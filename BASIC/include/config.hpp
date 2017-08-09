@@ -54,6 +54,10 @@
  * ACS ASN ATN
  */
 #define M_REVERSE_TRIGONOMETRIC	1
+/*
+ * CBR (cubic root) ...
+ */
+#define M_ADDITIONAL            1
 #endif // USEMATH
 
 #endif // USE_REALS
@@ -80,6 +84,10 @@
  * Support of Darthmouth BASIX-style matrix operations
  */
 #define USE_MATRIX            1
+/**
+ * Support of DATA/READ statements
+ */
+#define USE_DATA              1
 /*
  * Use vt100 text attributes
  */
@@ -101,7 +109,7 @@
 #define OPT_SIZE      2
 #define OPT           OPT_SIZE
 
-#define USESD                1 // SDcard module
+#define USESD                0 // SDcard module
 #define USEARDUINOIO         1 // Arduino IO module
 
 #define USE_EXTEEPROM        0 // External EEPROM functions module

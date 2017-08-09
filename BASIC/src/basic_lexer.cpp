@@ -207,25 +207,27 @@ const char sLPAREN[] PROGMEM = "(";
 const char sRPAREN[] PROGMEM = ")";
 	
 PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
-	nullptr,  // 0
-	nullptr,
+	nullptr,	// 0
+	nullptr,	// 1
 #if USE_DUMP
-	nullptr,    // 1
+	nullptr,	// 2
 #endif
-	nullptr,      // 2
+	nullptr,	// 3
 #if USE_SAVE_LOAD
-	nullptr,     // 3
+	nullptr,	// 4
 #endif
-	nullptr,       // 4
+	nullptr,	// 5
 #if USESTOPCONT
-	nullptr,
+	nullptr,	// 6
 #endif
 #if USE_MATRIX
-	nullptr,
+	nullptr,	// 7
 #endif
-	nullptr,      // 5
-	nullptr,       // 6
-//	sDELAY,     // 7
+#if USE_DATA
+	nullptr,	// 8
+#endif
+	nullptr,	// 6
+//	sDELAY,		// 7
 #if USE_MATRIX
 	nullptr,
 #endif
@@ -330,7 +332,9 @@ static const uint8_t tokenTable[] PROGMEM = {
 #if USE_MATRIX
 	'C', 'O', 'N'+0x80,
 #endif
+#if USE_DATA
 	'D', 'A', 'T', 'A'+0x80,           // 5
+#endif
 	'D', 'E', 'F'+0x80,                // 6
 //	'D', 'E', 'L', 'A', 'Y'+0x80,      // 7
 #if USE_MATRIX
@@ -378,7 +382,9 @@ static const uint8_t tokenTable[] PROGMEM = {
 #if USE_RANDOM
 	'R', 'A', 'N', 'D', 'O', 'M', 'I', 'Z', 'E'+0x80, //26
 #endif
+#if USE_DATA
 	'R', 'E', 'A', 'D'+0x80,           // 27
+#endif
 	'R', 'E', 'M'+0x80,
 	'R', 'E', 'T', 'U', 'R', 'N'+0x80,
 	'R', 'U', 'N'+0x80,

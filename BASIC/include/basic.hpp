@@ -90,7 +90,7 @@ typedef float Real;
  */
 enum class Token : uint8_t
 {
-	NOTOKENS = 0,
+	NOTOKENS = 0,  // 0
 	OP_AND,        // 1
 #if USE_DUMP
 	KW_ARRAYS,     // 2
@@ -106,7 +106,9 @@ enum class Token : uint8_t
 #if USE_MATRIX
 	KW_CON,        // 7
 #endif
+#if USE_DATA
 	KW_DATA,       // 8
+#endif
 	KW_DEF,        // 9
 //	COM_DELAY,     // 10
 #if USE_MATRIX
@@ -154,7 +156,9 @@ enum class Token : uint8_t
 #if USE_RANDOM
 	KW_RANDOMIZE,  // 36
 #endif
+#if USE_DATA
 	KW_READ,       // 37
+#endif
 	KW_REM,        // 38
 	KW_RETURN,     // 39
 	COM_RUN,       // 40
