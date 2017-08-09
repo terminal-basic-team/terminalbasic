@@ -479,13 +479,17 @@ Parser::Value::printTo(Print& p) const
 	{
 		char buf[6]; // Size, sufficient to store both 'TRUE' and 'FALSE
 		Token t;
+		const uint8_t *res;
 		if (value.boolean)
-			t = Token::KW_TRUE;
+			res = Lexer::getTokenString(Token::KW_TRUE, (uint8_t*)buf);
 		else
-			t = Token::KW_FALSE;
-		strcpy_P(buf, (PGM_P)pgm_read_word(&(Lexer::
-		    tokenStrings[uint8_t(t)])));
-		return p.print(buf);
+			res = Lexer::getTokenString(Token::KW_FALSE, (uint8_t*)buf);
+		if (res != nullptr)
+			return p.print(buf);
+		else
+			0;
+		//strcpy_P(buf, (PGM_P)pgm_read_word(&(Lexer::
+		//    tokenStrings[uint8_t(t)])));
 	}
 		break;
 #if USE_REALS

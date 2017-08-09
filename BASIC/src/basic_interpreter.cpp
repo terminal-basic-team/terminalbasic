@@ -1575,13 +1575,21 @@ void
 Interpreter::print(Token t)
 {
 	char buf[10];
-	strcpy_P(buf, (PGM_P) pgm_read_ptr(&(Lexer::tokenStrings[
-	    uint8_t(t)])));
-	if (t < Token::STAR)
-		print(buf, VT100::TextAttr(uint8_t(VT100::BRIGHT) |
-		    uint8_t(VT100::C_GREEN)));
-	else
+	
+	if (t < Token::STAR) {
+		const uint8_t *res = Lexer::getTokenString(t,
+		    reinterpret_cast<uint8_t*>(buf));
+		if (res != nullptr)
+			print(buf, VT100::TextAttr(uint8_t(VT100::BRIGHT) |
+			    uint8_t(VT100::C_GREEN)));
+		else
+			print(ProgMemStrings::S_ERROR, VT100::TextAttr(uint8_t(VT100::BRIGHT) |
+			    uint8_t(VT100::C_RED)));
+	} else {
+		strcpy_P(buf, (PGM_P) pgm_read_ptr(&(Lexer::tokenStrings[
+		    uint8_t(t)])));
 		print(buf);
+	}
 }
 
 void

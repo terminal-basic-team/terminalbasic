@@ -62,7 +62,7 @@
  * Support of 4-byte integer datatype
  * Functions, variables and arrays of long integer type ends with double % mark
  */
-#define USE_LONGINT           0
+#define USE_LONGINT           1
 /**
  * DUMP command support
  * This command can be used to see BASIC memory image, variables and arrays list
