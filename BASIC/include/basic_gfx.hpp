@@ -29,8 +29,13 @@ class GFXModule : public FunctionBlock
 {
 public:
 	explicit GFXModule();
+
+	static bool command_circle(Interpreter&);
+	static bool command_color(Interpreter&);
+	static bool command_point(Interpreter&);
 	
-	void command_circle(Interpreter&);
+private:
+	static const FunctionBlock::command comms[] PROGMEM;
 };
 
 }

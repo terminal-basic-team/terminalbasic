@@ -25,16 +25,69 @@
 namespace BASIC
 {
 
+static const uint8_t gfxTokens[] PROGMEM = {
+	'C','I','R','C','L','E'+0x80,
+	'C','O','L','O','R'+0x80,
+	'L','I','N','E'+0x80,
+	'L','I','N','E','T','O'+0x80,
+	'P','O','I','N','T'+0x80,
+	'S','C','R','E','E','N'+0x80,
+	0
+};
+
+const FunctionBlock::function GFXModule::comms[] PROGMEM = {
+	GFXModule::command_circle,
+	GFXModule::command_circle,
+	nullptr, nullptr,
+	
+};
+
 GFXModule::GFXModule()
 {
+	commands = comms;
+	commandTokens = gfxTokens;
 }
 
-void
+bool
 GFXModule::command_circle(Interpreter &i)
 {
-	uint8_t x,y,r;
-	Color_t c;
-	TVoutEx::instance()->drawCircle(x,y,r,c);
+	INT x,y,r;
+	
+	if (getIntegerFromStack(i, r)) {
+		if (getIntegerFromStack(i, y)) {
+			if (getIntegerFromStack(i, x)) {
+				TVoutEx::instance()->drawCircle(x,y,r);
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+bool
+GFXModule::command_color(Interpreter &i)
+{
+	INT c;
+	
+	if (getIntegerFromStack(i, c)) {
+		TVoutEx::instance()->setColor(Color_t(c));
+		return true;
+	}
+	return false;
+}
+
+bool
+GFXModule::command_point(Interpreter &i)
+{
+	INT x,y;
+	
+	if (getIntegerFromStack(i, y)) {
+		if (getIntegerFromStack(i, x)) {
+			TVoutEx::instance()->setPixel(x, y);
+			return true;
+		}
+	}
+	return false;
 }
 
 }
