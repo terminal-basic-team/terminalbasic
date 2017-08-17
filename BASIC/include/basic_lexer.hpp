@@ -87,7 +87,7 @@ public:
 	/**
 	 * @brief token strings array
 	 */
-	static PGM_P const tokenStrings[uint8_t(Token::NUM_TOKENS)];
+	static PGM_P const tokenStrings[];
 	
 	static const uint8_t *getTokenString(Token, uint8_t*);
 private:

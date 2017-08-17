@@ -206,8 +206,8 @@ const char sPOW[] PROGMEM = "^";
 const char sLPAREN[] PROGMEM = "(";
 const char sRPAREN[] PROGMEM = ")";
 	
-PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
-	nullptr,	// 0
+PGM_P const Lexer::tokenStrings[] PROGMEM = {
+/*	nullptr,	// 0
 	nullptr,	// 1
 #if USE_DUMP
 	nullptr,	// 2
@@ -297,6 +297,7 @@ PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 #if USE_MATRIX
 	nullptr,
 #endif
+ */
 ///////////////////
 	sSTAR,
 	sSLASH,

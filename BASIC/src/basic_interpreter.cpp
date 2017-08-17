@@ -1424,7 +1424,6 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 			break;
 #endif
 		}
-
 		setMatrixSize(*array, arrayFirst->dimension[1],
 		    arrayFirst->dimension[0]);
 	}
@@ -1587,7 +1586,7 @@ Interpreter::print(Token t)
 			    uint8_t(VT100::C_RED)));
 	} else {
 		strcpy_P(buf, (PGM_P) pgm_read_ptr(&(Lexer::tokenStrings[
-		    uint8_t(t)])));
+		    uint8_t(t)-uint8_t(Token::STAR)])));
 		print(buf);
 	}
 }
