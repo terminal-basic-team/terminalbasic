@@ -61,6 +61,7 @@ public:
 		INVALID_ELEMENT_INDEX = 14,
 		SQUARE_MATRIX_EXPECTED = 15,
 		DIMENSIONS_MISMATCH = 16,
+		COMMAND_FAILED = 17,
 		INTERNAL_ERROR = 255
 	};
 
@@ -238,6 +239,8 @@ public:
 	// New print line
 	void newline();
 	void print(char);
+	
+	void execCommand(FunctionBlock::command);
 
 #if USE_MATRIX
 	/**

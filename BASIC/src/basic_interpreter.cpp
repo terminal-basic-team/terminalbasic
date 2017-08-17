@@ -548,6 +548,13 @@ Interpreter::print(char v)
 }
 
 void
+Interpreter::execCommand(FunctionBlock::command c)
+{
+	if (!(*c)(*this))
+		raiseError(DYNAMIC_ERROR, COMMAND_FAILED);
+}
+
+void
 Interpreter::print(Lexer &l)
 {
 	Token t = l.getToken();

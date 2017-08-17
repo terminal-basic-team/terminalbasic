@@ -1083,7 +1083,8 @@ Parser::fCommand()
 				else
 					break;
 			}
-			return (*c)(_interpreter);
+			_interpreter.execCommand(c);
+			return true;
 		}
 	default:
 		break;
