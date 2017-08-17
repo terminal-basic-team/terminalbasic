@@ -53,6 +53,10 @@
 #include <Wire.h>
 #endif
 
+#if USE_GFX
+#include "basic_gfx.hpp"
+#endif
+
 /**
  * Instantiating modules
  */
@@ -84,6 +88,10 @@ static BASIC::ExtEEPROM extEeprom;
 
 #if USEPS2USARTKB
 static PS2UARTKeyboardStream ps2usartStream;
+#endif
+
+#if USE_GFX
+static BASIC::GFXModule gfxModule;
 #endif
 
 #if BASIC_MULTITERMINAL
@@ -159,6 +167,10 @@ setup()
 
 #if USEARDUINOIO
 	basic.addModule(&arduinoIo);
+#endif
+	
+#if USE_GFX
+	basic.addModule(&gfxModule);
 #endif
 	
 #if USEMATH

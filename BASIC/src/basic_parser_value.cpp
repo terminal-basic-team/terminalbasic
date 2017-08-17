@@ -373,6 +373,8 @@ Parser::Value::operator^=(const Value &rhs)
 		value.real = pow(value.real, Real(rhs));
 		break;
 #endif
+	default:
+		break;
 	}
 	return *this;
 }
@@ -487,9 +489,7 @@ Parser::Value::printTo(Print& p) const
 		if (res != nullptr)
 			return p.print(buf);
 		else
-			0;
-		//strcpy_P(buf, (PGM_P)pgm_read_word(&(Lexer::
-		//    tokenStrings[uint8_t(t)])));
+			return 0;
 	}
 		break;
 #if USE_REALS
