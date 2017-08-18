@@ -1,3 +1,9 @@
+r1.0-beta1 (18.08.2017) - Release, dedicated to the 
+
+  * Fix bug with matrix multiplication
+  * Fix bug with unary plus support
+  * Code cleanup and removal of the unfinished features, deferred to 1.1 branch
+
 r1.0-alpha4 (26.07.2017) - Release, dedicated to the Cuba National Rebellion Day
                            ¡Salud camaradas!
 
