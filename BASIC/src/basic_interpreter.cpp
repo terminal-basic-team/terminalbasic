@@ -1424,7 +1424,6 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 		default:
 			break;
 		}
-
 		setMatrixSize(*array, arrayFirst->dimension[1],
 		    arrayFirst->dimension[0]);
 	}
@@ -1992,6 +1991,9 @@ Interpreter::ArrayFrame::set(uint16_t index, const Parser::Value &v)
 		case Parser::Value::BOOLEAN:
 			set(index, bool(v));
 			return true;
+		}
+		default:
+			return false;
 		}
 	}
 	return false;
