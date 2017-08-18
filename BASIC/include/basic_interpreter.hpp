@@ -113,7 +113,7 @@ public:
 	/**
 	 * Array memory frame
 	 */
-	struct ArrayFrame
+	struct EXT_PACKED ArrayFrame
 	{
 		/**
 		 * @brief get frame size in bytes
@@ -339,7 +339,6 @@ public:
 	 * @param v value to set
 	 */
 	void set(VariableFrame&, const Parser::Value&);
-	void set(ArrayFrame&, uint16_t, const Parser::Value&);
 	/**
 	 * @brief set a new value and possibly create new variable
 	 * @param name variable name
@@ -431,7 +430,7 @@ private:
 	 * @param num overall elements number
 	 * @return 
 	 */
-	ArrayFrame *addArray(const char*, uint8_t, uint32_t);
+	ArrayFrame *addArray(const char*, uint8_t, uint16_t);
 
 	bool arrayElementIndex(ArrayFrame*, uint16_t&);
 #if USE_SAVE_LOAD

@@ -1052,65 +1052,6 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 	}
 }
 
-
-void
-Interpreter::set(ArrayFrame &f, uint16_t index, const Parser::Value &v)
-{
-	switch (f.type) {
-	case Parser::Value::BOOLEAN:
-	{
-		union
-		{
-			uint8_t *b;
-			bool *i;
-		} U;
-		U.b = f.data();
-		U.i[index] = bool(v);
-	}
-		break;
-	case Parser::Value::INTEGER:
-	{
-		union
-		{
-			uint8_t *b;
-			Integer *i;
-		} U;
-		U.b = f.data();
-		U.i[index] = Integer(v);
-	}
-		break;
-#if USE_LONGINT
-	case Parser::Value::LONG_INTEGER:
-	{
-		union
-		{
-			uint8_t *b;
-			LongInteger *i;
-		} U;
-		U.b = f.data();
-		U.i[index] = LongInteger(v);
-	}
-		break;
-#endif
-#if USE_REALS
-	case Parser::Value::REAL:
-	{
-		union
-		{
-			uint8_t *b;
-			Real *r;
-		} U;
-		U.b = f.data();
-		U.r[index] = Real(v);
-	}
-		break;
-#endif
-	default:
-		raiseError(DYNAMIC_ERROR, INVALID_VALUE_TYPE);
-	}
-}
-
-
 bool
 Interpreter::readInput()
 {
@@ -1760,8 +1701,7 @@ Interpreter::setArrayElement(const char *name, const Parser::Value &v)
 		raiseError(DYNAMIC_ERROR, INVALID_VALUE_TYPE);
 		return;
 	}
-
-	set(*f, index, v);
+	f->set(index, v);
 }
 
 void
@@ -1946,8 +1886,13 @@ Interpreter::ArrayFrame::dataSize() const
 		break;
 #endif
 	case Parser::Value::BOOLEAN:
-		mul *= sizeof (bool);
+	{
+		uint16_t s = mul / 8;
+		if ((mul % 8) != 0)
+			++s;
+		mul = s;
 		break;
+	}
 	default:
 		break;
 	}
@@ -1974,8 +1919,11 @@ Interpreter::ArrayFrame::get(uint16_t index, Parser::Value& v) const
 			return true;
 #endif
 		case Parser::Value::BOOLEAN:
-			v = get<bool>(index);
+		{
+			const uint8_t _byte = data()[index / 8];
+			v = bool((_byte >> (index % 8)) & 1);
 			return true;
+		}
 		default:
 			return false;
 		}
@@ -2003,8 +1951,15 @@ Interpreter::ArrayFrame::set(uint16_t index, const Parser::Value &v)
 			return true;
 #endif
 		case Parser::Value::BOOLEAN:
-			set(index, bool(v));
+		{
+			uint8_t &_byte = data()[index / uint8_t(8)];
+			const bool _v = bool(v);
+			if (_v)
+				_byte |= uint8_t(1) << (index % uint8_t(8));
+			else
+				_byte &= ~(uint8_t(1) << (index % uint8_t(8)));
 			return true;
+		}
 		default:
 			return false;
 		}
@@ -2026,8 +1981,7 @@ Interpreter::ArrayFrame::numElements() const
 }
 
 Interpreter::ArrayFrame *
-Interpreter::addArray(const char *name, uint8_t dim,
-    uint32_t num)
+Interpreter::addArray(const char *name, uint8_t dim, uint16_t num)
 {
 	uint16_t index = _program._variablesEnd;
 	ArrayFrame *f;
@@ -2055,8 +2009,11 @@ Interpreter::addArray(const char *name, uint8_t dim,
 		t = Parser::Value::INTEGER;
 		num *= sizeof (Integer);
 	} else if (endsWith(name, '!')) {
+		uint16_t s = num / 8;
+		if ((num % 8) != 0)
+			++s;
 		t = Parser::Value::BOOLEAN;
-		num *= sizeof (bool);
+		num = s;
 	} else { // real
 #if USE_REALS
 		t = Parser::Value::REAL;
