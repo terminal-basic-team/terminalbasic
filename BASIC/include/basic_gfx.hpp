@@ -37,6 +37,10 @@ public:
 	static bool command_point(Interpreter&);
 	static bool command_screen(Interpreter&);
 	
+protected:
+	
+	void _init() override;
+
 private:
 	static const FunctionBlock::command comms[] PROGMEM;
 };

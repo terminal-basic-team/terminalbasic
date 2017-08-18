@@ -112,7 +112,7 @@ namespace BASIC
 #define OPT_SIZE      2
 #define OPT           OPT_SIZE
 
-#define USESD            0 // SDcard module
+#define USESD            1 // SDcard module
 #define USEARDUINOIO     1 // Arduino IO module
 
 #define USE_EXTEEPROM    0 // External EEPROM functions module
@@ -132,7 +132,7 @@ namespace BASIC
 /*
  * GFX module
  */
-#define USE_GFX          0
+#define USE_GFX          1
 
 /*
  * Max size of the program line

@@ -22,8 +22,31 @@
 #if USE_GFX
 #if !USETVOUT
 
+#include <SDL2/SDL.h>
+#include <stdexcept>
+
 namespace BASIC
 {
+	
+#define SDL_ASSERT(a) { if (!(a)) throw std::runtime_error(SDL_GetError()); }
+
+static SDL_Window *window = nullptr;
+static const uint8_t scale = 2;
+static SDL_Renderer *renderer = nullptr;
+	
+void
+GFXModule::_init()
+{
+	SDL_ASSERT(SDL_Init(SDL_INIT_VIDEO) == 0);
+	
+	SDL_ASSERT((window = SDL_CreateWindow("TERMINAL BASIC", 100,100,
+	    scale*240, scale*192, 0)) != nullptr);
+	
+	SDL_ASSERT((renderer = SDL_CreateRenderer(window, -1, 0)) != nullptr);
+	
+	SDL_ASSERT(SDL_RenderClear(renderer) == 0);
+	SDL_RenderPresent(renderer);
+}
 
 bool
 GFXModule::command_circle(Interpreter &i)
@@ -60,6 +83,9 @@ GFXModule::command_line(Interpreter &i)
 		if (getIntegerFromStack(i, x2)) {
 			if (getIntegerFromStack(i, y1)) {
 				if (getIntegerFromStack(i, x1)) {
+					SDL_ASSERT(SDL_RenderDrawLine(renderer,
+					    scale*x1, scale*y1, scale*x2, scale*y2) == 0);
+					SDL_RenderPresent(renderer);
 					return true;
 				}
 			}
@@ -89,6 +115,8 @@ GFXModule::command_point(Interpreter &i)
 	
 	if (getIntegerFromStack(i, y)) {
 		if (getIntegerFromStack(i, x)) {
+			SDL_RenderDrawPoint(renderer, scale*x, scale*y);
+			SDL_RenderPresent(renderer);
 			return true;
 		}
 	}

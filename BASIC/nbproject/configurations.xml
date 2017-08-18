@@ -91,7 +91,7 @@
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
             <pElem>../../tvoutex/TVoutEx</pElem>
           </incDir>
-          <commandLine>`pkg-config --cflags posixcpp`</commandLine>
+          <commandLine>`pkg-config --cflags posixcpp` `pkg-config --cflags sdl2`</commandLine>
           <warningLevel>2</warningLevel>
         </ccTool>
         <linkerTool>
@@ -122,8 +122,8 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerOptionItem>`pkg-config --libs posixcpp`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs sdl2`</linkerOptionItem>
           </linkerLibItems>
-          <commandLine>-static</commandLine>
         </linkerTool>
       </compileType>
       <packaging>
@@ -272,6 +272,7 @@
             <pElem>${ARDUINO_PATH}/libraries/SD/src</pElem>
             <pElem>include</pElem>
             <pElem>../../libarduinoext/include</pElem>
+            <pElem>../../tvoutex/TVoutEx</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>
