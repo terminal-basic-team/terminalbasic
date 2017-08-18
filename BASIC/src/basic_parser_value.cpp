@@ -258,7 +258,7 @@ Parser::Value::operator+=(const Value &rhs)
 	default: break;
 	}
 
-	return (*this);
+	return *this;
 }
 
 Parser::Value &
@@ -283,7 +283,7 @@ Parser::Value::operator-=(const Value &rhs)
 	default: break;
 	}
 
-	return (*this);
+	return *this;
 }
 
 Parser::Value &
@@ -308,7 +308,7 @@ Parser::Value::operator*=(const Value &rhs)
 	default: break;
 	}
 
-	return (*this);
+	return *this;
 }
 
 // '/' operation always return REAL if real numbers support used
@@ -325,7 +325,7 @@ Parser::Value::operator/=(const Value &rhs)
 	value.integer = Integer(*this) / Integer(rhs);
 	type = Value::INTEGER;
 #endif
-	return (*this);
+	return *this;
 }
 
 void
@@ -454,7 +454,7 @@ Parser::Value::operator|=(const Value &v)
 	default:
 		break;
 	}
-	return (*this);
+	return *this;
 }
 
 Parser::Value &
@@ -470,7 +470,7 @@ Parser::Value::operator&=(const Value &v)
 	default:
 		break;
 	}
-	return (*this);
+	return *this;
 }
 
 size_t
@@ -480,7 +480,6 @@ Parser::Value::printTo(Print& p) const
 	case BOOLEAN:
 	{
 		char buf[6]; // Size, sufficient to store both 'TRUE' and 'FALSE
-		Token t;
 		const uint8_t *res;
 		if (value.boolean)
 			res = Lexer::getTokenString(Token::KW_TRUE, (uint8_t*)buf);

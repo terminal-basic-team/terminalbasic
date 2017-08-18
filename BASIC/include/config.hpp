@@ -26,6 +26,9 @@
 
 #include <stdint.h>
 
+namespace BASIC
+{
+
 /**
  * Parameters
  */
@@ -66,61 +69,61 @@
  * Support of 4-byte integer datatype
  * Functions, variables and arrays of long integer type ends with double % mark
  */
-#define USE_LONGINT           1
+#define USE_LONGINT          1
 /**
  * DUMP command support
  * This command can be used to see BASIC memory image, variables and arrays list
  */
-#define USE_DUMP              1
+#define USE_DUMP             1
 /*
  * Clear program memory on NEW command
  */
-#define CLEAR_PROGRAM_MEMORY  1
+#define CLEAR_PROGRAM_MEMORY 1
 /*
  * RANDOMIZE command and RND() function support
  */
-#define USE_RANDOM            1
+#define USE_RANDOM           1
 /*
  * Support of Darthmouth BASIX-style matrix operations
  */
-#define USE_MATRIX            1
+#define USE_MATRIX           1
 /**
  * Support of DATA/READ statements
  */
-#define USE_DATA              1
+#define USE_DATA             1
 /*
  * Use vt100 text attributes
  */
-#define USE_TEXTATTRIBUTES    1
+#define USE_TEXTATTRIBUTES   1
 #if USE_TEXTATTRIBUTES
-#define USE_COLORATTRIBUTES   1 // Use vt100 color attributes
+#define USE_COLORATTRIBUTES  1 // Use vt100 color attributes
 #endif
-#define USE_SAVE_LOAD         1 // SAVE, LOAD and CHAIN commands support
+#define USE_SAVE_LOAD        1 // SAVE, LOAD and CHAIN commands support
 #if USE_SAVE_LOAD
-#define SAVE_LOAD_CHECKSUM    1 // Compute checksums while SAVE, LOAD and CHAIN
+#define SAVE_LOAD_CHECKSUM   1 // Compute checksums while SAVE, LOAD and CHAIN
 #endif // USE_SAVE_LOAD
 /*
  * STOP and CONTINUE commands support
  */
-#define USESTOPCONT           1
-#define AUTOCAPITALIZE        0 // Convert all input to upper register
+#define USESTOPCONT       1
+#define AUTOCAPITALIZE    0 // Convert all input to upper register
 
 #define OPT_SPEED     1
 #define OPT_SIZE      2
 #define OPT           OPT_SIZE
 
-#define USESD                0 // SDcard module
-#define USEARDUINOIO         1 // Arduino IO module
+#define USESD            0 // SDcard module
+#define USEARDUINOIO     1 // Arduino IO module
 
-#define USE_EXTEEPROM        0 // External EEPROM functions module
+#define USE_EXTEEPROM    0 // External EEPROM functions module
 #if USE_EXTEEPROM
 /*
  * Size in bytes
  */
-#define EXTEEPROM_SIZE       32768
+#define EXTEEPROM_SIZE   32768
 #endif // USE_EXTEEPROM
 
-#define USE_DOLOOP           1
+#define USE_DOLOOP       1
 /*
  * Indention of the loop bodies
  */
