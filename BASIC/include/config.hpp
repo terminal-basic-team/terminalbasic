@@ -124,6 +124,18 @@
 /*
  * Indention of the loop bodies
  */
-#define LOOP_INDENT          1
+#define LOOP_INDENT      1
+
+/*
+ * GFX module
+ */
+#define USE_GFX          0
+
+/*
+ * Max size of the program line
+ */
+const uint8_t PROGSTRINGSIZE = 73;
+
+}
 
 #endif // CONFIG_HPP

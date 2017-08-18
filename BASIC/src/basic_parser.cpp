@@ -277,7 +277,7 @@ Parser::fOperator()
 		bool res = fReadStatement();
 		if (!res)
 			_error = INVALID_READ_EXPR;
-		if (_mode = READ)
+		if (_mode == READ)
 			_mode = EXECUTE;
 		return res;
 	}
@@ -1365,6 +1365,7 @@ Parser::fMatrixExpression(const char *buf)
 		_interpreter.assignMatrix(buf, first);
 		return true;
 	}
+	return false;
 }
 
 #endif // USE_MATRIX

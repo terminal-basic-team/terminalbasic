@@ -30,8 +30,6 @@
  * Parameters
  */
 
-#define USE_GFX              0 // GFX module
-
 /*
  * Input and output for single terminal mode
  */
@@ -82,9 +80,6 @@
 
 namespace BASIC
 {
-
-// Max size of the program line
-const uint8_t PROGSTRINGSIZE = 73;
 
 // Number of bytes for program text, variables and stack
 #if USE_EXTMEM

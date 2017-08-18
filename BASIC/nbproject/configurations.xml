@@ -426,6 +426,7 @@
             <pElem>include</pElem>
             <pElem>../../libarduinoext/include</pElem>
             <pElem>../TVoutEx</pElem>
+            <pElem>../../libsdcard/SDCard</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>

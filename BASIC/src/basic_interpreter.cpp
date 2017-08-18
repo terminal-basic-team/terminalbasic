@@ -1408,8 +1408,6 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 		break;
 	case MO_TRANSPOSE: { // source mat already have been copied,
 			     // performng in-place transpose
-		const uint16_t s = arrayFirst->dimension[0] *
-		     arrayFirst->dimension[1];
 		switch (array->type) {
 		case Parser::Value::INTEGER:
 			Matrix<Integer>::transpose(
@@ -1430,6 +1428,8 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 			    array->dimension[0]+1, array->dimension[1]+1);
 			break;
 #endif
+		default:
+			break;
 		}
 		setMatrixSize(*array, arrayFirst->dimension[1],
 		    arrayFirst->dimension[0]);
@@ -1976,6 +1976,8 @@ Interpreter::ArrayFrame::get(uint16_t index, Parser::Value& v) const
 		case Parser::Value::BOOLEAN:
 			v = get<bool>(index);
 			return true;
+		default:
+			return false;
 		}
 	}
 	return false;
@@ -2003,6 +2005,8 @@ Interpreter::ArrayFrame::set(uint16_t index, const Parser::Value &v)
 		case Parser::Value::BOOLEAN:
 			set(index, bool(v));
 			return true;
+		default:
+			return false;
 		}
 	}
 	return false;
