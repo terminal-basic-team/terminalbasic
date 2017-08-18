@@ -25,6 +25,8 @@
       <itemPath>src/basic_exteeprom.cpp</itemPath>
       <itemPath>src/basic_functionblock.cpp</itemPath>
       <itemPath>src/basic_gfx.cpp</itemPath>
+      <itemPath>src/basic_gfx_sdl.cpp</itemPath>
+      <itemPath>src/basic_gfx_tvout.cpp</itemPath>
       <itemPath>src/basic_internalfuncs.cpp</itemPath>
       <itemPath>src/basic_interpreter.cpp</itemPath>
       <itemPath>src/basic_lexer.cpp</itemPath>
@@ -87,6 +89,7 @@
             <pElem>../../libarduinoext/include</pElem>
             <pElem>../../libarduinoemulator/include</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
+            <pElem>../../tvoutex/TVoutEx</pElem>
           </incDir>
           <commandLine>`pkg-config --cflags posixcpp`</commandLine>
           <warningLevel>2</warningLevel>
@@ -225,6 +228,10 @@
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_sdl.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -372,6 +379,10 @@
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/basic_gfx_sdl.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="0">
@@ -415,6 +426,7 @@
             <pElem>include</pElem>
             <pElem>../../libarduinoext/include</pElem>
             <pElem>../TVoutEx</pElem>
+            <pElem>../../libsdcard/SDCard</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>
@@ -519,6 +531,10 @@
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_sdl.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -713,6 +729,10 @@
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/basic_gfx_sdl.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
@@ -856,6 +876,10 @@
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/basic_gfx_sdl.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
@@ -989,6 +1013,10 @@
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_sdl.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1135,6 +1163,10 @@
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/basic_gfx_sdl.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
@@ -1187,6 +1219,7 @@
             <Elem>ARDUINO_AVR_NANO</Elem>
             <Elem>F_CPU=16000000L</Elem>
             <Elem>NDEBUG</Elem>
+            <Elem>__AVR_ATmega168__</Elem>
           </preprocessorList>
           <warningLevel>2</warningLevel>
         </ccTool>
@@ -1282,6 +1315,10 @@
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_sdl.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1469,6 +1506,10 @@
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/basic_gfx_sdl.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
@@ -1513,6 +1554,7 @@
             <pElem>include</pElem>
             <pElem>../../libarduinoext/include</pElem>
             <pElem>../../tvoutex/TVoutEx</pElem>
+            <pElem>../../libsdcard/SDCard</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>
@@ -1532,6 +1574,18 @@
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/terminal-basic</output>
           <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../libsdcard/libsdcard"
+                            CT="3"
+                            CN="Arduino_MEGA2560"
+                            AC="false"
+                            BL="true"
+                            WD="../../libsdcard/libsdcard"
+                            BC="${MAKE}  -f Makefile CONF=Arduino_MEGA2560"
+                            CC="${MAKE}  -f Makefile CONF=Arduino_MEGA2560 clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibsdcard.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../../tvoutex/livbtvoutex"
                             CT="3"
@@ -1632,6 +1686,10 @@
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_sdl.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -1779,6 +1837,10 @@
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/basic_gfx_sdl.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
@@ -1925,6 +1987,10 @@
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_gfx_sdl.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="8">
       </item>

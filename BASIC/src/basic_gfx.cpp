@@ -20,21 +20,32 @@
 
 #if USE_GFX
 
-#include "TVoutEx.h"
-
 namespace BASIC
 {
 
+static const uint8_t gfxTokens[] PROGMEM = {
+	'C','I','R','C','L','E'+0x80,
+	'C','O','L','O','R'+0x80,
+	'L','I','N','E','T','O'+0x80,
+	'L','I','N','E'+0x80,
+	'P','O','I','N','T'+0x80,
+	'S','C','R','E','E','N'+0x80,
+	0
+};
+
+const FunctionBlock::function GFXModule::comms[] PROGMEM = {
+	GFXModule::command_circle,
+	GFXModule::command_color,
+	GFXModule::command_lineto,
+	GFXModule::command_line,
+	GFXModule::command_point,
+	GFXModule::command_screen
+};
+
 GFXModule::GFXModule()
 {
-}
-
-void
-GFXModule::command_circle(Interpreter &i)
-{
-	uint8_t x,y,r;
-	Color_t c;
-	TVoutEx::instance()->drawCircle(x,y,r,c);
+	commands = comms;
+	commandTokens = gfxTokens;
 }
 
 }

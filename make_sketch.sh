@@ -31,6 +31,7 @@ SRC="	./BASIC/include/basic.hpp  \
 	./BASIC/src/basic_internalfuncs.cpp \
 	./BASIC/include/basic_gfx.hpp \
 	./BASIC/src/basic_gfx.cpp \
+	./BASIC/src/basic_gfx_tvout.cpp \
 	./BASIC/src/basic_parser_value.cpp \
 	./BASIC/src/basic_sdfs.cpp \
 	./UTFT/src/utft_stream.cpp \

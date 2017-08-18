@@ -77,9 +77,9 @@
             </confList>
             <formatting>
                 <project-formatting-style>true</project-formatting-style>
-                <c-style>OpenBSD|OpenBSD</c-style>
-                <cpp-style>OpenBSD|OpenBSD</cpp-style>
-                <header-style>OpenBSD|OpenBSD</header-style>
+                <c-style>OpenBSD</c-style>
+                <cpp-style>OpenBSD</cpp-style>
+                <header-style>OpenBSD</header-style>
             </formatting>
         </data>
     </configuration>

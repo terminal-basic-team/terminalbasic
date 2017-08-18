@@ -258,7 +258,7 @@ Parser::Value::operator+=(const Value &rhs)
 	default: break;
 	}
 
-	return (*this);
+	return *this;
 }
 
 Parser::Value &
@@ -283,7 +283,7 @@ Parser::Value::operator-=(const Value &rhs)
 	default: break;
 	}
 
-	return (*this);
+	return *this;
 }
 
 Parser::Value &
@@ -308,7 +308,7 @@ Parser::Value::operator*=(const Value &rhs)
 	default: break;
 	}
 
-	return (*this);
+	return *this;
 }
 
 // '/' operation always return REAL if real numbers support used
@@ -325,7 +325,7 @@ Parser::Value::operator/=(const Value &rhs)
 	value.integer = Integer(*this) / Integer(rhs);
 	type = Value::INTEGER;
 #endif
-	return (*this);
+	return *this;
 }
 
 void
@@ -373,6 +373,8 @@ Parser::Value::operator^=(const Value &rhs)
 		value.real = pow(value.real, Real(rhs));
 		break;
 #endif
+	default:
+		break;
 	}
 	return *this;
 }
@@ -452,7 +454,7 @@ Parser::Value::operator|=(const Value &v)
 	default:
 		break;
 	}
-	return (*this);
+	return *this;
 }
 
 Parser::Value &
@@ -468,7 +470,7 @@ Parser::Value::operator&=(const Value &v)
 	default:
 		break;
 	}
-	return (*this);
+	return *this;
 }
 
 size_t
@@ -478,14 +480,15 @@ Parser::Value::printTo(Print& p) const
 	case BOOLEAN:
 	{
 		char buf[6]; // Size, sufficient to store both 'TRUE' and 'FALSE
-		Token t;
+		const uint8_t *res;
 		if (value.boolean)
-			t = Token::KW_TRUE;
+			res = Lexer::getTokenString(Token::KW_TRUE, (uint8_t*)buf);
 		else
-			t = Token::KW_FALSE;
-		strcpy_P(buf, (PGM_P)pgm_read_word(&(Lexer::
-		    tokenStrings[uint8_t(t)])));
-		return p.print(buf);
+			res = Lexer::getTokenString(Token::KW_FALSE, (uint8_t*)buf);
+		if (res != nullptr)
+			return p.print(buf);
+		else
+			return 0;
 	}
 		break;
 #if USE_REALS

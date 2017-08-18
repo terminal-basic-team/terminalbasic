@@ -96,7 +96,7 @@
 
 namespace BASIC
 {
-
+/*
 const char sNOTOKENS[] PROGMEM = "NOTOKENS";  // 0
 const char sOP_AND[] PROGMEM = "AND";         // 1
 #if USE_DUMP
@@ -184,7 +184,7 @@ const char sVARS[] PROGMEM = "VARS";
 #endif
 #if USE_MATRIX
 const char sZER[] PROGMEM = "ZER";
-#endif
+#endif*/
 const char sSTAR[] PROGMEM = "*";
 const char sSLASH[] PROGMEM = "/";
 #if USE_REALS
@@ -205,108 +205,100 @@ const char sCOMMA[] PROGMEM = ",";
 const char sPOW[] PROGMEM = "^";
 const char sLPAREN[] PROGMEM = "(";
 const char sRPAREN[] PROGMEM = ")";
-/*
-const char sINTEGER_IDENT[] PROGMEM = "INTEGER_IDENT";
-const char sREAL_IDENT[] PROGMEM = "REAL_IDENT";
-const char sLONGINT_IDENT[] PROGMEM = "LONGINT_IDENT";
-const char sSTRING_IDENT[] PROGMEM = "STRING_IDENT";
-const char sBOOL_IDENT[] PROGMEM = "BOOL_IDENT";
-
-const char sINTEGER[] PROGMEM = "C_INTEGER";
-const char sREAL[] PROGMEM = "C_REAL";
-const char sBOOLEAN[] PROGMEM = "C_BOOLEAN";
-const char sSTRING[] PROGMEM = "C_STRING";*/
-
-PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
-	sNOTOKENS,  // 0
-	sOP_AND,
+	
+PGM_P const Lexer::tokenStrings[] PROGMEM = {
+/*	nullptr,	// 0
+	nullptr,	// 1
 #if USE_DUMP
-	sARRAYS,    // 1
+	nullptr,	// 2
 #endif
-	sBASE,      // 2
+	nullptr,	// 3
 #if USE_SAVE_LOAD
-	sCHAIN,     // 3
+	nullptr,	// 4
 #endif
-	sCLS,       // 4
+	nullptr,	// 5
 #if USESTOPCONT
-	sCONT,
+	nullptr,	// 6
 #endif
 #if USE_MATRIX
-	sCON,
+	nullptr,	// 7
 #endif
-	sDATA,      // 5
-	sDEF,       // 6
-//	sDELAY,     // 7
+#if USE_DATA
+	nullptr,	// 8
+#endif
+	nullptr,	// 6
+//	sDELAY,		// 7
 #if USE_MATRIX
-	sDET,
+	nullptr,
 #endif
-	sDIM,       // 8
+	nullptr,       // 8
 #if USE_DOLOOP
-	sDO,
+	nullptr,
 #endif
 #if USE_DUMP
-	sDUMP,      // 9
+	nullptr,      // 9
 #endif
-	sEND,       // 10
-	sFALSE,     // 11
-	sFOR,       // 12
-	sGOSUB,     // 13
-	sGOTO,      // 14
-	sGO,        // 15
+	nullptr,       // 10
+	nullptr,     // 11
+	nullptr,       // 12
+	nullptr,     // 13
+	nullptr,      // 14
+	nullptr,        // 15
 #if USE_MATRIX
-	sIDN,
+	nullptr,
 #endif
-	sIF,        // 16
-	sINPUT,     // 17
+	nullptr,        // 16
+	nullptr,     // 17
 #if USE_MATRIX
-	sINV,
+	nullptr,
 #endif
-	sLET,       // 18
-	sLIST,      // 19
+	nullptr,       // 18
+	nullptr,      // 19
 #if USE_SAVE_LOAD
-	sLOAD,      // 20
+	nullptr,      // 20
 #endif
 #if USE_DOLOOP
-	sLOOP,
+	nullptr,
 #endif
 #if USE_MATRIX
-	sMAT,
+	nullptr,
 #endif
-	sNEW,       // 21
-	sNEXT,      // 22
-	sOP_NOT,
-	sON,        // 23
-	sOPTION,    // 24
-	sOP_OR,
-	sPRINT,     // 25
+	nullptr,       // 21
+	nullptr,      // 22
+	nullptr,
+	nullptr,        // 23
+	nullptr,    // 24
+	nullptr,
+	nullptr,     // 25
 #if USE_RANDOM
-	sRANDOMIZE,
+	nullptr,
 #endif
-	sREAD,
-	sREM,
-	sRETURN,
-	sRUN,
+	nullptr,
+	nullptr,
+	nullptr,
+	nullptr,
 #if USE_SAVE_LOAD
-	sSAVE,
+	nullptr,
 #endif
-	sSTEP,
+	nullptr,
 #if USESTOPCONT
-	sSTOP,
+	nullptr,
 #endif
-	sTAB,
-	sTHEN,
-	sTO,
+	nullptr,
+	nullptr,
+	nullptr,
 #if USE_MATRIX
-	sTRN,
+	nullptr,
 #endif
-	sTRUE,
+	nullptr,
 #if USE_DUMP
-	sVARS,
+	nullptr,
 #endif
 #if USE_MATRIX
-	sZER,
+	nullptr,
 #endif
-
+ */
+///////////////////
 	sSTAR,
 	sSLASH,
 #if USE_REALS
@@ -321,12 +313,7 @@ PGM_P const Lexer::tokenStrings[uint8_t(Token::NUM_TOKENS)] PROGMEM = {
 	sNE, sNEA,
 	sCOMMA,
 	sPOW,
-	sLPAREN, sRPAREN,
-
-/*	sINTEGER_IDENT, sREAL_IDENT, sLONGINT_IDENT, sSTRING_IDENT,
-	sBOOL_IDENT,
-
-	sINTEGER, sREAL, sBOOLEAN, sSTRING*/
+	sLPAREN, sRPAREN
 };
 
 static const uint8_t tokenTable[] PROGMEM = {
@@ -346,7 +333,9 @@ static const uint8_t tokenTable[] PROGMEM = {
 #if USE_MATRIX
 	'C', 'O', 'N'+0x80,
 #endif
+#if USE_DATA
 	'D', 'A', 'T', 'A'+0x80,           // 5
+#endif
 	'D', 'E', 'F'+0x80,                // 6
 //	'D', 'E', 'L', 'A', 'Y'+0x80,      // 7
 #if USE_MATRIX
@@ -394,7 +383,9 @@ static const uint8_t tokenTable[] PROGMEM = {
 #if USE_RANDOM
 	'R', 'A', 'N', 'D', 'O', 'M', 'I', 'Z', 'E'+0x80, //26
 #endif
+#if USE_DATA
 	'R', 'E', 'A', 'D'+0x80,           // 27
+#endif
 	'R', 'E', 'M'+0x80,
 	'R', 'E', 'T', 'U', 'R', 'N'+0x80,
 	'R', 'U', 'N'+0x80,
@@ -437,18 +428,27 @@ operator<<(Logger &logger, Token tok)
 #define SYM (uint8_t(_string[_pointer]))
 
 const uint8_t*
-Lexer::getTokenString(Token t) const
+Lexer::getTokenString(Token t, uint8_t *buf)
 {
-	const uint8_t *result = tokenTable;
-	
+	const uint8_t *result = tokenTable, *pointer = result;
 	uint8_t c; uint8_t index = 0;
-	while ((c = pgm_read_byte(result)) != 0) {
-		if (index == uint8_t(t))
-			return (result);
-		if (c&0x80)
-			++index;
-		c=pgm_read_byte(++result);
-	}
+	
+	do {
+		c=pgm_read_byte(pointer++);
+		if (c & 0x80) {
+			if (index++ == uint8_t(t)) {
+				pointer = result;
+				result = buf;
+				while (((c = pgm_read_byte(pointer++)) & 0x80) == 0)
+					*(buf++) = c;
+				*(buf++) = c&0x7F;
+				*buf = 0;
+				return result;
+			} else
+				result = pointer;
+		}
+	} while (c != 0);
+
 	return nullptr;
 }
 

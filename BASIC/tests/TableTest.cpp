@@ -11,7 +11,17 @@ void test1()
 {
 	std::cout << "TableTest test 1" << std::endl;
 	BASIC::Lexer lex;
-	const uint8_t *c = lex.getTokenString(BASIC::Token::COM_CLS);
+	uint8_t buf[16];
+	
+	const uint8_t *c = lex.getTokenString(BASIC::Token::OP_AND, buf);
+	std::cout << c << std::endl;
+
+	c = lex.getTokenString(BASIC::Token::OP_NOT, buf);
+	std::cout << c << std::endl;
+
+	c = lex.getTokenString(BASIC::Token::OP_OR, buf);
+	std::cout << c << std::endl;
+
 	return;
 }
 

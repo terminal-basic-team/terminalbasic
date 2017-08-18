@@ -548,6 +548,13 @@ Interpreter::print(char v)
 }
 
 void
+Interpreter::execCommand(FunctionBlock::command c)
+{
+	if (!(*c)(*this))
+		raiseError(DYNAMIC_ERROR, COMMAND_FAILED);
+}
+
+void
 Interpreter::print(Lexer &l)
 {
 	Token t = l.getToken();
@@ -1045,65 +1052,6 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 	}
 }
 
-
-void
-Interpreter::set(ArrayFrame &f, uint16_t index, const Parser::Value &v)
-{
-	switch (f.type) {
-	case Parser::Value::BOOLEAN:
-	{
-		union
-		{
-			uint8_t *b;
-			bool *i;
-		} U;
-		U.b = f.data();
-		U.i[index] = bool(v);
-	}
-		break;
-	case Parser::Value::INTEGER:
-	{
-		union
-		{
-			uint8_t *b;
-			Integer *i;
-		} U;
-		U.b = f.data();
-		U.i[index] = Integer(v);
-	}
-		break;
-#if USE_LONGINT
-	case Parser::Value::LONG_INTEGER:
-	{
-		union
-		{
-			uint8_t *b;
-			LongInteger *i;
-		} U;
-		U.b = f.data();
-		U.i[index] = LongInteger(v);
-	}
-		break;
-#endif
-#if USE_REALS
-	case Parser::Value::REAL:
-	{
-		union
-		{
-			uint8_t *b;
-			Real *r;
-		} U;
-		U.b = f.data();
-		U.r[index] = Real(v);
-	}
-		break;
-#endif
-	default:
-		raiseError(DYNAMIC_ERROR, INVALID_VALUE_TYPE);
-	}
-}
-
-
 bool
 Interpreter::readInput()
 {
@@ -1325,7 +1273,7 @@ Interpreter::setMatrixSize(ArrayFrame &array, uint16_t rows, uint16_t columns)
 	const uint16_t oldSize = array.size();
 	array.dimension[0] = rows, array.dimension[1] = columns;
 	const uint16_t newSize = array.size();
-	int32_t delta = newSize - oldSize;
+	int32_t delta = int32_t(newSize) - int32_t(oldSize);
 	const uint16_t aIndex = _program.arrayIndex(&array);
 	if (_program._arraysEnd + delta >= _program._sp) {
 		raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
@@ -1401,8 +1349,6 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 		break;
 	case MO_TRANSPOSE: { // source mat already have been copied,
 			     // performng in-place transpose
-		const uint16_t s = arrayFirst->dimension[0] *
-		     arrayFirst->dimension[1];
 		switch (array->type) {
 		case Parser::Value::INTEGER:
 			Matrix<Integer>::transpose(
@@ -1423,8 +1369,9 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 			    array->dimension[0]+1, array->dimension[1]+1);
 			break;
 #endif
+		default:
+			break;
 		}
-
 		setMatrixSize(*array, arrayFirst->dimension[1],
 		    arrayFirst->dimension[0]);
 	}
@@ -1575,13 +1522,21 @@ void
 Interpreter::print(Token t)
 {
 	char buf[10];
-	strcpy_P(buf, (PGM_P) pgm_read_ptr(&(Lexer::tokenStrings[
-	    uint8_t(t)])));
-	if (t < Token::STAR)
-		print(buf, VT100::TextAttr(uint8_t(VT100::BRIGHT) |
-		    uint8_t(VT100::C_GREEN)));
-	else
+	
+	if (t < Token::STAR) {
+		const uint8_t *res = Lexer::getTokenString(t,
+		    reinterpret_cast<uint8_t*>(buf));
+		if (res != nullptr)
+			print(buf, VT100::TextAttr(uint8_t(VT100::BRIGHT) |
+			    uint8_t(VT100::C_GREEN)));
+		else
+			print(ProgMemStrings::S_ERROR, VT100::TextAttr(uint8_t(VT100::BRIGHT) |
+			    uint8_t(VT100::C_RED)));
+	} else {
+		strcpy_P(buf, (PGM_P) pgm_read_ptr(&(Lexer::tokenStrings[
+		    uint8_t(t)-uint8_t(Token::STAR)])));
 		print(buf);
+	}
 }
 
 void
@@ -1746,8 +1701,7 @@ Interpreter::setArrayElement(const char *name, const Parser::Value &v)
 		raiseError(DYNAMIC_ERROR, INVALID_VALUE_TYPE);
 		return;
 	}
-
-	set(*f, index, v);
+	f->set(index, v);
 }
 
 void
@@ -1771,7 +1725,7 @@ Interpreter::newArray(const char *name)
 			}
 		}
 		ArrayFrame *array = addArray(name, dimensions, size);
-		if (array != NULL) { // go on stack frames, containong dimesions once more
+		if (array != nullptr) { // go on stack frames, containong dimesions once more
 			// now popping
 			for (uint8_t dim = dimensions; dim-- > 0;) {
 				f = _program.stackFrameByIndex(_program._sp);
@@ -1932,8 +1886,13 @@ Interpreter::ArrayFrame::dataSize() const
 		break;
 #endif
 	case Parser::Value::BOOLEAN:
-		mul *= sizeof (bool);
+	{
+		uint16_t s = mul / 8;
+		if ((mul % 8) != 0)
+			++s;
+		mul = s;
 		break;
+	}
 	default:
 		break;
 	}
@@ -1960,8 +1919,13 @@ Interpreter::ArrayFrame::get(uint16_t index, Parser::Value& v) const
 			return true;
 #endif
 		case Parser::Value::BOOLEAN:
-			v = get<bool>(index);
+		{
+			const uint8_t _byte = data()[index / 8];
+			v = bool((_byte >> (index % 8)) & 1);
 			return true;
+		}
+		default:
+			return false;
 		}
 	}
 	return false;
@@ -1987,8 +1951,17 @@ Interpreter::ArrayFrame::set(uint16_t index, const Parser::Value &v)
 			return true;
 #endif
 		case Parser::Value::BOOLEAN:
-			set(index, bool(v));
+		{
+			uint8_t &_byte = data()[index / uint8_t(8)];
+			const bool _v = bool(v);
+			if (_v)
+				_byte |= uint8_t(1) << (index % uint8_t(8));
+			else
+				_byte &= ~(uint8_t(1) << (index % uint8_t(8)));
 			return true;
+		}
+		default:
+			return false;
 		}
 	}
 	return false;
@@ -2008,8 +1981,7 @@ Interpreter::ArrayFrame::numElements() const
 }
 
 Interpreter::ArrayFrame *
-Interpreter::addArray(const char *name, uint8_t dim,
-    uint32_t num)
+Interpreter::addArray(const char *name, uint8_t dim, uint16_t num)
 {
 	uint16_t index = _program._variablesEnd;
 	ArrayFrame *f;
@@ -2018,12 +1990,12 @@ Interpreter::addArray(const char *name, uint8_t dim,
 		int res = strcmp(name, f->name);
 		if (res == 0) {
 			raiseError(DYNAMIC_ERROR, REDIMED_ARRAY);
-			return (NULL);
+			return nullptr;
 		} else if (res < 0)
 			break;
 	}
 
-	if (f == NULL)
+	if (f == nullptr)
 		f = reinterpret_cast<ArrayFrame*> (_program._text + index);
 
 	Parser::Value::Type t;
@@ -2032,13 +2004,16 @@ Interpreter::addArray(const char *name, uint8_t dim,
 		t = Parser::Value::LONG_INTEGER;
 		num *= sizeof (LongInteger);
 	} else
-#endif
-		if (endsWith(name, '%')) {
+#endif      
+	    if (endsWith(name, '%')) {
 		t = Parser::Value::INTEGER;
 		num *= sizeof (Integer);
 	} else if (endsWith(name, '!')) {
+		uint16_t s = num / 8;
+		if ((num % 8) != 0)
+			++s;
 		t = Parser::Value::BOOLEAN;
-		num *= sizeof (bool);
+		num = s;
 	} else { // real
 #if USE_REALS
 		t = Parser::Value::REAL;

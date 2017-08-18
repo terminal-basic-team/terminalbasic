@@ -30,8 +30,6 @@
  * Parameters
  */
 
-#define USE_GFX              0 // GFX module
-
 /*
  * Input and output for single terminal mode
  */
@@ -52,14 +50,14 @@
 #define SERIALL3_O 4 // SerialL3 output
 #define UTFT_O     5 // UTFT output
 #define TVOUT_O    6 // TVout output
-	#define TVOUT_HORIZ 192
-	#define TVOUT_VERT 160
+	#define TVOUT_HORIZ 240
+	#define TVOUT_VERT 192
 
-// Input select 
+// Input select
 #define S_INPUT SERIALL_I
 
 // Output select
-#define S_OUTPUT SERIALL_O
+#define S_OUTPUT TVOUT_O
 
 #define USEUTFT		          0
 #define USETVOUT	          0
@@ -74,7 +72,7 @@
 #endif
 
 // Use external memory
-#define USE_EXTMEM                0
+#define USE_EXTMEM                1
 #if USE_EXTMEM
 #define EXTMEM_ADDRESS 0x8000
 #define EXTMEM_SIZE    32768
@@ -82,9 +80,6 @@
 
 namespace BASIC
 {
-
-// Max size of the program line
-const uint8_t PROGSTRINGSIZE = 73;
 
 // Number of bytes for program text, variables and stack
 #if USE_EXTMEM
