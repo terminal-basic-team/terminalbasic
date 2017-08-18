@@ -1325,7 +1325,7 @@ Interpreter::setMatrixSize(ArrayFrame &array, uint16_t rows, uint16_t columns)
 	const uint16_t oldSize = array.size();
 	array.dimension[0] = rows, array.dimension[1] = columns;
 	const uint16_t newSize = array.size();
-	int32_t delta = newSize - oldSize;
+	int32_t delta = int32_t(newSize) - int32_t(oldSize);
 	const uint16_t aIndex = _program.arrayIndex(&array);
 	if (_program._arraysEnd + delta >= _program._sp) {
 		raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
