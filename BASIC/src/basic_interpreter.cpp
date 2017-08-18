@@ -1961,7 +1961,6 @@ Interpreter::ArrayFrame::get(uint16_t index, Parser::Value& v) const
 		case Parser::Value::BOOLEAN:
 			v = get<bool>(index);
 			return true;
-		}
 		default:
 			return false;
 		}
@@ -1991,7 +1990,6 @@ Interpreter::ArrayFrame::set(uint16_t index, const Parser::Value &v)
 		case Parser::Value::BOOLEAN:
 			set(index, bool(v));
 			return true;
-		}
 		default:
 			return false;
 		}

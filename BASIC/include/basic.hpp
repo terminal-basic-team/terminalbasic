@@ -103,16 +103,12 @@ enum class Token : uint8_t
 #if USE_MATRIX
 	KW_CON,        // 7
 #endif
-	KW_DATA,       // 8
 	KW_DEF,        // 9
 //	COM_DELAY,     // 10
 #if USE_MATRIX
 	KW_DET,        // 11
 #endif
 	KW_DIM,        // 12
-#if USE_DOLOOP
-	KW_DO,         // 13
-#endif
 #if USE_DUMP
 	COM_DUMP,      // 14
 #endif
@@ -135,9 +131,6 @@ enum class Token : uint8_t
 #if USE_SAVE_LOAD
 	COM_LOAD,      // 27
 #endif
-#if USE_DOLOOP
-	KW_LOOP,       // 28
-#endif
 #if USE_MATRIX
 	KW_MAT,        // 28
 #endif
@@ -151,7 +144,6 @@ enum class Token : uint8_t
 #if USE_RANDOM
 	KW_RANDOMIZE,  // 36
 #endif
-	KW_READ,       // 37
 	KW_REM,        // 38
 	KW_RETURN,     // 39
 	COM_RUN,       // 40

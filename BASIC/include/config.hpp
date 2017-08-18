@@ -98,7 +98,6 @@
 #define EXTEEPROM_SIZE       32768
 #endif // USE_EXTEEPROM
 
-#define USE_DOLOOP           0
 /*
  * Indention of the loop bodies
  */
