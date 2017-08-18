@@ -31,11 +31,15 @@
 #endif
 
 #if S_INPUT == SERIAL_I
-#define SERIAL_PORT Serial
+    #define SERIAL_PORT Serial
 #elif S_INPUT == SERIALL_I
-#define SERIAL_PORT SerialL
+    #define SERIAL_PORT SerialL
+#elif S_INPUT == SERIALL1_I
+    #define SERIAL_PORT SerialL1
+#elif S_INPUT == SERIALL2_I
+    #define SERIAL_PORT SerialL2
 #elif S_INPUT == SERIALL3_I
-#define SERIAL_PORT SerialL3
+    #define SERIAL_PORT SerialL3
 #endif
 #if S_OUTPUT == SERIAL_O
 #define SERIAL_PORT Serial
@@ -83,7 +87,7 @@ typedef float Real;
  */
 enum class Token : uint8_t
 {
-	NOTOKENS = 0,
+	NOTOKENS = 0,  // 0
 	OP_AND,        // 1
 #if USE_DUMP
 	KW_ARRAYS,     // 2

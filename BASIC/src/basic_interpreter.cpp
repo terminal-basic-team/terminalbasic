@@ -1401,8 +1401,6 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 		break;
 	case MO_TRANSPOSE: { // source mat already have been copied,
 			     // performng in-place transpose
-		const uint16_t s = arrayFirst->dimension[0] *
-		     arrayFirst->dimension[1];
 		switch (array->type) {
 		case Parser::Value::INTEGER:
 			Matrix<Integer>::transpose(
@@ -1423,6 +1421,8 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 			    array->dimension[0]+1, array->dimension[1]+1);
 			break;
 #endif
+		default:
+			break;
 		}
 
 		setMatrixSize(*array, arrayFirst->dimension[1],
@@ -1771,7 +1771,7 @@ Interpreter::newArray(const char *name)
 			}
 		}
 		ArrayFrame *array = addArray(name, dimensions, size);
-		if (array != NULL) { // go on stack frames, containong dimesions once more
+		if (array != nullptr) { // go on stack frames, containong dimesions once more
 			// now popping
 			for (uint8_t dim = dimensions; dim-- > 0;) {
 				f = _program.stackFrameByIndex(_program._sp);
@@ -1963,6 +1963,9 @@ Interpreter::ArrayFrame::get(uint16_t index, Parser::Value& v) const
 			v = get<bool>(index);
 			return true;
 		}
+		default:
+			return false;
+		}
 	}
 	return false;
 }
@@ -2018,12 +2021,12 @@ Interpreter::addArray(const char *name, uint8_t dim,
 		int res = strcmp(name, f->name);
 		if (res == 0) {
 			raiseError(DYNAMIC_ERROR, REDIMED_ARRAY);
-			return (NULL);
+			return nullptr;
 		} else if (res < 0)
 			break;
 	}
 
-	if (f == NULL)
+	if (f == nullptr)
 		f = reinterpret_cast<ArrayFrame*> (_program._text + index);
 
 	Parser::Value::Type t;
@@ -2032,8 +2035,8 @@ Interpreter::addArray(const char *name, uint8_t dim,
 		t = Parser::Value::LONG_INTEGER;
 		num *= sizeof (LongInteger);
 	} else
-#endif
-		if (endsWith(name, '%')) {
+#endif      
+	    if (endsWith(name, '%')) {
 		t = Parser::Value::INTEGER;
 		num *= sizeof (Integer);
 	} else if (endsWith(name, '!')) {

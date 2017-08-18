@@ -1288,6 +1288,7 @@ Parser::fMatrixExpression(const char *buf)
 		_interpreter.assignMatrix(buf, first);
 		return true;
 	}
+	return false;
 }
 
 #endif // USE_MATRIX
