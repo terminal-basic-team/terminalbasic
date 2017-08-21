@@ -57,7 +57,7 @@
 #define S_INPUT SERIALL_I
 
 // Output select
-#define S_OUTPUT TVOUT_O
+#define S_OUTPUT SERIALL_O
 
 #define USEUTFT		          0
 #define USETVOUT	          0
@@ -97,12 +97,6 @@ const uint16_t PROGRAMSIZE = 384;
 #else
 const uint16_t PROGRAMSIZE = 1024;
 #endif // USE_EXTMEM
-
-// Max size of the string constants/variables
-const uint8_t STRINGSIZE = 65;
-
-// Number of characters in variable name
-const uint8_t VARSIZE = 5;
 
 }
 

@@ -80,6 +80,7 @@ namespace BASIC
 #define USE_CHR            1
 // ASC function, returns code of the first symbol in a string
 #define USE_ASC            1
+#define USE_LEN            1
 #endif
 
 /*
@@ -155,6 +156,12 @@ namespace BASIC
  * Max size of the program line
  */
 const uint8_t PROGSTRINGSIZE = 73;
+
+// Max size of the string constants/variables
+const uint8_t STRINGSIZE = 65;
+
+// Number of characters in variable name
+const uint8_t VARSIZE = 5;
 
 }
 

@@ -22,6 +22,7 @@
 #include "basic.hpp"
 #include "basic_lexer.hpp"
 #include "basic_parser.hpp"
+#include "basic_program.hpp"
 #include "helper.hpp"
 #include "vt100.hpp"
 
@@ -29,15 +30,121 @@ namespace BASIC
 {
 
 /**
+ * @brief variable memory frame
+ */
+struct EXT_PACKED VariableFrame
+{
+	/**
+	 * @brief size of the initialized frame
+	 * @return size in bytes
+	 */
+	uint8_t size() const;
+
+	/**
+	 * @brief getValue from Variable frame
+	 * @param T value type
+	 * @return value
+	 */
+	template <typename T>
+	T get() const
+	{
+		union
+		{
+			const char *b;
+			const T *i;
+		} U;
+		U.b = bytes;
+		return *U.i;
+	}
+
+	// Variable name
+	char name[VARSIZE];
+	// Variable type
+	Parser::Value::Type type;
+	// Frame body
+	char bytes[];
+};
+
+/**
+ * Array memory frame
+ */
+struct EXT_PACKED ArrayFrame
+{
+	/**
+	 * @brief get frame size in bytes
+	 * @return size
+	 */
+	uint16_t size() const;
+
+	uint16_t dataSize() const;
+
+	uint16_t numElements() const;
+
+	/**
+	 * @brief get array raw data pointer
+	 * @return pointer
+	 */
+	uint8_t *data()
+	{
+		return reinterpret_cast<uint8_t*> (this+1) +
+		    sizeof(uint16_t) * numDimensions;
+	}
+
+	/**
+	 * @brief Overloaded version
+	 */
+	const uint8_t *data() const
+	{
+		return reinterpret_cast<const uint8_t*> (this+1) +
+		    sizeof(uint16_t) * numDimensions;
+	}
+
+	/**
+	 * @brief get array value by raw index
+	 * @param index shift in array data
+	 * @return value
+	 */
+	template <typename T>
+	T get(uint16_t index) const
+	{
+		const union
+		{
+			const uint8_t *b;
+			const T *i;
+		} U = { .b = this->data() };
+		return U.i[index];
+	}
+
+	bool get(uint16_t, Parser::Value&) const;
+	bool set(uint16_t, const Parser::Value&);
+
+	template <typename T>
+	void set(uint16_t index, T val)
+	{
+		union
+		{
+			uint8_t *b;
+			T *i;
+		} U = { .b = this->data() };
+		U.i[index] = val;
+	}
+
+	// Array data
+	char name[VARSIZE];
+	// Array type
+	Parser::Value::Type type;
+	// Number of dimensions
+	uint8_t numDimensions;
+	// Actual dimensions values
+	uint16_t dimension[];
+};
+
+/**
  * @brief Interpreter context object
  */
 class Interpreter
 {
 public:
-	/**
-	 * @brief BASIC program memory
-	 */
-	class EXT_PACKED Program;
 
 	/**
 	 * Dynamic (runtime error codes)
@@ -74,117 +181,8 @@ public:
 		DYNAMIC_ERROR // runtime
 	};
 
-	/**
-	 * @brief variable memory frame
-	 */
-	struct EXT_PACKED VariableFrame
-	{
-		/**
-		 * @brief size of the initialized frame
-		 * @return size in bytes
-		 */
-		uint8_t size() const;
-
-		/**
-		 * @brief getValue from Variable frame
-		 * @param T value type
-		 * @return value
-		 */
-		template <typename T>
-		T get() const
-		{
-			union
-			{
-				const char *b;
-				const T *i;
-			} U;
-			U.b = bytes;
-			return *U.i;
-		}
-
-		// Variable name
-		char name[VARSIZE];
-		// Variable type
-		Parser::Value::Type type;
-		// Frame body
-		char bytes[];
-	};
-
-	/**
-	 * Array memory frame
-	 */
-	struct EXT_PACKED ArrayFrame
-	{
-		/**
-		 * @brief get frame size in bytes
-		 * @return size
-		 */
-		uint16_t size() const;
-		
-		uint16_t dataSize() const;
-		
-		uint16_t numElements() const;
-
-		/**
-		 * @brief get array raw data pointer
-		 * @return pointer
-		 */
-		uint8_t *data()
-		{
-			return reinterpret_cast<uint8_t*> (this+1) +
-			    sizeof(uint16_t) * numDimensions;
-		}
-
-		/**
-		 * @brief Overloaded version
-		 */
-		const uint8_t *data() const
-		{
-			return reinterpret_cast<const uint8_t*> (this+1) +
-			    sizeof(uint16_t) * numDimensions;
-		}
-
-		/**
-		 * @brief get array value by raw index
-		 * @param index shift in array data
-		 * @return value
-		 */
-		template <typename T>
-		T get(uint16_t index) const
-		{
-			const union
-			{
-				const uint8_t *b;
-				const T *i;
-			} U = { .b = this->data() };
-			return U.i[index];
-		}
-		
-		bool get(uint16_t, Parser::Value&) const;
-		bool set(uint16_t, const Parser::Value&);
-		
-		template <typename T>
-		void set(uint16_t index, T val)
-		{
-			union
-			{
-				uint8_t *b;
-				T *i;
-			} U = { .b = this->data() };
-			U.i[index] = val;
-		}
-
-		// Array data
-		char name[VARSIZE];
-		// Array type
-		Parser::Value::Type type;
-		// Number of dimensions
-		uint8_t numDimensions;
-		// Actual dimensions values
-		uint16_t dimension[];
-	};
+	
 	// Interpreter FSM state
-
 	enum State : uint8_t
 	{
 		SHELL,		// Wait for user input of line or command
@@ -196,6 +194,9 @@ public:
 #endif // BASIC_MULTITERMINAL
 		EXECUTE,	// Runniong the program
 		VAR_INPUT,	// Input of the variable value
+#if USE_DELAY
+		DELAY,          // Wait for timeout
+#endif
 		CONFIRM_INPUT	// Input of the confirmation
 	};
 #if USE_DUMP
@@ -210,9 +211,9 @@ public:
 	 * @brief constructor
 	 * @param stream Boundary output object
 	 * @param print Boundary input object
-	 * @param program Program object
+	 * @param program Program size
 	 */
-	explicit Interpreter(Stream&, Print&, Program&);
+	explicit Interpreter(Stream&, Print&, uint16_t);
 	
 	/**
 	 * [re]initialize interpreter object
@@ -238,6 +239,10 @@ public:
 
 #if USE_GET
 	uint8_t lastKey();
+#endif
+	
+#if USE_DELAY
+	void delay(uint16_t);
 #endif
 	
 	// New print line
@@ -349,7 +354,7 @@ public:
 	 * @param name variable name
 	 * @param v value to assign
 	 */
-	Interpreter::VariableFrame *setVariable(const char*,
+	VariableFrame *setVariable(const char*,
 	    const Parser::Value&);
 	/**
 	 * @brief setarray element a given value with indexes on the stack
@@ -408,7 +413,7 @@ public:
 	
 	bool pushResult();
 
-	Program &_program;
+	Program _program;
 private:
 	class AttrKeeper;
 #if USE_MATRIX
@@ -474,7 +479,7 @@ private:
 	// Global RESULT() variable
 	Parser::Value		 _result;
 #if LOOP_INDENT
-	uint8_t			_loopIndent;
+	uint8_t			 _loopIndent;
 #endif
 #if BASIC_MULTITERMINAL
 	static uint8_t		 _termnoGen;

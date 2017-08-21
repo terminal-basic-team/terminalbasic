@@ -40,12 +40,6 @@ namespace BASIC
 // Number of bytes for program text, variables and stack
 const uint16_t PROGRAMSIZE = 32768;
 
-// Max size of the string constants/variables
-const uint8_t STRINGSIZE = 73;
-
-// Number of characters in variable name
-const uint8_t VARSIZE = 5;
-
 }
 
 #endif

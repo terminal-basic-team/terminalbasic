@@ -95,32 +95,27 @@ static BASIC::GFXModule gfxModule;
 #endif
 
 #if BASIC_MULTITERMINAL
-static BASIC::Interpreter::Program program(BASIC::PROGRAMSIZE / 5);
-static BASIC::Interpreter basic(SERIAL_PORT, SERIAL_PORT, program);
+static BASIC::Interpreter basic(SERIAL_PORT, SERIAL_PORT, BASIC::PROGRAMSIZE / 5);
 #ifdef HAVE_HWSERIAL1
-static BASIC::Interpreter::Program program1(BASIC::PROGRAMSIZE / 5);
-static BASIC::Interpreter basic1(SERIAL_PORT1, SERIAL_PORT1, program1);
+static BASIC::Interpreter basic1(SERIAL_PORT1, SERIAL_PORT1, BASIC::PROGRAMSIZE / 5);
 #endif
 #ifdef HAVE_HWSERIAL2
-static BASIC::Interpreter::Program program2(BASIC::PROGRAMSIZE / 5);
-static BASIC::Interpreter basic2(SERIAL_PORT2, SERIAL_PORT2, program2);
+static BASIC::Interpreter basic2(SERIAL_PORT2, SERIAL_PORT2, BASIC::PROGRAMSIZE / 5);
 #endif
 #ifdef HAVE_HWSERIAL3
-static BASIC::Interpreter::Program program3(BASIC::PROGRAMSIZE / 5);
-static BASIC::Interpreter basic3(SERIAL_PORT3, SERIAL_PORT3, program3);
+static BASIC::Interpreter basic3(SERIAL_PORT3, SERIAL_PORT3, BASIC::PROGRAMSIZE / 5);
 #endif
 #else
-static BASIC::Interpreter::Program program(BASIC::PROGRAMSIZE);
 #if USEUTFT
-static BASIC::Interpreter basic(SERIAL_PORT, utftPrint, program);
+static BASIC::Interpreter basic(SERIAL_PORT, utftPrint, BASIC::PROGRAMSIZE);
 #elif (USEPS2USARTKB && USETVOUT)
-static BASIC::Interpreter basic(ps2usartStream, tvoutPrint, program);
+static BASIC::Interpreter basic(ps2usartStream, tvoutPrint, BASIC::PROGRAMSIZE);
 #elif USEPS2USARTKB
-static BASIC::Interpreter basic(ps2usartStream, SERIAL_PORT, program);
+static BASIC::Interpreter basic(ps2usartStream, SERIAL_PORT, BASIC::PROGRAMSIZE);
 #elif USETVOUT
-static BASIC::Interpreter basic(SERIAL_PORT, tvoutPrint, program);
+static BASIC::Interpreter basic(SERIAL_PORT, tvoutPrint, BASIC::PROGRAMSIZE);
 #else
-static BASIC::Interpreter basic(SERIAL_PORT, SERIAL_PORT, program);
+static BASIC::Interpreter basic(SERIAL_PORT, SERIAL_PORT, BASIC::PROGRAMSIZE);
 #endif // USEUTFT
 #endif // BASIC_MULTITERMINAL
 

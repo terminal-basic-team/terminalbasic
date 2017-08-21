@@ -28,6 +28,7 @@
 #include <EEPROM.h>
 #if SAVE_LOAD_CHECKSUM
 #include <util/crc16.h>
+#include <stdint.h>
 #endif
 #endif // USE_SAVE_LOAD
 
@@ -99,7 +100,7 @@ private:
 void
 Interpreter::valueFromVar(Parser::Value &v, const char *varName)
 {
-	const Interpreter::VariableFrame *f = getVariable(varName);
+	const VariableFrame *f = getVariable(varName);
 	if (f == NULL)
 		return;
 	switch (f->type) {
@@ -178,8 +179,8 @@ Interpreter::valueFromArray(Parser::Value &v, const char *name)
 uint8_t Interpreter::_termnoGen = 0;
 #endif
 
-Interpreter::Interpreter(Stream &stream, Print &output, Program &program) :
-_program(program), _state(SHELL), _input(stream), _output(output),
+Interpreter::Interpreter(Stream &stream, Print &output, uint16_t progSize) :
+_program(progSize), _state(SHELL), _input(stream), _output(output),
 _parser(_lexer, *this)
 #if BASIC_MULTITERMINAL
 ,_termno(++_termnoGen)
@@ -933,12 +934,12 @@ bool
 Interpreter::nextInput()
 {
 	const Program::StackFrame *f = _program.currentStackFrame();
-	if (f != NULL && f->_type == Program::StackFrame::INPUT_OBJECT) {
+	if (f != nullptr && f->_type == Program::StackFrame::INPUT_OBJECT) {
 		_program.pop();
 		strcpy(_inputVarName, f->body.inputObject.name);
-		return (true);
+		return true;
 	} else
-		return (false);
+		return false;
 }
 
 void
@@ -993,25 +994,25 @@ Interpreter::doInput()
 }
 
 uint8_t
-Interpreter::VariableFrame::size() const
+VariableFrame::size() const
 {
 	switch (type) {
 #if USE_LONGINT
 	case Parser::Value::LONG_INTEGER:
-		return sizeof (VariableFrame) + sizeof (LongInteger);
+		return sizeof(VariableFrame) + sizeof (LongInteger);
 #endif
 	case Parser::Value::INTEGER:
-		return sizeof (VariableFrame) + sizeof (Integer);
+		return sizeof(VariableFrame) + sizeof (Integer);
 #if USE_REALS
 	case Parser::Value::REAL:
-		return sizeof (VariableFrame) + sizeof (Real);
+		return sizeof(VariableFrame) + sizeof (Real);
 #endif
 	case Parser::Value::BOOLEAN:
-		return sizeof (VariableFrame) + sizeof (bool);
+		return sizeof(VariableFrame) + sizeof (bool);
 	case Parser::Value::STRING:
-		return sizeof (VariableFrame) + STRINGSIZE;
+		return sizeof(VariableFrame) + STRINGSIZE;
 	default:
-		return sizeof (VariableFrame);
+		return sizeof(VariableFrame);
 	}
 }
 
@@ -1659,7 +1660,7 @@ Interpreter::arrayElementIndex(ArrayFrame *f, uint16_t &index)
 	return true;
 }
 
-Interpreter::VariableFrame *
+VariableFrame*
 Interpreter::setVariable(const char *name, const Parser::Value &v)
 {
 	uint16_t index = _program._textEnd;
@@ -1675,7 +1676,7 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 			break;
 	}
 
-	if (f == NULL)
+	if (f == nullptr)
 		f = reinterpret_cast<VariableFrame*> (_program._text + index);
 
 	uint16_t dist = sizeof(VariableFrame);
@@ -1706,7 +1707,7 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 	}
 	if (_program._arraysEnd >= _program._sp) {
 		raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
-		return NULL;
+		return nullptr;
 	}
 	memmove(_program._text + index + dist, _program._text + index,
 	    _program._arraysEnd - index);
@@ -1723,7 +1724,7 @@ void
 Interpreter::setArrayElement(const char *name, const Parser::Value &v)
 {
 	ArrayFrame *f = _program.arrayByName(name);
-	if (f == NULL) {
+	if (f == nullptr) {
 		raiseError(DYNAMIC_ERROR, NO_SUCH_ARRAY);
 		return;
 	}
@@ -1768,11 +1769,11 @@ Interpreter::newArray(const char *name)
 	}
 }
 
-const Interpreter::VariableFrame *
+const VariableFrame*
 Interpreter::getVariable(const char *name)
 {
 	const VariableFrame *f = _program.variableByName(name);
-	if (f == NULL) {
+	if (f == nullptr) {
 		Parser::Value v(Integer(0));
 		f = setVariable(name, v);
 	}
@@ -1783,7 +1784,7 @@ void
 Interpreter::pushString(const char *str)
 {
 	Program::StackFrame *f = _program.push(Program::StackFrame::STRING);
-	if (f == NULL) {
+	if (f == nullptr) {
 		raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
 		return;
 	}
@@ -1795,7 +1796,7 @@ Interpreter::pushDimension(uint16_t dim)
 {
 	Program::StackFrame *f =
 	    _program.push(Program::StackFrame::ARRAY_DIMENSION);
-	if (f == NULL)
+	if (f == nullptr)
 		raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
 	else
 		f->body.arrayDimension = dim;
@@ -1806,7 +1807,7 @@ Interpreter::pushDimensions(uint8_t dim)
 {
 	Program::StackFrame *f =
 	    _program.push(Program::StackFrame::ARRAY_DIMENSIONS);
-	if (f != NULL)
+	if (f != nullptr)
 		f->body.arrayDimensions = dim;
 	else
 		raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
@@ -1837,7 +1838,7 @@ Interpreter::confirm()
 		newline();
 		break;
 	} while (true);
-	return (result);
+	return result;
 }
 
 #if USE_STRINGOPS
@@ -1845,7 +1846,7 @@ void
 Interpreter::strConcat()
 {
 	const Program::StackFrame *f = _program.currentStackFrame();
-	if (f != NULL && f->_type == Program::StackFrame::STRING) {
+	if (f != nullptr && f->_type == Program::StackFrame::STRING) {
 		_program.pop();
 		Program::StackFrame *ff = _program.currentStackFrame();
 		if (ff != NULL || ff->_type == Program::StackFrame::STRING) {
@@ -1865,10 +1866,10 @@ bool
 Interpreter::strCmp()
 {
 	const Program::StackFrame *f = _program.currentStackFrame();
-	if (f != NULL && f->_type == Program::StackFrame::STRING) {
+	if (f != nullptr && f->_type == Program::StackFrame::STRING) {
 		_program.pop();
 		Program::StackFrame *ff = _program.currentStackFrame();
-		if (ff != NULL || ff->_type == Program::StackFrame::STRING) {
+		if (ff != nullptr || ff->_type == Program::StackFrame::STRING) {
 			_program.pop();
 			return strncmp(ff->body.string, f->body.string,
 			    STRINGSIZE) == 0;
@@ -1886,10 +1887,10 @@ Interpreter::end()
 }
 
 uint16_t
-Interpreter::ArrayFrame::size() const
+ArrayFrame::size() const
 {
 	// Header with dimensions vector
-	uint16_t result = sizeof (Interpreter::ArrayFrame) +
+	uint16_t result = sizeof (ArrayFrame) +
 	    numDimensions * sizeof (uint16_t);
 	
 	uint16_t mul = dataSize();
@@ -1899,7 +1900,7 @@ Interpreter::ArrayFrame::size() const
 }
 
 uint16_t
-Interpreter::ArrayFrame::dataSize() const
+ArrayFrame::dataSize() const
 {
 	uint16_t mul = numElements();
 
@@ -1932,7 +1933,7 @@ Interpreter::ArrayFrame::dataSize() const
 }
 
 bool
-Interpreter::ArrayFrame::get(uint16_t index, Parser::Value& v) const
+ArrayFrame::get(uint16_t index, Parser::Value& v) const
 {
 	assert(index < numElements());
 	if (index < numElements()) {
@@ -1964,7 +1965,7 @@ Interpreter::ArrayFrame::get(uint16_t index, Parser::Value& v) const
 }
 
 bool
-Interpreter::ArrayFrame::set(uint16_t index, const Parser::Value &v)
+ArrayFrame::set(uint16_t index, const Parser::Value &v)
 {
 	assert(index < numElements());
 	if (index < numElements()) {
@@ -2000,7 +2001,7 @@ Interpreter::ArrayFrame::set(uint16_t index, const Parser::Value &v)
 }
 
 uint16_t
-Interpreter::ArrayFrame::numElements() const
+ArrayFrame::numElements() const
 {
 	uint16_t mul = 1;
 	
@@ -2012,7 +2013,7 @@ Interpreter::ArrayFrame::numElements() const
 	return mul;
 }
 
-Interpreter::ArrayFrame *
+ArrayFrame *
 Interpreter::addArray(const char *name, uint8_t dim, uint16_t num)
 {
 	uint16_t index = _program._variablesEnd;
@@ -2059,7 +2060,7 @@ Interpreter::addArray(const char *name, uint8_t dim, uint16_t num)
 	const uint16_t dist = sizeof (ArrayFrame) + sizeof (uint16_t) * dim + num;
 	if (_program._arraysEnd + dist >= _program._sp) {
 		raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
-		return (NULL);
+		return nullptr;
 	}
 	memmove(_program._text + index + dist, _program._text + index,
 	    _program._arraysEnd - index);
@@ -2072,4 +2073,4 @@ Interpreter::addArray(const char *name, uint8_t dim, uint16_t num)
 	return f;
 }
 
-}
+} // namespace BASIC
