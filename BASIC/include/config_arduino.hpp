@@ -85,7 +85,7 @@ namespace BASIC
 #if USE_EXTMEM
 const uint16_t PROGRAMSIZE = EXTMEM_SIZE;
 #elif defined (__AVR_ATmega1284__) || defined (__AVR_ATmega1284P__)
-const uint16_t PROGRAMSIZE = 10200;
+const uint16_t PROGRAMSIZE = 8192;
 #elif defined (__AVR_ATmega2560__)
 const uint16_t PROGRAMSIZE = 6144;
 #elif defined (__AVR_ATmega128__) || defined (__AVR_ATmega128A__)
