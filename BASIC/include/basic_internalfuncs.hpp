@@ -40,10 +40,13 @@ private:
 #if USE_GET
 	static bool func_get(Interpreter&);
 #endif
-	static bool func_result(Interpreter&);
 #if USE_REALS
 	static bool func_int(Interpreter&);
 #endif
+#if USE_LEN
+	static bool func_len(Interpreter&);
+#endif
+	static bool func_result(Interpreter&);
 #if USE_RANDOM
 	static bool func_rnd(Interpreter&);
 #endif

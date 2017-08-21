@@ -41,6 +41,9 @@ static const uint8_t intFuncs[] PROGMEM = {
 #if USE_REALS
 	'I', 'N', 'T'+0x80,
 #endif
+#if USE_LEN
+	'L', 'E', 'N'+0x80,
+#endif
 	'R', 'E', 'S'+0x80,
 #if USE_RANDOM
 	'R', 'N', 'D'+0x80,
@@ -63,6 +66,9 @@ const FunctionBlock::function InternalFunctions::funcs[] PROGMEM = {
 #endif
 #if USE_REALS
 	InternalFunctions::func_int,
+#endif
+#if USE_LEN
+	InternalFunctions::func_len,
 #endif
 	InternalFunctions::func_result,
 #if USE_RANDOM
@@ -176,6 +182,23 @@ InternalFunctions::func_int(Interpreter &i)
 		return (false);
 }
 #endif // USE_REALS
+
+#if USE_LEN
+bool
+InternalFunctions::func_len(Interpreter &i)
+{
+	Parser::Value v;
+	i.popValue(v);
+	if (v.type == Parser::Value::STRING) {
+		const char *str;
+		i.popString(str);
+		v = Integer(strnlen(str, STRINGSIZE));
+		i.pushValue(v);
+		return true;
+	} else
+		return false;
+}
+#endif
 
 #if USE_REALS
 #define TYP Real
