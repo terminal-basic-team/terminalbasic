@@ -236,10 +236,15 @@ public:
 	// Add module on tail of the modules list
 	void addModule(FunctionBlock*);
 
+#if USE_GET
+	uint8_t lastKey();
+#endif
+	
 	// New print line
 	void newline();
-	void print(char);
 	
+	void print(char);
+	// Execute command by function pointer
 	void execCommand(FunctionBlock::command);
 
 #if USE_MATRIX

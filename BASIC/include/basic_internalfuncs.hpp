@@ -31,7 +31,15 @@ public:
 	InternalFunctions(FunctionBlock* = NULL);
 private:
 	static bool func_abs(Interpreter&);
+#if USE_ASC
+	static bool func_asc(Interpreter&);
+#endif
+#if USE_CHR
 	static bool func_chr(Interpreter&);
+#endif
+#if USE_GET
+	static bool func_get(Interpreter&);
+#endif
 	static bool func_result(Interpreter&);
 #if USE_REALS
 	static bool func_int(Interpreter&);

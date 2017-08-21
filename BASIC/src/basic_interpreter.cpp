@@ -314,8 +314,12 @@ Interpreter::step()
 	case EXECUTE: {
 		c = char(ASCII::NUL);
 #if defined(ARDUINO) || BASIC_MULTITERMINAL
-		if (_input.available() > 0)
+		if (_input.available() > 0) {
 			c = _input.read();
+#if USE_GET
+			_inputBuffer[0] = c;
+#endif
+		}
 #endif
 		Program::String *s = _program.current();
 		if (s != nullptr && c != char(ASCII::EOT)) {
@@ -438,6 +442,16 @@ Interpreter::addModule(FunctionBlock *module)
 {
 	_parser.addModule(module);
 }
+
+#if USE_GET
+uint8_t
+Interpreter::lastKey()
+{
+	const uint8_t c = _inputBuffer[0];
+	_inputBuffer[0] = 0;
+	return c;
+}
+#endif
 
 #if USE_DUMP
 
@@ -610,6 +624,9 @@ Interpreter::run()
 {
 	_program.reset(_program._textEnd);
 	_state = EXECUTE;
+#if USE_GET
+	_inputBuffer[0] = 0;
+#endif
 }
 
 void

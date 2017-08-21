@@ -65,6 +65,18 @@ namespace BASIC
 
 #endif // USE_REALS
 
+// Use string functions and operations
+#define USE_STRINGOPS        1
+	
+#if USE_STRINGOPS
+// GET$ function, returns string from last pressed key symbol
+#define USE_GET            1
+// CHR$ function, returns string from the parameter ASCII code
+#define USE_CHR            1
+// ASC function, returns code of the first symbol in a string
+#define USE_ASC            1
+#endif
+
 /*
  * Support of 4-byte integer datatype
  * Functions, variables and arrays of long integer type ends with double % mark
@@ -112,7 +124,7 @@ namespace BASIC
 #define OPT_SIZE      2
 #define OPT           OPT_SIZE
 
-#define USESD            1 // SDcard module
+#define USESD            0 // SDcard module
 #define USEARDUINOIO     1 // Arduino IO module
 
 #define USE_EXTEEPROM    0 // External EEPROM functions module
@@ -132,7 +144,7 @@ namespace BASIC
 /*
  * GFX module
  */
-#define USE_GFX          1
+#define USE_GFX          0
 
 /*
  * Max size of the program line
