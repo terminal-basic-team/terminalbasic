@@ -110,7 +110,9 @@ enum class Token : uint8_t
 	KW_DATA,       // 8
 #endif
 	KW_DEF,        // 9
-//	COM_DELAY,     // 10
+#if USE_DELAY
+	COM_DELAY,     // 10
+#endif
 #if USE_MATRIX
 	KW_DET,        // 11
 #endif

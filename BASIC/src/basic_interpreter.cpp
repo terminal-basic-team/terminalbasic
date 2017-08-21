@@ -311,6 +311,12 @@ Interpreter::step()
 		}
 		_state = EXECUTE;
 		break;
+#if USE_DELAY
+	case DELAY:
+		if (millis() >= _delayTimeout)
+			_state = EXECUTE;
+		break;
+#endif
 	case EXECUTE: {
 		c = char(ASCII::NUL);
 #if defined(ARDUINO) || BASIC_MULTITERMINAL
@@ -548,6 +554,15 @@ Interpreter::print(const Parser::Value &v, VT100::TextAttr attr)
 		break;
 	}
 }
+
+#if USE_DELAY
+void
+Interpreter::delay(uint16_t ms)
+{
+	_delayTimeout = millis() + ms;
+	_state = DELAY;
+}
+#endif
 
 void
 Interpreter::newline()

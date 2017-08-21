@@ -480,6 +480,9 @@ private:
 	static uint8_t		 _termnoGen;
 	uint8_t			 _termno;
 #endif
+#if USE_DELAY
+	uint32_t		_delayTimeout;
+#endif
 };
 
 }

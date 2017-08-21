@@ -1027,6 +1027,18 @@ Parser::fCommand()
 		return true;
 	}
 #endif
+#if USE_DELAY
+	case Token::COM_DELAY: {
+		Parser::Value v;
+		if (_lexer.getNext() && fExpression(v)) {
+			if (_mode == EXECUTE) {
+				_interpreter.delay(Integer(v));
+			}
+			return true;
+		} else
+			return false;
+	}
+#endif
 	case Token::COM_LIST:
 	{
 		Integer start = 1, stop = 0;

@@ -337,7 +337,9 @@ static const uint8_t tokenTable[] PROGMEM = {
 	'D', 'A', 'T', 'A'+0x80,           // 5
 #endif
 	'D', 'E', 'F'+0x80,                // 6
-//	'D', 'E', 'L', 'A', 'Y'+0x80,      // 7
+#if USE_DELAY
+	'D', 'E', 'L', 'A', 'Y'+0x80,      // 7
+#endif
 #if USE_MATRIX
 	'D', 'E', 'T'+0x80,
 #endif

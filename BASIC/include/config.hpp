@@ -34,6 +34,11 @@ namespace BASIC
  */
 
 /*
+ * DELAY command, suspends execution for N ms
+ */
+#define USE_DELAY    1
+	
+/*
  * Real arithmetics
  * 
  * Support of operations with real numbers.
