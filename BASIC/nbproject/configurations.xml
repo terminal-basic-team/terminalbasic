@@ -1371,6 +1371,7 @@
           <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -fno-threadsafe-statics -MMD -mmcu=atmega1284p -ffunction-sections -fdata-sections -flto -fno-rtti -mcall-prologues</commandLine>
           <preprocessorList>
             <Elem>ARDUINO=10803</Elem>
+            <Elem>ARDUINO_1284P_AVR_DEVELOPERS</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>F_CPU=16000000L</Elem>
             <Elem>NDEBUG</Elem>
