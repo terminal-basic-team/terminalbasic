@@ -1283,7 +1283,7 @@ Interpreter::matrixDet(const char *name)
 		switch (array->type) {
 		case Parser::Value::INTEGER: {
 			Integer r;
-			if (!Matrix<Integer>::determinant(
+			if (!Matricies<Integer>::determinant(
 			    reinterpret_cast<const Integer*>(array->data()),
 			    array->dimension[0]+1, r,
 			    reinterpret_cast<Integer*>(tbuf)))
@@ -1294,7 +1294,7 @@ Interpreter::matrixDet(const char *name)
 #if USE_LONGINT
 		case Parser::Value::LONG_INTEGER:
 			LongInteger r;
-			if (!Matrix<LongInteger>::determinant(
+			if (!Matricies<LongInteger>::determinant(
 			    reinterpret_cast<const LongInteger*>(array->data()),
 			    array->dimension[0]+1, r,
 			    reinterpret_cast<LongInteger*>(tbuf)))
@@ -1304,7 +1304,7 @@ Interpreter::matrixDet(const char *name)
 #if USE_REALS
 		case Parser::Value::REAL: {
 			Real r;
-			if (!Matrix<Real>::determinant(
+			if (!Matricies<Real>::determinant(
 			    reinterpret_cast<const Real*>(array->data()),
 			    array->dimension[0]+1, r,
 			    reinterpret_cast<Real*>(tbuf)))
@@ -1403,20 +1403,20 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 			     // performng in-place transpose
 		switch (array->type) {
 		case Parser::Value::INTEGER:
-			Matrix<Integer>::transpose(
+			Matricies<Integer>::transpose(
 			    reinterpret_cast<Integer*>(array->data()),
 			    array->dimension[0]+1, array->dimension[1]+1);
 			break;
 #if USE_LONGINT
 		case Parser::Value::LONG_INTEGER:
-			Matrix<LongInteger>::transpose(
+			Matricies<LongInteger>::transpose(
 			    reinterpret_cast<LongInteger*>(array->data()),
 			    array->dimension[0]+1, array->dimension[1]+1);
 			break;	
 #endif
 #if USE_REALS
 		case Parser::Value::REAL:
-			Matrix<Real>::transpose(
+			Matricies<Real>::transpose(
 			    reinterpret_cast<Real*>(array->data()),
 			    array->dimension[0]+1, array->dimension[1]+1);
 			break;
@@ -1483,7 +1483,7 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 		    _program._arraysEnd);
 		switch (arrayFirst->type) {
 		case Parser::Value::INTEGER:
-			Matrix<Integer>::mul(
+			Matricies<Integer>::mul(
 			    reinterpret_cast<Integer*>(arrayFirst->data()),
 			    arrayFirst->dimension[0]+1, arrayFirst->dimension[1]+1,
 			    reinterpret_cast<Integer*>(arraySecond->data()),
@@ -1492,7 +1492,7 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 			break;
 #if USE_LONGINT
 		case Parser::Value::LONG_INTEGER:
-			Matrix<LongInteger>::mul(
+			Matricies<LongInteger>::mul(
 			    reinterpret_cast<LongInteger*>(arrayFirst->data()),
 			    arrayFirst->dimension[0]+1, arrayFirst->dimension[1]+1,
 			    reinterpret_cast<LongInteger*>(arraySecond->data()),
@@ -1502,7 +1502,7 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 #endif
 #if USE_REALS
 		case Parser::Value::REAL:
-			Matrix<Real>::mul(
+			Matricies<Real>::mul(
 			    reinterpret_cast<Real*>(arrayFirst->data()),
 			    arrayFirst->dimension[0]+1, arrayFirst->dimension[1]+1,
 			    reinterpret_cast<Real*>(arraySecond->data()),
@@ -1533,20 +1533,20 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 		bool res = false;
 		switch (array->type) {
 		case Parser::Value::INTEGER:
-			res = Matrix<Integer>::invert(
+			res = Matricies<Integer>::invert(
 			    reinterpret_cast<Integer*>(array->data()),
 			    r, reinterpret_cast<Integer*>(tbuf));
 			break;
 #if USE_LONGINT
 		case Parser::Value::LONG_INTEGER:
-			res = Matrix<LongInteger>::invert(
+			res = Matricies<LongInteger>::invert(
 			    reinterpret_cast<LongInteger*>(array->data()),
 			    r, reinterpret_cast<LongInteger*>(tbuf));
 			break;
 #endif
 #if USE_REALS
 		case Parser::Value::REAL:
-			res = Matrix<Real>::invert(
+			res = Matricies<Real>::invert(
 			    reinterpret_cast<Real*>(array->data()),
 			    r, reinterpret_cast<Real*>(tbuf));
 			break;
