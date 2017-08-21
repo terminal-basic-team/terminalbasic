@@ -34,6 +34,16 @@ static SDL_Window *window = nullptr;
 static const uint8_t scale = 2;
 static SDL_Renderer *renderer = nullptr;
 	
+static void
+drawPoint(uint16_t x, uint16_t y)
+{
+	const uint16_t xs = x*scale+scale;
+	const uint16_t ys = y*scale+scale;
+	for (uint16_t _x = x*scale; _x<xs; ++_x)
+		for (uint16_t _y=y*scale; _y<ys; ++_y)
+			SDL_ASSERT(SDL_RenderDrawPoint(renderer, _x, _y) == 0);
+}
+
 void
 GFXModule::_init()
 {
@@ -48,6 +58,47 @@ GFXModule::_init()
 	SDL_RenderPresent(renderer);
 }
 
+static void
+circlePoints(uint8_t xc, uint8_t yc, int16_t x, int16_t y)
+{
+	drawPoint(xc+x, yc+y);
+	drawPoint(xc+y, yc+x);
+	drawPoint(xc+y, yc-x);
+	drawPoint(xc+x, yc-y);
+	drawPoint(xc-x, yc-y);
+	drawPoint(xc-y, yc-x);
+	drawPoint(xc-y, yc+x);
+	drawPoint(xc-x, yc+y);
+}
+
+static void
+circle(uint8_t xc, uint8_t yc, uint16_t r)
+{
+	int16_t x = 0;
+	int16_t y = r;
+	int16_t d = 1-r;
+	int16_t d1 = 3;
+	int16_t d2 = -2*r+5;
+	
+	circlePoints(xc, yc, x, y);
+	
+	while (y>x) {
+		if (d<0) {
+			d += d1;
+			d1 += 2;
+			d2 += 2;
+			++x;
+		} else {
+			d += d2;
+			d1 += 2;
+			d2 += 4;
+			++x;
+			--y;
+		}
+		circlePoints(xc, yc, x, y);
+	}
+}
+
 bool
 GFXModule::command_circle(Interpreter &i)
 {
@@ -56,6 +107,8 @@ GFXModule::command_circle(Interpreter &i)
 	if (getIntegerFromStack(i, r)) {
 		if (getIntegerFromStack(i, y)) {
 			if (getIntegerFromStack(i, x)) {
+				circle(x,y,r);
+				SDL_RenderPresent(renderer);
 				return true;
 			}
 		}
@@ -115,7 +168,7 @@ GFXModule::command_point(Interpreter &i)
 	
 	if (getIntegerFromStack(i, y)) {
 		if (getIntegerFromStack(i, x)) {
-			SDL_RenderDrawPoint(renderer, scale*x, scale*y);
+			drawPoint(x, y);
 			SDL_RenderPresent(renderer);
 			return true;
 		}
