@@ -101,6 +101,6 @@
 /*
  * Indention of the loop bodies
  */
-#define LOOP_INDENT          0
+#define LOOP_INDENT          1
 
 #endif // CONFIG_HPP
