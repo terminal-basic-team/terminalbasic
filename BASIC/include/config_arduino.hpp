@@ -30,31 +30,8 @@
  * Parameters
  */
 
-/*
- * Input and output for single terminal mode
- */
-
-// Input variants
-#define SERIAL_I    0  // Serial input
-#define SERIALL_I   1  // SerialL input
-#define SERIALL1_I  2  // SerialL1 input
-#define SERIALL2_I  3  // SerialL2 input
-#define SERIALL3_I  4  // SerialL3 input
-#define PS2UARTKB_I 5 // PS/2 keyboard through USART
-
-// Output variants
-#define SERIAL_O   0 // SerialL output
-#define SERIALL_O  1 // SerialL output
-#define SERIALL1_O 2 // SerialL1 output
-#define SERIALL2_O 3 // SerialL2 output
-#define SERIALL3_O 4 // SerialL3 output
-#define UTFT_O     5 // UTFT output
-#define TVOUT_O    6 // TVout output
-	#define TVOUT_HORIZ 240
-	#define TVOUT_VERT 192
-
 // Input select
-#define S_INPUT SERIALL_I
+#define S_INPUT PS2UARTKB_I
 
 // Output select
 #define S_OUTPUT SERIALL_O
@@ -72,7 +49,7 @@
 #endif
 
 // Use external memory
-#define USE_EXTMEM                1
+#define USE_EXTMEM                0
 #if USE_EXTMEM
 #define EXTMEM_ADDRESS 0x8000
 #define EXTMEM_SIZE    32768

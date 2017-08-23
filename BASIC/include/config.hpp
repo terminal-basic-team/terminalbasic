@@ -29,15 +29,16 @@
 namespace BASIC
 {
 
-/**
- * Parameters
+/*
+ * Allow '_' symbol in identifiers
  */
-
+#define ALLOW_UNDERSCORE_ID 1
+	
 /*
  * DELAY command, suspends execution for N ms
  */
 #define USE_DELAY    1
-	
+
 /*
  * Real arithmetics
  * 
@@ -130,7 +131,7 @@ namespace BASIC
 #define OPT_SIZE      2
 #define OPT           OPT_SIZE
 
-#define USESD            0 // SDcard module
+#define USESD            1 // SDcard module
 #define USEARDUINOIO     1 // Arduino IO module
 
 #define USE_EXTEEPROM    0 // External EEPROM functions module
@@ -151,6 +152,32 @@ namespace BASIC
  * GFX module
  */
 #define USE_GFX          0
+    
+    
+/*
+ * Input and output for single terminal mode
+ */
+
+// Input variants
+#define SERIAL_I    1  // Serial input
+#define SERIAL1_I   2  // Serial1 input
+#define SERIALL_I   3  // SerialL input
+#define SERIALL1_I  4  // SerialL1 input
+#define SERIALL2_I  5  // SerialL2 input
+#define SERIALL3_I  6  // SerialL3 input
+#define PS2UARTKB_I 7  // PS/2 keyboard through USART
+
+// Output variants
+#define SERIAL_O   1 // Serial output
+#define SERIAL1_O  2 // Serial1 output
+#define SERIALL_O  3 // SerialL output
+#define SERIALL1_O 4 // SerialL1 output
+#define SERIALL2_O 5 // SerialL2 output
+#define SERIALL3_O 6 // SerialL3 output
+#define UTFT_O     7 // UTFT output
+#define TVOUT_O    8 // TVout output
+	#define TVOUT_HORIZ 240
+	#define TVOUT_VERT 192
 
 /*
  * Max size of the program line

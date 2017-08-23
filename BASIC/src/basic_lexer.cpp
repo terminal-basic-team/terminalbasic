@@ -787,7 +787,11 @@ Lexer::numberScale()
 void
 Lexer::ident()
 {
-	while (isalnum(SYM)) {
+	while (isalnum(SYM)
+#if ALLOW_UNDERSCORE_ID
+	    || (SYM == '_')
+#endif
+	    ) {
 		pushSYM();
 	}
 	if (SYM == '%') {

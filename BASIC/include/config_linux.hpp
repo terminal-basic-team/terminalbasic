@@ -25,7 +25,11 @@
 #define USEUTFT		          0
 #define USETVOUT	          0
 
-#define SERIAL_PORT Serial
+// Input select
+#define S_INPUT SERIAL1_I
+
+// Output select
+#define S_OUTPUT SERIAL1_O
 
 #define BASIC_MULTITERMINAL       0
 #if BASIC_MULTITERMINAL
