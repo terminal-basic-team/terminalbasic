@@ -86,9 +86,9 @@
           <standard>8</standard>
           <incDir>
             <pElem>include</pElem>
-            <pElem>../../libarduinoext/include</pElem>
             <pElem>../../libarduinoemulator/include</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
+            <pElem>../../libarduinoext/include</pElem>
             <pElem>../../tvoutex/TVoutEx</pElem>
           </incDir>
           <commandLine>`pkg-config --cflags posixcpp` `pkg-config --cflags sdl2`</commandLine>
@@ -97,6 +97,18 @@
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/basic</output>
           <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../tvoutex/livbtvoutex"
+                            CT="3"
+                            CN="Debug_PC"
+                            AC="true"
+                            BL="true"
+                            WD="../../tvoutex/livbtvoutex"
+                            BC="${MAKE}  -f Makefile CONF=Debug_PC"
+                            CC="${MAKE}  -f Makefile CONF=Debug_PC clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblivbtvoutex.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../../libarduinoemulator"
                             CT="3"

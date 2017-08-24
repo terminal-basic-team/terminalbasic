@@ -26,6 +26,8 @@
 namespace BASIC
 {
 
+void GFXModule::_init() {  }
+
 bool
 GFXModule::command_circle(Interpreter &i)
 {

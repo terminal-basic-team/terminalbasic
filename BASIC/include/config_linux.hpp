@@ -24,12 +24,16 @@
 
 #define USEUTFT		          0
 #define USETVOUT	          0
+#define USEPS2USARTKB             0
 
 // Input select
-#define S_INPUT SERIAL1_I
+#define S_INPUT SERIAL_I
 
 // Output select
-#define S_OUTPUT SERIAL1_O
+#define S_OUTPUT TVOUT_O
+#if S_OUTPUT == TVOUT_O
+#define SDL_DEBUG
+#endif
 
 #define BASIC_MULTITERMINAL       0
 #if BASIC_MULTITERMINAL
