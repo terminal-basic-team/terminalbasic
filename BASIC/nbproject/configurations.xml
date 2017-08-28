@@ -25,8 +25,8 @@
       <itemPath>src/basic_exteeprom.cpp</itemPath>
       <itemPath>src/basic_functionblock.cpp</itemPath>
       <itemPath>src/basic_gfx.cpp</itemPath>
-      <itemPath>src/basic_gfx_sdl.cpp</itemPath>
       <itemPath>src/basic_gfx_tvout.cpp</itemPath>
+      <itemPath>src/basic_gfx_utft.cpp</itemPath>
       <itemPath>src/basic_internalfuncs.cpp</itemPath>
       <itemPath>src/basic_interpreter.cpp</itemPath>
       <itemPath>src/basic_lexer.cpp</itemPath>
@@ -169,6 +169,18 @@
                             perm="755"
                             owner="root"
                             group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
         </packFileList>
       </packaging>
       <folder path="TestFiles/f1">
@@ -228,9 +240,9 @@
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_gfx_sdl.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -375,9 +387,9 @@
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_gfx_sdl.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -524,9 +536,9 @@
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_gfx_sdl.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -717,9 +729,9 @@
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_gfx_sdl.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -860,9 +872,9 @@
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_gfx_sdl.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -901,6 +913,7 @@
             <pElem>../../libarduinoext/include</pElem>
             <pElem>../../libarduinoemulator/include</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
+            <pElem>../../tvoutex/TVoutEx</pElem>
           </incDir>
           <commandLine>-O3 -march=pentium3 -mfpmath=sse `pkg-config --cflags posixcpp`</commandLine>
           <warningLevel>2</warningLevel>
@@ -908,6 +921,18 @@
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/terminal-basic</output>
           <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../tvoutex/livbtvoutex"
+                            CT="3"
+                            CN="Debug_PC"
+                            AC="true"
+                            BL="true"
+                            WD="../../tvoutex/livbtvoutex"
+                            BC="${MAKE}  -f Makefile CONF=Debug_PC"
+                            CC="${MAKE}  -f Makefile CONF=Debug_PC clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblivbtvoutex.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../../libarduinoemulator"
                             CT="3"
@@ -933,8 +958,8 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerOptionItem>`pkg-config --libs posixcpp`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs sdl2`</linkerOptionItem>
           </linkerLibItems>
-          <commandLine>-static</commandLine>
         </linkerTool>
       </compileType>
       <folder path="TestFiles/f1">
@@ -994,9 +1019,9 @@
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_gfx_sdl.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1139,9 +1164,9 @@
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_gfx_sdl.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1288,9 +1313,9 @@
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_gfx_sdl.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1475,9 +1500,9 @@
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_gfx_sdl.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -1652,9 +1677,9 @@
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_gfx_sdl.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -1798,9 +1823,9 @@
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_gfx_sdl.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -1945,9 +1970,9 @@
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="8">
       </item>
-      <item path="src/basic_gfx_sdl.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="8">
       </item>

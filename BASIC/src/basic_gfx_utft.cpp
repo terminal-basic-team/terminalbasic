@@ -16,87 +16,40 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 #include "basic_gfx.hpp"
 
 #if USE_GFX
-#if !USETVOUT
+#if USEUTFT
 
-#include <SDL2/SDL.h>
-#include <stdexcept>
+#include "UTFT.h"
 
 namespace BASIC
 {
-	
-#define SDL_ASSERT(a) { if (!(a)) throw std::runtime_error(SDL_GetError()); }
 
-static SDL_Window *window = nullptr;
-static const uint8_t scale = 2;
-static SDL_Renderer *renderer = nullptr;
-	
-static void
-drawPoint(uint16_t x, uint16_t y)
-{
-	const uint16_t xs = x*scale+scale;
-	const uint16_t ys = y*scale+scale;
-	for (uint16_t _x = x*scale; _x<xs; ++_x)
-		for (uint16_t _y=y*scale; _y<ys; ++_y)
-			SDL_ASSERT(SDL_RenderDrawPoint(renderer, _x, _y) == 0);
-}
+void GFXModule::_init() {}
 
-void
-GFXModule::_init()
-{
-	SDL_ASSERT(SDL_Init(SDL_INIT_VIDEO) == 0);
-	
-	SDL_ASSERT((window = SDL_CreateWindow("TERMINAL BASIC", 100,100,
-	    scale*240, scale*192, 0)) != nullptr);
-	
-	SDL_ASSERT((renderer = SDL_CreateRenderer(window, -1, 0)) != nullptr);
-	
-	SDL_ASSERT(SDL_RenderClear(renderer) == 0);
-	SDL_RenderPresent(renderer);
-}
+static const uint16_t colors[] PROGMEM {
+	VGA_BLACK,
+	VGA_WHITE,
+	VGA_GRAY
+};
 
-static void
-circlePoints(uint8_t xc, uint8_t yc, int16_t x, int16_t y)
+bool
+GFXModule::command_box(Interpreter &i)
 {
-	drawPoint(xc+x, yc+y);
-	drawPoint(xc+y, yc+x);
-	drawPoint(xc+y, yc-x);
-	drawPoint(xc+x, yc-y);
-	drawPoint(xc-x, yc-y);
-	drawPoint(xc-y, yc-x);
-	drawPoint(xc-y, yc+x);
-	drawPoint(xc-x, yc+y);
-}
-
-static void
-circle(uint8_t xc, uint8_t yc, uint16_t r)
-{
-	int16_t x = 0;
-	int16_t y = r;
-	int16_t d = 1-r;
-	int16_t d1 = 3;
-	int16_t d2 = -2*r+5;
+	INT x,y,w,h;
 	
-	circlePoints(xc, yc, x, y);
-	
-	while (y>x) {
-		if (d<0) {
-			d += d1;
-			d1 += 2;
-			d2 += 2;
-			++x;
-		} else {
-			d += d2;
-			d1 += 2;
-			d2 += 4;
-			++x;
-			--y;
+	if (getIntegerFromStack(i, h)) {
+		if (getIntegerFromStack(i, w)) {
+			if (getIntegerFromStack(i, y)) {
+				if (getIntegerFromStack(i, x)) {
+					UTFT::instance().drawRect(x,y,x+w,y+h);
+					return true;
+				}
+			}
 		}
-		circlePoints(xc, yc, x, y);
 	}
+	return false;
 }
 
 bool
@@ -107,8 +60,7 @@ GFXModule::command_circle(Interpreter &i)
 	if (getIntegerFromStack(i, r)) {
 		if (getIntegerFromStack(i, y)) {
 			if (getIntegerFromStack(i, x)) {
-				circle(x,y,r);
-				SDL_RenderPresent(renderer);
+				UTFT::instance().fillCircle(x,y,r);
 				return true;
 			}
 		}
@@ -119,10 +71,14 @@ GFXModule::command_circle(Interpreter &i)
 bool
 GFXModule::command_color(Interpreter &i)
 {
-	INT c;
+	INT c, b;
 	
-	if (getIntegerFromStack(i, c)) {
-		return true;
+	if (getIntegerFromStack(i, b)) {
+		if (getIntegerFromStack(i, c)) {
+			UTFT::instance().setColor(pgm_read_word(colors+c));
+			UTFT::instance().setBackColor(pgm_read_word(colors+b));
+			return true;
+		}
 	}
 	return false;
 }
@@ -136,9 +92,8 @@ GFXModule::command_line(Interpreter &i)
 		if (getIntegerFromStack(i, x2)) {
 			if (getIntegerFromStack(i, y1)) {
 				if (getIntegerFromStack(i, x1)) {
-					SDL_ASSERT(SDL_RenderDrawLine(renderer,
-					    scale*x1, scale*y1, scale*x2, scale*y2) == 0);
-					SDL_RenderPresent(renderer);
+					UTFT::instance().drawLine(x1, y1,
+					    x2, y2);
 					return true;
 				}
 			}
@@ -154,6 +109,7 @@ GFXModule::command_lineto(Interpreter &i)
 	
 	if (getIntegerFromStack(i, y1)) {
 		if (getIntegerFromStack(i, x1)) {
+			//UTFT::instance().drawLine();
 			return true;
 		}
 	}
@@ -168,8 +124,7 @@ GFXModule::command_point(Interpreter &i)
 	
 	if (getIntegerFromStack(i, y)) {
 		if (getIntegerFromStack(i, x)) {
-			drawPoint(x, y);
-			SDL_RenderPresent(renderer);
+			UTFT::instance().drawPixel(x,y);
 			return true;
 		}
 	}
@@ -182,12 +137,12 @@ GFXModule::command_screen(Interpreter &i)
 	INT x;
 	
 	if (getIntegerFromStack(i, x)) {
+		UTFT::instance().clrScr();
 		if (x == 1) {
-
+			
 		} else if (x == 0) {
 
-		} else
-			return false;
+		}
 		return true;
 	}
 	return false;
@@ -195,5 +150,5 @@ GFXModule::command_screen(Interpreter &i)
 
 } // namespace BASIC
 
-#endif // USETVOUT
+#endif // USEUTFT
 #endif // USE_GFX

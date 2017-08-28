@@ -35,14 +35,13 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/_ext/345437f1/utft_stream.o \
 	${OBJECTDIR}/src/basic.o \
 	${OBJECTDIR}/src/basic_arduinoio.o \
 	${OBJECTDIR}/src/basic_exteeprom.o \
 	${OBJECTDIR}/src/basic_functionblock.o \
 	${OBJECTDIR}/src/basic_gfx.o \
-	${OBJECTDIR}/src/basic_gfx_sdl.o \
 	${OBJECTDIR}/src/basic_gfx_tvout.o \
+	${OBJECTDIR}/src/basic_gfx_utft.o \
 	${OBJECTDIR}/src/basic_internalfuncs.o \
 	${OBJECTDIR}/src/basic_interpreter.o \
 	${OBJECTDIR}/src/basic_lexer.o \
@@ -94,11 +93,6 @@ ${CND_DISTDIR}/${CND_CONF}/basic: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/basic ${OBJECTFILES} ${LDLIBSOPTIONS}
 
-${OBJECTDIR}/_ext/345437f1/utft_stream.o: ../UTFT/src/utft_stream.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/345437f1
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -Iinclude -I../../libarduinoemulator/include -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I../../libarduinoext/include -I../../tvoutex/TVoutEx `pkg-config --cflags posixcpp` `pkg-config --cflags sdl2` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/345437f1/utft_stream.o ../UTFT/src/utft_stream.cpp
-
 ${OBJECTDIR}/src/basic.o: src/basic.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
@@ -124,15 +118,15 @@ ${OBJECTDIR}/src/basic_gfx.o: src/basic_gfx.cpp nbproject/Makefile-${CND_CONF}.m
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Wall -Iinclude -I../../libarduinoemulator/include -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I../../libarduinoext/include -I../../tvoutex/TVoutEx `pkg-config --cflags posixcpp` `pkg-config --cflags sdl2` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/basic_gfx.o src/basic_gfx.cpp
 
-${OBJECTDIR}/src/basic_gfx_sdl.o: src/basic_gfx_sdl.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -Iinclude -I../../libarduinoemulator/include -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I../../libarduinoext/include -I../../tvoutex/TVoutEx `pkg-config --cflags posixcpp` `pkg-config --cflags sdl2` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/basic_gfx_sdl.o src/basic_gfx_sdl.cpp
-
 ${OBJECTDIR}/src/basic_gfx_tvout.o: src/basic_gfx_tvout.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Wall -Iinclude -I../../libarduinoemulator/include -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I../../libarduinoext/include -I../../tvoutex/TVoutEx `pkg-config --cflags posixcpp` `pkg-config --cflags sdl2` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/basic_gfx_tvout.o src/basic_gfx_tvout.cpp
+
+${OBJECTDIR}/src/basic_gfx_utft.o: src/basic_gfx_utft.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -Iinclude -I../../libarduinoemulator/include -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I../../libarduinoext/include -I../../tvoutex/TVoutEx `pkg-config --cflags posixcpp` `pkg-config --cflags sdl2` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/basic_gfx_utft.o src/basic_gfx_utft.cpp
 
 ${OBJECTDIR}/src/basic_internalfuncs.o: src/basic_internalfuncs.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/src
@@ -200,19 +194,6 @@ ${TESTDIR}/tests/TableTest.o: tests/TableTest.cpp
 	$(COMPILE.cc) -g -Wall -Iinclude -I../../libarduinoemulator/include -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I../../libarduinoext/include -I../../tvoutex/TVoutEx -I. `pkg-config --cflags posixcpp` `pkg-config --cflags sdl2` -std=c++11  -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/TableTest.o tests/TableTest.cpp
 
 
-${OBJECTDIR}/_ext/345437f1/utft_stream_nomain.o: ${OBJECTDIR}/_ext/345437f1/utft_stream.o ../UTFT/src/utft_stream.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/345437f1
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/345437f1/utft_stream.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Wall -Iinclude -I../../libarduinoemulator/include -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I../../libarduinoext/include -I../../tvoutex/TVoutEx `pkg-config --cflags posixcpp` `pkg-config --cflags sdl2` -std=c++11  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/345437f1/utft_stream_nomain.o ../UTFT/src/utft_stream.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/_ext/345437f1/utft_stream.o ${OBJECTDIR}/_ext/345437f1/utft_stream_nomain.o;\
-	fi
-
 ${OBJECTDIR}/src/basic_nomain.o: ${OBJECTDIR}/src/basic.o src/basic.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/basic.o`; \
@@ -278,19 +259,6 @@ ${OBJECTDIR}/src/basic_gfx_nomain.o: ${OBJECTDIR}/src/basic_gfx.o src/basic_gfx.
 	    ${CP} ${OBJECTDIR}/src/basic_gfx.o ${OBJECTDIR}/src/basic_gfx_nomain.o;\
 	fi
 
-${OBJECTDIR}/src/basic_gfx_sdl_nomain.o: ${OBJECTDIR}/src/basic_gfx_sdl.o src/basic_gfx_sdl.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/basic_gfx_sdl.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Wall -Iinclude -I../../libarduinoemulator/include -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I../../libarduinoext/include -I../../tvoutex/TVoutEx `pkg-config --cflags posixcpp` `pkg-config --cflags sdl2` -std=c++11  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/basic_gfx_sdl_nomain.o src/basic_gfx_sdl.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/src/basic_gfx_sdl.o ${OBJECTDIR}/src/basic_gfx_sdl_nomain.o;\
-	fi
-
 ${OBJECTDIR}/src/basic_gfx_tvout_nomain.o: ${OBJECTDIR}/src/basic_gfx_tvout.o src/basic_gfx_tvout.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/basic_gfx_tvout.o`; \
@@ -302,6 +270,19 @@ ${OBJECTDIR}/src/basic_gfx_tvout_nomain.o: ${OBJECTDIR}/src/basic_gfx_tvout.o sr
 	    $(COMPILE.cc) -g -Wall -Iinclude -I../../libarduinoemulator/include -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I../../libarduinoext/include -I../../tvoutex/TVoutEx `pkg-config --cflags posixcpp` `pkg-config --cflags sdl2` -std=c++11  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/basic_gfx_tvout_nomain.o src/basic_gfx_tvout.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/basic_gfx_tvout.o ${OBJECTDIR}/src/basic_gfx_tvout_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/basic_gfx_utft_nomain.o: ${OBJECTDIR}/src/basic_gfx_utft.o src/basic_gfx_utft.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/basic_gfx_utft.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Wall -Iinclude -I../../libarduinoemulator/include -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I../../libarduinoext/include -I../../tvoutex/TVoutEx `pkg-config --cflags posixcpp` `pkg-config --cflags sdl2` -std=c++11  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/basic_gfx_utft_nomain.o src/basic_gfx_utft.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/basic_gfx_utft.o ${OBJECTDIR}/src/basic_gfx_utft_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/basic_internalfuncs_nomain.o: ${OBJECTDIR}/src/basic_internalfuncs.o src/basic_internalfuncs.cpp 
