@@ -42,6 +42,10 @@ private:
 	static bool func_dread(Interpreter&);
 	static bool comm_awrite(Interpreter&);
 	static bool comm_dwrite(Interpreter&);
+#if CONF_MODULE_ARDUINOIO_TONE
+	static bool comm_tone(Interpreter&);
+	static bool comm_notone(Interpreter&);
+#endif
 	
 #if USE_REALS
 	static Real aread_r(Real);

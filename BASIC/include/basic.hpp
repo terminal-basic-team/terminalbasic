@@ -103,7 +103,9 @@ enum class Token : uint8_t
 #if USE_SAVE_LOAD
 	COM_CHAIN,     // 4
 #endif
+#if USE_TEXTATTRIBUTES
 	COM_CLS,       // 5
+#endif
 #if USESTOPCONT
 	COM_CONT,      // 6
 #endif
@@ -266,6 +268,7 @@ enum class ProgMemStrings : uint8_t
 #endif
 	S_REALLY,
 	S_END,
+#if USE_TEXTATTRIBUTES
         VT100_ESCSEQ,
 	VT100_CLS,
 	VT100_NOATTR,
@@ -280,7 +283,8 @@ enum class ProgMemStrings : uint8_t
 	VT100_MAGENTA,
 	VT100_CYAN,
 	VT100_WHITE,
-#endif
+#endif // USE_COLORATTRIBUTES
+#endif // USE_TEXTATTRIBUTES
 	NUM_STRINGS
 };
 

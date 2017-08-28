@@ -224,7 +224,9 @@ public:
 	// Execute entered command (command or inputed program line)
 	void exec();
 	// Clear screen
+#if USE_TEXTATTRIBUTES
 	void cls();
+#endif
 #if USESTOPCONT
 	void cont();
 #endif

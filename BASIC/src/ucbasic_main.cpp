@@ -23,7 +23,7 @@
 #include "seriallight.hpp"
 #endif
 
-#if USEARDUINOIO
+#if CONF_MODULE_ARDUINOIO
 #include "basic_arduinoio.hpp"
 #endif
 
@@ -80,7 +80,7 @@ static BASIC::SDFSModule sdfs;
 static BASIC::Math mathBlock;
 #endif
 
-#if USEARDUINOIO
+#if CONF_MODULE_ARDUINOIO
 static BASIC::ArduinoIO arduinoIo;
 #endif
 
@@ -162,7 +162,7 @@ setup()
 
 	LOG_TRACE;
 
-#if USEARDUINOIO
+#if CONF_MODULE_ARDUINOIO
 	basic.addModule(&arduinoIo);
 #endif
 	

@@ -1001,9 +1001,11 @@ Parser::fCommand()
 		f = &Interpreter::chain;
 		break;
 #endif
+#if USE_TEXTATTRIBUTES
 	case Token::COM_CLS:
 		f = &Interpreter::cls;
 		break;
+#endif
 #if USESTOPCONT
 	case Token::COM_CONT:
 		f = &Interpreter::cont;

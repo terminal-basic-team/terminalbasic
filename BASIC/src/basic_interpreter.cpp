@@ -204,7 +204,7 @@ Interpreter::init()
 	print(ProgMemStrings::TERMINAL, VT100::NO_ATTR),
 	    print(Integer(_termno), VT100::BRIGHT),
 	    _output.print(':'), _output.print(' ');
-#endif
+#endif // BASIC_MULTITERMINAL
 	print(long(_program.programSize - _program._arraysEnd), VT100::BRIGHT);
 	print(ProgMemStrings::BYTES), print(ProgMemStrings::AVAILABLE), newline();
 	_state = SHELL;
@@ -317,17 +317,15 @@ Interpreter::step()
 		if (millis() >= _delayTimeout)
 			_state = EXECUTE;
 		break;
-#endif
+#endif // USE_DELAY
 	case EXECUTE: {
 		c = char(ASCII::NUL);
-#if defined(ARDUINO) || BASIC_MULTITERMINAL
 		if (_input.available() > 0) {
 			c = _input.read();
 #if USE_GET
 			_inputBuffer[0] = c;
-#endif
+#endif // USE_GET
 		}
-#endif
 		Program::String *s = _program.current();
 		if (s != nullptr && c != char(ASCII::EOT)) {
 			bool res;
@@ -376,19 +374,23 @@ Interpreter::exec()
 		_inputPosition += _lexer.getPointer();
 	}
 }
+
 #if USESTOPCONT
 void
 Interpreter::cont()
 {
 	_state = EXECUTE;
 }
-#endif
+#endif // USESTOPCONT
+
+#if USE_TEXTATTRIBUTES
 void
 Interpreter::cls()
 {
 	printEsc(ProgMemStrings::VT100_CLS),
 	printEsc("H");
 }
+#endif
 
 void
 Interpreter::list(uint16_t start, uint16_t stop)
@@ -1580,6 +1582,7 @@ Interpreter::print(Integer i, VT100::TextAttr attr)
 	_output.print(i), _output.print(char(ASCII::SPACE));
 }
 
+#if USE_TEXTATTRIBUTES
 void
 Interpreter::printEsc(const char *str)
 {
@@ -1592,6 +1595,7 @@ Interpreter::printEsc(ProgMemStrings index)
 	write(ProgMemStrings::VT100_ESCSEQ);
 	write(index);
 }
+#endif
 
 void
 Interpreter::printTab(const Parser::Value &v)
@@ -1603,10 +1607,15 @@ Interpreter::printTab(const Parser::Value &v)
 	else
 #endif
 		tabs = Integer(v);
-	if (tabs > 0)
+	if (tabs > 0) {
+#if USE_TEXTATTRIBUTES
 		write(ProgMemStrings::VT100_ESCSEQ), _output.print(tabs - 1),
 		    _output.print('C');
-	else
+#else
+		while (tabs-- > 0)
+			_output.print(char(ASCII::SPACE));
+#endif
+	} else
 		raiseError(DYNAMIC_ERROR, INVALID_TAB_VALUE, false);
 }
 
