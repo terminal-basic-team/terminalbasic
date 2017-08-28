@@ -81,6 +81,7 @@ namespace BASIC
 #define USE_CHR            1
 // ASC function, returns code of the first symbol in a string
 #define USE_ASC            1
+// LEN function, returns length of the string
 #define USE_LEN            1
 #endif
 
@@ -131,8 +132,12 @@ namespace BASIC
 #define OPT_SIZE      2
 #define OPT           OPT_SIZE
 
-#define USESD            1 // SDcard module
-#define USEARDUINOIO     1 // Arduino IO module
+#define USESD            0 // SDcard module
+
+#define CONF_MODULE_ARDUINOIO      1 // Arduino IO module
+#if CONF_MODULE_ARDUINOIO
+#define CONF_MODULE_ARDUINOIO_TONE 1
+#endif // CONF_MODULE_ARDUINOIO
 
 #define USE_EXTEEPROM    0 // External EEPROM functions module
 #if USE_EXTEEPROM
@@ -147,6 +152,8 @@ namespace BASIC
  * Indention of the loop bodies
  */
 #define LOOP_INDENT      1
+
+#define LINE_NUM_INDENT  1
 
 /*
  * GFX module

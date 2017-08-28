@@ -395,6 +395,28 @@ Interpreter::cls()
 void
 Interpreter::list(uint16_t start, uint16_t stop)
 {
+#if LINE_NUM_INDENT
+	uint8_t order = 0;
+	_program.reset();
+	for (Program::String *s = _program.getString(); s != NULL;
+	    s = _program.getString()) {
+		// Output onlyselected lines subrange
+		if (s->number < start)
+			continue;
+		if (stop > 0 && s->number > stop)
+			break;
+
+		if (s->number > 9999)
+			order = 4;
+		else if (s->number > 999)
+			order = 3;
+		else if (s->number > 99)
+			order = 2;
+		else if (s->number > 9)
+			order = 1;
+	}
+#endif // LINE_NUM_INDENT
+	
 	_program.reset();
 #if LOOP_INDENT
 	_loopIndent = 0;
@@ -408,6 +430,22 @@ Interpreter::list(uint16_t start, uint16_t stop)
 			break;
 
 		// Output line number
+#if LINE_NUM_INDENT
+		uint8_t indent;
+		if (s->number > 9999)
+			indent = order - 4;
+		else if (s->number > 999)
+			indent = order - 3;
+		else if (s->number > 99)
+			indent = order - 2;
+		else if (s->number > 9)
+			indent = order - 1;
+		else
+			indent = order;
+		
+		while (indent-- > 0)
+			_output.print(char(ASCII::SPACE));
+#endif
 		print(long(s->number), VT100::C_YELLOW);
 		
 		Lexer lex;
