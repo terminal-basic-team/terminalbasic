@@ -24,6 +24,7 @@ namespace BASIC
 {
 
 static const uint8_t gfxTokens[] PROGMEM = {
+	'B','O','X'+0x80,
 	'C','I','R','C','L','E'+0x80,
 	'C','O','L','O','R'+0x80,
 	'L','I','N','E','T','O'+0x80,
@@ -34,6 +35,7 @@ static const uint8_t gfxTokens[] PROGMEM = {
 };
 
 const FunctionBlock::function GFXModule::comms[] PROGMEM = {
+	GFXModule::command_box,
 	GFXModule::command_circle,
 	GFXModule::command_color,
 	GFXModule::command_lineto,

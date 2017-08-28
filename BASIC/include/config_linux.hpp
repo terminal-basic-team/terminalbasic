@@ -31,9 +31,6 @@
 
 // Output select
 #define S_OUTPUT TVOUT_O
-#if S_OUTPUT == TVOUT_O
-#define SDL_DEBUG
-#endif
 
 #define BASIC_MULTITERMINAL       0
 #if BASIC_MULTITERMINAL

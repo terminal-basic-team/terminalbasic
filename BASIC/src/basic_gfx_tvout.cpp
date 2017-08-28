@@ -26,7 +26,26 @@
 namespace BASIC
 {
 
-void GFXModule::_init() {  }
+void GFXModule::_init() {}
+
+bool
+GFXModule::command_box(Interpreter &i)
+{
+	INT x,y,w,h;
+	
+	if (getIntegerFromStack(i, h)) {
+		if (getIntegerFromStack(i, w)) {
+			if (getIntegerFromStack(i, y)) {
+				if (getIntegerFromStack(i, x)) {
+					TVoutEx::instance()->drawRect(x, y,
+					    w, h);
+					return true;
+				}
+			}
+		}
+	}
+	return false;
+}
 
 bool
 GFXModule::command_circle(Interpreter &i)
@@ -47,11 +66,13 @@ GFXModule::command_circle(Interpreter &i)
 bool
 GFXModule::command_color(Interpreter &i)
 {
-	INT c;
+	INT c, b;
 	
-	if (getIntegerFromStack(i, c)) {
-		TVoutEx::instance()->setColor(Color_t(c));
-		return true;
+	if (getIntegerFromStack(i, b)) {
+		if (getIntegerFromStack(i, c)) {
+			TVoutEx::instance()->setColor(Color_t(c), Color_t(b));
+			return true;
+		}
 	}
 	return false;
 }
