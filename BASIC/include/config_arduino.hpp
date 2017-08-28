@@ -31,10 +31,10 @@
  */
 
 // Input select
-#define S_INPUT PS2UARTKB_I
+#define S_INPUT SERIALL_I
 
 // Output select
-#define S_OUTPUT SERIALL_O
+#define S_OUTPUT UTFT_O
 
 #define USEUTFT		          0
 #define USETVOUT	          0
@@ -64,7 +64,7 @@ const uint16_t PROGRAMSIZE = EXTMEM_SIZE;
 #elif defined (__AVR_ATmega1284__) || defined (__AVR_ATmega1284P__)
 const uint16_t PROGRAMSIZE = 8192;
 #elif defined (__AVR_ATmega2560__)
-const uint16_t PROGRAMSIZE = 6144;
+const uint16_t PROGRAMSIZE = 4096;
 #elif defined (__AVR_ATmega128__) || defined (__AVR_ATmega128A__)
 const uint16_t PROGRAMSIZE = 3072;
 #elif defined (__AVR_ATmega328__) || defined (__AVR_ATmega328P__)
