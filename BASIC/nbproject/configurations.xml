@@ -37,14 +37,6 @@
       <itemPath>src/basic_sdfs.cpp</itemPath>
       <itemPath>src/ucbasic_main.cpp</itemPath>
     </logicalFolder>
-    <logicalFolder name="UTFT" displayName="UTFT" projectFiles="true">
-      <logicalFolder name="include" displayName="include" projectFiles="true">
-        <itemPath>../UTFT/include/utft_stream.hpp</itemPath>
-      </logicalFolder>
-      <logicalFolder name="src" displayName="src" projectFiles="true">
-        <itemPath>../UTFT/src/utft_stream.cpp</itemPath>
-      </logicalFolder>
-    </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Файлы ресурсов"
                    projectFiles="true">
@@ -71,7 +63,6 @@
     <Elem>include</Elem>
     <Elem>src</Elem>
     <Elem>../TVoutEx</Elem>
-    <Elem>../UTFT</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -180,10 +171,6 @@
                             group="bin"/>
         </packFileList>
       </packaging>
-      <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../UTFT/src/utft_stream.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -331,10 +318,6 @@
           <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega328p</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../UTFT/src/utft_stream.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -484,10 +467,6 @@
           <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega328p</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../UTFT/src/utft_stream.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -681,10 +660,6 @@
           <commandLine>-Os -Wall -Wextra -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega2560</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../UTFT/src/utft_stream.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -828,10 +803,6 @@
           <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega128a</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../UTFT/src/utft_stream.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -966,10 +937,6 @@
           <commandLine>-static</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../UTFT/src/utft_stream.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -1115,10 +1082,6 @@
           <commandLine>-Os -Wall -Wextra -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega2560</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../UTFT/src/utft_stream.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -1268,10 +1231,6 @@
           <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega168 -Wl,-Map,${CND_ARTIFACT_PATH_${CONF}}.map</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../UTFT/src/utft_stream.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -1459,10 +1418,6 @@
           <commandLine>-Os -Wall -Wextra -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega1284p</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../UTFT/src/utft_stream.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -1640,10 +1595,6 @@
           <commandLine>-Os -Wall -Wextra -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega2560</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../UTFT/src/utft_stream.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -1790,10 +1741,6 @@
           <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega328p</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../UTFT/src/utft_stream.cpp" ex="false" tool="1" flavor2="8">
-      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -1941,10 +1888,6 @@
           <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega168p -Wl,-Map,${CND_ARTIFACT_PATH_${CONF}}.map</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../UTFT/src/utft_stream.cpp" ex="false" tool="1" flavor2="8">
-      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
