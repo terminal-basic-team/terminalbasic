@@ -57,7 +57,7 @@ AVRDUDE_CONF=${TOOLS}/etc/avrdude.conf
 JAVA=/usr/lib/jvm/java-1.8.0-openjdk-i386/bin/java  
 
 BUILD:=$(shell cat "./build-${CONF}")
-VERSION:=1.0-a4-${BUILD}
+VERSION:=1.1-a1-${BUILD}
 
 # build
 build: .build-post
@@ -68,7 +68,7 @@ build: .build-post
 
 .build-post: .build-impl copy_${CONF}
 	echo $(shell expr ${BUILD} + 1) ; \
-	#echo $(shell expr ${BUILD} + 1) > "./build-${CONF}"
+	echo $(shell expr ${BUILD} + 1) > "./build-${CONF}"
 
 # clean
 clean: .clean-post
