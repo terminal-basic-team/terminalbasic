@@ -272,7 +272,8 @@ Parser::Value::operator+=(const Value &rhs)
 #endif
 	case INTEGER: this->value.integer += Integer(rhs);
 		break;
-	default: break;
+	default:
+		break;
 	}
 
 	return *this;
@@ -470,6 +471,11 @@ Parser::Value::operator|=(const Value &v)
 	case BOOLEAN:
 		this->value.boolean |= bool(v);
 		break;
+#if USE_LONGINT
+	case LONG_INTEGER:
+		this->value.longInteger |= LongInteger(v);
+		break;
+#endif
 	default:
 		break;
 	}
@@ -487,6 +493,11 @@ Parser::Value::operator&=(const Value &v)
 	case BOOLEAN:
 		this->value.boolean &= bool(v);
 		break;
+#if USE_LONGINT
+	case LONG_INTEGER:
+		this->value.longInteger &= LongInteger(v);
+		break;
+#endif
 	default:
 		break;
 	}
