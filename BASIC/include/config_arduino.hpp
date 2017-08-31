@@ -25,6 +25,7 @@
 #define CONFIG_ARDUINO_HPP
 
 #include "config.hpp"
+#include "seriallight.hpp"
 
 /**
  * Parameters
