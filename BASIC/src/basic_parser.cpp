@@ -628,7 +628,9 @@ Parser::fExpression(Value &v)
 			} else
 				return false;
 		case Token::NE:
+#if CONF_USE_ALTERNATIVE_NE
 		case Token::NEA:
+#endif
 			if (_lexer.getNext() && fSimpleExpression(v2)) {
 				v = !(v == v2);
 				continue;
@@ -638,9 +640,12 @@ Parser::fExpression(Value &v)
 			return true;
 		}
 #else
-		if (t == Token::LT || t == Token::LTE || t == Token::GT ||
-		    t == Token::GTE || t == Token::EQUALS || t == Token::NE ||
-		    t == Token::NEA) {
+		if (t == Token::LT || t == Token::LTE || t == Token::GT
+		 || t == Token::GTE || t == Token::EQUALS || t == Token::NE
+#if CONF_USE_ALTERNATIVE_NE
+		 || t == Token::NEA
+#endif
+		    ) {
 			if (!_lexer.getNext() || !fSimpleExpression(v2))
 				return false;
 			
@@ -660,8 +665,19 @@ Parser::fExpression(Value &v)
 				else
 #endif // USE_STRINGOPS
 					v = v == v2;
-			} else if (t == Token::NE || t == Token::NEA)
-				v = !(v == v2);
+			} else if (t == Token::NE
+#if CONF_USE_ALTERNATIVE_NE
+				|| t == Token::NEA
+#endif
+			    ) {
+#if USE_STRINGOPS
+				if (v.type == Value::STRING &&
+				    v2.type == Value::STRING)
+					v = !_interpreter.strCmp();
+				else
+#endif // USE_STRINGOPS
+					v = !(v == v2);
+			}
 		} else
 			return true;
 #endif

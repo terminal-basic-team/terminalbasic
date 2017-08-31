@@ -218,8 +218,10 @@ enum class Token : uint8_t
 	GTE,
 	// <>
 	NE,
+#if CONF_USE_ALTERNATIVE_NE
 	//  ><
 	NEA,
+#endif
 	// ,
 	COMMA,
 	// ^

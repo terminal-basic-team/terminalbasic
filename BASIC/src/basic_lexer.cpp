@@ -200,7 +200,9 @@ const char sGT[] PROGMEM = ">";
 const char sLTE[] PROGMEM = "<=";
 const char sGTE[] PROGMEM = ">=";
 const char sNE[] PROGMEM = "<>";
+#if CONF_USE_ALTERNATIVE_NE
 const char sNEA[] PROGMEM = "><";
+#endif
 const char sCOMMA[] PROGMEM = ",";
 const char sPOW[] PROGMEM = "^";
 const char sLPAREN[] PROGMEM = "(";
@@ -310,7 +312,10 @@ PGM_P const Lexer::tokenStrings[] PROGMEM = {
 	sCOLON, sSEMI,
 	sLT, sGT,
 	sLTE, sGTE,
-	sNE, sNEA,
+	sNE,
+#if CONF_USE_ALTERNATIVE_NE
+	sNEA,
+#endif
 	sCOMMA,
 	sPOW,
 	sLPAREN, sRPAREN
@@ -622,9 +627,11 @@ Lexer::fitst_GT()
 	case '=':
 		_token = Token::GTE;
 		break;
+#if CONF_USE_ALTERNATIVE_NE
 	case '<':
 		_token = Token::NEA;
 		break;
+#endif // CONF_USE_ALTERNATIVE_NE
 	default:
 		_token = Token::GT;
 		return;

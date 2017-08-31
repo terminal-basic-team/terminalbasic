@@ -86,6 +86,10 @@ namespace BASIC
 #endif
 
 /*
+ * Use >< as not-equals operator (with default <>)
+ */
+#define CONF_USE_ALTERNATIVE_NE 1
+/*
  * Support of 4-byte integer datatype
  * Functions, variables and arrays of long integer type ends with double % mark
  */
