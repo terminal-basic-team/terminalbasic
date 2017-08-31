@@ -604,6 +604,7 @@ void
 Lexer::fitst_LT()
 {
 	next();
+#if OPT == OPT_SPEED
 	switch (SYM) {
 	case '=':
 		_token = Token::LTE;
@@ -615,7 +616,16 @@ Lexer::fitst_LT()
 		_token = Token::LT;
 		return;
 	}
-	
+#else
+	if (SYM == '=')
+		_token = Token::LTE;
+	else if (SYM == '>')
+		_token = Token::NE;
+	else {
+		_token = Token::LT;
+		return;
+	}
+#endif
 	next();
 }
 
@@ -623,6 +633,7 @@ void
 Lexer::fitst_GT()
 {
 	next();
+#if OPT == OPT_SPEED
 	switch (SYM) {
 	case '=':
 		_token = Token::GTE;
@@ -636,6 +647,18 @@ Lexer::fitst_GT()
 		_token = Token::GT;
 		return;
 	}
+#else
+	if (SYM == '=')
+		_token = Token::GTE;
+#if CONF_USE_ALTERNATIVE_NE
+	else if (SYM == '<')
+		_token = Token::NEA;
+#endif // CONF_USE_ALTERNATIVE_NE
+	else {
+		_token = Token::GT;
+		return;
+	}
+#endif
 	next();
 }
 

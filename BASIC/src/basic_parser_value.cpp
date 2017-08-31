@@ -146,6 +146,7 @@ Parser::Value::operator Integer() const
 Parser::Value &
 Parser::Value::operator-()
 {
+#if OPT == OPT_SPEED
 	switch (type) {
 #if USE_LONGINT
 	case LONG_INTEGER:
@@ -167,6 +168,20 @@ Parser::Value::operator-()
 		// undefined
 		break;
 	}
+#else
+	if (type == INTEGER)
+		value.integer = -value.integer;
+#if USE_LONGINT
+	else if (type == LONG_INTEGER)
+		value.longInteger = -value.longInteger;
+#endif // USE_LONGINT
+#if USE_REALS
+	else if (type == REAL)
+		value.real = -value.real;
+#endif // USE_REALS
+	else if (type == BOOLEAN)
+		value.boolean = !value.boolean;
+#endif
 	return *this;
 }
 

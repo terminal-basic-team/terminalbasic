@@ -34,9 +34,11 @@ static const char strucBASIC[] PROGMEM = "BASIC";
 static const char strVERSION[] PROGMEM = "VERSION";
 static const char strTEXT[] PROGMEM = "TEXT";
 static const char strOF[] PROGMEM = "OF";
+#if USE_DUMP
 static const char strVARS[] PROGMEM = "VARS";
 static const char strARRAYS[] PROGMEM = "ARRAYS";
 static const char strSTACK[] PROGMEM = "STACK";
+#endif
 #if USESD
 static const char strDIR[] PROGMEM = "DIR";
 #endif
@@ -74,9 +76,11 @@ static PGM_P const progmemStrings[uint8_t(ProgMemStrings::NUM_STRINGS)] PROGMEM 
 	strVERSION, // VERSION
 	strTEXT, // TEXT
 	strOF, // OF
+#if USE_DUMP
 	strVARS, // VARS
 	strARRAYS, // ARRAYS
 	strSTACK, // STACK
+#endif
 #if USESD
 	strDIR, // DIR
 #endif

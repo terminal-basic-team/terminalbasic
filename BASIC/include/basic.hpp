@@ -262,9 +262,11 @@ enum class ProgMemStrings : uint8_t
 	S_VERSION,
 	S_TEXT,
 	S_OF,
+#if USE_DUMP
 	S_VARS,
 	S_ARRAYS,
 	S_STACK,
+#endif
 #if USESD
 	S_DIR,
 #endif
