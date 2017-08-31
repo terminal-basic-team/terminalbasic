@@ -282,7 +282,8 @@ Parser::Value::operator-=(const Value &rhs)
 #endif
 	case INTEGER: this->value.integer -= Integer(rhs);
 		break;
-	default: break;
+	default:
+		break;
 	}
 
 	return *this;
@@ -307,7 +308,8 @@ Parser::Value::operator*=(const Value &rhs)
 #endif
 	case INTEGER: this->value.integer *= Integer(rhs);
 		break;
-	default: break;
+	default:
+		break;
 	}
 
 	return *this;
@@ -456,6 +458,7 @@ Parser::Value::operator|=(const Value &v)
 	default:
 		break;
 	}
+
 	return *this;
 }
 
