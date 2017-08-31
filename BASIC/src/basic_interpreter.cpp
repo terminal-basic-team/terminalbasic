@@ -139,7 +139,7 @@ bool
 Interpreter::valueFromArray(Parser::Value &v, const char *name)
 {
 	ArrayFrame *f = _program.arrayByName(name);
-	if (f == NULL) {
+	if (f == nullptr) {
 		raiseError(DYNAMIC_ERROR, NO_SUCH_ARRAY);
 		return false;
 	}
@@ -150,25 +150,7 @@ Interpreter::valueFromArray(Parser::Value &v, const char *name)
 		return false;
 	}
 
-	v.type = f->type;
-	switch (f->type) {
-	case Parser::Value::BOOLEAN:
-		v.value.boolean = f->get<bool>(index);
-		break;
-	case Parser::Value::INTEGER:
-		v.value.integer = f->get<Integer>(index);
-		break;
-#if USE_LONGINT
-	case Parser::Value::LONG_INTEGER:
-		v.value.longInteger = f->get<LongInteger>(index);
-		break;
-#endif
-#if USE_REALS
-	case Parser::Value::REAL:
-		v.value.real = f->get<Real>(index);
-		break;
-#endif
-	default:
+	if (!f->get(index, v)) {
 		raiseError(DYNAMIC_ERROR, INVALID_VALUE_TYPE);
 		return false;
 	}
@@ -398,7 +380,7 @@ Interpreter::list(uint16_t start, uint16_t stop)
 #if LINE_NUM_INDENT
 	uint8_t order = 0;
 	_program.reset();
-	for (Program::String *s = _program.getString(); s != NULL;
+	for (Program::String *s = _program.getString(); s != nullptr;
 	    s = _program.getString()) {
 		// Output onlyselected lines subrange
 		if (s->number < start)
@@ -667,6 +649,7 @@ Interpreter::print(Lexer &l)
 			_output.print(char(ASCII::QUMARK));
 			_output.print(l.id());
 			_output.print(char(ASCII::QUMARK));
+                        _output.print(char(ASCII::SPACE));
 		} else if (t >= Token::INTEGER_IDENT && t <= Token::BOOL_IDENT)
 			print(l.id(), VT100::C_BLUE);
 		else

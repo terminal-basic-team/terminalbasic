@@ -816,8 +816,8 @@ Parser::fFactor(Value &v)
 	while (true) {
 		const Token t = _lexer.getToken();
 		LOG(t);
-		Value v2;
 		if (t == Token::POW) {
+			Value v2;
 			if (_lexer.getNext() && fFinal(v2)) {
 				v ^= v2;
 			} else

@@ -195,6 +195,8 @@ Parser::Value::operator==(const Value &rhs) const
 #endif
 	case INTEGER:
 		return this->value.integer == Integer(rhs);
+	case BOOLEAN:
+		return this->value.boolean == bool(rhs);
 	default:
 		break;
 	}
