@@ -1060,7 +1060,7 @@ Parser::fCommand()
 	case Token::COM_LIST:
 	{
 		Integer start = 1, stop = 0;
-		_lexer.getNext();
+		_lexer.getNext(); // Result is not valuable
 		if (_lexer.getToken() == Token::C_INTEGER) {
 			start = Integer(_lexer.getValue());
 			stop = start;
@@ -1083,6 +1083,19 @@ Parser::fCommand()
 	case Token::COM_LOAD:
 		f = &Interpreter::load;
 		break;
+#endif
+#if USE_TEXTATTRIBUTES
+	case Token::COM_LOCATE: {
+		Value v1,v2;
+		if (_lexer.getNext() && fExpression(v1) &&
+		    _lexer.getToken() == Token::COMMA && _lexer.getNext() &&
+		    fExpression(v2)) {
+			if (_mode == EXECUTE)
+				_interpreter.locate(Integer(v1), Integer(v2));
+			return true;
+		} else
+			return false;
+	}
 #endif
 	case Token::COM_NEW:
 		f = &Interpreter::newProgram;

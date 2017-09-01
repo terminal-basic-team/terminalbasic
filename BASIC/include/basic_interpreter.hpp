@@ -247,6 +247,10 @@ public:
 	void delay(uint16_t);
 #endif
 	
+#if USE_TEXTATTRIBUTES
+	void locate(Integer, Integer);
+#endif
+	
 	// New print line
 	void newline();
 	

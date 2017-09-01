@@ -148,6 +148,9 @@ enum class Token : uint8_t
 #if USE_SAVE_LOAD
 	COM_LOAD,      // 27
 #endif
+#if USE_TEXTATTRIBUTES
+	COM_LOCATE,
+#endif
 #if USE_DOLOOP
 	KW_LOOP,       // 28
 #endif

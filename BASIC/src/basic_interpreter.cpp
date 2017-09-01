@@ -587,6 +587,16 @@ Interpreter::delay(uint16_t ms)
 }
 #endif
 
+#if USE_TEXTATTRIBUTES
+void
+Interpreter::locate(Integer x, Integer y)
+{
+	write(ProgMemStrings::VT100_ESCSEQ), _output.print(x),
+	    _output.print(char(ASCII::SEMICOLON)), _output.print(y),
+	    _output.print('f');
+}
+#endif
+
 void
 Interpreter::newline()
 {
