@@ -549,16 +549,20 @@ Parser::fPrintItem()
 	const Token t = _lexer.getToken();
 	if (t != Token::COMMA && t != Token::COLON) { // printable tokens
 		Value v;
-		if (t == Token::KW_TAB) {
+#if USE_TEXTATTRIBUTES
+		if (t == Token::KW_TAB || t == Token::KW_SPC) {
+			const bool flag = (t == Token::KW_TAB);
 			if (_lexer.getNext() && _lexer.getToken() == Token::LPAREN &&
 			    _lexer.getNext() && fExpression(v) &&
 			    _lexer.getToken() == Token::RPAREN) {
 				if (_mode == EXECUTE)
-					_interpreter.printTab(v);
+					_interpreter.printTab(v, flag);
 				_lexer.getNext();
 			} else
 				return false;
-		} else {
+		} else
+#endif
+		{
 			if (!fExpression(v)) {
 				if (_error == NO_ERROR)
 					_error = EXPRESSION_EXPECTED;

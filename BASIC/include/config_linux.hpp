@@ -30,7 +30,7 @@
 #define S_INPUT SERIAL_I
 
 // Output select
-#define S_OUTPUT TVOUT_O
+#define S_OUTPUT SERIAL_O
 
 #define BASIC_MULTITERMINAL       0
 #if BASIC_MULTITERMINAL

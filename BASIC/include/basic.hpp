@@ -176,11 +176,16 @@ enum class Token : uint8_t
 #if USE_SAVE_LOAD
 	COM_SAVE,      // 41
 #endif
-	KW_STEP,       // 42
-#if USESTOPCONT
-	KW_STOP,       // 43
+#if USE_TEXTATTRIBUTES
+	KW_SPC,        // 42
 #endif
+	KW_STEP,       // 43
+#if USESTOPCONT
+	KW_STOP,       // 44
+#endif
+#if USE_TEXTATTRIBUTES
 	KW_TAB,        // 44
+#endif
 	KW_THEN,       // 45
 	KW_TO,         // 46
 #if USE_MATRIX

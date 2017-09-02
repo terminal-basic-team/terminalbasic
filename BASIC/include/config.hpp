@@ -72,7 +72,7 @@ namespace BASIC
 #endif // USE_REALS
 
 // Use string functions and operations
-#define USE_STRINGOPS        1
+#define USE_STRINGOPS      0
 	
 #if USE_STRINGOPS
 // GET$ function, returns string from last pressed key symbol
@@ -136,7 +136,7 @@ namespace BASIC
 #define OPT_SIZE      2
 #define OPT           OPT_SIZE
 
-#define USESD            0 // SDcard module
+#define USESD         0 // SDcard module
 
 #define CONF_MODULE_ARDUINOIO      1 // Arduino IO module
 #if CONF_MODULE_ARDUINOIO

@@ -1628,8 +1628,9 @@ Interpreter::printEsc(ProgMemStrings index)
 }
 #endif
 
+#if USE_TEXTATTRIBUTES
 void
-Interpreter::printTab(const Parser::Value &v)
+Interpreter::printTab(const Parser::Value &v, bool flag)
 {
 	Integer tabs;
 #if USE_REALS
@@ -1639,16 +1640,15 @@ Interpreter::printTab(const Parser::Value &v)
 #endif
 		tabs = Integer(v);
 	if (tabs > 0) {
-#if USE_TEXTATTRIBUTES
-		write(ProgMemStrings::VT100_ESCSEQ), _output.print(tabs - 1),
-		    _output.print('C');
-#else
-		while (tabs-- > 0)
-			_output.print(char(ASCII::SPACE));
-#endif
+		write(ProgMemStrings::VT100_ESCSEQ);
+		if (flag)
+			_output.print("80D"), write(ProgMemStrings::VT100_ESCSEQ),
+			    write(ProgMemStrings::VT100_ESCSEQ);
+		_output.print(tabs), _output.print('C');
 	} else
 		raiseError(DYNAMIC_ERROR, INVALID_TAB_VALUE, false);
 }
+#endif
 
 void
 Interpreter::print(long i, VT100::TextAttr attr)
