@@ -51,6 +51,7 @@ static const char strVT100_NOATTR[] PROGMEM = "0m";
 static const char strVT100_BRIGHT[] PROGMEM = "1m";
 static const char strVT100_UNDERSCORE[] PROGMEM = "4m";
 static const char strVT100_REVERSE[] PROGMEM = "7m";
+static const char strVT100_LINEHOME[] PROGMEM = "80D";
 #if USE_COLORATTRIBUTES
 static const char strVT100_RED[] PROGMEM = "31m";
 static const char strVT100_GREEN[] PROGMEM = "32m";
@@ -93,6 +94,7 @@ static PGM_P const progmemStrings[uint8_t(ProgMemStrings::NUM_STRINGS)] PROGMEM 
 	strVT100_BRIGHT,
 	strVT100_UNDERSCORE,
 	strVT100_REVERSE,
+	strVT100_LINEHOME,
 #if USE_COLORATTRIBUTES
 	strVT100_RED,
 	strVT100_GREEN,

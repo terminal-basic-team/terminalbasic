@@ -1642,7 +1642,8 @@ Interpreter::printTab(const Parser::Value &v, bool flag)
 	if (tabs > 0) {
 		write(ProgMemStrings::VT100_ESCSEQ);
 		if (flag)
-			_output.print("80D"), write(ProgMemStrings::VT100_ESCSEQ),
+			write(ProgMemStrings::VT100_LINEHOME),
+			    write(ProgMemStrings::VT100_ESCSEQ),
 			    write(ProgMemStrings::VT100_ESCSEQ);
 		_output.print(tabs), _output.print('C');
 	} else
