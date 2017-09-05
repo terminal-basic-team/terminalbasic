@@ -85,6 +85,10 @@ namespace BASIC
 #define USE_LEN            1
 #endif
 
+/**
+ * Allow GO TO OPERATOR in addition to GOTO
+ */
+#define CONF_SEPARATE_GO_TO     1
 /*
  * Use >< as not-equals operator (with default <>)
  */

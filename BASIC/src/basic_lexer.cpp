@@ -74,7 +74,7 @@
  * KW_TRUE = "TRUE"
  * KW_VARS = "VARS"
  * KW_ZER = "ZER"
- * 
+ *
  * STAR = '*'
  * SLASH = '/'
  * PLUS = '+'
@@ -121,7 +121,7 @@ const char sDET[] PROGMEM = "DET";            // 5
 #endif
 const char sDIM[] PROGMEM = "DIM";            // 9
 #if USE_DOLOOP
-const char sDO[] PROGMEM = "DO";              // 
+const char sDO[] PROGMEM = "DO";              //
 #endif
 #if USE_DUMP
 const char sDUMP[] PROGMEM = "DUMP";          // 10
@@ -207,7 +207,7 @@ const char sCOMMA[] PROGMEM = ",";
 const char sPOW[] PROGMEM = "^";
 const char sLPAREN[] PROGMEM = "(";
 const char sRPAREN[] PROGMEM = ")";
-	
+
 PGM_P const Lexer::tokenStrings[] PROGMEM = {
 /*	nullptr,	// 0
 	nullptr,	// 1
@@ -362,7 +362,9 @@ static const uint8_t tokenTable[] PROGMEM = {
 	'F', 'O', 'R'+0x80,                // 12
 	'G', 'O', 'S', 'U', 'B'+0x80,      // 13
 	'G', 'O', 'T', 'O'+0x80,           // 14
+#if CONF_SEPARATE_GO_TO
 	'G', 'O'+0x80,                     // 15
+#endif
 #if USE_MATRIX
 	'I', 'D', 'N'+0x80,
 #endif
@@ -449,7 +451,7 @@ Lexer::getTokenString(Token t, uint8_t *buf)
 {
 	const uint8_t *result = tokenTable, *pointer = result;
 	uint8_t c; uint8_t index = 0;
-	
+
 	do {
 		c=pgm_read_byte(pointer++);
 		if (c & 0x80) {
@@ -691,7 +693,7 @@ Lexer::decimalNumber()
 	while (SYM > 0) {
 #if USE_REALS
 		if (SYM != '.') {
-			
+
 #endif
 			next();
 			if (isdigit(SYM)) {
@@ -737,7 +739,7 @@ Lexer::decimalNumber()
 			if (_value.type == Parser::Value::INTEGER
 #if USE_LONGINT
 			    || _value.type == Parser::Value::LONG_INTEGER
-#endif   
+#endif
 			    )
 				_value = Real(_value);
 			if (!numberScale()) {
@@ -800,7 +802,7 @@ Lexer::numberScale()
 		next();
 	} else if (SYM == '+')
 		next();
-	
+
 	if (isdigit(SYM)) {
 		scale += SYM - '0';
 		next();

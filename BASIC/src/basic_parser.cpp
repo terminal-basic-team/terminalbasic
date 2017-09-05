@@ -520,7 +520,8 @@ Parser::fPrintList()
 		case Token::COMMA:
 			if (_mode == EXECUTE)
 				_interpreter.print(char(ASCII::HT));
-			if (!_lexer.getNext() || !fPrintItem())
+			_lexer.getNext();
+			if (!fPrintItem())
 				return false;
 			break;
 		case Token::SEMI:
@@ -547,7 +548,7 @@ bool
 Parser::fPrintItem()
 {
 	const Token t = _lexer.getToken();
-	if (t != Token::COMMA && t != Token::COLON) { // printable tokens
+	if (t != Token::NOTOKENS &&t != Token::COMMA && t != Token::COLON) { // printable tokens
 		Value v;
 #if USE_TEXTATTRIBUTES
 		if (t == Token::KW_TAB || t == Token::KW_SPC) {
@@ -993,9 +994,21 @@ Parser::fIfStatement()
 bool
 Parser::fGotoStatement()
 {
-	const Token t = _lexer.getToken();
+	Token t = _lexer.getToken();
 	LOG(t);
-	if (t == Token::KW_GOTO) {
+	
+#if CONF_SEPARATE_GO_TO
+	if (t == Token::KW_GO) {
+		_lexer.getNext();
+		t = _lexer.getToken();
+	}
+#endif
+	
+	if (t == Token::KW_GOTO
+#if CONF_SEPARATE_GO_TO
+	 || t == Token::KW_TO
+#endif
+	    ) {
 		Value v;
 		if (!_lexer.getNext() || !fExpression(v)) {
 			_error = EXPRESSION_EXPECTED;

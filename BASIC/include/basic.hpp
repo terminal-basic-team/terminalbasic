@@ -134,7 +134,9 @@ enum class Token : uint8_t
 	KW_FOR,        // 17
 	KW_GOSUB,      // 18
 	KW_GOTO,       // 19
+#if CONF_SEPARATE_GO_TO
 	KW_GO,         // 20
+#endif
 #if USE_MATRIX
 	KW_IDN,        // 21
 #endif

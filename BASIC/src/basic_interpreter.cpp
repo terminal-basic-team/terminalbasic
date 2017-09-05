@@ -435,7 +435,9 @@ Interpreter::list(uint16_t start, uint16_t stop)
                 lex.init(s->text);
 		int8_t diff = 0;
                 while (lex.getNext()) {
-			if (lex.getToken() == Token::KW_FOR)
+			if (lex.getToken() == Token::KW_REM)
+				break;
+			else if (lex.getToken() == Token::KW_FOR)
 				++diff;
 			else if (lex.getToken() == Token::KW_NEXT)
 				--diff;
