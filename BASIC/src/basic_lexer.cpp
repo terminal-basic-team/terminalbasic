@@ -406,7 +406,7 @@ static const uint8_t tokenTable[] PROGMEM = {
 #if USE_SAVE_LOAD
 	'S', 'A', 'V', 'E'+0x80,
 #endif
-#if USE_TEXTATTRIBUTES
+#if CONF_USE_SPC_PRINT_COM
 	'S', 'P', 'C'+0x80,
 #endif
 	'S', 'T', 'E', 'P'+0x80,
@@ -683,7 +683,7 @@ Lexer::decimalNumber()
 #else
 	_value.type = Parser::Value::INTEGER;
 	Integer *val = &_value.value.integer;
-#endif
+#endif // USE_LONGINT
 #if USE_REALS
 	if (SYM == '.')
 		*val = 0;

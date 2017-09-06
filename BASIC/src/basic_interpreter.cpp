@@ -777,7 +777,7 @@ bool
 Interpreter::popValue(Parser::Value &v)
 {
 	Program::StackFrame *f = _program.currentStackFrame();
-	if ((f != NULL) && (f->_type == Program::StackFrame::VALUE)) {
+	if ((f != nullptr) && (f->_type == Program::StackFrame::VALUE)) {
 		v = f->body.value;
 		_program.pop();
 		return true;
@@ -1643,10 +1643,10 @@ Interpreter::printTab(const Parser::Value &v, bool flag)
 		tabs = Integer(v);
 	if (tabs > 0) {
 		write(ProgMemStrings::VT100_ESCSEQ);
-		if (flag)
-			write(ProgMemStrings::VT100_LINEHOME),
-			    write(ProgMemStrings::VT100_ESCSEQ),
-			    write(ProgMemStrings::VT100_ESCSEQ);
+		if (flag) {
+			write(ProgMemStrings::VT100_LINEHOME);
+			write(ProgMemStrings::VT100_ESCSEQ);
+		}
 		_output.print(tabs), _output.print('C');
 	} else
 		raiseError(DYNAMIC_ERROR, INVALID_TAB_VALUE, false);

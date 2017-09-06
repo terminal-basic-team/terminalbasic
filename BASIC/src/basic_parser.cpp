@@ -551,7 +551,11 @@ Parser::fPrintItem()
 	if (t != Token::NOTOKENS &&t != Token::COMMA && t != Token::COLON) { // printable tokens
 		Value v;
 #if USE_TEXTATTRIBUTES
-		if (t == Token::KW_TAB || t == Token::KW_SPC) {
+		if (t == Token::KW_TAB
+#if CONF_USE_SPC_PRINT_COM
+		    || t == Token::KW_SPC
+#endif
+		    ) {
 			const bool flag = (t == Token::KW_TAB);
 			if (_lexer.getNext() && _lexer.getToken() == Token::LPAREN &&
 			    _lexer.getNext() && fExpression(v) &&
@@ -562,7 +566,7 @@ Parser::fPrintItem()
 			} else
 				return false;
 		} else
-#endif
+#endif // USE_TEXTATTRIBUTES
 		{
 			if (!fExpression(v)) {
 				if (_error == NO_ERROR)

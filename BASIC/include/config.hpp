@@ -124,8 +124,16 @@ namespace BASIC
  */
 #define USE_TEXTATTRIBUTES   1
 #if USE_TEXTATTRIBUTES
-#define USE_COLORATTRIBUTES  1 // Use vt100 color attributes
-#endif
+/*
+ * Use vt100 color attributes
+ */
+#define USE_COLORATTRIBUTES  0
+/*
+ * Support of SPC(N) print command
+ */
+#define CONF_USE_SPC_PRINT_COM  0
+#endif // USE_TEXTATTRIBUTES
+
 #define USE_SAVE_LOAD        1 // SAVE, LOAD and CHAIN commands support
 #if USE_SAVE_LOAD
 #define SAVE_LOAD_CHECKSUM   1 // Compute checksums while SAVE, LOAD and CHAIN

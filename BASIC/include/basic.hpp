@@ -77,6 +77,7 @@ namespace BASIC
 {
 // integer type
 typedef int16_t Integer;
+const Integer MaxInteger = 1 << (sizeof(Integer)*8-1);
 #if USE_LONGINT
 // long integer type
 typedef int32_t LongInteger;
@@ -178,7 +179,7 @@ enum class Token : uint8_t
 #if USE_SAVE_LOAD
 	COM_SAVE,      // 41
 #endif
-#if USE_TEXTATTRIBUTES
+#if CONF_USE_SPC_PRINT_COM
 	KW_SPC,        // 42
 #endif
 	KW_STEP,       // 43
