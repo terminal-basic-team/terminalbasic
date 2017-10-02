@@ -48,7 +48,7 @@ MKDIR=mkdir
 CP=cp
 CCADMIN=CCadmin
 
-ARDUINO_PATH=/opt/arduino-1.8.3
+ARDUINO_PATH=/opt/arduino-1.8.4
 TOOLS = ${ARDUINO_PATH}/hardware/tools/avr
 AVRDUDE=${TOOLS}/bin/avrdude
 OBJCOPY=${TOOLS}/bin/avr-objcopy

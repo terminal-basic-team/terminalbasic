@@ -213,7 +213,7 @@ Parser::Value::operator==(const Value &rhs) const
 	case BOOLEAN:
 		return this->value.boolean == bool(rhs);
 	default:
-		break;
+        	return false;
 	}
 }
 
@@ -237,7 +237,7 @@ Parser::Value::operator>(const Value &rhs) const
 	case INTEGER:
 		return this->value.integer > Integer(rhs);
 	default:
-		break;
+        	return false;
 	}
 }
 
@@ -456,7 +456,7 @@ Parser::Value::size(Type t)
 #endif
 	case BOOLEAN:
 		return sizeof(bool);
-	case STRING:
+	default:
 		return 0;
 	}
 }
