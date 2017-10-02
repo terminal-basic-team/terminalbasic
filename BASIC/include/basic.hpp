@@ -32,6 +32,8 @@
 
 #if S_INPUT == SERIAL_I
     #define SERIAL_PORT Serial
+#elif S_INPUT == SERIAL1_I
+    #define SERIAL_PORT Serial1
 #elif S_INPUT == SERIALL_I
     #define SERIAL_PORT SerialL
 #elif S_INPUT == SERIALL1_I
@@ -40,9 +42,14 @@
     #define SERIAL_PORT SerialL2
 #elif S_INPUT == SERIALL3_I
     #define SERIAL_PORT SerialL3
+#elif S_INPUT == PS2UARTKB_I
+#undef USEPS2USARTKB
+#define USEPS2USARTKB     1
 #endif
 #if S_OUTPUT == SERIAL_O
 #define SERIAL_PORT Serial
+#elif S_OUTPUT == SERIAL1_O
+#define SERIAL_PORT Serial1
 #elif S_OUTPUT == SERIALL_O
 #define SERIAL_PORT SerialL
 #elif S_OUTPUT == SERIALL3_O
@@ -70,6 +77,7 @@ namespace BASIC
 {
 // integer type
 typedef int16_t Integer;
+const Integer MaxInteger = 1 << (sizeof(Integer)*8-1);
 #if USE_LONGINT
 // long integer type
 typedef int32_t LongInteger;
@@ -96,19 +104,29 @@ enum class Token : uint8_t
 #if USE_SAVE_LOAD
 	COM_CHAIN,     // 4
 #endif
+#if USE_TEXTATTRIBUTES
 	COM_CLS,       // 5
+#endif
 #if USESTOPCONT
 	COM_CONT,      // 6
 #endif
 #if USE_MATRIX
 	KW_CON,        // 7
 #endif
+#if USE_DATA
+	KW_DATA,       // 8
+#endif
 	KW_DEF,        // 9
-//	COM_DELAY,     // 10
+#if USE_DELAY
+	COM_DELAY,     // 10
+#endif
 #if USE_MATRIX
 	KW_DET,        // 11
 #endif
 	KW_DIM,        // 12
+#if USE_DOLOOP
+	KW_DO,         // 13
+#endif
 #if USE_DUMP
 	COM_DUMP,      // 14
 #endif
@@ -117,7 +135,9 @@ enum class Token : uint8_t
 	KW_FOR,        // 17
 	KW_GOSUB,      // 18
 	KW_GOTO,       // 19
+#if CONF_SEPARATE_GO_TO
 	KW_GO,         // 20
+#endif
 #if USE_MATRIX
 	KW_IDN,        // 21
 #endif
@@ -130,6 +150,12 @@ enum class Token : uint8_t
 	COM_LIST,      // 26
 #if USE_SAVE_LOAD
 	COM_LOAD,      // 27
+#endif
+#if USE_TEXTATTRIBUTES
+	COM_LOCATE,
+#endif
+#if USE_DOLOOP
+	KW_LOOP,       // 28
 #endif
 #if USE_MATRIX
 	KW_MAT,        // 28
@@ -144,17 +170,25 @@ enum class Token : uint8_t
 #if USE_RANDOM
 	KW_RANDOMIZE,  // 36
 #endif
+#if USE_DATA
+	KW_READ,       // 37
+#endif
 	KW_REM,        // 38
 	KW_RETURN,     // 39
 	COM_RUN,       // 40
 #if USE_SAVE_LOAD
 	COM_SAVE,      // 41
 #endif
-	KW_STEP,       // 42
-#if USESTOPCONT
-	KW_STOP,       // 43
+#if CONF_USE_SPC_PRINT_COM
+	KW_SPC,        // 42
 #endif
+	KW_STEP,       // 43
+#if USESTOPCONT
+	KW_STOP,       // 44
+#endif
+#if USE_TEXTATTRIBUTES
 	KW_TAB,        // 44
+#endif
 	KW_THEN,       // 45
 	KW_TO,         // 46
 #if USE_MATRIX
@@ -195,8 +229,10 @@ enum class Token : uint8_t
 	GTE,
 	// <>
 	NE,
+#if CONF_USE_ALTERNATIVE_NE
 	//  ><
 	NEA,
+#endif
 	// ,
 	COMMA,
 	// ^
@@ -237,20 +273,24 @@ enum class ProgMemStrings : uint8_t
 	S_VERSION,
 	S_TEXT,
 	S_OF,
+#if USE_DUMP
 	S_VARS,
 	S_ARRAYS,
 	S_STACK,
+#endif
 #if USESD
 	S_DIR,
 #endif
 	S_REALLY,
 	S_END,
+#if USE_TEXTATTRIBUTES
         VT100_ESCSEQ,
 	VT100_CLS,
 	VT100_NOATTR,
 	VT100_BRIGHT,
 	VT100_UNDERSCORE,
 	VT100_REVERSE,
+	VT100_LINEHOME,
 #if USE_COLORATTRIBUTES
 	VT100_RED,
 	VT100_GREEN,
@@ -259,7 +299,8 @@ enum class ProgMemStrings : uint8_t
 	VT100_MAGENTA,
 	VT100_CYAN,
 	VT100_WHITE,
-#endif
+#endif // USE_COLORATTRIBUTES
+#endif // USE_TEXTATTRIBUTES
 	NUM_STRINGS
 };
 

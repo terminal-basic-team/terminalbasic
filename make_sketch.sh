@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 VER=$(cat ./BASIC/version)
 SKETCH=./sketch/terminal-basic-$VER
 SRC_PATH=${SKETCH}/terminal-basic
@@ -29,10 +31,12 @@ SRC="	./BASIC/include/basic.hpp  \
 	./BASIC/include/basic_sdfs.hpp \
 	./BASIC/include/basic_internalfuncs.hpp \
 	./BASIC/src/basic_internalfuncs.cpp \
+	./BASIC/include/basic_gfx.hpp \
+	./BASIC/src/basic_gfx.cpp \
+	./BASIC/src/basic_gfx_tvout.cpp \
+	./BASIC/src/basic_gfx_utft.cpp \
 	./BASIC/src/basic_parser_value.cpp \
 	./BASIC/src/basic_sdfs.cpp \
-	./UTFT/src/utft_stream.cpp \
-	./UTFT/include/utft_stream.hpp \
 	../libarduinoext/include/vt100.hpp \
 	../libarduinoext/include/matrix.hpp \
 	../libarduinoext/include/types.hpp \
@@ -66,4 +70,4 @@ do
 done
 
 cd ./sketch
-tar -czvf ./terminal-basic-${VER}-src.tar.gz ./terminal-basic-${VER} ../../tvoutex/TVoutEx ../../libsdcard/SDCard ../../libutft/UTFT
+tar -czvf ./terminal-basic-${VER}-src.tar.gz ./terminal-basic-${VER} ../../tvoutex/TVoutEx ../../libsdcard/SDCard ../../libutft/UTFT ../../libps2uart/ps2uartKeyboard

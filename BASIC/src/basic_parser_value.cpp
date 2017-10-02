@@ -71,13 +71,13 @@ Parser::Value::operator Real() const
 		return (Real(value.longInteger));
 #endif // USE_LONGINT
 	case INTEGER:
-		return (Real(value.integer));
+		return Real(value.integer);
 	case REAL:
-		return (value.real);
+		return value.real;
 	case BOOLEAN:
-		return (Real(value.boolean));
+		return Real(value.boolean);
 	default:
-		return (Real(NAN));
+		return Real(NAN);
 	}
 }
 #endif // USE_REALS
@@ -90,10 +90,10 @@ Parser::Value::operator bool() const
 		return (bool(value.longInteger));
 #endif // USE_LONGINT
 	case INTEGER:
-		return (bool(value.integer));
+		return bool(value.integer);
 #if USE_REALS
 	case REAL:
-		return (bool(value.real));
+		return bool(value.real);
 #endif // USE_REALS
 	case BOOLEAN:
 		return value.boolean;
@@ -146,6 +146,7 @@ Parser::Value::operator Integer() const
 Parser::Value &
 Parser::Value::operator-()
 {
+#if OPT == OPT_SPEED
 	switch (type) {
 #if USE_LONGINT
 	case LONG_INTEGER:
@@ -167,6 +168,20 @@ Parser::Value::operator-()
 		// undefined
 		break;
 	}
+#else
+	if (type == INTEGER)
+		value.integer = -value.integer;
+#if USE_LONGINT
+	else if (type == LONG_INTEGER)
+		value.longInteger = -value.longInteger;
+#endif // USE_LONGINT
+#if USE_REALS
+	else if (type == REAL)
+		value.real = -value.real;
+#endif // USE_REALS
+	else if (type == BOOLEAN)
+		value.boolean = !value.boolean;
+#endif
 	return *this;
 }
 
@@ -195,8 +210,10 @@ Parser::Value::operator==(const Value &rhs) const
 #endif
 	case INTEGER:
 		return this->value.integer == Integer(rhs);
+	case BOOLEAN:
+		return this->value.boolean == bool(rhs);
 	default:
-		break;
+        	return false;
 	}
 }
 
@@ -220,20 +237,20 @@ Parser::Value::operator>(const Value &rhs) const
 	case INTEGER:
 		return this->value.integer > Integer(rhs);
 	default:
-		break;
+        	return false;
 	}
 }
 
 bool
 operator>=(const Parser::Value &l, const Parser::Value &r)
 {
-	return (l.operator>(r) || l.operator==(r));
+	return l.operator>(r) || l.operator==(r);
 }
 
 bool
 operator<=(const Parser::Value &l, const Parser::Value &r)
 {
-	return (l.operator<(r) || l.operator==(r));
+	return l.operator<(r) || l.operator==(r);
 }
 
 Parser::Value &
@@ -255,7 +272,8 @@ Parser::Value::operator+=(const Value &rhs)
 #endif
 	case INTEGER: this->value.integer += Integer(rhs);
 		break;
-	default: break;
+	default:
+		break;
 	}
 
 	return *this;
@@ -280,7 +298,8 @@ Parser::Value::operator-=(const Value &rhs)
 #endif
 	case INTEGER: this->value.integer -= Integer(rhs);
 		break;
-	default: break;
+	default:
+		break;
 	}
 
 	return *this;
@@ -305,7 +324,8 @@ Parser::Value::operator*=(const Value &rhs)
 #endif
 	case INTEGER: this->value.integer *= Integer(rhs);
 		break;
-	default: break;
+	default:
+		break;
 	}
 
 	return *this;
@@ -436,7 +456,7 @@ Parser::Value::size(Type t)
 #endif
 	case BOOLEAN:
 		return sizeof(bool);
-	case STRING:
+	default:
 		return 0;
 	}
 }
@@ -451,9 +471,15 @@ Parser::Value::operator|=(const Value &v)
 	case BOOLEAN:
 		this->value.boolean |= bool(v);
 		break;
+#if USE_LONGINT
+	case LONG_INTEGER:
+		this->value.longInteger |= LongInteger(v);
+		break;
+#endif
 	default:
 		break;
 	}
+
 	return *this;
 }
 
@@ -467,6 +493,11 @@ Parser::Value::operator&=(const Value &v)
 	case BOOLEAN:
 		this->value.boolean &= bool(v);
 		break;
+#if USE_LONGINT
+	case LONG_INTEGER:
+		this->value.longInteger &= LongInteger(v);
+		break;
+#endif
 	default:
 		break;
 	}
@@ -480,14 +511,15 @@ Parser::Value::printTo(Print& p) const
 	case BOOLEAN:
 	{
 		char buf[6]; // Size, sufficient to store both 'TRUE' and 'FALSE
-		Token t;
+		const uint8_t *res;
 		if (value.boolean)
-			t = Token::KW_TRUE;
+			res = Lexer::getTokenString(Token::KW_TRUE, (uint8_t*)buf);
 		else
-			t = Token::KW_FALSE;
-		strcpy_P(buf, (PGM_P)pgm_read_word(&(Lexer::
-		    tokenStrings[uint8_t(t)])));
-		return p.print(buf);
+			res = Lexer::getTokenString(Token::KW_FALSE, (uint8_t*)buf);
+		if (res != nullptr)
+			return p.print(buf);
+		else
+			return 0;
 	}
 		break;
 #if USE_REALS

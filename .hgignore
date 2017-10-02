@@ -8,5 +8,4 @@ syntax: glob
 *.bin
 */dist/*
 */build/*
-*.mk
 *.bash

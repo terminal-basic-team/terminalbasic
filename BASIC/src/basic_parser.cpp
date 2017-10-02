@@ -176,6 +176,20 @@ Parser::fOperator()
 		if (_lexer.getNext())
 			return fArrayList();
 		return false;
+#if USE_DATA
+	case Token::KW_DATA: {
+		if (_mode == EXECUTE)
+			_mode = SCAN;
+		if (!_lexer.getNext())
+			return false;
+		bool res = fDataStatement();
+		if (!res)
+			_error = INVALID_DATA_EXPR;
+		if (_mode == SCAN)
+			_mode = EXECUTE;
+		return res;
+	}
+#endif // USE_DATA
 	case Token::KW_END:
 		_interpreter._program.reset();
 #if USESTOPCONT
@@ -212,12 +226,9 @@ Parser::fOperator()
 		bool res;
 		if (!bool(v))
 			_mode = SCAN;
-		if (fIfStatement())
-			res = true;
-		else {
+		res = fIfStatement();
+		if (!res)
 			_error = THEN_OR_GOTO_EXPECTED;
-			res = false;
-		}
 		_mode = EXECUTE;
 		return res;
 	}
@@ -257,6 +268,20 @@ Parser::fOperator()
 		} else
 			_interpreter.newline();
 		break;
+#if USE_DATA
+	case Token::KW_READ : {
+		if (_mode == EXECUTE)
+			_mode = READ;
+		if (!_lexer.getNext())
+			return false;
+		bool res = fReadStatement();
+		if (!res)
+			_error = INVALID_READ_EXPR;
+		if (_mode == READ)
+			_mode = EXECUTE;
+		return res;
+	}
+#endif
 #if USE_RANDOM
 	case Token::KW_RANDOMIZE:
 		if (_mode == EXECUTE)
@@ -391,6 +416,53 @@ Parser::fOperator()
 	return true;
 }
 
+bool
+Parser::fDataStatement()
+{
+	Token t;
+	while (true) {
+		t = _lexer.getToken();
+		if ((t >= Token::C_INTEGER && t <= Token::C_STRING) ||
+		    t == Token::KW_TRUE || t == Token::KW_FALSE) {
+			if (_lexer.getNext()) {
+				t = _lexer.getToken();
+				if (t == Token::COLON)
+					break;
+				else if (t == Token::COMMA) {
+					if (_lexer.getNext())
+						continue;
+				}
+			} else
+				break;
+		}
+		return false;
+	}
+	return true;
+}
+
+bool
+Parser::fReadStatement()
+{
+	Token t;
+	while (true) {
+		t = _lexer.getToken();
+		if (t >= Token::INTEGER_IDENT && t <= Token::BOOL_IDENT) {
+			if (_lexer.getNext()) {
+				t = _lexer.getToken();
+				if (t == Token::COLON)
+					break;
+				else if (t == Token::COMMA) {
+					if (_lexer.getNext())
+						continue;
+				}
+			} else
+				break;
+		}
+		return false;
+	}
+	return true;
+}
+
 /*
  * IMPLICIT_ASSIGNMENT =
  * VAR EQUALS EXPRESSION |
@@ -448,7 +520,8 @@ Parser::fPrintList()
 		case Token::COMMA:
 			if (_mode == EXECUTE)
 				_interpreter.print(char(ASCII::HT));
-			if (!_lexer.getNext() || !fPrintItem())
+			_lexer.getNext();
+			if (!fPrintItem())
 				return false;
 			break;
 		case Token::SEMI:
@@ -475,18 +548,26 @@ bool
 Parser::fPrintItem()
 {
 	const Token t = _lexer.getToken();
-	if (t != Token::COMMA && t != Token::COLON) { // printable tokens
+	if (t != Token::NOTOKENS &&t != Token::COMMA && t != Token::COLON) { // printable tokens
 		Value v;
-		if (t == Token::KW_TAB) {
+#if USE_TEXTATTRIBUTES
+		if (t == Token::KW_TAB
+#if CONF_USE_SPC_PRINT_COM
+		    || t == Token::KW_SPC
+#endif
+		    ) {
+			const bool flag = (t == Token::KW_TAB);
 			if (_lexer.getNext() && _lexer.getToken() == Token::LPAREN &&
 			    _lexer.getNext() && fExpression(v) &&
 			    _lexer.getToken() == Token::RPAREN) {
 				if (_mode == EXECUTE)
-					_interpreter.printTab(v);
+					_interpreter.printTab(v, flag);
 				_lexer.getNext();
 			} else
 				return false;
-		} else {
+		} else
+#endif // USE_TEXTATTRIBUTES
+		{
 			if (!fExpression(v)) {
 				if (_error == NO_ERROR)
 					_error = EXPRESSION_EXPECTED;
@@ -556,7 +637,9 @@ Parser::fExpression(Value &v)
 			} else
 				return false;
 		case Token::NE:
+#if CONF_USE_ALTERNATIVE_NE
 		case Token::NEA:
+#endif
 			if (_lexer.getNext() && fSimpleExpression(v2)) {
 				v = !(v == v2);
 				continue;
@@ -566,9 +649,12 @@ Parser::fExpression(Value &v)
 			return true;
 		}
 #else
-		if (t == Token::LT || t == Token::LTE || t == Token::GT ||
-		    t == Token::GTE || t == Token::EQUALS || t == Token::NE ||
-		    t == Token::NEA) {
+		if (t == Token::LT || t == Token::LTE || t == Token::GT
+		 || t == Token::GTE || t == Token::EQUALS || t == Token::NE
+#if CONF_USE_ALTERNATIVE_NE
+		 || t == Token::NEA
+#endif
+		    ) {
 			if (!_lexer.getNext() || !fSimpleExpression(v2))
 				return false;
 			
@@ -588,8 +674,19 @@ Parser::fExpression(Value &v)
 				else
 #endif // USE_STRINGOPS
 					v = v == v2;
-			} else if (t == Token::NE || t == Token::NEA)
-				v = !(v == v2);
+			} else if (t == Token::NE
+#if CONF_USE_ALTERNATIVE_NE
+				|| t == Token::NEA
+#endif
+			    ) {
+#if USE_STRINGOPS
+				if (v.type == Value::STRING &&
+				    v2.type == Value::STRING)
+					v = !_interpreter.strCmp();
+				else
+#endif // USE_STRINGOPS
+					v = !(v == v2);
+			}
 		} else
 			return true;
 #endif
@@ -744,8 +841,8 @@ Parser::fFactor(Value &v)
 	while (true) {
 		const Token t = _lexer.getToken();
 		LOG(t);
-		Value v2;
 		if (t == Token::POW) {
+			Value v2;
 			if (_lexer.getNext() && fFinal(v2)) {
 				v ^= v2;
 			} else
@@ -901,9 +998,21 @@ Parser::fIfStatement()
 bool
 Parser::fGotoStatement()
 {
-	const Token t = _lexer.getToken();
+	Token t = _lexer.getToken();
 	LOG(t);
-	if (t == Token::KW_GOTO) {
+	
+#if CONF_SEPARATE_GO_TO
+	if (t == Token::KW_GO) {
+		_lexer.getNext();
+		t = _lexer.getToken();
+	}
+#endif
+	
+	if (t == Token::KW_GOTO
+#if CONF_SEPARATE_GO_TO
+	 || t == Token::KW_TO
+#endif
+	    ) {
 		Value v;
 		if (!_lexer.getNext() || !fExpression(v)) {
 			_error = EXPRESSION_EXPECTED;
@@ -929,9 +1038,11 @@ Parser::fCommand()
 		f = &Interpreter::chain;
 		break;
 #endif
+#if USE_TEXTATTRIBUTES
 	case Token::COM_CLS:
 		f = &Interpreter::cls;
 		break;
+#endif
 #if USESTOPCONT
 	case Token::COM_CONT:
 		f = &Interpreter::cont;
@@ -955,10 +1066,22 @@ Parser::fCommand()
 		return true;
 	}
 #endif
+#if USE_DELAY
+	case Token::COM_DELAY: {
+		Parser::Value v;
+		if (_lexer.getNext() && fExpression(v)) {
+			if (_mode == EXECUTE) {
+				_interpreter.delay(Integer(v));
+			}
+			return true;
+		} else
+			return false;
+	}
+#endif
 	case Token::COM_LIST:
 	{
 		Integer start = 1, stop = 0;
-		_lexer.getNext();
+		_lexer.getNext(); // Result is not valuable
 		if (_lexer.getToken() == Token::C_INTEGER) {
 			start = Integer(_lexer.getValue());
 			stop = start;
@@ -981,6 +1104,19 @@ Parser::fCommand()
 	case Token::COM_LOAD:
 		f = &Interpreter::load;
 		break;
+#endif
+#if USE_TEXTATTRIBUTES
+	case Token::COM_LOCATE: {
+		Value v1,v2;
+		if (_lexer.getNext() && fExpression(v1) &&
+		    _lexer.getToken() == Token::COMMA && _lexer.getNext() &&
+		    fExpression(v2)) {
+			if (_mode == EXECUTE)
+				_interpreter.locate(Integer(v1), Integer(v2));
+			return true;
+		} else
+			return false;
+	}
 #endif
 	case Token::COM_NEW:
 		f = &Interpreter::newProgram;
@@ -1011,7 +1147,8 @@ Parser::fCommand()
 				else
 					break;
 			}
-			return (*c)(_interpreter);
+			_interpreter.execCommand(c);
+			return true;
 		}
 	default:
 		break;

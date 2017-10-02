@@ -48,7 +48,7 @@ MKDIR=mkdir
 CP=cp
 CCADMIN=CCadmin
 
-ARDUINO_PATH=/opt/arduino-1.8.3
+ARDUINO_PATH=/opt/arduino-1.8.4
 TOOLS = ${ARDUINO_PATH}/hardware/tools/avr
 AVRDUDE=${TOOLS}/bin/avrdude
 OBJCOPY=${TOOLS}/bin/avr-objcopy
@@ -57,7 +57,7 @@ AVRDUDE_CONF=${TOOLS}/etc/avrdude.conf
 JAVA=/usr/lib/jvm/java-1.8.0-openjdk-i386/bin/java  
 
 BUILD:=$(shell cat "./build-${CONF}")
-VERSION:=1.0-b1-${BUILD}
+VERSION:=1.1-a1-${BUILD}
 
 # build
 build: .build-post
@@ -202,6 +202,11 @@ program_Arduino_mega2560_tvout : ARCH=arduinoMEGA
 program_Arduino_mega2560_tvout : UCARCH=atmega2560
 program_Arduino_mega2560_tvout : PROGRAMMER=wiring
 program_Arduino_mega2560_tvout : program_common
+	
+program_Atmega1284 : ARCH=mighty1284
+program_Atmega1284 : UCARCH=atmega1284p
+program_Atmega1284 : PROGRAMMER=usbasp
+program_Atmega1284 : program_common
 
 copy:
 	${OBJCOPY} -O ihex -j .eeprom --set-section-flags=.eeprom=alloc,load \
@@ -214,7 +219,9 @@ copy:
 	${SIZE} -C --mcu=${UCARCH} ${CND_ARTIFACT_PATH_${CONF}}
 
 program_common:
-	${AVRDUDE} -D -C ${AVRDUDE_CONF} -v -c ${PROGRAMMER} -p ${UCARCH} \
+	#${AVRDUDE} -D -C ${AVRDUDE_CONF} -v -c ${PROGRAMMER} -p ${UCARCH} \
+	#  -P /dev/ttyUSB0 -b115200 -U flash:w:"${CND_ARTIFACT_PATH_${CONF}}_${VERSION}_${ARCH}-${UCARCH}.hex":i
+	${AVRDUDE} -C ${AVRDUDE_CONF} -v -c ${PROGRAMMER} -p ${UCARCH} \
 	  -P /dev/ttyUSB0 -b115200 -U flash:w:"${CND_ARTIFACT_PATH_${CONF}}_${VERSION}_${ARCH}-${UCARCH}.hex":i
 	#${AVRDUDE} -C ${AVRDUDE_CONF} -v -c ${PROGRAMMER} -p ${UCARCH} \
 	#  -U flash:w:"${CND_ARTIFACT_PATH_${CONF}}_${VERSION}_${ARCH}-${UCARCH}.hex":i

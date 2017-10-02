@@ -16,35 +16,40 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONFIG_LINUX_HPP
-#define CONFIG_LINUX_HPP
+#include "basic_gfx.hpp"
 
-#include "Arduino.h"
-#include "config.hpp"
-
-#define USEUTFT		          0
-#define USETVOUT	          0
-#define USEPS2USARTKB             0
-
-// Input select
-#define S_INPUT SERIAL_I
-
-// Output select
-#define S_OUTPUT SERIAL_O
-
-#define BASIC_MULTITERMINAL       0
-#if BASIC_MULTITERMINAL
-#define SERIAL_PORT1 Serial1
-#define SERIAL_PORT2 Serial2
-#define SERIAL_PORT3 Serial3
-#endif
+#if USE_GFX
 
 namespace BASIC
 {
 
-// Number of bytes for program text, variables and stack
-const uint16_t PROGRAMSIZE = 32768;
+static const uint8_t gfxTokens[] PROGMEM = {
+	'B','O','X'+0x80,
+	'C','I','R','C','L','E'+0x80,
+	'C','O','L','O','R'+0x80,
+	'L','I','N','E','T','O'+0x80,
+	'L','I','N','E'+0x80,
+	'P','O','I','N','T'+0x80,
+	'S','C','R','E','E','N'+0x80,
+	0
+};
+
+const FunctionBlock::function GFXModule::comms[] PROGMEM = {
+	GFXModule::command_box,
+	GFXModule::command_circle,
+	GFXModule::command_color,
+	GFXModule::command_lineto,
+	GFXModule::command_line,
+	GFXModule::command_point,
+	GFXModule::command_screen
+};
+
+GFXModule::GFXModule()
+{
+	commands = comms;
+	commandTokens = gfxTokens;
+}
 
 }
 
-#endif
+#endif // USE_GFX

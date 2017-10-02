@@ -6,6 +6,7 @@
       <itemPath>include/basic_arduinoio.hpp</itemPath>
       <itemPath>include/basic_exteeprom.hpp</itemPath>
       <itemPath>include/basic_functionblock.hpp</itemPath>
+      <itemPath>include/basic_gfx.hpp</itemPath>
       <itemPath>include/basic_internalfuncs.hpp</itemPath>
       <itemPath>include/basic_interpreter.hpp</itemPath>
       <itemPath>include/basic_lexer.hpp</itemPath>
@@ -23,6 +24,9 @@
       <itemPath>src/basic_arduinoio.cpp</itemPath>
       <itemPath>src/basic_exteeprom.cpp</itemPath>
       <itemPath>src/basic_functionblock.cpp</itemPath>
+      <itemPath>src/basic_gfx.cpp</itemPath>
+      <itemPath>src/basic_gfx_tvout.cpp</itemPath>
+      <itemPath>src/basic_gfx_utft.cpp</itemPath>
       <itemPath>src/basic_internalfuncs.cpp</itemPath>
       <itemPath>src/basic_interpreter.cpp</itemPath>
       <itemPath>src/basic_lexer.cpp</itemPath>
@@ -32,14 +36,6 @@
       <itemPath>src/basic_program.cpp</itemPath>
       <itemPath>src/basic_sdfs.cpp</itemPath>
       <itemPath>src/ucbasic_main.cpp</itemPath>
-    </logicalFolder>
-    <logicalFolder name="UTFT" displayName="UTFT" projectFiles="true">
-      <logicalFolder name="include" displayName="include" projectFiles="true">
-        <itemPath>../UTFT/include/utft_stream.hpp</itemPath>
-      </logicalFolder>
-      <logicalFolder name="src" displayName="src" projectFiles="true">
-        <itemPath>../UTFT/src/utft_stream.cpp</itemPath>
-      </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Файлы ресурсов"
@@ -62,13 +58,11 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
-    <itemPath>../make_sketch.sh</itemPath>
   </logicalFolder>
   <sourceRootList>
     <Elem>include</Elem>
     <Elem>src</Elem>
     <Elem>../TVoutEx</Elem>
-    <Elem>../UTFT</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -83,17 +77,29 @@
           <standard>8</standard>
           <incDir>
             <pElem>include</pElem>
-            <pElem>../../libarduinoext/include</pElem>
             <pElem>../../libarduinoemulator/include</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
+            <pElem>../../libarduinoext/include</pElem>
             <pElem>../../tvoutex/TVoutEx</pElem>
           </incDir>
-          <commandLine>`pkg-config --cflags posixcpp`</commandLine>
+          <commandLine>`pkg-config --cflags posixcpp` `pkg-config --cflags sdl2`</commandLine>
           <warningLevel>2</warningLevel>
         </ccTool>
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/basic</output>
           <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../tvoutex/livbtvoutex"
+                            CT="3"
+                            CN="Debug_PC"
+                            AC="true"
+                            BL="true"
+                            WD="../../tvoutex/livbtvoutex"
+                            BC="${MAKE}  -f Makefile CONF=Debug_PC"
+                            CC="${MAKE}  -f Makefile CONF=Debug_PC clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblivbtvoutex.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../../libarduinoemulator"
                             CT="3"
@@ -119,8 +125,8 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerOptionItem>`pkg-config --libs posixcpp`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs sdl2`</linkerOptionItem>
           </linkerLibItems>
-          <commandLine>-static</commandLine>
         </linkerTool>
       </compileType>
       <packaging>
@@ -133,14 +139,50 @@
                             perm="755"
                             owner="root"
                             group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
         </packFileList>
       </packaging>
-      <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../UTFT/src/utft_stream.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="../make_sketch.sh" ex="false" tool="3" flavor2="0">
-      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -163,6 +205,8 @@
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_internalfuncs.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -193,6 +237,12 @@
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -233,6 +283,7 @@
             <pElem>${ARDUINO_PATH}/libraries/SD/src</pElem>
             <pElem>include</pElem>
             <pElem>../../libarduinoext/include</pElem>
+            <pElem>../../tvoutex/TVoutEx</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>
@@ -279,12 +330,6 @@
           <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega328p</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../UTFT/src/utft_stream.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="../make_sketch.sh" ex="false" tool="3" flavor2="0">
-      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -307,6 +352,8 @@
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_internalfuncs.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -337,6 +384,12 @@
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -426,12 +479,6 @@
           <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega328p</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../UTFT/src/utft_stream.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="../make_sketch.sh" ex="false" tool="3" flavor2="0">
-      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -454,6 +501,8 @@
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_internalfuncs.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -484,6 +533,12 @@
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -617,12 +672,6 @@
           <commandLine>-Os -Wall -Wextra -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega2560</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../UTFT/src/utft_stream.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="../make_sketch.sh" ex="false" tool="3" flavor2="0">
-      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -645,6 +694,8 @@
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_internalfuncs.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -675,6 +726,12 @@
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -712,15 +769,15 @@
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/SoftwareSerial/src</pElem>
             <pElem>include</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/EEPROM/src</pElem>
-            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/variants/crumbuino128</pElem>
             <pElem>../../libarduinoext/include</pElem>
+            <pElem>../../libarduino/include/variants/crumbuino128</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>
           </incFile>
           <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -fno-threadsafe-statics -MMD -mmcu=atmega128a -ffunction-sections -fdata-sections -flto</commandLine>
           <preprocessorList>
-            <Elem>ARDUINO=10803</Elem>
+            <Elem>ARDUINO=10804</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_UNO</Elem>
             <Elem>F_CPU=16000000L</Elem>
@@ -758,12 +815,6 @@
           <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega128a</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../UTFT/src/utft_stream.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="../make_sketch.sh" ex="false" tool="3" flavor2="0">
-      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -786,6 +837,8 @@
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_internalfuncs.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -816,6 +869,12 @@
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -854,6 +913,7 @@
             <pElem>../../libarduinoext/include</pElem>
             <pElem>../../libarduinoemulator/include</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
+            <pElem>../../tvoutex/TVoutEx</pElem>
           </incDir>
           <commandLine>-O3 -march=pentium3 -mfpmath=sse `pkg-config --cflags posixcpp`</commandLine>
           <warningLevel>2</warningLevel>
@@ -861,6 +921,18 @@
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/terminal-basic</output>
           <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../tvoutex/livbtvoutex"
+                            CT="3"
+                            CN="Debug_PC"
+                            AC="true"
+                            BL="true"
+                            WD="../../tvoutex/livbtvoutex"
+                            BC="${MAKE}  -f Makefile CONF=Debug_PC"
+                            CC="${MAKE}  -f Makefile CONF=Debug_PC clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblivbtvoutex.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../../libarduinoemulator"
                             CT="3"
@@ -886,16 +958,10 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerOptionItem>`pkg-config --libs posixcpp`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs sdl2`</linkerOptionItem>
           </linkerLibItems>
-          <commandLine>-static</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../UTFT/src/utft_stream.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="../make_sketch.sh" ex="false" tool="3" flavor2="0">
-      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -918,6 +984,8 @@
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_internalfuncs.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -948,6 +1016,12 @@
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1033,12 +1107,6 @@
           <commandLine>-Os -Wall -Wextra -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega2560</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../UTFT/src/utft_stream.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="../make_sketch.sh" ex="false" tool="3" flavor2="0">
-      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -1061,6 +1129,8 @@
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_internalfuncs.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1091,6 +1161,12 @@
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1144,6 +1220,7 @@
             <Elem>ARDUINO_AVR_NANO</Elem>
             <Elem>F_CPU=16000000L</Elem>
             <Elem>NDEBUG</Elem>
+            <Elem>__AVR_ATmega168__</Elem>
           </preprocessorList>
           <warningLevel>2</warningLevel>
         </ccTool>
@@ -1179,12 +1256,6 @@
           <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega168 -Wl,-Map,${CND_ARTIFACT_PATH_${CONF}}.map</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../UTFT/src/utft_stream.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="../make_sketch.sh" ex="false" tool="3" flavor2="0">
-      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -1207,6 +1278,8 @@
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_internalfuncs.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1237,6 +1310,12 @@
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1269,16 +1348,18 @@
           <standard>8</standard>
           <incDir>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
-            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/variants/avr_developers</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/EEPROM/src</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/SoftwareSerial/src</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/SPI/src</pElem>
             <pElem>${ARDUINO_PATH}/libraries/TVoutfonts</pElem>
-            <pElem>${ARDUINO_PATH}/libraries/TVout</pElem>
             <pElem>${ARDUINO_PATH}/libraries/UTFT</pElem>
             <pElem>${ARDUINO_PATH}/libraries/SD/src</pElem>
             <pElem>include</pElem>
-            <pElem>../arduinoext/include</pElem>
+            <pElem>../../libarduino/include/variants/avr_developers</pElem>
+            <pElem>../../libarduinoext/include</pElem>
+            <pElem>../../libsdcard/SDCard</pElem>
+            <pElem>../../libps2uart/ps2uartKeyboard</pElem>
+            <pElem>../../tvoutex/TVoutEx</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>
@@ -1286,6 +1367,7 @@
           <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -fno-threadsafe-statics -MMD -mmcu=atmega1284p -ffunction-sections -fdata-sections -flto -fno-rtti -mcall-prologues</commandLine>
           <preprocessorList>
             <Elem>ARDUINO=10803</Elem>
+            <Elem>ARDUINO_1284P_AVR_DEVELOPERS</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>F_CPU=16000000L</Elem>
             <Elem>NDEBUG</Elem>
@@ -1298,24 +1380,60 @@
           <output>${CND_DISTDIR}/${CND_CONF}/basic.elf</output>
           <linkerLibItems>
             <linkerLibProjectItem>
-              <makeArtifact PL="../arduinoext"
+              <makeArtifact PL="../../libsdcard/libsdcard"
                             CT="3"
-                            CN="Atmega1284"
-                            AC="false"
+                            CN="Arduino_1284"
+                            AC="true"
                             BL="true"
-                            WD="../arduinoext"
-                            BC="${MAKE}  -f Makefile CONF=Atmega1284"
-                            CC="${MAKE}  -f Makefile CONF=Atmega1284 clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libarduinoext.a">
+                            WD="../../libsdcard/libsdcard"
+                            BC="${MAKE}  -f Makefile CONF=Arduino_1284"
+                            CC="${MAKE}  -f Makefile CONF=Arduino_1284 clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibsdcard.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../libarduino"
+              <makeArtifact PL="../../libps2uart/libps2uart"
                             CT="3"
-                            CN="Atmega_1284"
+                            CN="Arduino_1284p"
                             AC="true"
                             BL="true"
-                            WD="../libarduino"
+                            WD="../../libps2uart/libps2uart"
+                            BC="${MAKE}  -f Makefile CONF=Arduino_1284p"
+                            CC="${MAKE}  -f Makefile CONF=Arduino_1284p clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibps2uart.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../tvoutex/livbtvoutex"
+                            CT="3"
+                            CN="Arduino_1284"
+                            AC="true"
+                            BL="true"
+                            WD="../../tvoutex/livbtvoutex"
+                            BC="${MAKE}  -f Makefile CONF=Arduino_1284"
+                            CC="${MAKE}  -f Makefile CONF=Arduino_1284 clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblivbtvoutex.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../libarduinoext"
+                            CT="3"
+                            CN="Atmega1284"
+                            AC="true"
+                            BL="true"
+                            WD="../../libarduinoext"
+                            BC="${MAKE}  -f Makefile CONF=Atmega1284"
+                            CC="${MAKE}  -f Makefile CONF=Atmega1284 clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinoext.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../libarduino"
+                            CT="3"
+                            CN="Atmega_1284"
+                            AC="false"
+                            BL="true"
+                            WD="../../libarduino"
                             BC="${MAKE}  -f Makefile CONF=Atmega_1284"
                             CC="${MAKE}  -f Makefile CONF=Atmega_1284 clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/libarduino.a">
@@ -1325,12 +1443,6 @@
           <commandLine>-Os -Wall -Wextra -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega1284p</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../UTFT/src/utft_stream.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="../make_sketch.sh" ex="false" tool="3" flavor2="0">
-      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -1353,6 +1465,8 @@
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_internalfuncs.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1383,6 +1497,12 @@
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -1428,6 +1548,7 @@
             <pElem>include</pElem>
             <pElem>../../libarduinoext/include</pElem>
             <pElem>../../tvoutex/TVoutEx</pElem>
+            <pElem>../../libsdcard/SDCard</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>
@@ -1447,6 +1568,18 @@
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/terminal-basic</output>
           <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../libsdcard/libsdcard"
+                            CT="3"
+                            CN="Arduino_MEGA2560"
+                            AC="false"
+                            BL="true"
+                            WD="../../libsdcard/libsdcard"
+                            BC="${MAKE}  -f Makefile CONF=Arduino_MEGA2560"
+                            CC="${MAKE}  -f Makefile CONF=Arduino_MEGA2560 clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibsdcard.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../../tvoutex/livbtvoutex"
                             CT="3"
@@ -1487,12 +1620,6 @@
           <commandLine>-Os -Wall -Wextra -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega2560</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../UTFT/src/utft_stream.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="../make_sketch.sh" ex="false" tool="3" flavor2="0">
-      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -1515,6 +1642,8 @@
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_internalfuncs.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1545,6 +1674,12 @@
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -1631,12 +1766,6 @@
           <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega328p</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../UTFT/src/utft_stream.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="../make_sketch.sh" ex="false" tool="3" flavor2="0">
-      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -1659,6 +1788,8 @@
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_internalfuncs.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1689,6 +1820,12 @@
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -1776,12 +1913,6 @@
           <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega168p -Wl,-Map,${CND_ARTIFACT_PATH_${CONF}}.map</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../UTFT/include/utft_stream.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../UTFT/src/utft_stream.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="../make_sketch.sh" ex="false" tool="3" flavor2="0">
-      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -1804,6 +1935,8 @@
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_internalfuncs.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1834,6 +1967,12 @@
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="8">
       </item>
