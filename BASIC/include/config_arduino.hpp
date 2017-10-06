@@ -38,7 +38,7 @@
 #define S_OUTPUT TVOUT_O
 
 #define USEUTFT            0
-#define USETVOUT	       0
+#define USETVOUT           0
 #define USEPS2USARTKB      0
 
 // Use multiterminal mode
