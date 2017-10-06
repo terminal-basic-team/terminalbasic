@@ -207,6 +207,7 @@ namespace BASIC
 #define SERIALL2_I  5  // SerialL2 input (non-buffering, interrupt-free)
 #define SERIALL3_I  6  // SerialL3 input (non-buffering, interrupt-free)
 #define PS2UARTKB_I 7  // PS/2 keyboard through USART
+#define SDL_I       8  // SDL input on PC
 
 // Output variants
 #define SERIAL_O   1 // Serial output

@@ -43,7 +43,7 @@ namespace BASIC
 {
 
 // Number of bytes for program text, variables and stack
-const uint16_t PROGRAMSIZE = 32768;
+const uint16_t PROGRAMSIZE = 49152;
 
 }
 
