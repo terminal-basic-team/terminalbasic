@@ -23,6 +23,9 @@
                 <sourceRootElem>include</sourceRootElem>
                 <sourceRootElem>src</sourceRootElem>
                 <sourceRootElem>../TVoutEx</sourceRootElem>
+                <sourceRootElem>include</sourceRootElem>
+                <sourceRootElem>src</sourceRootElem>
+                <sourceRootElem>../TVoutEx</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>
@@ -76,9 +79,9 @@
             </confList>
             <formatting>
                 <project-formatting-style>true</project-formatting-style>
-                <c-style>OpenBSD</c-style>
-                <cpp-style>OpenBSD</cpp-style>
-                <header-style>OpenBSD</header-style>
+                <c-style>Default_4|OpenBSD</c-style>
+                <cpp-style>Default_5|OpenBSD</cpp-style>
+                <header-style>Default_7|OpenBSD</header-style>
             </formatting>
         </data>
     </configuration>
