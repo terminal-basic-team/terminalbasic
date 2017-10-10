@@ -27,10 +27,10 @@
 #define USEPS2USARTKB      0
 
 // Input select
-#define S_INPUT SERIAL_I
+#define S_INPUT SDL_I
 
 // Output select
-#define S_OUTPUT SERIAL_O
+#define S_OUTPUT TVOUT_O
 
 #define BASIC_MULTITERMINAL       0
 #if BASIC_MULTITERMINAL
