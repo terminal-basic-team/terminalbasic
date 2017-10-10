@@ -150,8 +150,8 @@ setup()
 	SERIAL_PORT.begin(115200);
 #endif
 #if USETVOUT
+	tvOut.selectFont(Font6x8_cyr);
 	tvOut.begin(PAL, TVOUT_HORIZ, TVOUT_VERT, tvOutBuf);
-        tvOut.selectFont(Font6x8_cyr);
 #endif
 #if USEPS2USARTKB
         ps2usartStream.begin();
