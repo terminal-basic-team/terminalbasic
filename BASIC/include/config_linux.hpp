@@ -22,9 +22,9 @@
 #include "Arduino.h"
 #include "config.hpp"
 
-#define USEUTFT		          0
-#define USETVOUT	          0
-#define USEPS2USARTKB             0
+#define USEUTFT	           0
+#define USETVOUT           0
+#define USEPS2USARTKB      0
 
 // Input select
 #define S_INPUT SERIAL_I
@@ -43,7 +43,7 @@ namespace BASIC
 {
 
 // Number of bytes for program text, variables and stack
-const uint16_t PROGRAMSIZE = 49152;
+const uint16_t PROGRAMSIZE = 32768;
 
 }
 

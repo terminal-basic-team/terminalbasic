@@ -123,8 +123,8 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinoext.a">
               </makeArtifact>
             </linkerLibProjectItem>
-            <linkerOptionItem>`pkg-config --libs posixcpp`</linkerOptionItem>
             <linkerOptionItem>`pkg-config --libs sdl2`</linkerOptionItem>
+            <linkerLibFileItem>/usr/local/lib/libposixcpp.a</linkerLibFileItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
@@ -868,7 +868,7 @@
       </toolsSet>
       <compileType>
         <ccTool>
-          <developmentMode>0</developmentMode>
+          <developmentMode>4</developmentMode>
           <stripSymbols>true</stripSymbols>
           <standard>8</standard>
           <incDir>
@@ -878,7 +878,7 @@
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
             <pElem>../../tvoutex/TVoutEx</pElem>
           </incDir>
-          <commandLine>-O3 -march=pentium3 -mfpmath=sse `pkg-config --cflags posixcpp`</commandLine>
+          <commandLine>`pkg-config --cflags posixcpp` `pkg-config --cflags sdl2`</commandLine>
           <warningLevel>2</warningLevel>
         </ccTool>
         <linkerTool>
@@ -887,12 +887,12 @@
             <linkerLibProjectItem>
               <makeArtifact PL="../../tvoutex/livbtvoutex"
                             CT="3"
-                            CN="Debug_PC"
-                            AC="true"
+                            CN="Release_PC"
+                            AC="false"
                             BL="true"
                             WD="../../tvoutex/livbtvoutex"
-                            BC="${MAKE}  -f Makefile CONF=Debug_PC"
-                            CC="${MAKE}  -f Makefile CONF=Debug_PC clean"
+                            BC="${MAKE}  -f Makefile CONF=Release_PC"
+                            CC="${MAKE}  -f Makefile CONF=Release_PC clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblivbtvoutex.a">
               </makeArtifact>
             </linkerLibProjectItem>

@@ -52,7 +52,7 @@ namespace BASIC
 /*
  * Mathematical functions support
  */
-#define USEMATH 	        1
+#define USEMATH                 1
 
 #if USEMATH
 /*
@@ -62,11 +62,11 @@ namespace BASIC
 /*
  * ACS ASN ATN
  */
-#define M_REVERSE_TRIGONOMETRIC	0
+#define M_REVERSE_TRIGONOMETRIC 1
 /*
  * CBR (cubic root) ...
  */
-#define M_ADDITIONAL            0
+#define M_ADDITIONAL            1
 #endif // USEMATH
 
 #endif // USE_REALS
@@ -92,7 +92,7 @@ namespace BASIC
 /*
  * Use >< as not-equals operator (with default <>)
  */
-#define CONF_USE_ALTERNATIVE_NE 0
+#define CONF_USE_ALTERNATIVE_NE 1
 /*
  * Support of 4-byte integer datatype
  * Functions, variables and arrays of long integer type ends with double % mark
@@ -102,7 +102,7 @@ namespace BASIC
  * DUMP command support
  * This command can be used to see BASIC memory image, variables and arrays list
  */
-#define USE_DUMP             0
+#define USE_DUMP             1
 /*
  * Clear program memory on NEW command
  */
@@ -159,7 +159,7 @@ namespace BASIC
 /*
  * SDcard module
  */
-#define USESD         0
+#define USESD         1
 
 // Arduino IO module
 #define CONF_MODULE_ARDUINOIO      1
@@ -192,9 +192,8 @@ namespace BASIC
 /*
  * GFX module
  */
-#define USE_GFX          0
-    
-    
+#define USE_GFX          1
+
 /*
  * Input and output for single terminal mode
  */
