@@ -148,7 +148,16 @@ SDFSModule::dsave(Interpreter &i)
 		while (lex.getNext()) {
 			f.write(' ');
 			Token t = lex.getToken();
-			if (t <= Token::RPAREN) {
+			if (t < Token::STAR) {
+				char buf[16];
+				const uint8_t *res = Lexer::getTokenString(t,
+				    reinterpret_cast<uint8_t*>(buf));
+				if (res != nullptr)
+					f.print(buf);
+				else
+					f.print("TOKEN{"), f.print(uint16_t(t)),
+					    f.print('}');
+			} else if (t <= Token::RPAREN) {
 				char buf[16];
 				strcpy_P(buf, (PGM_P)pgm_read_word(
 					&(Lexer::tokenStrings[uint8_t(t)])));
