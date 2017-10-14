@@ -7,6 +7,8 @@ VER=$(cat ./BASIC/version)
 SKETCH=./autotools/terminal-basic-$VER
 SRC_PATH=${SKETCH}/terminal-basic
 
+rm -rf $SRC_PATH
+
 SRC="	./BASIC/include/basic.hpp  \
 	./BASIC/include/basic_lexer.hpp  \
 	./BASIC/src/basic_lexer.cpp  \
@@ -87,3 +89,6 @@ cd $SKETCH
 autoreconf
 automake --add-missing
 autoreconf
+./configure
+make dist
+

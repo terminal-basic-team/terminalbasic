@@ -68,7 +68,7 @@ const uint16_t PROGRAMSIZE = 8192;
 #if (S_OUTPUT != TVOUT_O) && (USE_EXTMEM == 0)
 const uint16_t PROGRAMSIZE = 6144;
 #else
-const uint16_t PROGRAMSIZE = 1024;
+const uint16_t PROGRAMSIZE = 900;
 #endif
 #elif defined (__AVR_ATmega128__) || defined (__AVR_ATmega128A__)
 const uint16_t PROGRAMSIZE = 3072;

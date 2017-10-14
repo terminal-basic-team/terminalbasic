@@ -57,6 +57,7 @@ rm -rf $SKETCH
 mkdir -p $SKETCH
 mkdir -p $SRC_PATH
 
+cp README.sketch ./sketch/README
 cp ./BASIC/src/ucbasic_main.cpp "${SRC_PATH}/terminal-basic.ino"
 
 for file in $SRC
@@ -70,4 +71,4 @@ do
 done
 
 cd ./sketch
-tar -czvf ./terminal-basic-${VER}-src.tar.gz ./terminal-basic-${VER} ../../tvoutex/TVoutEx ../../libsdcard/SDCard ../../libutft/UTFT ../../libps2uart/ps2uartKeyboard
+tar -czvf ./terminal-basic-${VER}-arduino-sketch.tar.gz ./README ./terminal-basic-${VER} ../../tvoutex/TVoutEx ../../libsdcard/SDCard ../../libutft/UTFT ../../libps2uart/ps2uartKeyboard
