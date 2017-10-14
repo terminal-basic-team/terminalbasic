@@ -45,6 +45,8 @@
 #elif S_INPUT == PS2UARTKB_I
 #undef USEPS2USARTKB
 #define USEPS2USARTKB     1
+#elif S_INPUT == SDL_I
+    #define USE_SDL_ISTREAM 1
 #endif
 #if S_OUTPUT == SERIAL_O
 #define SERIAL_PORT Serial

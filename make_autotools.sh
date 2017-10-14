@@ -1,16 +1,18 @@
 #!/bin/bash
 
-set -e
+#set -e
+set -x
 
 VER=$(cat ./BASIC/version)
-SKETCH=./sketch/terminal-basic-$VER
+SKETCH=./autotools/terminal-basic-$VER
 SRC_PATH=${SKETCH}/terminal-basic
+
+rm -rf $SRC_PATH
 
 SRC="	./BASIC/include/basic.hpp  \
 	./BASIC/include/basic_lexer.hpp  \
 	./BASIC/src/basic_lexer.cpp  \
 	./BASIC/include/config.hpp \
-	./BASIC/include/config_arduino.hpp \
 	./BASIC/include/version.h \
 	./BASIC/src/basic.cpp \
 	./BASIC/include/basic_parser.hpp \
@@ -37,6 +39,7 @@ SRC="	./BASIC/include/basic.hpp  \
 	./BASIC/src/basic_gfx_utft.cpp \
 	./BASIC/src/basic_parser_value.cpp \
 	./BASIC/src/basic_sdfs.cpp \
+	./BASIC/src/ucbasic_main.cpp \
 	../libarduinoext/include/vt100.hpp \
 	../libarduinoext/include/matrix.hpp \
 	../libarduinoext/include/types.hpp \
@@ -51,14 +54,26 @@ SRC="	./BASIC/include/basic.hpp  \
 	../libarduinoext/src/seriallight.cpp \
 	../libarduinoext/include/ascii.hpp"
 
-COPY_FILES="README ChangeLog COPYING"
+COPY_FILES="README ChangeLog COPYING configure.ac Makefile.am BASIC/include/config.hpp BASIC/include/config_linux.hpp"
 
 rm -rf $SKETCH
 mkdir -p $SKETCH
 mkdir -p $SRC_PATH
 
-cp README.sketch ./sketch/README
-cp ./BASIC/src/ucbasic_main.cpp "${SRC_PATH}/terminal-basic.ino"
+cp ./Makefile.am.terminal-basic "${SRC_PATH}/Makefile.am"
+rsync -r ../libarduinoemulator/include/ ${SRC_PATH}
+rsync -r ../libarduinoemulator/src/ ${SRC_PATH}
+
+cp ../tvoutex/TVoutEx/*.cpp ${SRC_PATH}
+cp ../tvoutex/TVoutEx/*.h ${SRC_PATH}
+cp ../tvoutex/TVoutEx/*.hpp ${SRC_PATH}
+cp ../tvoutex/livbtvoutex/*.cpp ${SRC_PATH}
+mkdir ${SRC_PATH}/spec
+cp ../tvoutex/TVoutEx/spec/* ${SRC_PATH}/spec
+mkdir ${SRC_PATH}/utility
+cp ../tvoutex/TVoutEx/utility/*.h ${SRC_PATH}/utility/
+cp ../tvoutex/TVoutEx/utility/*.hpp ${SRC_PATH}/utility/
+cp ../tvoutex/TVoutEx/utility/*.cpp ${SRC_PATH}
 
 for file in $SRC
 do
@@ -70,5 +85,10 @@ do
 	cp ${file} ${SKETCH}
 done
 
-cd ./sketch
-tar -czvf ./terminal-basic-${VER}-arduino-sketch.tar.gz ./README ./terminal-basic-${VER} ../../tvoutex/TVoutEx ../../libsdcard/SDCard ../../libutft/UTFT ../../libps2uart/ps2uartKeyboard
+cd $SKETCH
+autoreconf
+automake --add-missing
+autoreconf
+./configure
+make dist
+
