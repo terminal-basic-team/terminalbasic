@@ -1,4 +1,4 @@
-r1.1-beta1 (14.10.2017)
+r1.1-beta1 (17.10.2017) - Release, dedicated to the International Day for the Eradication of Poverty
 
   * Fix bug in saving the program to SD card
   * Add SDL-based emulator and autotools linux package
