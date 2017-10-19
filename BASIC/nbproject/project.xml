@@ -17,6 +17,7 @@
                 <make-dep-project>../../libarduinoext</make-dep-project>
                 <make-dep-project>../../tvoutex/livbtvoutex</make-dep-project>
                 <make-dep-project>../../libarduino</make-dep-project>
+                <make-dep-project>../../libarduinodue</make-dep-project>
                 <make-dep-project>../../libsdcard/libsdcard</make-dep-project>
             </make-dep-projects>
             <sourceRootList>

@@ -1961,58 +1961,49 @@
       <compileType>
         <ccTool>
           <standard>8</standard>
-          <commandlineTool>arm-none-eabi-gcc</commandlineTool>
+          <commandlineTool>arm-none-eabi-g++</commandlineTool>
           <incDir>
+            <pElem>/opt/Arduino/sam/variants/arduino_due_x</pElem>
+            <pElem>/opt/Arduino/sam/cores/arduino</pElem>
+            <pElem>/opt/Arduino/sam/system/CMSIS/Device/ATMEL</pElem>
+            <pElem>/opt/Arduino/sam/system/CMSIS/CMSIS/Include</pElem>
+            <pElem>/opt/Arduino/sam/system/libsam</pElem>
             <pElem>include</pElem>
-            <pElem>../../libarduinoemulator/include</pElem>
-            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
             <pElem>../../libarduinoext/include</pElem>
-            <pElem>../../tvoutex/TVoutEx</pElem>
           </incDir>
           <commandLine>-Os -mthumb -mcpu=cortex-m3 -MMD -fno-exceptions -fno-rtti --param max-inline-insns-single=500 -fno-threadsafe-statics -nostdlib -fdata-sections -ffunction-sections -std=gnu++11 -Wextra</commandLine>
+          <preprocessorList>
+            <Elem>ARDUINO=10804</Elem>
+            <Elem>ARDUINO_ARCH_SAM</Elem>
+            <Elem>ARDUINO_SAM_DUE</Elem>
+            <Elem>F_CPU=84000000</Elem>
+            <Elem>USBCON</Elem>
+            <Elem>USB_MANUFACTURER="Arduino LLC"</Elem>
+            <Elem>USB_PID=0x003e</Elem>
+            <Elem>USB_PRODUCT="Arduino Due"</Elem>
+            <Elem>USB_VID=0x2341</Elem>
+            <Elem>__SAM3X8E__</Elem>
+            <Elem>printf=iprintf</Elem>
+          </preprocessorList>
           <warningLevel>2</warningLevel>
         </ccTool>
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/basic</output>
+          <commandlineTool>arm-none-eabi-gcc</commandlineTool>
           <linkerLibItems>
             <linkerLibProjectItem>
-              <makeArtifact PL="../../tvoutex/livbtvoutex"
-                            CT="3"
-                            CN="Debug_PC"
-                            AC="true"
-                            BL="true"
-                            WD="../../tvoutex/livbtvoutex"
-                            BC="${MAKE}  -f Makefile CONF=Debug_PC"
-                            CC="${MAKE}  -f Makefile CONF=Debug_PC clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblivbtvoutex.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../../libarduinoemulator"
-                            CT="3"
-                            CN="Debug"
-                            AC="false"
-                            BL="true"
-                            WD="../../libarduinoemulator"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinoemulator.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../../libarduinoext"
+              <makeArtifact PL="../../libarduinodue"
                             CT="3"
                             CN="Debug"
                             AC="true"
                             BL="true"
-                            WD="../../libarduinoext"
+                            WD="../../libarduinodue"
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinoext.a">
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinodue.a">
               </makeArtifact>
             </linkerLibProjectItem>
-            <linkerOptionItem>`pkg-config --libs sdl2`</linkerOptionItem>
-            <linkerLibFileItem>/usr/local/lib/libposixcpp.a</linkerLibFileItem>
+            <linkerLibStdlibItem>Mathematics</linkerLibStdlibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
