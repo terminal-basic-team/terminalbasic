@@ -102,6 +102,14 @@ CND_ARTIFACT_PATH_Arduino_nano168p=dist/Arduino_nano168p/terminal-basic
 CND_PACKAGE_DIR_Arduino_nano168p=dist/Arduino_nano168p/Arduino-Linux/package
 CND_PACKAGE_NAME_Arduino_nano168p=basic.tar
 CND_PACKAGE_PATH_Arduino_nano168p=dist/Arduino_nano168p/Arduino-Linux/package/basic.tar
+# Arduino_DUE configuration
+CND_PLATFORM_Arduino_DUE=Arduino_ARM-Linux
+CND_ARTIFACT_DIR_Arduino_DUE=dist/Arduino_DUE
+CND_ARTIFACT_NAME_Arduino_DUE=basic
+CND_ARTIFACT_PATH_Arduino_DUE=dist/Arduino_DUE/basic
+CND_PACKAGE_DIR_Arduino_DUE=dist/Arduino_DUE/package
+CND_PACKAGE_NAME_Arduino_DUE=basic.tar
+CND_PACKAGE_PATH_Arduino_DUE=dist/Arduino_DUE/package/basic.tar
 #
 # include compiler specific variables
 #
