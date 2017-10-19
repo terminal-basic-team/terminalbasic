@@ -76,6 +76,10 @@
                     <name>Arduino_nano168p</name>
                     <type>1</type>
                 </confElem>
+                <confElem>
+                    <name>Arduino_DUE</name>
+                    <type>1</type>
+                </confElem>
             </confList>
             <formatting>
                 <project-formatting-style>true</project-formatting-style>
