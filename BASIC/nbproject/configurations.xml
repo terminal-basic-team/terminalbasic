@@ -2010,6 +2010,29 @@
           <output>${CND_DISTDIR}/${CND_CONF}/basic</output>
           <commandlineTool>arm-none-eabi-gcc</commandlineTool>
           <linkerLibItems>
+            <linkerOptionItem>-Wl,--gc-sections </linkerOptionItem>
+            <linkerOptionItem>-Wl,-Map,basic_due.map</linkerOptionItem>
+            <linkerOptionItem>-T/opt/Arduino/sam/variants/arduino_due_x/linker_scripts/gcc/flash.ld</linkerOptionItem>
+            <linkerOptionItem>-Wl,--cref</linkerOptionItem>
+            <linkerOptionItem>-Wl,--check-sections</linkerOptionItem>
+            <linkerOptionItem>-Wl,--gc-sections</linkerOptionItem>
+            <linkerOptionItem>-Wl,--entry=Reset_Handler</linkerOptionItem>
+            <linkerOptionItem>-Wl,--unresolved-symbols=report-all</linkerOptionItem>
+            <linkerOptionItem>-Wl,-warn-common</linkerOptionItem>
+            <linkerOptionItem>-Wl,--warn-section-align</linkerOptionItem>
+            <linkerOptionItem>-Wl,--start-group</linkerOptionItem>
+            <linkerOptionItem>-u _sbrk</linkerOptionItem>
+            <linkerOptionItem>-u link</linkerOptionItem>
+            <linkerOptionItem>-u _close</linkerOptionItem>
+            <linkerOptionItem>-u _fstat</linkerOptionItem>
+            <linkerOptionItem>-u _isatty</linkerOptionItem>
+            <linkerOptionItem>-u _lseek</linkerOptionItem>
+            <linkerOptionItem>-u _read</linkerOptionItem>
+            <linkerOptionItem>-u write</linkerOptionItem>
+            <linkerOptionItem>-u _exit</linkerOptionItem>
+            <linkerOptionItem>-u kill</linkerOptionItem>
+            <linkerOptionItem>-u _getpid</linkerOptionItem>
+            <linkerLibFileItem>/opt/Arduino/sam/variants/arduino_due_x/libsam_sam3x8e_gcc_rel.a</linkerLibFileItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../../libarduinodue"
                             CT="3"
@@ -2022,7 +2045,9 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinodue.a">
               </makeArtifact>
             </linkerLibProjectItem>
+            <linkerOptionItem>-Wl,--end-group</linkerOptionItem>
             <linkerLibStdlibItem>Mathematics</linkerLibStdlibItem>
+            <linkerLibLibItem>gcc</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>

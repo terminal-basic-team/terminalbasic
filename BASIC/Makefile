@@ -54,7 +54,10 @@ AVRDUDE=${TOOLS}/bin/avrdude
 OBJCOPY=${TOOLS}/bin/avr-objcopy
 SIZE=${TOOLS}/bin/avr-size
 AVRDUDE_CONF=${TOOLS}/etc/avrdude.conf
-JAVA=/usr/lib/jvm/java-1.8.0-openjdk-i386/bin/java  
+JAVA=/usr/lib/jvm/java-1.8.0-openjdk-i386/bin/java
+
+OBJCOPY_ARM=/opt/Arduino/gcc-arm-none-eabi-4.8.3-2014q1/bin/arm-none-eabi-objcopy
+SIZE_ARM=/opt/Arduino/gcc-arm-none-eabi-4.8.3-2014q1/bin/arm-none-eabi-size
 
 BUILD:=$(shell cat "./build-${CONF}")
 VERSION:=1.1-b1-${BUILD}
@@ -175,6 +178,11 @@ copy_Atmega1284 : copy
 copy_Arduino_UNO : ARCH=arduinoUNO
 copy_Arduino_UNO : UCARCH=atmega328p
 copy_Arduino_UNO : copy
+	
+copy_Arduino_DUE:
+	${OBJCOPY_ARM} "${CND_ARTIFACT_PATH_${CONF}}" \
+	    "${CND_ARTIFACT_PATH_${CONF}}_${VERSION}.bin"
+	${SIZE_ARM} "${CND_ARTIFACT_PATH_${CONF}}"
 
 program: program_${CONF}
 

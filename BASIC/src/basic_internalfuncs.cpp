@@ -178,9 +178,9 @@ InternalFunctions::func_int(Interpreter &i)
 		v = Integer(v);
 #endif
 		i.pushValue(v);
-		return (true);
+		return true;
 	} else
-		return (false);
+		return false;
 }
 #endif // USE_REALS
 

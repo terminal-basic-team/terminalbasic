@@ -74,14 +74,14 @@ ArduinoIO::ArduinoIO()
 bool
 ArduinoIO::func_aread(Interpreter &i)
 {
-	return (general_func(i, aread_r));
+	return general_func(i, aread_r);
 }
 #endif
 
 bool
 ArduinoIO::func_aread_int(Interpreter &i)
 {
-	return (general_func(i, aread_i));
+	return general_func(i, aread_i);
 }
 
 bool
