@@ -59,9 +59,6 @@
     <Elem>include</Elem>
     <Elem>src</Elem>
     <Elem>../TVoutEx</Elem>
-    <Elem>include</Elem>
-    <Elem>src</Elem>
-    <Elem>../TVoutEx</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -231,7 +228,6 @@
       <compileType>
         <ccTool>
           <developmentMode>0</developmentMode>
-          <standard>8</standard>
           <incDir>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs</pElem>
@@ -282,7 +278,6 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/libarduino.a">
               </makeArtifact>
             </linkerLibProjectItem>
-            <linkerLibStdlibItem>Mathematics</linkerLibStdlibItem>
           </linkerLibItems>
           <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega328p</commandLine>
         </linkerTool>
@@ -378,7 +373,6 @@
       <compileType>
         <ccTool>
           <developmentMode>0</developmentMode>
-          <standard>8</standard>
           <incDir>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs</pElem>
@@ -402,6 +396,7 @@
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_UNO</Elem>
             <Elem>F_CPU=16000000L</Elem>
+            <Elem>NDEBUG</Elem>
           </preprocessorList>
           <warningLevel>2</warningLevel>
         </ccTool>
@@ -1959,8 +1954,33 @@
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <cTool>
+          <developmentMode>0</developmentMode>
+          <incDir>
+            <pElem>/opt/Arduino/sam/variants/arduino_due_x</pElem>
+            <pElem>/opt/Arduino/sam/cores/arduino</pElem>
+            <pElem>/opt/Arduino/sam/system/CMSIS/Device/ATMEL</pElem>
+            <pElem>/opt/Arduino/sam/system/CMSIS/CMSIS/Include</pElem>
+            <pElem>/opt/Arduino/sam/system/libsam</pElem>
+          </incDir>
+          <commandLine>-Os -mthumb -mcpu=cortex-m3 -MMD --param max-inline-insns-single=500 -nostdlib -fdata-sections -ffunction-sections -std=gnu11 -Wextra</commandLine>
+          <preprocessorList>
+            <Elem>ARDUINO=10804</Elem>
+            <Elem>ARDUINO_ARCH_SAM</Elem>
+            <Elem>ARDUINO_SAM_DUE</Elem>
+            <Elem>F_CPU=84000000</Elem>
+            <Elem>USBCON</Elem>
+            <Elem>USB_MANUFACTURER="Arduino LLC"</Elem>
+            <Elem>USB_PID=0x003e</Elem>
+            <Elem>USB_PRODUCT="Arduino Due"</Elem>
+            <Elem>USB_VID=0x2341</Elem>
+            <Elem>__SAM3X8E__</Elem>
+            <Elem>printf=iprintf</Elem>
+          </preprocessorList>
+        </cTool>
         <ccTool>
-          <standard>8</standard>
+          <developmentMode>0</developmentMode>
+          <standard>11</standard>
           <commandlineTool>arm-none-eabi-g++</commandlineTool>
           <incDir>
             <pElem>/opt/Arduino/sam/variants/arduino_due_x</pElem>

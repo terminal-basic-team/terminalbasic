@@ -17,9 +17,10 @@
  */
 
 #include "basic_internalfuncs.hpp"
+
+#include "math.hpp"
 #include "basic_interpreter.hpp"
 #include "Arduino.h"
-#include "math.hpp"
 #include "basic_program.hpp"
 
 #include <assert.h>
@@ -253,4 +254,4 @@ InternalFunctions::func_tim(Interpreter &i)
 	return true;
 }
 
-}
+} // namespace BASIC
