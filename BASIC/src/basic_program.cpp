@@ -92,7 +92,7 @@ Program::stringByIndex(uint16_t index) const
 Program::String*
 Program::lineByNumber(uint16_t number, uint16_t index)
 {
-	Program::String *result = NULL;
+	Program::String *result = nullptr;
 
 	if (index <= _textEnd) {
 		_current = index;
