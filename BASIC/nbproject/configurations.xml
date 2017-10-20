@@ -1980,7 +1980,6 @@
         </cTool>
         <ccTool>
           <developmentMode>0</developmentMode>
-          <standard>11</standard>
           <commandlineTool>arm-none-eabi-g++</commandlineTool>
           <incDir>
             <pElem>/opt/Arduino/sam/variants/arduino_due_x</pElem>
