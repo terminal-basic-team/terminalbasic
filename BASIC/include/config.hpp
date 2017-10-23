@@ -163,7 +163,7 @@ namespace BASIC
 /*
  * SDcard module
  */
-#define USESD         1
+#define USESD         0
 
 // Arduino IO module
 #define CONF_MODULE_ARDUINOIO      1
@@ -196,7 +196,7 @@ namespace BASIC
 /*
  * GFX module
  */
-#define USE_GFX          1
+#define USE_GFX          0
 
 /*
  * Input and output for single terminal mode

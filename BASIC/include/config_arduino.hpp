@@ -35,7 +35,7 @@
 #define S_INPUT SERIALL_I
 
 // Output select
-#define S_OUTPUT TVOUT_O
+#define S_OUTPUT SERIALL_O
 
 #define USEUTFT            0
 #define USETVOUT           0
