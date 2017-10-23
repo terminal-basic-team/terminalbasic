@@ -418,12 +418,12 @@
             <linkerLibProjectItem>
               <makeArtifact PL="../../libarduino"
                             CT="3"
-                            CN="Uno"
+                            CN="Arduino_UNO"
                             AC="false"
                             BL="true"
                             WD="../../libarduino"
-                            BC="${MAKE}  -f Makefile CONF=Uno"
-                            CC="${MAKE}  -f Makefile CONF=Uno clean"
+                            BC="${MAKE}  -f Makefile CONF=Arduino_UNO"
+                            CC="${MAKE}  -f Makefile CONF=Arduino_UNO clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/libarduino.a">
               </makeArtifact>
             </linkerLibProjectItem>

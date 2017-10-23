@@ -54,7 +54,6 @@
 
 #if USE_EXTEEPROM
 #include "basic_exteeprom.hpp"
-#include <Wire.h>
 #endif
 
 #if USE_GFX
@@ -138,10 +137,6 @@ static BASIC::Interpreter basic(SERIAL_PORT, SERIAL_PORT, BASIC::PROGRAMSIZE);
 void
 setup()
 {
-#if USE_EXTEEPROM
-	Wire.begin();
-	Wire.setClock(400000);
-#endif
 #if USE_EXTMEM
 	XMCRA |= 1ul<<7; // Switch ext mem iface on
 	XMCRB = 0;

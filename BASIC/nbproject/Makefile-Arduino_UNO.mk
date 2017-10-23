@@ -77,7 +77,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=../../libarduinoext/dist/Arduino_uno/Arduino-Linux/liblibarduinoext.a ../../libarduino/dist/Uno/libarduino.a
+LDLIBSOPTIONS=../../libarduinoext/dist/Arduino_uno/Arduino-Linux/liblibarduinoext.a ../../libarduino/dist/Arduino_UNO/libarduino.a
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -85,7 +85,7 @@ LDLIBSOPTIONS=../../libarduinoext/dist/Arduino_uno/Arduino-Linux/liblibarduinoex
 
 ${CND_DISTDIR}/${CND_CONF}/terminal-basic: ../../libarduinoext/dist/Arduino_uno/Arduino-Linux/liblibarduinoext.a
 
-${CND_DISTDIR}/${CND_CONF}/terminal-basic: ../../libarduino/dist/Uno/libarduino.a
+${CND_DISTDIR}/${CND_CONF}/terminal-basic: ../../libarduino/dist/Arduino_UNO/libarduino.a
 
 ${CND_DISTDIR}/${CND_CONF}/terminal-basic: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}
@@ -174,7 +174,7 @@ ${OBJECTDIR}/src/ucbasic_main.o: src/ucbasic_main.cpp nbproject/Makefile-${CND_C
 # Subprojects
 .build-subprojects:
 	cd ../../libarduinoext && ${MAKE}  -f Makefile CONF=Arduino_uno
-	cd ../../libarduino && ${MAKE}  -f Makefile CONF=Uno
+	cd ../../libarduino && ${MAKE}  -f Makefile CONF=Arduino_UNO
 
 # Build Test Targets
 .build-tests-conf: .build-tests-subprojects .build-conf ${TESTFILES}
@@ -415,7 +415,7 @@ ${OBJECTDIR}/src/ucbasic_main_nomain.o: ${OBJECTDIR}/src/ucbasic_main.o src/ucba
 # Subprojects
 .clean-subprojects:
 	cd ../../libarduinoext && ${MAKE}  -f Makefile CONF=Arduino_uno clean
-	cd ../../libarduino && ${MAKE}  -f Makefile CONF=Uno clean
+	cd ../../libarduino && ${MAKE}  -f Makefile CONF=Arduino_UNO clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

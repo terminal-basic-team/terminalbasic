@@ -71,6 +71,8 @@ ExtEEPROM::ExtEEPROM()
 void
 ExtEEPROM::_init()
 {
+	Wire.begin();
+	Wire.setClock(400000);
 }
 
 bool
