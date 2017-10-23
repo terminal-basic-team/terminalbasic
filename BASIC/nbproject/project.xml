@@ -17,12 +17,10 @@
                 <make-dep-project>../../libarduinoext</make-dep-project>
                 <make-dep-project>../../tvoutex/livbtvoutex</make-dep-project>
                 <make-dep-project>../../libarduino</make-dep-project>
+                <make-dep-project>../../libarduinodue</make-dep-project>
                 <make-dep-project>../../libsdcard/libsdcard</make-dep-project>
             </make-dep-projects>
             <sourceRootList>
-                <sourceRootElem>include</sourceRootElem>
-                <sourceRootElem>src</sourceRootElem>
-                <sourceRootElem>../TVoutEx</sourceRootElem>
                 <sourceRootElem>include</sourceRootElem>
                 <sourceRootElem>src</sourceRootElem>
                 <sourceRootElem>../TVoutEx</sourceRootElem>
@@ -74,6 +72,10 @@
                 </confElem>
                 <confElem>
                     <name>Arduino_nano168p</name>
+                    <type>1</type>
+                </confElem>
+                <confElem>
+                    <name>Arduino_DUE</name>
                     <type>1</type>
                 </confElem>
             </confList>

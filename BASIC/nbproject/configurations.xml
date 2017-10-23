@@ -59,9 +59,6 @@
     <Elem>include</Elem>
     <Elem>src</Elem>
     <Elem>../TVoutEx</Elem>
-    <Elem>include</Elem>
-    <Elem>src</Elem>
-    <Elem>../TVoutEx</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -132,12 +129,6 @@
         <packType>Tar</packType>
         <output>${CND_DISTDIR}/${CND_CONF}/package/basic.tar</output>
         <packFileList>
-          <packFileListElem type="File"
-                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
-                            from="${OUTPUT_PATH}"
-                            perm="755"
-                            owner="root"
-                            group="bin"/>
           <packFileListElem type="File"
                             to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
                             from="${OUTPUT_PATH}"
@@ -237,7 +228,6 @@
       <compileType>
         <ccTool>
           <developmentMode>0</developmentMode>
-          <standard>8</standard>
           <incDir>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs</pElem>
@@ -288,7 +278,6 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/libarduino.a">
               </makeArtifact>
             </linkerLibProjectItem>
-            <linkerLibStdlibItem>Mathematics</linkerLibStdlibItem>
           </linkerLibItems>
           <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega328p</commandLine>
         </linkerTool>
@@ -384,7 +373,6 @@
       <compileType>
         <ccTool>
           <developmentMode>0</developmentMode>
-          <standard>8</standard>
           <incDir>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs</pElem>
@@ -408,6 +396,7 @@
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_UNO</Elem>
             <Elem>F_CPU=16000000L</Elem>
+            <Elem>NDEBUG</Elem>
           </preprocessorList>
           <warningLevel>2</warningLevel>
         </ccTool>
@@ -1952,6 +1941,204 @@
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_sdfs.cpp" ex="true" tool="1" flavor2="8">
+      </item>
+      <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="tests/TableTest.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Arduino_DUE" type="1">
+      <toolsSet>
+        <compilerSet>Arduino_ARM|GNU</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>true</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>0</developmentMode>
+          <incDir>
+            <pElem>/opt/Arduino/sam/variants/arduino_due_x</pElem>
+            <pElem>/opt/Arduino/sam/cores/arduino</pElem>
+            <pElem>/opt/Arduino/sam/system/CMSIS/Device/ATMEL</pElem>
+            <pElem>/opt/Arduino/sam/system/CMSIS/CMSIS/Include</pElem>
+            <pElem>/opt/Arduino/sam/system/libsam</pElem>
+          </incDir>
+          <commandLine>-Os -mthumb -mcpu=cortex-m3 -MMD --param max-inline-insns-single=500 -nostdlib -fdata-sections -ffunction-sections -std=gnu11 -Wextra</commandLine>
+          <preprocessorList>
+            <Elem>ARDUINO=10804</Elem>
+            <Elem>ARDUINO_ARCH_SAM</Elem>
+            <Elem>ARDUINO_SAM_DUE</Elem>
+            <Elem>F_CPU=84000000</Elem>
+            <Elem>USBCON</Elem>
+            <Elem>USB_MANUFACTURER="Arduino LLC"</Elem>
+            <Elem>USB_PID=0x003e</Elem>
+            <Elem>USB_PRODUCT="Arduino Due"</Elem>
+            <Elem>USB_VID=0x2341</Elem>
+            <Elem>__SAM3X8E__</Elem>
+            <Elem>printf=iprintf</Elem>
+          </preprocessorList>
+        </cTool>
+        <ccTool>
+          <developmentMode>0</developmentMode>
+          <commandlineTool>arm-none-eabi-g++</commandlineTool>
+          <incDir>
+            <pElem>/opt/Arduino/sam/variants/arduino_due_x</pElem>
+            <pElem>/opt/Arduino/sam/cores/arduino</pElem>
+            <pElem>/opt/Arduino/sam/system/CMSIS/Device/ATMEL</pElem>
+            <pElem>/opt/Arduino/sam/system/CMSIS/CMSIS/Include</pElem>
+            <pElem>/opt/Arduino/sam/system/libsam</pElem>
+            <pElem>include</pElem>
+            <pElem>../../libarduinoext/include</pElem>
+          </incDir>
+          <commandLine>-Os -mthumb -mcpu=cortex-m3 -MMD -fno-exceptions -fno-rtti --param max-inline-insns-single=500 -fno-threadsafe-statics -nostdlib -fdata-sections -ffunction-sections -std=gnu++11 -Wextra</commandLine>
+          <preprocessorList>
+            <Elem>ARDUINO=10804</Elem>
+            <Elem>ARDUINO_ARCH_SAM</Elem>
+            <Elem>ARDUINO_SAM_DUE</Elem>
+            <Elem>F_CPU=84000000</Elem>
+            <Elem>USBCON</Elem>
+            <Elem>USB_MANUFACTURER="Arduino LLC"</Elem>
+            <Elem>USB_PID=0x003e</Elem>
+            <Elem>USB_PRODUCT="Arduino Due"</Elem>
+            <Elem>USB_VID=0x2341</Elem>
+            <Elem>__SAM3X8E__</Elem>
+            <Elem>printf=iprintf</Elem>
+          </preprocessorList>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <linkerTool>
+          <output>${CND_DISTDIR}/${CND_CONF}/basic</output>
+          <commandlineTool>arm-none-eabi-gcc</commandlineTool>
+          <linkerLibItems>
+            <linkerOptionItem>-Wl,--gc-sections </linkerOptionItem>
+            <linkerOptionItem>-Wl,-Map,basic_due.map</linkerOptionItem>
+            <linkerOptionItem>-T/opt/Arduino/sam/variants/arduino_due_x/linker_scripts/gcc/flash.ld</linkerOptionItem>
+            <linkerOptionItem>-Wl,--cref</linkerOptionItem>
+            <linkerOptionItem>-Wl,--check-sections</linkerOptionItem>
+            <linkerOptionItem>-Wl,--gc-sections</linkerOptionItem>
+            <linkerOptionItem>-Wl,--entry=Reset_Handler</linkerOptionItem>
+            <linkerOptionItem>-Wl,--unresolved-symbols=report-all</linkerOptionItem>
+            <linkerOptionItem>-Wl,-warn-common</linkerOptionItem>
+            <linkerOptionItem>-Wl,--warn-section-align</linkerOptionItem>
+            <linkerOptionItem>-Wl,--start-group</linkerOptionItem>
+            <linkerOptionItem>-u _sbrk</linkerOptionItem>
+            <linkerOptionItem>-u link</linkerOptionItem>
+            <linkerOptionItem>-u _close</linkerOptionItem>
+            <linkerOptionItem>-u _fstat</linkerOptionItem>
+            <linkerOptionItem>-u _isatty</linkerOptionItem>
+            <linkerOptionItem>-u _lseek</linkerOptionItem>
+            <linkerOptionItem>-u _read</linkerOptionItem>
+            <linkerOptionItem>-u write</linkerOptionItem>
+            <linkerOptionItem>-u _exit</linkerOptionItem>
+            <linkerOptionItem>-u kill</linkerOptionItem>
+            <linkerOptionItem>-u _getpid</linkerOptionItem>
+            <linkerLibFileItem>/opt/Arduino/sam/variants/arduino_due_x/libsam_sam3x8e_gcc_rel.a</linkerLibFileItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../libarduinodue"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../../libarduinodue"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinodue.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerOptionItem>-Wl,--end-group</linkerOptionItem>
+            <linkerLibStdlibItem>Mathematics</linkerLibStdlibItem>
+            <linkerLibLibItem>gcc</linkerLibLibItem>
+          </linkerLibItems>
+        </linkerTool>
+      </compileType>
+      <packaging>
+        <packType>Tar</packType>
+        <output>${CND_DISTDIR}/${CND_CONF}/package/basic.tar</output>
+        <packFileList>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
+        </packFileList>
+      </packaging>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
+      <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_internalfuncs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_interpreter.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_lexer.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_math.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_parser.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/basic.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_math.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>

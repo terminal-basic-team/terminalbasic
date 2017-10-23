@@ -120,6 +120,10 @@ namespace BASIC
  */
 #define USE_DATA             0
 /*
+ * Support of DEF FN construct
+ */
+#define USE_DEFFN            0
+/*
  * Use vt100 text attributes
  */
 #define USE_TEXTATTRIBUTES   1
