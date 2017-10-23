@@ -160,7 +160,8 @@ SDFSModule::dsave(Interpreter &i)
 			} else if (t <= Token::RPAREN) {
 				char buf[16];
 				strcpy_P(buf, (PGM_P)pgm_read_word(
-					&(Lexer::tokenStrings[uint8_t(t)])));
+				    &(Lexer::tokenStrings[uint8_t(t)-
+				    uint8_t(Token::STAR)])));
 				f.print(buf);
 				if (t == Token::KW_REM) {
 					f.write(' ');
