@@ -224,6 +224,12 @@ namespace BASIC
 	#define TVOUT_HORIZ 240
 	#define TVOUT_VERT 192
 
+#if USE_EXTEEPROM
+#define USE_WIRE 1
+#else
+#define USE_WIRE 0
+#endif
+
 /*
  * Max size of the program line
  */
