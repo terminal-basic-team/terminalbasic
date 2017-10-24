@@ -221,6 +221,7 @@ namespace BASIC
 #define SERIALL3_O 6 // SerialL3 output (non-buffering, interrupt-free)
 #define UTFT_O     7 // UTFT library output
 #define TVOUT_O    8 // TVoutEx library output
+#define LIQCR_O    9 // LiquidCrystal library output
 	#define TVOUT_HORIZ 240
 	#define TVOUT_VERT 192
 
