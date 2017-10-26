@@ -32,7 +32,7 @@ namespace BASIC
 /*
  * Allow '_' symbol in identifiers
  */
-#define ALLOW_UNDERSCORE_ID 1
+#define ALLOW_UNDERSCORE_ID 0
 	
 /*
  * DELAY command, suspends execution for N ms
@@ -46,7 +46,7 @@ namespace BASIC
  * When enabled, all variables and arrays, which names are not ending with "$ ! %"
  * are treated as reals. Mathematical functions support depend on this option
  */
-#define USE_REALS           1
+#define USE_REALS               1
 
 #if USE_REALS
 /*
@@ -131,7 +131,7 @@ namespace BASIC
 /*
  * Use ANSI color attributes
  */
-#define USE_COLORATTRIBUTES  1
+#define USE_COLORATTRIBUTES  0
 /*
  * Support of SPC(N) print command
  */
