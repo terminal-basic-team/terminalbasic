@@ -79,13 +79,16 @@ namespace BASIC
 {
 // integer type
 typedef int16_t Integer;
-const Integer MaxInteger = 1 << (sizeof(Integer)*8-1);
+const Integer MaxInteger = 32767;
 #if USE_LONGINT
 // long integer type
 typedef int32_t LongInteger;
+const Integer MaxLongInteger = 2147483647l;
 typedef LongInteger INT;
+#define MAXINT MaxLongInteger
 #else
 typedef Integer INT;
+#define MAXINT MaxInteger
 #endif
 // floating point type
 #if USE_REALS
