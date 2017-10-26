@@ -88,7 +88,7 @@ namespace BASIC
 /**
  * Allow GO TO OPERATOR in addition to GOTO
  */
-#define CONF_SEPARATE_GO_TO     1
+#define CONF_SEPARATE_GO_TO     0
 /*
  * Use >< as not-equals operator (with default <>)
  */
@@ -102,7 +102,7 @@ namespace BASIC
  * DUMP command support
  * This command can be used to see BASIC memory image, variables and arrays list
  */
-#define USE_DUMP             1
+#define USE_DUMP             0
 /*
  * Clear program memory on NEW command
  */
@@ -114,7 +114,7 @@ namespace BASIC
 /*
  * Support of Darthmouth BASIX-style matrix operations
  */
-#define USE_MATRIX           1
+#define USE_MATRIX           0
 /**
  * Support of DATA/READ statements
  */
@@ -188,7 +188,7 @@ namespace BASIC
 /*
  * Indention of the loop bodies
  */
-#define LOOP_INDENT      1
+#define LOOP_INDENT      0
 /*
  * Indention of the line numbers in LIST output
  */
