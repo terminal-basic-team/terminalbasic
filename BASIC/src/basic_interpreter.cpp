@@ -1647,7 +1647,7 @@ Interpreter::printTab(const Parser::Value &v, bool flag)
 			write(ProgMemStrings::VT100_LINEHOME);
 			write(ProgMemStrings::VT100_ESCSEQ);
 		}
-		_output.print(tabs), _output.print('C');
+		_output.print(tabs-1), _output.print('C');
 	} else
 		raiseError(DYNAMIC_ERROR, INVALID_TAB_VALUE, false);
 }
