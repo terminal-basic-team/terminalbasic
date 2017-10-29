@@ -58,10 +58,13 @@
 #define SERIAL_PORT SerialL3
 #elif S_OUTPUT == UTFT_O
 #undef USEUTFT
-#define USEUTFT		          1
+#define USEUTFT            1
 #elif S_OUTPUT == TVOUT_O
 #undef USETVOUT
-#define USETVOUT	          1
+#define USETVOUT           1
+#elif S_OUTPUT == LIQCR_O
+#undef USELIQUIDCRYSTAL
+#define USELIQUIDCRYSTAL   1
 #endif
 
 #ifdef true
