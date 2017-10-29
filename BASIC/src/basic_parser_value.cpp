@@ -253,7 +253,7 @@ operator<=(const Parser::Value &l, const Parser::Value &r)
 	return l.operator<(r) || l.operator==(r);
 }
 
-Parser::Value &
+Parser::Value&
 Parser::Value::operator+=(const Value &rhs)
 {
 #if USE_REALS
@@ -279,7 +279,7 @@ Parser::Value::operator+=(const Value &rhs)
 	return *this;
 }
 
-Parser::Value &
+Parser::Value&
 Parser::Value::operator-=(const Value &rhs)
 {
 #if USE_REALS
@@ -305,7 +305,7 @@ Parser::Value::operator-=(const Value &rhs)
 	return *this;
 }
 
-Parser::Value &
+Parser::Value&
 Parser::Value::operator*=(const Value &rhs)
 {
 #if USE_REALS
@@ -332,7 +332,7 @@ Parser::Value::operator*=(const Value &rhs)
 }
 
 // '/' operation always return REAL if real numbers support used
-Parser::Value &
+Parser::Value&
 Parser::Value::operator/=(const Value &rhs)
 {
 #if USE_REALS
@@ -365,7 +365,7 @@ Parser::Value::powerMatchValue(const Value &rhs)
 #endif
 }
 
-Parser::Value &
+Parser::Value&
 Parser::Value::operator^=(const Value &rhs)
 {
 	powerMatchValue(rhs);
@@ -569,4 +569,4 @@ Parser::Value::printTo(Print& p) const
 	}
 }
 
-}
+} // namespace BASIC
