@@ -45,6 +45,10 @@
 #include "basic_math.hpp"
 #endif
 
+#if USELIQUIDCRYSTAL
+#include "liquidcrystalprint.hpp"
+#endif
+
 #if USETVOUT
 #include "TVoutPrint.hpp"
 #include "utility/Font6x8.h"
@@ -54,6 +58,9 @@
 
 #if USE_EXTEEPROM
 #include "basic_exteeprom.hpp"
+#endif
+#if USE_WIRE
+#include <Wire.h>
 #endif
 
 #if USE_GFX
@@ -75,6 +82,10 @@ static UTFTTerminal utftPrint(utft);
 static uint8_t		tvOutBuf[TVoutEx::bufferSize(TVOUT_HORIZ, TVOUT_VERT)];
 static TVoutEx		tvOut;
 static TVoutPrint	tvoutPrint;
+#elif USELIQUIDCRYSTAL
+static LiquidCrystal lCrystal(12, 11, 5, 4, 3, 2);
+static uint8_t lCrBuf[20*4];
+static LiquidCrystalVt100 lsvt100(lCrystal, 20, 4, lCrBuf);
 #endif
 
 #if USESD
@@ -129,6 +140,8 @@ static BASIC::Interpreter basic(sdlStream, tvoutPrint, BASIC::PROGRAMSIZE);
 #else
 static BASIC::Interpreter basic(SERIAL_PORT, tvoutPrint, BASIC::PROGRAMSIZE);
 #endif // USE_SDL_ISTREAM
+#elif USELIQUIDCRYSTAL
+static BASIC::Interpreter basic(SERIAL_PORT, lsvt100, BASIC::PROGRAMSIZE);
 #else
 static BASIC::Interpreter basic(SERIAL_PORT, SERIAL_PORT, BASIC::PROGRAMSIZE);
 #endif // USEUTFT
@@ -137,6 +150,10 @@ static BASIC::Interpreter basic(SERIAL_PORT, SERIAL_PORT, BASIC::PROGRAMSIZE);
 void
 setup()
 {
+#if USE_WIRE
+	Wire.begin();
+	Wire.setClock(400000);
+#endif
 #if USE_EXTMEM
 	XMCRA |= 1ul<<7; // Switch ext mem iface on
 	XMCRB = 0;
@@ -144,15 +161,19 @@ setup()
 #ifdef SERIAL_PORT
 	SERIAL_PORT.begin(115200);
 #endif
-#if USETVOUT
-	tvOut.selectFont(Font6x8_cyr);
-	tvOut.begin(PAL, TVOUT_HORIZ, TVOUT_VERT, tvOutBuf);
-#endif
+
 #if USEPS2USARTKB
         ps2usartStream.begin();
 #endif
-#if USEUTFT
+#if USETVOUT
+	tvOut.selectFont(Font6x8_cyr);
+	tvOut.begin(PAL, TVOUT_HORIZ, TVOUT_VERT, tvOutBuf);
+#elif USEUTFT
 	utftPrint.begin();
+#elif USELIQUIDCRYSTAL
+        lCrystal.begin(20,4);
+	lCrystal.cursor();
+	lCrystal.blink();
 #endif
 #if USE_SDL_ISTREAM
 	sdlStream.init();

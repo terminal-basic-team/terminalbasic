@@ -58,10 +58,13 @@
 #define SERIAL_PORT SerialL3
 #elif S_OUTPUT == UTFT_O
 #undef USEUTFT
-#define USEUTFT		          1
+#define USEUTFT            1
 #elif S_OUTPUT == TVOUT_O
 #undef USETVOUT
-#define USETVOUT	          1
+#define USETVOUT           1
+#elif S_OUTPUT == LIQCR_O
+#undef USELIQUIDCRYSTAL
+#define USELIQUIDCRYSTAL   1
 #endif
 
 #ifdef true
@@ -79,13 +82,16 @@ namespace BASIC
 {
 // integer type
 typedef int16_t Integer;
-const Integer MaxInteger = 1 << (sizeof(Integer)*8-1);
+const Integer MaxInteger = Integer(32767);
 #if USE_LONGINT
 // long integer type
 typedef int32_t LongInteger;
+const LongInteger MaxLongInteger = LongInteger(2147483647l);
 typedef LongInteger INT;
+#define MAXINT MaxLongInteger
 #else
 typedef Integer INT;
+#define MAXINT MaxInteger
 #endif
 // floating point type
 #if USE_REALS
