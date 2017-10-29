@@ -196,13 +196,15 @@ Parser::Value::operator==(const Value &rhs) const
 {
 #if USE_REALS
 	if (rhs.type == REAL)
-		return math<Real>::almost_equal(Real(*this), Real(rhs), 2);
+		return Real(*this) == rhs.value.real;
+		//return math<Real>::almost_equal(Real(*this), Real(rhs), 1);
 	else
 #endif
 	switch (this->type) {
 #if USE_REALS
 	case REAL:
-		return math<Real>::almost_equal(this->value.real, Real(rhs), 2);
+		return this->value.real == Real(rhs);
+		//eturn math<Real>::almost_equal(this->value.real, Real(rhs), 2);
 #endif
 #if USE_LONGINT
 	case LONG_INTEGER:
