@@ -83,7 +83,7 @@ static uint8_t		tvOutBuf[TVoutEx::bufferSize(TVOUT_HORIZ, TVOUT_VERT)];
 static TVoutEx		tvOut;
 static TVoutPrint	tvoutPrint;
 #elif USELIQUIDCRYSTAL
-static LiquidCrystal lCrystal(12, 11, 5, 4, 3, 2);
+static LiquidCrystal lCrystal(LIQCR_RS, LIQCR_E, LIQCR_D0, LIQCR_D1, LIQCR_D2, LIQCR_D3);
 static uint8_t lCrBuf[20*4];
 static LiquidCrystalVt100 lsvt100(lCrystal, 20, 4, lCrBuf);
 #endif
@@ -171,7 +171,7 @@ setup()
 #elif USEUTFT
 	utftPrint.begin();
 #elif USELIQUIDCRYSTAL
-        lCrystal.begin(20,4);
+        lCrystal.begin(LIQCR_HORIZ, LIQCR_VERT);
 	lCrystal.cursor();
 	lCrystal.blink();
 #endif

@@ -22,16 +22,6 @@
 #include "Arduino.h"
 #include "config.hpp"
 
-#define USEUTFT	           0
-#define USETVOUT           0
-#define USEPS2USARTKB      0
-
-// Input select
-#define S_INPUT SDL_I
-
-// Output select
-#define S_OUTPUT TVOUT_O
-
 #define BASIC_MULTITERMINAL       0
 #if BASIC_MULTITERMINAL
 #define SERIAL_PORT1 Serial1
@@ -46,5 +36,13 @@ namespace BASIC
 const uint16_t PROGRAMSIZE = 32768;
 
 }
+
+// BEGIN PRIVATE
+
+#define USEUTFT	           0
+#define USETVOUT           0
+#define USEPS2USARTKB      0
+
+// END PRIVATE
 
 #endif

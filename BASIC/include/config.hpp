@@ -66,7 +66,7 @@ namespace BASIC
 /*
  * CBR (cubic root) ...
  */
-#define M_ADDITIONAL            1
+#define M_ADDITIONAL            0
 #endif // USEMATH
 
 #endif // USE_REALS
@@ -84,11 +84,10 @@ namespace BASIC
 // LEN function, returns length of the string
 #define USE_LEN            1
 #endif
-
 /**
  * Allow GO TO OPERATOR in addition to GOTO
  */
-#define CONF_SEPARATE_GO_TO     0
+#define CONF_SEPARATE_GO_TO     1
 /*
  * Use >< as not-equals operator (with default <>)
  */
@@ -137,14 +136,13 @@ namespace BASIC
  */
 #define CONF_USE_SPC_PRINT_COM  1
 #endif // USE_TEXTATTRIBUTES
-
 /*
  * SAVE, LOAD and CHAIN commands support
  */
 #define USE_SAVE_LOAD        1
 #if USE_SAVE_LOAD
 // Compute checksums while SAVE, LOAD and CHAIN
-#define SAVE_LOAD_CHECKSUM   1
+#define SAVE_LOAD_CHECKSUM   0
 #endif // USE_SAVE_LOAD
 /*
  * STOP and CONTINUE commands support
@@ -188,7 +186,7 @@ namespace BASIC
 /*
  * Indention of the loop bodies
  */
-#define LOOP_INDENT      0
+#define LOOP_INDENT      1
 /*
  * Indention of the line numbers in LIST output
  */
@@ -221,9 +219,23 @@ namespace BASIC
 #define SERIALL3_O 6 // SerialL3 output (non-buffering, interrupt-free)
 #define UTFT_O     7 // UTFT library output
 #define TVOUT_O    8 // TVoutEx library output
-#define LIQCR_O    9 // LiquidCrystal library output
 	#define TVOUT_HORIZ 240
 	#define TVOUT_VERT 192
+#define LIQCR_O    9 // LiquidCrystal library output
+	#define LIQCR_HORIZ 20
+	#define LIQCR_VERT 4
+	#define LIQCR_RS 12
+	#define LIQCR_E 11
+	#define LIQCR_D0 5
+	#define LIQCR_D1 4
+	#define LIQCR_D2 3
+	#define LIQCR_D3 2
+
+// Input select
+#define S_INPUT SERIALL_I
+
+// Output select
+#define S_OUTPUT LIQCR_O
 
 #if USE_EXTEEPROM
 #define USE_WIRE 1
@@ -234,10 +246,10 @@ namespace BASIC
 /*
  * Max size of the program line
  */
-const uint8_t PROGSTRINGSIZE = 73;
+const uint8_t PROGSTRINGSIZE = 33;
 
 // Max size of the string constants/variables
-const uint8_t STRINGSIZE = 65;
+const uint8_t STRINGSIZE = 33;
 
 // Number of characters in variable name
 const uint8_t VARSIZE = 5;

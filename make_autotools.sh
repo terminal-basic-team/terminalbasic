@@ -50,11 +50,13 @@ SRC="	./BASIC/include/basic.hpp  \
 	../libarduinoext/include/math.hpp \
 	../libarduinoext/include/bytearray.hpp \
 	../libarduinoext/src/bytearray.cpp \
+	../libarduinoext/src/vt100.cpp \
 	../libarduinoext/include/seriallight.hpp \
 	../libarduinoext/src/seriallight.cpp \
 	../libarduinoext/include/ascii.hpp"
 
-COPY_FILES="README ChangeLog COPYING configure.ac Makefile.am BASIC/include/config.hpp BASIC/include/config_linux.hpp"
+COPY_FILES="README README.pc ChangeLog COPYING configure.ac Makefile.am \
+	BASIC/include/config.hpp BASIC/include/config_linux.hpp"
 
 rm -rf $SKETCH
 mkdir -p $SKETCH
