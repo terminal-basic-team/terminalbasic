@@ -31,17 +31,17 @@
 #endif
 
 #if S_INPUT == SERIAL_I
-    #define SERIAL_PORT Serial
+    #define SERIAL_PORT_I Serial
 #elif S_INPUT == SERIAL1_I
-    #define SERIAL_PORT Serial1
+    #define SERIAL_PORT_I Serial1
 #elif S_INPUT == SERIALL_I
-    #define SERIAL_PORT SerialL
+    #define SERIAL_PORT_I SerialL
 #elif S_INPUT == SERIALL1_I
-    #define SERIAL_PORT SerialL1
+    #define SERIAL_PORT_I SerialL1
 #elif S_INPUT == SERIALL2_I
-    #define SERIAL_PORT SerialL2
+    #define SERIAL_PORT_I SerialL2
 #elif S_INPUT == SERIALL3_I
-    #define SERIAL_PORT SerialL3
+    #define SERIAL_PORT_I SerialL3
 #elif S_INPUT == PS2UARTKB_I
 #undef USEPS2USARTKB
 #define USEPS2USARTKB     1
@@ -49,13 +49,13 @@
     #define USE_SDL_ISTREAM 1
 #endif
 #if S_OUTPUT == SERIAL_O
-#define SERIAL_PORT Serial
+#define SERIAL_PORT_O Serial
 #elif S_OUTPUT == SERIAL1_O
-#define SERIAL_PORT Serial1
+#define SERIAL_PORT_O Serial1
 #elif S_OUTPUT == SERIALL_O
-#define SERIAL_PORT SerialL
+#define SERIAL_PORT_O SerialL
 #elif S_OUTPUT == SERIALL3_O
-#define SERIAL_PORT SerialL3
+#define SERIAL_PORT_O SerialL3
 #elif S_OUTPUT == UTFT_O
 #undef USEUTFT
 #define USEUTFT            1

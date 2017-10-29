@@ -66,7 +66,7 @@ namespace BASIC
 /*
  * CBR (cubic root) ...
  */
-#define M_ADDITIONAL            0
+#define M_ADDITIONAL            1
 #endif // USEMATH
 
 #endif // USE_REALS
@@ -167,7 +167,7 @@ namespace BASIC
 #define CONF_MODULE_ARDUINOIO      1
 #if CONF_MODULE_ARDUINOIO
 // TONE command support
-#define CONF_MODULE_ARDUINOIO_TONE 1
+#define CONF_MODULE_ARDUINOIO_TONE 0
 #endif // CONF_MODULE_ARDUINOIO
 
 // External EEPROM functions module
@@ -195,6 +195,11 @@ namespace BASIC
  * GFX module
  */
 #define USE_GFX          0
+/*
+ * Prompt message
+ */
+#define CLI_PROMPT       "READY"
+#define CLI_PROMPT_NELINE 1
 
 /*
  * Input and output for single terminal mode
@@ -246,10 +251,10 @@ namespace BASIC
 /*
  * Max size of the program line
  */
-const uint8_t PROGSTRINGSIZE = 33;
+const uint8_t PROGSTRINGSIZE = 75;
 
 // Max size of the string constants/variables
-const uint8_t STRINGSIZE = 33;
+const uint8_t STRINGSIZE = 73;
 
 // Number of characters in variable name
 const uint8_t VARSIZE = 5;

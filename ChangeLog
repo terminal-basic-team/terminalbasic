@@ -1,4 +1,4 @@
-r1.1-beta1 (29.10.2017) - Release, dedicated to the World Stroke Day
+r1.1-beta2 (29.10.2017) - Release, dedicated to the World Stroke Day
 
   * Add LiquidCrystal library output support
   * Fix comparision of real numbers

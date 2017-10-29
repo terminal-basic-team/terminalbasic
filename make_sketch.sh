@@ -37,7 +37,10 @@ SRC="	./BASIC/include/basic.hpp  \
 	./BASIC/src/basic_gfx_utft.cpp \
 	./BASIC/src/basic_parser_value.cpp \
 	./BASIC/src/basic_sdfs.cpp \
+	../libarduinoext/include/ascii.hpp \
 	../libarduinoext/include/vt100.hpp \
+	../libarduinoext/include/liquidcrystalprint.hpp \
+	../libarduinoext/include/seriallight.hpp \
 	../libarduinoext/include/matrix.hpp \
 	../libarduinoext/include/types.hpp \
 	../libarduinoext/include/i2ceeprom.hpp \
@@ -47,9 +50,9 @@ SRC="	./BASIC/include/basic.hpp  \
 	../libarduinoext/include/math.hpp \
 	../libarduinoext/include/bytearray.hpp \
 	../libarduinoext/src/bytearray.cpp \
-	../libarduinoext/include/seriallight.hpp \
-	../libarduinoext/src/seriallight.cpp \
-	../libarduinoext/include/ascii.hpp"
+	../libarduinoext/src/vt100.cpp \
+	../libarduinoext/src/liquidcrystalprint.cpp \
+	../libarduinoext/src/seriallight.cpp"
 
 COPY_FILES="README ChangeLog COPYING"
 
