@@ -326,9 +326,13 @@ public:
 	void pushForLoop(const char*, uint8_t, const Parser::Value&,
 	    const Parser::Value&);
 	bool pushValue(const Parser::Value&);
+	
 	void pushInputObject(const char*);
+	
 	bool popValue(Parser::Value&);
+	
 	bool popString(const char*&);
+	
 	void randomize();
 	/**
 	 * @brief iterate over loop
