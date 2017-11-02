@@ -183,7 +183,7 @@ Program::variableByName(const char *name)
 
 	for (VariableFrame *f = variableByIndex(index); f != nullptr;
 	    f = variableByIndex(index)) {
-		int8_t res = strcmp(name, f->name);
+		int8_t res = strncmp(name, f->name, VARSIZE);
 		if (res == 0) {
 			return f;
 		} else if (res < 0)

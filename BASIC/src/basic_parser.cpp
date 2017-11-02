@@ -240,7 +240,7 @@ Parser::fOperator()
 			_interpreter.input();
 		break;
 	case Token::KW_LET: {
-		char vName[VARSIZE];
+		char vName[IDSIZE];
 		if (!_lexer.getNext() || !fImplicitAssignment(vName))
 			return false;
 	}
@@ -303,7 +303,7 @@ Parser::fOperator()
 		if (fCommand() || fGotoStatement())
 			break;
 		{
-			char vName[VARSIZE];
+			char vName[IDSIZE];
 			if (fImplicitAssignment(vName))
 				break;
 		}
@@ -493,9 +493,8 @@ Parser::fImplicitAssignment(char *varName)
 					_interpreter.setVariable(varName, v);
 			}
 			return true;
-		} else {
+		} else
 			_error = EXPRESSION_EXPECTED;
-		}
 	}
 	return false;
 }
@@ -956,7 +955,7 @@ Parser::fFinal(Value &v)
 				return true;
 			}
 		} else {
-			char varName[VARSIZE];
+			char varName[IDSIZE];
 			if (fVar(varName))
 				return fIdentifierExpr(varName, v);
 			return false;
@@ -1210,8 +1209,8 @@ Parser::fVar(char *varName)
 {
 	if ((_lexer.getToken() >= Token::INTEGER_IDENT) &&
 	    (_lexer.getToken() <= Token::BOOL_IDENT)) {
-		strncpy(varName, _lexer.id(), VARSIZE);
-		varName[VARSIZE-1] = 0;
+		strncpy(varName, _lexer.id(), IDSIZE);
+		varName[IDSIZE-1] = '\0';
 		return true;
 	} else
 		return false;
@@ -1268,9 +1267,9 @@ Parser::fIdentifierExpr(const char *varName, Value &v)
 {
 	// Identifier, var or func or array ?
 	if (_lexer.getNext() && _lexer.getToken()==
-	    Token::LPAREN) { // (, array or function
+	    Token::LPAREN) { // ( - array or function
 		FunctionBlock::function f;
-		if ((f=_internal.getFunction(varName)) != NULL) {
+		if ((f=_internal.getFunction(varName)) != nullptr) {
 			// function
 			Value arg;
 			do {
@@ -1300,7 +1299,7 @@ Parser::fIdentifierExpr(const char *varName, Value &v)
 			} else
 				return false;
 		}
-	} else
+	} else // variable
 		if (_mode == EXECUTE)
 			_interpreter.valueFromVar(v, varName);
 	return true;

@@ -131,6 +131,6 @@ private:
 	InternalFunctions _internal;
 };
 
-}
+} // namespace BASIC
 
 #endif

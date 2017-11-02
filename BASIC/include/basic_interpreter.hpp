@@ -503,6 +503,6 @@ private:
 #endif
 };
 
-}
+} // namespace BASIC
 
 #endif

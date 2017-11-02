@@ -127,6 +127,6 @@ private:
 	Error	_error;
 };
 
-}
+} // namespace BASIC
 
 #endif

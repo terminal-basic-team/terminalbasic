@@ -1762,7 +1762,7 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 	memmove(_program._text + index + dist, _program._text + index,
 	    _program._arraysEnd - index);
 	f->type = t;
-	strcpy(f->name, name);
+	strncpy(f->name, name, VARSIZE);
 	_program._variablesEnd += f->size();
 	_program._arraysEnd += f->size();
 	set(*f, v);
@@ -1791,14 +1791,14 @@ void
 Interpreter::newArray(const char *name)
 {
 	Program::StackFrame *f = _program.stackFrameByIndex(_program._sp);
-	if (f != NULL && f->_type == Program::StackFrame::ARRAY_DIMENSIONS) {
+	if (f != nullptr && f->_type == Program::StackFrame::ARRAY_DIMENSIONS) {
 		uint8_t dimensions = f->body.arrayDimensions;
 		_program.pop();
 		uint16_t size = 1;
 		uint16_t sp = _program._sp; // go on stack frames, containong dimesions
 		for (uint8_t dim = 0; dim < dimensions; ++dim) {
 			f = _program.stackFrameByIndex(sp);
-			if (f != NULL && f->_type ==
+			if (f != nullptr && f->_type ==
 			    Program::StackFrame::ARRAY_DIMENSION) {
 				size *= f->body.arrayDimension + 1;
 				sp += f->size(Program::StackFrame::ARRAY_DIMENSION);
@@ -1820,8 +1820,9 @@ Interpreter::newArray(const char *name)
 }
 
 const VariableFrame*
-Interpreter::getVariable(const char *name)
+Interpreter::getVariable(char *name)
 {
+	name
 	const VariableFrame *f = _program.variableByName(name);
 	if (f == nullptr) {
 		Parser::Value v(Integer(0));
@@ -2066,6 +2067,7 @@ ArrayFrame::numElements() const
 ArrayFrame *
 Interpreter::addArray(const char *name, uint8_t dim, uint16_t num)
 {
+	name[VARSIZE-1] = '\0';
 	uint16_t index = _program._variablesEnd;
 	ArrayFrame *f;
 	for (f = _program.arrayByIndex(index); index < _program._arraysEnd;

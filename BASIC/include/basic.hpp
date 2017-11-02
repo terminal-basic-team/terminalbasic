@@ -98,6 +98,9 @@ typedef Integer INT;
 typedef float Real;
 #endif
 
+// Number of characters in command/function identifier
+const uint8_t IDSIZE = 8;
+
 /**
  * @brief lexical tokens
  */
