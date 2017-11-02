@@ -713,11 +713,10 @@ Parser::fSimpleExpression(Value &v)
 		const Token t = _lexer.getToken();
 		LOG(t);
 		Value v2;
-		if (!_lexer.getNext() || !fTerm(v2))
-			return false;
 #if OPT == OPT_SPEED
 		switch (t) {
 		case Token::PLUS:
+			if (_lexer.getNext() && fTerm(v2)) {
 #if USE_STRINGOPS
 			if (v.type == Value::STRING &&
 			    v2.type == Value::STRING)
@@ -726,12 +725,20 @@ Parser::fSimpleExpression(Value &v)
 #endif // USE_STRINGOPS
 				v += v2;
 			continue;
+			} else
+				return false;
 		case Token::MINUS:
+			if (_lexer.getNext() && fTerm(v2)) {
 			v -= v2;
 			continue;
+			} else
+				return false;
 		case Token::OP_OR:
+			if (_lexer.getNext() && fTerm(v2)) {
 			v |= v2;
 			continue;
+			} else
+				return false;
 		default:
 			return true;
 		}

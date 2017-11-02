@@ -200,6 +200,13 @@ namespace BASIC
  */
 #define CLI_PROMPT       "READY"
 #define CLI_PROMPT_NELINE 1
+/*
+ * LF character processing
+ */
+#define LF_NONE    0 // Not handled
+#define LF_EAT     1 // Silently eat it
+#define LF_NEWLINE 2 // Use as new line
+#define PROCESS_LF LF_NEWLINE
 
 /*
  * Input and output for single terminal mode

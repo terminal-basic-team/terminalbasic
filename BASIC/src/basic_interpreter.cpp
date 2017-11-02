@@ -1155,9 +1155,18 @@ Interpreter::readInput()
 			break;
 		case char(ASCII::CR):
 			_output.println();
-			_inputBuffer[i] = 0;
+			_inputBuffer[i] = '\0';
 			_inputPosition = 0;
 			return true;
+#if PROCESS_LF
+		case char(ASCII::LF) :
+#if PROCESS_LF == LF_NEWLINE
+			_output.println();
+			_inputBuffer[i] = '\0';
+			_inputPosition = 0;
+#endif
+			return true;
+#endif // PROCESS_LF
 		default:
 #if AUTOCAPITALIZE
 			c = toupper(c);
