@@ -1820,9 +1820,8 @@ Interpreter::newArray(const char *name)
 }
 
 const VariableFrame*
-Interpreter::getVariable(char *name)
+Interpreter::getVariable(const char *name)
 {
-	name
 	const VariableFrame *f = _program.variableByName(name);
 	if (f == nullptr) {
 		Parser::Value v(Integer(0));
@@ -2067,7 +2066,6 @@ ArrayFrame::numElements() const
 ArrayFrame *
 Interpreter::addArray(const char *name, uint8_t dim, uint16_t num)
 {
-	name[VARSIZE-1] = '\0';
 	uint16_t index = _program._variablesEnd;
 	ArrayFrame *f;
 	for (f = _program.arrayByIndex(index); index < _program._arraysEnd;

@@ -105,12 +105,12 @@ private:
 	bool fCommand();
 	bool fGotoStatement();
 	bool fForConds();
-	bool fVar(char*);
+	bool fIdentifier(char*);
 	bool fVarList();
 	bool fArrayList();
 	bool fArray(uint8_t&);
 	bool fDimensions(uint8_t&);
-	bool fIdentifierExpr(const char*, Value&);
+	bool fIdentifierExpr(char*, Value&);
 #if USE_MATRIX
 	bool fMatrixOperation();
 	bool fMatrixPrint();
