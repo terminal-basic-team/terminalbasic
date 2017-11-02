@@ -176,7 +176,9 @@ Interpreter::init()
 {
 	_parser.init();
 	_program.newProg();
-
+#if USE_TEXTATTRIBUTES
+        cls();
+#endif
 	print(ProgMemStrings::TERMINAL, VT100::BRIGHT);
 	print(ProgMemStrings::S_TERMINAL_BASIC, VT100::BRIGHT);
 	newline();
@@ -205,7 +207,9 @@ Interpreter::step()
 	case SHELL:
 	{
 		print(ProgMemStrings::S_READY, VT100::BRIGHT);
+#if CLI_PROMPT_NELINE
 		newline();
+#endif
 	}
 		// fall through
 		// waiting for user input next program line
@@ -273,7 +277,9 @@ Interpreter::step()
 	case SHELL:
 	{
 		print(ProgMemStrings::S_READY, VT100::BRIGHT);
+#if CLI_PROMPT_NELINE
 		newline();
+#endif
 	}
 		// fall through
 		// waiting for user input next program line
@@ -1641,13 +1647,14 @@ Interpreter::printTab(const Parser::Value &v, bool flag)
 	else
 #endif
 		tabs = Integer(v);
-	if (tabs > 0) {
+	if (tabs > 0) {	
 		write(ProgMemStrings::VT100_ESCSEQ);
 		if (flag) {
 			write(ProgMemStrings::VT100_LINEHOME);
 			write(ProgMemStrings::VT100_ESCSEQ);
+                        --tabs;
 		}
-		_output.print(tabs-1), _output.print('C');
+		_output.print(tabs), _output.print('C');
 	} else
 		raiseError(DYNAMIC_ERROR, INVALID_TAB_VALUE, false);
 }

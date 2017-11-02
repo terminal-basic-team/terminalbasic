@@ -13,7 +13,7 @@ SUBDIRS = terminal-basic
 #
 # List of common documentation files
 #
-dist_doc_DATA = README COPYING ChangeLog
+dist_doc_DATA = README COPYING ChangeLog README.pc
 
 #
 # Update the release data for this compilation

@@ -83,7 +83,7 @@ static uint8_t		tvOutBuf[TVoutEx::bufferSize(TVOUT_HORIZ, TVOUT_VERT)];
 static TVoutEx		tvOut;
 static TVoutPrint	tvoutPrint;
 #elif USELIQUIDCRYSTAL
-static LiquidCrystal lCrystal(12, 11, 5, 4, 3, 2);
+static LiquidCrystal lCrystal(LIQCR_RS, LIQCR_E, LIQCR_D0, LIQCR_D1, LIQCR_D2, LIQCR_D3);
 static uint8_t lCrBuf[20*4];
 static LiquidCrystalVt100 lsvt100(lCrystal, 20, 4, lCrBuf);
 #endif
@@ -117,7 +117,7 @@ static SDLStream sdlStream;
 #endif
 
 #if BASIC_MULTITERMINAL
-static BASIC::Interpreter basic(SERIAL_PORT, SERIAL_PORT, BASIC::PROGRAMSIZE / 5);
+static BASIC::Interpreter basic(SERIAL_PORT_I, SERIAL_PORT_O, BASIC::PROGRAMSIZE / 5);
 #ifdef HAVE_HWSERIAL1
 static BASIC::Interpreter basic1(SERIAL_PORT1, SERIAL_PORT1, BASIC::PROGRAMSIZE / 5);
 #endif
@@ -129,21 +129,21 @@ static BASIC::Interpreter basic3(SERIAL_PORT3, SERIAL_PORT3, BASIC::PROGRAMSIZE 
 #endif
 #else
 #if USEUTFT
-static BASIC::Interpreter basic(SERIAL_PORT, utftPrint, BASIC::PROGRAMSIZE);
+static BASIC::Interpreter basic(SERIAL_PORT_I, utftPrint, BASIC::PROGRAMSIZE);
 #elif (USEPS2USARTKB && USETVOUT)
 static BASIC::Interpreter basic(ps2usartStream, tvoutPrint, BASIC::PROGRAMSIZE);
 #elif USEPS2USARTKB
-static BASIC::Interpreter basic(ps2usartStream, SERIAL_PORT, BASIC::PROGRAMSIZE);
+static BASIC::Interpreter basic(ps2usartStream, SERIAL_PORT_O, BASIC::PROGRAMSIZE);
 #elif USETVOUT
 #if USE_SDL_ISTREAM
 static BASIC::Interpreter basic(sdlStream, tvoutPrint, BASIC::PROGRAMSIZE);
 #else
-static BASIC::Interpreter basic(SERIAL_PORT, tvoutPrint, BASIC::PROGRAMSIZE);
+static BASIC::Interpreter basic(SERIAL_PORT_I, tvoutPrint, BASIC::PROGRAMSIZE);
 #endif // USE_SDL_ISTREAM
 #elif USELIQUIDCRYSTAL
-static BASIC::Interpreter basic(SERIAL_PORT, lsvt100, BASIC::PROGRAMSIZE);
+static BASIC::Interpreter basic(SERIAL_PORT_I, lsvt100, BASIC::PROGRAMSIZE);
 #else
-static BASIC::Interpreter basic(SERIAL_PORT, SERIAL_PORT, BASIC::PROGRAMSIZE);
+static BASIC::Interpreter basic(SERIAL_PORT_I, SERIAL_PORT_O, BASIC::PROGRAMSIZE);
 #endif // USEUTFT
 #endif // BASIC_MULTITERMINAL
 
@@ -158,10 +158,15 @@ setup()
 	XMCRA |= 1ul<<7; // Switch ext mem iface on
 	XMCRB = 0;
 #endif
-#ifdef SERIAL_PORT
-	SERIAL_PORT.begin(115200);
+#ifdef SERIAL_PORT_I
+	SERIAL_PORT_I.begin(115200);
 #endif
-
+#ifdef SERIAL_PORT_O
+#ifdef SERIAL_PORT_I
+        if (&SERIAL_PORT_I != &SERIAL_PORT_O)
+#endif // SERIAL_PORT_I
+            SERIAL_PORT_O.begin(115200);
+#endif // SERIAL_PORT_O
 #if USEPS2USARTKB
         ps2usartStream.begin();
 #endif
@@ -171,9 +176,10 @@ setup()
 #elif USEUTFT
 	utftPrint.begin();
 #elif USELIQUIDCRYSTAL
-        lCrystal.begin(20,4);
+        lCrystal.begin(LIQCR_HORIZ, LIQCR_VERT);
 	lCrystal.cursor();
 	lCrystal.blink();
+        lsvt100.clear();
 #endif
 #if USE_SDL_ISTREAM
 	sdlStream.init();

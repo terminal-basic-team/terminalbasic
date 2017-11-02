@@ -8,7 +8,7 @@ ucbasic_SOURCES=arduinoext.hpp \
 	Stream.h \
 	Printable.h \
 	Print.h \
-	Emuserial.hpp \
+	emuserial.hpp \
 	Stdiostream.hpp \
 	arduino_logger.hpp \
 	ascii.hpp \
@@ -71,6 +71,7 @@ ucbasic_SOURCES=arduinoext.hpp \
 	Stdiostream.cpp \
 	Font6x8_cyr_cue13.cpp \
 	vt100.hpp \
+	vt100.cpp \
 	avr/interrupt.h \
 	avr/io.h \
 	avr/pgmspace.h \
