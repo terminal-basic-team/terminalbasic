@@ -1635,7 +1635,7 @@ void
 Interpreter::printEsc(const char *str)
 {
 	write(ProgMemStrings::VT100_ESCSEQ), _output.print(str);
-}	raiseError(DYNAMIC_ERROR, STRING_FRAME_SEARCH);
+}
 
 void
 Interpreter::printEsc(ProgMemStrings index)
