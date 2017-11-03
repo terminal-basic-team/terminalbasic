@@ -1622,6 +1622,12 @@ Interpreter::print(Token t)
 	}
 }
 
+bool
+Interpreter::read(Parser::Value &value)
+{
+	return true;
+}
+
 void
 Interpreter::print(Integer i, VT100::TextAttr attr)
 {

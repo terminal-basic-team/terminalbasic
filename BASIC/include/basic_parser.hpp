@@ -87,7 +87,9 @@ private:
 	 */
 	enum Mode : uint8_t
 	{
-		SCAN = 0, EXECUTE, READ
+		SCAN = 0,
+		EXECUTE,
+		READ
 	};
 	bool fOperators(bool&);
 	bool fOperator();

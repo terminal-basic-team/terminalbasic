@@ -148,6 +148,7 @@ Parser::fOperators(bool &ok)
 /*
  * OPERATOR =
  *	KW_DIM ARRAYS_LIST |
+ *	KW_DATA DATA_STATEMENT |
  *      KW_END |
  *	KW_STOP |
  *	KW_FOR FOR_CONDS |
@@ -272,8 +273,6 @@ Parser::fOperator()
 		break;
 #if USE_DATA
 	case Token::KW_READ : {
-		if (_mode == EXECUTE)
-			_mode = READ;
 		if (!_lexer.getNext())
 			return false;
 		bool res = fReadStatement();
@@ -424,8 +423,9 @@ Parser::fDataStatement()
 	Token t;
 	while (true) {
 		t = _lexer.getToken();
-		if ((t >= Token::C_INTEGER && t <= Token::C_STRING) ||
-		    t == Token::KW_TRUE || t == Token::KW_FALSE) {
+		if ((t >= Token::C_INTEGER && t <= Token::C_STRING)
+		 || (t == Token::KW_TRUE)
+		 || (t == Token::KW_FALSE)) {
 			if (_lexer.getNext()) {
 				t = _lexer.getToken();
 				if (t == Token::COLON)
@@ -447,17 +447,44 @@ Parser::fReadStatement()
 {
 	Token t;
 	while (true) {
-		t = _lexer.getToken();
-		if (t >= Token::INTEGER_IDENT && t <= Token::BOOL_IDENT) {
-			if (_lexer.getNext()) {
-				t = _lexer.getToken();
-				if (t == Token::COLON)
-					break;
-				else if (t == Token::COMMA) {
-					if (_lexer.getNext())
-						continue;
-				}
-			} else
+		char varName[IDSIZE];
+		if (fIdentifier(varName)) {
+
+			uint8_t dimensions;
+			bool array;
+			if (_lexer.getToken() == Token::LPAREN) {
+				if (fArray(dimensions))
+					array = true;
+				else
+					return false;
+			} else {
+				_lexer.getNext();
+				array = false;
+			}
+			if (_mode == EXECUTE) {
+				_mode = READ;
+				varName[VARSIZE-1] = '\0';
+				Value v;
+				const bool res = _interpreter.read(v);
+				if (_mode == READ)
+					_mode = EXECUTE;
+				if (!res)
+					return false;
+				
+				if (array)
+					_interpreter.setArrayElement(varName, v);
+				else
+					_interpreter.setVariable(varName, v);
+			}
+
+			t = _lexer.getToken();
+			if (t == Token::COLON)
+				break;
+			else if (t == Token::COMMA) {
+				if (_lexer.getNext())
+					continue;
+			}
+			if (!_lexer.getNext())
 				break;
 		}
 		return false;
@@ -477,7 +504,6 @@ Parser::fImplicitAssignment(char *varName)
 
 	if (fIdentifier(varName) && _lexer.getNext()) {
 		uint8_t dimensions;
-		Value v;
 		bool array;
 		if (_lexer.getToken() == Token::LPAREN) {
 			if (fArray(dimensions))
@@ -486,6 +512,8 @@ Parser::fImplicitAssignment(char *varName)
 				return false;
 		} else
 			array = false;
+		
+		Value v;
 		if ((_lexer.getToken() == Token::EQUALS) && _lexer.getNext() &&
 			fExpression(v)) {
 			if (_mode == EXECUTE) {

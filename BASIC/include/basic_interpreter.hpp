@@ -287,6 +287,10 @@ public:
 	 */
 	void assignMatrix(const char*, const char*, const char* = nullptr,
 	    MatrixOperation_t = MO_NOP);
+#endif // USE_MATRIX
+
+#if USE_DATA
+	bool read(Parser::Value&);
 #endif
 	
 	void print(Integer, VT100::TextAttr = VT100::NO_ATTR);
