@@ -797,12 +797,12 @@ bool
 Interpreter::popString(const char *&str)
 {
 	Program::StackFrame *f = _program.currentStackFrame();
-	if ((f != NULL) && (f->_type == Program::StackFrame::STRING)) {
+	if ((f != nullptr) && (f->_type == Program::StackFrame::STRING)) {
 		str = f->body.string;
 		_program.pop();
 		return true;
 	} else {
-		raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
+		raiseError(DYNAMIC_ERROR, STRING_FRAME_SEARCH);
 		return false;
 	}
 }
@@ -817,7 +817,7 @@ bool
 Interpreter::next(const char *varName)
 {
 	Program::StackFrame *f = _program.currentStackFrame();
-	if ((f != NULL) && (f->_type == Program::StackFrame::FOR_NEXT) &&
+	if ((f != nullptr) && (f->_type == Program::StackFrame::FOR_NEXT) &&
 	    (strcmp(f->body.forFrame.varName, varName) == 0)) { // Correct frame
 		f->body.forFrame.currentValue += f->body.forFrame.stepValue;
 		if (f->body.forFrame.stepValue > Parser::Value(Integer(0))) {
@@ -1136,7 +1136,7 @@ Interpreter::readInput()
 	const uint8_t availableSize = PROGSTRINGSIZE - 1 - _inputPosition;
 	a = min(a, availableSize);
 
-	size_t read = _input.readBytes(_inputBuffer + _inputPosition, a);
+	const size_t read = _input.readBytes(_inputBuffer + _inputPosition, a);
 	assert(read <= availableSize);
 	uint8_t end = _inputPosition + read;
 	for (uint8_t i = _inputPosition; i < end; ++i) {
@@ -1635,7 +1635,7 @@ void
 Interpreter::printEsc(const char *str)
 {
 	write(ProgMemStrings::VT100_ESCSEQ), _output.print(str);
-}
+}	raiseError(DYNAMIC_ERROR, STRING_FRAME_SEARCH);
 
 void
 Interpreter::printEsc(ProgMemStrings index)
@@ -1908,7 +1908,7 @@ Interpreter::strConcat()
 	if (f != nullptr && f->_type == Program::StackFrame::STRING) {
 		_program.pop();
 		Program::StackFrame *ff = _program.currentStackFrame();
-		if (ff != NULL || ff->_type == Program::StackFrame::STRING) {
+		if ((ff != nullptr) && (ff->_type == Program::StackFrame::STRING)) {
 			uint8_t l1 = strlen(ff->body.string);
 			uint8_t l2 = strlen(f->body.string);
 			if (l1 + l2 >= STRINGSIZE)
@@ -1925,10 +1925,10 @@ bool
 Interpreter::strCmp()
 {
 	const Program::StackFrame *f = _program.currentStackFrame();
-	if (f != nullptr && f->_type == Program::StackFrame::STRING) {
+	if ((f != nullptr) && f->_type == Program::StackFrame::STRING) {
 		_program.pop();
 		Program::StackFrame *ff = _program.currentStackFrame();
-		if (ff != nullptr || ff->_type == Program::StackFrame::STRING) {
+		if ((ff != nullptr) && (ff->_type == Program::StackFrame::STRING)) {
 			_program.pop();
 			return strncmp(ff->body.string, f->body.string,
 			    STRINGSIZE) == 0;
