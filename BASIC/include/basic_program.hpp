@@ -50,6 +50,17 @@ public:
 		// string body
 		char text[];
 	};
+	
+	/**
+	 * @brief BASIC program position marker
+	 */
+	struct EXT_PACKED Position
+	{
+		// line index in program memory
+		uint16_t index;
+		// position in line text
+		uint8_t position;
+	};
 
 	/**
 	 * @program stack frame object
@@ -203,7 +214,7 @@ public:
 	 * @param string pointer
 	 * @return index
 	 */
-	uint16_t stringIndex(const Line*) const;
+	uint16_t lineIndex(const Line*) const;
 	/**
 	 * @brief get variable frame at a given index
 	 * @param index basic memory address
@@ -294,21 +305,27 @@ private:
 	 * @return flag of success
 	 */
 	bool addLine(uint16_t, const char*, uint16_t);
+	
 	// End of program text
 	uint16_t _textEnd;
 	// End of variables area
 	uint16_t _variablesEnd;
-	uint16_t _arraysEnd, _sp;
-	// Current line index
-	uint16_t _current;
-	// Position in current line
-	uint8_t _textPosition;
+	// End of arrays area
+	uint16_t _arraysEnd;
+	// Stack pointer
+	uint16_t _sp;
+	// Position of main execution thread
+	Position _current;
+#if USE_DATA
+	// Position of data reader
+	Position _dataCurrent;
+#endif
 	// Jump flag
 	bool _jumpFlag;
 	// Jump pointer
 	uint16_t _jump;
 };
 
-}
+} // namespace BASIC
 
 #endif

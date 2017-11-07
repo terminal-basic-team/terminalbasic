@@ -317,10 +317,11 @@ Interpreter::step()
 		Program::Line *s = _program.current();
 		if (s != nullptr && c != char(ASCII::EOT)) {
 			bool res;
-			if (!_parser.parse(s->text + _program._textPosition, res))
+			if (!_parser.parse(s->text + _program._current.position,
+			    res))
 				_program.getString();
 			else
-				_program._textPosition += _lexer.getPointer();
+				_program._current.position += _lexer.getPointer();
 			if (!res)
 				raiseError(STATIC_ERROR);
 		} else
@@ -698,8 +699,8 @@ Interpreter::gotoLine(const Parser::Value &l)
 		return;
 	}
 	Program::Line *s = _program.lineByNumber(Integer(l));
-	if (s != NULL)
-		_program.jump(_program.stringIndex(s));
+	if (s != nullptr)
+		_program.jump(_program.lineIndex(s));
 	else
 		raiseError(DYNAMIC_ERROR, NO_SUCH_STRING);
 }
@@ -715,9 +716,9 @@ Interpreter::pushReturnAddress(uint8_t textPosition)
 {
 	Program::StackFrame *f = _program.push(Program::StackFrame::
 	    SUBPROGRAM_RETURN);
-	if (f != NULL) {
-		f->body.gosubReturn.calleeIndex = _program._current;
-		f->body.gosubReturn.textPosition = _program._textPosition +
+	if (f != nullptr) {
+		f->body.gosubReturn.calleeIndex = _program._current.index;
+		f->body.gosubReturn.textPosition = _program._current.position +
 		    textPosition;
 	} else
 		raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
@@ -727,9 +728,9 @@ void
 Interpreter::returnFromSub()
 {
 	Program::StackFrame *f = _program.currentStackFrame();
-	if ((f != NULL) && (f->_type == Program::StackFrame::SUBPROGRAM_RETURN)) {
+	if ((f != nullptr) && (f->_type == Program::StackFrame::SUBPROGRAM_RETURN)) {
 		_program.jump(f->body.gosubReturn.calleeIndex);
-		_program._textPosition = f->body.gosubReturn.textPosition;
+		_program._current.position = f->body.gosubReturn.textPosition;
 		_program.pop();
 	} else
 		raiseError(DYNAMIC_ERROR, RETURN_WO_GOSUB);
@@ -741,8 +742,8 @@ Interpreter::pushForLoop(const char *varName, uint8_t textPosition,
 {
 	Program::StackFrame *f = _program.push(Program::StackFrame::FOR_NEXT);
 	if (f != NULL) {
-		f->body.forFrame.calleeIndex = _program._current;
-		f->body.forFrame.textPosition = _program._textPosition +
+		f->body.forFrame.calleeIndex = _program._current.index;
+		f->body.forFrame.textPosition = _program._current.position +
 		    textPosition;
 		f->body.forFrame.finalvalue = v;
 		f->body.forFrame.stepValue = vStep;
@@ -796,7 +797,7 @@ Interpreter::popValue(Parser::Value &v)
 bool
 Interpreter::popString(const char *&str)
 {
-	Program::StackFrame *f = _program.currentStackFrame();
+	const Program::StackFrame *f = _program.currentStackFrame();
 	if ((f != nullptr) && (f->_type == Program::StackFrame::STRING)) {
 		str = f->body.string;
 		_program.pop();
@@ -831,7 +832,7 @@ Interpreter::next(const char *varName)
 			return true;
 		}
 		_program.jump(f->body.forFrame.calleeIndex);
-		_program._textPosition = f->body.forFrame.textPosition;
+		_program._current.position = f->body.forFrame.textPosition;
 		setVariable(f->body.forFrame.varName, f->body.forFrame.currentValue);
 	} else // Incorrect frame
 		raiseError(DYNAMIC_ERROR, INVALID_NEXT);
@@ -1910,37 +1911,30 @@ Interpreter::confirm()
 void
 Interpreter::strConcat()
 {
-	const Program::StackFrame *f = _program.currentStackFrame();
-	if (f != nullptr && f->_type == Program::StackFrame::STRING) {
-		_program.pop();
+	const char *str1;
+	if (popString(str1)) {
 		Program::StackFrame *ff = _program.currentStackFrame();
 		if ((ff != nullptr) && (ff->_type == Program::StackFrame::STRING)) {
 			uint8_t l1 = strlen(ff->body.string);
-			uint8_t l2 = strlen(f->body.string);
+			uint8_t l2 = strlen(str1);
 			if (l1 + l2 >= STRINGSIZE)
 				l2 = STRINGSIZE - l1 - 1;
-			strncpy(ff->body.string + l1, f->body.string, l2);
+			strncpy(ff->body.string + l1, str1, l2);
 			ff->body.string[l1 + l2] = 0;
 			return;
 		}
 	}
-	raiseError(DYNAMIC_ERROR, STRING_FRAME_SEARCH);
 }
 
 bool
 Interpreter::strCmp()
 {
-	const Program::StackFrame *f = _program.currentStackFrame();
-	if ((f != nullptr) && f->_type == Program::StackFrame::STRING) {
-		_program.pop();
-		Program::StackFrame *ff = _program.currentStackFrame();
-		if ((ff != nullptr) && (ff->_type == Program::StackFrame::STRING)) {
-			_program.pop();
-			return strncmp(ff->body.string, f->body.string,
-			    STRINGSIZE) == 0;
-		}
+	const char *str1;
+	if (popString(str1)) {
+		const char *str2;
+		if (popString(str2))
+			return strncmp(str1, str2, STRINGSIZE) == 0;
 	}
-	raiseError(DYNAMIC_ERROR, STRING_FRAME_SEARCH);
 	return false;
 }
 #endif // USE_STRINGOPS

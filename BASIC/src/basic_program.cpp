@@ -41,15 +41,15 @@ Program::Line*
 Program::getString()
 {
 	if (_jumpFlag) {
-		_current = _jump;
+		_current.index = _jump;
 		_jumpFlag = false;
 		return current();
 	}
 	
 	Program::Line *result = current();
 	if (result != nullptr) {
-		_current += result->size;
-		_textPosition = 0;
+		_current.index += result->size;
+		_current.position = 0;
 	}
 	return result;
 }
@@ -57,8 +57,8 @@ Program::getString()
 Program::Line*
 Program::current() const
 {
-	if (_current < _textEnd)
-		return lineByIndex(_current);
+	if (_current.index < _textEnd)
+		return lineByIndex(_current.index);
 	else
 		return nullptr;
 }
@@ -95,7 +95,7 @@ Program::lineByNumber(uint16_t number, uint16_t index)
 	Program::Line *result = nullptr;
 
 	if (index <= _textEnd) {
-		_current = index;
+		_current.index = index;
 		for (Line *cur = getString(); cur != nullptr;
 		    cur = getString()) {
 			if (cur->number == number) {
@@ -194,7 +194,7 @@ Program::variableByName(const char *name)
 }
 
 uint16_t
-Program::stringIndex(const Line *s) const
+Program::lineIndex(const Line *s) const
 {
 	return ((char*) s) - _text;
 }
@@ -384,7 +384,7 @@ Program::removeLine(uint16_t num)
 {
 	const Line *line = this->lineByNumber(num, 0);
 	if (line != nullptr) {
-		const uint16_t index = stringIndex(line);
+		const uint16_t index = lineIndex(line);
 		assert(index < _textEnd);
 		const uint16_t next = index+line->size;
 		const uint16_t len = _arraysEnd-next;
@@ -406,7 +406,7 @@ Program::addLine(uint16_t num, const char *text, uint16_t len)
 	const uint16_t strLen = sizeof(Line) + len;
 	// Iterate over
 	Line *cur;
-	for (cur = current(); _current < _textEnd; cur = current()) {
+	for (cur = current(); _current.index < _textEnd; cur = current()) {
 		if (num < cur->number) {
 			break;
 		} else if (num == cur->number) { // Replace string
@@ -414,11 +414,11 @@ Program::addLine(uint16_t num, const char *text, uint16_t len)
 			const uint16_t curSize = cur->size;
 			const int16_t dist = long(newSize) - curSize;
 			const uint16_t bytes2copy = _arraysEnd -
-			    (_current + curSize);
+			    (_current.index + curSize);
 			if ((_arraysEnd + dist) >= _sp)
 				return (false);
-			memmove(_text + _current + newSize,
-			    _text + _current + curSize, bytes2copy);
+			memmove(_text + _current.index + newSize,
+			    _text + _current.index + curSize, bytes2copy);
 			cur->number = num;
 			cur->size = strLen;
 			memcpy(cur->text, text, len);
@@ -426,7 +426,7 @@ Program::addLine(uint16_t num, const char *text, uint16_t len)
 			    _arraysEnd += dist;
 			return true;
 		}
-		_current += cur->size;
+		_current.index += cur->size;
 	}
 	return insert(num, text, len);
 }
@@ -440,10 +440,10 @@ Program::insert(uint16_t num, const char *text, uint8_t len)
 	if (_arraysEnd + strLen >= _sp)
 		return false;
 
-	memmove(_text + _current + strLen, _text + _current,
-	    _arraysEnd - _current);
+	memmove(_text + _current.index + strLen, _text + _current.index,
+	    _arraysEnd - _current.index);
 
-	Line *cur = lineByIndex(_current);
+	Line *cur = lineByIndex(_current.index);
 	cur->number = num;
 	cur->size = strLen;
 	memcpy(cur->text, text, len);
@@ -468,7 +468,10 @@ Program::size() const
 void
 Program::_reset()
 {
-	_current = _textPosition = 0;
+	_current.index = _current.position = 0;
+#if USE_DATA
+	_dataCurrent.index = _dataCurrent.position = 0;
+#endif
 	_sp = programSize;
 }
 
