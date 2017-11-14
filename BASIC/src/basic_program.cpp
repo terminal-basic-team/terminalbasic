@@ -38,7 +38,7 @@ programSize(progsize)
 }
 
 Program::Line*
-Program::getString()
+Program::getNextLine()
 {
 	if (_jumpFlag) {
 		_current.index = _jump;
@@ -96,8 +96,8 @@ Program::lineByNumber(uint16_t number, uint16_t index)
 
 	if (index <= _textEnd) {
 		_current.index = index;
-		for (Line *cur = getString(); cur != nullptr;
-		    cur = getString()) {
+		for (Line *cur = getNextLine(); cur != nullptr;
+		    cur = getNextLine()) {
 			if (cur->number == number) {
 				result = cur;
 				break;

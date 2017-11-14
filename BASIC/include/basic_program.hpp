@@ -181,7 +181,13 @@ public:
 	 * @brief get next program line
 	 * @return line object or nullptr if beyond last line
 	 */
-	Line *getString();
+	Line *getNextLine();
+	/**
+	 * @brief get next program line, based on provided text position
+	 * @param pos Text position object
+	 * @return line object or nullptr if beyond last line
+	 */
+	Line *getNextLine(Position&);
 	/**
 	 * @brief Get current program line to be executed
 	 * @return pointer to current program line

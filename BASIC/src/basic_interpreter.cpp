@@ -319,7 +319,7 @@ Interpreter::step()
 			bool res;
 			if (!_parser.parse(s->text + _program._current.position,
 			    res))
-				_program.getString();
+				_program.getNextLine();
 			else
 				_program._current.position += _lexer.getPointer();
 			if (!res)
@@ -387,8 +387,8 @@ Interpreter::list(uint16_t start, uint16_t stop)
 #if LINE_NUM_INDENT
 	uint8_t order = 0;
 	_program.reset();
-	for (Program::Line *s = _program.getString(); s != nullptr;
-	    s = _program.getString()) {
+	for (Program::Line *s = _program.getNextLine(); s != nullptr;
+	    s = _program.getNextLine()) {
 		// Output onlyselected lines subrange
 		if (s->number < start)
 			continue;
@@ -410,8 +410,8 @@ Interpreter::list(uint16_t start, uint16_t stop)
 #if LOOP_INDENT
 	_loopIndent = 0;
 #endif
-	for (Program::Line *s = _program.getString(); s != NULL;
-	    s = _program.getString()) {
+	for (Program::Line *s = _program.getNextLine(); s != NULL;
+	    s = _program.getNextLine()) {
 		// Output onlyselected lines subrange
 		if (s->number < start)
 			continue;
