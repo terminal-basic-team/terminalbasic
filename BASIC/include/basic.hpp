@@ -176,7 +176,7 @@ enum class Token : uint8_t
 	COM_NEW,       // 29
 	KW_NEXT,       // 30
 	OP_NOT,        // 31
-	KW_ON,         // 32
+//	KW_ON,         // 32
 //	KW_OPTION,     // 33
 	OP_OR,         // 34
 	KW_PRINT,      // 35
