@@ -192,7 +192,7 @@ public:
 	 * @brief Get current program line to be executed
 	 * @return pointer to current program line
 	 */
-	Line *current() const;
+	Line *current(const Position&) const;
 	/**
 	 * @brief Get first stored program line
 	 * @return 

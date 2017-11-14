@@ -44,6 +44,9 @@
 #if USE_MATRIX
 #include "matrix.hpp"
 #endif
+#if USE_DATA
+#include "basic_dataparser.hpp"
+#endif
 
 namespace BASIC
 {
@@ -166,6 +169,9 @@ _program(progSize), _state(SHELL), _input(stream), _output(output),
 _parser(_lexer, *this)
 #if BASIC_MULTITERMINAL
 ,_termno(++_termnoGen)
+#endif
+#if USE_DATA
+,_dataParserContinue(false)
 #endif
 {
 	_input.setTimeout(10000L);
@@ -314,7 +320,7 @@ Interpreter::step()
 			_inputBuffer[0] = c;
 #endif // USE_GET
 		}
-		Program::Line *s = _program.current();
+		Program::Line *s = _program.current(_program._current);
 		if (s != nullptr && c != char(ASCII::EOT)) {
 			bool res;
 			if (!_parser.parse(s->text + _program._current.position,
@@ -1623,11 +1629,40 @@ Interpreter::print(Token t)
 	}
 }
 
+#if USE_DATA
 bool
 Interpreter::read(Parser::Value &value)
 {
-	return true;
+	DataParser dparser(*this);
+	if (_dataParserContinue) {
+		const Program::Line *l = _program.current(_program._dataCurrent);
+		if (l == nullptr)
+			return false;
+		const bool result = dparser.read(l->text+_program._dataCurrent.
+		    position,value);
+		_program._dataCurrent.position += dparser.lexer().getPointer();
+		if (result)
+			return true;
+		else {
+			_dataParserContinue = false;
+			_program.getNextLine(_program._dataCurrent);
+		}
+	}
+	for (const Program::Line *l = _program.current(_program._dataCurrent);
+	    l != nullptr; l = _program.current(_program._dataCurrent)) {
+		const bool result = dparser.searchData(l->text+_program.
+		    _dataCurrent.position, value);
+		_program._dataCurrent.position += dparser.lexer().getPointer();
+		if (result) {
+			_dataParserContinue = true;
+			return true;
+		} else
+			_program.getNextLine(_program._dataCurrent);
+			
+	}
+	return false;
 }
+#endif // USE_DATA
 
 void
 Interpreter::print(Integer i, VT100::TextAttr attr)
@@ -1688,8 +1723,9 @@ void
 Interpreter::raiseError(ErrorType type, ErrorCodes errorCode, bool fatal)
 {
 	// Output Program line number if running program
-	if ((_state == EXECUTE) && (_program.current() != NULL))
-		print(long(_program.current()->number), VT100::C_YELLOW);
+	const Program::Line *l = _program.current(_program._current);
+	if ((_state == EXECUTE) && (l != nullptr))
+		print(long(l->number), VT100::C_YELLOW);
 	_output.print(':');
 	if (type == DYNAMIC_ERROR)
 		print(ProgMemStrings::S_DYNAMIC);

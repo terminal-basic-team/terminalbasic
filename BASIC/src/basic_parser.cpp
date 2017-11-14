@@ -278,8 +278,6 @@ Parser::fOperator()
 		bool res = fReadStatement();
 		if (!res)
 			_error = INVALID_READ_EXPR;
-		if (_mode == READ)
-			_mode = EXECUTE;
 		return res;
 	}
 #endif
@@ -417,12 +415,17 @@ Parser::fOperator()
 	return true;
 }
 
+#if USE_DATA
 bool
 Parser::fDataStatement()
 {
 	Token t;
 	while (true) {
 		t = _lexer.getToken();
+		if (t == Token::MINUS) {
+			_lexer.getNext();
+			t = _lexer.getToken();
+		}
 		if ((t >= Token::C_INTEGER && t <= Token::C_STRING)
 		 || (t == Token::KW_TRUE)
 		 || (t == Token::KW_FALSE)) {
@@ -441,6 +444,7 @@ Parser::fDataStatement()
 	}
 	return true;
 }
+#endif
 
 bool
 Parser::fReadStatement()
@@ -462,12 +466,9 @@ Parser::fReadStatement()
 				array = false;
 			}
 			if (_mode == EXECUTE) {
-				_mode = READ;
 				varName[VARSIZE-1] = '\0';
 				Value v;
 				const bool res = _interpreter.read(v);
-				if (_mode == READ)
-					_mode = EXECUTE;
 				if (!res)
 					return false;
 				

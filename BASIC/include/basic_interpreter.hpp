@@ -511,6 +511,10 @@ private:
 	// Milliseconds left to timeout end
 	uint32_t		_delayTimeout;
 #endif
+#if USE_DATA
+	// Data statement parser continue flag
+	bool			_dataParserContinue;
+#endif
 };
 
 } // namespace BASIC

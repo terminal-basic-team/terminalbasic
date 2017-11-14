@@ -87,13 +87,14 @@ private:
 	 */
 	enum Mode : uint8_t
 	{
-		SCAN = 0,
-		EXECUTE,
-		READ
+		SCAN = 0
+		, EXECUTE
 	};
 	bool fOperators(bool&);
 	bool fOperator();
+#if USE_DATA
 	bool fDataStatement();
+#endif
 	bool fReadStatement();
 	bool fImplicitAssignment(char*);
 	bool fPrintList();

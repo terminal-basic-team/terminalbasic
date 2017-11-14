@@ -43,22 +43,28 @@ Program::getNextLine()
 	if (_jumpFlag) {
 		_current.index = _jump;
 		_jumpFlag = false;
-		return current();
+		return current(_current);
 	}
 	
-	Program::Line *result = current();
+	return getNextLine(_current);
+}
+
+Program::Line*
+Program::getNextLine(Position &pos)
+{
+	Program::Line *result = current(pos);
 	if (result != nullptr) {
-		_current.index += result->size;
-		_current.position = 0;
+		pos.index += result->size;
+		pos.position = 0;
 	}
 	return result;
 }
 
 Program::Line*
-Program::current() const
+Program::current(const Position &pos) const
 {
-	if (_current.index < _textEnd)
-		return lineByIndex(_current.index);
+	if (pos.index < _textEnd)
+		return lineByIndex(pos.index);
 	else
 		return nullptr;
 }
@@ -406,7 +412,8 @@ Program::addLine(uint16_t num, const char *text, uint16_t len)
 	const uint16_t strLen = sizeof(Line) + len;
 	// Iterate over
 	Line *cur;
-	for (cur = current(); _current.index < _textEnd; cur = current()) {
+	for (cur = current(_current); _current.index < _textEnd;
+	    cur = current(_current)) {
 		if (num < cur->number) {
 			break;
 		} else if (num == cur->number) { // Replace string
