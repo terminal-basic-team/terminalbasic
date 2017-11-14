@@ -94,8 +94,8 @@ private:
 	bool fOperator();
 #if USE_DATA
 	bool fDataStatement();
-#endif
 	bool fReadStatement();
+#endif // USE_DATA
 	bool fImplicitAssignment(char*);
 	bool fPrintList();
 	bool fPrintItem();

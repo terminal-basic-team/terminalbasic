@@ -444,7 +444,6 @@ Parser::fDataStatement()
 	}
 	return true;
 }
-#endif
 
 bool
 Parser::fReadStatement()
@@ -492,6 +491,7 @@ Parser::fReadStatement()
 	}
 	return true;
 }
+#endif // USE_DATA
 
 /*
  * IMPLICIT_ASSIGNMENT =
