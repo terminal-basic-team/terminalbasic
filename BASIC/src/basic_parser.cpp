@@ -271,6 +271,13 @@ Parser::fOperator()
 		} else
 			_interpreter.newline();
 		break;
+#if USE_RANDOM
+	case Token::KW_RANDOMIZE:
+		if (_mode == EXECUTE)
+			_interpreter.randomize();
+		_lexer.getNext();
+		break;
+#endif // USE_RANDOM
 #if USE_DATA
 	case Token::KW_READ : {
 		if (!_lexer.getNext())
@@ -280,17 +287,17 @@ Parser::fOperator()
 			_error = INVALID_READ_EXPR;
 		return res;
 	}
-#endif
-#if USE_RANDOM
-	case Token::KW_RANDOMIZE:
-		if (_mode == EXECUTE)
-			_interpreter.randomize();
-		_lexer.getNext();
-		break;
-#endif
+#endif // USE_DATA
 	case Token::KW_REM:
 		while (_lexer.getNext());
 		break;
+#if USE_DATA
+	case Token::KW_RESTORE:
+		if (_mode == EXECUTE)
+			_interpreter.restore();
+		_lexer.getNext();
+		break;
+#endif // USE_DATA
 	case Token::KW_RETURN:
 		if (_mode == EXECUTE) {
 			_interpreter.returnFromSub();

@@ -370,6 +370,15 @@ Interpreter::exec()
 	}
 }
 
+#if USE_DATA
+void
+Interpreter::restore()
+{
+	_program._dataCurrent.index = _program._dataCurrent.position = 0;
+	_dataParserContinue = false;
+}
+#endif // USE_DATA
+
 #if USESTOPCONT
 void
 Interpreter::cont()
@@ -690,6 +699,9 @@ Interpreter::run()
 	_state = EXECUTE;
 #if USE_GET
 	_inputBuffer[0] = 0;
+#endif
+#if USE_DATA
+	_dataParserContinue = false;
 #endif
 }
 

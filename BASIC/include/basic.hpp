@@ -187,6 +187,9 @@ enum class Token : uint8_t
 	KW_READ,       // 37
 #endif
 	KW_REM,        // 38
+#if USE_DATA
+	KW_RESTORE,    // 39
+#endif
 	KW_RETURN,     // 39
 	COM_RUN,       // 40
 #if USE_SAVE_LOAD
@@ -304,6 +307,10 @@ enum class ProgMemStrings : uint8_t
 	VT100_UNDERSCORE,
 	VT100_REVERSE,
 	VT100_LINEHOME,
+#if SET_PRINTZNES
+	VT100_CLEARZONES,
+	VT100_SETZONE,
+#endif
 #if USE_COLORATTRIBUTES
 	VT100_RED,
 	VT100_GREEN,

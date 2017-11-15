@@ -223,6 +223,10 @@ public:
 	void step();
 	// Execute entered command (command or inputed program line)
 	void exec();
+#if USE_DATA
+	// Restore data pointer
+	void restore();
+#endif
 	// Clear screen
 #if USE_TEXTATTRIBUTES
 	void cls();

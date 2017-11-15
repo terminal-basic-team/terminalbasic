@@ -403,6 +403,9 @@ static const uint8_t tokenTable[] PROGMEM = {
 	'R', 'E', 'A', 'D'+0x80,           // 27
 #endif
 	'R', 'E', 'M'+0x80,
+#if USE_DATA
+	'R', 'E', 'S', 'T', 'O', 'R', 'E'+0x80,
+#endif
 	'R', 'E', 'T', 'U', 'R', 'N'+0x80,
 	'R', 'U', 'N'+0x80,
 #if USE_SAVE_LOAD
