@@ -47,43 +47,39 @@ namespace BASIC
  * are treated as reals. Mathematical functions support depend on this option
  */
 #define USE_REALS               1
-
 #if USE_REALS
-/*
- * Mathematical functions support
- */
-#define USEMATH                 1
-
-#if USEMATH
-/*
- * SIN COS TAN COT
- */
-#define M_TRIGONOMETRIC         1
-/*
- * ACS ASN ATN
- */
-#define M_REVERSE_TRIGONOMETRIC 1
-/*
- * CBR (cubic root) ...
- */
-#define M_ADDITIONAL            1
-#endif // USEMATH
-
+	/*
+	 * Mathematical functions support
+	 */
+	#define USEMATH                 1
+	#if USEMATH
+		/*
+		 * SIN COS TAN COT
+		 */
+		#define M_TRIGONOMETRIC         1
+		/*
+		 * ACS ASN ATN
+		 */
+		#define M_REVERSE_TRIGONOMETRIC 1
+		/*
+		 * CBR (cubic root) ...
+		 */
+		#define M_ADDITIONAL            0
+	#endif // USEMATH
 #endif // USE_REALS
 
 // Use string functions and operations
 #define USE_STRINGOPS      1
-	
 #if USE_STRINGOPS
-// GET$ function, returns string from last pressed key symbol
-#define USE_GET            1
-// CHR$ function, returns string from the parameter ASCII code
-#define USE_CHR            1
-// ASC function, returns code of the first symbol in a string
-#define USE_ASC            1
-// LEN function, returns length of the string
-#define USE_LEN            1
-#endif
+	// GET$ function, returns string from last pressed key symbol
+	#define USE_GET            1
+	// CHR$ function, returns string from the parameter ASCII code
+	#define USE_CHR            1
+	// ASC function, returns code of the first symbol in a string
+	#define USE_ASC            1
+	// LEN function, returns length of the string
+	#define USE_LEN            1
+#endif // USE_STRINGOPS
 /**
  * Allow GO TO OPERATOR in addition to GOTO
  */
@@ -117,7 +113,7 @@ namespace BASIC
 /**
  * Support of DATA/READ statements
  */
-#define USE_DATA             0
+#define USE_DATA             1
 /*
  * Support of DEF FN construct
  */
@@ -127,22 +123,30 @@ namespace BASIC
  */
 #define USE_TEXTATTRIBUTES   1
 #if USE_TEXTATTRIBUTES
-/*
- * Use ANSI color attributes
- */
-#define USE_COLORATTRIBUTES  0
-/*
- * Support of SPC(N) print command
- */
-#define CONF_USE_SPC_PRINT_COM  1
+	/*
+	 * Use ANSI color attributes
+	 */
+	#define USE_COLORATTRIBUTES  1
+	/*
+	 * Support of SPC(N) print command
+	 */
+	#define CONF_USE_SPC_PRINT_COM  1
+	/*
+	 * Set print zones width (tab spacing)
+	 */
+	#define SET_PRINTZNES  1
+	#if SET_PRINTZNES
+		#define PRINT_ZONE_WIDTH 16
+		#define PRINT_ZONES_NUMBER 6
+	#endif // SET_PRINTZNES
 #endif // USE_TEXTATTRIBUTES
 /*
  * SAVE, LOAD and CHAIN commands support
  */
 #define USE_SAVE_LOAD        1
 #if USE_SAVE_LOAD
-// Compute checksums while SAVE, LOAD and CHAIN
-#define SAVE_LOAD_CHECKSUM   0
+	// Compute checksums while SAVE, LOAD and CHAIN
+	#define SAVE_LOAD_CHECKSUM   1
 #endif // USE_SAVE_LOAD
 /*
  * STOP and CONTINUE commands support
@@ -156,7 +160,7 @@ namespace BASIC
  */
 #define OPT_SPEED     1 // Extensive use of switch/case constructs
 #define OPT_SIZE      2 // Use cascade of if/else if instead of switch/case
-#define OPT           OPT_SIZE // Selected mode
+#define OPT           OPT_SPEED // Selected mode
 
 /*
  * SDcard module
@@ -166,17 +170,17 @@ namespace BASIC
 // Arduino IO module
 #define CONF_MODULE_ARDUINOIO      1
 #if CONF_MODULE_ARDUINOIO
-// TONE command support
-#define CONF_MODULE_ARDUINOIO_TONE 0
+	// TONE command support
+	#define CONF_MODULE_ARDUINOIO_TONE 0
 #endif // CONF_MODULE_ARDUINOIO
 
 // External EEPROM functions module
 #define USE_EXTEEPROM    0
 #if USE_EXTEEPROM
-/*
- * Size in bytes
- */
-#define EXTEEPROM_SIZE   32768
+	/*
+	 * Size in bytes
+	 */
+	#define EXTEEPROM_SIZE   32768
 #endif // USE_EXTEEPROM
 
 /*
@@ -219,6 +223,7 @@ namespace BASIC
 #define SERIALL1_I  4  // SerialL1 input (non-buffering, interrupt-free)
 #define SERIALL2_I  5  // SerialL2 input (non-buffering, interrupt-free)
 #define SERIALL3_I  6  // SerialL3 input (non-buffering, interrupt-free)
+	#define SERIAL_I_BR 115200
 #define PS2UARTKB_I 7  // PS/2 keyboard through USART
 #define SDL_I       8  // SDL input on PC
 
@@ -229,6 +234,7 @@ namespace BASIC
 #define SERIALL1_O 4 // SerialL1 output (non-buffering, interrupt-free)
 #define SERIALL2_O 5 // SerialL2 output (non-buffering, interrupt-free)
 #define SERIALL3_O 6 // SerialL3 output (non-buffering, interrupt-free)
+	#define SERIAL_O_BR 115200
 #define UTFT_O     7 // UTFT library output
 #define TVOUT_O    8 // TVoutEx library output
 	#define TVOUT_HORIZ 240
@@ -244,21 +250,21 @@ namespace BASIC
 	#define LIQCR_D3 2
 
 // Input select
-#define S_INPUT SERIAL_I
+#define S_INPUT SERIALL_I
 
 // Output select
-#define S_OUTPUT SERIAL_O
+#define S_OUTPUT SERIALL_O
 
 #if USE_EXTEEPROM
-#define USE_WIRE 1
+	#define USE_WIRE 1
 #else
-#define USE_WIRE 0
+	#define USE_WIRE 0
 #endif
 
 /*
  * Max size of the program line
  */
-const uint8_t PROGSTRINGSIZE = 75;
+const uint8_t PROGSTRINGSIZE = 73;
 
 // Max size of the string constants/variables
 const uint8_t STRINGSIZE = 73;

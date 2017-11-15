@@ -104,7 +104,7 @@ void
 Interpreter::valueFromVar(Parser::Value &v, const char *varName)
 {
 	const VariableFrame *f = getVariable(varName);
-	if (f == NULL)
+	if (f == nullptr)
 		return;
 	switch (f->type) {
 	case Parser::Value::INTEGER:
@@ -133,8 +133,8 @@ Interpreter::valueFromVar(Parser::Value &v, const char *varName)
 			return;
 		}
 		strcpy(fr->body.string, f->bytes);
-		break;
 	}
+		break;
 	}
 }
 
@@ -184,7 +184,18 @@ Interpreter::init()
 	_program.newProg();
 #if USE_TEXTATTRIBUTES
         cls();
-#endif
+#if SET_PRINTZNES
+	printEsc(ProgMemStrings::VT100_CLEARZONES);
+	char buf[PRINT_ZONE_WIDTH];
+	memset(buf, ' ', PRINT_ZONE_WIDTH-1);
+	buf[PRINT_ZONE_WIDTH-1] = '\0';
+	for (uint8_t i=0; i<PRINT_ZONES_NUMBER; ++i) {
+		print(buf);
+		write(ProgMemStrings::VT100_SETZONE);
+	}
+	cls();
+#endif // SET_PRINTZNES
+#endif // USE_TEXTATTRIBUTES
 	print(ProgMemStrings::TERMINAL, VT100::BRIGHT);
 	print(ProgMemStrings::S_TERMINAL_BASIC, VT100::BRIGHT);
 	newline();
