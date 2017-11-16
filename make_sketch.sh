@@ -15,9 +15,9 @@ SRC="	./BASIC/include/basic.hpp  \
 	./BASIC/src/basic.cpp \
 	./BASIC/include/basic_parser.hpp \
 	./BASIC/include/basic_interpreter.hpp \
-	./BASIC/include/basic_program.hpp \
-	./BASIC/src/basic_parser.cpp \
 	./BASIC/src/basic_interpreter.cpp \
+	./BASIC/include/basic_dataparser.hpp \
+	./BASIC/src/basic_dataparser.cpp \
 	./BASIC/src/basic_program.cpp \
 	./BASIC/include/basic_exteeprom.hpp \
 	./BASIC/src/basic_exteeprom.cpp \
