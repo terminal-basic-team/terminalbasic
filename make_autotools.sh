@@ -4,8 +4,8 @@
 set -x
 
 VER=$(cat ./BASIC/version)
-SKETCH=./autotools/terminal-basic-$VER
-SRC_PATH=${SKETCH}/terminal-basic
+SKETCH=./autotools/terminalbasic-$VER
+SRC_PATH=${SKETCH}/terminalbasic
 
 rm -rf $SRC_PATH
 
@@ -15,10 +15,12 @@ SRC="	./BASIC/include/basic.hpp  \
 	./BASIC/include/config.hpp \
 	./BASIC/include/version.h \
 	./BASIC/src/basic.cpp \
-	./BASIC/include/basic_parser.hpp \
 	./BASIC/include/basic_interpreter.hpp \
 	./BASIC/include/basic_program.hpp \
+	./BASIC/include/basic_parser.hpp \
 	./BASIC/src/basic_parser.cpp \
+	./BASIC/include/basic_dataparser.hpp \
+	./BASIC/src/basic_dataparser.cpp \
 	./BASIC/src/basic_interpreter.cpp \
 	./BASIC/src/basic_program.cpp \
 	./BASIC/include/basic_exteeprom.hpp \

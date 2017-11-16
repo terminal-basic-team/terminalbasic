@@ -1,4 +1,4 @@
-AC_INIT([ucbasic],[1.1-b2],[starling13@gmail.com],[ucbasic],[https://bitbucket.org/starling13/ucbasic])
+AC_INIT([terminalbasic],[1.1-b3],[starling13@gmail.com],[terminalbasic],[https://bitbucket.org/starling13/ucbasic])
 AM_INIT_AUTOMAKE([foreign])
 AC_PREREQ(2.57)
 AC_CONFIG_HEADER(config.h)
@@ -81,5 +81,5 @@ AC_C_BIGENDIAN
 #
 # Substitution variables
 #
-AC_CONFIG_FILES([Makefile terminal-basic/Makefile])
+AC_CONFIG_FILES([Makefile terminalbasic/Makefile])
 AC_OUTPUT

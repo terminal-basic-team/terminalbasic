@@ -2,8 +2,8 @@ AM_CXXFLAGS=`pkg-config --cflags posixcpp` -I../ -Iutility -std=gnu++11 -DF_CPU=
 	`pkg-config --cflags sdl2` -fno-rtti -Wall
 AM_LDFLAGS=`pkg-config --libs posixcpp` `pkg-config --libs sdl2`
 
-bin_PROGRAMS=ucbasic
-ucbasic_SOURCES=arduinoext.hpp \
+bin_PROGRAMS=terminalbasic
+terminalbasic_SOURCES=arduinoext.hpp \
 	Arduino.h \
 	Stream.h \
 	Printable.h \
@@ -40,6 +40,8 @@ ucbasic_SOURCES=arduinoext.hpp \
 	basic_program.hpp \
 	basic_sdfs.cpp \
 	basic_sdfs.hpp \
+	basic_dataparser.cpp \
+	basic_dataparser.hpp \
 	bytearray.cpp \
 	bytearray.hpp \
 	config.hpp \

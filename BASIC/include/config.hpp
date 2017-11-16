@@ -33,7 +33,7 @@ namespace BASIC
  * Allow '_' symbol in identifiers
  */
 #define ALLOW_UNDERSCORE_ID 0
-	
+
 /*
  * DELAY command, suspends execution for N ms
  */
@@ -160,7 +160,7 @@ namespace BASIC
  */
 #define OPT_SPEED     1 // Extensive use of switch/case constructs
 #define OPT_SIZE      2 // Use cascade of if/else if instead of switch/case
-#define OPT           OPT_SPEED // Selected mode
+#define OPT           OPT_SIZE // Selected mode
 
 /*
  * SDcard module
