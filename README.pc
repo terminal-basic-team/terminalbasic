@@ -1,0 +1,24 @@
+This distribution contains Terminal-BASIC pc emulator.  It is very
+close to version for Arduino-MEGA 2560 with 32 kB SRAM expantion shield
+(https://hackaday.io/project/21561-arduino-mega-2560-32kb-ram-shield),
+SPI SD card module using SDCard Arduino library
+(https://starling13@bitbucket.org/starling13/libsdcard) and
+TVOutEx output (https://starling13@bitbucket.org/starling13/tvoutex).
+
+Main project sites are https://sourceforge.net/projects/terminal-basic/
+and https://hackaday.io/project/22036-terminal-basic
+
+This version uses posixcpp library
+(https://starling13@bitbucket.org/starling13/posixcpp) and SDL2.
+
+After install and first run program creates ucbasic directory in users home
+eeprom.img file contains program, saved with "SAVE" command, while
+SD directory contains SD card emulator contents.
+
+You can place example programs in ~/ucbasic/SD and load them using
+" DSAVE "File name w/o extension" " command.
+
+A set of sources for test programs can be downloaded from
+https://cloud.mail.ru/public/45SG/gGc2kFpBk
+
+Thank you for trying Terminal-BASIC.
