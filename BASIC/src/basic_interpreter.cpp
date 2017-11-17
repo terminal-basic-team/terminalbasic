@@ -406,7 +406,7 @@ Interpreter::cls()
 	printEsc(ProgMemStrings::VT100_CLS),
 	printEsc("H");
 }
-#endif
+#endif // USE_TEXTATTRIBUTES
 
 void
 Interpreter::list(uint16_t start, uint16_t stop)
@@ -461,7 +461,7 @@ Interpreter::list(uint16_t start, uint16_t stop)
 		
 		while (indent-- > 0)
 			_output.print(char(ASCII::SPACE));
-#endif
+#endif // LINE_NUM_INDENT
 		print(long(s->number), VT100::C_YELLOW);
 		
 		Lexer lex;
@@ -489,7 +489,7 @@ Interpreter::list(uint16_t start, uint16_t stop)
 		}
 		if (diff > 0)
 			_loopIndent += diff;
-#endif
+#endif // LOOP_INDENT
 		lex.init(s->text);
 		while (lex.getNext()) {
 			print(lex);
@@ -516,7 +516,7 @@ Interpreter::lastKey()
 	_inputBuffer[0] = 0;
 	return c;
 }
-#endif
+#endif // USE_GET
 
 #if USE_DUMP
 
@@ -578,7 +578,7 @@ Interpreter::dump(DumpMode mode)
 		break;
 	}
 }
-#endif
+#endif // USE_DUMP
 
 void
 Interpreter::print(const Parser::Value &v, VT100::TextAttr attr)
@@ -621,7 +621,7 @@ Interpreter::delay(uint16_t ms)
 	_delayTimeout = millis() + ms;
 	_state = DELAY;
 }
-#endif
+#endif // USE_DELAY
 
 #if USE_TEXTATTRIBUTES
 void
@@ -631,7 +631,7 @@ Interpreter::locate(Integer x, Integer y)
 	    _output.print(char(ASCII::SEMICOLON)), _output.print(y),
 	    _output.print('f');
 }
-#endif
+#endif // USE_TEXTATTRIBUTES
 
 void
 Interpreter::newline()
@@ -976,7 +976,7 @@ Interpreter::checkText(uint16_t &len)
 		raiseError(DYNAMIC_ERROR, BAD_CHECKSUM);
 		return false;
 	}
-#endif
+#endif // SAVE_LOAD_CHECKSUM
 	len = h.len;
 	return true;
 }
@@ -1127,7 +1127,7 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 		*U.i = LongInteger(v);
 	}
 		break;
-#endif
+#endif // USE_LONGINT
 #if USE_REALS
 	case Parser::Value::REAL:
 	{
@@ -1140,7 +1140,7 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 		*U.r = Real(v);
 	}
 		break;
-#endif
+#endif // USE_REALS
 	case Parser::Value::STRING:
 	{
 		Program::StackFrame *fr = _program.currentStackFrame();
@@ -1709,9 +1709,7 @@ Interpreter::printEsc(ProgMemStrings index)
 	write(ProgMemStrings::VT100_ESCSEQ);
 	write(index);
 }
-#endif
 
-#if USE_TEXTATTRIBUTES
 void
 Interpreter::printTab(const Parser::Value &v, bool flag)
 {
@@ -1733,7 +1731,7 @@ Interpreter::printTab(const Parser::Value &v, bool flag)
 	} else
 		raiseError(DYNAMIC_ERROR, INVALID_TAB_VALUE, false);
 }
-#endif
+#endif // USE_TEXTATTRIBUTES
 
 void
 Interpreter::print(long i, VT100::TextAttr attr)
