@@ -372,12 +372,13 @@ Interpreter::exec()
 		}
 	} else {
 		bool res;
-		if (!_parser.parse(_inputBuffer+_inputPosition, res))
-			if (_state == PROGRAM_INPUT)
-				_state = SHELL;
-		if (!res)
-			raiseError(STATIC_ERROR);
-		_inputPosition += _lexer.getPointer();
+		while (_parser.parse(_inputBuffer+_inputPosition, res)) {
+			if (!res) {
+				raiseError(STATIC_ERROR);
+				break;
+			}
+			_inputPosition += _lexer.getPointer();
+		}
 	}
 }
 
