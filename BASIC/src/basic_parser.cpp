@@ -268,7 +268,7 @@ Parser::fOperator()
 		if (_lexer.getNext()) {
 			if (!fPrintList())
 				return false;
-		} else
+		} else if (_mode == EXECUTE)
 			_interpreter.newline();
 		break;
 #if USE_RANDOM
@@ -640,37 +640,43 @@ Parser::fExpression(Value &v)
 		switch (t) {
 		case Token::LT:
 			if (_lexer.getNext() && fSimpleExpression(v2)) {
-				v = v < v2;
+				if (_mode == Mode::EXECUTE)
+					v = v < v2;
 				continue;
 			} else
 				return false;
 		case Token::LTE:
 			if (_lexer.getNext() && fSimpleExpression(v2)) {
-				v = (v < v2) || (v == v2);
+				if (_mode == Mode::EXECUTE)
+					v = (v < v2) || (v == v2);
 				continue;
 			} else
 				return false;
 		case Token::GT:
 			if (_lexer.getNext() && fSimpleExpression(v2)) {
-				v = v > v2;
+				if (_mode == Mode::EXECUTE)
+					v = v > v2;
 				continue;
 			} else
 				return false;
 		case Token::GTE:
 			if (_lexer.getNext() && fSimpleExpression(v2)) {
-				v = (v > v2) || (v == v2);
+				if (_mode == Mode::EXECUTE)
+					v = (v > v2) || (v == v2);
 				continue;
 			} else
 				return false;
 		case Token::EQUALS:
 			if (_lexer.getNext() && fSimpleExpression(v2)) {
+				if (_mode == Mode::EXECUTE) {
 #if USE_STRINGOPS
-				if (v.type == Value::STRING &&
-				    v2.type == Value::STRING)
-					v = _interpreter.strCmp();
-				else
+					if (v.type == Value::STRING &&
+					   v2.type == Value::STRING)
+						v = _interpreter.strCmp();
+					else
 #endif
-					v = v == v2;
+						v = v == v2;
+				}
 				continue;
 			} else
 				return false;
@@ -679,7 +685,8 @@ Parser::fExpression(Value &v)
 		case Token::NEA:
 #endif
 			if (_lexer.getNext() && fSimpleExpression(v2)) {
-				v = !(v == v2);
+				if (_mode == Mode::EXECUTE)
+					v = !(v == v2);
 				continue;
 			} else
 				return false;
@@ -695,6 +702,9 @@ Parser::fExpression(Value &v)
 		    ) {
 			if (!_lexer.getNext() || !fSimpleExpression(v2))
 				return false;
+			
+			if (_mode != Mode::EXECUTE)
+				continue;
 			
 			if (t == Token::LT)
 				v = v < v2;
@@ -728,7 +738,6 @@ Parser::fExpression(Value &v)
 		} else
 			return true;
 #endif
-		v.type = Value::BOOLEAN;
 	}
 }
 
@@ -753,26 +762,30 @@ Parser::fSimpleExpression(Value &v)
 		switch (t) {
 		case Token::PLUS:
 			if (_lexer.getNext() && fTerm(v2)) {
+				if (_mode == Mode::EXECUTE) {
 #if USE_STRINGOPS
-			if (v.type == Value::STRING &&
-			    v2.type == Value::STRING)
-				_interpreter.strConcat();
-			else
+					if (v.type == Value::STRING &&
+						v2.type == Value::STRING)
+						_interpreter.strConcat();
+					else
 #endif // USE_STRINGOPS
-				v += v2;
-			continue;
+						v += v2;
+				}
+					continue;
 			} else
 				return false;
 		case Token::MINUS:
 			if (_lexer.getNext() && fTerm(v2)) {
-			v -= v2;
-			continue;
+				if (_mode == Mode::EXECUTE)
+					v -= v2;
+				continue;
 			} else
 				return false;
 		case Token::OP_OR:
 			if (_lexer.getNext() && fTerm(v2)) {
-			v |= v2;
-			continue;
+				if (_mode == Mode::EXECUTE)
+					v |= v2;
+				continue;
 			} else
 				return false;
 		default:
@@ -782,7 +795,7 @@ Parser::fSimpleExpression(Value &v)
 		if (t == Token::PLUS || t == Token::MINUS || t == Token::OP_OR) {
 			if (!_lexer.getNext() || !fTerm(v2))
 				return false;
-			if (_mode == Mode::EXECUTE)
+			if (_mode != Mode::EXECUTE)
 				continue;
 			if ((t == Token::PLUS)) {
 #if USE_STRINGOPS
@@ -853,6 +866,9 @@ Parser::fTerm(Value &v)
 			if (!_lexer.getNext() || !fFactor(v2))
 				return false;
 			
+			if (_mode != Mode::EXECUTE)
+				continue;
+			
 			if (t == Token::STAR)
 				v *= v2;
 			else if (t == Token::SLASH)
@@ -884,7 +900,8 @@ Parser::fFactor(Value &v)
 		if (t == Token::POW) {
 			Value v2;
 			if (_lexer.getNext() && fFinal(v2)) {
-				v ^= v2;
+				if (_mode == Mode::EXECUTE)
+					v ^= v2;
 			} else
 				return false;
 		} else
@@ -987,9 +1004,8 @@ Parser::fFinal(Value &v)
 			_lexer.getNext();
 			return true;
 		} else if (t == Token::LPAREN) {
-			if (!_lexer.getNext() || !fExpression(v))
-				return false;
-			if (_lexer.getToken() != Token::RPAREN)
+			if (!_lexer.getNext() || !fExpression(v) ||
+			    _lexer.getToken() != Token::RPAREN)
 				return false;
 			else {
 				_lexer.getNext();
