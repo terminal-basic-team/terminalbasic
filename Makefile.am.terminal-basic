@@ -1,6 +1,4 @@
-AM_CXXFLAGS=`pkg-config --cflags posixcpp` -I../ -Iutility -std=gnu++11 -DF_CPU=16000000 -D__AVR_ATmega2560__ -DSDL_DEBUG \
-	`pkg-config --cflags sdl2` -fno-rtti -Wall
-AM_LDFLAGS=`pkg-config --libs posixcpp` `pkg-config --libs sdl2`
+AM_CXXFLAGS= -fno-rtti -Wall
 
 bin_PROGRAMS=terminalbasic
 terminalbasic_SOURCES=arduinoext.hpp \
@@ -91,3 +89,8 @@ terminalbasic_SOURCES=arduinoext.hpp \
 	utility/FontALL.h \
 	../config.hpp \
 	../config_linux.hpp
+
+terminalbasic_CXXFLAGS=${posixcpp_CFLAGS} ${sdl2_CFLAGS} -I../ -Iutility -std=gnu++11 \
+	-DF_CPU=16000000 -D__AVR_ATmega2560__ -DSDL_DEBUG
+
+terminalbasic_LDADD=${posixcpp_LIBS} ${sdl2_LIBS}
