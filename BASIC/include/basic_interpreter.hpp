@@ -291,6 +291,9 @@ public:
 	 */
 	void assignMatrix(const char*, const char*, const char* = nullptr,
 	    MatrixOperation_t = MO_NOP);
+#if USE_DATA
+	void matrixRead(const char*);
+#endif
 #endif // USE_MATRIX
 
 #if USE_DATA

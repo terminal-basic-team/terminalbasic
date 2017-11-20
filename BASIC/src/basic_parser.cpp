@@ -1407,6 +1407,16 @@ Parser::fMatrixOperation()
 			return true;
 		}
 	}
+#if USE_DATA
+	else if (_lexer.getToken() == Token::KW_READ) {
+		if (_lexer.getNext() && fIdentifier(buf)) {
+			if (_mode == Mode::EXECUTE)
+				_interpreter.matrixRead(buf);
+			_lexer.getNext();
+			return true;
+		}
+	}
+#endif
 	return false;
 }
 

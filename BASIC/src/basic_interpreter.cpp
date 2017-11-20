@@ -1383,6 +1383,31 @@ Interpreter::matrixDet(const char *name)
 	}
 }
 
+#if USE_DATA
+void
+Interpreter::matrixRead(const char *name)
+{
+	ArrayFrame *array = _program.arrayByName(name);
+	if (array == nullptr)
+		raiseError(DYNAMIC_ERROR, NO_SUCH_ARRAY);
+	else if (array->numDimensions != 2)
+		raiseError(DYNAMIC_ERROR, DIMENSIONS_MISMATCH);
+	else {
+		for (uint16_t row = 0; row <= array->dimension[0]; ++row) {
+			for (uint16_t column = 0; column <= array->dimension[1];
+			    ++column) {
+				Parser::Value v;
+				this->read(v);
+				if (!array->set(row*
+				    (array->dimension[1]+1)+column, v))
+					raiseError(DYNAMIC_ERROR,
+					    INVALID_ELEMENT_INDEX);
+			}
+		}
+	}
+}
+#endif // USE_DATA
+
 void
 Interpreter::setMatrixSize(ArrayFrame &array, uint16_t rows, uint16_t columns)
 {
