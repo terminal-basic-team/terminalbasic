@@ -128,7 +128,7 @@ Interpreter::valueFromVar(Parser::Value &v, const char *varName)
 		v.type = Parser::Value::STRING;
 		Program::StackFrame *fr =
 		    _program.push(Program::StackFrame::STRING);
-		if (fr == NULL) {
+		if (fr == nullptr) {
 			raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
 			return;
 		}
@@ -379,6 +379,8 @@ Interpreter::exec()
 			}
 			_inputPosition += _lexer.getPointer();
 		}
+		if (_state == PROGRAM_INPUT)
+			_state = SHELL;
 	}
 }
 
