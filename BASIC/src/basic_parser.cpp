@@ -459,18 +459,16 @@ Parser::fReadStatement()
 	while (true) {
 		char varName[IDSIZE];
 		if (fIdentifier(varName)) {
-
 			uint8_t dimensions;
 			bool array;
+                        _lexer.getNext();
 			if (_lexer.getToken() == Token::LPAREN) {
 				if (fArray(dimensions))
 					array = true;
 				else
 					return false;
-			} else {
-				_lexer.getNext();
+			} else
 				array = false;
-			}
 			if (_mode == EXECUTE) {
 				varName[VARSIZE-1] = '\0';
 				Value v;

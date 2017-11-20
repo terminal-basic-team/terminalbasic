@@ -61,15 +61,8 @@ AC_TYPE_INTPTR_T
 AC_HEADER_TIME
 AC_STRUCT_TM
 AC_CHECK_TYPES(unsigned long long)
-
-# Checks for library functions.
-AC_FUNC_FORK
-AC_FUNC_MALLOC
-AC_TYPE_SIGNAL
-AC_FUNC_STAT
-AC_FUNC_VPRINTF
-AC_CHECK_FUNCS([getcwd gettimeofday memmove memset putenv select strcasecmp strchr strcspn strdup strncasecmp strrchr strspn strstr strcasestr])
-AC_CHECK_LIB(m, floor)
+PKG_CHECK_MODULES(posixcpp, posixcpp)
+PKG_CHECK_MODULES(sdl2, sdl2)
 
 #############################################################################
 #
