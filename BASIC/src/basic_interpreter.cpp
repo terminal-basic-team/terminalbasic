@@ -1747,7 +1747,9 @@ Interpreter::printTab(const Parser::Value &v, bool flag)
 	else
 #endif
 		tabs = Integer(v);
-	if (tabs > 0) {	
+	if (tabs > 0) {
+		if (tabs == 1)
+			return;
 		write(ProgMemStrings::VT100_ESCSEQ);
 		if (flag) {
 			write(ProgMemStrings::VT100_LINEHOME);
