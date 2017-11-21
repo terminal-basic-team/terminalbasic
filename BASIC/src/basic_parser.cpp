@@ -888,6 +888,17 @@ bool
 Parser::fFactor(Value &v)
 {
 	LOG_TRACE;
+	
+	const Token t = _lexer.getToken();
+	if (t == Token::PLUS) { // Unary plus, ignored
+		return _lexer.getNext() && fFactor(v);
+	} else if (t == Token::MINUS) { // Unary minus, switch sign
+		if (!_lexer.getNext() || !fFactor(v))
+			return false;
+		if (_mode == EXECUTE)
+			v.switchSign();
+		return true;
+	}
 
 	if (!fFinal(v))
 		return false;
@@ -969,15 +980,7 @@ Parser::fFinal(Value &v)
 			return false;
 		}
 #else
-		if (t == Token::PLUS) { // Unary plus, ignored
-			return _lexer.getNext() && fFinal(v);
-		} else if (t == Token::MINUS) { // Unary minus, switch sign
-			if (!_lexer.getNext() || !fFinal(v))
-				return false;
-			if (_mode == EXECUTE)
-				v.switchSign();
-			return true;
-		} else if (t == Token::OP_NOT) {
+		if (t == Token::OP_NOT) {
 			if (!_lexer.getNext() || !fFinal(v))
 				return false;
 			if (_mode == EXECUTE)
