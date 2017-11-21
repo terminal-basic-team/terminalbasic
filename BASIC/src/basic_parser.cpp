@@ -225,12 +225,15 @@ Parser::fOperator()
 			return false;
 		}
 		bool res;
-		if (!bool(v))
-			_mode = SCAN;
-		res = fIfStatement();
+		if (_mode == EXECUTE) {
+			if (!bool(v))
+				_mode = SCAN;
+			res = fIfStatement();
+			_mode = EXECUTE;
+		} else
+			res = fIfStatement();
 		if (!res)
 			_error = THEN_OR_GOTO_EXPECTED;
-		_mode = EXECUTE;
 		return res;
 	}
 	case Token::KW_INPUT:
@@ -259,7 +262,8 @@ Parser::fOperator()
 		if (_mode == EXECUTE) {
 			vName[VARSIZE-1] = '\0';
 			_stopParse = !_interpreter.next(vName);
-		}
+		} else
+			_mode = EXECUTE;
 		if (!_stopParse)
 			_lexer.getNext();
 	}
@@ -1239,8 +1243,13 @@ Parser::fForConds()
 	    !fExpression(vStep)))
 		return false;
 	
-	if (_mode == EXECUTE)
-		_interpreter.pushForLoop(vName, _lexer.getPointer(), v, vStep);
+	if (_mode == EXECUTE) {
+		Program::StackFrame *f = _interpreter.pushForLoop(vName,
+		    _lexer.getPointer(), v, vStep);
+		if (f != nullptr)
+			if (_interpreter.testFor(*f))
+				_mode = SCAN;
+	}
 	
 	return true;
 }

@@ -334,7 +334,7 @@ public:
 	// return from subprogram
 	void returnFromSub();
 	// save for loop
-	void pushForLoop(const char*, uint8_t, const Parser::Value&,
+	Program::StackFrame *pushForLoop(const char*, uint8_t, const Parser::Value&,
 	    const Parser::Value&);
 	bool pushValue(const Parser::Value&);
 	
@@ -351,6 +351,7 @@ public:
 	 * @return loop end flag
 	 */
 	bool next(const char*);
+	bool testFor(Program::StackFrame&);
 
 	// Internal EEPROM commands
 #if USE_SAVE_LOAD

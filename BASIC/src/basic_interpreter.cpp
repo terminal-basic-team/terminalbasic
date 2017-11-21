@@ -768,12 +768,12 @@ Interpreter::returnFromSub()
 		raiseError(DYNAMIC_ERROR, RETURN_WO_GOSUB);
 }
 
-void
+Program::StackFrame*
 Interpreter::pushForLoop(const char *varName, uint8_t textPosition,
     const Parser::Value &v, const Parser::Value &vStep)
 {
 	Program::StackFrame *f = _program.push(Program::StackFrame::FOR_NEXT);
-	if (f != NULL) {
+	if (f != nullptr) {
 		f->body.forFrame.calleeIndex = _program._current.index;
 		f->body.forFrame.textPosition = _program._current.position +
 		    textPosition;
@@ -785,6 +785,8 @@ Interpreter::pushForLoop(const char *varName, uint8_t textPosition,
 		setVariable(varName, f->body.forFrame.currentValue);
 	} else
 		raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
+	
+	return f;
 }
 
 bool
@@ -853,22 +855,30 @@ Interpreter::next(const char *varName)
 	if ((f != nullptr) && (f->_type == Program::StackFrame::FOR_NEXT) &&
 	    (strcmp(f->body.forFrame.varName, varName) == 0)) { // Correct frame
 		f->body.forFrame.currentValue += f->body.forFrame.stepValue;
-		if (f->body.forFrame.stepValue > Parser::Value(Integer(0))) {
-			if (f->body.forFrame.currentValue >
-			    f->body.forFrame.finalvalue) {
-				_program.pop();
-				return true;
-			}
-		} else if (f->body.forFrame.currentValue < f->body.forFrame.finalvalue) {
-			_program.pop();
-			return true;
-		}
-		_program.jump(f->body.forFrame.calleeIndex);
-		_program._current.position = f->body.forFrame.textPosition;
 		setVariable(f->body.forFrame.varName, f->body.forFrame.currentValue);
+		if (testFor(*f))
+			return true;
 	} else // Incorrect frame
 		raiseError(DYNAMIC_ERROR, INVALID_NEXT);
 
+	return false;
+}
+
+bool
+Interpreter::testFor(Program::StackFrame &f)
+{
+	if (f.body.forFrame.stepValue > Parser::Value(Integer(0))) {
+		if (f.body.forFrame.currentValue >
+		    f.body.forFrame.finalvalue) {
+			_program.pop();
+			return true;
+		}
+	} else if (f.body.forFrame.currentValue < f.body.forFrame.finalvalue) {
+		_program.pop();
+		return true;
+	}
+	_program.jump(f.body.forFrame.calleeIndex);
+	_program._current.position = f.body.forFrame.textPosition;
 	return false;
 }
 
