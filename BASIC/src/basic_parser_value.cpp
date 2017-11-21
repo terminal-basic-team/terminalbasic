@@ -203,7 +203,7 @@ Parser::Value::operator==(const Value &rhs) const
 	switch (this->type) {
 #if USE_REALS
 	case REAL:
-		return this->value.real == Real(rhs);
+		return math<Real>::almost_equal(this->value.real, Real(rhs));
 		//eturn math<Real>::almost_equal(this->value.real, Real(rhs), 2);
 #endif
 #if USE_LONGINT
