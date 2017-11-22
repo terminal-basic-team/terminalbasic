@@ -909,7 +909,7 @@ Interpreter::save()
 	newline();
 #if SAVE_LOAD_CHECKSUM
 	// Compute checksum
-	uint16_t crc = eepromProgramChecksum(h.len);
+	const uint16_t crc = eepromProgramChecksum(h.len);
 
 	if (crc == h.crc16) {
 #endif
@@ -1080,6 +1080,7 @@ Interpreter::doInput()
 uint8_t
 VariableFrame::size() const
 {
+#if OPT == OPT_SPEED
 	switch (type) {
 #if USE_LONGINT
 	case Parser::Value::LONG_INTEGER:
@@ -1098,6 +1099,27 @@ VariableFrame::size() const
 	default:
 		return sizeof(VariableFrame);
 	}
+#else
+	 uint8_t res = sizeof(VariableFrame);
+	
+#if USE_LONGINT
+	if (type == Parser::Value::LONG_INTEGER)
+		res += sizeof(LongInteger);
+	else
+#endif
+		if (type == Parser::Value::INTEGER)
+			res += sizeof(Integer);
+#if USE_REALS
+	else if (type == Parser::Value::REAL)
+		res += sizeof(Real);
+#endif
+	else if (type == Parser::Value::BOOLEAN)
+		res += sizeof(bool);
+	else if (type == Parser::Value::STRING)
+		res += STRINGSIZE;
+	
+	return res;
+#endif
 }
 
 void
@@ -1811,7 +1833,7 @@ Interpreter::arrayElementIndex(ArrayFrame *f, uint16_t &index)
 	uint8_t dim = f->numDimensions, mul = 1;
 	while (dim-- > 0) {
 		Program::StackFrame *sf = _program.currentStackFrame();
-		if (sf == NULL ||
+		if (sf == nullptr ||
 		    sf->_type != Program::StackFrame::ARRAY_DIMENSION ||
 		    sf->body.arrayDimension > f->dimension[dim]) {
 			return false;
@@ -1829,7 +1851,7 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 	uint16_t index = _program._textEnd;
 
 	VariableFrame *f;
-	for (f = _program.variableByIndex(index); f != NULL; index += f->size(),
+	for (f = _program.variableByIndex(index); f != nullptr; index += f->size(),
 	    f = _program.variableByIndex(index)) {
 		int res = strcmp(name, f->name);
 		if (res == 0) {

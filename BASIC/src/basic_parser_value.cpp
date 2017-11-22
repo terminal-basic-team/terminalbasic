@@ -350,6 +350,33 @@ Parser::Value::operator/=(const Value &rhs)
 	return *this;
 }
 
+Parser::Value&
+Parser::Value::divEquals(const Value &rhs)
+{
+#if USE_LONGINT
+	if (type == Value::INTEGER || type == Value::BOOLEAN)
+		*this = Integer(*this) / Integer(rhs);
+	else
+#endif
+		*this = INT(*this) / INT(rhs);
+	
+	return *this;
+}
+
+Parser::Value&
+Parser::Value::modEquals(const Value &rhs)
+{
+#if USE_LONGINT
+	if (type == Value::INTEGER || type == Value::BOOLEAN)
+		*this = Integer(*this) % Integer(rhs);
+	else
+#endif
+		*this = INT(*this) % INT(rhs);
+	
+	return *this;
+}
+
+
 void
 Parser::Value::powerMatchValue(const Value &rhs)
 {

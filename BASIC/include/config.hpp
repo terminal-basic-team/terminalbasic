@@ -51,7 +51,7 @@ namespace BASIC
 	/*
 	 * Mathematical functions support
 	 */
-	#define USEMATH                 1
+	#define USEMATH  1
 	#if USEMATH
 		/*
 		 * SIN COS TAN COT
@@ -64,7 +64,7 @@ namespace BASIC
 		/*
 		 * CBR (cubic root) ...
 		 */
-		#define M_ADDITIONAL            0
+		#define M_ADDITIONAL            1
 	#endif // USEMATH
 #endif // USE_REALS
 
@@ -93,6 +93,16 @@ namespace BASIC
  * Functions, variables and arrays of long integer type ends with double % mark
  */
 #define USE_LONGINT          0
+/*
+ * Support of integer division and modulo operation
+ */
+#define USE_INTEGER_DIV      1
+#if USE_INTEGER_DIV
+/*
+ * Use DIV keyword for integer division in addition to \ operation
+ */
+#define USE_DIV_KW           1
+#endif
 /**
  * DUMP command support
  * This command can be used to see BASIC memory image, variables and arrays list
@@ -264,10 +274,10 @@ namespace BASIC
 /*
  * Max size of the program line
  */
-const uint8_t PROGSTRINGSIZE = 73;
+const uint8_t PROGSTRINGSIZE = 75;
 
 // Max size of the string constants/variables
-const uint8_t STRINGSIZE = 73;
+const uint8_t STRINGSIZE = 75;
 
 // Number of characters in variable name
 const uint8_t VARSIZE = 5;
