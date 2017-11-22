@@ -355,10 +355,10 @@ Parser::Value::divEquals(const Value &rhs)
 {
 #if USE_LONGINT
 	if (type == Value::INTEGER || type == Value::BOOLEAN)
-		*this = Integer(*this) / Integer(rhs);
+		*this = Integer(Integer(*this) / Integer(rhs));
 	else
 #endif
-		*this = INT(*this) / INT(rhs);
+		*this = INT(INT(*this) / INT(rhs));
 	
 	return *this;
 }
@@ -368,10 +368,10 @@ Parser::Value::modEquals(const Value &rhs)
 {
 #if USE_LONGINT
 	if (type == Value::INTEGER || type == Value::BOOLEAN)
-		*this = Integer(*this) % Integer(rhs);
+		*this = Integer(Integer(*this) % Integer(rhs));
 	else
 #endif
-		*this = INT(*this) % INT(rhs);
+		*this = INT(INT(*this) % INT(rhs));
 	
 	return *this;
 }
