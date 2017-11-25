@@ -225,12 +225,15 @@ Parser::fOperator()
 			return false;
 		}
 		bool res;
-		if (!bool(v))
-			_mode = SCAN;
-		res = fIfStatement();
+		if (_mode == EXECUTE) {
+			if (!bool(v))
+				_mode = SCAN;
+			res = fIfStatement();
+			_mode = EXECUTE;
+		} else
+			res = fIfStatement();
 		if (!res)
 			_error = THEN_OR_GOTO_EXPECTED;
-		_mode = EXECUTE;
 		return res;
 	}
 	case Token::KW_INPUT:
@@ -259,7 +262,8 @@ Parser::fOperator()
 		if (_mode == EXECUTE) {
 			vName[VARSIZE-1] = '\0';
 			_stopParse = !_interpreter.next(vName);
-		}
+		} else
+			_mode = EXECUTE;
 		if (!_stopParse)
 			_lexer.getNext();
 	}
@@ -839,13 +843,25 @@ Parser::fTerm(Value &v)
 				continue;
 			} else
 				return false;
+#if USE_INTEGER_DIV
 #if USE_REALS
+		case Token::BACK_SLASH:
+#if USE_DIV_KW
+		case Token::KW_DIV:
+#endif // USE_DIV_KW
 			if (_lexer.getNext() && fFactor(v2)) {
-				v = INT(v /= v2);
+				v.divEquals(v2);
 				continue;
 			} else
 				return false;
-#endif
+#endif // USE_REALS
+		case Token::KW_MOD:
+			if (_lexer.getNext() && fFactor(v2)) {
+				v.modEquals(v2);
+				continue;
+			} else
+				return false;
+#endif // USE_INTEGER_DIV
 		case Token::OP_AND:
 			if (_lexer.getNext() && fFactor(v2)) {
 				v &= v2;
@@ -857,9 +873,15 @@ Parser::fTerm(Value &v)
 		}
 #else
 		if (t == Token::STAR || t == Token::SLASH || t == Token::OP_AND
+#if USE_INTEGER_DIV
 #if USE_REALS
 		 || t == Token::BACK_SLASH
-#endif
+#if USE_DIV_KW
+		 || t == Token::KW_DIV
+#endif // USE_DIV_KW
+#endif // USE_REALS
+		 || t == Token::KW_MOD
+#endif // USE_INTEGER_DIV
 		   ) {
 			if (!_lexer.getNext() || !fFactor(v2))
 				return false;
@@ -873,14 +895,21 @@ Parser::fTerm(Value &v)
 				v /= v2;
 			else if (t == Token::OP_AND)
 				v &= v2;
+#if USE_INTEGER_DIV
 #if USE_REALS
-			else if (t == Token::BACK_SLASH) {
-				v = INT(v /= v2);
-			}
-#endif
+			else if (t == Token::BACK_SLASH
+#if USE_DIV_KW
+			      || t == Token::KW_DIV
+#endif // USE_DIV_KW
+			)
+				v.divEquals(v2);
+#endif // USE_REALS
+			else if (t == Token::KW_MOD)
+				v.modEquals(v2);
+#endif // USE_INTEGER_DIV
 		} else
 			return true;
-#endif
+#endif // OPT == OPT_SPEED
 	}
 }
 
@@ -888,6 +917,17 @@ bool
 Parser::fFactor(Value &v)
 {
 	LOG_TRACE;
+	
+	const Token t = _lexer.getToken();
+	if (t == Token::PLUS) { // Unary plus, ignored
+		return _lexer.getNext() && fFactor(v);
+	} else if (t == Token::MINUS) { // Unary minus, switch sign
+		if (!_lexer.getNext() || !fFactor(v))
+			return false;
+		if (_mode == EXECUTE)
+			v.switchSign();
+		return true;
+	}
 
 	if (!fFinal(v))
 		return false;
@@ -969,15 +1009,7 @@ Parser::fFinal(Value &v)
 			return false;
 		}
 #else
-		if (t == Token::PLUS) { // Unary plus, ignored
-			return _lexer.getNext() && fFinal(v);
-		} else if (t == Token::MINUS) { // Unary minus, switch sign
-			if (!_lexer.getNext() || !fFinal(v))
-				return false;
-			if (_mode == EXECUTE)
-				v.switchSign();
-			return true;
-		} else if (t == Token::OP_NOT) {
+		if (t == Token::OP_NOT) {
 			if (!_lexer.getNext() || !fFinal(v))
 				return false;
 			if (_mode == EXECUTE)
@@ -1236,8 +1268,13 @@ Parser::fForConds()
 	    !fExpression(vStep)))
 		return false;
 	
-	if (_mode == EXECUTE)
-		_interpreter.pushForLoop(vName, _lexer.getPointer(), v, vStep);
+	if (_mode == EXECUTE) {
+		Program::StackFrame *f = _interpreter.pushForLoop(vName,
+		    _lexer.getPointer(), v, vStep);
+		if (f != nullptr)
+			if (_interpreter.testFor(*f))
+				_mode = SCAN;
+	}
 	
 	return true;
 }
@@ -1407,6 +1444,16 @@ Parser::fMatrixOperation()
 			return true;
 		}
 	}
+#if USE_DATA
+	else if (_lexer.getToken() == Token::KW_READ) {
+		if (_lexer.getNext() && fIdentifier(buf)) {
+			if (_mode == Mode::EXECUTE)
+				_interpreter.matrixRead(buf);
+			_lexer.getNext();
+			return true;
+		}
+	}
+#endif
 	return false;
 }
 

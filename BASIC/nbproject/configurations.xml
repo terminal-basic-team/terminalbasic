@@ -569,7 +569,7 @@
             <pElem>../../libarduinoext/include</pElem>
             <pElem>../TVoutEx</pElem>
             <pElem>../UTFT/include</pElem>
-            <pElem>../../libsdcard/SDCard</pElem>
+            <pElem>../../libsdcard/SDCard/src</pElem>
             <pElem>../../libutft/UTFT</pElem>
             <pElem>../../tvoutex/TVoutEx</pElem>
           </incDir>
@@ -1360,7 +1360,7 @@
             <pElem>include</pElem>
             <pElem>../../libarduino/include/variants/avr_developers</pElem>
             <pElem>../../libarduinoext/include</pElem>
-            <pElem>../../libsdcard/SDCard</pElem>
+            <pElem>../../libsdcard/SDCard/src</pElem>
             <pElem>../../libps2uart/ps2uartKeyboard</pElem>
             <pElem>../../tvoutex/TVoutEx</pElem>
           </incDir>
@@ -1369,7 +1369,7 @@
           </incFile>
           <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -fno-threadsafe-statics -MMD -mmcu=atmega1284p -ffunction-sections -fdata-sections -flto -fno-rtti -mcall-prologues</commandLine>
           <preprocessorList>
-            <Elem>ARDUINO=10803</Elem>
+            <Elem>ARDUINO=10804</Elem>
             <Elem>ARDUINO_1284P_AVR_DEVELOPERS</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>F_CPU=16000000L</Elem>

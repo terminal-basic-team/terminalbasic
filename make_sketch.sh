@@ -7,17 +7,19 @@ SKETCH=./sketch/terminal-basic-$VER
 SRC_PATH=${SKETCH}/terminal-basic
 
 SRC="	./BASIC/include/basic.hpp  \
-	./BASIC/include/basic_lexer.hpp  \
-	./BASIC/src/basic_lexer.cpp  \
+	./BASIC/src/basic.cpp \
 	./BASIC/include/config.hpp \
 	./BASIC/include/config_arduino.hpp \
+	./BASIC/include/basic_lexer.hpp  \
+	./BASIC/src/basic_lexer.cpp  \
 	./BASIC/include/version.h \
-	./BASIC/src/basic.cpp \
 	./BASIC/include/basic_parser.hpp \
+	./BASIC/src/basic_parser.cpp \
 	./BASIC/include/basic_interpreter.hpp \
 	./BASIC/src/basic_interpreter.cpp \
 	./BASIC/include/basic_dataparser.hpp \
 	./BASIC/src/basic_dataparser.cpp \
+	./BASIC/include/basic_program.hpp \
 	./BASIC/src/basic_program.cpp \
 	./BASIC/include/basic_exteeprom.hpp \
 	./BASIC/src/basic_exteeprom.cpp \
@@ -28,6 +30,7 @@ SRC="	./BASIC/include/basic.hpp  \
 	./BASIC/src/basic_arduinoio.cpp \
 	./BASIC/src/basic_math.cpp \
 	./BASIC/include/basic_parser_value.hpp \
+	./BASIC/src/basic_parser_value.cpp \
 	./BASIC/include/basic_sdfs.hpp \
 	./BASIC/include/basic_internalfuncs.hpp \
 	./BASIC/src/basic_internalfuncs.cpp \
@@ -35,7 +38,6 @@ SRC="	./BASIC/include/basic.hpp  \
 	./BASIC/src/basic_gfx.cpp \
 	./BASIC/src/basic_gfx_tvout.cpp \
 	./BASIC/src/basic_gfx_utft.cpp \
-	./BASIC/src/basic_parser_value.cpp \
 	./BASIC/src/basic_sdfs.cpp \
 	../libarduinoext/include/ascii.hpp \
 	../libarduinoext/include/vt100.hpp \
