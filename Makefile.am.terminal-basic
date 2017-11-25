@@ -55,6 +55,7 @@ terminalbasic_SOURCES=arduinoext.hpp \
 	Print.cpp \
 	sd.cpp \
 	sd.hpp \
+	SD.h \
 	TVoutEx.h \
 	EEPROM.h \
 	arduino.cpp \
