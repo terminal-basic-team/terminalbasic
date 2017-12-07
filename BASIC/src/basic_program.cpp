@@ -334,7 +334,7 @@ Program::addLine(uint16_t num, const char *line)
 	while (_lexer.getNext()) {
 		if (position >= (PROGSTRINGSIZE-1))
 			return false;
-		uint8_t t = uint8_t(0x80) + uint8_t(_lexer.getToken());
+		const uint8_t t = uint8_t(0x80) + uint8_t(_lexer.getToken());
 		if (_lexer.getToken() < Token::STAR) { // One byte tokens
 			tempBuffer[position++] = t;
 			lexerPosition = _lexer.getPointer();
@@ -350,23 +350,25 @@ Program::addLine(uint16_t num, const char *line)
 			}
 		} else if (_lexer.getToken() == Token::C_INTEGER) {
 			tempBuffer[position++] = t;
-#if USE_LONGINT
-			if ((position + 4) >= PROGSTRINGSIZE-1)
+			if ((position + sizeof(INT)) >= PROGSTRINGSIZE-1)
 				return false;
-			const LongInteger v = LongInteger(_lexer.getValue());
-			tempBuffer[position++] = v >> 24;
-			tempBuffer[position++] = (v >> 16) & 0xFF;
-			tempBuffer[position++] = (v >> 8) & 0xFF;
-			tempBuffer[position++] = v & 0xFF;
-#else
-			if ((position + 2) >= PROGSTRINGSIZE-1)
-				return false;
-			const Integer v = Integer(_lexer.getValue());
-			tempBuffer[position++] = (v >> 8) & 0xFF;
-			tempBuffer[position++] = v & 0xFF;
-#endif
+			const INT v = INT(_lexer.getValue());
+			*reinterpret_cast<INT*>(tempBuffer+position) = v;
+			position += sizeof(INT);
 			lexerPosition = _lexer.getPointer();
-		} else { // Other tokens
+		}
+#if USE_REALS
+		 else if (_lexer.getToken() == Token::C_REAL) {
+			tempBuffer[position++] = t;
+			if ((position + sizeof(Real)) >= PROGSTRINGSIZE-1)
+				return false;
+			const Real v = Real(_lexer.getValue());
+			*reinterpret_cast<Real*>(tempBuffer+position) = v;
+			position += sizeof(Real);
+			lexerPosition = _lexer.getPointer();
+		}
+#endif // USE_REALS
+		else { // Other tokens
 			while (line[lexerPosition] == ' ' ||
 			    line[lexerPosition] == '\t')
 				++lexerPosition;
