@@ -211,7 +211,6 @@ Interpreter::init()
 	_state = SHELL;
 }
 
-#if BASIC_MULTITERMINAL
 void
 Interpreter::step()
 {
@@ -220,14 +219,26 @@ Interpreter::step()
 	char c;
 
 	switch (_state) {
-		// waiting for user input command or program line
+#if USE_DELAY
+	case DELAY:
+		c = char(ASCII::NUL);
+		if (_input.available() > 0)
+			c = _input.read();
+		if (c == char(ASCII::EOT))
+			_state = SHELL;
+		if (millis() >= _delayTimeout)
+			_state = EXECUTE;
+		break;
+#endif // USE_DELAY
+	// waiting for user input command or program line
 	case SHELL:
 	{
 		print(ProgMemStrings::S_READY, VT100::BRIGHT);
 #if CLI_PROMPT_NELINE
 		newline();
-#endif
+#endif // CLI_PROMPT_NELINE
 	}
+#if BASIC_MULTITERMINAL
 		// fall through
 		// waiting for user input next program line
 	case PROGRAM_INPUT:
@@ -258,46 +269,7 @@ Interpreter::step()
 			_state = VAR_INPUT;
 		}
 		break;
-	case EXECUTE: {
-		c = char(ASCII::NUL);
-#if defined(ARDUINO) || BASIC_MULTITERMINAL
-		if (_input.available() > 0)
-			c = _input.read();
-#endif
-		Program::Line *s = _program.current();
-		if (s != nullptr && c != char(ASCII::EOT)) {
-			bool res;
-			if (!_parser.parse(s->text + _program._textPosition, res))
-				_program.getString();
-			else
-				_program._textPosition += _lexer.getPointer();
-			if (!res)
-				raiseError(STATIC_ERROR);
-		} else
-			_state = SHELL;
-	}
-	// Fall through
-	default:
-		break;
-	}
-}
 #else
-void
-Interpreter::step()
-{
-	LOG_TRACE;
-
-	char c;
-
-	switch (_state) {
-		// waiting for user input command or program line
-	case SHELL:
-	{
-		print(ProgMemStrings::S_READY, VT100::BRIGHT);
-#if CLI_PROMPT_NELINE
-		newline();
-#endif
-	}
 		// fall through
 		// waiting for user input next program line
 	case PROGRAM_INPUT:
@@ -317,16 +289,12 @@ Interpreter::step()
 		}
 		_state = EXECUTE;
 		break;
-#if USE_DELAY
-	case DELAY:
-		if (millis() >= _delayTimeout)
-			_state = EXECUTE;
-		break;
-#endif // USE_DELAY
+#endif // BASIC_MULTITERMINAL
 	case EXECUTE: {
 		c = char(ASCII::NUL);
 		if (_input.available() > 0) {
 			c = _input.read();
+			_output.println(c, 16);
 #if USE_GET
 			_inputBuffer[0] = c;
 #endif // USE_GET
@@ -349,7 +317,6 @@ Interpreter::step()
 		break;
 	}
 }
-#endif // BASIC_MULTITERMINAL
 
 void
 Interpreter::exec()
@@ -381,6 +348,10 @@ Interpreter::exec()
 		}
 		if (_state == PROGRAM_INPUT)
 			_state = SHELL;
+#if BASIC_MULTITERMINAL
+		if (_state == EXEC_INT)
+			_state = SHELL;
+#endif
 	}
 }
 
