@@ -80,6 +80,7 @@
  */
 namespace BASIC
 {
+typedef uint16_t Pointer;
 // integer type
 typedef int16_t Integer;
 const Integer MaxInteger = Integer(32767);
