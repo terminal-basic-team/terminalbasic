@@ -351,7 +351,7 @@ Interpreter::exec()
 #if BASIC_MULTITERMINAL
 		if (_state == EXEC_INT)
 			_state = SHELL;
-#endif
+#endif // BASIC_MULTITERMINAL
 	}
 }
 
@@ -492,7 +492,6 @@ Interpreter::lastKey()
 #endif // USE_GET
 
 #if USE_DUMP
-
 void
 Interpreter::dump(DumpMode mode)
 {
@@ -518,7 +517,7 @@ Interpreter::dump(DumpMode mode)
 	{
 		uint16_t index = _program._textEnd;
 		for (VariableFrame *f = _program.variableByIndex(index);
-		    (f != NULL) && (_program.variableIndex(f) <
+		    (f != nullptr) && (_program.variableIndex(f) <
 		    _program._variablesEnd); f = _program.variableByIndex(
 		    _program.variableIndex(f) + f->size())) {
 			_output.print(f->name);
@@ -573,7 +572,7 @@ Interpreter::print(const Parser::Value &v, VT100::TextAttr attr)
 	{
 		Program::StackFrame *f =
 		    _program.stackFrameByIndex(_program._sp);
-		if (f == NULL || f->_type != Program::StackFrame::STRING) {
+		if (f == nullptr || f->_type != Program::StackFrame::STRING) {
 			raiseError(DYNAMIC_ERROR, STRING_FRAME_SEARCH);
 			return;
 		}
@@ -765,7 +764,7 @@ Interpreter::pushValue(const Parser::Value &v)
 {
 	Program::StackFrame *f = _program.push(Program::StackFrame::
 	    VALUE);
-	if (f != NULL) {
+	if (f != nullptr) {
 		f->body.value = v;
 		return true;
 	} else {
@@ -779,7 +778,7 @@ Interpreter::pushInputObject(const char *varName)
 {
 	Program::StackFrame *f = _program.push(Program::StackFrame::
 	    INPUT_OBJECT);
-	if (f != NULL)
+	if (f != nullptr)
 		strcpy(f->body.inputObject.name, varName);
 	else
 		raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
@@ -920,7 +919,6 @@ Interpreter::chain()
 }
 
 #if SAVE_LOAD_CHECKSUM
-
 uint16_t
 Interpreter::eepromProgramChecksum(uint16_t len)
 {
@@ -1149,7 +1147,7 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 	case Parser::Value::STRING:
 	{
 		Program::StackFrame *fr = _program.currentStackFrame();
-		if (fr == NULL || fr->_type != Program::StackFrame::STRING) {
+		if (fr == nullptr || fr->_type != Program::StackFrame::STRING) {
 			f.bytes[0] = 0;
 			return;
 		}
@@ -2039,8 +2037,8 @@ uint16_t
 ArrayFrame::size() const
 {
 	// Header with dimensions vector
-	uint16_t result = sizeof (ArrayFrame) +
-	    numDimensions * sizeof (uint16_t);
+	uint16_t result = sizeof (ArrayFrame) + numDimensions *
+	    sizeof(uint16_t);
 	
 	uint16_t mul = dataSize();
 	result += mul;
