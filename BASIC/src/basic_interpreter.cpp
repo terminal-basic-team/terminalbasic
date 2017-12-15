@@ -944,7 +944,7 @@ Interpreter::checkText(uint16_t &len)
 		e.get(0, h);
 	}
 
-	if ((h.len > PROGRAMSIZE) ||
+	if ((h.len > SINGLE_PROGSIZE) ||
 	    (h.magic_FFFFminuslen != uint16_t(0xFFFF) - h.len)) {
 		raiseError(DYNAMIC_ERROR, INTERNAL_ERROR);
 		return false;
