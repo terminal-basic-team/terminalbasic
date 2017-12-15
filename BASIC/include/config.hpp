@@ -60,7 +60,7 @@ namespace BASIC
 		/*
 		 * ACS ASN ATN
 		 */
-		#define M_REVERSE_TRIGONOMETRIC 1
+		#define M_REVERSE_TRIGONOMETRIC 0
 		/*
 		 * CBR (cubic root) ...
 		 */
