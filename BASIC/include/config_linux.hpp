@@ -22,18 +22,38 @@
 #include "Arduino.h"
 #include "config.hpp"
 
+// Use multiterminal mode
 #define BASIC_MULTITERMINAL       0
 #if BASIC_MULTITERMINAL
+#define NUM_TERMINALS 1
+#ifdef HAVE_HWSERIAL1
 #define SERIAL_PORT1 Serial1
-#define SERIAL_PORT2 Serial2
-#define SERIAL_PORT3 Serial3
+#undef NUM_TERMINALS
+#define NUM_TERMINALS 2
 #endif
+#ifdef HAVE_HWSERIAL2
+#define SERIAL_PORT2 Serial2
+#undef NUM_TERMINALS
+#define NUM_TERMINALS 3
+#endif
+#ifdef HAVE_HWSERIAL3
+#define SERIAL_PORT3 Serial3
+#undef NUM_TERMINALS
+#define NUM_TERMINALS 4
+#endif
+#endif // BASIC_MULTITERMINAL
 
 namespace BASIC
 {
 
 // Number of bytes for program text, variables and stack
 const uint16_t PROGRAMSIZE = 32768;
+
+#if BASIC_MULTITERMINAL
+const uint16_t SINGLE_PROGSIZE = PROGRAMSIZE / NUM_TERMINALS;
+#else
+const uint16_t SINGLE_PROGSIZE = PROGRAMSIZE;
+#endif
 
 }
 

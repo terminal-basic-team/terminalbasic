@@ -164,7 +164,7 @@ Interpreter::valueFromArray(Parser::Value &v, const char *name)
 uint8_t Interpreter::_termnoGen = 0;
 #endif
 
-Interpreter::Interpreter(Stream &stream, Print &output, uint16_t progSize) :
+Interpreter::Interpreter(Stream &stream, Print &output, Pointer progSize) :
 _program(progSize), _state(SHELL), _input(stream), _output(output),
 _parser(_lexer, *this)
 #if BASIC_MULTITERMINAL
@@ -211,7 +211,6 @@ Interpreter::init()
 	_state = SHELL;
 }
 
-#if BASIC_MULTITERMINAL
 void
 Interpreter::step()
 {
@@ -220,14 +219,26 @@ Interpreter::step()
 	char c;
 
 	switch (_state) {
-		// waiting for user input command or program line
+#if USE_DELAY
+	case DELAY:
+		c = char(ASCII::NUL);
+		if (_input.available() > 0)
+			c = _input.read();
+		if (c == char(ASCII::EOT))
+			_state = SHELL;
+		if (millis() >= _delayTimeout)
+			_state = _lastState;
+		break;
+#endif // USE_DELAY
+	// waiting for user input command or program line
 	case SHELL:
 	{
 		print(ProgMemStrings::S_READY, VT100::BRIGHT);
 #if CLI_PROMPT_NELINE
 		newline();
-#endif
+#endif // CLI_PROMPT_NELINE
 	}
+#if BASIC_MULTITERMINAL
 		// fall through
 		// waiting for user input next program line
 	case PROGRAM_INPUT:
@@ -238,10 +249,7 @@ Interpreter::step()
 		// collection input buffer
 	case COLLECT_INPUT:
 		if (readInput())
-			_state = EXEC_INT;
-		break;
-	case EXEC_INT:
-		exec();
+			exec();
 		break;
 	case VAR_INPUT:
 		if (nextInput()) {
@@ -258,46 +266,7 @@ Interpreter::step()
 			_state = VAR_INPUT;
 		}
 		break;
-	case EXECUTE: {
-		c = char(ASCII::NUL);
-#if defined(ARDUINO) || BASIC_MULTITERMINAL
-		if (_input.available() > 0)
-			c = _input.read();
-#endif
-		Program::Line *s = _program.current();
-		if (s != nullptr && c != char(ASCII::EOT)) {
-			bool res;
-			if (!_parser.parse(s->text + _program._textPosition, res))
-				_program.getString();
-			else
-				_program._textPosition += _lexer.getPointer();
-			if (!res)
-				raiseError(STATIC_ERROR);
-		} else
-			_state = SHELL;
-	}
-	// Fall through
-	default:
-		break;
-	}
-}
 #else
-void
-Interpreter::step()
-{
-	LOG_TRACE;
-
-	char c;
-
-	switch (_state) {
-		// waiting for user input command or program line
-	case SHELL:
-	{
-		print(ProgMemStrings::S_READY, VT100::BRIGHT);
-#if CLI_PROMPT_NELINE
-		newline();
-#endif
-	}
 		// fall through
 		// waiting for user input next program line
 	case PROGRAM_INPUT:
@@ -317,16 +286,12 @@ Interpreter::step()
 		}
 		_state = EXECUTE;
 		break;
-#if USE_DELAY
-	case DELAY:
-		if (millis() >= _delayTimeout)
-			_state = EXECUTE;
-		break;
-#endif // USE_DELAY
+#endif // BASIC_MULTITERMINAL
 	case EXECUTE: {
 		c = char(ASCII::NUL);
 		if (_input.available() > 0) {
 			c = _input.read();
+			_output.println(c, 16);
 #if USE_GET
 			_inputBuffer[0] = c;
 #endif // USE_GET
@@ -349,7 +314,6 @@ Interpreter::step()
 		break;
 	}
 }
-#endif // BASIC_MULTITERMINAL
 
 void
 Interpreter::exec()
@@ -381,6 +345,10 @@ Interpreter::exec()
 		}
 		if (_state == PROGRAM_INPUT)
 			_state = SHELL;
+#if BASIC_MULTITERMINAL
+		if (_state == COLLECT_INPUT)
+			_state = SHELL;
+#endif // BASIC_MULTITERMINAL
 	}
 }
 
@@ -521,7 +489,6 @@ Interpreter::lastKey()
 #endif // USE_GET
 
 #if USE_DUMP
-
 void
 Interpreter::dump(DumpMode mode)
 {
@@ -545,11 +512,11 @@ Interpreter::dump(DumpMode mode)
 		break;
 	case VARS:
 	{
-		uint16_t index = _program._textEnd;
-		for (VariableFrame *f = _program.variableByIndex(index);
-		    (f != NULL) && (_program.variableIndex(f) <
+		auto index = _program._textEnd;
+		for (auto f = _program.variableByIndex(index);
+		    (f != nullptr) && (_program.objectIndex(f) <
 		    _program._variablesEnd); f = _program.variableByIndex(
-		    _program.variableIndex(f) + f->size())) {
+		    _program.objectIndex(f) + f->size())) {
 			_output.print(f->name);
 			_output.print(":\t");
 			Parser::Value v;
@@ -561,10 +528,10 @@ Interpreter::dump(DumpMode mode)
 		break;
 	case ARRAYS:
 	{
-		uint16_t index = _program._variablesEnd;
-		for (ArrayFrame *f = _program.arrayByIndex(index);
-		    _program.arrayIndex(f) < _program._arraysEnd;
-		    f = _program.arrayByIndex(_program.arrayIndex(f) + f->size())) {
+		auto index = _program._variablesEnd;
+		for (auto f = _program.arrayByIndex(index);
+		    _program.objectIndex(f) < _program._arraysEnd;
+		    f = _program.arrayByIndex(_program.objectIndex(f) + f->size())) {
 			_output.print(f->name);
 			_output.print('(');
 			_output.print(f->dimension[0]);
@@ -602,7 +569,7 @@ Interpreter::print(const Parser::Value &v, VT100::TextAttr attr)
 	{
 		Program::StackFrame *f =
 		    _program.stackFrameByIndex(_program._sp);
-		if (f == NULL || f->_type != Program::StackFrame::STRING) {
+		if (f == nullptr || f->_type != Program::StackFrame::STRING) {
 			raiseError(DYNAMIC_ERROR, STRING_FRAME_SEARCH);
 			return;
 		}
@@ -621,6 +588,7 @@ void
 Interpreter::delay(uint16_t ms)
 {
 	_delayTimeout = millis() + ms;
+	_lastState = _state == EXECUTE ? EXECUTE : SHELL;
 	_state = DELAY;
 }
 #endif // USE_DELAY
@@ -732,7 +700,7 @@ Interpreter::gotoLine(const Parser::Value &l)
 	}
 	Program::Line *s = _program.lineByNumber(Integer(l));
 	if (s != nullptr)
-		_program.jump(_program.lineIndex(s));
+		_program.jump(_program.objectIndex(s));
 	else
 		raiseError(DYNAMIC_ERROR, NO_SUCH_STRING);
 }
@@ -794,7 +762,7 @@ Interpreter::pushValue(const Parser::Value &v)
 {
 	Program::StackFrame *f = _program.push(Program::StackFrame::
 	    VALUE);
-	if (f != NULL) {
+	if (f != nullptr) {
 		f->body.value = v;
 		return true;
 	} else {
@@ -808,7 +776,7 @@ Interpreter::pushInputObject(const char *varName)
 {
 	Program::StackFrame *f = _program.push(Program::StackFrame::
 	    INPUT_OBJECT);
-	if (f != NULL)
+	if (f != nullptr)
 		strcpy(f->body.inputObject.name, varName);
 	else
 		raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
@@ -889,19 +857,19 @@ Interpreter::save()
 	EEpromHeader_t h = {
 		// Program text buffer length
 		.len = _program._textEnd,
-		.magic_FFFFminuslen = uint16_t(0xFFFFu) - _program._textEnd,
+		.magic_FFFFminuslen = Pointer(0xFFFFu) - _program._textEnd,
 		// Checksum
 		.crc16 = 0
 	};
 #if SAVE_LOAD_CHECKSUM
 	// Compute program checksum
-	for (uint16_t p = 0; p < _program._textEnd; ++p)
+	for (Pointer p = 0; p < _program._textEnd; ++p)
 		h.crc16 = _crc16_update(h.crc16, _program._text[p]);
 #endif
 	{
 		EEPROMClass e;
 		// Write program to EEPROM
-		for (uint16_t p = 0; p < _program._textEnd; ++p) {
+		for (Pointer p = 0; p < _program._textEnd; ++p) {
 			e.update(p + sizeof (EEpromHeader_t), _program._text[p]);
 			_output.print('.');
 		}
@@ -924,7 +892,7 @@ Interpreter::save()
 void
 Interpreter::load()
 {
-	uint16_t len;
+	Pointer len;
 	_program.newProg();
 	if (!checkText(len))
 		return;
@@ -936,7 +904,7 @@ Interpreter::load()
 void
 Interpreter::chain()
 {
-	uint16_t len;
+	Pointer len;
 	if (!checkText(len))
 		return;
 
@@ -949,7 +917,6 @@ Interpreter::chain()
 }
 
 #if SAVE_LOAD_CHECKSUM
-
 uint16_t
 Interpreter::eepromProgramChecksum(uint16_t len)
 {
@@ -977,7 +944,7 @@ Interpreter::checkText(uint16_t &len)
 		e.get(0, h);
 	}
 
-	if ((h.len > PROGRAMSIZE) ||
+	if ((h.len > SINGLE_PROGSIZE) ||
 	    (h.magic_FFFFminuslen != uint16_t(0xFFFF) - h.len)) {
 		raiseError(DYNAMIC_ERROR, INTERNAL_ERROR);
 		return false;
@@ -998,7 +965,7 @@ Interpreter::loadText(uint16_t len, bool showProgress)
 {
 	EEPROMClass e;
 
-	for (uint16_t p = 0; p < len; ++p) {
+	for (Pointer p = 0; p < len; ++p) {
 		_program._text[p] = e.read(p + sizeof (EEpromHeader_t));
 		if (showProgress)
 			_output.print('.');
@@ -1017,10 +984,10 @@ Interpreter::input()
 bool
 Interpreter::nextInput()
 {
-	const Program::StackFrame *f = _program.currentStackFrame();
+	const auto f = _program.currentStackFrame();
 	if (f != nullptr && f->_type == Program::StackFrame::INPUT_OBJECT) {
-		_program.pop();
 		strcpy(_inputVarName, f->body.inputObject.name);
+		_program.pop();
 		return true;
 	} else
 		return false;
@@ -1100,7 +1067,7 @@ VariableFrame::size() const
 		return sizeof(VariableFrame);
 	}
 #else
-	 uint8_t res = sizeof(VariableFrame);
+	uint8_t res = sizeof(VariableFrame);
 	
 #if USE_LONGINT
 	if (type == Parser::Value::LONG_INTEGER)
@@ -1151,7 +1118,6 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 #if USE_LONGINT
 	case Parser::Value::LONG_INTEGER:
 	{
-
 		union
 		{
 			char *b;
@@ -1178,7 +1144,7 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 	case Parser::Value::STRING:
 	{
 		Program::StackFrame *fr = _program.currentStackFrame();
-		if (fr == NULL || fr->_type != Program::StackFrame::STRING) {
+		if (fr == nullptr || fr->_type != Program::StackFrame::STRING) {
 			f.bytes[0] = 0;
 			return;
 		}
@@ -1447,7 +1413,7 @@ Interpreter::setMatrixSize(ArrayFrame &array, uint16_t rows, uint16_t columns)
 	array.dimension[0] = rows, array.dimension[1] = columns;
 	const uint16_t newSize = array.size();
 	int32_t delta = int32_t(newSize) - int32_t(oldSize);
-	const uint16_t aIndex = _program.arrayIndex(&array);
+	const uint16_t aIndex = _program.objectIndex(&array);
 	if (_program._arraysEnd + delta >= _program._sp) {
 		raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
 		return;
@@ -1848,7 +1814,7 @@ Interpreter::arrayElementIndex(ArrayFrame *f, uint16_t &index)
 VariableFrame*
 Interpreter::setVariable(const char *name, const Parser::Value &v)
 {
-	uint16_t index = _program._textEnd;
+	Pointer index = _program._textEnd;
 
 	VariableFrame *f;
 	for (f = _program.variableByIndex(index); f != nullptr; index += f->size(),
@@ -1925,12 +1891,12 @@ Interpreter::setArrayElement(const char *name, const Parser::Value &v)
 void
 Interpreter::newArray(const char *name)
 {
-	Program::StackFrame *f = _program.stackFrameByIndex(_program._sp);
+	auto f = _program.stackFrameByIndex(_program._sp);
 	if (f != nullptr && f->_type == Program::StackFrame::ARRAY_DIMENSIONS) {
 		uint8_t dimensions = f->body.arrayDimensions;
 		_program.pop();
 		uint16_t size = 1;
-		uint16_t sp = _program._sp; // go on stack frames, containong dimesions
+		auto sp = _program._sp; // go on stack frames, containong dimesions
 		for (uint8_t dim = 0; dim < dimensions; ++dim) {
 			f = _program.stackFrameByIndex(sp);
 			if (f != nullptr && f->_type ==
@@ -1942,7 +1908,7 @@ Interpreter::newArray(const char *name)
 				return;
 			}
 		}
-		ArrayFrame *array = addArray(name, dimensions, size);
+		auto array = addArray(name, dimensions, size);
 		if (array != nullptr) { // go on stack frames, containong dimesions once more
 			// now popping
 			for (uint8_t dim = dimensions; dim-- > 0;) {
@@ -1968,7 +1934,7 @@ Interpreter::getVariable(const char *name)
 void
 Interpreter::pushString(const char *str)
 {
-	Program::StackFrame *f = _program.push(Program::StackFrame::STRING);
+	auto f = _program.push(Program::StackFrame::STRING);
 	if (f == nullptr) {
 		raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
 		return;
@@ -2068,8 +2034,8 @@ uint16_t
 ArrayFrame::size() const
 {
 	// Header with dimensions vector
-	uint16_t result = sizeof (ArrayFrame) +
-	    numDimensions * sizeof (uint16_t);
+	uint16_t result = sizeof (ArrayFrame) + numDimensions *
+	    sizeof(uint16_t);
 	
 	uint16_t mul = dataSize();
 	result += mul;

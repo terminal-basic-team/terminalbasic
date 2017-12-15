@@ -185,11 +185,10 @@ public:
 	// Interpreter FSM state
 	enum State : uint8_t
 	{
-		SHELL,		// Wait for user input of line or command
+		SHELL = 0,		// Wait for user input of line or command
 		PROGRAM_INPUT,	// Inputting of the program lines
 #if BASIC_MULTITERMINAL
 		COLLECT_INPUT,	//
-		EXEC_INT,	// Interactive execute
 		GET_VAR_VALUE,
 #endif // BASIC_MULTITERMINAL
 		EXECUTE,	// Runniong the program
@@ -213,7 +212,7 @@ public:
 	 * @param print Boundary input object
 	 * @param program Program size
 	 */
-	explicit Interpreter(Stream&, Print&, uint16_t);
+	explicit Interpreter(Stream&, Print&, Pointer);
 	
 	/**
 	 * [re]initialize interpreter object
@@ -358,8 +357,8 @@ public:
 
 	struct EEpromHeader_t
 	{
-		uint16_t len;
-		uint16_t magic_FFFFminuslen;
+		Pointer len;
+		Pointer magic_FFFFminuslen;
 		uint16_t crc16;
 	};
 	void save();
@@ -491,6 +490,7 @@ private:
 #endif // USE_SAVE_LOAD
 	// Interpreter FSM state
 	State			 _state;
+	State			 _lastState;
 	// Input oject
 	Stream			&_input;
 	// Output object
