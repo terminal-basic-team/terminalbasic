@@ -185,11 +185,10 @@ public:
 	// Interpreter FSM state
 	enum State : uint8_t
 	{
-		SHELL,		// Wait for user input of line or command
+		SHELL = 0,		// Wait for user input of line or command
 		PROGRAM_INPUT,	// Inputting of the program lines
 #if BASIC_MULTITERMINAL
 		COLLECT_INPUT,	//
-		EXEC_INT,	// Interactive execute
 		GET_VAR_VALUE,
 #endif // BASIC_MULTITERMINAL
 		EXECUTE,	// Runniong the program
@@ -491,6 +490,7 @@ private:
 #endif // USE_SAVE_LOAD
 	// Interpreter FSM state
 	State			 _state;
+	State			 _lastState;
 	// Input oject
 	Stream			&_input;
 	// Output object

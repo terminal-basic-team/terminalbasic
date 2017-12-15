@@ -227,7 +227,7 @@ Interpreter::step()
 		if (c == char(ASCII::EOT))
 			_state = SHELL;
 		if (millis() >= _delayTimeout)
-			_state = EXECUTE;
+			_state = _lastState;
 		break;
 #endif // USE_DELAY
 	// waiting for user input command or program line
@@ -249,10 +249,7 @@ Interpreter::step()
 		// collection input buffer
 	case COLLECT_INPUT:
 		if (readInput())
-			_state = EXEC_INT;
-		break;
-	case EXEC_INT:
-		exec();
+			exec();
 		break;
 	case VAR_INPUT:
 		if (nextInput()) {
@@ -349,7 +346,7 @@ Interpreter::exec()
 		if (_state == PROGRAM_INPUT)
 			_state = SHELL;
 #if BASIC_MULTITERMINAL
-		if (_state == EXEC_INT)
+		if (_state == COLLECT_INPUT)
 			_state = SHELL;
 #endif // BASIC_MULTITERMINAL
 	}
@@ -591,6 +588,7 @@ void
 Interpreter::delay(uint16_t ms)
 {
 	_delayTimeout = millis() + ms;
+	_lastState = _state == EXECUTE ? EXECUTE : SHELL;
 	_state = DELAY;
 }
 #endif // USE_DELAY
@@ -986,10 +984,10 @@ Interpreter::input()
 bool
 Interpreter::nextInput()
 {
-	const Program::StackFrame *f = _program.currentStackFrame();
+	const auto f = _program.currentStackFrame();
 	if (f != nullptr && f->_type == Program::StackFrame::INPUT_OBJECT) {
-		_program.pop();
 		strcpy(_inputVarName, f->body.inputObject.name);
+		_program.pop();
 		return true;
 	} else
 		return false;
@@ -1069,7 +1067,7 @@ VariableFrame::size() const
 		return sizeof(VariableFrame);
 	}
 #else
-	 uint8_t res = sizeof(VariableFrame);
+	uint8_t res = sizeof(VariableFrame);
 	
 #if USE_LONGINT
 	if (type == Parser::Value::LONG_INTEGER)
@@ -1120,7 +1118,6 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 #if USE_LONGINT
 	case Parser::Value::LONG_INTEGER:
 	{
-
 		union
 		{
 			char *b;
