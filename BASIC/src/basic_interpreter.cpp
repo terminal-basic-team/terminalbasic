@@ -103,7 +103,7 @@ private:
 void
 Interpreter::valueFromVar(Parser::Value &v, const char *varName)
 {
-	const VariableFrame *f = getVariable(varName);
+	const auto f = getVariable(varName);
 	if (f == nullptr)
 		return;
 	switch (f->type) {
@@ -126,8 +126,7 @@ Interpreter::valueFromVar(Parser::Value &v, const char *varName)
 	case Parser::Value::STRING:
 	{
 		v.type = Parser::Value::STRING;
-		Program::StackFrame *fr =
-		    _program.push(Program::StackFrame::STRING);
+		auto fr = _program.push(Program::StackFrame::STRING);
 		if (fr == nullptr) {
 			raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
 			return;
@@ -141,7 +140,7 @@ Interpreter::valueFromVar(Parser::Value &v, const char *varName)
 bool
 Interpreter::valueFromArray(Parser::Value &v, const char *name)
 {
-	ArrayFrame *f = _program.arrayByName(name);
+	const auto f = _program.arrayByName(name);
 	if (f == nullptr) {
 		raiseError(DYNAMIC_ERROR, NO_SUCH_ARRAY);
 		return false;
@@ -384,7 +383,7 @@ Interpreter::list(uint16_t start, uint16_t stop)
 #if LINE_NUM_INDENT
 	uint8_t order = 0;
 	_program.reset();
-	for (Program::Line *s = _program.getNextLine(); s != nullptr;
+	for (auto s = _program.getNextLine(); s != nullptr;
 	    s = _program.getNextLine()) {
 		// Output onlyselected lines subrange
 		if (s->number < start)
@@ -407,7 +406,7 @@ Interpreter::list(uint16_t start, uint16_t stop)
 #if LOOP_INDENT
 	_loopIndent = 0;
 #endif
-	for (Program::Line *s = _program.getNextLine(); s != NULL;
+	for (auto s = _program.getNextLine(); s != nullptr;
 	    s = _program.getNextLine()) {
 		// Output onlyselected lines subrange
 		if (s->number < start)
@@ -714,8 +713,7 @@ Interpreter::newProgram()
 void
 Interpreter::pushReturnAddress(uint8_t textPosition)
 {
-	Program::StackFrame *f = _program.push(Program::StackFrame::
-	    SUBPROGRAM_RETURN);
+	auto f = _program.push(Program::StackFrame::SUBPROGRAM_RETURN);
 	if (f != nullptr) {
 		f->body.gosubReturn.calleeIndex = _program._current.index;
 		f->body.gosubReturn.textPosition = _program._current.position +
@@ -727,7 +725,7 @@ Interpreter::pushReturnAddress(uint8_t textPosition)
 void
 Interpreter::returnFromSub()
 {
-	Program::StackFrame *f = _program.currentStackFrame();
+	const auto f = _program.currentStackFrame();
 	if ((f != nullptr) && (f->_type == Program::StackFrame::SUBPROGRAM_RETURN)) {
 		_program.jump(f->body.gosubReturn.calleeIndex);
 		_program._current.position = f->body.gosubReturn.textPosition;
@@ -740,17 +738,18 @@ Program::StackFrame*
 Interpreter::pushForLoop(const char *varName, uint8_t textPosition,
     const Parser::Value &v, const Parser::Value &vStep)
 {
-	Program::StackFrame *f = _program.push(Program::StackFrame::FOR_NEXT);
+	auto f = _program.push(Program::StackFrame::FOR_NEXT);
 	if (f != nullptr) {
-		f->body.forFrame.calleeIndex = _program._current.index;
-		f->body.forFrame.textPosition = _program._current.position +
+	    	auto &fBody = f->body.forFrame;
+		fBody.calleeIndex = _program._current.index;
+		fBody.textPosition = _program._current.position +
 		    textPosition;
-		f->body.forFrame.finalvalue = v;
-		f->body.forFrame.stepValue = vStep;
+		fBody.finalvalue = v;
+		fBody.stepValue = vStep;
 
-		valueFromVar(f->body.forFrame.currentValue, varName);
-		strcpy(f->body.forFrame.varName, varName);
-		setVariable(varName, f->body.forFrame.currentValue);
+		valueFromVar(fBody.currentValue, varName);
+		strcpy(fBody.varName, varName);
+		setVariable(varName, fBody.currentValue);
 	} else
 		raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
 	
@@ -760,8 +759,7 @@ Interpreter::pushForLoop(const char *varName, uint8_t textPosition,
 bool
 Interpreter::pushValue(const Parser::Value &v)
 {
-	Program::StackFrame *f = _program.push(Program::StackFrame::
-	    VALUE);
+	auto f = _program.push(Program::StackFrame::VALUE);
 	if (f != nullptr) {
 		f->body.value = v;
 		return true;
@@ -774,8 +772,7 @@ Interpreter::pushValue(const Parser::Value &v)
 void
 Interpreter::pushInputObject(const char *varName)
 {
-	Program::StackFrame *f = _program.push(Program::StackFrame::
-	    INPUT_OBJECT);
+	auto f = _program.push(Program::StackFrame::INPUT_OBJECT);
 	if (f != nullptr)
 		strcpy(f->body.inputObject.name, varName);
 	else
@@ -785,7 +782,7 @@ Interpreter::pushInputObject(const char *varName)
 bool
 Interpreter::popValue(Parser::Value &v)
 {
-	Program::StackFrame *f = _program.currentStackFrame();
+	const auto f = _program.currentStackFrame();
 	if ((f != nullptr) && (f->_type == Program::StackFrame::VALUE)) {
 		v = f->body.value;
 		_program.pop();
@@ -799,7 +796,7 @@ Interpreter::popValue(Parser::Value &v)
 bool
 Interpreter::popString(const char *&str)
 {
-	const Program::StackFrame *f = _program.currentStackFrame();
+	const auto f = _program.currentStackFrame();
 	if ((f != nullptr) && (f->_type == Program::StackFrame::STRING)) {
 		str = f->body.string;
 		_program.pop();
@@ -835,18 +832,21 @@ Interpreter::next(const char *varName)
 bool
 Interpreter::testFor(Program::StackFrame &f)
 {
-	if (f.body.forFrame.stepValue > Parser::Value(Integer(0))) {
-		if (f.body.forFrame.currentValue >
-		    f.body.forFrame.finalvalue) {
+	assert(f._type == Program::StackFrame::FOR_NEXT);
+	
+	auto &fBody = f.body.forFrame;
+	if (fBody.stepValue > Parser::Value(Integer(0))) {
+		if (fBody.currentValue >
+		    fBody.finalvalue) {
 			_program.pop();
 			return true;
 		}
-	} else if (f.body.forFrame.currentValue < f.body.forFrame.finalvalue) {
+	} else if (fBody.currentValue < fBody.finalvalue) {
 		_program.pop();
 		return true;
 	}
-	_program.jump(f.body.forFrame.calleeIndex);
-	_program._current.position = f.body.forFrame.textPosition;
+	_program.jump(fBody.calleeIndex);
+	_program._current.position = fBody.textPosition;
 	return false;
 }
 
@@ -910,7 +910,7 @@ Interpreter::chain()
 
 	_program.clearProg();
 	_program.moveData(len);
-	// Load programm memory without progress
+	// Load program memory without progress
 	loadText(len, false);
 	_program.jump(0);
 	_parser.stop();
@@ -1143,7 +1143,7 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 #endif // USE_REALS
 	case Parser::Value::STRING:
 	{
-		Program::StackFrame *fr = _program.currentStackFrame();
+		auto fr = _program.currentStackFrame();
 		if (fr == nullptr || fr->_type != Program::StackFrame::STRING) {
 			f.bytes[0] = 0;
 			return;
@@ -2160,7 +2160,7 @@ ArrayFrame::numElements() const
 ArrayFrame *
 Interpreter::addArray(const char *name, uint8_t dim, uint16_t num)
 {
-	uint16_t index = _program._variablesEnd;
+	Pointer index = _program._variablesEnd;
 	ArrayFrame *f;
 	for (f = _program.arrayByIndex(index); index < _program._arraysEnd;
 	    index += f->size(), f = _program.arrayByIndex(index)) {
