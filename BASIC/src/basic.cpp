@@ -68,13 +68,13 @@ static const char strVT100_WHITE[] PROGMEM = "37m";
 #endif // USE_TEXTATTRIBUTES
 
 static PGM_P const progmemStrings[uint8_t(ProgMemStrings::NUM_STRINGS)] PROGMEM = {
+	strAt,     // AT
+	strBytes, // BYTES
 	strStatic, // STATIC
 	strDynamic, // DYNAMAIC
 	strError, // ERROR
 	strSemantic, // SEMANTIC
-	strAt,     // AT
 	strReady, // READY
-	strBytes, // BYTES
 	strAvailable, // AVAILABLE
 	strucTERMINAL, // TERMINAL
 	strucBASIC, // BASIC

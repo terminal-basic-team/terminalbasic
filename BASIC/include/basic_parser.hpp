@@ -80,6 +80,9 @@ public:
 	void init();
 	
 	void addModule(FunctionBlock*);
+#if CONF_ERROR_STRINGS
+	static PGM_P const errorStrings[] PROGMEM;
+#endif
 private:
 	/**
 	 * Parser mode: syntax check or execute commands of the interpreter
@@ -96,6 +99,9 @@ private:
 	bool fDataStatement();
 	bool fReadStatement();
 #endif // USE_DATA
+#if USE_DEFFN
+	bool fDefStatement();
+#endif
 	bool fImplicitAssignment(char*);
 	bool fPrintList();
 	bool fPrintItem();

@@ -310,7 +310,8 @@ public:
 #endif
 	void print(long, VT100::TextAttr = VT100::NO_ATTR);
 	void print(ProgMemStrings, VT100::TextAttr = VT100::NO_ATTR);
-        void write(ProgMemStrings);
+	void writePgm(ProgMemStrings);
+	void writePgm(PGM_P);
 	void print(Token);
 	void print(const char *, VT100::TextAttr = VT100::NO_ATTR);
 	// print value

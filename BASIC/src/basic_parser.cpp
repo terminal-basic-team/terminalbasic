@@ -76,6 +76,20 @@
 namespace BASIC
 {
 
+#if CONF_ERROR_STRINGS
+PGM_P const Parser::errorStrings[] PROGMEM = {
+	"NO ERROR",
+	"OPERATOR EXPECTED",
+	"EXPRESSION EXPECTED",
+	"INTEGER CONSTANT EXPECTED",
+	"THEN OR GOTO EXPECTED",
+	"INVALID DATA EXPRESSION",
+	"INVALID READ EXPRESSION",
+	"VARIABLES LIST EXPECTED",
+	"STRING OVERFLOW"
+};
+#endif // CONF_ERROR_STRINGS
+
 Parser::Parser(Lexer &l, Interpreter &i) :
 _lexer(l), _interpreter(i), _mode(EXECUTE)
 {
@@ -177,6 +191,12 @@ Parser::fOperator()
 		if (_lexer.getNext())
 			return fArrayList();
 		return false;
+#if USE_DEFFN
+	case Token::KW_DEF:
+		if (_lexer.getNext())
+			return fDefStatement();
+		return false;
+#endif // USE_DEFFN
 #if USE_DATA
 	case Token::KW_DATA: {
 		if (_mode == EXECUTE)
@@ -316,10 +336,19 @@ Parser::fOperator()
 			char vName[IDSIZE];
 			if (fImplicitAssignment(vName))
 				break;
+			else
+				return false;
 		}
 		_error = OPERATOR_EXPECTED;
 		return false;
 	}
+//#if USE_DEFFN
+//	if (t == TToken::KW_DEF) {
+//		if (_lexer.getNext())
+//			return fDefStatement();
+//		return false;
+//	} else
+//#endif // USE_DEFFN
 //	if (t == Token::KW_DIM) {
 //		if (_lexer.getNext())
 //			return fArrayList();
@@ -501,6 +530,20 @@ Parser::fReadStatement()
 	return true;
 }
 #endif // USE_DATA
+
+#if USE_DEFFN
+bool
+Parser::fDefStatement()
+{
+	char buf [IDSIZE];
+	if (_lexer.getToken() == Token::KW_FN && _lexer.getNext()) {
+		if ((_lexer.getToken() >= Token::INTEGER_IDENT) &&
+		    (_lexer.getToken() <= Token::BOOL_IDENT))
+			return true;
+	}
+	return false;
+}
+#endif
 
 /*
  * IMPLICIT_ASSIGNMENT =

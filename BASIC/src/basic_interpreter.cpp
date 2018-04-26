@@ -190,7 +190,7 @@ Interpreter::init()
 	buf[PRINT_ZONE_WIDTH-1] = '\0';
 	for (uint8_t i=0; i<PRINT_ZONES_NUMBER; ++i) {
 		print(buf);
-		write(ProgMemStrings::VT100_SETZONE);
+		writePgm(ProgMemStrings::VT100_SETZONE);
 	}
 	cls();
 #endif // SET_PRINTZNES
@@ -206,7 +206,7 @@ Interpreter::init()
 	    _output.print(':'), _output.print(' ');
 #endif // BASIC_MULTITERMINAL
 	print(long(_program.programSize - _program._arraysEnd), VT100::BRIGHT);
-	print(ProgMemStrings::BYTES), print(ProgMemStrings::AVAILABLE), newline();
+	print(ProgMemStrings::S_BYTES), print(ProgMemStrings::AVAILABLE), newline();
 	_state = SHELL;
 }
 
@@ -596,7 +596,7 @@ Interpreter::delay(uint16_t ms)
 void
 Interpreter::locate(Integer x, Integer y)
 {
-	write(ProgMemStrings::VT100_ESCSEQ), _output.print(x),
+	writePgm(ProgMemStrings::VT100_ESCSEQ), _output.print(x),
 	    _output.print(char(ASCII::SEMICOLON)), _output.print(y),
 	    _output.print('f');
 }
@@ -1226,14 +1226,20 @@ Interpreter::print(ProgMemStrings index, VT100::TextAttr attr)
 {
 	AttrKeeper _a(*this, attr);
 
-	write(index), _output.print(char(ASCII::SPACE));
+	writePgm(index), _output.print(char(ASCII::SPACE));
 }
 
 void
-Interpreter::write(ProgMemStrings index)
+Interpreter::writePgm(ProgMemStrings index)
 {
-	char buf[16];
-	strcpy_P(buf, progmemString(index));
+	writePgm(progmemString(index));
+}
+
+void
+Interpreter::writePgm(PGM_P str)
+{
+	char buf[24];
+	strcpy_P(buf, str);
 
 	_output.print(buf);
 }
@@ -1725,14 +1731,14 @@ Interpreter::print(Integer i, VT100::TextAttr attr)
 void
 Interpreter::printEsc(const char *str)
 {
-	write(ProgMemStrings::VT100_ESCSEQ), _output.print(str);
+	writePgm(ProgMemStrings::VT100_ESCSEQ), _output.print(str);
 }
 
 void
 Interpreter::printEsc(ProgMemStrings index)
 {
-	write(ProgMemStrings::VT100_ESCSEQ);
-	write(index);
+	writePgm(ProgMemStrings::VT100_ESCSEQ);
+	writePgm(index);
 }
 
 void
@@ -1748,10 +1754,10 @@ Interpreter::printTab(const Parser::Value &v, bool flag)
 	if (tabs > 0) {
 		if (tabs == 1)
 			return;
-		write(ProgMemStrings::VT100_ESCSEQ);
+		writePgm(ProgMemStrings::VT100_ESCSEQ);
 		if (flag) {
-			write(ProgMemStrings::VT100_LINEHOME);
-			write(ProgMemStrings::VT100_ESCSEQ);
+			writePgm(ProgMemStrings::VT100_LINEHOME);
+			writePgm(ProgMemStrings::VT100_ESCSEQ);
                         --tabs;
 		}
 		_output.print(tabs), _output.print('C');
@@ -1784,8 +1790,12 @@ Interpreter::raiseError(ErrorType type, ErrorCodes errorCode, bool fatal)
 	print(ProgMemStrings::S_ERROR, VT100::C_RED);
 	if (type == DYNAMIC_ERROR)
 		print(Integer(errorCode));
-	else // STATIC_ERROR
+	else {// STATIC_ERROR
 		print(Integer(_parser.getError()));
+#if CONF_ERROR_STRINGS
+		writePgm(_parser.errorStrings[Integer(_parser.getError())]);
+#endif
+	}
 	newline();
 	
 	if (fatal)
