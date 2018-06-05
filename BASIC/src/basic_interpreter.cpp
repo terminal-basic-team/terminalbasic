@@ -1198,6 +1198,7 @@ Interpreter::readInput()
 		default:
 #if AUTOCAPITALIZE
 			c = toupper(c);
+			_inputBuffer[i] = c;
 #endif
 			// Only acept character if there is room for upcoming
 			// control one (line end or del/bs)
@@ -1235,7 +1236,7 @@ Interpreter::writePgm(ProgMemStrings index)
 void
 Interpreter::writePgm(PGM_P str)
 {
-	char buf[32];
+	char buf[ERROR_STRING_SIZE];
 	strcpy_P(buf, str);
 
 	_output.print(buf);
@@ -1377,8 +1378,8 @@ Interpreter::raiseError(ErrorType type, ErrorCodes errorCode, bool fatal)
 	else {// STATIC_ERROR
 		print(Integer(_parser.getError()));
 #if CONF_ERROR_STRINGS
-		writePgm(pgm_read_ptr(&
-		    _parser.errorStrings[Integer(_parser.getError())] ));
+		writePgm(pgm_read_ptr(
+		    &_parser.errorStrings[Integer(_parser.getError())] ));
 #endif
 	}
 	newline();

@@ -144,10 +144,10 @@ namespace BASIC
 	/*
 	 * Set print zones width (tab spacing)
 	 */
-	#define SET_PRINTZNES  0
+	#define SET_PRINTZNES  1
 	#if SET_PRINTZNES
 		#define PRINT_ZONE_WIDTH 16
-		#define PRINT_ZONES_NUMBER 6
+		#define PRINT_ZONES_NUMBER 5
 	#endif // SET_PRINTZNES
 #endif // USE_TEXTATTRIBUTES
 /*
@@ -178,6 +178,9 @@ namespace BASIC
 #define USESD         0
 
 #define CONF_ERROR_STRINGS 1
+#if CONF_ERROR_STRINGS
+	#define ERROR_STRING_SIZE 48
+#endif
 
 // Arduino IO module
 #define CONF_MODULE_ARDUINOIO      1

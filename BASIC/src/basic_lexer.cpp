@@ -721,15 +721,18 @@ Lexer::binaryInteger()
 #else
 	_value.type = Parser::Value::INTEGER;
 #endif
-	char buf[sizeof(INT)];
+	union {
+		char buf[sizeof(INT)];
+		INT intVal;
+	} v;
 	for (uint8_t i=0; i<sizeof(INT); ++i) {
-		buf[i] = SYM;
+		v.buf[i] = SYM;
 		next();
 	}
 #if USE_LONGINT
-	_value.value.longInteger = *reinterpret_cast<const LongInteger*>(buf);
+	_value.value.longInteger = v.intVal;
 #else
-	_value.value.integer = *reinterpret_cast<const Integer*>(buf);
+	_value.value.integer = v.intVal;
 #endif
 }
 
@@ -738,12 +741,15 @@ void
 Lexer::binaryReal()
 {
 	_value.type = Parser::Value::REAL;
-	char buf[sizeof(Real)];
+	union {
+		char buf[sizeof(Real)];
+		Real realVal;
+	} v;
 	for (uint8_t i=0; i<sizeof(Real); ++i) {
-		buf[i] = SYM;
+		v.buf[i] = SYM;
 		next();
 	}
-	_value.value.real = *reinterpret_cast<const Real*>(buf);
+	_value.value.real = v.realVal;
 }
 
 bool

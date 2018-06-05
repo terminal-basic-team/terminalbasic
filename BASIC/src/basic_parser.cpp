@@ -79,27 +79,27 @@ namespace BASIC
 #if CONF_ERROR_STRINGS
 #if (CONF_ERROR_STRINGS_LANG == LANG_RU)
 
-static const char noerror[] PROGMEM = "НЕТ ОШИБОК";
-static const char operexp[] PROGMEM = "ОЖИДАЛСЯ ОПЕРАТОР";
-static const char exprexp[] PROGMEM = "ОЖИДАЛОСЬ ВЫРАЖЕНИЕ";
-static const char intexp[] PROGMEM = "ОЖИДАЛОСЬ ЦЕЛОЕ";
-static const char thengtexp[] PROGMEM = "ОЖИДАЛОСЬ THEN ИЛИ GOTO";
-static const char invdata[] PROGMEM = "INVALID DATA EXPRESSION";
-static const char invread[] PROGMEM = "INVALID READ EXPRESSION";
-static const char varlistexp[] PROGMEM = "VARIABLES LIST EXPECTED";
-static const char stringovf[] PROGMEM = "ПЕРЕПОЛНЕНИЕ СТРОКИ";
+static const char noerror[ERROR_STRING_SIZE] PROGMEM = "НЕТ ОШИБОК";
+static const char operexp[ERROR_STRING_SIZE] PROGMEM = "ОЖИДАЛСЯ ОПЕРАТОР";
+static const char exprexp[ERROR_STRING_SIZE] PROGMEM = "ОЖИДАЛОСЬ ВЫРАЖЕНИЕ";
+static const char intexp[ERROR_STRING_SIZE] PROGMEM = "ОЖИДАЛОСЬ ЦЕЛОЕ";
+static const char thengtexp[ERROR_STRING_SIZE] PROGMEM = "ОЖИДАЛОСЬ THEN ИЛИ GOTO";
+static const char invdata[ERROR_STRING_SIZE] PROGMEM = "НЕВЕРНОЕ ВЫРАЖЕНИЕ DATA";
+static const char invread[ERROR_STRING_SIZE] PROGMEM = "НЕВЕРНОЕ ВЫРАЖЕНИЕ READ";
+static const char varlistexp[ERROR_STRING_SIZE] PROGMEM = "ОЖИДАЕТСЯ СПИСОК ПЕРЕМЕННЫХ";
+static const char stringovf[ERROR_STRING_SIZE] PROGMEM = "ПЕРЕПОЛНЕНИЕ СТРОКИ";
 
 #else
 
-static const char noerror[] PROGMEM = "NO ERROR";
-static const char operexp[] PROGMEM = "OPERATOR EXPECTED";
-static const char exprexp[] PROGMEM = "EXPRESSION EXPECTED";
-static const char intexp[] PROGMEM = "INTEGER CONSTANT EXPECTED";
-static const char thengtexp[] PROGMEM = "THEN OR GOTO EXPECTED";
-static const char invdata[] PROGMEM = "INVALID DATA EXPRESSION";
-static const char invread[] PROGMEM = "INVALID READ EXPRESSION";
-static const char varlistexp[] PROGMEM = "VARIABLES LIST EXPECTED";
-static const char stringovf[] PROGMEM = "STRING OVERFLOW";
+static const char noerror[ERROR_STRING_SIZE] PROGMEM = "NO ERROR";
+static const char operexp[ERROR_STRING_SIZE] PROGMEM = "OPERATOR EXPECTED";
+static const char exprexp[ERROR_STRING_SIZE] PROGMEM = "EXPRESSION EXPECTED";
+static const char intexp[ERROR_STRING_SIZE] PROGMEM = "INTEGER CONSTANT EXPECTED";
+static const char thengtexp[ERROR_STRING_SIZE] PROGMEM = "THEN OR GOTO EXPECTED";
+static const char invdata[ERROR_STRING_SIZE] PROGMEM = "INVALID DATA EXPRESSION";
+static const char invread[ERROR_STRING_SIZE] PROGMEM = "INVALID READ EXPRESSION";
+static const char varlistexp[ERROR_STRING_SIZE] PROGMEM = "VARIABLES LIST EXPECTED";
+static const char stringovf[ERROR_STRING_SIZE] PROGMEM = "STRING OVERFLOW";
 
 #endif
 
