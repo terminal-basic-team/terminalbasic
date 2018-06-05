@@ -177,6 +177,8 @@ namespace BASIC
  */
 #define USESD         0
 
+#define CONF_ERROR_STRINGS 1
+
 // Arduino IO module
 #define CONF_MODULE_ARDUINOIO      1
 #if CONF_MODULE_ARDUINOIO
