@@ -23,8 +23,38 @@
 #include "matrix.hpp"
 #include "ascii.hpp"
 
+#include <assert.h>
+
 namespace BASIC
 {
+
+ArrayFrame*
+Interpreter::get2DArray(const char *name)
+{
+	ArrayFrame *array = _program.arrayByName(name);
+	
+	if (array == nullptr)
+		raiseError(DYNAMIC_ERROR, NO_SUCH_ARRAY);
+	else if (array->numDimensions != 2)
+		raiseError(DYNAMIC_ERROR, DIMENSIONS_MISMATCH);
+	
+	return array;
+}
+
+ArrayFrame*
+Interpreter::getSquareArray(const char *name)
+{
+	ArrayFrame *array = get2DArray(name);
+	
+	if (array != nullptr) {
+		if (array->numDimensions != 2)
+			raiseError(DYNAMIC_ERROR, DIMENSIONS_MISMATCH);
+		else if (array->dimension[0] != array->dimension[1])
+			raiseError(DYNAMIC_ERROR, SQUARE_MATRIX_EXPECTED);
+	}
+	
+	return array;
+}
 
 void
 Interpreter::zeroMatrix(const char *name)
@@ -41,12 +71,9 @@ Interpreter::onesMatrix(const char *name)
 void
 Interpreter::identMatrix(const char *name)
 {
-	ArrayFrame *array = _program.arrayByName(name);
-	if (array == nullptr || array->numDimensions != 2)
-		raiseError(DYNAMIC_ERROR, NO_SUCH_ARRAY);
-	else if (array->dimension[0] != array->dimension[1])
-		raiseError(DYNAMIC_ERROR, SQUARE_MATRIX_EXPECTED);
-	else {
+	ArrayFrame *array = getSquareArray(name);
+	
+	if (array != nullptr) {
 		for (uint16_t row = 0; row <= array->dimension[0]; ++row) {
 			for (uint16_t column = 0; column <= array->dimension[1];
 			    ++column) {
@@ -58,7 +85,7 @@ Interpreter::identMatrix(const char *name)
 				if (!array->set(row*(array->dimension[1]+1)+column,
 				    v))
 					raiseError(DYNAMIC_ERROR,
-					    INVALID_ELEMENT_INDEX);
+					    INTERNAL_ERROR);
 			}
 		}
 	}
@@ -67,13 +94,12 @@ Interpreter::identMatrix(const char *name)
 void	
 Interpreter::fillMatrix(const char *name, const Parser::Value &v)
 {
-	ArrayFrame *array = _program.arrayByName(name);
-	if (array == nullptr || array->numDimensions != 2)
-		raiseError(DYNAMIC_ERROR, NO_SUCH_ARRAY);
-	else {
+	ArrayFrame *array = get2DArray(name);
+	
+	if (array != nullptr) {
 		for (uint16_t index = 0; index<array->numElements(); ++index) {
 			if (!array->set(index, v)) {
-				raiseError(DYNAMIC_ERROR, INVALID_ELEMENT_INDEX);
+				raiseError(DYNAMIC_ERROR, INTERNAL_ERROR);
 				return;
 			}
 		}
@@ -83,10 +109,9 @@ Interpreter::fillMatrix(const char *name, const Parser::Value &v)
 void
 Interpreter::printMatrix(const char *name)
 {
-	ArrayFrame *array = _program.arrayByName(name);
-	if (array == nullptr || array->numDimensions != 2)
-		raiseError(DYNAMIC_ERROR, NO_SUCH_ARRAY);
-	else {
+	ArrayFrame *array = get2DArray(name);
+	
+	if (array != nullptr) {
 		for (uint16_t row = 0; row <= array->dimension[0]; ++row) {
 			for (uint16_t column = 0; column <= array->dimension[1];
 			    ++column) {
@@ -96,7 +121,7 @@ Interpreter::printMatrix(const char *name)
 					this->print(v), _output.print(char(ASCII::SPACE));
 				else
 					raiseError(DYNAMIC_ERROR,
-					    INVALID_ELEMENT_INDEX);
+					    INTERNAL_ERROR);
 			}
 			this->newline();
 		}
@@ -106,14 +131,9 @@ Interpreter::printMatrix(const char *name)
 void
 Interpreter::matrixDet(const char *name)
 {
-	ArrayFrame *array = _program.arrayByName(name);
-	if (array == nullptr)
-		raiseError(DYNAMIC_ERROR, NO_SUCH_ARRAY);
-	else if (array->numDimensions != 2)
-		raiseError(DYNAMIC_ERROR, DIMENSIONS_MISMATCH);
-	else if (array->dimension[0] != array->dimension[1])
-		raiseError(DYNAMIC_ERROR, SQUARE_MATRIX_EXPECTED);
-	else {
+	ArrayFrame *array = getSquareArray(name);
+	
+	if (array != nullptr) {
 		const uint8_t eSize = Parser::Value::size(array->type);
 		if (eSize == 0)
 			return;
@@ -170,12 +190,9 @@ Interpreter::matrixDet(const char *name)
 void
 Interpreter::matrixRead(const char *name)
 {
-	ArrayFrame *array = _program.arrayByName(name);
-	if (array == nullptr)
-		raiseError(DYNAMIC_ERROR, NO_SUCH_ARRAY);
-	else if (array->numDimensions != 2)
-		raiseError(DYNAMIC_ERROR, DIMENSIONS_MISMATCH);
-	else {
+	ArrayFrame *array = get2DArray(name);
+	
+	if (array != nullptr) {
 		for (uint16_t row = 0; row <= array->dimension[0]; ++row) {
 			for (uint16_t column = 0; column <= array->dimension[1];
 			    ++column) {
@@ -184,7 +201,7 @@ Interpreter::matrixRead(const char *name)
 				if (!array->set(row*
 				    (array->dimension[1]+1)+column, v))
 					raiseError(DYNAMIC_ERROR,
-					    INVALID_ELEMENT_INDEX);
+					    INTERNAL_ERROR);
 			}
 		}
 	}
@@ -215,16 +232,11 @@ void
 Interpreter::assignMatrix(const char *name, const char *first, const char *second,
     MatrixOperation_t op)
 {
-	ArrayFrame *array = _program.arrayByName(name);
-	ArrayFrame *arrayFirst = _program.arrayByName(first);
+	ArrayFrame *array = get2DArray(name); // target matrix
+	ArrayFrame *arrayFirst = get2DArray(first); // first operand (required)
 	
-	if (array == nullptr ||
-	    array->numDimensions != 2 ||
-	    arrayFirst == nullptr ||
-	    arrayFirst->numDimensions != 2) {
-		raiseError(DYNAMIC_ERROR, NO_SUCH_ARRAY);
+	if (array == nullptr || arrayFirst == nullptr)
 		return;
-	}
 	
 	const uint8_t eSize = Parser::Value::size(arrayFirst->type);
 	if (eSize == 0)
@@ -302,14 +314,12 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 		break;
 	case MO_SUM:
 	case MO_SUB: {
-		ArrayFrame *arraySecond;
-		if (second == nullptr ||
-		    (arraySecond = _program.arrayByName(second)) == nullptr) {
-			raiseError(DYNAMIC_ERROR, NO_SUCH_ARRAY);
+		assert(second != nullptr);
+		ArrayFrame *arraySecond = getSquareArray(second);
+		if (arraySecond == nullptr)
 			return;
-		}
-		if (arraySecond->numDimensions != 2 ||
-		    arraySecond->dimension[0] != array->dimension[0] ||
+		
+		if (arraySecond->dimension[0] != array->dimension[0] ||
 		    arraySecond->dimension[1] != array->dimension[1]) {
 			raiseError(DYNAMIC_ERROR, DIMENSIONS_MISMATCH);
 			return;
@@ -331,15 +341,15 @@ Interpreter::assignMatrix(const char *name, const char *first, const char *secon
 	}
 		break;
 	case MO_MUL: {
-		ArrayFrame *arraySecond;
-		if (second == nullptr ||
-		    (arraySecond = _program.arrayByName(second)) == nullptr ||
-		    arraySecond->type != arrayFirst->type) {
-			raiseError(DYNAMIC_ERROR, NO_SUCH_ARRAY);
+		assert(second != nullptr);
+		ArrayFrame *arraySecond = getSquareArray(second);
+		if (arraySecond == nullptr)
+			return;
+		if (arraySecond->type != arrayFirst->type) {
+			raiseError(DYNAMIC_ERROR, NO_SUCH_ARRAY); //@TODO type mismatch
 			return;
 		}
-		if (arraySecond->numDimensions != 2 ||
-		    arraySecond->dimension[0] != arrayFirst->dimension[1]) {
+		if (arraySecond->dimension[0] != arrayFirst->dimension[1]) {
 			raiseError(DYNAMIC_ERROR, DIMENSIONS_MISMATCH);
 			return;
 		}

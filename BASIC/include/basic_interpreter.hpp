@@ -444,10 +444,33 @@ public:
 
 	Program _program;
 private:
+	
 	class AttrKeeper;
 #if USE_MATRIX
+	
 	void fillMatrix(const char*, const Parser::Value&);
+	
 	void setMatrixSize(ArrayFrame&, uint16_t, uint16_t);
+	/**
+	 * @brief Get 2 dimensional array from stack
+	 * 
+	 * Returns nullptr if there is no such array or if that array is not
+	 * 2 dimensional. Raises corresponding error.
+	 * 
+	 * @param array name
+	 * @return frame pointer
+	 */
+	ArrayFrame *get2DArray(const char*);
+	/**
+	 * @brief Get 2 dimensional square array from stack
+	 * 
+	 * Returns nullptr if there is no such array or if that array is not
+	 * 2 dimensional or if it's not square. Raises corresponding error.
+	 * 
+	 * @param array name
+	 * @return frame pointer
+	 */
+	ArrayFrame *getSquareArray(const char*);
 #endif
 	// Get next input object from stack
 	bool nextInput();
