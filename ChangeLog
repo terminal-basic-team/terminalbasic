@@ -1,6 +1,8 @@
-r1.1.1 (14.12.2017)
+r1.2-beta (06.06.2018)
 
+  * Add STR$ function
   * Add optional errror message strings
+  * Add rudimentary localisation support (currently English, Russian)
   * Fix AUTOCAPITALIZE option
   * Some code size optimizations in matrix handling routines
 

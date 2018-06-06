@@ -87,7 +87,7 @@ namespace BASIC
 /*
  * Use >< as not-equals operator (with default <>)
  */
-#define CONF_USE_ALTERNATIVE_NE 1
+#define CONF_USE_ALTERNATIVE_NE 0
 /*
  * Support of 4-byte integer datatype
  * Functions, variables and arrays of long integer type ends with double % mark
@@ -177,12 +177,15 @@ namespace BASIC
  */
 #define USESD         0
 
+/*
+ * Localization
+ */
 #define LANG_EN 0
 #define LANG_RU 1
-	
-#define CONF_ERROR_STRINGS 1
-#define ERROR_STRING_SIZE 48
-#define CONF_ERROR_STRINGS_LANG LANG_EN
+#define LANG LANG_EN
+
+// Use text error strings
+#define CONF_ERROR_STRINGS 0
 
 // Arduino IO module
 #define CONF_MODULE_ARDUINOIO      1
@@ -217,9 +220,8 @@ namespace BASIC
  */
 #define USE_GFX          0
 /*
- * Prompt message
+ * Prompt on new line
  */
-#define CLI_PROMPT       "READY"
 #define CLI_PROMPT_NELINE 1
 /*
  * LF character processing

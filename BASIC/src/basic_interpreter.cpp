@@ -1236,7 +1236,7 @@ Interpreter::writePgm(ProgMemStrings index)
 void
 Interpreter::writePgm(PGM_P str)
 {
-	char buf[ERROR_STRING_SIZE];
+	char buf[STRINGSIZE];
 	strcpy_P(buf, str);
 
 	_output.print(buf);
@@ -1263,7 +1263,7 @@ Interpreter::print(Token t)
 			print(ProgMemStrings::S_ERROR, VT100::TextAttr(uint8_t(VT100::BRIGHT) |
 			    uint8_t(VT100::C_RED)));
 	} else {
-		strcpy_P(buf, (PGM_P) pgm_read_ptr(&(Lexer::tokenStrings[
+		strcpy_P(buf, (PGM_P)pgm_read_ptr(&(Lexer::tokenStrings[
 		    uint8_t(t)-uint8_t(Token::STAR)])));
 		print(buf);
 	}
@@ -1364,21 +1364,22 @@ Interpreter::raiseError(ErrorType type, ErrorCodes errorCode, bool fatal)
 {
 	// Output Program line number if running program
 	const Program::Line *l = _program.current(_program._current);
-	if ((_state == EXECUTE) && (l != nullptr))
+	if ((_state == EXECUTE) && (l != nullptr)) {
 		print(long(l->number), VT100::C_YELLOW);
-	_output.print(':');
+		_output.print(':');
+	}
 	if (type == DYNAMIC_ERROR)
-		print(ProgMemStrings::S_DYNAMIC);
+		print(ProgMemStrings::S_SEMANTIC);
 	else // STATIC_ERROR
-		print(ProgMemStrings::S_STATIC);
-	print(ProgMemStrings::S_SEMANTIC);
+		print(ProgMemStrings::S_SYNTAX);
+	//print(ProgMemStrings::S_SEMANTIC);
 	print(ProgMemStrings::S_ERROR, VT100::C_RED);
 	if (type == DYNAMIC_ERROR)
 		print(Integer(errorCode));
 	else {// STATIC_ERROR
 		print(Integer(_parser.getError()));
 #if CONF_ERROR_STRINGS
-		writePgm(pgm_read_ptr(
+		writePgm((PGM_P)pgm_read_ptr(
 		    &_parser.errorStrings[Integer(_parser.getError())] ));
 #endif
 	}

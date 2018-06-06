@@ -38,6 +38,8 @@
       <itemPath>src/basic_parser_value.cpp</itemPath>
       <itemPath>src/basic_program.cpp</itemPath>
       <itemPath>src/basic_sdfs.cpp</itemPath>
+      <itemPath>src/strings_en.hpp</itemPath>
+      <itemPath>src/strings_ru_koi8r.hpp</itemPath>
       <itemPath>src/ucbasic_main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -229,6 +231,10 @@
       </item>
       <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/strings_ru_koi8r.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/TableTest.cpp" ex="false" tool="1" flavor2="0">
@@ -379,6 +385,10 @@
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/strings_ru_koi8r.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -545,6 +555,10 @@
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/strings_ru_koi8r.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -745,6 +759,10 @@
       </item>
       <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/strings_ru_koi8r.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="tests/TableTest.cpp" ex="false" tool="1" flavor2="0">
@@ -893,6 +911,10 @@
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/strings_ru_koi8r.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -1047,6 +1069,10 @@
       </item>
       <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/strings_ru_koi8r.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="tests/TableTest.cpp" ex="false" tool="1" flavor2="0">
@@ -1197,6 +1223,10 @@
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/strings_ru_koi8r.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -1350,6 +1380,10 @@
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/strings_ru_koi8r.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1546,6 +1580,10 @@
       </item>
       <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="8">
       </item>
+      <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/strings_ru_koi8r.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="tests/TableTest.cpp" ex="false" tool="1" flavor2="0">
@@ -1729,6 +1767,10 @@
       </item>
       <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="8">
       </item>
+      <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/strings_ru_koi8r.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="tests/TableTest.cpp" ex="false" tool="1" flavor2="0">
@@ -1880,6 +1922,10 @@
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_sdfs.cpp" ex="true" tool="1" flavor2="8">
+      </item>
+      <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/strings_ru_koi8r.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -2033,6 +2079,10 @@
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_sdfs.cpp" ex="true" tool="1" flavor2="8">
+      </item>
+      <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/strings_ru_koi8r.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -2285,6 +2335,10 @@
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/strings_ru_koi8r.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>

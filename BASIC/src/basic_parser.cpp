@@ -77,31 +77,22 @@ namespace BASIC
 {
 
 #if CONF_ERROR_STRINGS
-#if (CONF_ERROR_STRINGS_LANG == LANG_RU)
 
-static const char noerror[ERROR_STRING_SIZE] PROGMEM = "НЕТ ОШИБОК";
-static const char operexp[ERROR_STRING_SIZE] PROGMEM = "ОЖИДАЛСЯ ОПЕРАТОР";
-static const char exprexp[ERROR_STRING_SIZE] PROGMEM = "ОЖИДАЛОСЬ ВЫРАЖЕНИЕ";
-static const char intexp[ERROR_STRING_SIZE] PROGMEM = "ОЖИДАЛОСЬ ЦЕЛОЕ";
-static const char thengtexp[ERROR_STRING_SIZE] PROGMEM = "ОЖИДАЛОСЬ THEN ИЛИ GOTO";
-static const char invdata[ERROR_STRING_SIZE] PROGMEM = "НЕВЕРНОЕ ВЫРАЖЕНИЕ DATA";
-static const char invread[ERROR_STRING_SIZE] PROGMEM = "НЕВЕРНОЕ ВЫРАЖЕНИЕ READ";
-static const char varlistexp[ERROR_STRING_SIZE] PROGMEM = "ОЖИДАЕТСЯ СПИСОК ПЕРЕМЕННЫХ";
-static const char stringovf[ERROR_STRING_SIZE] PROGMEM = "ПЕРЕПОЛНЕНИЕ СТРОКИ";
-
-#else
-
-static const char noerror[ERROR_STRING_SIZE] PROGMEM = "NO ERROR";
-static const char operexp[ERROR_STRING_SIZE] PROGMEM = "OPERATOR EXPECTED";
-static const char exprexp[ERROR_STRING_SIZE] PROGMEM = "EXPRESSION EXPECTED";
-static const char intexp[ERROR_STRING_SIZE] PROGMEM = "INTEGER CONSTANT EXPECTED";
-static const char thengtexp[ERROR_STRING_SIZE] PROGMEM = "THEN OR GOTO EXPECTED";
-static const char invdata[ERROR_STRING_SIZE] PROGMEM = "INVALID DATA EXPRESSION";
-static const char invread[ERROR_STRING_SIZE] PROGMEM = "INVALID READ EXPRESSION";
-static const char varlistexp[ERROR_STRING_SIZE] PROGMEM = "VARIABLES LIST EXPECTED";
-static const char stringovf[ERROR_STRING_SIZE] PROGMEM = "STRING OVERFLOW";
-
+#if (LANG == LANG_RU)
+#include "strings_ru_koi8r.hpp"
+#elif (LANG == LANG_EN)
+#include "strings_en.hpp"
 #endif
+
+static const char noerror[] PROGMEM = STR_NO_ERROR;
+static const char operexp[] PROGMEM = STR_OPERATOR_EXPECTED;
+static const char exprexp[] PROGMEM = STR_EXPRESSION_EXPECTED;
+static const char intexp[] PROGMEM = STR_INTEGER_CONSTANT_EXPECTED;
+static const char thengtexp[] PROGMEM = STR_THEN_OR_GOTO_EXPECTED;
+static const char invdata[] PROGMEM = STR_INVALID_DATA_EXPRESSION;
+static const char invread[] PROGMEM = STR_INVALID_READ_EXPRESSION;
+static const char varlistexp[] PROGMEM = STR_VARIABLES_LIST_EXPECTED;
+static const char stringovf[] PROGMEM = STR_STRING_OVERFLOW;
 
 PGM_P const Parser::errorStrings[] PROGMEM = {
 	noerror,

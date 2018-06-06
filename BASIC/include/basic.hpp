@@ -1,6 +1,6 @@
 /*
  * Terminal-BASIC is a lightweight BASIC-like language interpreter
- * Copyright (C) 2016, 2017 Andrey V. Skvortsov <starling13@mail.ru>
+ * Copyright (C) 2016-2018 Andrey V. Skvortsov <starling13@mail.ru>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -292,6 +292,7 @@ enum class ProgMemStrings : uint8_t
 	S_DYNAMIC,
 	S_ERROR,
 	S_SEMANTIC,
+	S_SYNTAX,
 	S_READY,
 	AVAILABLE,
 	TERMINAL,
