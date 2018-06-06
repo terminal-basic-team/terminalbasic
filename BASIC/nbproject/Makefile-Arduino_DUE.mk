@@ -45,6 +45,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/basic_gfx_utft.o \
 	${OBJECTDIR}/src/basic_internalfuncs.o \
 	${OBJECTDIR}/src/basic_interpreter.o \
+	${OBJECTDIR}/src/basic_interpreter_matrix.o \
 	${OBJECTDIR}/src/basic_lexer.o \
 	${OBJECTDIR}/src/basic_math.o \
 	${OBJECTDIR}/src/basic_parser.o \
@@ -141,6 +142,11 @@ ${OBJECTDIR}/src/basic_interpreter.o: src/basic_interpreter.cpp nbproject/Makefi
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -Wall -DARDUINO=10804 -DARDUINO_ARCH_SAM -DARDUINO_SAM_DUE -DF_CPU=84000000 -DUSBCON -DUSB_MANUFACTURER=\"Arduino\ LLC\" -DUSB_PID=0x003e -DUSB_PRODUCT=\"Arduino\ Due\" -DUSB_VID=0x2341 -D__SAM3X8E__ -Dprintf=iprintf -I/opt/Arduino/sam/variants/arduino_due_x -I/opt/Arduino/sam/cores/arduino -I/opt/Arduino/sam/system/CMSIS/Device/ATMEL -I/opt/Arduino/sam/system/CMSIS/CMSIS/Include -I/opt/Arduino/sam/system/libsam -Iinclude -I../../libarduinoext/include -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/basic_interpreter.o src/basic_interpreter.cpp
+
+${OBJECTDIR}/src/basic_interpreter_matrix.o: src/basic_interpreter_matrix.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -Wall -DARDUINO=10804 -DARDUINO_ARCH_SAM -DARDUINO_SAM_DUE -DF_CPU=84000000 -DUSBCON -DUSB_MANUFACTURER=\"Arduino\ LLC\" -DUSB_PID=0x003e -DUSB_PRODUCT=\"Arduino\ Due\" -DUSB_VID=0x2341 -D__SAM3X8E__ -Dprintf=iprintf -I/opt/Arduino/sam/variants/arduino_due_x -I/opt/Arduino/sam/cores/arduino -I/opt/Arduino/sam/system/CMSIS/Device/ATMEL -I/opt/Arduino/sam/system/CMSIS/CMSIS/Include -I/opt/Arduino/sam/system/libsam -Iinclude -I../../libarduinoext/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/basic_interpreter_matrix.o src/basic_interpreter_matrix.cpp
 
 ${OBJECTDIR}/src/basic_lexer.o: src/basic_lexer.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/src
@@ -324,6 +330,19 @@ ${OBJECTDIR}/src/basic_interpreter_nomain.o: ${OBJECTDIR}/src/basic_interpreter.
 	    $(COMPILE.cc) -Wall -DARDUINO=10804 -DARDUINO_ARCH_SAM -DARDUINO_SAM_DUE -DF_CPU=84000000 -DUSBCON -DUSB_MANUFACTURER=\"Arduino\ LLC\" -DUSB_PID=0x003e -DUSB_PRODUCT=\"Arduino\ Due\" -DUSB_VID=0x2341 -D__SAM3X8E__ -Dprintf=iprintf -I/opt/Arduino/sam/variants/arduino_due_x -I/opt/Arduino/sam/cores/arduino -I/opt/Arduino/sam/system/CMSIS/Device/ATMEL -I/opt/Arduino/sam/system/CMSIS/CMSIS/Include -I/opt/Arduino/sam/system/libsam -Iinclude -I../../libarduinoext/include -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/basic_interpreter_nomain.o src/basic_interpreter.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/basic_interpreter.o ${OBJECTDIR}/src/basic_interpreter_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/basic_interpreter_matrix_nomain.o: ${OBJECTDIR}/src/basic_interpreter_matrix.o src/basic_interpreter_matrix.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/basic_interpreter_matrix.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -Wall -DARDUINO=10804 -DARDUINO_ARCH_SAM -DARDUINO_SAM_DUE -DF_CPU=84000000 -DUSBCON -DUSB_MANUFACTURER=\"Arduino\ LLC\" -DUSB_PID=0x003e -DUSB_PRODUCT=\"Arduino\ Due\" -DUSB_VID=0x2341 -D__SAM3X8E__ -Dprintf=iprintf -I/opt/Arduino/sam/variants/arduino_due_x -I/opt/Arduino/sam/cores/arduino -I/opt/Arduino/sam/system/CMSIS/Device/ATMEL -I/opt/Arduino/sam/system/CMSIS/CMSIS/Include -I/opt/Arduino/sam/system/libsam -Iinclude -I../../libarduinoext/include -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/basic_interpreter_matrix_nomain.o src/basic_interpreter_matrix.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/basic_interpreter_matrix.o ${OBJECTDIR}/src/basic_interpreter_matrix_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/basic_lexer_nomain.o: ${OBJECTDIR}/src/basic_lexer.o src/basic_lexer.cpp 

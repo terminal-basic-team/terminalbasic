@@ -17,6 +17,7 @@ SRC="	./BASIC/include/basic.hpp  \
 	./BASIC/src/basic_parser.cpp \
 	./BASIC/include/basic_interpreter.hpp \
 	./BASIC/src/basic_interpreter.cpp \
+	./BASIC/src/basic_interpreter_matrix.cpp \
 	./BASIC/include/basic_dataparser.hpp \
 	./BASIC/src/basic_dataparser.cpp \
 	./BASIC/include/basic_program.hpp \
@@ -39,6 +40,8 @@ SRC="	./BASIC/include/basic.hpp  \
 	./BASIC/src/basic_gfx_tvout.cpp \
 	./BASIC/src/basic_gfx_utft.cpp \
 	./BASIC/src/basic_sdfs.cpp \
+	./BASIC/src/strings_en.hpp \
+	./BASIC/src/strings_ru_koi8r.hpp \
 	../libarduinoext/include/ascii.hpp \
 	../libarduinoext/include/vt100.hpp \
 	../libarduinoext/include/liquidcrystalprint.hpp \
