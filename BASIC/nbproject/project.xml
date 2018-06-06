@@ -81,9 +81,9 @@
             </confList>
             <formatting>
                 <project-formatting-style>true</project-formatting-style>
-                <c-style>OpenBSD</c-style>
-                <cpp-style>OpenBSD</cpp-style>
-                <header-style>OpenBSD</header-style>
+                <c-style>OpenSolaris|OpenSolaris</c-style>
+                <cpp-style>OpenSolaris_1|OpenBSD</cpp-style>
+                <header-style>OpenSolaris_0|OpenBSD</header-style>
             </formatting>
         </data>
     </configuration>

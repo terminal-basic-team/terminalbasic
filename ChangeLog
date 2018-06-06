@@ -1,3 +1,9 @@
+r1.1.1 (14.12.2017)
+
+  * Add optional errror message strings
+  * Fix AUTOCAPITALIZE option
+  * Some code size optimizations in matrix handling routines
+
 r1.1 (14.12.2017) Release, dedicated to the Russian Constitution Day
 
   * Fix multiterminal mode

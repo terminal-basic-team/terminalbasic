@@ -177,10 +177,12 @@ namespace BASIC
  */
 #define USESD         0
 
+#define LANG_EN 0
+#define LANG_RU 1
+	
 #define CONF_ERROR_STRINGS 1
-#if CONF_ERROR_STRINGS
-	#define ERROR_STRING_SIZE 48
-#endif
+#define ERROR_STRING_SIZE 48
+#define CONF_ERROR_STRINGS_LANG LANG_EN
 
 // Arduino IO module
 #define CONF_MODULE_ARDUINOIO      1

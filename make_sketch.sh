@@ -17,6 +17,7 @@ SRC="	./BASIC/include/basic.hpp  \
 	./BASIC/src/basic_parser.cpp \
 	./BASIC/include/basic_interpreter.hpp \
 	./BASIC/src/basic_interpreter.cpp \
+	./BASIC/src/basic_interpreter_matrix.cpp \
 	./BASIC/include/basic_dataparser.hpp \
 	./BASIC/src/basic_dataparser.cpp \
 	./BASIC/include/basic_program.hpp \
