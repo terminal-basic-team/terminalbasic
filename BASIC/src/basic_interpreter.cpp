@@ -103,6 +103,12 @@ Interpreter::valueFromVar(Parser::Value &v, const char *varName)
 	const auto f = getVariable(varName);
 	if (f == nullptr)
 		return;
+#if USE_DEFFN
+	if (f->type & TYPE_DEFFN) {
+		raiseError(DYNAMIC_ERROR, VAR_FUNCTION_DUPLICATE);
+		return;
+	}
+#endif // USE_DEFFN
 	switch (f->type) {
 	case Parser::Value::INTEGER:
 		v = f->get<Integer>();
@@ -1044,6 +1050,10 @@ Interpreter::doInput()
 uint8_t
 VariableFrame::size() const
 {
+#if USE_DEFFN
+	if (type & TYPE_DEFFN)
+		return sizeof(VariableFrame) + sizeof(FunctionFrame);
+#endif
 #if OPT == OPT_SPEED
 	switch (type) {
 #if USE_LONGINT
@@ -1063,7 +1073,7 @@ VariableFrame::size() const
 	default:
 		return sizeof(VariableFrame);
 	}
-#else
+#else // OPT != OPT_SPEED
 	uint8_t res = sizeof(VariableFrame);
 	
 #if USE_LONGINT
@@ -1076,14 +1086,14 @@ VariableFrame::size() const
 #if USE_REALS
 	else if (type == Parser::Value::REAL)
 		res += sizeof(Real);
-#endif
+#endif // USE_REALS
 	else if (type == Parser::Value::BOOLEAN)
 		res += sizeof(bool);
 	else if (type == Parser::Value::STRING)
 		res += STRINGSIZE;
-	
+
 	return res;
-#endif
+#endif // OPT
 }
 
 void
@@ -1247,6 +1257,61 @@ Interpreter::pushResult()
 {
 	return pushValue(_result);
 }
+
+#if USE_DEFFN
+void
+Interpreter::newFunction(const char *fname)
+{
+	Pointer index = _program._textEnd;
+
+	VariableFrame *f;
+	for (f = _program.variableByIndex(index); f != nullptr; index += f->size(),
+	    f = _program.variableByIndex(index)) {
+		int res = strcmp(fname, f->name);
+		if (res == 0) {
+			raiseError(DYNAMIC_ERROR,
+			    VAR_FUNCTION_DUPLICATE);
+			return;
+		} else if (res < 0)
+			break;
+	}
+
+	if (f == nullptr)
+		f = reinterpret_cast<VariableFrame*> (_program._text + index);
+
+	uint16_t dist = sizeof(VariableFrame)+sizeof(FunctionFrame);
+	Parser::Value::Type t;
+#if USE_LONGINT
+	if (endsWith(name, "%%")) {
+		t = Parser::Value::LONG_INTEGER;
+	} else
+#endif // USE_LONGINT
+		if (endsWith(fname, '%')) {
+		t = Parser::Value::INTEGER;
+	} else if (endsWith(fname, '!')) {
+		t = Parser::Value::BOOLEAN;
+	} else if (endsWith(fname, '$')) {
+		t = Parser::Value::STRING;
+	} else {
+#if USE_REALS
+		t = Parser::Value::REAL;
+#else
+		t = Parser::Value::INTEGER;
+#endif
+	}
+	if (_program._arraysEnd >= _program._sp) {
+		raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
+		return;
+	}
+	memmove(_program._text + index + dist, _program._text + index,
+	    _program._arraysEnd - index);
+	f->type = Parser::Value::Type(uint8_t(t) | TYPE_DEFFN);
+	strncpy(f->name, fname, VARSIZE);
+	FunctionFrame *ff = reinterpret_cast<FunctionFrame*>(f+1);
+	_program._variablesEnd += f->size();
+	_program._arraysEnd += f->size();
+}
+#endif
 
 void
 Interpreter::print(Token t)
@@ -1418,8 +1483,14 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 	    f = _program.variableByIndex(index)) {
 		int res = strcmp(name, f->name);
 		if (res == 0) {
-			set(*f, v);
-			return f;
+			if (f->type & TYPE_DEFFN == 0) {
+				set(*f, v);
+				return f;
+			} else {
+				raiseError(DYNAMIC_ERROR,
+				    VAR_FUNCTION_DUPLICATE);
+				return false;
+			}
 		} else if (res < 0)
 			break;
 	}

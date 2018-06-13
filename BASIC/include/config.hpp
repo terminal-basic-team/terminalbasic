@@ -107,7 +107,7 @@ namespace BASIC
  * DUMP command support
  * This command can be used to see BASIC memory image, variables and arrays list
  */
-#define USE_DUMP             0
+#define USE_DUMP             1
 /*
  * Clear program memory on NEW command
  */
@@ -127,7 +127,7 @@ namespace BASIC
 /*
  * Support of DEF FN construct
  */
-#define USE_DEFFN            0
+#define USE_DEFFN            1
 /*
  * Use vt100 text attributes
  */
@@ -156,7 +156,7 @@ namespace BASIC
 #define USE_SAVE_LOAD        1
 #if USE_SAVE_LOAD
 	// Compute checksums while SAVE, LOAD and CHAIN
-	#define SAVE_LOAD_CHECKSUM   1
+	#define SAVE_LOAD_CHECKSUM   0
 #endif // USE_SAVE_LOAD
 /*
  * STOP and CONTINUE commands support

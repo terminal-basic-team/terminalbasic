@@ -552,15 +552,21 @@ Parser::fReadStatement()
 bool
 Parser::fDefStatement()
 {
-	char buf [IDSIZE];
+	// nex keyword must be FN
 	if (_lexer.getToken() == Token::KW_FN && _lexer.getNext()) {
-		if ((_lexer.getToken() >= Token::INTEGER_IDENT) &&
-		    (_lexer.getToken() <= Token::BOOL_IDENT))
+		char buf[IDSIZE];
+		if ((fIdentifier(buf)) && _lexer.getNext() &&
+		    (_lexer.getToken() == Token::LPAREN) && _lexer.getNext() &&
+		    (_lexer.getToken() == Token::RPAREN)) {
+			// Function identifier
+			_lexer.getNext();
+			_interpreter.newFunction(buf);
 			return true;
+		}
 	}
 	return false;
 }
-#endif
+#endif // USE_DEFFN
 
 /*
  * IMPLICIT_ASSIGNMENT =
@@ -1101,7 +1107,22 @@ Parser::fFinal(Value &v)
 				_lexer.getNext();
 				return true;
 			}
-		} else {
+		}
+#if USE_DEFFN
+		else if (t == Token::KW_FN) {
+			char varName[IDSIZE];
+			if (fIdentifier(varName)) {
+				auto vf = _interpreter._program.variableByName(
+				    varName);
+				if (vf != nullptr &&
+				    (vf->type & TYPE_DEFFN) != 0) {
+					return true;
+				}
+			}
+			return false;
+		}
+#endif // USE_DEFFN
+		 else {
 			char varName[IDSIZE];
 			if (fIdentifier(varName))
 				return fIdentifierExpr(varName, v);
@@ -1109,7 +1130,6 @@ Parser::fFinal(Value &v)
 		}
 #endif
 	}
-
 }
 
 bool
