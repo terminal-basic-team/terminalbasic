@@ -14,11 +14,11 @@ GREP=grep
 NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
-CC=arm-none-eabi-gcc
+CC=gcc
 CCC=arm-none-eabi-g++
 CXX=arm-none-eabi-g++
 FC=gfortran
-AS=arm-none-eabi-as
+AS=as
 
 # Macros
 CND_PLATFORM=Arduino_ARM-Linux
@@ -41,6 +41,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/basic_exteeprom.o \
 	${OBJECTDIR}/src/basic_functionblock.o \
 	${OBJECTDIR}/src/basic_gfx.o \
+	${OBJECTDIR}/src/basic_gfx_serial.o \
 	${OBJECTDIR}/src/basic_gfx_tvout.o \
 	${OBJECTDIR}/src/basic_gfx_utft.o \
 	${OBJECTDIR}/src/basic_internalfuncs.o \
@@ -122,6 +123,11 @@ ${OBJECTDIR}/src/basic_gfx.o: src/basic_gfx.cpp nbproject/Makefile-${CND_CONF}.m
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -Wall -DARDUINO=10804 -DARDUINO_ARCH_SAM -DARDUINO_SAM_DUE -DF_CPU=84000000 -DUSBCON -DUSB_MANUFACTURER=\"Arduino\ LLC\" -DUSB_PID=0x003e -DUSB_PRODUCT=\"Arduino\ Due\" -DUSB_VID=0x2341 -D__SAM3X8E__ -Dprintf=iprintf -I/opt/Arduino/sam/variants/arduino_due_x -I/opt/Arduino/sam/cores/arduino -I/opt/Arduino/sam/system/CMSIS/Device/ATMEL -I/opt/Arduino/sam/system/CMSIS/CMSIS/Include -I/opt/Arduino/sam/system/libsam -Iinclude -I../../libarduinoext/include -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/basic_gfx.o src/basic_gfx.cpp
+
+${OBJECTDIR}/src/basic_gfx_serial.o: src/basic_gfx_serial.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -Wall -DARDUINO=10804 -DARDUINO_ARCH_SAM -DARDUINO_SAM_DUE -DF_CPU=84000000 -DUSBCON -DUSB_MANUFACTURER=\"Arduino\ LLC\" -DUSB_PID=0x003e -DUSB_PRODUCT=\"Arduino\ Due\" -DUSB_VID=0x2341 -D__SAM3X8E__ -Dprintf=iprintf -I/opt/Arduino/sam/variants/arduino_due_x -I/opt/Arduino/sam/cores/arduino -I/opt/Arduino/sam/system/CMSIS/Device/ATMEL -I/opt/Arduino/sam/system/CMSIS/CMSIS/Include -I/opt/Arduino/sam/system/libsam -Iinclude -I../../libarduinoext/include -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/basic_gfx_serial.o src/basic_gfx_serial.cpp
 
 ${OBJECTDIR}/src/basic_gfx_tvout.o: src/basic_gfx_tvout.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/src
@@ -278,6 +284,19 @@ ${OBJECTDIR}/src/basic_gfx_nomain.o: ${OBJECTDIR}/src/basic_gfx.o src/basic_gfx.
 	    $(COMPILE.cc) -Wall -DARDUINO=10804 -DARDUINO_ARCH_SAM -DARDUINO_SAM_DUE -DF_CPU=84000000 -DUSBCON -DUSB_MANUFACTURER=\"Arduino\ LLC\" -DUSB_PID=0x003e -DUSB_PRODUCT=\"Arduino\ Due\" -DUSB_VID=0x2341 -D__SAM3X8E__ -Dprintf=iprintf -I/opt/Arduino/sam/variants/arduino_due_x -I/opt/Arduino/sam/cores/arduino -I/opt/Arduino/sam/system/CMSIS/Device/ATMEL -I/opt/Arduino/sam/system/CMSIS/CMSIS/Include -I/opt/Arduino/sam/system/libsam -Iinclude -I../../libarduinoext/include -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/basic_gfx_nomain.o src/basic_gfx.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/basic_gfx.o ${OBJECTDIR}/src/basic_gfx_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/basic_gfx_serial_nomain.o: ${OBJECTDIR}/src/basic_gfx_serial.o src/basic_gfx_serial.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/basic_gfx_serial.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -Wall -DARDUINO=10804 -DARDUINO_ARCH_SAM -DARDUINO_SAM_DUE -DF_CPU=84000000 -DUSBCON -DUSB_MANUFACTURER=\"Arduino\ LLC\" -DUSB_PID=0x003e -DUSB_PRODUCT=\"Arduino\ Due\" -DUSB_VID=0x2341 -D__SAM3X8E__ -Dprintf=iprintf -I/opt/Arduino/sam/variants/arduino_due_x -I/opt/Arduino/sam/cores/arduino -I/opt/Arduino/sam/system/CMSIS/Device/ATMEL -I/opt/Arduino/sam/system/CMSIS/CMSIS/Include -I/opt/Arduino/sam/system/libsam -Iinclude -I../../libarduinoext/include -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/basic_gfx_serial_nomain.o src/basic_gfx_serial.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/basic_gfx_serial.o ${OBJECTDIR}/src/basic_gfx_serial_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/basic_gfx_tvout_nomain.o: ${OBJECTDIR}/src/basic_gfx_tvout.o src/basic_gfx_tvout.cpp 

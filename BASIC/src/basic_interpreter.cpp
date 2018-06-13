@@ -1251,7 +1251,7 @@ Interpreter::readInput()
 #if AUTOCAPITALIZE
 			c = toupper(c);
 			_inputBuffer[i] = c;
-#endif
+#endif // AUTOCAPITALIZE
 			// Only acept character if there is room for upcoming
 			// control one (line end or del/bs)
 			if (availableSize > 1) {
@@ -1324,7 +1324,7 @@ Interpreter::newFunction(const char *fname)
 	uint16_t dist = sizeof(VariableFrame)+sizeof(FunctionFrame);
 	Parser::Value::Type t;
 #if USE_LONGINT
-	if (endsWith(name, "%%")) {
+	if (endsWith(fname, "%%")) {
 		t = Parser::Value::LONG_INTEGER;
 	} else
 #endif // USE_LONGINT
@@ -1527,14 +1527,18 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 	    f = _program.variableByIndex(index)) {
 		int res = strcmp(name, f->name);
 		if (res == 0) {
+#if USE_DEFFN
 			if ((f->type & TYPE_DEFFN) == 0) {
+#endif // USE_DEFFN
 				set(*f, v);
 				return f;
+#if USE_DEFFN
 			} else {
 				raiseError(DYNAMIC_ERROR,
 				    VAR_FUNCTION_DUPLICATE);
 				return nullptr;
 			}
+#endif // USE_DEFFN
 		} else if (res < 0)
 			break;
 	}
