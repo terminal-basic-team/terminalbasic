@@ -107,7 +107,7 @@ namespace BASIC
  * DUMP command support
  * This command can be used to see BASIC memory image, variables and arrays list
  */
-#define USE_DUMP             1
+#define USE_DUMP             0
 /*
  * Clear program memory on NEW command
  */

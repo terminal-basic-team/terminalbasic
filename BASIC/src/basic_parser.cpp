@@ -136,6 +136,7 @@ Parser::parse(const char *s, bool &ok)
 
 	_lexer.init(s);
 	_stopParse = false;
+	m_definedFunctionExecute = false;
 	_error = NO_ERROR;
 	
 	if (_lexer.getNext()) {
@@ -249,7 +250,7 @@ Parser::fOperator()
 			return false;
 		}
 		if (_mode == EXECUTE) {
-			_interpreter.pushReturnAddress(_lexer.getPointer());
+			_interpreter.pushReturnAddress();
 			_interpreter.gotoLine(v);
 		}
 		_stopParse = true;
@@ -557,10 +558,19 @@ Parser::fDefStatement()
 		char buf[IDSIZE];
 		if ((fIdentifier(buf)) && _lexer.getNext() &&
 		    (_lexer.getToken() == Token::LPAREN) && _lexer.getNext() &&
-		    (_lexer.getToken() == Token::RPAREN)) {
-			// Function identifier
-			_lexer.getNext();
-			_interpreter.newFunction(buf);
+		    (_lexer.getToken() == Token::RPAREN) && _lexer.getNext() &&
+		    (_lexer.getToken() == Token::EQUALS)) {
+			
+			if (_mode == EXECUTE) {
+				_mode = SCAN;
+				_interpreter.newFunction(buf);
+				if (!_lexer.getNext())
+					return false;
+				Value v;
+				const bool res = fExpression(v);
+				_mode = EXECUTE;
+				return res;
+			}
 			return true;
 		}
 	}
@@ -1111,13 +1121,20 @@ Parser::fFinal(Value &v)
 #if USE_DEFFN
 		else if (t == Token::KW_FN) {
 			char varName[IDSIZE];
-			if (fIdentifier(varName)) {
-				auto vf = _interpreter._program.variableByName(
-				    varName);
-				if (vf != nullptr &&
-				    (vf->type & TYPE_DEFFN) != 0) {
-					return true;
+			if (_lexer.getNext() && fIdentifier(varName) &&
+			    _lexer.getNext() && (_lexer.getToken() == Token::LPAREN) &&
+			    _lexer.getNext() && (_lexer.getToken() == Token::RPAREN)) {
+				if (_mode == EXECUTE) {
+					m_definedFunctionExecute = true;
+					_interpreter.pushReturnAddress();
+					_interpreter.execFn(varName);
+					_lexer.getNext();
+					fExpression(v);
+					_interpreter.returnFromFn();
+					_lexer.getNext();
 				}
+				_stopParse = true;
+				return true;
 			}
 			return false;
 		}

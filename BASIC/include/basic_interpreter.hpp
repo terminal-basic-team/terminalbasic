@@ -350,9 +350,8 @@ public:
 	void newProgram();
 	/**
 	 * save current line on stack
-	 * @param text position
 	 */
-	void pushReturnAddress(uint8_t);
+	void pushReturnAddress();
 	// return from subprogram
 	void returnFromSub();
 	// save for loop
@@ -367,6 +366,10 @@ public:
 	bool popString(const char*&);
 	
 	void randomize();
+#if USE_DEFFN
+	void execFn(const char*);
+	void returnFromFn();
+#endif
 	/**
 	 * @brief iterate over loop
 	 * @param varName loop variable name

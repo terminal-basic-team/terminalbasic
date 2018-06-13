@@ -714,8 +714,9 @@ Interpreter::newProgram()
 }
 
 void
-Interpreter::pushReturnAddress(uint8_t textPosition)
+Interpreter::pushReturnAddress()
 {
+	const uint8_t textPosition = _lexer.getPointer();
 	auto f = _program.push(Program::StackFrame::SUBPROGRAM_RETURN);
 	if (f != nullptr) {
 		f->body.gosubReturn.calleeIndex = _program._current.index;
@@ -816,6 +817,46 @@ Interpreter::randomize()
 	::randomSeed(millis());
 }
 
+#if USE_DEFFN
+void
+Interpreter::execFn(const char *name)
+{
+	auto vf = _program.variableByName(name);
+	if (vf == nullptr || ((vf->type & TYPE_DEFFN) == 0)) {
+		raiseError(DYNAMIC_ERROR, NO_SUCH_ARRAY);
+		return;
+	}
+	
+	auto ff = reinterpret_cast<FunctionFrame*>(vf+1);
+	_program._current.index = ff->lineNumber;
+	_program._current.position = ff->linePosition;
+	Program::Line *s = _program.current(_program._current);
+	if (s != nullptr)
+		_lexer.init(s->text + _program._current.position);
+	else
+		raiseError(DYNAMIC_ERROR, INTERNAL_ERROR);
+}
+
+void
+Interpreter::returnFromFn()
+{
+	const auto f = _program.currentStackFrame();
+	if ((f != nullptr) && (f->_type == Program::StackFrame::SUBPROGRAM_RETURN)) {
+		_program._current.index = f->body.gosubReturn.calleeIndex;
+		_program._current.position = f->body.gosubReturn.textPosition;
+		_program.pop();
+	} else {
+		raiseError(DYNAMIC_ERROR, RETURN_WO_GOSUB);
+		return;
+	}
+	Program::Line *s = _program.current(_program._current);
+	if (s != nullptr)
+		_lexer.init(s->text + _program._current.position);
+	else
+		raiseError(DYNAMIC_ERROR, INTERNAL_ERROR);
+}
+#endif
+
 bool
 Interpreter::next(const char *varName)
 {
@@ -823,7 +864,8 @@ Interpreter::next(const char *varName)
 	if ((f != nullptr) && (f->_type == Program::StackFrame::FOR_NEXT) &&
 	    (strcmp(f->body.forFrame.varName, varName) == 0)) { // Correct frame
 		f->body.forFrame.currentValue += f->body.forFrame.stepValue;
-		setVariable(f->body.forFrame.varName, f->body.forFrame.currentValue);
+		setVariable(f->body.forFrame.varName,
+		    f->body.forFrame.currentValue);
 		if (testFor(*f))
 			return true;
 	} else // Incorrect frame
@@ -1307,7 +1349,9 @@ Interpreter::newFunction(const char *fname)
 	    _program._arraysEnd - index);
 	f->type = Parser::Value::Type(uint8_t(t) | TYPE_DEFFN);
 	strncpy(f->name, fname, VARSIZE);
-	FunctionFrame *ff = reinterpret_cast<FunctionFrame*>(f+1);
+	FunctionFrame *ff = reinterpret_cast<FunctionFrame*>(f->bytes);
+	ff->lineNumber = _program._current.index;
+	ff->linePosition = _program._current.position+_lexer.getPointer();
 	_program._variablesEnd += f->size();
 	_program._arraysEnd += f->size();
 }
@@ -1483,13 +1527,13 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 	    f = _program.variableByIndex(index)) {
 		int res = strcmp(name, f->name);
 		if (res == 0) {
-			if (f->type & TYPE_DEFFN == 0) {
+			if ((f->type & TYPE_DEFFN) == 0) {
 				set(*f, v);
 				return f;
 			} else {
 				raiseError(DYNAMIC_ERROR,
 				    VAR_FUNCTION_DUPLICATE);
-				return false;
+				return nullptr;
 			}
 		} else if (res < 0)
 			break;

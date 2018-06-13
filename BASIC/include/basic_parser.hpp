@@ -38,6 +38,7 @@ class Interpreter;
 class Parser
 {
 public:
+
 	/**
 	 * @brief Static semantic errors
 	 */
@@ -53,7 +54,7 @@ public:
 		VARIABLES_LIST_EXPECTED = 7,
 		STRING_OVERFLOW = 8
 	};
-	
+
 	class EXT_PACKED Value;
 	/**
 	 * @brief constructor
@@ -69,21 +70,26 @@ public:
 	 * @return end of parsed string
 	 */
 	bool parse(const char*, bool&);
-	
+
 	void stop();
+
 	/**
 	 * @brief get last static error code
 	 * @return error code
 	 */
-	ErrorCodes getError() const { return _error; }
-	
+	ErrorCodes getError() const
+	{
+		return _error;
+	}
+
 	void init();
-	
+
 	void addModule(FunctionBlock*);
 #if CONF_ERROR_STRINGS
 	static PGM_P const errorStrings[] PROGMEM;
 #endif
 private:
+
 	/**
 	 * Parser mode: syntax check or execute commands of the interpreter
 	 * context
@@ -91,7 +97,7 @@ private:
 	enum Mode : uint8_t
 	{
 		SCAN = 0,
-		EXECUTE
+		EXECUTE = 1
 	};
 	bool fOperators(bool&);
 	bool fOperator();
@@ -125,7 +131,6 @@ private:
 	bool fMatrixPrint();
 	bool fMatrixExpression(const char*);
 #endif
-	
 	// last static semantic error
 	ErrorCodes _error;
 	// lexical analyser object reference
@@ -133,9 +138,15 @@ private:
 	// interpreter context object reference
 	Interpreter &_interpreter;
 	// current mode
-	Mode	_mode;
-	// stop parsing string flag
-	bool	_stopParse;
+	Mode _mode;
+	struct
+	{
+		// stop parsing string flag
+		bool _stopParse : 1;
+#if USE_DEFFN
+		bool m_definedFunctionExecute : 1;
+#endif
+	};
 	// first module in chain reference
 	InternalFunctions _internal;
 };
