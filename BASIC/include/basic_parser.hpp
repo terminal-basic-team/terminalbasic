@@ -40,12 +40,12 @@ class Parser
 public:
 
 	/**
-	 * @brief Static semantic errors
+	 * @brief Syntax errors
 	 */
 	enum ErrorCodes : uint8_t
 	{
-		NO_ERROR = 0,
-		OPERATOR_EXPECTED = 1,
+		NO_ERROR = 0,                 // Not an error
+		OPERATOR_EXPECTED = 1,        // Operator expected
 		EXPRESSION_EXPECTED = 2,
 		INTEGER_CONSTANT_EXPECTED = 3,
 		THEN_OR_GOTO_EXPECTED = 4,

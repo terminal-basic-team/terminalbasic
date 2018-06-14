@@ -235,7 +235,6 @@ public:
 	 * @param program Program size
 	 */
 	explicit Interpreter(Stream&, Print&, Pointer);
-	
 	/**
 	 * [re]initialize interpreter object
 	 */
@@ -248,8 +247,8 @@ public:
 	// Restore data pointer
 	void restore();
 #endif
-	// Clear screen
 #if USE_TEXTATTRIBUTES
+	// Clear screen
 	void cls();
 #endif
 #if USESTOPCONT
@@ -378,9 +377,8 @@ public:
 	bool next(const char*);
 	bool testFor(Program::StackFrame&);
 
-	// Internal EEPROM commands
 #if USE_SAVE_LOAD
-
+	// Internal EEPROM commands
 	struct EEpromHeader_t
 	{
 		Pointer len;

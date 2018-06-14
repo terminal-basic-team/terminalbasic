@@ -57,6 +57,7 @@ namespace BASIC
 		 * SIN COS TAN COT
 		 */
 		#define M_TRIGONOMETRIC         1
+		#define M_HYPERBOLIC            1
 		/*
 		 * ACS ASN ATN
 		 */
