@@ -27,6 +27,7 @@
       <itemPath>src/basic_exteeprom.cpp</itemPath>
       <itemPath>src/basic_functionblock.cpp</itemPath>
       <itemPath>src/basic_gfx.cpp</itemPath>
+      <itemPath>src/basic_gfx_serial.cpp</itemPath>
       <itemPath>src/basic_gfx_tvout.cpp</itemPath>
       <itemPath>src/basic_gfx_utft.cpp</itemPath>
       <itemPath>src/basic_internalfuncs.cpp</itemPath>
@@ -209,6 +210,8 @@
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/basic_gfx_serial.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
@@ -363,6 +366,8 @@
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_serial.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -533,6 +538,8 @@
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_serial.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -737,6 +744,8 @@
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/basic_gfx_serial.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
@@ -889,6 +898,8 @@
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_serial.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1047,6 +1058,8 @@
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/basic_gfx_serial.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
@@ -1201,6 +1214,8 @@
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_serial.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1360,6 +1375,8 @@
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_serial.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1558,6 +1575,8 @@
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/basic_gfx_serial.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
@@ -1745,6 +1764,8 @@
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/basic_gfx_serial.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
@@ -1900,6 +1921,8 @@
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_serial.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -2057,6 +2080,8 @@
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_gfx_serial.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -2313,6 +2338,8 @@
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_gfx_serial.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="8">
       </item>

@@ -219,7 +219,11 @@ namespace BASIC
 /*
  * GFX module
  */
-#define USE_GFX          0
+#define USE_GFX          1
+#if USE_GFX
+#define SERIAL_GFX       1
+#endif
+
 /*
  * Prompt on new line
  */

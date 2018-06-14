@@ -136,7 +136,6 @@ Parser::parse(const char *s, bool &ok)
 
 	_lexer.init(s);
 	_stopParse = false;
-	m_definedFunctionExecute = false;
 	_error = NO_ERROR;
 	
 	if (_lexer.getNext()) {
