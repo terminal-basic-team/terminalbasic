@@ -124,11 +124,15 @@ namespace BASIC
 /**
  * Support of DATA/READ statements
  */
-#define USE_DATA             1
+#define USE_DATA             0
 /*
  * Support of DEF FN construct
  */
-#define USE_DEFFN            1
+#define USE_DEFFN            0
+/**
+ * Allow INPUT command with text message e.g. INPUT "A:";A
+ */
+#define INPUT_WITH_TEXT      1
 /*
  * Use vt100 text attributes
  */
@@ -157,7 +161,7 @@ namespace BASIC
 #define USE_SAVE_LOAD        1
 #if USE_SAVE_LOAD
 	// Compute checksums while SAVE, LOAD and CHAIN
-	#define SAVE_LOAD_CHECKSUM   0
+	#define SAVE_LOAD_CHECKSUM   1
 #endif // USE_SAVE_LOAD
 /*
  * STOP and CONTINUE commands support

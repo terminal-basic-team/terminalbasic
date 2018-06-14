@@ -101,6 +101,7 @@ private:
 	};
 	bool fOperators(bool&);
 	bool fOperator();
+	bool fOnStatement(uint8_t);
 #if USE_DATA
 	bool fDataStatement();
 	bool fReadStatement();

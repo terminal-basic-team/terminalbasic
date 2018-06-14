@@ -89,6 +89,6 @@ private:
 	static const FunctionBlock::function funcs[] PROGMEM;;
 };
 
-}
+} // namespace BASIC
 
-#endif
+#endif // BASIC_MATH_HPP

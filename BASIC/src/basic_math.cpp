@@ -249,45 +249,45 @@ Math::func_cbr(Interpreter &i)
 Real
 Math::acs_r(Real v)
 {
-	return (acos(v));
+	return acos(v);
 }
 
 Real
 Math::asn_r(Real v)
 {
-	return (asin(v));
+	return asin(v);
 }
 
 Real
 Math::atn_r(Real v)
 {
-	return (atan(v));
+	return atan(v);
 }
 #endif // M_REVERSE_TRIGONOMETRIC
 
 Real
 Math::exp_r(Real v)
 {
-	return (exp(v));
+	return exp(v);
 }
 
 Real
 Math::log_r(Real v)
 {
-	return (log(v));
+	return log(v);
 }
 
 Real
 Math::sqr_r(Real v)
 {
-	return (sqrt(v));
+	return sqrt(v);
 }
 
 #if M_ADDITIONAL
 Real
 Math::cbr_r(Real v)
 {
-	return (cbrt(v));
+	return cbrt(v);
 }
 #endif
 

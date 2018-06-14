@@ -14,11 +14,11 @@ GREP=grep
 NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
-CC=gcc
+CC=arm-none-eabi-gcc
 CCC=arm-none-eabi-g++
 CXX=arm-none-eabi-g++
 FC=gfortran
-AS=as
+AS=arm-none-eabi-as
 
 # Macros
 CND_PLATFORM=Arduino_ARM-Linux

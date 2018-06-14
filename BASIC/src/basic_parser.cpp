@@ -242,6 +242,16 @@ Parser::fOperator()
 		if (_lexer.getNext())
 			return fForConds();
 		return false;
+	case Token::KW_ON: {
+		Value v;
+		if (!_lexer.getNext() || !fExpression(v)) {
+			_error = EXPRESSION_EXPECTED;
+			return false;
+		}
+		bool res = fOnStatement(uint8_t(INT(v)));
+		_stopParse = true;
+		return res;
+	}
 	case Token::KW_GOSUB: {
 		Value v;
 		if (!_lexer.getNext() || !fExpression(v)) {
@@ -274,7 +284,19 @@ Parser::fOperator()
 		return res;
 	}
 	case Token::KW_INPUT:
+		_lexer.getNext();
+#if INPUT_WITH_TEXT
+		if (_lexer.getToken() == Token::C_STRING) {
+		    _interpreter.print(_lexer.id());
+			if (!_lexer.getNext() || _lexer.getToken() !=
+			    Token::SEMI || !_lexer.getNext()) {
+				_error = VARIABLES_LIST_EXPECTED;
+				return false;
+			}
+		}
+#endif // INPUT_WITH_TEXT
 		if (!fVarList()) {
+		    
 			_error = VARIABLES_LIST_EXPECTED;
 			return false;
 		} else if (_mode == EXECUTE)
@@ -415,6 +437,17 @@ Parser::fOperator()
 //		_mode = EXECUTE;
 //		return res;
 //	} else if (t == Token::KW_INPUT) {
+//		_lexer.getNext();
+//#if INPUT_WITH_TEXT
+//		if (_lexer.getToken() == Token::C_STRING) {
+//		    _interpreter.print(_lexer.id());
+//			if (!_lexer.getNext() || _lexer.getToken() !=
+//			    Token::SEMI || !_lexer.getNext()) {
+//				_error = VARIABLES_LIST_EXPECTED;
+//				return false;
+//			}
+//		}
+//#endif // INPUT_WITH_TEXT
 //		if (!fVarList()) {
 //			_error = VARIABLES_LIST_EXPECTED;
 //			return false;
@@ -470,6 +503,15 @@ Parser::fOperator()
 //		return false;
 //	}
 	return true;
+}
+
+bool
+Parser::fOnStatement(uint8_t index)
+{
+	if (_lexer.getNext() || _lexer.getToken() == Token::KW_GOTO) {
+		return true;
+	}
+	return false;
 }
 
 #if USE_DATA
@@ -1380,7 +1422,7 @@ Parser::fVarList()
 	Token t;
 	char varName[IDSIZE];
 	do {
-		if (!_lexer.getNext() || !fIdentifier(varName))
+		if (!fIdentifier(varName))
 			return false;
 		if (_mode == EXECUTE) {
 			varName[VARSIZE-1] = '\0';
@@ -1389,6 +1431,7 @@ Parser::fVarList()
 		if (!_lexer.getNext())
 			return true;
 		t = _lexer.getToken();
+		_lexer.getNext();
 	} while (t == Token::COMMA);
 	return true;
 }
