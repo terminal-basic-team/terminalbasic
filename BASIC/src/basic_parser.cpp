@@ -508,8 +508,19 @@ Parser::fOperator()
 bool
 Parser::fOnStatement(uint8_t index)
 {
-	if (_lexer.getNext() || _lexer.getToken() == Token::KW_GOTO) {
-		return true;
+ 	if (_lexer.getToken() == Token::KW_GOTO) {
+		while (index-- > 0) {
+			if (_lexer.getNext() &&
+			    _lexer.getToken() == Token::C_INTEGER) {
+				if (index == 0) {
+					_interpreter.gotoLine(_lexer.getValue());
+					return true;
+				} else if (index > 0 && _lexer.getNext() &&
+					_lexer.getToken() == Token::COMMA)
+					continue;
+			} else
+				break;
+		}
 	}
 	return false;
 }
