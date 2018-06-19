@@ -1422,6 +1422,8 @@ Parser::fForConds()
 		if (f != nullptr)
 			if (_interpreter.testFor(*f))
 				_mode = SCAN;
+			else
+				_stopParse = true;
 	}
 	
 	return true;
