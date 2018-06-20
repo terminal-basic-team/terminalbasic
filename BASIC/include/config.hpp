@@ -37,7 +37,7 @@ namespace BASIC
 /*
  * DELAY command, suspends execution for N ms
  */
-#define USE_DELAY    1
+#define USE_DELAY           1
 
 /*
  * Real arithmetics
@@ -57,11 +57,11 @@ namespace BASIC
 		 * SIN COS TAN COT
 		 */
 		#define M_TRIGONOMETRIC         1
-		#define M_HYPERBOLIC            1
+		#define M_HYPERBOLIC            0
 		/*
 		 * ACS ASN ATN
 		 */
-		#define M_REVERSE_TRIGONOMETRIC 0
+		#define M_REVERSE_TRIGONOMETRIC 1
 		/*
 		 * CBR (cubic root) ...
 		 */
@@ -84,7 +84,7 @@ namespace BASIC
 /**
  * Allow GO TO OPERATOR in addition to GOTO
  */
-#define CONF_SEPARATE_GO_TO     1
+#define CONF_SEPARATE_GO_TO     0
 /*
  * Use >< as not-equals operator (with default <>)
  */
@@ -108,7 +108,7 @@ namespace BASIC
  * DUMP command support
  * This command can be used to see BASIC memory image, variables and arrays list
  */
-#define USE_DUMP             0
+#define USE_DUMP             1
 /*
  * Clear program memory on NEW command
  */
@@ -141,7 +141,7 @@ namespace BASIC
 	/*
 	 * Use ANSI color attributes
 	 */
-	#define USE_COLORATTRIBUTES  1
+	#define USE_COLORATTRIBUTES  0
 	/*
 	 * Support of SPC(N) print command
 	 */
@@ -161,7 +161,7 @@ namespace BASIC
 #define USE_SAVE_LOAD        1
 #if USE_SAVE_LOAD
 	// Compute checksums while SAVE, LOAD and CHAIN
-	#define SAVE_LOAD_CHECKSUM   1
+	#define SAVE_LOAD_CHECKSUM   0
 #endif // USE_SAVE_LOAD
 /*
  * STOP and CONTINUE commands support
@@ -196,7 +196,7 @@ namespace BASIC
 #define CONF_MODULE_ARDUINOIO      1
 #if CONF_MODULE_ARDUINOIO
 	// TONE command support
-	#define CONF_MODULE_ARDUINOIO_TONE 0
+	#define CONF_MODULE_ARDUINOIO_TONE 1
 #endif // CONF_MODULE_ARDUINOIO
 
 // External EEPROM functions module
@@ -223,9 +223,9 @@ namespace BASIC
 /*
  * GFX module
  */
-#define USE_GFX          1
+#define USE_GFX          0
 #if USE_GFX
-#define SERIAL_GFX       1
+#define SERIAL_GFX       0
 #endif
 
 /*
@@ -247,27 +247,31 @@ namespace BASIC
 // Input variants
 #define SERIAL_I    1  // Serial input
 #define SERIAL1_I   2  // Serial1 input
-#define SERIALL_I   3  // SerialL input (non-buffering, interrupt-free)
-#define SERIALL1_I  4  // SerialL1 input (non-buffering, interrupt-free)
-#define SERIALL2_I  5  // SerialL2 input (non-buffering, interrupt-free)
-#define SERIALL3_I  6  // SerialL3 input (non-buffering, interrupt-free)
+#define SERIAL2_I   3  // Serial2 input
+#ifdef ARDUINO_ARCH_AVR
+#define SERIALL_I   4  // SerialL input (non-buffering, interrupt-free)
+#define SERIALL1_I  5  // SerialL1 input (non-buffering, interrupt-free)
+#define SERIALL2_I  6  // SerialL2 input (non-buffering, interrupt-free)
+#define SERIALL3_I  7  // SerialL3 input (non-buffering, interrupt-free)
+#endif // ARDUINO_ARCH_AVR
 	#define SERIAL_I_BR 115200
-#define PS2UARTKB_I 7  // PS/2 keyboard through USART
-#define SDL_I       8  // SDL input on PC
+#define PS2UARTKB_I 8  // PS/2 keyboard through USART
+#define SDL_I       9  // SDL input on PC
 
 // Output variants
 #define SERIAL_O   1 // Serial output
 #define SERIAL1_O  2 // Serial1 output
-#define SERIALL_O  3 // SerialL output (non-buffering, interrupt-free)
-#define SERIALL1_O 4 // SerialL1 output (non-buffering, interrupt-free)
-#define SERIALL2_O 5 // SerialL2 output (non-buffering, interrupt-free)
-#define SERIALL3_O 6 // SerialL3 output (non-buffering, interrupt-free)
+#define SERIAL2_O  3 // Serial2 output
+#define SERIALL_O  4 // SerialL output (non-buffering, interrupt-free)
+#define SERIALL1_O 5 // SerialL1 output (non-buffering, interrupt-free)
+#define SERIALL2_O 6 // SerialL2 output (non-buffering, interrupt-free)
+#define SERIALL3_O 7 // SerialL3 output (non-buffering, interrupt-free)
 	#define SERIAL_O_BR 115200
-#define UTFT_O     7 // UTFT library output
-#define TVOUT_O    8 // TVoutEx library output
+#define UTFT_O     8 // UTFT library output
+#define TVOUT_O    9 // TVoutEx library output
 	#define TVOUT_HORIZ 240
 	#define TVOUT_VERT 192
-#define LIQCR_O    9 // LiquidCrystal library output
+#define LIQCR_O    10 // LiquidCrystal library output
 	#define LIQCR_HORIZ 20
 	#define LIQCR_VERT 4
 	#define LIQCR_RS 12
