@@ -742,6 +742,7 @@ Program::StackFrame*
 Interpreter::pushForLoop(const char *varName, uint8_t textPosition,
     const Parser::Value &v, const Parser::Value &vStep)
 {
+	// push new FOR .. NEXT stack frame
 	auto f = _program.push(Program::StackFrame::FOR_NEXT);
 	if (f != nullptr) {
 	    	auto &fBody = f->body.forFrame;
@@ -750,10 +751,7 @@ Interpreter::pushForLoop(const char *varName, uint8_t textPosition,
 		    textPosition;
 		fBody.finalvalue = v;
 		fBody.stepValue = vStep;
-
-		valueFromVar(fBody.currentValue, varName);
 		strcpy(fBody.varName, varName);
-		setVariable(varName, fBody.currentValue);
 	} else
 		raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
 	
@@ -863,9 +861,10 @@ Interpreter::next(const char *varName)
 	Program::StackFrame *f = _program.currentStackFrame();
 	if ((f != nullptr) && (f->_type == Program::StackFrame::FOR_NEXT) &&
 	    (strcmp(f->body.forFrame.varName, varName) == 0)) { // Correct frame
-		f->body.forFrame.currentValue += f->body.forFrame.stepValue;
-		setVariable(f->body.forFrame.varName,
-		    f->body.forFrame.currentValue);
+		Parser::Value v;
+		valueFromVar(v, varName);
+		v += f->body.forFrame.stepValue;
+		setVariable(varName, v);
 		if (testFor(*f))
 			return true;
 	} else // Incorrect frame
@@ -880,13 +879,14 @@ Interpreter::testFor(Program::StackFrame &f)
 	assert(f._type == Program::StackFrame::FOR_NEXT);
 	
 	auto &fBody = f.body.forFrame;
+	Parser::Value v;
+	valueFromVar(v, fBody.varName);
 	if (fBody.stepValue > Parser::Value(Integer(0))) {
-		if (fBody.currentValue >
-		    fBody.finalvalue) {
+		if (v > fBody.finalvalue) {
 			_program.pop();
 			return true;
 		}
-	} else if (fBody.currentValue < fBody.finalvalue) {
+	} else if (v < fBody.finalvalue) {
 		_program.pop();
 		return true;
 	}
