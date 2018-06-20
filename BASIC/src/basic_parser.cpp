@@ -760,6 +760,60 @@ Parser::fExpression(Value &v)
 {
 	LOG_TRACE;
 	
+	if (_lexer.getToken() == Token::OP_NOT) {
+		if (!_lexer.getNext() || !fExpression(v))
+			return false;
+		if (_mode == EXECUTE)
+			v.notOp();
+		return true;
+	}
+	
+	if (!fLogicalAdd(v))
+		return false;
+
+	while (true) {
+		const Token t = _lexer.getToken();
+		Value v2;
+		if (t == Token::OP_OR) {
+			if (!_lexer.getNext() || !fLogicalAdd(v2))
+				return false;
+			
+			if (_mode != Mode::EXECUTE)
+				continue;
+			v |= v2;
+		} else
+			return true;
+	}
+}
+
+bool
+Parser::fLogicalAdd(Value &v)
+{
+	LOG_TRACE;
+	
+	if (!fLogicalFinal(v))
+		return false;
+
+	while (true) {
+		const Token t = _lexer.getToken();
+		Value v2;
+		if (t == Token::OP_AND) {
+			if (!_lexer.getNext() || !fLogicalFinal(v2))
+				return false;
+			
+			if (_mode != Mode::EXECUTE)
+				continue;
+			v &= v2;
+		} else
+			return true;
+	}
+}
+
+bool
+Parser::fLogicalFinal(Value &v)
+{
+	LOG_TRACE;
+	
 	if (!fSimpleExpression(v))
 		return false;
 
@@ -911,18 +965,11 @@ Parser::fSimpleExpression(Value &v)
 				continue;
 			} else
 				return false;
-		case Token::OP_OR:
-			if (_lexer.getNext() && fTerm(v2)) {
-				if (_mode == Mode::EXECUTE)
-					v |= v2;
-				continue;
-			} else
-				return false;
 		default:
 			return true;
 		}
 #else
-		if (t == Token::PLUS || t == Token::MINUS || t == Token::OP_OR) {
+		if (t == Token::PLUS || t == Token::MINUS) {
 			if (!_lexer.getNext() || !fTerm(v2))
 				return false;
 			if (_mode != Mode::EXECUTE)
@@ -937,8 +984,6 @@ Parser::fSimpleExpression(Value &v)
 					v += v2;
 			} else if (t == Token::MINUS)
 				v -= v2;
-			else if (t == Token::OP_OR)
-				v |= v2;
 		} else
 			return true;
 #endif // OPT == OPT_SPEED
@@ -990,17 +1035,11 @@ Parser::fTerm(Value &v)
 			} else
 				return false;
 #endif // USE_INTEGER_DIV
-		case Token::OP_AND:
-			if (_lexer.getNext() && fFactor(v2)) {
-				v &= v2;
-				continue;
-			} else
-				return false;	
 		default:
 			return true;
 		}
 #else
-		if (t == Token::STAR || t == Token::SLASH || t == Token::OP_AND
+		if (t == Token::STAR || t == Token::SLASH
 #if USE_INTEGER_DIV
 #if USE_REALS
 		 || t == Token::BACK_SLASH
@@ -1021,8 +1060,6 @@ Parser::fTerm(Value &v)
 				v *= v2;
 			else if (t == Token::SLASH)
 				v /= v2;
-			else if (t == Token::OP_AND)
-				v &= v2;
 #if USE_INTEGER_DIV
 #if USE_REALS
 			else if (t == Token::BACK_SLASH
@@ -1094,12 +1131,6 @@ Parser::fFinal(Value &v)
 			if (_mode == EXECUTE)
 				v.switchSign();
 			return true;
-		case Token::OP_NOT:
-			if (!_lexer.getNext() || !fFinal(v))
-				return false;
-			if (_mode == EXECUTE)
-				v.notOp();
-			return true;
 		case Token::C_INTEGER:
 		case Token::C_REAL:
 		case Token::C_BOOLEAN:
@@ -1137,13 +1168,7 @@ Parser::fFinal(Value &v)
 			return false;
 		}
 #else
-		if (t == Token::OP_NOT) {
-			if (!_lexer.getNext() || !fFinal(v))
-				return false;
-			if (_mode == EXECUTE)
-				v.notOp();
-			return true;
-		} else if (t == Token::C_INTEGER || t == Token::C_REAL ||
+		if (t == Token::C_INTEGER || t == Token::C_REAL ||
 		    t == Token::C_BOOLEAN) {
 			if (_mode == EXECUTE)
 				v = _lexer.getValue();

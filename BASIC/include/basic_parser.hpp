@@ -113,6 +113,8 @@ private:
 	bool fPrintList();
 	bool fPrintItem();
 	bool fExpression(Value&);
+	bool fLogicalAdd(Value&);
+	bool fLogicalFinal(Value&);
 	bool fSimpleExpression(Value&);
 	bool fTerm(Value&);
 	bool fFactor(Value&);
