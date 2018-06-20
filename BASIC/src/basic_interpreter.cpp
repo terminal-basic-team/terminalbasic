@@ -858,19 +858,22 @@ Interpreter::returnFromFn()
 bool
 Interpreter::next(const char *varName)
 {
-	Program::StackFrame *f = _program.currentStackFrame();
-	if ((f != nullptr) && (f->_type == Program::StackFrame::FOR_NEXT) &&
-	    (strcmp(f->body.forFrame.varName, varName) == 0)) { // Correct frame
-		Parser::Value v;
-		valueFromVar(v, varName);
-		v += f->body.forFrame.stepValue;
-		setVariable(varName, v);
-		if (testFor(*f))
-			return true;
-	} else // Incorrect frame
-		raiseError(DYNAMIC_ERROR, INVALID_NEXT);
-
-	return false;
+        do {
+		Program::StackFrame *f = _program.currentStackFrame();
+		if ((f != nullptr) && (f->_type == Program::StackFrame::FOR_NEXT)) { // Correct frame
+			if (strcmp(f->body.forFrame.varName, varName) == 0) {
+				Parser::Value v;
+				valueFromVar(v, varName);
+				v += f->body.forFrame.stepValue;
+				setVariable(varName, v);
+				return testFor(*f);
+			} else
+				_program.pop();
+		} else { // Incorrect frame
+			raiseError(DYNAMIC_ERROR, INVALID_NEXT);
+			return false;
+		}
+	} while (true);
 }
 
 bool
