@@ -1,6 +1,6 @@
 /*
  * Terminal-BASIC is a lightweight BASIC-like language interpreter
- * Copyright (C) 2016, 2017 Andrey V. Skvortsov <starling13@mail.ru>
+ * Copyright (C) 2016-2018 Andrey V. Skvortsov <starling13@mail.ru>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -68,6 +68,10 @@ GFXModule::command_color(Interpreter &i)
 	
 	if (getIntegerFromStack(i, b)) {
 		if (getIntegerFromStack(i, c)) {
+			i.print(char(ASCII::DLE));
+			i.print(char(GFXTERM::Command::COLOR));
+			i.print(char(c));
+			i.print(char(b));
 			
 			return true;
 		}
