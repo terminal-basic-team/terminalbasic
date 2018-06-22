@@ -20,11 +20,13 @@ terminalbasic_SOURCES=arduinoext.hpp \
 	basic_gfx.cpp \
 	basic_gfx.hpp \
 	basic_gfx_tvout.cpp \
+	basic_gfx_serial.cpp \
 	basic_gfx_utft.cpp \
 	basic.hpp \
 	basic_internalfuncs.cpp \
 	basic_internalfuncs.hpp \
 	basic_interpreter.cpp \
+	basic_interpreter_matrix.cpp \
 	basic_interpreter.hpp \
 	basic_lexer.cpp \
 	basic_lexer.hpp \
@@ -40,6 +42,8 @@ terminalbasic_SOURCES=arduinoext.hpp \
 	basic_sdfs.hpp \
 	basic_dataparser.cpp \
 	basic_dataparser.hpp \
+	strings_en.hpp \
+	strings_ru_koi8r.hpp \
 	bytearray.cpp \
 	bytearray.hpp \
 	config.hpp \

@@ -39,11 +39,13 @@ SRC="	./BASIC/include/basic.hpp  \
 	./BASIC/src/basic_gfx.cpp \
 	./BASIC/src/basic_gfx_tvout.cpp \
 	./BASIC/src/basic_gfx_utft.cpp \
+	./BASIC/src/basic_gfx_serial.cpp \
 	./BASIC/src/basic_sdfs.cpp \
 	./BASIC/src/strings_en.hpp \
 	./BASIC/src/strings_ru_koi8r.hpp \
 	../libarduinoext/include/ascii.hpp \
 	../libarduinoext/include/vt100.hpp \
+	../libarduinoext/include/gfxterm.hpp \
 	../libarduinoext/include/liquidcrystalprint.hpp \
 	../libarduinoext/include/seriallight.hpp \
 	../libarduinoext/include/matrix.hpp \
