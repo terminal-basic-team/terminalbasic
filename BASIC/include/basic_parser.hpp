@@ -52,7 +52,8 @@ public:
 		INVALID_DATA_EXPR = 5,
 		INVALID_READ_EXPR = 6,
 		VARIABLES_LIST_EXPECTED = 7,
-		STRING_OVERFLOW = 8
+		STRING_OVERFLOW = 8,
+		MISSING_RPAREN = 9
 	};
 
 	class EXT_PACKED Value;
@@ -99,6 +100,9 @@ private:
 		SCAN = 0,
 		EXECUTE = 1
 	};
+	
+	bool testExpression(Value&);
+	
 	bool fOperators(bool&);
 	bool fOperator();
 	bool fOnStatement(uint8_t);

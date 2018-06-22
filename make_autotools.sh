@@ -22,6 +22,7 @@ SRC="	./BASIC/include/basic.hpp  \
 	./BASIC/include/basic_dataparser.hpp \
 	./BASIC/src/basic_dataparser.cpp \
 	./BASIC/src/basic_interpreter.cpp \
+	./BASIC/src/basic_interpreter_matrix.cpp \
 	./BASIC/src/basic_program.cpp \
 	./BASIC/include/basic_exteeprom.hpp \
 	./BASIC/src/basic_exteeprom.cpp \
@@ -39,9 +40,12 @@ SRC="	./BASIC/include/basic.hpp  \
 	./BASIC/src/basic_gfx.cpp \
 	./BASIC/src/basic_gfx_tvout.cpp \
 	./BASIC/src/basic_gfx_utft.cpp \
+	./BASIC/src/basic_gfx_serial.cpp \
 	./BASIC/src/basic_parser_value.cpp \
 	./BASIC/src/basic_sdfs.cpp \
 	./BASIC/src/ucbasic_main.cpp \
+	./BASIC/src/strings_en.hpp \
+	./BASIC/src/strings_ru_koi8r.hpp \
 	../libarduinoext/include/vt100.hpp \
 	../libarduinoext/include/matrix.hpp \
 	../libarduinoext/include/types.hpp \

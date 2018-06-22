@@ -51,9 +51,9 @@
  * EXPRESSION = SIMPLE_EXPRESSION | SIMPLE_EXPRESSION REL SIMPLE_EXPRESSION
  * REL = LT | LTE | EQUALS | GT | GTE | NE | NEA
  * SIMPLE_EXPRESSION = TERM | TERM ADD TERM
- * ADD = PLUS MINUS KW_OR
+ * ADD = PLUS MINUS
  * TERM = FACTOR | FACTOR MUL FACTOR
- * MUL = STAR | SLASH | DIV | MOD | KW_AND
+ * MUL = STAR | SLASH | DIV | MOD
  * FACTOR = FINAL | FINAL POW FINAL
  * FINAL = C_INTEGER | C_REAL | C_STRING | VAR | VAR ARRAY |
  *	LPAREN EXPRESSION RPAREN | MINUS FINAL
@@ -138,9 +138,9 @@ Parser::parse(const char *s, bool &ok)
 	_stopParse = false;
 	_error = NO_ERROR;
 	
-	if (_lexer.getNext()) {
+	if (_lexer.getNext())
 		return fOperators(ok);
-	} else {
+	else {
 		ok = true;
 		return false;
 	}
@@ -152,7 +152,6 @@ Parser::parse(const char *s, bool &ok)
 bool
 Parser::fOperators(bool &ok)
 {
-	Token t;
 	if (!fOperator()) {
 		if (_error == NO_ERROR)
 			_error = OPERATOR_EXPECTED;
@@ -163,7 +162,8 @@ Parser::fOperators(bool &ok)
 		ok = true;
 		return false;
 	}
-	t = _lexer.getToken();
+	
+	const Token t = _lexer.getToken();
 	if (t == Token::COLON) {
 		ok = true;
 		return true;
@@ -174,6 +174,16 @@ Parser::fOperators(bool &ok)
 		ok = false;
 		return true;
 	}
+}
+
+bool
+Parser::testExpression(Value &v)
+{
+	if (!_lexer.getNext() || !fExpression(v)) {
+		_error = EXPRESSION_EXPECTED;
+		return false;
+	}
+	return true;
 }
 
 /*
@@ -296,7 +306,6 @@ Parser::fOperator()
 		}
 #endif // INPUT_WITH_TEXT
 		if (!fVarList()) {
-		    
 			_error = VARIABLES_LIST_EXPECTED;
 			return false;
 		} else if (_mode == EXECUTE)
@@ -652,18 +661,21 @@ Parser::fImplicitAssignment(char *varName)
 			array = false;
 		
 		Value v;
-		if ((_lexer.getToken() == Token::EQUALS) && _lexer.getNext() &&
-			fExpression(v)) {
-			if (_mode == EXECUTE) {
-				varName[VARSIZE-1] = '\0';
-				if (array)
-					_interpreter.setArrayElement(varName, v);
-				else
-					_interpreter.setVariable(varName, v);
-			}
-			return true;
-		} else
-			_error = EXPRESSION_EXPECTED;
+		if (_lexer.getToken() == Token::EQUALS) {
+			if (_lexer.getNext() && fExpression(v)) {
+				if (_mode == EXECUTE) {
+					varName[VARSIZE-1] = '\0';
+					if (array)
+						_interpreter.setArrayElement(
+						    varName, v);
+					else
+						_interpreter.setVariable(
+						    varName, v);
+				}
+				return true;
+			} else
+				_error = EXPRESSION_EXPECTED;
+		}
 	}
 	return false;
 }
@@ -751,9 +763,9 @@ Parser::fPrintItem()
 
 /*
  * EXPRESSION =
- *	SIMPLE_EXPRESSION |
- *	OP_NOT SIMPLE_EXPRESSION |
- *	SIMPLE_EXPRESSION REL SIMPLE_EXPRESSION
+ *	OP_NOT EXPRESSION |
+ *	LOGICAL_ADD_EXPRESSION |
+ *	LOGICAL_ADD_EXPRESSION OP_OR LOGICAL_ADD_EXPRESSION
  */
 bool
 Parser::fExpression(Value &v)
@@ -786,6 +798,11 @@ Parser::fExpression(Value &v)
 	}
 }
 
+/*
+ * LOGICAL_ADD_EXPRESSION =
+ *	LOGICAL_FINAL_EXPRESSION |
+ *	LOGICAL_FINAL_EXPRESSION OP_AND LOGICAL_FINAL_EXPRESSION
+ */
 bool
 Parser::fLogicalAdd(Value &v)
 {
@@ -809,6 +826,11 @@ Parser::fLogicalAdd(Value &v)
 	}
 }
 
+/*
+ * LOGICAL_FINAL_EXPRESSION =
+ *	SIMPLE_EXPRESSION |
+ *	SIMPLE_EXPRESSION REL SIMPLE_EXPRESSION
+ */
 bool
 Parser::fLogicalFinal(Value &v)
 {
@@ -990,6 +1012,11 @@ Parser::fSimpleExpression(Value &v)
 	}
 }
 
+/*
+ * TERM =
+ *     FACTOR |
+ *     FACTOR MUL FACTOR
+ */
 bool
 Parser::fTerm(Value &v)
 {
@@ -1078,6 +1105,12 @@ Parser::fTerm(Value &v)
 	}
 }
 
+/*
+ * FACTOR =
+ *     ADD FACTOR |
+ *     FINAL |
+ *     FINAL POW FINAL
+ */
 bool
 Parser::fFactor(Value &v)
 {
@@ -1112,6 +1145,10 @@ Parser::fFactor(Value &v)
 	}
 }
 
+/* FINAL =
+ *     C_INTEGER | C_REAL | C_STRING | VAR | VAR ARRAY |
+ *     LPAREN EXPRESSION RPAREN
+ */
 bool
 Parser::fFinal(Value &v)
 {
@@ -1187,10 +1224,12 @@ Parser::fFinal(Value &v)
 			_lexer.getNext();
 			return true;
 		} else if (t == Token::LPAREN) {
-			if (!_lexer.getNext() || !fExpression(v) ||
-			    _lexer.getToken() != Token::RPAREN)
+			if (!_lexer.getNext() || !fExpression(v))
 				return false;
-			else {
+			if (_lexer.getToken() != Token::RPAREN) {
+				_error = MISSING_RPAREN;
+				return false;
+			} else {
 				_lexer.getNext();
 				return true;
 			}
@@ -1423,8 +1462,8 @@ Parser::fCommand()
 
 /*
  * FOR_CONDS =
- * IMPLICIT_ASSIGNMENT KW_TO EXPRESSION |
- * IMPLICIT_ASSIGNMENT KW_TO EXPRESSION KW_STEP EXPRESSION
+ *     IMPLICIT_ASSIGNMENT KW_TO EXPRESSION |
+ *     IMPLICIT_ASSIGNMENT KW_TO EXPRESSION KW_STEP EXPRESSION
  */
 bool
 Parser::fForConds()
@@ -1444,11 +1483,12 @@ Parser::fForConds()
 	if (_mode == EXECUTE) {
 		Program::StackFrame *f = _interpreter.pushForLoop(vName,
 		    _lexer.getPointer(), v, vStep);
-		if (f != nullptr)
+		if (f != nullptr) {
 			if (_interpreter.testFor(*f))
 				_mode = SCAN;
 			else
 				_stopParse = true;
+		}
 	}
 	
 	return true;
