@@ -25,6 +25,12 @@
 namespace BASIC
 {
 
+union IntChar
+{
+	int16_t integer;
+	uint8_t chars[2];
+};
+
 void GFXModule::_init() {}
 
 bool
@@ -36,7 +42,17 @@ GFXModule::command_box(Interpreter &i)
 		if (getIntegerFromStack(i, w)) {
 			if (getIntegerFromStack(i, y)) {
 				if (getIntegerFromStack(i, x)) {
-					
+					IntChar u;
+					i.print(char(ASCII::DLE));
+					i.print(char(GFXTERM::Command::BOX));
+					u.integer = x;
+					i.print(char(u.chars[0])); i.print(char(u.chars[1]));
+					u.integer = y;
+					i.print(char(u.chars[0])); i.print(char(u.chars[1]));
+					u.integer = w;
+					i.print(char(u.chars[0])); i.print(char(u.chars[1]));
+					u.integer = h;
+					i.print(char(u.chars[0])); i.print(char(u.chars[1]));
 					return true;
 				}
 			}
@@ -53,7 +69,15 @@ GFXModule::command_circle(Interpreter &i)
 	if (getIntegerFromStack(i, r)) {
 		if (getIntegerFromStack(i, y)) {
 			if (getIntegerFromStack(i, x)) {
-				
+				IntChar u;
+				i.print(char(ASCII::DLE));
+				i.print(char(GFXTERM::Command::CIRCLE));
+				u.integer = x;
+				i.print(char(u.chars[0])); i.print(char(u.chars[1]));
+				u.integer = y;
+				i.print(char(u.chars[0])); i.print(char(u.chars[1]));
+				u.integer = r;
+				i.print(char(u.chars[0])); i.print(char(u.chars[1]));
 				return true;
 			}
 		}
@@ -88,7 +112,17 @@ GFXModule::command_line(Interpreter &i)
 		if (getIntegerFromStack(i, x2)) {
 			if (getIntegerFromStack(i, y1)) {
 				if (getIntegerFromStack(i, x1)) {
-					
+					IntChar u;
+					i.print(char(ASCII::DLE));
+					i.print(char(GFXTERM::Command::LINE));
+					u.integer = x1;
+					i.print(char(u.chars[0])); i.print(char(u.chars[1]));
+					u.integer = y1;
+					i.print(char(u.chars[0])); i.print(char(u.chars[1]));
+					u.integer = x2;
+					i.print(char(u.chars[0])); i.print(char(u.chars[1]));
+					u.integer = y2;
+					i.print(char(u.chars[0])); i.print(char(u.chars[1]));
 					return true;
 				}
 			}
@@ -100,11 +134,17 @@ GFXModule::command_line(Interpreter &i)
 bool
 GFXModule::command_lineto(Interpreter &i)
 {
-	INT x1,y1;
+	INT x,y;
 	
-	if (getIntegerFromStack(i, y1)) {
-		if (getIntegerFromStack(i, x1)) {
-			
+	if (getIntegerFromStack(i, y)) {
+		if (getIntegerFromStack(i, x)) {
+			IntChar u;
+			i.print(char(ASCII::DLE));
+			i.print(char(GFXTERM::Command::LINETO));
+			u.integer = x;
+			i.print(char(u.chars[0])); i.print(char(u.chars[1]));
+			u.integer = y;
+			i.print(char(u.chars[0])); i.print(char(u.chars[1]));
 			return true;
 		}
 	}
@@ -119,7 +159,13 @@ GFXModule::command_point(Interpreter &i)
 	
 	if (getIntegerFromStack(i, y)) {
 		if (getIntegerFromStack(i, x)) {
-			
+			IntChar u;
+			i.print(char(ASCII::DLE));
+			i.print(char(GFXTERM::Command::POINT));
+			u.integer = x;
+			i.print(char(u.chars[0])); i.print(char(u.chars[1]));
+			u.integer = y;
+			i.print(char(u.chars[0])); i.print(char(u.chars[1]));
 			return true;
 		}
 	}

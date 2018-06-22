@@ -36,6 +36,8 @@
     #define SERIAL_PORT_I Serial1
 #elif S_INPUT == SERIAL2_I
     #define SERIAL_PORT_I Serial2
+#elif S_INPUT == SERIAL3_I
+    #define SERIAL_PORT_I Serial3
 #elif S_INPUT == SERIALL_I
     #define SERIAL_PORT_I SerialL
 #elif S_INPUT == SERIALL1_I
@@ -56,6 +58,8 @@
 #define SERIAL_PORT_O Serial1
 #elif S_OUTPUT == SERIAL2_O
 #define SERIAL_PORT_O Serial2
+#elif S_OUTPUT == SERIAL3_O
+#define SERIAL_PORT_O Serial3
 #elif S_OUTPUT == SERIALL_O
 #define SERIAL_PORT_O SerialL
 #elif S_OUTPUT == SERIALL3_O

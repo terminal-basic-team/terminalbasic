@@ -57,7 +57,7 @@ namespace BASIC
 		 * SIN COS TAN COT
 		 */
 		#define M_TRIGONOMETRIC         1
-		#define M_HYPERBOLIC            0
+		#define M_HYPERBOLIC            1
 		/*
 		 * ACS ASN ATN
 		 */
@@ -65,7 +65,7 @@ namespace BASIC
 		/*
 		 * CBR (cubic root) ...
 		 */
-		#define M_ADDITIONAL            0
+		#define M_ADDITIONAL            1
 	#endif // USEMATH
 #endif // USE_REALS
 
@@ -93,7 +93,7 @@ namespace BASIC
  * Support of 4-byte integer datatype
  * Functions, variables and arrays of long integer type ends with double % mark
  */
-#define USE_LONGINT          0
+#define USE_LONGINT          1
 /*
  * Support of integer division and modulo operation
  */
@@ -120,15 +120,15 @@ namespace BASIC
 /*
  * Support of Darthmouth BASIX-style matrix operations
  */
-#define USE_MATRIX           0
+#define USE_MATRIX           1
 /**
  * Support of DATA/READ statements
  */
-#define USE_DATA             0
+#define USE_DATA             1
 /*
  * Support of DEF FN construct
  */
-#define USE_DEFFN            0
+#define USE_DEFFN            1
 /**
  * Allow INPUT command with text message e.g. INPUT "A:";A
  */
@@ -161,7 +161,7 @@ namespace BASIC
 #define USE_SAVE_LOAD        1
 #if USE_SAVE_LOAD
 	// Compute checksums while SAVE, LOAD and CHAIN
-	#define SAVE_LOAD_CHECKSUM   0
+	#define SAVE_LOAD_CHECKSUM   1
 #endif // USE_SAVE_LOAD
 /*
  * STOP and CONTINUE commands support
@@ -180,7 +180,7 @@ namespace BASIC
 /*
  * SDcard module
  */
-#define USESD         0
+#define USESD         1
 
 /*
  * Localization
@@ -190,7 +190,7 @@ namespace BASIC
 #define LANG LANG_EN
 
 // Use text error strings
-#define CONF_ERROR_STRINGS 0
+#define CONF_ERROR_STRINGS 1
 
 // Arduino IO module
 #define CONF_MODULE_ARDUINOIO      1
@@ -223,9 +223,9 @@ namespace BASIC
 /*
  * GFX module
  */
-#define USE_GFX          0
+#define USE_GFX          1
 #if USE_GFX
-#define SERIAL_GFX       0
+#define SERIAL_GFX       1
 #endif
 
 /*
@@ -248,30 +248,34 @@ namespace BASIC
 #define SERIAL_I    1  // Serial input
 #define SERIAL1_I   2  // Serial1 input
 #define SERIAL2_I   3  // Serial2 input
+#define SERIAL3_I   4  // Serial3 input
 #ifdef ARDUINO_ARCH_AVR
-#define SERIALL_I   4  // SerialL input (non-buffering, interrupt-free)
-#define SERIALL1_I  5  // SerialL1 input (non-buffering, interrupt-free)
-#define SERIALL2_I  6  // SerialL2 input (non-buffering, interrupt-free)
-#define SERIALL3_I  7  // SerialL3 input (non-buffering, interrupt-free)
+#define SERIALL_I   5  // SerialL input (non-buffering, interrupt-free)
+#define SERIALL1_I  6  // SerialL1 input (non-buffering, interrupt-free)
+#define SERIALL2_I  7  // SerialL2 input (non-buffering, interrupt-free)
+#define SERIALL3_I  8  // SerialL3 input (non-buffering, interrupt-free)
 #endif // ARDUINO_ARCH_AVR
 	#define SERIAL_I_BR 115200
-#define PS2UARTKB_I 8  // PS/2 keyboard through USART
-#define SDL_I       9  // SDL input on PC
+#define PS2UARTKB_I 9  // PS/2 keyboard through USART
+#define SDL_I       10  // SDL input on PC
 
 // Output variants
 #define SERIAL_O   1 // Serial output
 #define SERIAL1_O  2 // Serial1 output
 #define SERIAL2_O  3 // Serial2 output
-#define SERIALL_O  4 // SerialL output (non-buffering, interrupt-free)
-#define SERIALL1_O 5 // SerialL1 output (non-buffering, interrupt-free)
-#define SERIALL2_O 6 // SerialL2 output (non-buffering, interrupt-free)
-#define SERIALL3_O 7 // SerialL3 output (non-buffering, interrupt-free)
+#define SERIAL3_O  4 // Serial3 output
+#ifdef ARDUINO_ARCH_AVR
+#define SERIALL_O  5 // SerialL output (non-buffering, interrupt-free)
+#define SERIALL1_O 6 // SerialL1 output (non-buffering, interrupt-free)
+#define SERIALL2_O 7 // SerialL2 output (non-buffering, interrupt-free)
+#define SERIALL3_O 8 // SerialL3 output (non-buffering, interrupt-free)
+#endif // ARDUINO_ARCH_AVR
 	#define SERIAL_O_BR 115200
-#define UTFT_O     8 // UTFT library output
-#define TVOUT_O    9 // TVoutEx library output
+#define UTFT_O     9 // UTFT library output
+#define TVOUT_O    10 // TVoutEx library output
 	#define TVOUT_HORIZ 240
 	#define TVOUT_VERT 192
-#define LIQCR_O    10 // LiquidCrystal library output
+#define LIQCR_O    11 // LiquidCrystal library output
 	#define LIQCR_HORIZ 20
 	#define LIQCR_VERT 4
 	#define LIQCR_RS 12
@@ -285,7 +289,7 @@ namespace BASIC
 #define S_INPUT SERIAL_I
 
 // Output select
-#define S_OUTPUT SERIAL_O
+#define S_OUTPUT SERIAL3_O
 
 #if USE_EXTEEPROM
 	#define USE_WIRE 1
