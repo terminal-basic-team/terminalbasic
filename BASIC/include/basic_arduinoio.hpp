@@ -46,6 +46,9 @@ private:
 	static bool comm_tone(Interpreter&);
 	static bool comm_notone(Interpreter&);
 #endif
+#if CONF_BEEP
+        static bool comm_beep(Interpreter&);
+#endif
 	
 #if USE_REALS
 	static Real aread_r(Real);

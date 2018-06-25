@@ -180,7 +180,7 @@ namespace BASIC
 /*
  * SDcard module
  */
-#define USESD         1
+#define USESD         0
 
 /*
  * Localization
@@ -198,6 +198,14 @@ namespace BASIC
 	// TONE command support
 	#define CONF_MODULE_ARDUINOIO_TONE 1
 #endif // CONF_MODULE_ARDUINOIO
+
+// BEEP command
+#if CONF_MODULE_ARDUINOIO_TONE
+	#define CONF_BEEP     1
+	#if CONF_BEEP
+		#define BEEP_PIN 5
+	#endif // CONF_BEEP
+#endif // CONF_MODULE_ARDUINOIO_TONE
 
 // External EEPROM functions module
 #define USE_EXTEEPROM    0
@@ -300,10 +308,10 @@ namespace BASIC
 /*
  * Max size of the program line
  */
-const uint8_t PROGSTRINGSIZE = 75;
+const uint8_t PROGSTRINGSIZE = 80;
 
 // Max size of the string constants/variables
-const uint8_t STRINGSIZE = 75;
+const uint8_t STRINGSIZE = 80;
 
 // Number of characters in variable name
 const uint8_t VARSIZE = 5;

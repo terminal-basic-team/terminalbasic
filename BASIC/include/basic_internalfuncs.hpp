@@ -66,6 +66,6 @@ private:
 	static const FunctionBlock::function funcs[] PROGMEM;
 };
 
-}
+} // namespace BASIC
 
 #endif

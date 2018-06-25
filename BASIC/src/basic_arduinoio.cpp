@@ -45,6 +45,9 @@ const FunctionBlock::function ArduinoIO::_funcs[] PROGMEM = {
 
 static const uint8_t arduinoIOCommands[] PROGMEM = {
 	'A', 'W', 'R', 'I', 'T', 'E'+0x80,
+#if CONF_BEEP
+	'B', 'E', 'E', 'P'+0x80,
+#endif
 #if CONF_MODULE_ARDUINOIO_TONE
 	'D', 'N', 'O', 'T', 'O', 'N', 'E'+0x80,
 	'D', 'T', 'O', 'N', 'E'+0x80,
@@ -55,6 +58,9 @@ static const uint8_t arduinoIOCommands[] PROGMEM = {
 
 const FunctionBlock::command  ArduinoIO::_commands[] PROGMEM = {
 	ArduinoIO::comm_awrite,
+#if CONF_BEEP
+	ArduinoIO::comm_beep,
+#endif
 #if CONF_MODULE_ARDUINOIO_TONE
 	ArduinoIO::comm_notone,
 	ArduinoIO::comm_tone,
@@ -182,6 +188,16 @@ ArduinoIO::aread_i(INT v)
 }
 #undef INT
 
+#if CONF_BEEP
+bool
+ArduinoIO::comm_beep(Interpreter &i)
+{
+    pinMode(BEEP_PIN, OUTPUT);
+    tone(BEEP_PIN, 440, 333);
+    return true;
 }
+#endif // CONF_BEEP
+
+} // namespace BASIC
 
 #endif // CONF_MODULE_ARDUINOIO

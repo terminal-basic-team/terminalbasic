@@ -71,7 +71,7 @@ build: .build-post
 
 .build-post: .build-impl copy_${CONF}
 	echo $(shell expr ${BUILD} + 1) ; \
-	echo $(shell expr ${BUILD} + 1) > "./build-${CONF}"
+	#echo $(shell expr ${BUILD} + 1) > "./build-${CONF}"
 
 # clean
 clean: .clean-post
@@ -228,7 +228,7 @@ copy:
 
 program_common:
 	${AVRDUDE} -D -C ${AVRDUDE_CONF} -v -c ${PROGRAMMER} -p ${UCARCH} \
-	  -P /dev/ttyUSB0 -b115200 -U flash:w:"${CND_ARTIFACT_PATH_${CONF}}_${VERSION}_${ARCH}-${UCARCH}.hex":i
+	  -P /dev/ttyACM0 -b115200 -U flash:w:"${CND_ARTIFACT_PATH_${CONF}}_${VERSION}_${ARCH}-${UCARCH}.hex":i
 	#${AVRDUDE} -C ${AVRDUDE_CONF} -v -c ${PROGRAMMER} -p ${UCARCH} \
 	#  -P /dev/ttyUSB0 -b115200 -U flash:w:"${CND_ARTIFACT_PATH_${CONF}}_${VERSION}_${ARCH}-${UCARCH}.hex":i
 	#${AVRDUDE} -C ${AVRDUDE_CONF} -v -c ${PROGRAMMER} -p ${UCARCH} \
