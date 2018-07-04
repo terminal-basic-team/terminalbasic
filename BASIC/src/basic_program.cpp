@@ -357,6 +357,7 @@ Program::addLine(uint16_t num, const char *line)
 		}
 #endif // USE_REALS
 		else { // Other tokens
+			tempBuffer[position++] = ' ';
 			while (line[lexerPosition] == ' ' ||
 			    line[lexerPosition] == '\t')
 				++lexerPosition;
