@@ -376,7 +376,6 @@ Parser::Value::modEquals(const Value &rhs)
 	return *this;
 }
 
-
 void
 Parser::Value::powerMatchValue(const Value &rhs)
 {
@@ -579,8 +578,8 @@ Parser::Value::printTo(Print& p) const
 #else
 		::sprintf(buf, "%- 012.9G", value.real);
 #endif // ARDUINO
-                if (buf[1] == '0' && buf[2] == '.')
-                	memmove(buf+1, buf+2, 15-2);
+		if (buf[1] == '0' && buf[2] == '.')
+			memmove(buf+1, buf+2, 15-2);
 		return p.print(buf);
 	}
 		break;
