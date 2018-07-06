@@ -39,6 +39,12 @@ namespace BASIC
  */
 #define USE_DELAY           1
 
+#define REAL_NONE     0
+#define REAL_SINGLE   1
+#define REAL_DOUBLE   2
+#define REAL_EXTENDED 3
+#define REAL_QUAD     4
+    
 /*
  * Real arithmetics
  * 
@@ -46,7 +52,7 @@ namespace BASIC
  * When enabled, all variables and arrays, which names are not ending with "$ ! %"
  * are treated as reals. Mathematical functions support depend on this option
  */
-#define USE_REALS               1
+#define USE_REALS               REAL_SINGLE
 #if USE_REALS
 	/*
 	 * Mathematical functions support

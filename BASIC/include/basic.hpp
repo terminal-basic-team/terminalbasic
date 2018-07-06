@@ -103,8 +103,10 @@ typedef Integer INT;
 #define MAXINT MaxInteger
 #endif
 // floating point type
-#if USE_REALS
+#if USE_REALS == REAL_SINGLE
 typedef float Real;
+#elif USE_REALS == REAL_DOUBLE
+typedef double Real;
 #endif
 
 // Number of characters in command/function identifier
