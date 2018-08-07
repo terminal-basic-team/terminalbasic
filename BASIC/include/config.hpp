@@ -239,7 +239,7 @@ namespace BASIC
  */
 #define USE_GFX          1
 #if USE_GFX
-#define SERIAL_GFX       1
+#define SERIAL_GFX       0
 #endif
 
 /*
@@ -303,7 +303,7 @@ namespace BASIC
 #define S_INPUT SERIAL_I
 
 // Output select
-#define S_OUTPUT SERIAL3_O
+#define S_OUTPUT SERIAL_O
 
 #if USE_EXTEEPROM
 	#define USE_WIRE 1
