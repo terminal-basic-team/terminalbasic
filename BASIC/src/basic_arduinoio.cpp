@@ -176,17 +176,12 @@ ArduinoIO::aread_r(Real v)
 }
 #endif
 
-#if USE_LONGINT
-#define INT LongInteger
-#else
-#define INT Integer
-#endif // USE_LONGINT
 INT
 ArduinoIO::aread_i(INT v)
 {
 	return analogRead(v);
 }
-#undef INT
+
 
 #if CONF_BEEP
 bool

@@ -101,7 +101,7 @@ typedef LongInteger INT;
 #else
 typedef Integer INT;
 #define MAXINT MaxInteger
-#endif
+#endif // USE_LONGINT
 // floating point type
 #if USE_REALS == REAL_SINGLE
 typedef float Real;
