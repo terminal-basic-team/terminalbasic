@@ -293,7 +293,6 @@ Interpreter::step()
 		c = char(ASCII::NUL);
 		if (_input.available() > 0) {
 			c = _input.read();
-			_output.println(c, 16);
 #if USE_GET
 			_inputBuffer[0] = c;
 #endif // USE_GET
