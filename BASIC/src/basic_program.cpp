@@ -131,7 +131,7 @@ Program::StackFrame::size(Type t)
 	case VALUE:
 		return sizeof (Type) + sizeof (Parser::Value);
 	case INPUT_OBJECT:
-		return sizeof (Type) + sizeof (InputBody);
+		return sizeof (Type) + sizeof (VariableBody);
 	default:
 		return 0;
 	}
@@ -149,7 +149,7 @@ Program::StackFrame::size(Type t)
 	else if (t == VALUE)
 		return (sizeof (Type) + sizeof (Parser::Value));
 	else if (t == INPUT_OBJECT)
-		return (sizeof (Type) + sizeof (InputBody));
+		return (sizeof (Type) + sizeof (VariableBody));
 	else
 		return 0;
 #endif
@@ -317,7 +317,8 @@ Program::addLine(uint16_t num, const char *line)
 
 	Lexer _lexer;
 	_lexer.init(line);
-	uint8_t position = 0, lexerPosition = _lexer.getPointer();
+	uint8_t position = 0;
+	uint8_t lexerPosition = _lexer.getPointer();
 
 	while (_lexer.getNext()) {
 		if (position >= (PROGSTRINGSIZE-1))

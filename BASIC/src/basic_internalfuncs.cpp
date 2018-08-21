@@ -146,7 +146,7 @@ bool
 InternalFunctions::func_get(Interpreter &i)
 {
 	Parser::Value v;
-	char buf[2] = {0,};
+	char buf[2] = {0,0};
 	buf[0] = i.lastKey();
 	v.type = Parser::Value::STRING;
 	i.pushString(buf);
