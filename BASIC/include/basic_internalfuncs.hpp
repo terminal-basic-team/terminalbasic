@@ -43,6 +43,9 @@ private:
 #if USE_REALS
 	static bool func_int(Interpreter&);
 #endif
+#if USE_LEFT
+	static bool func_left(Interpreter&);
+#endif
 #if USE_LEN
 	static bool func_len(Interpreter&);
 #endif

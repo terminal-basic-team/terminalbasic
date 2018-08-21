@@ -42,6 +42,9 @@ static const uint8_t intFuncs[] PROGMEM = {
 #if USE_REALS
 	'I', 'N', 'T'+0x80,
 #endif
+#if USE_LEFT
+	'L', 'E', 'F', 'T', '$'+0x80,
+#endif	
 #if USE_LEN
 	'L', 'E', 'N'+0x80,
 #endif
@@ -68,6 +71,9 @@ const FunctionBlock::function InternalFunctions::funcs[] PROGMEM = {
 #endif
 #if USE_REALS
 	InternalFunctions::func_int,
+#endif
+#if USE_LEFT
+	InternalFunctions::func_left,
 #endif
 #if USE_LEN
 	InternalFunctions::func_len,
@@ -132,7 +138,7 @@ InternalFunctions::func_chr(Interpreter &i)
 {
 	Parser::Value v;
 	i.popValue(v);
-	char buf[2] = {0,};
+	char buf[2] = {0,0};
 	buf[0] = Integer(v);
 	v.type = Parser::Value::STRING;
 	i.pushString(buf);
@@ -186,6 +192,32 @@ InternalFunctions::func_int(Interpreter &i)
 }
 #endif // USE_REALS
 
+
+#if USE_LEFT
+bool
+InternalFunctions::func_left(Interpreter &i)
+{
+	INT len;
+	if (getIntegerFromStack(i, len)) {
+		Parser::Value v;
+		i.popValue(v);
+		if (v.type == Parser::Value::STRING) {
+			const char *str;
+			if (i.popString(str)) {
+				char buf[STRINGSIZE];
+				strncpy(buf, str, STRINGSIZE);
+				uint8_t pos = min(len, strlen(str));
+				buf[pos] = char(0);
+				i.pushString(buf);
+				i.pushValue(v);
+				return true;
+			}
+		}
+	}
+	return false;
+}
+#endif // USE_LEFT
+
 #if USE_LEN
 bool
 InternalFunctions::func_len(Interpreter &i)
@@ -198,10 +230,9 @@ InternalFunctions::func_len(Interpreter &i)
 			v = Integer(strnlen(str, STRINGSIZE));
 			i.pushValue(v);
 			return true;
-		} else
-			return false;
-	} else
-		return false;
+		}
+	}
+	return false;
 }
 #endif
 
