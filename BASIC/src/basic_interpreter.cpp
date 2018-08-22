@@ -789,7 +789,7 @@ Interpreter::popValue(Parser::Value &v)
 		_program.pop();
 		return true;
 	} else {
-		raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
+//		raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
 		return false;
 	}
 }

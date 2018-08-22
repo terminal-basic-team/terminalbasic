@@ -299,6 +299,8 @@ InternalFunctions::func_str(Interpreter &i)
 bool
 InternalFunctions::func_rnd(Interpreter &i)
 {
+	INT val;
+	getIntegerFromStack(i, val);
 #if USE_REALS
 	Parser::Value v(Real(random(0x7FFFFFFF)) / Real(0x7FFFFFFF));
 #else
