@@ -1,6 +1,6 @@
 /*
  * Terminal-BASIC is a lightweight BASIC-like language interpreter
- * Copyright (C) 2016, 2017 Andrey V. Skvortsov <starling13@mail.ru>
+ * Copyright (C) 2017-2018 Andrey V. Skvortsov <starling13@mail.ru>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,6 +39,12 @@ namespace BASIC
  */
 #define USE_DELAY           1
 
+#define REAL_NONE     0
+#define REAL_SINGLE   1
+#define REAL_DOUBLE   2
+#define REAL_EXTENDED 3
+#define REAL_QUAD     4
+    
 /*
  * Real arithmetics
  * 
@@ -46,7 +52,7 @@ namespace BASIC
  * When enabled, all variables and arrays, which names are not ending with "$ ! %"
  * are treated as reals. Mathematical functions support depend on this option
  */
-#define USE_REALS               1
+#define USE_REALS               REAL_SINGLE
 #if USE_REALS
 	/*
 	 * Mathematical functions support
@@ -57,7 +63,7 @@ namespace BASIC
 		 * SIN COS TAN COT
 		 */
 		#define M_TRIGONOMETRIC         1
-		#define M_HYPERBOLIC            1
+		#define M_HYPERBOLIC            0
 		/*
 		 * ACS ASN ATN
 		 */
@@ -65,7 +71,7 @@ namespace BASIC
 		/*
 		 * CBR (cubic root) ...
 		 */
-		#define M_ADDITIONAL            1
+		#define M_ADDITIONAL            0
 	#endif // USEMATH
 #endif // USE_REALS
 
@@ -80,6 +86,10 @@ namespace BASIC
 	#define USE_ASC            1
 	// LEN function, returns length of the string
 	#define USE_LEN            1
+	// LEFT$ function, return leftmost part of the string
+	#define USE_LEFT           1
+	// RIGHT$ function, return rightmost part of the string
+	#define USE_RIGHT          1
 #endif // USE_STRINGOPS
 /**
  * Allow GO TO OPERATOR in addition to GOTO
@@ -93,7 +103,7 @@ namespace BASIC
  * Support of 4-byte integer datatype
  * Functions, variables and arrays of long integer type ends with double % mark
  */
-#define USE_LONGINT          1
+#define USE_LONGINT          0
 /*
  * Support of integer division and modulo operation
  */
@@ -108,7 +118,7 @@ namespace BASIC
  * DUMP command support
  * This command can be used to see BASIC memory image, variables and arrays list
  */
-#define USE_DUMP             1
+#define USE_DUMP             0
 /*
  * Clear program memory on NEW command
  */
@@ -120,15 +130,15 @@ namespace BASIC
 /*
  * Support of Darthmouth BASIX-style matrix operations
  */
-#define USE_MATRIX           1
+#define USE_MATRIX           0
 /**
  * Support of DATA/READ statements
  */
-#define USE_DATA             1
+#define USE_DATA             0
 /*
  * Support of DEF FN construct
  */
-#define USE_DEFFN            1
+#define USE_DEFFN            0
 /**
  * Allow INPUT command with text message e.g. INPUT "A:";A
  */
@@ -180,7 +190,7 @@ namespace BASIC
 /*
  * SDcard module
  */
-#define USESD         1
+#define USESD         0
 
 /*
  * Localization
@@ -190,7 +200,7 @@ namespace BASIC
 #define LANG LANG_EN
 
 // Use text error strings
-#define CONF_ERROR_STRINGS 1
+#define CONF_ERROR_STRINGS 0
 
 // Arduino IO module
 #define CONF_MODULE_ARDUINOIO      1
@@ -198,6 +208,14 @@ namespace BASIC
 	// TONE command support
 	#define CONF_MODULE_ARDUINOIO_TONE 1
 #endif // CONF_MODULE_ARDUINOIO
+
+// BEEP command
+#if CONF_MODULE_ARDUINOIO_TONE
+	#define CONF_BEEP     1
+	#if CONF_BEEP
+		#define BEEP_PIN 5
+	#endif // CONF_BEEP
+#endif // CONF_MODULE_ARDUINOIO_TONE
 
 // External EEPROM functions module
 #define USE_EXTEEPROM    0
@@ -223,9 +241,9 @@ namespace BASIC
 /*
  * GFX module
  */
-#define USE_GFX          1
+#define USE_GFX          0
 #if USE_GFX
-#define SERIAL_GFX       1
+#define SERIAL_GFX       0
 #endif
 
 /*
@@ -286,10 +304,10 @@ namespace BASIC
 	#define LIQCR_D3 2
 
 // Input select
-#define S_INPUT SERIAL_I
+#define S_INPUT SERIALL_I
 
 // Output select
-#define S_OUTPUT SERIAL3_O
+#define S_OUTPUT SERIALL_O
 
 #if USE_EXTEEPROM
 	#define USE_WIRE 1
@@ -300,10 +318,10 @@ namespace BASIC
 /*
  * Max size of the program line
  */
-const uint8_t PROGSTRINGSIZE = 75;
+const uint8_t PROGSTRINGSIZE = 80;
 
 // Max size of the string constants/variables
-const uint8_t STRINGSIZE = 75;
+const uint8_t STRINGSIZE = 80;
 
 // Number of characters in variable name
 const uint8_t VARSIZE = 5;

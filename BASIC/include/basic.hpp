@@ -101,10 +101,12 @@ typedef LongInteger INT;
 #else
 typedef Integer INT;
 #define MAXINT MaxInteger
-#endif
+#endif // USE_LONGINT
 // floating point type
-#if USE_REALS
+#if USE_REALS == REAL_SINGLE
 typedef float Real;
+#elif USE_REALS == REAL_DOUBLE
+typedef double Real;
 #endif
 
 // Number of characters in command/function identifier
@@ -312,10 +314,10 @@ enum class ProgMemStrings : uint8_t
 	S_VARS,
 	S_ARRAYS,
 	S_STACK,
-#endif
+#endif // USE_DUMP
 #if USESD
 	S_DIR,
-#endif
+#endif // USESD
 	S_REALLY,
 	S_END,
 #if USE_TEXTATTRIBUTES
@@ -329,7 +331,7 @@ enum class ProgMemStrings : uint8_t
 #if SET_PRINTZNES
 	VT100_CLEARZONES,
 	VT100_SETZONE,
-#endif
+#endif // SET_PRINTZNES
 #if USE_COLORATTRIBUTES
 	VT100_RED,
 	VT100_GREEN,
