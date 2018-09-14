@@ -63,7 +63,7 @@ namespace BASIC
 		 * SIN COS TAN COT
 		 */
 		#define M_TRIGONOMETRIC         1
-		#define M_HYPERBOLIC            1
+		#define M_HYPERBOLIC            0
 		/*
 		 * ACS ASN ATN
 		 */
@@ -71,7 +71,7 @@ namespace BASIC
 		/*
 		 * CBR (cubic root) ...
 		 */
-		#define M_ADDITIONAL            1
+		#define M_ADDITIONAL            0
 	#endif // USEMATH
 #endif // USE_REALS
 
@@ -86,6 +86,10 @@ namespace BASIC
 	#define USE_ASC            1
 	// LEN function, returns length of the string
 	#define USE_LEN            1
+	// LEFT$ function, return leftmost part of the string
+	#define USE_LEFT           1
+	// RIGHT$ function, return rightmost part of the string
+	#define USE_RIGHT          1
 #endif // USE_STRINGOPS
 /**
  * Allow GO TO OPERATOR in addition to GOTO
@@ -99,7 +103,7 @@ namespace BASIC
  * Support of 4-byte integer datatype
  * Functions, variables and arrays of long integer type ends with double % mark
  */
-#define USE_LONGINT          1
+#define USE_LONGINT          0
 /*
  * Support of integer division and modulo operation
  */
@@ -114,7 +118,7 @@ namespace BASIC
  * DUMP command support
  * This command can be used to see BASIC memory image, variables and arrays list
  */
-#define USE_DUMP             1
+#define USE_DUMP             0
 /*
  * Clear program memory on NEW command
  */
@@ -126,15 +130,15 @@ namespace BASIC
 /*
  * Support of Darthmouth BASIX-style matrix operations
  */
-#define USE_MATRIX           1
+#define USE_MATRIX           0
 /**
  * Support of DATA/READ statements
  */
-#define USE_DATA             1
+#define USE_DATA             0
 /*
  * Support of DEF FN construct
  */
-#define USE_DEFFN            1
+#define USE_DEFFN            0
 /**
  * Allow INPUT command with text message e.g. INPUT "A:";A
  */
@@ -196,7 +200,7 @@ namespace BASIC
 #define LANG LANG_EN
 
 // Use text error strings
-#define CONF_ERROR_STRINGS 1
+#define CONF_ERROR_STRINGS 0
 
 // Arduino IO module
 #define CONF_MODULE_ARDUINOIO      1
@@ -237,7 +241,7 @@ namespace BASIC
 /*
  * GFX module
  */
-#define USE_GFX          1
+#define USE_GFX          0
 #if USE_GFX
 #define SERIAL_GFX       0
 #endif
@@ -300,10 +304,10 @@ namespace BASIC
 	#define LIQCR_D3 2
 
 // Input select
-#define S_INPUT SERIAL_I
+#define S_INPUT SDL_I
 
 // Output select
-#define S_OUTPUT SERIAL_O
+#define S_OUTPUT TVOUT_O
 
 #if USE_EXTEEPROM
 	#define USE_WIRE 1
