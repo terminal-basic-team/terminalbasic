@@ -67,7 +67,7 @@ namespace BASIC
 		/*
 		 * ACS ASN ATN
 		 */
-		#define M_REVERSE_TRIGONOMETRIC 1
+		#define M_REVERSE_TRIGONOMETRIC 0
 		/*
 		 * CBR (cubic root) ...
 		 */
@@ -211,7 +211,7 @@ namespace BASIC
 
 // BEEP command
 #if CONF_MODULE_ARDUINOIO_TONE
-	#define CONF_BEEP     1
+	#define CONF_BEEP     0
 	#if CONF_BEEP
 		#define BEEP_PIN 5
 	#endif // CONF_BEEP
@@ -318,7 +318,7 @@ namespace BASIC
 /*
  * Max size of the program line
  */
-const uint8_t PROGSTRINGSIZE = 80;
+const uint8_t PROGSTRINGSIZE = 72;
 
 // Max size of the string constants/variables
 const uint8_t STRINGSIZE = 80;
