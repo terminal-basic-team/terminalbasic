@@ -1,4 +1,4 @@
-AC_INIT([terminalbasic],[1.2b2],[starling13@gmail.com],[terminalbasic],[https://bitbucket.org/starling13/ucbasic])
+AC_INIT([terminalbasic],[1.2b3],[starling13@gmail.com],[terminalbasic],[https://bitbucket.org/starling13/ucbasic])
 AM_INIT_AUTOMAKE([foreign])
 AC_PREREQ(2.57)
 AC_CONFIG_HEADER(config.h)
