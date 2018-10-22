@@ -60,7 +60,7 @@ OBJCOPY_ARM=/opt/Arduino/gcc-arm-none-eabi-4.8.3-2014q1/bin/arm-none-eabi-objcop
 SIZE_ARM=/opt/Arduino/gcc-arm-none-eabi-4.8.3-2014q1/bin/arm-none-eabi-size
 
 BUILD:=$(shell cat "./build-${CONF}")
-VERSION:=1.2b3-${BUILD}
+VERSION:=1.2b4-${BUILD}
 
 # build
 build: .build-post
