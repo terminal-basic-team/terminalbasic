@@ -67,7 +67,7 @@ namespace BASIC
 		/*
 		 * ACS ASN ATN
 		 */
-		#define M_REVERSE_TRIGONOMETRIC 1
+		#define M_REVERSE_TRIGONOMETRIC 0
 		/*
 		 * CBR (cubic root) ...
 		 */
@@ -91,14 +91,14 @@ namespace BASIC
 	// RIGHT$ function, return rightmost part of the string
 	#define USE_RIGHT          1
 #endif // USE_STRINGOPS
-/**
+/*
  * Allow GO TO OPERATOR in addition to GOTO
  */
-#define CONF_SEPARATE_GO_TO     0
+#define CONF_SEPARATE_GO_TO     1
 /*
  * Use >< as not-equals operator (with default <>)
  */
-#define CONF_USE_ALTERNATIVE_NE 0
+#define CONF_USE_ALTERNATIVE_NE 1
 /*
  * Support of 4-byte integer datatype
  * Functions, variables and arrays of long integer type ends with double % mark
@@ -112,7 +112,7 @@ namespace BASIC
 	/*
 	 * Use DIV keyword for integer division in addition to \ operation
 	 */
-	#define USE_DIV_KW           0
+	#define USE_DIV_KW   0
 #endif // USE_INTEGER_DIV
 /**
  * DUMP command support
@@ -151,7 +151,7 @@ namespace BASIC
 	/*
 	 * Use ANSI color attributes
 	 */
-	#define USE_COLORATTRIBUTES  0
+	#define USE_COLORATTRIBUTES  1
 	/*
 	 * Support of SPC(N) print command
 	 */
@@ -211,7 +211,7 @@ namespace BASIC
 
 // BEEP command
 #if CONF_MODULE_ARDUINOIO_TONE
-	#define CONF_BEEP     1
+	#define CONF_BEEP     0
 	#if CONF_BEEP
 		#define BEEP_PIN 5
 	#endif // CONF_BEEP
@@ -318,7 +318,7 @@ namespace BASIC
 /*
  * Max size of the program line
  */
-const uint8_t PROGSTRINGSIZE = 80;
+const uint8_t PROGSTRINGSIZE = 72;
 
 // Max size of the string constants/variables
 const uint8_t STRINGSIZE = 80;
