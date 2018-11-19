@@ -22,7 +22,7 @@
 #include <stdbool.h>
 #include <ctype.h>
 
-#include "basic.hpp"
+#include "basic_common.hpp"
 
 #if USE_SAVE_LOAD
 #include <EEPROM.h>

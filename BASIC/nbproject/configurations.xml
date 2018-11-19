@@ -2,8 +2,8 @@
 <configurationDescriptor version="100">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="include" displayName="include" projectFiles="true">
-      <itemPath>include/basic.hpp</itemPath>
       <itemPath>include/basic_arduinoio.hpp</itemPath>
+      <itemPath>include/basic_common.hpp</itemPath>
       <itemPath>include/basic_dataparser.hpp</itemPath>
       <itemPath>include/basic_exteeprom.hpp</itemPath>
       <itemPath>include/basic_functionblock.hpp</itemPath>
@@ -21,8 +21,8 @@
       <itemPath>include/config_linux.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="src" displayName="src" projectFiles="true">
-      <itemPath>src/basic.cpp</itemPath>
       <itemPath>src/basic_arduinoio.cpp</itemPath>
+      <itemPath>src/basic_common.cpp</itemPath>
       <itemPath>src/basic_dataparser.cpp</itemPath>
       <itemPath>src/basic_exteeprom.cpp</itemPath>
       <itemPath>src/basic_functionblock.cpp</itemPath>
@@ -83,6 +83,7 @@
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
             <pElem>../../libarduinoext/include</pElem>
             <pElem>../../tvoutex/TVoutEx</pElem>
+            <pElem>../libbasic/include</pElem>
           </incDir>
           <commandLine>`pkg-config --cflags posixcpp` `pkg-config --cflags sdl2`</commandLine>
           <warningLevel>2</warningLevel>
@@ -158,9 +159,9 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
-      <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_common.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_dataparser.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -192,9 +193,9 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_common.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -315,9 +316,9 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
-      <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_common.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_dataparser.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -349,9 +350,9 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_common.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -487,9 +488,9 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
-      <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_common.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_dataparser.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -521,9 +522,9 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_common.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -692,9 +693,9 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
-      <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_common.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_dataparser.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -726,9 +727,9 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_common.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -847,9 +848,9 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
-      <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_common.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_dataparser.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -881,9 +882,9 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_common.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1006,9 +1007,9 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
-      <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_common.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_dataparser.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1040,9 +1041,9 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_common.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1163,9 +1164,9 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
-      <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_common.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_dataparser.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1197,9 +1198,9 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_common.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1324,9 +1325,9 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
-      <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_common.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_dataparser.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1358,9 +1359,9 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_common.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1523,9 +1524,9 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
-      <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_common.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_dataparser.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1557,9 +1558,9 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_common.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1712,9 +1713,9 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
-      <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_common.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_dataparser.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1746,9 +1747,9 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/basic.cpp" ex="false" tool="1" flavor2="8">
-      </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_common.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1870,9 +1871,9 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
-      <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_common.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_dataparser.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1904,9 +1905,9 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/basic.cpp" ex="false" tool="1" flavor2="8">
-      </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_common.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -2029,9 +2030,9 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
-      <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_common.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_dataparser.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -2063,9 +2064,9 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/basic.cpp" ex="false" tool="1" flavor2="8">
-      </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_common.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -2239,9 +2240,9 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
-      <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_common.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_dataparser.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -2273,9 +2274,9 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/basic.cpp" ex="false" tool="1" flavor2="8">
-      </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_common.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
       </item>

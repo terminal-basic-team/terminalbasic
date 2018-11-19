@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="100">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="include" displayName="include" projectFiles="true">
+      <itemPath>../include/basic.h</itemPath>
+      <itemPath>../include/basic.hpp</itemPath>
+      <itemPath>../include/basic_config.h</itemPath>
+      <itemPath>../include/basic_lexer.h</itemPath>
+      <itemPath>../include/basic_lexer.hpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="src" displayName="src" projectFiles="true">
+      <itemPath>../src/basic.c</itemPath>
+      <itemPath>../src/basic_lexer.c</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Файлы тестов"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Важные файлы"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceRootList>
+    <Elem>../include</Elem>
+    <Elem>../src</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="3">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <incDir>
+            <pElem>../include</pElem>
+          </incDir>
+          <warningLevel>2</warningLevel>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>../include</pElem>
+          </incDir>
+        </ccTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+      <item path="../include/basic.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../include/basic.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../include/basic_config.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../include/basic_lexer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../include/basic_lexer.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../src/basic.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="../src/basic_lexer.c" ex="false" tool="0" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release" type="3">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+      <item path="../include/basic.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../include/basic.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../include/basic_config.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../include/basic_lexer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../include/basic_lexer.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../src/basic.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="../src/basic_lexer.c" ex="false" tool="0" flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>
