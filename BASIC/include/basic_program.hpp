@@ -126,7 +126,6 @@ public:
 			{
 				INPUT_VAR, INPUT_ARR_ELM
 			};
-			// Program counter of the colee string
 			Type	type;
 			char	name[VARSIZE];
 		};

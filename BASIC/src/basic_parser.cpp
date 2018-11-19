@@ -19,6 +19,7 @@
 #include <math.h>
 #include <string.h>
 #include <signal.h>
+#include <cassert>
 
 #include "basic_parser.hpp"
 #include "basic_interpreter.hpp"
@@ -614,25 +615,41 @@ Parser::fReadStatement()
 bool
 Parser::fDefStatement()
 {
-	// nex keyword must be FN
+	// next keyword must be FN
 	if (_lexer.getToken() == Token::KW_FN && _lexer.getNext()) {
 		char buf[IDSIZE];
-		if ((fIdentifier(buf)) && _lexer.getNext() &&
-		    (_lexer.getToken() == Token::LPAREN) && _lexer.getNext() &&
-		    (_lexer.getToken() == Token::RPAREN) && _lexer.getNext() &&
-		    (_lexer.getToken() == Token::EQUALS)) {
-			
-			if (_mode == EXECUTE) {
+		if ((fIdentifier(buf)) && _lexer.getNext()) {
+			const uint8_t pos = _lexer.getPointer();
+			if ((_lexer.getToken() == Token::LPAREN) &&
+			    _lexer.getNext()) {
+				while (true) {
+					if ((_lexer.getToken() >= Token::INTEGER_IDENT) &&
+					    (_lexer.getToken() <= Token::BOOL_IDENT)) {
+						if (_lexer.getNext() &&
+						    (_lexer.getToken() == Token::COMMA &&
+							_lexer.getNext()))
+						continue;
+					}
+					else if ((_lexer.getToken() == Token::RPAREN)
+					    && _lexer.getNext())
+						break;
+					else
+						return false;
+				}
+			}
+		        if (_lexer.getToken() == Token::EQUALS) {
+				auto m = _mode;
 				_mode = SCAN;
-				_interpreter.newFunction(buf);
+
+				_interpreter.newFunction(buf, pos);
 				if (!_lexer.getNext())
 					return false;
 				Value v;
 				const bool res = fExpression(v);
-				_mode = EXECUTE;
+				
+				_mode = m;
 				return res;
 			}
-			return true;
 		}
 	}
 	return false;
@@ -1238,13 +1255,41 @@ Parser::fFinal(Value &v)
 		else if (t == Token::KW_FN) {
 			char varName[IDSIZE];
 			if (_lexer.getNext() && fIdentifier(varName) &&
-			    _lexer.getNext() && (_lexer.getToken() == Token::LPAREN) &&
-			    _lexer.getNext() && (_lexer.getToken() == Token::RPAREN)) {
+			    _lexer.getNext()) {
+				if ((_lexer.getToken() == Token::LPAREN) &&
+				    _lexer.getNext()) {
+					while (true) {
+						Parser::Value v;
+						if (_lexer.getToken() == Token::RPAREN)
+							break;
+						else if (fExpression(v)) {
+							_interpreter.pushValue(v);
+							if (_lexer.getToken() == Token::COMMA) {
+								_lexer.getNext();
+								continue;
+							}
+						} else
+							return false;
+					}
+				}
 				if (_mode == EXECUTE) {
 					m_definedFunctionExecute = true;
 					_interpreter.pushReturnAddress();
 					_interpreter.execFn(varName);
-					_lexer.getNext();
+					
+					if (_lexer.getToken() == Token::LPAREN) {
+						while (true) {
+							if (_lexer.getNext() &&
+							    _lexer.getToken() >= Token::INTEGER_IDENT &&
+							    _lexer.getToken() <= Token::BOOL_IDENT) {
+								Parser::Value v;
+								_interpreter.valueFromVar(v, _lexer.id());
+								_interpreter.pushValue(v);
+								_interpreter.pushInputObject(_lexer.id());
+							}
+						}
+					}
+				
 					fExpression(v);
 					_interpreter.returnFromFn();
 					_lexer.getNext();

@@ -518,6 +518,10 @@ Interpreter::dump(DumpMode mode)
 		    (f != nullptr) && (_program.objectIndex(f) <
 		    _program._variablesEnd); f = _program.variableByIndex(
 		    _program.objectIndex(f) + f->size())) {
+#if USE_DEFFN
+			if (f->type & TYPE_DEFFN)
+				continue;
+#endif
 			_output.print(f->name);
 			_output.print(":\t");
 			Parser::Value v;
@@ -832,6 +836,22 @@ Interpreter::execFn(const char *name)
 		_lexer.init(s->text + _program._current.position);
 	else
 		raiseError(DYNAMIC_ERROR, INTERNAL_ERROR);
+	
+	// Restore variables
+	while (true) {
+		const auto *f = _program.currentStackFrame();
+		if (f->_type == Program::StackFrame::INPUT_OBJECT) {
+			_program.pop();
+			const auto *ff = _program.currentStackFrame();
+			if (ff->_type == Program::StackFrame::VALUE) {
+				setVariable(f->body.inputObject.name,
+				    ff->body.value);
+				_program.pop();
+				continue;
+			}
+		}
+		return;
+	}
 }
 
 void
@@ -1296,15 +1316,9 @@ Interpreter::writePgm(PGM_P str)
 	_output.print(buf);
 }
 
-bool
-Interpreter::pushResult()
-{
-	return pushValue(_result);
-}
-
 #if USE_DEFFN
 void
-Interpreter::newFunction(const char *fname)
+Interpreter::newFunction(const char *fname, uint8_t pos)
 {
 	Pointer index = _program._textEnd;
 
@@ -1353,7 +1367,7 @@ Interpreter::newFunction(const char *fname)
 	strncpy(f->name, fname, VARSIZE);
 	FunctionFrame *ff = reinterpret_cast<FunctionFrame*>(f->bytes);
 	ff->lineNumber = _program._current.index;
-	ff->linePosition = _program._current.position+_lexer.getPointer();
+	ff->linePosition = _program._current.position+pos;
 	_program._variablesEnd += f->size();
 	_program._arraysEnd += f->size();
 }
@@ -1680,6 +1694,12 @@ Interpreter::pushDimensions(uint8_t dim)
 		f->body.arrayDimensions = dim;
 	else
 		raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
+}
+
+bool
+Interpreter::pushResult()
+{
+	return pushValue(_result);
 }
 
 bool
