@@ -416,6 +416,7 @@
             <pElem>../../libarduinoext/include</pElem>
             <pElem>../TVoutEx</pElem>
             <pElem>../../libsdcard/SDCard/src</pElem>
+            <pElem>../libbasic/include</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>
@@ -595,6 +596,7 @@
             <pElem>../../libsdcard/SDCard/src</pElem>
             <pElem>../../libutft/UTFT</pElem>
             <pElem>../../tvoutex/TVoutEx</pElem>
+            <pElem>../libbasic/include</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>
@@ -1426,6 +1428,7 @@
             <pElem>../../libsdcard/SDCard/src</pElem>
             <pElem>../../libps2uart/ps2uartKeyboard</pElem>
             <pElem>../../tvoutex/TVoutEx</pElem>
+            <pElem>../libbasic/include</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>
@@ -1443,7 +1446,7 @@
           <warningLevel>2</warningLevel>
         </ccTool>
         <linkerTool>
-          <output>${CND_DISTDIR}/${CND_CONF}/basic.elf</output>
+          <output>${CND_DISTDIR}/${CND_CONF}/terminal-basic</output>
           <linkerLibItems>
             <linkerLibProjectItem>
               <makeArtifact PL="../../libsdcard/libsdcard"

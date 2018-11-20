@@ -43,13 +43,13 @@
  * Support of 4-byte integer datatype
  * Functions, variables and arrays of long integer type ends with double % mark
  */
-#define USE_LONGINT          1
+#define USE_LONGINT          0
 
 /**
  * DUMP command support
  * This command can be used to check BASIC memory image, variables and arrays list
  */
-#define USE_DUMP 1
+#define USE_DUMP             1
 
 /*
  * RANDOMIZE command and RND() function support
@@ -100,7 +100,7 @@
 /*
  * Structured loop support
  */
-#define USE_DOLOOP       1
+#define USE_DOLOOP           0
 
 /*
  * SAVE, LOAD and CHAIN commands support

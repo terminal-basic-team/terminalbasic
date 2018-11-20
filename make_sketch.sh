@@ -6,8 +6,11 @@ VER=$(cat ./BASIC/version)
 SKETCH=./sketch/terminal-basic-$VER
 SRC_PATH=${SKETCH}/terminal-basic
 
-SRC="	./BASIC/include/basic.hpp  \
-	./BASIC/src/basic.cpp \
+SRC="	./libbasic/include/basic.h
+	./libbasic/include/basic_config.h
+	./libbasic/include/basic.hpp
+	./BASIC/include/basic_common.hpp  \
+	./BASIC/src/basic_common.cpp \
 	./BASIC/include/config.hpp \
 	./BASIC/include/config_arduino.hpp \
 	./BASIC/include/basic_lexer.hpp  \
@@ -66,9 +69,11 @@ COPY_FILES="README ChangeLog COPYING"
 rm -rf $SKETCH
 mkdir -p $SKETCH
 mkdir -p $SRC_PATH
+mkdir -p $SRC_PATH/sys
 
 cp README.sketch ./sketch/README
 cp ./BASIC/src/ucbasic_main.cpp "${SRC_PATH}/terminal-basic.ino"
+cp ../libarduinoext/include/sys/cdefs.h "${SRC_PATH}/sys/"
 
 for file in $SRC
 do

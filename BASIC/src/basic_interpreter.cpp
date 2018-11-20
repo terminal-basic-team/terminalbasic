@@ -236,9 +236,9 @@ Interpreter::step()
 	case SHELL:
 	{
 		print(ProgMemStrings::S_READY, VT100::BRIGHT);
-#if CLI_PROMPT_NELINE
+#if CLI_PROMPT_NEWLINE
 		newline();
-#endif // CLI_PROMPT_NELINE
+#endif // CLI_PROMPT_NEWLINE
 	}
 #if BASIC_MULTITERMINAL
 		// fall through
@@ -836,7 +836,60 @@ Interpreter::execFn(const char *name)
 		_lexer.init(s->text + _program._current.position);
 	else
 		raiseError(DYNAMIC_ERROR, INTERNAL_ERROR);
-	
+}
+
+void
+Interpreter::setFnVars()
+{
+	Pointer sp = _program._sp;
+	Pointer paramPtr;
+	// Set old function variables
+	uint8_t numberOfParameters = 0;
+	while (true) {
+		const auto f = _program.currentStackFrame();
+		if (f->_type == Program::StackFrame::INPUT_OBJECT) {
+			_program.pop();
+			const auto ff = _program.currentStackFrame();
+			if (ff->_type == Program::StackFrame::VALUE) {
+				++numberOfParameters;
+				_program.pop();
+				continue;
+			}
+		} else if (f->_type == Program::StackFrame::SUBPROGRAM_RETURN) {
+			_program.pop();
+			paramPtr = _program._sp;
+			break;
+		}
+		raiseError(DYNAMIC_ERROR, INTERNAL_ERROR);
+		return;
+	}
+	_program._sp = sp;
+	for (uint8_t i=0; i<numberOfParameters; ++i) {
+		const auto f = _program.currentStackFrame();
+		_program.pop();
+		const auto ff = _program.currentStackFrame();
+		_program.pop();
+		const Pointer ret = _program._sp;
+		_program._sp = paramPtr;
+		const auto fff = _program.currentStackFrame();
+		if (fff->_type == Program::StackFrame::VALUE) {
+			setVariable(f->body.inputObject.name,
+			    fff->body.value);
+		} else {
+			raiseError(DYNAMIC_ERROR, INTERNAL_ERROR);
+			break;
+		}
+		_program.pop();
+		paramPtr = _program._sp;
+		_program._sp = ret;
+	}
+	_program._sp = sp;
+}
+
+void
+Interpreter::returnFromFn()
+{
+	uint8_t numParameters = 0;
 	// Restore variables
 	while (true) {
 		const auto *f = _program.currentStackFrame();
@@ -847,16 +900,16 @@ Interpreter::execFn(const char *name)
 				setVariable(f->body.inputObject.name,
 				    ff->body.value);
 				_program.pop();
+				++numParameters;
 				continue;
+			} else {
+				raiseError(DYNAMIC_ERROR, INTERNAL_ERROR);
+				return;
 			}
-		}
-		return;
+		} else
+			break;
 	}
-}
-
-void
-Interpreter::returnFromFn()
-{
+	
 	const auto f = _program.currentStackFrame();
 	if ((f != nullptr) && (f->_type == Program::StackFrame::SUBPROGRAM_RETURN)) {
 		_program._current.index = f->body.gosubReturn.calleeIndex;
@@ -869,10 +922,21 @@ Interpreter::returnFromFn()
 	Program::Line *s = _program.current(_program._current);
 	if (s != nullptr)
 		_lexer.init(s->text + _program._current.position);
-	else
+	else {
 		raiseError(DYNAMIC_ERROR, INTERNAL_ERROR);
+		return;
+	}
+	for (uint8_t i=0; i<numParameters; ++i) {
+		const auto f=_program.currentStackFrame();
+		if (f->_type == Program::StackFrame::VALUE)
+			_program.pop();
+		else {
+			raiseError(DYNAMIC_ERROR, INTERNAL_ERROR);
+			return;
+		}
+	}
 }
-#endif
+#endif // USE_DEFFN
 
 bool
 Interpreter::next(const char *varName)

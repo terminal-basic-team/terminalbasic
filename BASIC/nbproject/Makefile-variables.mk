@@ -73,8 +73,8 @@ CND_PACKAGE_PATH_Arduino_nano168=dist/Arduino_nano168/Arduino-Linux/package/basi
 # Atmega1284 configuration
 CND_PLATFORM_Atmega1284=Arduino-Linux
 CND_ARTIFACT_DIR_Atmega1284=dist/Atmega1284
-CND_ARTIFACT_NAME_Atmega1284=basic.elf
-CND_ARTIFACT_PATH_Atmega1284=dist/Atmega1284/basic.elf
+CND_ARTIFACT_NAME_Atmega1284=terminal-basic
+CND_ARTIFACT_PATH_Atmega1284=dist/Atmega1284/terminal-basic
 CND_PACKAGE_DIR_Atmega1284=dist/Atmega1284/Arduino-Linux/package
 CND_PACKAGE_NAME_Atmega1284=basic.tar
 CND_PACKAGE_PATH_Atmega1284=dist/Atmega1284/Arduino-Linux/package/basic.tar

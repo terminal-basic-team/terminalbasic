@@ -368,6 +368,7 @@ public:
 	void randomize();
 #if USE_DEFFN
 	void execFn(const char*);
+	void setFnVars();
 	void returnFromFn();
 #endif
 	/**

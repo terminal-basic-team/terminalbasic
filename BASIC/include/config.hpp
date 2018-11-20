@@ -87,15 +87,15 @@ namespace BASIC
 	/*
 	 * Use ANSI color attributes
 	 */
-	#define USE_COLORATTRIBUTES  1
+	#define USE_COLORATTRIBUTES       1
 	/*
 	 * Support of SPC(N) print command
 	 */
-	#define CONF_USE_SPC_PRINT_COM  1
+	#define CONF_USE_SPC_PRINT_COM    1
 	/*
 	 * Set print zones width (tab spacing)
 	 */
-	#define SET_PRINTZNES  1
+	#define SET_PRINTZNES             1
 	#if SET_PRINTZNES
 		#define PRINT_ZONE_WIDTH 16
 		#define PRINT_ZONES_NUMBER 5
@@ -168,7 +168,7 @@ namespace BASIC
 /*
  * GFX module
  */
-#define USE_GFX          0
+#define USE_GFX          1
 #if USE_GFX
 #define SERIAL_GFX       0
 #endif
@@ -176,7 +176,7 @@ namespace BASIC
 /*
  * Prompt on new line
  */
-#define CLI_PROMPT_NELINE 1
+#define CLI_PROMPT_NEWLINE 1
 /*
  * LF character processing
  */
@@ -231,10 +231,10 @@ namespace BASIC
 	#define LIQCR_D3 2
 
 // Input select
-#define S_INPUT SERIALL_I
+#define S_INPUT PS2UARTKB_I
 
 // Output select
-#define S_OUTPUT SERIALL_O
+#define S_OUTPUT TVOUT_O
 
 #if USE_EXTEEPROM
 	#define USE_WIRE 1
@@ -245,7 +245,7 @@ namespace BASIC
 /*
  * Max size of the program line
  */
-const uint8_t PROGSTRINGSIZE = 72;
+const uint8_t PROGSTRINGSIZE = 80;
 
 // Max size of the string constants/variables
 const uint8_t STRINGSIZE = 80;

@@ -19,7 +19,7 @@
 #ifndef BASIC_H
 #define BASIC_H
 
-#include <sys/cdefs.h>
+#include "sys/cdefs.h"
 #include <stdint.h>
 
 #include "basic_config.h"
