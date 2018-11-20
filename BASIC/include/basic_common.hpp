@@ -16,13 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BASIC_HPP
-#define BASIC_HPP
+#ifndef BASIC_COMMON_HPP
+#define BASIC_COMMON_HPP
 
 #include <stdio.h>
 #include <inttypes.h>
 
 #include <Arduino.h>
+
+#include "basic.hpp"
 
 #ifdef ARDUINO
 #include "config_arduino.hpp"
@@ -112,188 +114,6 @@ typedef double Real;
 // Number of characters in command/function identifier
 const uint8_t IDSIZE = 8;
 
-/**
- * @brief lexical tokens
- */
-enum class Token : uint8_t
-{
-	NOTOKENS = 0,  // 0
-	OP_AND,        // 1
-#if USE_DUMP
-	KW_ARRAYS,     // 2
-#endif
-//	KW_BASE,       // 3
-#if USE_SAVE_LOAD
-	COM_CHAIN,     // 4
-#endif
-#if USE_TEXTATTRIBUTES
-	COM_CLS,       // 5
-#endif
-#if USESTOPCONT
-	COM_CONT,      // 6
-#endif
-#if USE_MATRIX
-	KW_CON,        // 7
-#endif
-#if USE_DATA
-	KW_DATA,       // 8
-#endif
-#if USE_DEFFN
-	KW_DEF,        // 9
-#endif
-#if USE_DELAY
-	COM_DELAY,     // 10
-#endif
-#if USE_MATRIX
-	KW_DET,        // 11
-#endif
-	KW_DIM,        // 12
-#if USE_DIV_KW
-	KW_DIV,        // 13
-#endif
-#if USE_DOLOOP
-	KW_DO,         // 14
-#endif
-#if USE_DUMP
-	COM_DUMP,      // 15
-#endif
-	KW_END,        // 16
-	KW_FALSE,      // 17
-#if USE_DEFFN
-	KW_FN,         // 18
-#endif
-	KW_FOR,        // 19
-	KW_GOSUB,      // 20
-	KW_GOTO,       // 21
-#if CONF_SEPARATE_GO_TO
-	KW_GO,         // 22
-#endif
-#if USE_MATRIX
-	KW_IDN,        // 23
-#endif
-	KW_IF,         // 24
-	KW_INPUT,      // 25
-#if USE_MATRIX
-	KW_INV,        // 26
-#endif
-	KW_LET,        // 27
-	COM_LIST,      // 28
-#if USE_SAVE_LOAD
-	COM_LOAD,      // 29
-#endif
-#if USE_TEXTATTRIBUTES
-	COM_LOCATE,    // 30
-#endif
-#if USE_DOLOOP
-	KW_LOOP,       // 31
-#endif
-#if USE_MATRIX
-	KW_MAT,        // 32
-#endif
-#if USE_INTEGER_DIV
-	KW_MOD,        // 33
-#endif
-	COM_NEW,       // 34
-	KW_NEXT,       // 35
-	OP_NOT,        // 36
-	KW_ON,         // 37
-//	KW_OPTION,     // 38
-	OP_OR,         // 39
-	KW_PRINT,      // 40
-#if USE_RANDOM
-	KW_RANDOMIZE,  // 41
-#endif
-#if USE_DATA
-	KW_READ,       // 42
-#endif
-	KW_REM,        // 43
-#if USE_DATA
-	KW_RESTORE,    // 44
-#endif
-	KW_RETURN,     // 45
-	COM_RUN,       // 46
-#if USE_SAVE_LOAD
-	COM_SAVE,      // 47
-#endif
-#if CONF_USE_SPC_PRINT_COM
-	KW_SPC,        // 48
-#endif
-	KW_STEP,       // 49
-#if USESTOPCONT
-	KW_STOP,       // 50
-#endif
-#if USE_TEXTATTRIBUTES
-	KW_TAB,        // 51
-#endif
-	KW_THEN,       // 52
-	KW_TO,         // 53
-#if USE_MATRIX
-	KW_TRN,        // 54
-#endif
-	KW_TRUE,       // 55
-#if USE_DUMP
-	KW_VARS,       // 56
-#endif
-	OP_XOR,        // 57
-#if USE_MATRIX
-	KW_ZER,        // 58
-#endif
-	// *
-	STAR,          // 59
-	// /
-	SLASH,         // 50
-#if USE_REALS && USE_INTEGER_DIV
-	BACK_SLASH,    // 61
-#endif
-	// +
-	PLUS,          // 62
-	// -
-	MINUS,         // 63
-	// =
-	EQUALS,        // 64
-	// :
-	COLON,         // 65
-	// ;
-	SEMI,          // 66
-	// <
-	LT,            // 67
-	// >
-	GT,            // 68
-	// <=
-	LTE,           // 69
-	// >=
-	GTE,           // 70
-	// <>
-	NE,            // 71
-#if CONF_USE_ALTERNATIVE_NE
-	//  ><
-	NEA,           // 72
-#endif
-	// ,
-	COMMA,         // 73
-	// ^
-	POW,           // 74
-	// (
-	LPAREN,        // 75
-	// )
-	RPAREN,        // 76
-
-	INTEGER_IDENT, // 77
-	REAL_IDENT,    // 78
-#if USE_LONGINT        // 79
-	LONGINT_IDENT, // 80
-#endif
-	STRING_IDENT,  // 81
-	BOOL_IDENT,    // 82
-
-	C_INTEGER,     // 83
-	C_REAL,        // 84
-	C_BOOLEAN,     // 85
-	C_STRING,      // 86
-
-	NUM_TOKENS     // 87
-};
-
 enum class ProgMemStrings : uint8_t
 {
 	S_AT = 0,
@@ -359,4 +179,4 @@ uint8_t *scanTable(const uint8_t*, const uint8_t[], uint8_t&);
 
 } // namespace BASIC
 
-#endif // BASIC_HPP
+#endif // BASIC_COMMON_HPP

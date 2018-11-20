@@ -18,13 +18,15 @@
 
 /**
  * @file config.hpp
- * @brief Configuration parameters, common among versions
+ * @brief Configuration parameters
  */
 
 #ifndef CONFIG_HPP
 #define CONFIG_HPP
 
 #include <stdint.h>
+
+#include "basic_config.h"
 
 namespace BASIC
 {
@@ -34,25 +36,6 @@ namespace BASIC
  */
 #define ALLOW_UNDERSCORE_ID 0
 
-/*
- * DELAY command, suspends execution for N ms
- */
-#define USE_DELAY           1
-
-#define REAL_NONE     0
-#define REAL_SINGLE   1
-#define REAL_DOUBLE   2
-#define REAL_EXTENDED 3
-#define REAL_QUAD     4
-    
-/*
- * Real arithmetics
- * 
- * Support of operations with real numbers.
- * When enabled, all variables and arrays, which names are not ending with "$ ! %"
- * are treated as reals. Mathematical functions support depend on this option
- */
-#define USE_REALS               REAL_SINGLE
 #if USE_REALS
 	/*
 	 * Mathematical functions support
@@ -63,15 +46,15 @@ namespace BASIC
 		 * SIN COS TAN COT
 		 */
 		#define M_TRIGONOMETRIC         1
-		#define M_HYPERBOLIC            0
+		#define M_HYPERBOLIC            1
 		/*
 		 * ACS ASN ATN
 		 */
-		#define M_REVERSE_TRIGONOMETRIC 0
+		#define M_REVERSE_TRIGONOMETRIC 1
 		/*
 		 * CBR (cubic root) ...
 		 */
-		#define M_ADDITIONAL            0
+		#define M_ADDITIONAL            1
 	#endif // USEMATH
 #endif // USE_REALS
 
@@ -92,91 +75,38 @@ namespace BASIC
 	#define USE_RIGHT          1
 #endif // USE_STRINGOPS
 /*
- * Allow GO TO OPERATOR in addition to GOTO
- */
-#define CONF_SEPARATE_GO_TO     1
-/*
- * Use >< as not-equals operator (with default <>)
- */
-#define CONF_USE_ALTERNATIVE_NE 1
-/*
- * Support of 4-byte integer datatype
- * Functions, variables and arrays of long integer type ends with double % mark
- */
-#define USE_LONGINT          0
-/*
- * Support of integer division and modulo operation
- */
-#define USE_INTEGER_DIV      1
-#if USE_INTEGER_DIV
-	/*
-	 * Use DIV keyword for integer division in addition to \ operation
-	 */
-	#define USE_DIV_KW   0
-#endif // USE_INTEGER_DIV
-/**
- * DUMP command support
- * This command can be used to see BASIC memory image, variables and arrays list
- */
-#define USE_DUMP             0
-/*
  * Clear program memory on NEW command
  */
 #define CLEAR_PROGRAM_MEMORY 1
-/*
- * RANDOMIZE command and RND() function support
- */
-#define USE_RANDOM           1
-/*
- * Support of Darthmouth BASIX-style matrix operations
- */
-#define USE_MATRIX           0
-/**
- * Support of DATA/READ statements
- */
-#define USE_DATA             0
-/*
- * Support of DEF FN construct
- */
-#define USE_DEFFN            0
 /**
  * Allow INPUT command with text message e.g. INPUT "A:";A
  */
 #define INPUT_WITH_TEXT      1
-/*
- * Use vt100 text attributes
- */
-#define USE_TEXTATTRIBUTES   1
+
 #if USE_TEXTATTRIBUTES
 	/*
 	 * Use ANSI color attributes
 	 */
-	#define USE_COLORATTRIBUTES  1
+	#define USE_COLORATTRIBUTES       1
 	/*
 	 * Support of SPC(N) print command
 	 */
-	#define CONF_USE_SPC_PRINT_COM  1
+	#define CONF_USE_SPC_PRINT_COM    1
 	/*
 	 * Set print zones width (tab spacing)
 	 */
-	#define SET_PRINTZNES  1
+	#define SET_PRINTZNES             1
 	#if SET_PRINTZNES
 		#define PRINT_ZONE_WIDTH 16
 		#define PRINT_ZONES_NUMBER 5
 	#endif // SET_PRINTZNES
 #endif // USE_TEXTATTRIBUTES
-/*
- * SAVE, LOAD and CHAIN commands support
- */
-#define USE_SAVE_LOAD        1
+
 #if USE_SAVE_LOAD
 	// Compute checksums while SAVE, LOAD and CHAIN
 	#define SAVE_LOAD_CHECKSUM   1
 #endif // USE_SAVE_LOAD
-/*
- * STOP and CONTINUE commands support
- */
-#define USESTOPCONT       1
+
 // Convert all input to upper register
 #define AUTOCAPITALIZE    0
 
@@ -200,7 +130,7 @@ namespace BASIC
 #define LANG LANG_EN
 
 // Use text error strings
-#define CONF_ERROR_STRINGS 0
+#define CONF_ERROR_STRINGS 1
 
 // Arduino IO module
 #define CONF_MODULE_ARDUINOIO      1
@@ -211,9 +141,10 @@ namespace BASIC
 
 // BEEP command
 #if CONF_MODULE_ARDUINOIO_TONE
-	#define CONF_BEEP     0
+	#define CONF_BEEP     1
 	#if CONF_BEEP
 		#define BEEP_PIN 5
+		#define BEEP_FREQ 440
 	#endif // CONF_BEEP
 #endif // CONF_MODULE_ARDUINOIO_TONE
 
@@ -227,10 +158,6 @@ namespace BASIC
 #endif // USE_EXTEEPROM
 
 /*
- * Structured loop support
- */
-#define USE_DOLOOP       0
-/*
  * Indention of the loop bodies
  */
 #define LOOP_INDENT      1
@@ -241,7 +168,7 @@ namespace BASIC
 /*
  * GFX module
  */
-#define USE_GFX          0
+#define USE_GFX          1
 #if USE_GFX
 #define SERIAL_GFX       0
 #endif
@@ -249,7 +176,7 @@ namespace BASIC
 /*
  * Prompt on new line
  */
-#define CLI_PROMPT_NELINE 1
+#define CLI_PROMPT_NEWLINE 1
 /*
  * LF character processing
  */
@@ -304,10 +231,10 @@ namespace BASIC
 	#define LIQCR_D3 2
 
 // Input select
-#define S_INPUT SERIALL_I
+#define S_INPUT PS2UARTKB_I
 
 // Output select
-#define S_OUTPUT SERIALL_O
+#define S_OUTPUT TVOUT_O
 
 #if USE_EXTEEPROM
 	#define USE_WIRE 1
@@ -318,7 +245,7 @@ namespace BASIC
 /*
  * Max size of the program line
  */
-const uint8_t PROGSTRINGSIZE = 72;
+const uint8_t PROGSTRINGSIZE = 80;
 
 // Max size of the string constants/variables
 const uint8_t STRINGSIZE = 80;
