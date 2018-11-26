@@ -428,7 +428,7 @@ Lexer::getNext()
 		} else if (isalpha(SYM)) {
 			uint8_t index;
 			uint8_t *pos = (uint8_t*)_string+_pointer;
-			if ((pos = scanTable(pos, tokenTable, index)) != NULL) {
+			if ((pos = scanTable(pos, tokenTable, &index)) != nullptr) {
 				_token = Token(index);
 				if (_token == Token::KW_TRUE)
 					_value = true, _token = Token::C_BOOLEAN;

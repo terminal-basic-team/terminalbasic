@@ -80,7 +80,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=../../tvoutex/livbtvoutex/dist/Debug_PC/GNU-Linux/liblivbtvoutex.a ../../libarduinoemulator/dist/Debug/GNU-Linux/liblibarduinoemulator.a ../../libarduinoext/dist/Debug/GNU-Linux/liblibarduinoext.a `pkg-config --libs sdl2` /usr/local/lib/libposixcpp.a  
+LDLIBSOPTIONS=../../tvoutex/livbtvoutex/dist/Debug_PC/GNU-Linux/liblivbtvoutex.a ../../libarduinoemulator/dist/Debug/GNU-Linux/liblibarduinoemulator.a ../../libarduinoext/dist/Debug/GNU-Linux/liblibarduinoext.a `pkg-config --libs sdl2` /usr/local/lib/libposixcpp.a ../libbasic/libbasic_nb/dist/Debug/GNU-Linux/liblibbasic_nb.a  
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -93,6 +93,8 @@ ${CND_DISTDIR}/${CND_CONF}/basic: ../../libarduinoemulator/dist/Debug/GNU-Linux/
 ${CND_DISTDIR}/${CND_CONF}/basic: ../../libarduinoext/dist/Debug/GNU-Linux/liblibarduinoext.a
 
 ${CND_DISTDIR}/${CND_CONF}/basic: /usr/local/lib/libposixcpp.a
+
+${CND_DISTDIR}/${CND_CONF}/basic: ../libbasic/libbasic_nb/dist/Debug/GNU-Linux/liblibbasic_nb.a
 
 ${CND_DISTDIR}/${CND_CONF}/basic: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}
@@ -198,6 +200,8 @@ ${OBJECTDIR}/src/ucbasic_main.o: src/ucbasic_main.cpp nbproject/Makefile-${CND_C
 	cd ../../tvoutex/livbtvoutex && ${MAKE}  -f Makefile CONF=Debug_PC
 	cd ../../libarduinoemulator && ${MAKE}  -f Makefile CONF=Debug
 	cd ../../libarduinoext && ${MAKE}  -f Makefile CONF=Debug
+	cd ../libbasic/libbasic_nb && ${MAKE}  -f Makefile CONF=Debug
+	cd ../libbasic/libbasic_nb && ${MAKE}  -f Makefile CONF=Debug
 
 # Build Test Targets
 .build-tests-conf: .build-tests-subprojects .build-conf ${TESTFILES}
@@ -479,6 +483,8 @@ ${OBJECTDIR}/src/ucbasic_main_nomain.o: ${OBJECTDIR}/src/ucbasic_main.o src/ucba
 	cd ../../tvoutex/livbtvoutex && ${MAKE}  -f Makefile CONF=Debug_PC clean
 	cd ../../libarduinoemulator && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../../libarduinoext && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../libbasic/libbasic_nb && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../libbasic/libbasic_nb && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

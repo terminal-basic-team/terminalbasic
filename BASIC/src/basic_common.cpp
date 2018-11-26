@@ -123,45 +123,6 @@ static PGM_P const progmemStrings[uint8_t(ProgMemStrings::NUM_STRINGS)] PROGMEM 
 #endif // USE_TEXTATTRIBUTES
 };
 
-uint8_t*
-scanTable(const uint8_t *token, const uint8_t table[], uint8_t &index)
-{
-	uint8_t tokPos = 0, tabPos = 0;
-	while (true) {
-		uint8_t c = pgm_read_byte(table);
-		uint8_t ct = token[tokPos];
-		if (c == 0)
-			return nullptr;
-		
-		if (ct == c) {
-			++tokPos, ++table;
-			continue;
-		} else if (ct+uint8_t(0x80) == c) {
-			index = tabPos;
-			++tokPos;
-			return (uint8_t*)token+tokPos;
-		} else {
-			if (c & uint8_t(0x80))
-				c &= ~uint8_t(0x80);
-			if (c > ct && ct != 0)
-				return nullptr;
-			else {
-				while ((pgm_read_byte(table++) & uint8_t(0x80)) ==
-				    0);
-				++tabPos, tokPos=0;
-			}
-			continue;
-		}
-		
-		if (ct == 0) {
-			while ((pgm_read_byte(table++) & uint8_t(0x80)) ==
-				    0);
-			++tabPos, tokPos=0;
-		}
-	}
-	return nullptr;
-}
-
 PGM_P
 progmemString(ProgMemStrings index)
 {

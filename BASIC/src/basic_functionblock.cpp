@@ -74,7 +74,7 @@ FunctionBlock::_getFunction(const char *name) const
 	
 	if (functionTokens != nullptr) {
 		uint8_t index;
-		if (scanTable((const uint8_t*)name, functionTokens, index)) {
+		if (scanTable((const uint8_t*)name, functionTokens, &index)) {
 			result = reinterpret_cast<FunctionBlock::function>(
 			    pgm_read_ptr(&functions[index]));
 		}
@@ -90,7 +90,7 @@ FunctionBlock::_getCommand(const char *name) const
 		return nullptr;
 	
 	uint8_t index;
-	if (scanTable((const uint8_t*)name, commandTokens, index))
+	if (scanTable((const uint8_t*)name, commandTokens, &index))
 		return (reinterpret_cast<FunctionBlock::command>(
 		    pgm_read_ptr(&commands[index])));
 

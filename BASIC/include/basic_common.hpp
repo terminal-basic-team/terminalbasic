@@ -168,15 +168,6 @@ enum class ProgMemStrings : uint8_t
 // Static text strings
 extern PGM_P progmemString(ProgMemStrings);
 
-/**
- * @brief Scan token table
- * @param token
- * @param table
- * @param index
- * @return find flag
- */
-uint8_t *scanTable(const uint8_t*, const uint8_t[], uint8_t&);
-
 } // namespace BASIC
 
 #endif // BASIC_COMMON_HPP
