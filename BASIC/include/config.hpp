@@ -46,7 +46,7 @@ namespace BASIC
 		 * SIN COS TAN COT
 		 */
 		#define M_TRIGONOMETRIC         1
-		#define M_HYPERBOLIC            1
+		#define M_HYPERBOLIC            0
 		/*
 		 * ACS ASN ATN
 		 */
@@ -54,7 +54,7 @@ namespace BASIC
 		/*
 		 * CBR (cubic root) ...
 		 */
-		#define M_ADDITIONAL            1
+		#define M_ADDITIONAL            0
 	#endif // USEMATH
 #endif // USE_REALS
 
@@ -130,7 +130,7 @@ namespace BASIC
 #define LANG LANG_EN
 
 // Use text error strings
-#define CONF_ERROR_STRINGS 1
+#define CONF_ERROR_STRINGS 0
 
 // Arduino IO module
 #define CONF_MODULE_ARDUINOIO      1
@@ -168,7 +168,7 @@ namespace BASIC
 /*
  * GFX module
  */
-#define USE_GFX          1
+#define USE_GFX          0
 #if USE_GFX
 #define SERIAL_GFX       0
 #endif
