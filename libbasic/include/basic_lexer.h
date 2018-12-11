@@ -9,7 +9,15 @@ typedef struct _basic_lexer_context_t
 {
 	const char *string_to_parse;
 	uint8_t string_pointer;
+	basic_token_t token;
+	
+	/* Identifier string pointer */
+	uint8_t _value_pointer;
 } basic_lexer_context_t;
+
+void basic_lexer_init(basic_lexer_context_t*, const char*);
+
+BOOLEAN basic_lexer_getnext(basic_lexer_context_t*);
 
 __END_DECLS
 

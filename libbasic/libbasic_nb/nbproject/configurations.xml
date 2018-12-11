@@ -11,6 +11,7 @@
     <logicalFolder name="src" displayName="src" projectFiles="true">
       <itemPath>../src/basic.c</itemPath>
       <itemPath>../src/basic_lexer.c</itemPath>
+      <itemPath>../src/test.c</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Файлы тестов"
@@ -102,6 +103,45 @@
       <item path="../src/basic.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="../src/basic_lexer.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="../src/test.c" ex="false" tool="0" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Test" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <incDir>
+            <pElem>../include</pElem>
+            <pElem>../../../libarduinoemulator/include</pElem>
+          </incDir>
+          <warningLevel>2</warningLevel>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>../include</pElem>
+          </incDir>
+        </ccTool>
+      </compileType>
+      <item path="../include/basic.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../include/basic.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../include/basic_config.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../include/basic_lexer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../include/basic_lexer.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../src/basic.c" ex="false" tool="0" flavor2="9">
+      </item>
+      <item path="../src/basic_lexer.c" ex="false" tool="0" flavor2="9">
+      </item>
+      <item path="../src/test.c" ex="false" tool="0" flavor2="9">
       </item>
     </conf>
   </confs>
