@@ -7,6 +7,7 @@
       <itemPath>../include/basic_config.h</itemPath>
       <itemPath>../include/basic_lexer.h</itemPath>
       <itemPath>../include/basic_lexer.hpp</itemPath>
+      <itemPath>../include/basic_value.h</itemPath>
     </logicalFolder>
     <logicalFolder name="src" displayName="src" projectFiles="true">
       <itemPath>../src/basic.c</itemPath>
@@ -63,6 +64,8 @@
       </item>
       <item path="../include/basic_lexer.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../include/basic_value.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../src/basic.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="../src/basic_lexer.c" ex="false" tool="0" flavor2="0">
@@ -100,6 +103,8 @@
       </item>
       <item path="../include/basic_lexer.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../include/basic_value.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../src/basic.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="../src/basic_lexer.c" ex="false" tool="0" flavor2="0">
@@ -136,6 +141,8 @@
       <item path="../include/basic_lexer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/basic_lexer.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../include/basic_value.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../src/basic.c" ex="false" tool="0" flavor2="9">
       </item>

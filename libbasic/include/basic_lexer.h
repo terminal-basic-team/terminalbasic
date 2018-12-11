@@ -2,6 +2,7 @@
 #define BASIC_LEXER_H
 
 #include "basic.h"
+#include "basic_value.h"
 
 __BEGIN_DECLS
 
@@ -13,6 +14,7 @@ typedef struct _basic_lexer_context_t
 	
 	/* Identifier string pointer */
 	uint8_t _value_pointer;
+	basic_univalue_t value;
 } basic_lexer_context_t;
 
 void basic_lexer_init(basic_lexer_context_t*, const char*);

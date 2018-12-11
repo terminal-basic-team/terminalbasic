@@ -2,6 +2,7 @@
 
 #include <stdlib.h>
 #include <assert.h>
+#include <ctype.h>
 
 void
 basic_lexer_init(basic_lexer_context_t *self, const char *str)
@@ -28,6 +29,28 @@ lexer_first_lt(basic_lexer_context_t *self)
 	++self->string_pointer;
 }
 
+static void
+lexer_first_gt(basic_lexer_context_t *self)
+{
+	if (SYM == '=')
+		self->token = BASIC_TOKEN_GTE;
+#if CONF_USE_ALTERNATIVE_NE
+	else if (SYM == '<')
+		self->token = BASIC_TOKEN_NEA;
+#endif // CONF_USE_ALTERNATIVE_NE
+	else {
+		self->token = BASIC_TOKEN_GT;
+		return;
+	}
+	++self->string_pointer;
+}
+
+static void
+lexer_decimal()
+{
+	
+}
+
 BOOLEAN
 basic_lexer_getnext(basic_lexer_context_t *self)
 {
@@ -43,9 +66,11 @@ basic_lexer_getnext(basic_lexer_context_t *self)
 		case ';':
 			self->token = BASIC_TOKEN_SEMI;
 			goto token_found;
-		/*case '.':
-			decimalNumber();
-			return true;*/
+#if USE_REALS
+		case '.':
+			lexer_decimal(self);
+			return TRUE;
+#endif // USE_REALS
 		case ',':
 			self->token = BASIC_TOKEN_COMMA;
 			goto token_found;
@@ -56,9 +81,10 @@ basic_lexer_getnext(basic_lexer_context_t *self)
 			++self->string_pointer;
 			lexer_first_lt(self);
 			return TRUE;
-		/*case '>':
-			fitst_GT();
-			return true;*/
+		case '>':
+			++self->string_pointer;
+			lexer_first_gt(self);
+			return TRUE;
 		case '(':
 			self->token = BASIC_TOKEN_LPAREN;
 			goto token_found;
@@ -94,6 +120,8 @@ basic_lexer_getnext(basic_lexer_context_t *self)
 		case '\t':
 			++self->string_pointer; break;
 		default:
+			if (isdigit(SYM))
+				lexer_decimal(self);
 			goto token_found; /* ? */
 		}
 	}

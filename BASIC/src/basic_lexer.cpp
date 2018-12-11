@@ -454,7 +454,7 @@ Lexer::getNext()
 			return true;
 		case '.':
 			decimalNumber();
-			return (true);
+			return true;
 		case ',':
 			_token = Token::COMMA;
 			next();
@@ -628,7 +628,7 @@ Lexer::decimalNumber()
 			}
 		} else if (SYM != '.') {
 
-#endif
+#endif // USE_REALS
 			next();
 			if (isdigit(SYM)) {
 #if USE_REALS

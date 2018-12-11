@@ -6,7 +6,7 @@
 int
 main(int argc, char** argv)
 {
-	const char s[] = ";	+ <<> < > <= <>;";
+	const char s[] = ";	\\  ^ + <<> < > <= ><,:";
 	basic_lexer_context_t lexer;
 	basic_lexer_init(&lexer, s);
 	while (basic_lexer_getnext(&lexer)) {
