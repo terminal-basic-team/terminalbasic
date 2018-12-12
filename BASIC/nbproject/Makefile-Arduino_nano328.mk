@@ -80,13 +80,13 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=../../libarduinoext/dist/Arduino_nano328/Arduino-1.8.6-Linux/liblibarduinoext.a ../../libarduino/dist/Nano328/libarduino.a
+LDLIBSOPTIONS=../../libarduinoext/dist/Arduino_nano328/Arduino-Linux/liblibarduinoext.a ../../libarduino/dist/Nano328/libarduino.a
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/basic
 
-${CND_DISTDIR}/${CND_CONF}/basic: ../../libarduinoext/dist/Arduino_nano328/Arduino-1.8.6-Linux/liblibarduinoext.a
+${CND_DISTDIR}/${CND_CONF}/basic: ../../libarduinoext/dist/Arduino_nano328/Arduino-Linux/liblibarduinoext.a
 
 ${CND_DISTDIR}/${CND_CONF}/basic: ../../libarduino/dist/Nano328/libarduino.a
 

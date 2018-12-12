@@ -90,9 +90,9 @@
  */
 namespace BASIC
 {
-typedef uint16_t Pointer;
+typedef ::pointer_t Pointer;
 // integer type
-typedef int16_t Integer;
+typedef ::integer_t Integer;
 const Integer MaxInteger = Integer(32767);
 #if USE_LONGINT
 // long integer type

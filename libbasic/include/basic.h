@@ -24,6 +24,10 @@
 
 #include "basic_config.h"
 
+#if USE_REALS
+#include <math.h>
+#endif
+
 __BEGIN_DECLS
 
 typedef uint8_t BOOLEAN;
@@ -85,6 +89,32 @@ typedef enum ascii_codes
 	TILDE = 0x7E,
 	DEL = 0x7F
 } ascii_codes_t;
+
+typedef uint16_t pointer_t;
+// integer type
+typedef int16_t integer_t;
+#define MAX_INTEGER (integer_t)(INT16_MAX)
+#if USE_LONGINT
+// long integer type
+typedef int32_t long_integer_t;
+#define MAX_LONG_INTEGER (long_integer_t)(INT32_MAX)
+typedef long_integer_t INT;
+#define MAXINT MAX_LONG_INTEGER
+#else
+typedef integer_t INT;
+#define MAXINT MAX_INTEGER
+#endif // USE_LONGINT
+// floating point type
+#if USE_REALS == REAL_SINGLE
+typedef float real_t;
+#define mf_pow powf
+#elif USE_REALS == REAL_DOUBLE
+typedef double real_t;
+#define mf_pow pow
+#endif
+
+/* Size of the string identifiers */
+#define STRING_SIZE 72
 
 /**
  * @brief lexical tokens

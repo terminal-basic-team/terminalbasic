@@ -12,9 +12,12 @@ typedef struct _basic_lexer_context_t
 	uint8_t string_pointer;
 	basic_token_t token;
 	
+	/* current identifier string */
+	char _id[STRING_SIZE];
 	/* Identifier string pointer */
 	uint8_t _value_pointer;
-	basic_univalue_t value;
+	/*  */
+	basic_value_t value;
 } basic_lexer_context_t;
 
 void basic_lexer_init(basic_lexer_context_t*, const char*);
