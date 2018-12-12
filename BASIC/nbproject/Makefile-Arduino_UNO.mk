@@ -196,6 +196,7 @@ ${OBJECTDIR}/src/ucbasic_main.o: src/ucbasic_main.cpp nbproject/Makefile-${CND_C
 	cd ../../libsdcard/libsdcard && ${MAKE}  -f Makefile CONF=Arduino_UNO
 	cd ../../libarduinoext && ${MAKE}  -f Makefile CONF=Arduino_uno
 	cd ../../libarduino && ${MAKE}  -f Makefile CONF=Arduino_UNO
+	cd ../libbasic/libbasic_nb && ${MAKE}  -f Makefile CONF=Debug
 
 # Build Test Targets
 .build-tests-conf: .build-tests-subprojects .build-conf ${TESTFILES}
@@ -477,6 +478,7 @@ ${OBJECTDIR}/src/ucbasic_main_nomain.o: ${OBJECTDIR}/src/ucbasic_main.o src/ucba
 	cd ../../libsdcard/libsdcard && ${MAKE}  -f Makefile CONF=Arduino_UNO clean
 	cd ../../libarduinoext && ${MAKE}  -f Makefile CONF=Arduino_uno clean
 	cd ../../libarduino && ${MAKE}  -f Makefile CONF=Arduino_UNO clean
+	cd ../libbasic/libbasic_nb && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

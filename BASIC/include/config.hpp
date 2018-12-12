@@ -50,7 +50,7 @@ namespace BASIC
 		/*
 		 * ACS ASN ATN
 		 */
-		#define M_REVERSE_TRIGONOMETRIC 1
+		#define M_REVERSE_TRIGONOMETRIC 0
 		/*
 		 * CBR (cubic root) ...
 		 */
@@ -88,10 +88,6 @@ namespace BASIC
 	 * Use ANSI color attributes
 	 */
 	#define USE_COLORATTRIBUTES       1
-	/*
-	 * Support of SPC(N) print command
-	 */
-	#define CONF_USE_SPC_PRINT_COM    1
 	/*
 	 * Set print zones width (tab spacing)
 	 */
@@ -136,7 +132,7 @@ namespace BASIC
 #define CONF_MODULE_ARDUINOIO      1
 #if CONF_MODULE_ARDUINOIO
 	// TONE command support
-	#define CONF_MODULE_ARDUINOIO_TONE 1
+	#define CONF_MODULE_ARDUINOIO_TONE 0
 #endif // CONF_MODULE_ARDUINOIO
 
 // BEEP command
@@ -231,10 +227,10 @@ namespace BASIC
 	#define LIQCR_D3 2
 
 // Input select
-#define S_INPUT PS2UARTKB_I
+#define S_INPUT SERIALL_I
 
 // Output select
-#define S_OUTPUT TVOUT_O
+#define S_OUTPUT SERIALL_O
 
 #if USE_EXTEEPROM
 	#define USE_WIRE 1
@@ -248,7 +244,7 @@ namespace BASIC
 const uint8_t PROGSTRINGSIZE = 80;
 
 // Max size of the string constants/variables
-const uint8_t STRINGSIZE = 80;
+const uint8_t STRINGSIZE = 72;
 
 // Number of characters in variable name
 const uint8_t VARSIZE = 5;
