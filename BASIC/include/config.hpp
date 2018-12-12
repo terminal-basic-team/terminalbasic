@@ -100,7 +100,7 @@ namespace BASIC
 
 #if USE_SAVE_LOAD
 	// Compute checksums while SAVE, LOAD and CHAIN
-	#define SAVE_LOAD_CHECKSUM   1
+	#define SAVE_LOAD_CHECKSUM   0
 #endif // USE_SAVE_LOAD
 
 // Convert all input to upper register
@@ -156,11 +156,11 @@ namespace BASIC
 /*
  * Indention of the loop bodies
  */
-#define LOOP_INDENT      1
+#define LOOP_INDENT      0
 /*
  * Indention of the line numbers in LIST output
  */
-#define LINE_NUM_INDENT  1
+#define LINE_NUM_INDENT  0
 /*
  * GFX module
  */
@@ -241,7 +241,7 @@ namespace BASIC
 /*
  * Max size of the program line
  */
-const uint8_t PROGSTRINGSIZE = 80;
+const uint8_t PROGSTRINGSIZE = 72;
 
 // Max size of the string constants/variables
 const uint8_t STRINGSIZE = 72;
