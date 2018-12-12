@@ -450,9 +450,11 @@ Lexer::getNext()
 		case ';':
 			_token = Token::SEMI;
 			goto token_ready;
+#if USE_REALS
 		case '.':
 			decimalNumber();
 			return true;
+#endif
 		case ',':
 			_token = Token::COMMA;
 			goto token_ready;
