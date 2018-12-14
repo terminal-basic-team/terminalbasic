@@ -30,6 +30,14 @@ CND_ARTIFACT_PATH_Test=dist/Test/GNU-Linux/libbasic_nb
 CND_PACKAGE_DIR_Test=dist/Test/GNU-Linux/package
 CND_PACKAGE_NAME_Test=libbasicnb.tar
 CND_PACKAGE_PATH_Test=dist/Test/GNU-Linux/package/libbasicnb.tar
+# Arduino_UNO configuration
+CND_PLATFORM_Arduino_UNO=Arduino-1.8.6-Linux
+CND_ARTIFACT_DIR_Arduino_UNO=dist/Arduino_UNO/Arduino-1.8.6-Linux
+CND_ARTIFACT_NAME_Arduino_UNO=liblibbasic_nb.a
+CND_ARTIFACT_PATH_Arduino_UNO=dist/Arduino_UNO/Arduino-1.8.6-Linux/liblibbasic_nb.a
+CND_PACKAGE_DIR_Arduino_UNO=dist/Arduino_UNO/Arduino-1.8.6-Linux/package
+CND_PACKAGE_NAME_Arduino_UNO=libbasicnb.tar
+CND_PACKAGE_PATH_Arduino_UNO=dist/Arduino_UNO/Arduino-1.8.6-Linux/package/libbasicnb.tar
 #
 # include compiler specific variables
 #

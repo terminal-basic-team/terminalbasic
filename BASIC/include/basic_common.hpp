@@ -93,17 +93,13 @@ namespace BASIC
 typedef ::pointer_t Pointer;
 // integer type
 typedef ::integer_t Integer;
-const Integer MaxInteger = Integer(32767);
+constexpr const Integer MaxInteger = MAX_INTEGER;
 #if USE_LONGINT
 // long integer type
-typedef int32_t LongInteger;
-const LongInteger MaxLongInteger = LongInteger(2147483647l);
-typedef LongInteger INT;
-#define MAXINT MaxLongInteger
-#else
-typedef Integer INT;
-#define MAXINT MaxInteger
+typedef ::long_integer_t LongInteger;
+constexpr const LongInteger MaxLongInteger = MAX_LONG_INTEGER;
 #endif // USE_LONGINT
+typedef ::INT INT;
 // floating point type
 #if USE_REALS == REAL_SINGLE
 typedef float Real;

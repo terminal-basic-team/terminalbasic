@@ -21,7 +21,7 @@ FC=gfortran
 AS=avr-as
 
 # Macros
-CND_PLATFORM=Arduino-Linux
+CND_PLATFORM=Arduino-1.8.6-Linux
 CND_DLIB_EXT=so
 CND_CONF=Arduino_UNO
 CND_DISTDIR=dist
@@ -80,15 +80,19 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=../../libsdcard/libsdcard/dist/Arduino_UNO/Arduino-Linux/liblibsdcard.a ../../libarduinoext/dist/Arduino_uno/Arduino-Linux/liblibarduinoext.a ../../libarduino/dist/Arduino_UNO/libarduino.a
+LDLIBSOPTIONS=../../libsdcard/libsdcard/dist/Arduino_UNO/Arduino-1.8.6-Linux/liblibsdcard.a ../../libarduinoext/dist/Arduino_uno/Arduino-Linux/liblibarduinoext.a ../../libps2uart/libps2uart/dist/Arduino_UNO/Arduino-1.8.6-Linux/liblibps2uart.a ../libbasic/libbasic_nb/dist/Arduino_UNO/Arduino-1.8.6-Linux/liblibbasic_nb.a ../../libarduino/dist/Arduino_UNO/libarduino.a
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/terminal-basic
 
-${CND_DISTDIR}/${CND_CONF}/terminal-basic: ../../libsdcard/libsdcard/dist/Arduino_UNO/Arduino-Linux/liblibsdcard.a
+${CND_DISTDIR}/${CND_CONF}/terminal-basic: ../../libsdcard/libsdcard/dist/Arduino_UNO/Arduino-1.8.6-Linux/liblibsdcard.a
 
 ${CND_DISTDIR}/${CND_CONF}/terminal-basic: ../../libarduinoext/dist/Arduino_uno/Arduino-Linux/liblibarduinoext.a
+
+${CND_DISTDIR}/${CND_CONF}/terminal-basic: ../../libps2uart/libps2uart/dist/Arduino_UNO/Arduino-1.8.6-Linux/liblibps2uart.a
+
+${CND_DISTDIR}/${CND_CONF}/terminal-basic: ../libbasic/libbasic_nb/dist/Arduino_UNO/Arduino-1.8.6-Linux/liblibbasic_nb.a
 
 ${CND_DISTDIR}/${CND_CONF}/terminal-basic: ../../libarduino/dist/Arduino_UNO/libarduino.a
 
@@ -195,6 +199,8 @@ ${OBJECTDIR}/src/ucbasic_main.o: src/ucbasic_main.cpp nbproject/Makefile-${CND_C
 .build-subprojects:
 	cd ../../libsdcard/libsdcard && ${MAKE}  -f Makefile CONF=Arduino_UNO
 	cd ../../libarduinoext && ${MAKE}  -f Makefile CONF=Arduino_uno
+	cd ../../libps2uart/libps2uart && ${MAKE}  -f Makefile CONF=Arduino_UNO
+	cd ../libbasic/libbasic_nb && ${MAKE}  -f Makefile CONF=Arduino_UNO
 	cd ../../libarduino && ${MAKE}  -f Makefile CONF=Arduino_UNO
 
 # Build Test Targets
@@ -476,6 +482,8 @@ ${OBJECTDIR}/src/ucbasic_main_nomain.o: ${OBJECTDIR}/src/ucbasic_main.o src/ucba
 .clean-subprojects:
 	cd ../../libsdcard/libsdcard && ${MAKE}  -f Makefile CONF=Arduino_UNO clean
 	cd ../../libarduinoext && ${MAKE}  -f Makefile CONF=Arduino_uno clean
+	cd ../../libps2uart/libps2uart && ${MAKE}  -f Makefile CONF=Arduino_UNO clean
+	cd ../libbasic/libbasic_nb && ${MAKE}  -f Makefile CONF=Arduino_UNO clean
 	cd ../../libarduino && ${MAKE}  -f Makefile CONF=Arduino_UNO clean
 
 # Enable dependency checking

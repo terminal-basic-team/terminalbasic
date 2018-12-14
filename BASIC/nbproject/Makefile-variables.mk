@@ -23,13 +23,13 @@ CND_PACKAGE_DIR_Arduino_nano328=dist/Arduino_nano328/Arduino-Linux/package
 CND_PACKAGE_NAME_Arduino_nano328=basic.tar
 CND_PACKAGE_PATH_Arduino_nano328=dist/Arduino_nano328/Arduino-Linux/package/basic.tar
 # Arduino_UNO configuration
-CND_PLATFORM_Arduino_UNO=Arduino-Linux
+CND_PLATFORM_Arduino_UNO=Arduino-1.8.6-Linux
 CND_ARTIFACT_DIR_Arduino_UNO=dist/Arduino_UNO
 CND_ARTIFACT_NAME_Arduino_UNO=terminal-basic
 CND_ARTIFACT_PATH_Arduino_UNO=dist/Arduino_UNO/terminal-basic
-CND_PACKAGE_DIR_Arduino_UNO=dist/Arduino_UNO/Arduino-Linux/package
+CND_PACKAGE_DIR_Arduino_UNO=dist/Arduino_UNO/Arduino-1.8.6-Linux/package
 CND_PACKAGE_NAME_Arduino_UNO=basic.tar
-CND_PACKAGE_PATH_Arduino_UNO=dist/Arduino_UNO/Arduino-Linux/package/basic.tar
+CND_PACKAGE_PATH_Arduino_UNO=dist/Arduino_UNO/Arduino-1.8.6-Linux/package/basic.tar
 # Arduino_mega2560 configuration
 CND_PLATFORM_Arduino_mega2560=Arduino-Linux
 CND_ARTIFACT_DIR_Arduino_mega2560=dist/Arduino_mega2560

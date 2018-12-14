@@ -43,6 +43,7 @@
 #
 # NOCDDL
 
+ARDUINO_PATH=/opt/arduino-1.8.6
 
 # Environment 
 MKDIR=mkdir

@@ -10,8 +10,8 @@
             <sourceEncoding>KOI8-R</sourceEncoding>
             <make-dep-projects>
                 <make-dep-project>../../libarduinoemulator</make-dep-project>
-                <make-dep-project>../../libutft</make-dep-project>
                 <make-dep-project>../../libps2uart/libps2uart</make-dep-project>
+                <make-dep-project>../../libutft</make-dep-project>
                 <make-dep-project>../libarduino</make-dep-project>
                 <make-dep-project>../arduinoext</make-dep-project>
                 <make-dep-project>../../libarduinoext</make-dep-project>

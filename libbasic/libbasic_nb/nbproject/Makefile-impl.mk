@@ -31,7 +31,7 @@ DEFAULTCONF=Debug
 CONF=${DEFAULTCONF}
 
 # All Configurations
-ALLCONFS=Debug Release Test 
+ALLCONFS=Debug Release Test Arduino_UNO 
 
 
 # build
