@@ -37,7 +37,9 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/_ext/511e4115/basic.o \
 	${OBJECTDIR}/_ext/511e4115/basic_lexer.o \
-	${OBJECTDIR}/_ext/511e4115/basic_value.o
+	${OBJECTDIR}/_ext/511e4115/basic_value.o \
+	${OBJECTDIR}/_ext/c3417bc2/e_sqrtf.o \
+	${OBJECTDIR}/_ext/511e4115/simple_math.o
 
 
 # C Compiler Flags
@@ -80,6 +82,16 @@ ${OBJECTDIR}/_ext/511e4115/basic_value.o: ../src/basic_value.c
 	${MKDIR} -p ${OBJECTDIR}/_ext/511e4115
 	${RM} "$@.d"
 	$(COMPILE.c) -g -Wall -I../include -I../../../libarduinoemulator/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/511e4115/basic_value.o ../src/basic_value.c
+
+${OBJECTDIR}/_ext/c3417bc2/e_sqrtf.o: ../src/math/e_sqrtf.c
+	${MKDIR} -p ${OBJECTDIR}/_ext/c3417bc2
+	${RM} "$@.d"
+	$(COMPILE.c) -g -Wall -I../include -I../../../libarduinoemulator/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/c3417bc2/e_sqrtf.o ../src/math/e_sqrtf.c
+
+${OBJECTDIR}/_ext/511e4115/simple_math.o: ../src/simple_math.c
+	${MKDIR} -p ${OBJECTDIR}/_ext/511e4115
+	${RM} "$@.d"
+	$(COMPILE.c) -g -Wall -I../include -I../../../libarduinoemulator/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/511e4115/simple_math.o ../src/simple_math.c
 
 # Subprojects
 .build-subprojects:
