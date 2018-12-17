@@ -14,8 +14,30 @@
  * from: @(#)fdlibm.h 5.1 93/09/24
  */
 
+#if INTERNAL_MATH
+
 #ifndef _MATH_H_
 #define _MATH_H_
+
+#define	M_E		(2.7182818f)  /* e */
+#define	M_LOG2E		(1.4426950f)  /* log 2e */
+#define	M_LOG10E	(0.43429448f) /* log 10e */
+#define	M_LN2		(0.69314718f) /* log e2 */
+#define	M_LN10		(2.3025851f) /* log e10 */
+#define	M_PI		(3.1415927f) /* pi */
+#define	M_PI_2		(1.5707963f) /* pi/2 */
+#define	M_PI_4		(0.78539816f) /* pi/4 */
+#define	M_1_PI		(0.31830989f) /* 1/pi */
+#define	M_2_PI		(0.63661977f) /* 2/pi */
+#define	M_2_SQRTPI	(1.12837917f) /* 2/sqrt(pi) */
+#define	M_SQRT2		(1.41421356f) /* sqrt(2) */
+#define	M_SQRT1_2	(0.70710678f) /* 1/sqrt(2) */
+
+float sqrtf(float);
+
+#else
+#include <math.h>
+#endif
 
 #if 0
 

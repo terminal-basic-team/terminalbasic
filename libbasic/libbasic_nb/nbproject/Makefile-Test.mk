@@ -39,8 +39,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/511e4115/basic_lexer.o \
 	${OBJECTDIR}/_ext/511e4115/basic_value.o \
 	${OBJECTDIR}/_ext/c3417bc2/e_sqrtf.o \
-	${OBJECTDIR}/_ext/511e4115/simple_math.o \
-	${OBJECTDIR}/_ext/511e4115/test.o
+	${OBJECTDIR}/_ext/511e4115/test.o \
+	${OBJECTDIR}/_ext/511e4115/tools.o
 
 
 # C Compiler Flags
@@ -70,32 +70,32 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libbasic_nb: ${OBJECTFILES}
 ${OBJECTDIR}/_ext/511e4115/basic.o: ../src/basic.c
 	${MKDIR} -p ${OBJECTDIR}/_ext/511e4115
 	${RM} "$@.d"
-	$(COMPILE.c) -g -Wall -I../include -I../../../libarduinoemulator/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/511e4115/basic.o ../src/basic.c
+	$(COMPILE.c) -g -Wall -DINTERNAL_MATH=1 -I../include -I../../../libarduinoemulator/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/511e4115/basic.o ../src/basic.c
 
 ${OBJECTDIR}/_ext/511e4115/basic_lexer.o: ../src/basic_lexer.c
 	${MKDIR} -p ${OBJECTDIR}/_ext/511e4115
 	${RM} "$@.d"
-	$(COMPILE.c) -g -Wall -I../include -I../../../libarduinoemulator/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/511e4115/basic_lexer.o ../src/basic_lexer.c
+	$(COMPILE.c) -g -Wall -DINTERNAL_MATH=1 -I../include -I../../../libarduinoemulator/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/511e4115/basic_lexer.o ../src/basic_lexer.c
 
 ${OBJECTDIR}/_ext/511e4115/basic_value.o: ../src/basic_value.c
 	${MKDIR} -p ${OBJECTDIR}/_ext/511e4115
 	${RM} "$@.d"
-	$(COMPILE.c) -g -Wall -I../include -I../../../libarduinoemulator/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/511e4115/basic_value.o ../src/basic_value.c
+	$(COMPILE.c) -g -Wall -DINTERNAL_MATH=1 -I../include -I../../../libarduinoemulator/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/511e4115/basic_value.o ../src/basic_value.c
 
 ${OBJECTDIR}/_ext/c3417bc2/e_sqrtf.o: ../src/math/e_sqrtf.c
 	${MKDIR} -p ${OBJECTDIR}/_ext/c3417bc2
 	${RM} "$@.d"
-	$(COMPILE.c) -g -Wall -I../include -I../../../libarduinoemulator/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/c3417bc2/e_sqrtf.o ../src/math/e_sqrtf.c
-
-${OBJECTDIR}/_ext/511e4115/simple_math.o: ../src/simple_math.c
-	${MKDIR} -p ${OBJECTDIR}/_ext/511e4115
-	${RM} "$@.d"
-	$(COMPILE.c) -g -Wall -I../include -I../../../libarduinoemulator/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/511e4115/simple_math.o ../src/simple_math.c
+	$(COMPILE.c) -g -Wall -DINTERNAL_MATH=1 -I../include -I../../../libarduinoemulator/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/c3417bc2/e_sqrtf.o ../src/math/e_sqrtf.c
 
 ${OBJECTDIR}/_ext/511e4115/test.o: ../src/test.c
 	${MKDIR} -p ${OBJECTDIR}/_ext/511e4115
 	${RM} "$@.d"
-	$(COMPILE.c) -g -Wall -I../include -I../../../libarduinoemulator/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/511e4115/test.o ../src/test.c
+	$(COMPILE.c) -g -Wall -DINTERNAL_MATH=1 -I../include -I../../../libarduinoemulator/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/511e4115/test.o ../src/test.c
+
+${OBJECTDIR}/_ext/511e4115/tools.o: ../src/tools.c
+	${MKDIR} -p ${OBJECTDIR}/_ext/511e4115
+	${RM} "$@.d"
+	$(COMPILE.c) -g -Wall -DINTERNAL_MATH=1 -I../include -I../../../libarduinoemulator/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/511e4115/tools.o ../src/tools.c
 
 # Subprojects
 .build-subprojects:

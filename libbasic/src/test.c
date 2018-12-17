@@ -1,21 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
+
+#include "math.h"
 
 #include "basic_lexer.h"
-#include "simple_math.h"
+#include "tools.h"
 
 int
 main(int argc, char** argv)
 {
-	float x = 1e-6;
-	printf("%f\n", logf(x));
-	printf("%f\n", s_logf(x));
-	
-	x = 4.0001;
-	printf("%f\n", sqrtf(x));
-	printf("%f\n", s_sqrtf(x));
-	
 	const char s[] = "; \"123 321 asd dsa\"\\ ^ + <<> < > <= ><,: 12 1.2 1e3 .2 1.1e-4";
 	basic_lexer_context_t lexer;
 	basic_lexer_init(&lexer, s);
@@ -23,7 +16,20 @@ main(int argc, char** argv)
 		basic_token_t t = lexer.token;
 		t++;
 	}
+	
+	char b[14];
+	ftoa(0, b);
+	puts(b);
+	ftoa(1e27, b);
+	puts(b);
+	ftoa(1e-27, b);
+	puts(b);
+	ftoa(9.9999999, b);
+	puts(b);
+	ftoa(66.3, b);
+	puts(b);
+	ftoa(-0.1e-22, b);
+	puts(b);
 
 	return EXIT_SUCCESS;
 }
-

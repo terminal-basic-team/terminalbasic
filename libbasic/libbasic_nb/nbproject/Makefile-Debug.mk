@@ -39,7 +39,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/511e4115/basic_lexer.o \
 	${OBJECTDIR}/_ext/511e4115/basic_value.o \
 	${OBJECTDIR}/_ext/c3417bc2/e_sqrtf.o \
-	${OBJECTDIR}/_ext/511e4115/simple_math.o
+	${OBJECTDIR}/_ext/511e4115/tools.o
 
 
 # C Compiler Flags
@@ -88,10 +88,10 @@ ${OBJECTDIR}/_ext/c3417bc2/e_sqrtf.o: ../src/math/e_sqrtf.c
 	${RM} "$@.d"
 	$(COMPILE.c) -g -Wall -I../include -I../../../libarduinoemulator/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/c3417bc2/e_sqrtf.o ../src/math/e_sqrtf.c
 
-${OBJECTDIR}/_ext/511e4115/simple_math.o: ../src/simple_math.c
+${OBJECTDIR}/_ext/511e4115/tools.o: ../src/tools.c
 	${MKDIR} -p ${OBJECTDIR}/_ext/511e4115
 	${RM} "$@.d"
-	$(COMPILE.c) -g -Wall -I../include -I../../../libarduinoemulator/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/511e4115/simple_math.o ../src/simple_math.c
+	$(COMPILE.c) -g -Wall -I../include -I../../../libarduinoemulator/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/511e4115/tools.o ../src/tools.c
 
 # Subprojects
 .build-subprojects:
