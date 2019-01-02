@@ -4,6 +4,54 @@
 #include <assert.h>
 #include <ctype.h>
 
+#include "avr/pgmspace.h"
+
+extern const uint8_t _basic_lexer_tokenTable[] PROGMEM;
+
+const char sSTAR[] PROGMEM = "*";
+const char sSLASH[] PROGMEM = "/";
+#if USE_REALS && USE_INTEGER_DIV
+const char sBACK_SLASH[] PROGMEM = "\\";
+#endif
+const char sPLUS[] PROGMEM = "+";
+const char sMINUS[] PROGMEM = "-";
+const char sEQUALS[] PROGMEM = "=";
+const char sCOLON[] PROGMEM = ":";
+const char sSEMI[] PROGMEM = ";";
+const char sLT[] PROGMEM = "<";
+const char sGT[] PROGMEM = ">";
+const char sLTE[] PROGMEM = "<=";
+const char sGTE[] PROGMEM = ">=";
+const char sNE[] PROGMEM = "<>";
+#if CONF_USE_ALTERNATIVE_NE
+const char sNEA[] PROGMEM = "><";
+#endif
+const char sCOMMA[] PROGMEM = ",";
+const char sPOW[] PROGMEM = "^";
+const char sLPAREN[] PROGMEM = "(";
+const char sRPAREN[] PROGMEM = ")";
+
+PGM_P const _basic_lexer_tokenStrings[] PROGMEM = {
+	sSTAR,
+	sSLASH,
+#if USE_REALS && USE_INTEGER_DIV
+	sBACK_SLASH,
+#endif
+	sPLUS, sMINUS,
+
+	sEQUALS,
+	sCOLON, sSEMI,
+	sLT, sGT,
+	sLTE, sGTE,
+	sNE,
+#if CONF_USE_ALTERNATIVE_NE
+	sNEA,
+#endif
+	sCOMMA,
+	sPOW,
+	sLPAREN, sRPAREN
+};
+
 void
 basic_lexer_init(basic_lexer_context_t *self, const char *str)
 {
@@ -90,7 +138,7 @@ lexer_decimal(basic_lexer_context_t *self)
 	self->value.type = BASIC_VALUE_TYPE_LONG_INTEGER;
 	long_integer_t *val = &self->value.body.long_integer;
 #else
-	self->value.type = basic_value_type_t;
+	self->value.type = BASIC_VALUE_TYPE_INTEGER;
 	integer_t *val = &self->value.body.integer;
 #endif // USE_LONGINT
 #if USE_REALS
@@ -286,6 +334,29 @@ basic_lexer_getnext(basic_lexer_context_t *self)
 			if (isdigit(SYM)) {
 				lexer_decimal(self);
 				return TRUE;
+			} else if (isalpha(SYM)) {
+				uint8_t index;
+				uint8_t *pos =
+				    (uint8_t*)self->string_to_parse+
+				    self->string_pointer;
+				if ((pos = scanTable(pos, _basic_lexer_tokenTable,
+				    &index)) != NULL) {
+					self->token = (basic_token_t)index;
+					if (self->token == BASIC_TOKEN_KW_TRUE) {
+						self->value.body.logical = TRUE;
+						self->token = BASIC_TOKEN_C_BOOLEAN;
+					} else if (self->token == BASIC_TOKEN_KW_FALSE) {
+						self->value.body.logical = FALSE;
+						self->token = BASIC_TOKEN_C_BOOLEAN;
+					}
+					self->string_pointer += (uint8_t)(pos - ((uint8_t*)self->string_to_parse+
+					    self->string_pointer));
+					return TRUE;
+				}/* else {
+					pushSYM();
+					ident();
+					return true;
+				}*/
 			}
 			goto token_found; /* ? */
 		}
@@ -295,4 +366,33 @@ basic_lexer_getnext(basic_lexer_context_t *self)
 token_found:
 	++self->string_pointer;
 	return TRUE;
+}
+
+void
+basic_lexer_tokenString(basic_token_t t, uint8_t *buf)
+{
+	if (t < BASIC_TOKEN_STAR) {
+		const uint8_t *result = _basic_lexer_tokenTable, *pointer = result;
+		uint8_t c; uint8_t index = 0;
+
+		do {
+			c=pgm_read_byte(pointer++);
+			if (c & 0x80) {
+				if (index++ == (uint8_t)(t)) {
+					pointer = result;
+					result = buf;
+					while (((c = pgm_read_byte(pointer++)) & 0x80) == 0)
+						*(buf++) = c;
+					*(buf++) = c & ~0x80;
+					*buf = 0;
+				} else
+					result = pointer;
+			}
+		} while (c != 0);
+	} else if (t < BASIC_TOKEN_INTEGER_IDENT)
+		strcpy_P(buf,
+		    (PGM_P)pgm_read_ptr(&(_basic_lexer_tokenStrings[
+			(uint8_t)(t)-(uint8_t)(BASIC_TOKEN_STAR)])));
+	else
+		*buf = '\0';
 }

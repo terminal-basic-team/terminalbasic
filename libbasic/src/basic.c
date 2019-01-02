@@ -26,22 +26,27 @@ uint8_t*
 scanTable(const uint8_t *token, const uint8_t table[], uint8_t *index)
 {
 	uint8_t tokPos = 0, tabPos = 0;
-	while (1) {
+	while (TRUE) {
 		uint8_t c = pgm_read_byte(table);
 		uint8_t ct = token[tokPos];
+		/* If token table is over */
 		if (c == 0)
 			return NULL;
 		
+		/* Current symbol matches table element */
 		if (ct == c) {
 			++tokPos, ++table;
 			continue;
+		/* Current symbol matches final token symbol: token found */
 		} else if (ct+(uint8_t)(0x80) == c) {
 			*index = tabPos;
 			++tokPos;
 			return (uint8_t*)token+tokPos;
 		} else {
+			/* Found last table token symbol, prepare to compare */
 			if (c & (uint8_t)(0x80))
 				c &= ~(uint8_t)(0x80);
+			/* Token not found in table */
 			if (c > ct && ct != 0)
 				return NULL;
 			else {
@@ -51,7 +56,7 @@ scanTable(const uint8_t *token, const uint8_t table[], uint8_t *index)
 			}
 			continue;
 		}
-		
+		/* Not current token, take next table row */
 		if (ct == 0) {
 			while ((pgm_read_byte(table++) & (uint8_t)(0x80)) ==
 				    0);
