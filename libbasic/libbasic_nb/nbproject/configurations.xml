@@ -7,6 +7,7 @@
       <itemPath>../include/basic_config.h</itemPath>
       <itemPath>../include/basic_lexer.h</itemPath>
       <itemPath>../include/basic_lexer.hpp</itemPath>
+      <itemPath>../include/basic_parser.h</itemPath>
       <itemPath>../include/basic_value.h</itemPath>
       <itemPath>../include/terminal.h</itemPath>
       <itemPath>../include/tools.h</itemPath>
@@ -19,6 +20,8 @@
     <logicalFolder name="src" displayName="src" projectFiles="true">
       <itemPath>../src/basic.c</itemPath>
       <itemPath>../src/basic_lexer.c</itemPath>
+      <itemPath>../src/basic_lexer_eng.c</itemPath>
+      <itemPath>../src/basic_lexer_ru.c</itemPath>
       <itemPath>../src/basic_value.c</itemPath>
       <itemPath>../src/test.c</itemPath>
       <itemPath>../src/tools.c</itemPath>
@@ -73,6 +76,8 @@
       </item>
       <item path="../include/basic_lexer.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../include/basic_parser.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../include/basic_value.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/terminal.h" ex="false" tool="3" flavor2="0">
@@ -82,6 +87,10 @@
       <item path="../src/basic.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="../src/basic_lexer.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="../src/basic_lexer_eng.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="../src/basic_lexer_ru.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="../src/basic_value.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -126,6 +135,8 @@
       </item>
       <item path="../include/basic_lexer.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../include/basic_parser.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../include/basic_value.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/terminal.h" ex="false" tool="3" flavor2="0">
@@ -135,6 +146,10 @@
       <item path="../src/basic.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="../src/basic_lexer.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="../src/basic_lexer_eng.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="../src/basic_lexer_ru.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="../src/basic_value.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -188,6 +203,8 @@
       </item>
       <item path="../include/basic_lexer.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../include/basic_parser.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../include/basic_value.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/terminal.h" ex="false" tool="3" flavor2="0">
@@ -197,6 +214,8 @@
       <item path="../src/basic.c" ex="false" tool="0" flavor2="9">
       </item>
       <item path="../src/basic_lexer.c" ex="false" tool="0" flavor2="9">
+      </item>
+      <item path="../src/basic_lexer_eng.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="../src/basic_value.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -256,6 +275,8 @@
       </item>
       <item path="../include/basic_lexer.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../include/basic_parser.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../include/basic_value.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/terminal.h" ex="false" tool="3" flavor2="0">
@@ -265,6 +286,10 @@
       <item path="../src/basic.c" ex="false" tool="0" flavor2="9">
       </item>
       <item path="../src/basic_lexer.c" ex="false" tool="0" flavor2="9">
+      </item>
+      <item path="../src/basic_lexer_eng.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="../src/basic_lexer_ru.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="../src/basic_value.c" ex="false" tool="0" flavor2="9">
       </item>

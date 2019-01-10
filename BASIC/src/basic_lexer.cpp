@@ -411,7 +411,10 @@ Lexer::getNext()
 	_token = Token::NOTOKENS;
 	_error = NO_ERROR;
 	_valuePointer = 0;
+        
+	// While not end of string
 	while (SYM > 0) {
+		// Chars above 7 bit are parsed tokens
 		if (SYM >= 0x80) {
 			_token = Token(SYM & 0x7F);
 			next();

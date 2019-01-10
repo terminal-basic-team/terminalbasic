@@ -1,11 +1,21 @@
+/**
+ * @file sgen_terminal.h
+ * @brief Simple text terminal interface
+ */
+
 #ifndef TERMINAL_H
 #define TERMINAL_H
 
-#include <stdint.h>
+#include <inttypes.h>
 
-#include "sys/cdefs.h"
+#include <sys/cdefs.h>
 
 __BEGIN_DECLS
+
+typedef uint16_t len_t;
+
+extern uint8_t terminal_rows;
+extern uint8_t terminal_cols;
 
 /**
  * Cursor movement direction
@@ -34,29 +44,15 @@ void terminal_moveCursor(direction_t);
  */
 void terminal_cursorPosition(uint8_t*, uint8_t*);
 
-uint16_t terminal_putc(char);
+char terminal_getc();
 
-uint16_t terminal_puts(const char*);
+len_t terminal_putc(char);
 
-uint16_t terminal_putu8(uint8_t);
-
-uint16_t terminal_puts8(int8_t);
-
-uint16_t terminal_putu16(uint16_t);
-
-uint16_t terminal_puts16(int16_t);
-
-uint16_t terminal_putu32(uint32_t);
-
-uint16_t terminal_puts32(int32_t);
-
-uint16_t terminal_putPtr(void*);
-
-uint16_t terminal_putFloat(float);
-
+/**
+ * Terminal update callback (cursor blinking, etc...)
+ */
 void terminal_update();
 
 __END_DECLS
 
 #endif /* TERMINAL_H */
-
