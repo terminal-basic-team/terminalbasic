@@ -23,8 +23,7 @@ ftoa(float f, char *buf)
 		return;
 	}
 
-	const unsigned char mns = (f < 0.f);
-	if (mns) {
+	if (f < 0.f) {
 		f = -f;
 		*(buf++) = '-';
 	}
@@ -45,8 +44,8 @@ ftoa(float f, char *buf)
 	uint32_t fi = f + 0.5f;
 
 	uint8_t i;
-	for (i = FLOAT_DIGITS10; (i--) > 1;) {
-		buf[i + 1] = fi % 10 + '0';
+	for (i = FLOAT_DIGITS10; i > 1; --i) {
+		buf[i] = fi % 10 + '0';
 		fi /= 10;
 	}
 	buf[1] = '.';

@@ -6,8 +6,7 @@
 __BEGIN_DECLS
 
 void ftoa(float, char*);
-    
+
 __END_DECLS
 
 #endif /* TOOLS_H */
-
