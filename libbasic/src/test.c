@@ -18,6 +18,10 @@ main(int argc, char** argv)
 		basic_lexer_tokenString(t, buf);
 		puts(buf);
 	}
+	
+	const char s2[] = "REM   1 0 2";
+	uint8_t d2[12];
+	uint8_t len = basic_lexer_tokenize(&lexer, d2, 12, s2);
 
 	return EXIT_SUCCESS;
 }

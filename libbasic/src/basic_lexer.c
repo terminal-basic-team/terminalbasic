@@ -5,6 +5,7 @@
 #include <ctype.h>
 
 #include "avr/pgmspace.h"
+#include "tools.h"
 
 extern const uint8_t _basic_lexer_tokenTable[] PROGMEM;
 
@@ -53,7 +54,7 @@ PGM_P const _basic_lexer_tokenStrings[] PROGMEM = {
 };
 
 void
-basic_lexer_init(basic_lexer_context_t *self, const char *str)
+basic_lexer_init(basic_lexer_context_t *self, const uint8_t *str)
 {
 	assert(str != NULL);
 	
@@ -368,6 +369,53 @@ token_found:
 	return TRUE;
 }
 
+BOOLEAN
+basic_lexer_getnextTokenized(basic_lexer_context_t *self)
+{
+	self->token = BASIC_TOKEN_NOTOKEN;
+	/*_error = NO_ERROR;*/
+	self->_value_pointer = 0;
+	/* Iterate until end of input string */
+	while (SYM > 0) {
+		switch (SYM) {
+		case ' ':
+		case '\t':
+			++self->string_pointer; break;
+		default:
+			if (isalpha(SYM)) {
+				uint8_t index;
+				uint8_t *pos =
+				    (uint8_t*)self->string_to_parse+
+				    self->string_pointer;
+				if ((pos = scanTable(pos, _basic_lexer_tokenTable,
+				    &index)) != NULL) {
+					self->token = (basic_token_t)index;
+					if (self->token == BASIC_TOKEN_KW_TRUE) {
+						self->value.body.logical = TRUE;
+						self->token = BASIC_TOKEN_C_BOOLEAN;
+					} else if (self->token == BASIC_TOKEN_KW_FALSE) {
+						self->value.body.logical = FALSE;
+						self->token = BASIC_TOKEN_C_BOOLEAN;
+					}
+					self->string_pointer += (uint8_t)(pos - ((uint8_t*)self->string_to_parse+
+					    self->string_pointer));
+					return TRUE;
+				}/* else {
+					pushSYM();
+					ident();
+					return true;
+				}*/
+			}
+			goto token_found; /* ? */
+		}
+	}
+	
+	return FALSE;
+token_found:
+	++self->string_pointer;
+	return TRUE;
+}
+
 void
 basic_lexer_tokenString(basic_token_t t, uint8_t *buf)
 {
@@ -390,9 +438,88 @@ basic_lexer_tokenString(basic_token_t t, uint8_t *buf)
 			}
 		} while (c != 0);
 	} else if (t < BASIC_TOKEN_INTEGER_IDENT)
-		strcpy_P(buf,
+		strcpy_P((char*)buf,
 		    (PGM_P)pgm_read_ptr(&(_basic_lexer_tokenStrings[
 			(uint8_t)(t)-(uint8_t)(BASIC_TOKEN_STAR)])));
 	else
 		*buf = '\0';
+}
+
+uint8_t
+basic_lexer_tokenize(basic_lexer_context_t *self, uint8_t *dst, uint8_t dstlen,
+    const uint8_t *src)
+{
+	basic_lexer_init(self, src);
+	
+	uint8_t position = 0;
+	uint8_t lexerPosition = 0;
+
+	while (basic_lexer_getnext(self)) {
+		if (position == (dstlen-1)) {
+			dst[dstlen-1] = '\0';
+			return dstlen;
+		}
+		const basic_token_t tok = self->token;
+		const uint8_t t = (uint8_t)(0x80) + (uint8_t)(tok);
+		if (tok <= BASIC_TOKEN_RPAREN) { // One byte tokens
+			dst[position++] = t;
+			lexerPosition = self->string_pointer;
+			/* Save rem text as is */
+			if (tok == BASIC_TOKEN_KW_REM) {
+				/* Skip blank */
+				while ((self->string_to_parse[lexerPosition] == ' ')
+				    || (self->string_to_parse[lexerPosition] == '\t'))
+					++lexerPosition;
+				const uint8_t remaining =
+				    strlen((char*)self->string_to_parse) -
+				    lexerPosition;
+				if (remaining + position >= dstlen)
+					goto finish;
+				memcpy(dst+position, src+lexerPosition,
+				    remaining);
+				position += remaining;
+				break;
+			}
+		} else if (tok == BASIC_TOKEN_C_INTEGER) {
+			dst[position++] = t;
+			if ((position + sizeof(INT)) >= (dstlen))
+				goto finish;
+#if USE_LONGINT
+			const INT v = (INT)(self->value.body.long_integer);
+			writeU32((uint32_t)v, dst+position);
+			position += sizeof(INT);
+#else
+			const INT v = (INT)(self->value.body.integer);
+			writeU16((uint16_t)v, dst+position);
+			position += sizeof(INT);
+#endif
+			lexerPosition = self->string_pointer;
+		}
+#if USE_REALS
+		 else if (tok == Token::C_REAL) {
+			tempBuffer[position++] = t;
+			if ((position + sizeof(Real)) >= PROGSTRINGSIZE-1)
+				return false;
+			const Real v = Real(_lexer.getValue());
+			*reinterpret_cast<Real*>(tempBuffer+position) = v;
+			position += sizeof(Real);
+			lexerPosition = _lexer.getPointer();
+		}
+#endif // USE_REALS
+		else { // Other tokens
+			dst[position++] = ' ';
+			while (src[lexerPosition] == ' ' ||
+			    src[lexerPosition] == '\t')
+				++lexerPosition;
+			const uint8_t siz = self->string_pointer - lexerPosition;
+			if ((position + siz) >= dstlen)
+				goto finish;
+			memcpy(dst + position, src + lexerPosition, siz);
+			position += siz;
+			lexerPosition = self->string_pointer;
+		}
+	}
+finish:
+	dst[position] = '\0';
+	return position;
 }

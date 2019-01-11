@@ -8,7 +8,7 @@ __BEGIN_DECLS
 
 typedef struct _basic_lexer_context_t
 {
-	const char *string_to_parse;
+	const uint8_t *string_to_parse;
 	uint8_t string_pointer;
 	basic_token_t token;
 	
@@ -20,11 +20,43 @@ typedef struct _basic_lexer_context_t
 	basic_value_t value;
 } basic_lexer_context_t;
 
-void basic_lexer_init(basic_lexer_context_t*, const char*);
+/**
+ * @brief Initialize lexer by the string
+ * @param self lexer context
+ * @param str ASCII or tokenized basic string
+ */
+void basic_lexer_init(basic_lexer_context_t*, const uint8_t*);
 
+/**
+ * @brief Get next token from ASCII string
+ * @param self lexer context
+ * @return true if there are more symbols to scan
+ */
 BOOLEAN basic_lexer_getnext(basic_lexer_context_t*);
 
+/**
+ * @brief Get next token from tokenized string
+ * @param self lexer context
+ * @return true if there are more symbols to scan
+ */
+BOOLEAN basic_lexer_getnextTokenized(basic_lexer_context_t*);
+
+/**
+ * @brief Get token text representation to buffer
+ * @param t token
+ * @param buf char buffer of appropriate length 
+ */
 void basic_lexer_tokenString(basic_token_t, uint8_t*);
+
+/**
+ * @brief tokenize a string
+ * @param self Lexer context
+ * @param dst destination buffer
+ * @param dstsize length of the dst buffer
+ * @param src source buffer
+ */
+uint8_t basic_lexer_tokenize(basic_lexer_context_t*, uint8_t*, uint8_t,
+    const uint8_t*);
 
 __END_DECLS
 
