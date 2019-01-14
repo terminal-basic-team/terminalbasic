@@ -82,7 +82,7 @@
             </confList>
             <formatting>
                 <project-formatting-style>true</project-formatting-style>
-                <c-style>OpenSolaris|OpenSolaris</c-style>
+                <c-style>OpenBSD</c-style>
                 <cpp-style>OpenBSD</cpp-style>
                 <header-style>OpenBSD</header-style>
             </formatting>

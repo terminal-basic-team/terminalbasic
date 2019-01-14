@@ -46,15 +46,15 @@ namespace BASIC
 		 * SIN COS TAN COT
 		 */
 		#define M_TRIGONOMETRIC         1
-		#define M_HYPERBOLIC            1
+		#define M_HYPERBOLIC            0
 		/*
 		 * ACS ASN ATN
 		 */
-		#define M_REVERSE_TRIGONOMETRIC 1
+		#define M_REVERSE_TRIGONOMETRIC 0
 		/*
 		 * CBR (cubic root) ...
 		 */
-		#define M_ADDITIONAL            1
+		#define M_ADDITIONAL            0
 	#endif // USEMATH
 #endif // USE_REALS
 
@@ -104,7 +104,7 @@ namespace BASIC
 
 #if USE_SAVE_LOAD
 	// Compute checksums while SAVE, LOAD and CHAIN
-	#define SAVE_LOAD_CHECKSUM   1
+	#define SAVE_LOAD_CHECKSUM   0
 #endif // USE_SAVE_LOAD
 
 // Convert all input to upper register
@@ -130,13 +130,13 @@ namespace BASIC
 #define LANG LANG_EN
 
 // Use text error strings
-#define CONF_ERROR_STRINGS 1
+#define CONF_ERROR_STRINGS 0
 
 // Arduino IO module
 #define CONF_MODULE_ARDUINOIO      1
 #if CONF_MODULE_ARDUINOIO
 	// TONE command support
-	#define CONF_MODULE_ARDUINOIO_TONE 1
+	#define CONF_MODULE_ARDUINOIO_TONE 0
 #endif // CONF_MODULE_ARDUINOIO
 
 // BEEP command
@@ -160,11 +160,11 @@ namespace BASIC
 /*
  * Indention of the loop bodies
  */
-#define LOOP_INDENT      1
+#define LOOP_INDENT      0
 /*
  * Indention of the line numbers in LIST output
  */
-#define LINE_NUM_INDENT  1
+#define LINE_NUM_INDENT  0
 /*
  * GFX module
  */
@@ -245,10 +245,10 @@ namespace BASIC
 /*
  * Max size of the program line
  */
-const uint8_t PROGSTRINGSIZE = 80;
+const uint8_t PROGSTRINGSIZE = 72;
 
 // Max size of the string constants/variables
-const uint8_t STRINGSIZE = 80;
+const uint8_t STRINGSIZE = 72;
 
 // Number of characters in variable name
 const uint8_t VARSIZE = 5;

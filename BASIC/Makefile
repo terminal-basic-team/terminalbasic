@@ -60,7 +60,7 @@ OBJCOPY_ARM=/opt/Arduino/gcc-arm-none-eabi-4.8.3-2014q1/bin/arm-none-eabi-objcop
 SIZE_ARM=/opt/Arduino/gcc-arm-none-eabi-4.8.3-2014q1/bin/arm-none-eabi-size
 
 BUILD:=$(shell cat "./build-${CONF}")
-VERSION:=1.2rc1-${BUILD}
+VERSION:=1.2rc2-${BUILD}
 
 # build
 build: .build-post
@@ -227,12 +227,12 @@ copy:
 	${SIZE} -C --mcu=${UCARCH} ${CND_ARTIFACT_PATH_${CONF}}
 
 program_common:
-	${AVRDUDE} -D -C ${AVRDUDE_CONF} -v -c ${PROGRAMMER} -p ${UCARCH} \
-	  -P /dev/ttyACM0 -b115200 -U flash:w:"${CND_ARTIFACT_PATH_${CONF}}_${VERSION}_${ARCH}-${UCARCH}.hex":i
+	#${AVRDUDE} -D -C ${AVRDUDE_CONF} -v -c ${PROGRAMMER} -p ${UCARCH} \
+	#  -P /dev/ttyACM0 -b115200 -U flash:w:"${CND_ARTIFACT_PATH_${CONF}}_${VERSION}_${ARCH}-${UCARCH}.hex":i
 	#${AVRDUDE} -C ${AVRDUDE_CONF} -v -c ${PROGRAMMER} -p ${UCARCH} \
 	#  -P /dev/ttyUSB0 -b115200 -U flash:w:"${CND_ARTIFACT_PATH_${CONF}}_${VERSION}_${ARCH}-${UCARCH}.hex":i
-	#${AVRDUDE} -C ${AVRDUDE_CONF} -v -c ${PROGRAMMER} -p ${UCARCH} \
-	#  -U flash:w:"${CND_ARTIFACT_PATH_${CONF}}_${VERSION}_${ARCH}-${UCARCH}.hex":i
+	${AVRDUDE} -C ${AVRDUDE_CONF} -v -c ${PROGRAMMER} -p ${UCARCH} \
+	  -U flash:w:"${CND_ARTIFACT_PATH_${CONF}}_${VERSION}_${ARCH}-${UCARCH}.hex":i
 	#${AVRDUDE} -C ${AVRDUDE_CONF} -v -c arduino -p m328p -P /dev/ttyUSB0 \
 	#-U flash:w:"${CND_ARTIFACT_PATH_${CONF}}_${VERSION}_${ARCH}-${UCARCH}.hex":i
 	#${AVRDUDE} -C ${AVRDUDE_CONF} -v -c usbasp -p m328p \

@@ -103,12 +103,6 @@ Interpreter::valueFromVar(Parser::Value &v, const char *varName)
 	const auto f = getVariable(varName);
 	if (f == nullptr)
 		return;
-#if USE_DEFFN
-	if (f->type & TYPE_DEFFN) {
-		raiseError(DYNAMIC_ERROR, VAR_FUNCTION_DUPLICATE);
-		return;
-	}
-#endif // USE_DEFFN
 	switch (f->type) {
 	case Parser::Value::INTEGER:
 		v = f->get<Integer>();
@@ -822,9 +816,9 @@ Interpreter::randomize()
 void
 Interpreter::execFn(const char *name)
 {
-	auto vf = _program.variableByName(name);
+	auto vf = _program.functionByName(name);
 	if (vf == nullptr || ((vf->type & TYPE_DEFFN) == 0)) {
-		raiseError(DYNAMIC_ERROR, NO_SUCH_ARRAY);
+		raiseError(DYNAMIC_ERROR, NO_SUCH_FUNCION);
 		return;
 	}
 	
@@ -867,7 +861,6 @@ Interpreter::setFnVars()
 	for (uint8_t i=0; i<numberOfParameters; ++i) {
 		const auto f = _program.currentStackFrame();
 		_program.pop();
-		const auto ff = _program.currentStackFrame();
 		_program.pop();
 		const Pointer ret = _program._sp;
 		_program._sp = paramPtr;
@@ -1389,10 +1382,12 @@ Interpreter::newFunction(const char *fname, uint8_t pos)
 	VariableFrame *f;
 	for (f = _program.variableByIndex(index); f != nullptr; index += f->size(),
 	    f = _program.variableByIndex(index)) {
+		if (!(f->type & TYPE_DEFFN))
+			continue;
 		int res = strcmp(fname, f->name);
 		if (res == 0) {
 			raiseError(DYNAMIC_ERROR,
-			    VAR_FUNCTION_DUPLICATE);
+			    FUNCTION_DUPLICATE);
 			return;
 		} else if (res < 0)
 			break;
@@ -1435,7 +1430,7 @@ Interpreter::newFunction(const char *fname, uint8_t pos)
 	_program._variablesEnd += f->size();
 	_program._arraysEnd += f->size();
 }
-#endif
+#endif // USE_DEFFN
 
 void
 Interpreter::print(Token t)
@@ -1605,6 +1600,8 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 	VariableFrame *f;
 	for (f = _program.variableByIndex(index); f != nullptr; index += f->size(),
 	    f = _program.variableByIndex(index)) {
+		if (f->type & TYPE_DEFFN)
+			continue;
 		int res = strcmp(name, f->name);
 		if (res == 0) {
 #if USE_DEFFN
@@ -1615,7 +1612,7 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 #if USE_DEFFN
 			} else {
 				raiseError(DYNAMIC_ERROR,
-				    VAR_FUNCTION_DUPLICATE);
+				    VAR_DUPLICATE);
 				return nullptr;
 			}
 #endif // USE_DEFFN

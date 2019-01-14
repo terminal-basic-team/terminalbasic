@@ -49,7 +49,7 @@
  * DUMP command support
  * This command can be used to check BASIC memory image, variables and arrays list
  */
-#define USE_DUMP             1
+#define USE_DUMP             0
 
 /*
  * RANDOMIZE command and RND() function support
@@ -59,17 +59,17 @@
 /*
  * Support of Darthmouth BASIX-style matrix operations
  */
-#define USE_MATRIX           1
+#define USE_MATRIX           0
 
 /**
  * Support of DATA/READ statements
  */
-#define USE_DATA             1
+#define USE_DATA             0
 
 /*
  * Support of DEF FN construct
  */
-#define USE_DEFFN            1
+#define USE_DEFFN            0
 
 /*
  * DELAY command, suspends execution for N ms
@@ -79,7 +79,7 @@
 /*
  * Allow GO TO OPERATOR in addition to GOTO
  */
-#define CONF_SEPARATE_GO_TO     1
+#define CONF_SEPARATE_GO_TO     0
 
 /*
  * Support of integer division and modulo operation
@@ -89,7 +89,7 @@
 	/*
 	 * Use DIV keyword for integer division in addition to \ operation
 	 */
-	#define USE_DIV_KW   1
+	#define USE_DIV_KW   0
 #endif // USE_INTEGER_DIV
 
 /*
