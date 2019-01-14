@@ -464,11 +464,11 @@ Lexer::getNext()
 		case '<':
 			next();
 			fitst_LT();
-			goto token_ready;
+			return true;
 		case '>':
 			next();
 			fitst_GT();
-			goto token_ready;
+			return true;
 		case '(':
 			_token = Token::LPAREN;
 			goto token_ready;
@@ -555,6 +555,7 @@ Lexer::fitst_LT()
 		return;
 	}
 #endif
+	next();
 }
 
 void
@@ -586,6 +587,7 @@ Lexer::fitst_GT()
 		return;
 	}
 #endif
+	next();
 }
 
 void
