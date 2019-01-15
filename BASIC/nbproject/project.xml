@@ -25,6 +25,9 @@
                 <sourceRootElem>include</sourceRootElem>
                 <sourceRootElem>src</sourceRootElem>
                 <sourceRootElem>../TVoutEx</sourceRootElem>
+                <sourceRootElem>include</sourceRootElem>
+                <sourceRootElem>src</sourceRootElem>
+                <sourceRootElem>../TVoutEx</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>

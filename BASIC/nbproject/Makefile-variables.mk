@@ -15,21 +15,21 @@ CND_PACKAGE_DIR_Debug=dist/Debug/package
 CND_PACKAGE_NAME_Debug=basic.tar
 CND_PACKAGE_PATH_Debug=dist/Debug/package/basic.tar
 # Arduino_nano328 configuration
-CND_PLATFORM_Arduino_nano328=Arduino-Linux
+CND_PLATFORM_Arduino_nano328=Arduino-1.8.6-Linux
 CND_ARTIFACT_DIR_Arduino_nano328=dist/Arduino_nano328
 CND_ARTIFACT_NAME_Arduino_nano328=basic
 CND_ARTIFACT_PATH_Arduino_nano328=dist/Arduino_nano328/basic
-CND_PACKAGE_DIR_Arduino_nano328=dist/Arduino_nano328/Arduino-Linux/package
+CND_PACKAGE_DIR_Arduino_nano328=dist/Arduino_nano328/Arduino-1.8.6-Linux/package
 CND_PACKAGE_NAME_Arduino_nano328=basic.tar
-CND_PACKAGE_PATH_Arduino_nano328=dist/Arduino_nano328/Arduino-Linux/package/basic.tar
+CND_PACKAGE_PATH_Arduino_nano328=dist/Arduino_nano328/Arduino-1.8.6-Linux/package/basic.tar
 # Arduino_UNO configuration
-CND_PLATFORM_Arduino_UNO=Arduino-Linux
+CND_PLATFORM_Arduino_UNO=Arduino-1.8.6-Linux
 CND_ARTIFACT_DIR_Arduino_UNO=dist/Arduino_UNO
 CND_ARTIFACT_NAME_Arduino_UNO=terminal-basic
 CND_ARTIFACT_PATH_Arduino_UNO=dist/Arduino_UNO/terminal-basic
-CND_PACKAGE_DIR_Arduino_UNO=dist/Arduino_UNO/Arduino-Linux/package
+CND_PACKAGE_DIR_Arduino_UNO=dist/Arduino_UNO/Arduino-1.8.6-Linux/package
 CND_PACKAGE_NAME_Arduino_UNO=basic.tar
-CND_PACKAGE_PATH_Arduino_UNO=dist/Arduino_UNO/Arduino-Linux/package/basic.tar
+CND_PACKAGE_PATH_Arduino_UNO=dist/Arduino_UNO/Arduino-1.8.6-Linux/package/basic.tar
 # Arduino_mega2560 configuration
 CND_PLATFORM_Arduino_mega2560=Arduino-Linux
 CND_ARTIFACT_DIR_Arduino_mega2560=dist/Arduino_mega2560
@@ -87,13 +87,13 @@ CND_PACKAGE_DIR_Arduino_mega2560_tvout=dist/Arduino_mega2560_tvout/Arduino-Linux
 CND_PACKAGE_NAME_Arduino_mega2560_tvout=basic.tar
 CND_PACKAGE_PATH_Arduino_mega2560_tvout=dist/Arduino_mega2560_tvout/Arduino-Linux/package/basic.tar
 # Arduino_pro328 configuration
-CND_PLATFORM_Arduino_pro328=Arduino-Linux
+CND_PLATFORM_Arduino_pro328=Arduino-1.8.6-Linux
 CND_ARTIFACT_DIR_Arduino_pro328=dist/Arduino_pro328
 CND_ARTIFACT_NAME_Arduino_pro328=basic
 CND_ARTIFACT_PATH_Arduino_pro328=dist/Arduino_pro328/basic
-CND_PACKAGE_DIR_Arduino_pro328=dist/Arduino_pro328/Arduino-Linux/package
+CND_PACKAGE_DIR_Arduino_pro328=dist/Arduino_pro328/Arduino-1.8.6-Linux/package
 CND_PACKAGE_NAME_Arduino_pro328=basic.tar
-CND_PACKAGE_PATH_Arduino_pro328=dist/Arduino_pro328/Arduino-Linux/package/basic.tar
+CND_PACKAGE_PATH_Arduino_pro328=dist/Arduino_pro328/Arduino-1.8.6-Linux/package/basic.tar
 # Arduino_nano168p configuration
 CND_PLATFORM_Arduino_nano168p=Arduino-Linux
 CND_ARTIFACT_DIR_Arduino_nano168p=dist/Arduino_nano168p

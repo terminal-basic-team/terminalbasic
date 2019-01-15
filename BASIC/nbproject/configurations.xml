@@ -60,8 +60,27 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="TestFiles"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+      <logicalFolder name="f1"
+                     displayName="table test"
+                     projectFiles="true"
+                     kind="TEST">
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="ExternalFiles"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
   </logicalFolder>
   <sourceRootList>
+    <Elem>include</Elem>
+    <Elem>src</Elem>
+    <Elem>../TVoutEx</Elem>
     <Elem>include</Elem>
     <Elem>src</Elem>
     <Elem>../TVoutEx</Elem>
@@ -240,7 +259,7 @@
     </conf>
     <conf name="Arduino_nano328" type="1">
       <toolsSet>
-        <compilerSet>Arduino|GNU</compilerSet>
+        <compilerSet>Arduino-1.8.6|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
@@ -256,13 +275,15 @@
             <pElem>include</pElem>
             <pElem>../../libarduinoext/include</pElem>
             <pElem>../../tvoutex/TVoutEx</pElem>
+            <pElem>../libbasic/include</pElem>
+            <pElem>../../libsdcard/SDCard/src</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>
           </incFile>
           <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -fno-threadsafe-statics -MMD -mmcu=atmega328p -ffunction-sections -fdata-sections -flto -fno-rtti -mcall-prologues</commandLine>
           <preprocessorList>
-            <Elem>ARDUINO=10804</Elem>
+            <Elem>ARDUINO=10806</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_NANO</Elem>
             <Elem>F_CPU=16000000L</Elem>
@@ -397,7 +418,7 @@
     </conf>
     <conf name="Arduino_UNO" type="1">
       <toolsSet>
-        <compilerSet>Arduino|GNU</compilerSet>
+        <compilerSet>Arduino-1.8.6|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
@@ -438,7 +459,7 @@
               <makeArtifact PL="../../libsdcard/libsdcard"
                             CT="3"
                             CN="Arduino_UNO"
-                            AC="true"
+                            AC="false"
                             BL="true"
                             WD="../../libsdcard/libsdcard"
                             BC="${MAKE}  -f Makefile CONF=Arduino_UNO"
@@ -1810,7 +1831,7 @@
     </conf>
     <conf name="Arduino_pro328" type="1">
       <toolsSet>
-        <compilerSet>Arduino|GNU</compilerSet>
+        <compilerSet>Arduino-1.8.6|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
@@ -1827,6 +1848,7 @@
             <pElem>../../libarduinoext/include</pElem>
             <pElem>../TVoutEx</pElem>
             <pElem>${ARDUINO_PATH}/libraries/TVoutfonts</pElem>
+            <pElem>../libbasic/include</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>

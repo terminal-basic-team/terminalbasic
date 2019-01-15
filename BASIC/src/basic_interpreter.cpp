@@ -1589,8 +1589,10 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 	VariableFrame *f;
 	for (f = _program.variableByIndex(index); f != nullptr; index += f->size(),
 	    f = _program.variableByIndex(index)) {
+#if USE_DEFFN
 		if (f->type & TYPE_DEFFN)
 			continue;
+#endif
 		const auto res = strcmp(name, f->name);
 		if (res == 0) {
 			set(*f, v);

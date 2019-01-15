@@ -21,7 +21,7 @@ FC=gfortran
 AS=avr-as
 
 # Macros
-CND_PLATFORM=Arduino-Linux
+CND_PLATFORM=Arduino-1.8.6-Linux
 CND_DLIB_EXT=so
 CND_CONF=Arduino_UNO
 CND_DISTDIR=dist
@@ -80,7 +80,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=../../libsdcard/libsdcard/dist/Arduino_UNO/Arduino-1.8.6-Linux/liblibsdcard.a ../../libarduinoext/dist/Arduino_uno/Arduino-Linux/liblibarduinoext.a ../../libarduino/dist/Arduino_UNO/libarduino.a
+LDLIBSOPTIONS=../../libsdcard/libsdcard/dist/Arduino_UNO/Arduino-1.8.6-Linux/liblibsdcard.a ../../libarduinoext/dist/Arduino_uno/Arduino-1.8.6-Linux/liblibarduinoext.a ../../libarduino/dist/Arduino_UNO/libarduino.a
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -88,7 +88,7 @@ LDLIBSOPTIONS=../../libsdcard/libsdcard/dist/Arduino_UNO/Arduino-1.8.6-Linux/lib
 
 ${CND_DISTDIR}/${CND_CONF}/terminal-basic: ../../libsdcard/libsdcard/dist/Arduino_UNO/Arduino-1.8.6-Linux/liblibsdcard.a
 
-${CND_DISTDIR}/${CND_CONF}/terminal-basic: ../../libarduinoext/dist/Arduino_uno/Arduino-Linux/liblibarduinoext.a
+${CND_DISTDIR}/${CND_CONF}/terminal-basic: ../../libarduinoext/dist/Arduino_uno/Arduino-1.8.6-Linux/liblibarduinoext.a
 
 ${CND_DISTDIR}/${CND_CONF}/terminal-basic: ../../libarduino/dist/Arduino_UNO/libarduino.a
 

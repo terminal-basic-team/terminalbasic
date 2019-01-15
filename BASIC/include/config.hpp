@@ -156,11 +156,11 @@ namespace BASIC
 /*
  * Indention of the loop bodies
  */
-#define LOOP_INDENT      0
+#define LOOP_INDENT      1
 /*
  * Indention of the line numbers in LIST output
  */
-#define LINE_NUM_INDENT  0
+#define LINE_NUM_INDENT  1
 /*
  * GFX module
  */
