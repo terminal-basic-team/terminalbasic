@@ -86,8 +86,18 @@ const uint8_t _basic_lexer_tokenTable[] PROGMEM = {
 	'O', 'N'+0x80,                     // 23
 	'O', 'R'+0x80,
 	'P', 'R', 'I', 'N', 'T'+0x80,
+#if USE_RANDOM
+	'R', 'A', 'N', 'D', 'O', 'M', 'I', 'Z', 'E'+0x80, //26
+#endif
+#if USE_DATA
+	'R', 'E', 'A', 'D'+0x80,           // 27
+#endif
+	'R', 'E', 'M'+0x80,
+#if USE_DATA
+	'R', 'E', 'S', 'T', 'O', 'R', 'E'+0x80,
+#endif
 	'R', 'E', 'T', 'U', 'R', 'N'+0x80,
-'R', 'U', 'N'+0x80,
+	'R', 'U', 'N'+0x80,
 #if USE_SAVE_LOAD
 	'S', 'A', 'V', 'E'+0x80,
 #endif

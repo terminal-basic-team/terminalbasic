@@ -64,3 +64,37 @@ ftoa(float f, char *buf)
 
 	*buf = '\0';
 }
+
+union U16 {
+	uint16_t num;
+	char bytes[sizeof(uint16_t)];
+};
+
+union U32 {
+	uint32_t num;
+	char bytes[sizeof(uint32_t)];
+};
+
+void
+writeU16(uint16_t num, uint8_t *buf)
+{
+	union U16 s;
+	
+	s.num = num;
+	
+	*(buf++) = s.bytes[1];
+	*buf = s.bytes[0];
+}
+
+void
+writeU32(uint32_t num, uint8_t *buf)
+{
+	union U32 s;
+	
+	s.num = num;
+	
+	*(buf++) = s.bytes[3];
+	*(buf++) = s.bytes[2];
+	*(buf++) = s.bytes[1];
+	*buf = s.bytes[0];
+}

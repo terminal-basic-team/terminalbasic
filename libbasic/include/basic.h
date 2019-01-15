@@ -306,6 +306,15 @@ typedef enum basic_token
  */
 uint8_t *scanTable(const uint8_t*, const uint8_t[], uint8_t*);
 
+/**
+ * @brief Scan token table
+ * @param token
+ * @param table
+ * @param index
+ * @return find flag
+ */
+uint8_t *scan(const uint8_t*, const uint8_t[], uint8_t*);
+
 __END_DECLS
 
 #endif /* BASIC_H */
