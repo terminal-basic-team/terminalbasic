@@ -39,6 +39,8 @@ struct EXT_PACKED VariableFrame
 	 * @return size in bytes
 	 */
 	uint8_t size() const;
+	
+	static uint8_t size(Parser::Value::Type);
 
 	/**
 	 * @brief getValue from Variable frame
@@ -505,7 +507,9 @@ private:
 	 * @return frame pointer
 	 */
 	ArrayFrame *getSquareArray(const char*);
-#endif
+#endif // USE_MATRIX
+	// Return Variable/Array/Function type based on it's name
+	static Parser::Value::Type typeFromName(const char*);
 	// Get next input object from stack
 	bool nextInput();
 	// Place input values to objects
