@@ -603,7 +603,7 @@
     </conf>
     <conf name="Arduino_mega2560" type="1">
       <toolsSet>
-        <compilerSet>Arduino|GNU</compilerSet>
+        <compilerSet>Arduino-1.8.6|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
@@ -665,7 +665,7 @@
               <makeArtifact PL="../../tvoutex/livbtvoutex"
                             CT="3"
                             CN="Arduino_MEGA2560"
-                            AC="false"
+                            AC="true"
                             BL="true"
                             WD="../../tvoutex/livbtvoutex"
                             BC="${MAKE}  -f Makefile CONF=Arduino_MEGA2560"
@@ -689,7 +689,7 @@
               <makeArtifact PL="../../libsdcard/libsdcard"
                             CT="3"
                             CN="Arduino_MEGA2560"
-                            AC="true"
+                            AC="false"
                             BL="true"
                             WD="../../libsdcard/libsdcard"
                             BC="${MAKE}  -f Makefile CONF=Arduino_MEGA2560"
