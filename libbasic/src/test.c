@@ -6,22 +6,46 @@
 #include "basic_lexer.h"
 #include "tools.h"
 
+static BOOLEAN
+lexer_test_keywords()
+{
+	const uint8_t s[] = "AND GOSUB GOTO IF LET PRINT RETURN";
+	basic_token_t tokens[] = {
+		BASIC_TOKEN_OP_AND,
+		BASIC_TOKEN_KW_GOSUB,
+		BASIC_TOKEN_KW_GOTO,
+		BASIC_TOKEN_KW_IF,
+		BASIC_TOKEN_KW_LET,
+		BASIC_TOKEN_KW_PRINT,
+		BASIC_TOKEN_KW_RETURN
+	};
+	basic_lexer_context_t lexer;
+	basic_lexer_init(&lexer, s);
+	
+	uint8_t i;
+	for (i=0; i<sizeof(tokens)/sizeof(tokens[0]); ++i) {
+		if (!basic_lexer_getnextPlain(&lexer)) {
+			fprintf(stderr, "basic_lexer_getnextPlain\n");
+			return FALSE;
+		}
+		if (lexer.token != tokens[i]) {
+			uint8_t buf[16];
+			basic_lexer_tokenString(tokens[i], buf);
+			fprintf(stderr, "token: %s\n", buf);
+			return FALSE;
+		}
+	}
+	
+	return TRUE;
+}
+
 int
 main(int argc, char** argv)
 {
-	char buf[32];
-	const char s[] = "LET; \"123 321 asd dsa\"\\PRINT ^ + <<> < > <= ><,: 12 1.2 1e3 .2 1.1e-4";
-	basic_lexer_context_t lexer;
-	basic_lexer_init(&lexer, s);
-	while (basic_lexer_getnext(&lexer)) {
-		basic_token_t t = lexer.token;
-		basic_lexer_tokenString(t, buf);
-		puts(buf);
-	}
+	if (lexer_test_keywords())
+		printf(stdout, "success\n");
+	else
+		fprintf(stderr, "lexer_test_keywords\n");
 	
-	const char s2[] = "REM   1 0 2";
-	uint8_t d2[12];
-	uint8_t len = basic_lexer_tokenize(&lexer, d2, 12, s2);
-
 	return EXIT_SUCCESS;
 }

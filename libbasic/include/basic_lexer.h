@@ -6,6 +6,15 @@
 
 __BEGIN_DECLS
 
+/**
+ * @brief lexical analyses stage errors
+ */
+typedef enum basic_lexer_error
+{
+	BASIC_LEXER_ERROR_NOERROR = 0,
+	BASIC_LEXER_ERROR_STRING_OVERFLOW = 1
+} basic_lexer_error_t;
+
 typedef struct _basic_lexer_context_t
 {
 	const uint8_t *string_to_parse;
@@ -18,6 +27,8 @@ typedef struct _basic_lexer_context_t
 	uint8_t _value_pointer;
 	/* scanned numeric/logical value */
 	basic_value_t value;
+	/* scanner error */
+	basic_lexer_error_t _error;
 } basic_lexer_context_t;
 
 /**
@@ -32,7 +43,7 @@ void basic_lexer_init(basic_lexer_context_t*, const uint8_t*);
  * @param self lexer context
  * @return true if there are more symbols to scan
  */
-BOOLEAN basic_lexer_getnext(basic_lexer_context_t*);
+BOOLEAN basic_lexer_getnextPlain(basic_lexer_context_t*);
 
 /**
  * @brief Get next token from tokenized string
