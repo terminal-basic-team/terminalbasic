@@ -9,7 +9,11 @@ SRC_PATH=${SKETCH}/terminalbasic
 
 rm -rf $SRC_PATH
 
-SRC="	./BASIC/include/basic.hpp  \
+SRC="	./libbasic/include/basic.h
+	./libbasic/include/basic_config.h
+	./libbasic/include/basic.hpp
+	./BASIC/include/basic_common.hpp  \
+	./BASIC/src/basic_common.cpp \
 	./BASIC/include/basic_lexer.hpp  \
 	./BASIC/src/basic_lexer.cpp  \
 	./BASIC/include/config.hpp \
