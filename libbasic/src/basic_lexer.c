@@ -285,7 +285,7 @@ _basic_lexer_ident(basic_lexer_context_t *self)
 #if USE_LONGINT
 		if (SYM == '%') {
 			_basic_lexer_pushSym(self);
-			self->_token = BASIC_TOKEN_LONGINT_IDENT;
+			self->token = BASIC_TOKEN_LONGINT_IDENT;
 		} else
 #endif
 			self->token = BASIC_TOKEN_INTEGER_IDENT;
@@ -477,9 +477,10 @@ basic_lexer_tokenize(basic_lexer_context_t *self, uint8_t *dst, uint8_t dstlen,
 	uint8_t lexerPosition = 0;
 
 	while (basic_lexer_getnextPlain(self)) {
-		if (position == (dstlen - 1)) {
-			dst[dstlen - 1] = '\0';
-			return dstlen;
+		/* The destinaton buffer is over */
+		if (position >= (dstlen - 1)) {
+			position = dstlen-1;
+			break;
 		}
 		const basic_token_t tok = self->token;
 		const uint8_t t = (uint8_t) (0x80) + (uint8_t) (tok);
@@ -496,36 +497,37 @@ basic_lexer_tokenize(basic_lexer_context_t *self, uint8_t *dst, uint8_t dstlen,
 				    strlen((char*) self->string_to_parse) -
 				    lexerPosition;
 				if (remaining + position >= dstlen)
-					goto finish;
+					break;
 				memcpy(dst + position, src + lexerPosition,
 				remaining);
 				position += remaining;
 				break;
 			}
+			continue;
 		} else if (tok == BASIC_TOKEN_C_INTEGER) {
 			dst[position++] = t;
 			if ((position + sizeof (INT)) >= (dstlen))
-				goto finish;
+				break;
 #if USE_LONGINT
-			const INT v = (INT) (self->value.body.long_integer);
+			const INT v = self->value.body.long_integer;
 			writeU32((uint32_t) v, dst + position);
 			position += sizeof (INT);
 #else
-			const INT v = (INT) (self->value.body.integer);
+			const INT v = self->value.body.integer;
 			writeU16((uint16_t) v, dst + position);
 			position += sizeof (INT);
 #endif
-			lexerPosition = self->string_pointer;
 		}
 #if USE_REALS
-		else if (tok == Token::C_REAL) {
-			tempBuffer[position++] = t;
-			if ((position + sizeof (Real)) >= PROGSTRINGSIZE - 1)
-				return false;
-			const Real v = Real(_lexer.getValue());
-			*reinterpret_cast<Real*>(tempBuffer + position) = v;
-			position += sizeof (Real);
-			lexerPosition = _lexer.getPointer();
+		else if (tok == BASIC_TOKEN_C_REAL) {
+			dst[position++] = t;
+			if ((position + sizeof (real_t)) >= dstlen) {
+				--position;
+				break;
+			}
+			const real_t v = (real_t)(self->value.body.real);
+			*(real_t*)(dst + position) = v;
+			position += sizeof (real_t);
 		}
 #endif // USE_REALS
 		else { // Other tokens
@@ -535,13 +537,13 @@ basic_lexer_tokenize(basic_lexer_context_t *self, uint8_t *dst, uint8_t dstlen,
 				++lexerPosition;
 			const uint8_t siz = self->string_pointer - lexerPosition;
 			if ((position + siz) >= dstlen)
-				goto finish;
+				break;
 			memcpy(dst + position, src + lexerPosition, siz);
 			position += siz;
-			lexerPosition = self->string_pointer;
 		}
+		lexerPosition = self->string_pointer;
 	}
 finish:
 	dst[position] = '\0';
-	return position;
+	return position-1;
 }

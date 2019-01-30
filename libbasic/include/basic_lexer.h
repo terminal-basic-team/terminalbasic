@@ -18,6 +18,7 @@ typedef enum basic_lexer_error
 typedef struct _basic_lexer_context_t
 {
 	const uint8_t *string_to_parse;
+	/* position in the parsing string */
 	uint8_t string_pointer;
 	basic_token_t token;
 	
@@ -65,6 +66,7 @@ void basic_lexer_tokenString(basic_token_t, uint8_t*);
  * @param dst destination buffer
  * @param dstsize length of the dst buffer
  * @param src source buffer
+ * @return size of the actually tokenized buffer
  */
 uint8_t basic_lexer_tokenize(basic_lexer_context_t*, uint8_t*, uint8_t,
     const uint8_t*);
