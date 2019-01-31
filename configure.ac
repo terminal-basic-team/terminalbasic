@@ -1,4 +1,4 @@
-AC_INIT([terminalbasic],[1.2rc1],[starling13@gmail.com],[terminalbasic],[https://bitbucket.org/starling13/ucbasic])
+AC_INIT([terminalbasic],[1.2rc2],[starling13@gmail.com],[terminalbasic],[https://bitbucket.org/starling13/ucbasic])
 AM_INIT_AUTOMAKE([foreign])
 AC_PREREQ(2.57)
 AC_CONFIG_HEADER(config.h)
@@ -14,26 +14,6 @@ AC_PREFIX_DEFAULT(/usr/local)
 #
 # Top and bottom of config.h
 #
-
-AH_TOP([#ifndef __config_h
-#define __config_h
-#include "options.h"])
-AH_BOTTOM([
-
-#if TKGATE_NOYYRESTART
-#define yyrestart(f) { extern FILE *yyin; yyin = f; }
-#endif
-
-#if TKGATE_SIGSET
-#define signal(a,b)	sigset(a,b)
-#endif
-
-#if !HAVE_PW_GECOS
-#define pe_gecos pw_name
-#endif
-
-#endif /* __config_h */
-])
 
 #------------------------------------------------------------------------
 # Standard compiler checks
