@@ -2,6 +2,8 @@
 <configurationDescriptor version="100">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="include" displayName="include" projectFiles="true">
+      <itemPath>../include/_tokens_en.h</itemPath>
+      <itemPath>../include/_tokens_ru.h</itemPath>
       <itemPath>../include/basic.h</itemPath>
       <itemPath>../include/basic.hpp</itemPath>
       <itemPath>../include/basic_config.h</itemPath>
@@ -66,6 +68,10 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="../include/_tokens_en.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../include/_tokens_ru.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../include/basic.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -125,6 +131,10 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="../include/_tokens_en.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../include/_tokens_ru.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../include/basic.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -193,6 +203,10 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="../include/_tokens_en.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../include/_tokens_ru.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../include/basic.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -265,6 +279,10 @@
           <ranlibTool>avr-gcc-ranlib</ranlibTool>
         </archiverTool>
       </compileType>
+      <item path="../include/_tokens_en.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../include/_tokens_ru.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../include/basic.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/basic.hpp" ex="false" tool="3" flavor2="0">

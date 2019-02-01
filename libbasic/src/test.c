@@ -42,7 +42,7 @@ lexer_test_keywords()
 BOOLEAN
 lexer_test_tokenization()
 {
-	const uint8_t s[] = "PRINT RETURN 12 AVC 3.14 BN% TRUE";
+	const uint8_t s[] = "PRINT RETURN 13";
 	basic_token_t tokens[] = {
 		BASIC_TOKEN_OP_AND,
 		BASIC_TOKEN_KW_GOSUB,
@@ -52,12 +52,19 @@ lexer_test_tokenization()
 		BASIC_TOKEN_KW_PRINT,
 		BASIC_TOKEN_KW_RETURN
 	};
-	uint8_t tokenized[32];
+	uint8_t tokenized[11];
 	
 	basic_lexer_context_t lexer;
 	
-	const uint8_t size = basic_lexer_tokenize(&lexer, tokenized, 32, s);
+	const uint8_t size = basic_lexer_tokenize(&lexer, tokenized,
+	    ARRAY_SIZE(tokenized), s);
+	basic_lexer_init(&lexer, tokenized);
+	while (basic_lexer_getnextTokenized(&lexer)) {
+		basic_token_t tok = lexer.token;
+	}
+	
 	printf("Tokenized string of size %hhu\n", size);
+	return TRUE;
 }
 
 int

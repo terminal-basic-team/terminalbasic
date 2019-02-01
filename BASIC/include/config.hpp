@@ -122,13 +122,6 @@ namespace BASIC
  */
 #define USESD         0
 
-/*
- * Localization
- */
-#define LANG_EN 0
-#define LANG_RU 1
-#define LANG LANG_EN
-
 // Use text error strings
 #define CONF_ERROR_STRINGS 0
 

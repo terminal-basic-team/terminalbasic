@@ -1,9 +1,10 @@
 #ifndef BASIC_VALUE_H
 #define BASIC_VALUE_H
 
-#include <stdlib.h>
-
 #include "basic.h"
+#include "tools.h"
+
+#include <stdlib.h>
 
 __BEGIN_DECLS
 

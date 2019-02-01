@@ -80,7 +80,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=../../libutft/dist/Arduino_mega2560/Arduino-Linux/liblibutft.a ../../tvoutex/livbtvoutex/dist/Arduino_MEGA2560/Arduino-Linux/liblivbtvoutex.a ../../libarduinoext/dist/Arduino_mega2560/Arduino-1.8.6-Linux/liblibarduinoext.a ../../libsdcard/libsdcard/dist/Arduino_MEGA2560/Arduino-Linux/liblibsdcard.a ../../libarduino/dist/Mega_2560/libarduino.a
+LDLIBSOPTIONS=../../libutft/dist/Arduino_mega2560/Arduino-Linux/liblibutft.a ../../tvoutex/livbtvoutex/dist/Arduino_MEGA2560/Arduino-Linux/liblivbtvoutex.a ../../libarduinoext/dist/Arduino_mega2560/Arduino-Linux/liblibarduinoext.a ../../libsdcard/libsdcard/dist/Arduino_MEGA2560/Arduino-Linux/liblibsdcard.a ../../libarduino/dist/Mega_2560/libarduino.a
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -90,7 +90,7 @@ ${CND_DISTDIR}/${CND_CONF}/terminal-basic: ../../libutft/dist/Arduino_mega2560/A
 
 ${CND_DISTDIR}/${CND_CONF}/terminal-basic: ../../tvoutex/livbtvoutex/dist/Arduino_MEGA2560/Arduino-Linux/liblivbtvoutex.a
 
-${CND_DISTDIR}/${CND_CONF}/terminal-basic: ../../libarduinoext/dist/Arduino_mega2560/Arduino-1.8.6-Linux/liblibarduinoext.a
+${CND_DISTDIR}/${CND_CONF}/terminal-basic: ../../libarduinoext/dist/Arduino_mega2560/Arduino-Linux/liblibarduinoext.a
 
 ${CND_DISTDIR}/${CND_CONF}/terminal-basic: ../../libsdcard/libsdcard/dist/Arduino_MEGA2560/Arduino-Linux/liblibsdcard.a
 

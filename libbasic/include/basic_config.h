@@ -123,5 +123,12 @@
  */
 #define USESTOPCONT       1
 
+/*
+ * Localization
+ */
+#define LANG_EN 0
+#define LANG_RU 1
+#define CONF_LANG LANG_EN
+
 #endif /* BASIC_CONFIG_H */
 

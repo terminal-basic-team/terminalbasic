@@ -143,6 +143,56 @@ lexer_number_scale(basic_lexer_context_t *self)
 }
 #endif // USE_REALS
 
+#if USE_LONGINT
+static void
+_basic_lexer_decimallongint(basic_lexer_context_t *self)
+{
+	
+}
+#endif // USE_LONGINT
+
+#if USE_REALS
+static void
+_basic_lexer_decimalreal(basic_lexer_context_t *self)
+{
+	
+}
+#endif // USE_REALS
+
+static void
+_basic_lexer_decimalint(basic_lexer_context_t *self)
+{
+	integer_t val = 0;
+	while (SYM > ASCII_NUL) {
+#if USE_REALS
+#endif // USE_REALS
+		integer_t d = (integer_t)(SYM - '0');
+#if USE_LONGINT
+		long_integer_t fv = (long_integer_t)val * (long_integer_t)10 +
+		    d;
+		if ((long_integer_t)val * 10 > MAXINT) {
+			self->value.body.long_integer = fv;
+			++self->string_pointer;
+			_basic_lexer_decimallongint(self);
+			return;
+		}
+		val = fv;
+		continue;
+#endif // USE_LONGINT
+#if USE_REALS
+		if ((val > MAXINT/(integer_t)(10)) ||
+		    (val*(integer_t)(10)) > MAXINT-d) {
+			self->value.body.real = fv;
+			++self->string_pointer;
+			_basic_lexer_decimalreal(self);
+			return;
+		}
+#endif // USE_REALS
+		val *= 10;
+		val += d;
+	}
+}
+
 static void
 _basic_lexer_decimal(basic_lexer_context_t *self)
 {
@@ -154,6 +204,8 @@ _basic_lexer_decimal(basic_lexer_context_t *self)
 	integer_t *val = &self->value.body.integer;
 #endif // USE_LONGINT
 #if USE_REALS
+	/* Number, starting with explicit decimal point - zero whole part of
+	 * mantissa */
 	if (SYM == '.')
 		*val = 0;
 	else
@@ -191,7 +243,6 @@ _basic_lexer_decimal(basic_lexer_context_t *self)
 #if USE_REALS
 		}
 #endif
-
 
 		switch (SYM) {
 #if USE_REALS
@@ -234,7 +285,7 @@ _basic_lexer_decimal(basic_lexer_context_t *self)
 #endif
 			    )
 				self->value.body.real = basic_value_to_real(
-									&self->value);
+				    &self->value);
 			if (!lexer_number_scale(self)) {
 				self->token = BASIC_TOKEN_NOTOKEN;
 				return;
@@ -408,6 +459,33 @@ token_found:
 	return TRUE;
 }
 
+static BOOLEAN
+_basic_lexer_tokenizedNext(basic_lexer_context_t *self)
+{
+	if (SYM != ASCII_NUL) {
+		self->token = SYM;
+		++self->string_pointer;
+		switch (self->token) {
+		case BASIC_TOKEN_C_INTEGER :
+#if USE_LONGINT
+			self->value.type = BASIC_VALUE_TYPE_LONG_INTEGER;
+			readU32((uint32_t*)&self->value.body.long_integer,
+			     self->string_to_parse+self->string_pointer);
+#else
+			self->value.type = BASIC_VALUE_TYPE_INTEGER;
+			readU16((uint16_t*)&self->value.body.integer,
+			     self->string_to_parse+self->string_pointer);
+#endif
+			self->string_pointer += sizeof (INT);
+			break;
+		default:
+			break;
+		}
+		return TRUE;
+	}
+	return FALSE;
+}
+
 BOOLEAN
 basic_lexer_getnextTokenized(basic_lexer_context_t *self)
 {
@@ -415,8 +493,11 @@ basic_lexer_getnextTokenized(basic_lexer_context_t *self)
 	/*_error = NO_ERROR;*/
 	self->_value_pointer = 0;
 	/* Iterate until end of input string */
-	while (SYM > 0) {
+	while (SYM > ASCII_NUL) {
 		switch (SYM) {
+		case ASCII_DLE:
+			++self->string_pointer;
+			return _basic_lexer_tokenizedNext(self);
 		case ' ':
 		case '\t':
 			++self->string_pointer;
@@ -483,9 +564,12 @@ basic_lexer_tokenize(basic_lexer_context_t *self, uint8_t *dst, uint8_t dstlen,
 			break;
 		}
 		const basic_token_t tok = self->token;
-		const uint8_t t = (uint8_t) (0x80) + (uint8_t) (tok);
-		if (tok <= BASIC_TOKEN_RPAREN) { // One byte tokens
-			dst[position++] = t;
+		if (tok <= BASIC_TOKEN_RPAREN) {
+			/* One byte tokens need space of 2 bytes - DLE and token */
+			if (position+2 >= dstlen)
+				break;
+			dst[position++] = ASCII_DLE;
+			dst[position++] = tok;
 			lexerPosition = self->string_pointer;
 			/* Save rem text as is */
 			if (tok == BASIC_TOKEN_KW_REM) {
@@ -494,39 +578,44 @@ basic_lexer_tokenize(basic_lexer_context_t *self, uint8_t *dst, uint8_t dstlen,
 				|| (self->string_to_parse[lexerPosition] == '\t'))
 					++lexerPosition;
 				const uint8_t remaining =
-				    strlen((char*) self->string_to_parse) -
-				    lexerPosition;
+				    strlen((char*) src + lexerPosition);
 				if (remaining + position >= dstlen)
 					break;
 				memcpy(dst + position, src + lexerPosition,
-				remaining);
+				    remaining);
 				position += remaining;
 				break;
 			}
 			continue;
 		} else if (tok == BASIC_TOKEN_C_INTEGER) {
-			dst[position++] = t;
-			if ((position + sizeof (INT)) >= (dstlen))
+			if (position+2+sizeof(integer_t) >= dstlen)
 				break;
-#if USE_LONGINT
-			const INT v = self->value.body.long_integer;
-			writeU32((uint32_t) v, dst + position);
-			position += sizeof (INT);
-#else
-			const INT v = self->value.body.integer;
-			writeU16((uint16_t) v, dst + position);
-			position += sizeof (INT);
-#endif
+			dst[position++] = ASCII_DLE;
+			dst[position++] = tok;
+			const integer_t v = self->value.body.integer;
+			writeU16((uint16_t)v, dst + position);
+			position += sizeof (integer_t);
 		}
+#if USE_LONGINT
+		else if (tok == BASIC_TOKEN_C_LONG_INTEGER) {
+			if (position+2+sizeof(long_integer_t) >= dstlen)
+				break;
+			dst[position++] = ASCII_DLE;
+			dst[position++] = tok;
+			const long_integer_t v = self->value.body.long_integer;
+			writeU32((uint32_t)v, dst + position);
+			position += sizeof (long_integer_t);
+		}
+#endif // USE_LONGINT
 #if USE_REALS
 		else if (tok == BASIC_TOKEN_C_REAL) {
-			dst[position++] = t;
-			if ((position + sizeof (real_t)) >= dstlen) {
-				--position;
+			if (position+2+sizeof(real_t) >= dstlen)
 				break;
-			}
-			const real_t v = (real_t)(self->value.body.real);
-			*(real_t*)(dst + position) = v;
+			dst[position++] = ASCII_DLE;
+			dst[position++] = tok;
+			
+			const real_t v = self->value.body.real;
+			writeR32((real_t)v, dst + position);
 			position += sizeof (real_t);
 		}
 #endif // USE_REALS
@@ -545,5 +634,5 @@ basic_lexer_tokenize(basic_lexer_context_t *self, uint8_t *dst, uint8_t dstlen,
 	}
 finish:
 	dst[position] = '\0';
-	return position-1;
+	return position;
 }
