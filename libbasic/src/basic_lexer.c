@@ -163,33 +163,48 @@ static void
 _basic_lexer_decimalint(basic_lexer_context_t *self)
 {
 	integer_t val = 0;
-	while (SYM > ASCII_NUL) {
-#if USE_REALS
-#endif // USE_REALS
-		integer_t d = (integer_t)(SYM - '0');
+	while (TRUE) {
+		if (isdigit(SYM)) {
+			integer_t d = (integer_t)(SYM - '0');
 #if USE_LONGINT
-		long_integer_t fv = (long_integer_t)val * (long_integer_t)10 +
-		    d;
-		if ((long_integer_t)val * 10 > MAXINT) {
-			self->value.body.long_integer = fv;
+			long_integer_t fv = (long_integer_t)val * (long_integer_t)10 +
+			    d;
+			if ((long_integer_t)val * 10 > MAXINT) {
+				self->value.body.long_integer = fv;
+				++self->string_pointer;
+				_basic_lexer_decimallongint(self);
+				return;
+			}
+			val = fv;
 			++self->string_pointer;
-			_basic_lexer_decimallongint(self);
-			return;
-		}
-		val = fv;
-		continue;
+			continue;
 #endif // USE_LONGINT
 #if USE_REALS
-		if ((val > MAXINT/(integer_t)(10)) ||
-		    (val*(integer_t)(10)) > MAXINT-d) {
-			self->value.body.real = fv;
+			if ((val > MAXINT/(integer_t)(10)) ||
+			    (val*(integer_t)(10)) > MAXINT-d) {
+				self->value.body.real = fv;
+				++self->string_pointer;
+				_basic_lexer_decimalreal(self);
+				return;
+			}
+#endif // USE_REALS
+			val *= 10;
+			val += d;
 			++self->string_pointer;
+		}
+#if USE_REALS
+		else if (SYM == '.') {
+			self->value.body.real = val;
 			_basic_lexer_decimalreal(self);
 			return;
 		}
 #endif // USE_REALS
-		val *= 10;
-		val += d;
+		else {
+			self->value.body.integer = val;
+			self->value.type = BASIC_VALUE_TYPE_INTEGER;
+			self->token = BASIC_TOKEN_C_INTEGER;
+			return;
+		}
 	}
 }
 
@@ -423,7 +438,7 @@ basic_lexer_getnextPlain(basic_lexer_context_t *self)
 			break;
 		default:
 			if (isdigit(SYM)) {
-				_basic_lexer_decimal(self);
+				_basic_lexer_decimalint(self);
 				return TRUE;
 			} else if (isalpha(SYM)) {
 				uint8_t index;

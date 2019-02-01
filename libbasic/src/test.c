@@ -42,7 +42,7 @@ lexer_test_keywords()
 BOOLEAN
 lexer_test_tokenization()
 {
-	const uint8_t s[] = "PRINT RETURN 13";
+	const uint8_t s[] = "PRINT RETURN 13 21 1112";
 	basic_token_t tokens[] = {
 		BASIC_TOKEN_OP_AND,
 		BASIC_TOKEN_KW_GOSUB,
@@ -52,7 +52,7 @@ lexer_test_tokenization()
 		BASIC_TOKEN_KW_PRINT,
 		BASIC_TOKEN_KW_RETURN
 	};
-	uint8_t tokenized[11];
+	uint8_t tokenized[41];
 	
 	basic_lexer_context_t lexer;
 	
