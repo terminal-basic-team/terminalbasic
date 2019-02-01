@@ -17,33 +17,19 @@
  */
 
 /**
- * @file basic_exteeprom.hpp
- * @brief I2C/SPI external eeprom functions and commands
+ * @file basic_arduinoio.hpp
+ * @brief AVR 8-bit io container
  */
 
-#ifndef BASIC_EXTEEPROM_HPP
-#define BASIC_EXTEEPROM_HPP
+#ifndef BASIC_AVR8IO_HPP
+#define BASIC_AVR8IO_HPP
 
 #include "basic_functionblock.hpp"
+#include "basic_interpreter.hpp"
 
 namespace BASIC
 {
 
-class ExtEEPROM : public FunctionBlock
-{
-public:
-	explicit ExtEEPROM();
-private:
-	static bool com_echain(Interpreter&);
-	static bool com_eload(Interpreter&);
-	static bool com_esave(Interpreter&);
-	
-	static const FunctionBlock::command _commands[] PROGMEM;
-// FunctionBlock interface
-protected:
-	void _init() override;
-};
+} // namespace BASIC
 
-}
-
-#endif
+#endif /* BASIC_AVR8IO_HPP */
