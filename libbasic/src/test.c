@@ -42,7 +42,7 @@ lexer_test_keywords()
 BOOLEAN
 lexer_test_tokenization()
 {
-	const uint8_t s[] = "PRINT RETURN 13 21 1112";
+	const uint8_t s[] = "40128 1.0 .12 12. 12.32 13.1e2 13e3";
 	basic_token_t tokens[] = {
 		BASIC_TOKEN_OP_AND,
 		BASIC_TOKEN_KW_GOSUB,
