@@ -161,26 +161,25 @@ _basic_lexer_decimallongint(basic_lexer_context_t *self)
 			if ((val > MAX_LONG_INTEGER/(integer_t)(10)) ||
 			    (v > MAX_LONG_INTEGER-d)) {
 				self->value.body.real = d + v;
-				++self->string_pointer;
 				_basic_lexer_decimalreal(self);
 				return;
 			}
 #endif // USE_REALS
-			val *= 10;
-			val += d;
+			val = d + v;
+			++self->string_pointer;
 		}
 #if USE_REALS
-		else if (SYM == '.') {
+		else if (SYM == '.' || SYM == 'E' || SYM == 'e') {
 			self->value.body.real = val;
 			_basic_lexer_decimalreal(self);
-			return;
+			break;
 		}
 #endif // USE_REALS
 		else {
 			self->value.body.long_integer = val;
 			self->value.type = BASIC_VALUE_TYPE_LONG_INTEGER;
 			self->token = BASIC_TOKEN_C_LONG_INTEGER;
-			return;
+			break;
 		}
 	}
 }
@@ -204,9 +203,11 @@ _basic_lexer_decimalreal(basic_lexer_context_t *self)
 					d /= (real_t)10;
 					val += (real_t)(SYM - '0') * d;
 				} else if (SYM == 'E' || SYM == 'e') {
+					self->value.body.real = val;
 					if (!lexer_number_scale(self))
 						self->token = BASIC_TOKEN_NOTOKEN;
 					else {
+						self->value.type = BASIC_VALUE_TYPE_REAL;
 						self->token = BASIC_TOKEN_C_REAL;
 						return;
 					}
@@ -217,7 +218,7 @@ _basic_lexer_decimalreal(basic_lexer_context_t *self)
 			break;
 	}
 final:
-	self->value = basic_value_from_real(val);
+	basic_value_setFromReal(&self->value, val);
 	self->token = BASIC_TOKEN_C_REAL;
 }
 #endif // USE_REALS
@@ -237,9 +238,6 @@ _basic_lexer_decimalint(basic_lexer_context_t *self)
 				_basic_lexer_decimallongint(self);
 				return;
 			}
-			val = d + v;
-			++self->string_pointer;
-			continue;
 #elif USE_REALS
 			if ((val > MAX_INTEGER/(integer_t)(10)) ||
 			    (v > MAX_INTEGER-d)) {
@@ -248,137 +246,21 @@ _basic_lexer_decimalint(basic_lexer_context_t *self)
 				return;
 			}
 #endif // USE_REALS
-			val *= (integer_t)10;
-			val += d;
+			val = d + v;
 			++self->string_pointer;
 		}
 #if USE_REALS
 		else if (SYM == '.' || SYM == 'E' || SYM == 'e') {
 			self->value.body.real = val;
 			_basic_lexer_decimalreal(self);
-			return;
+			break;
 		}
 #endif // USE_REALS
 		else {
 			self->value.body.integer = val;
 			self->value.type = BASIC_VALUE_TYPE_INTEGER;
 			self->token = BASIC_TOKEN_C_INTEGER;
-			return;
-		}
-	}
-}
-
-static void
-_basic_lexer_decimal(basic_lexer_context_t *self)
-{
-#if USE_LONGINT
-	self->value.type = BASIC_VALUE_TYPE_LONG_INTEGER;
-	long_integer_t *val = &self->value.body.long_integer;
-#else
-	self->value.type = BASIC_VALUE_TYPE_INTEGER;
-	integer_t *val = &self->value.body.integer;
-#endif // USE_LONGINT
-#if USE_REALS
-	/* Number, starting with explicit decimal point - zero whole part of
-	 * mantissa */
-	if (SYM == '.')
-		*val = 0;
-	else
-#endif
-		*val = SYM - '0';
-	while (SYM > 0) {
-#if USE_REALS
-		if (self->value.type == BASIC_VALUE_TYPE_REAL) {
-			++self->string_pointer;
-			if (isdigit(SYM)) {
-				self->value.body.real *= (real_t) (10);
-				self->value.body.real += (real_t) (SYM - '0');
-				continue;
-			}
-		} else if (SYM != '.') {
-
-#endif // USE_REALS
-			++self->string_pointer;
-			if (isdigit(SYM)) {
-#if USE_REALS
-				if (*val > MAXINT / (INT) (10)) {
-					self->value.type = BASIC_VALUE_TYPE_REAL;
-					self->value.body.real = (real_t) (*val);
-					self->value.body.real *= (real_t) (10);
-					self->value.body.real += SYM - '0';
-				} else {
-#endif
-					*val *= (INT) (10);
-					*val += SYM - '0';
-#if USE_REALS
-				}
-#endif
-				continue;
-			}
-#if USE_REALS
-		}
-#endif
-
-		switch (SYM) {
-#if USE_REALS
-		case '.':
-		{
-			if (self->value.type != BASIC_VALUE_TYPE_REAL) {
-				self->value.type = BASIC_VALUE_TYPE_REAL;
-				self->value.body.real = (real_t) (*val);
-			}
-			real_t d = 1;
-			while (TRUE) {
-				++self->string_pointer;
-				if (isdigit(SYM)) {
-					d /= 10.f;
-					self->value.body.real +=
-					    (real_t) (SYM - '0') * d;
-					continue;
-				} else if (SYM == 0) {
-					self->token = BASIC_TOKEN_C_REAL;
-					return;
-				} else if (SYM == 'E' || SYM == 'e') {
-					if (!lexer_number_scale(self))
-						self->token = BASIC_TOKEN_NOTOKEN;
-					else
-						self->token = BASIC_TOKEN_C_REAL;
-					return;
-				} else {
-					self->token = BASIC_TOKEN_C_REAL;
-					return;
-				}
-			}
-		}
 			break;
-		case 'E':
-		case 'e':
-		{
-			if (self->value.type == BASIC_VALUE_TYPE_INTEGER
-#if USE_LONGINT
-			    || self->value.type == BASIC_VALUE_TYPE_LONG_INTEGER
-#endif
-			    )
-				self->value.body.real = basic_value_to_real(
-				    &self->value);
-			if (!lexer_number_scale(self)) {
-				self->token = BASIC_TOKEN_NOTOKEN;
-				return;
-			}
-		}
-#endif
-		default:
-			if (self->value.type == BASIC_VALUE_TYPE_INTEGER
-#if USE_LONGINT
-			    || self->value.type == BASIC_VALUE_TYPE_LONG_INTEGER
-#endif
-			    )
-				self->token = BASIC_TOKEN_C_INTEGER;
-#if USE_REALS
-			else
-				self->token = BASIC_TOKEN_C_REAL;
-#endif
-			return;
 		}
 	}
 }
@@ -444,7 +326,7 @@ basic_lexer_getnextPlain(basic_lexer_context_t *self)
 			goto token_found;
 #if USE_REALS
 		case '.':
-			_basic_lexer_decimal(self);
+			_basic_lexer_decimalint(self);
 			return TRUE;
 #endif // USE_REALS
 		case ',':
@@ -633,7 +515,7 @@ basic_lexer_tokenize(basic_lexer_context_t *self, uint8_t *dst, uint8_t dstlen,
 	uint8_t lexerPosition = 0;
 
 	while (basic_lexer_getnextPlain(self)) {
-		/* The destinaton buffer is over */
+		/* The destination buffer is over */
 		if (position >= (dstlen - 1)) {
 			position = dstlen-1;
 			break;

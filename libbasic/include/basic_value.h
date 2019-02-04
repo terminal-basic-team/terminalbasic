@@ -46,10 +46,24 @@ typedef struct basic_value
 } basic_value_t;
 
 #if USE_REALS
-real_t basic_value_to_real(basic_value_t*);
+real_t basic_value_to_real(const basic_value_t*);
 
 basic_value_t basic_value_from_real(real_t);
+
+void basic_value_setFromReal(basic_value_t*, real_t);
 #endif
+
+#if USE_LONGINT
+long_integer_t basic_value_toLongInt(const basic_value_t*);
+
+basic_value_t basic_value_fromLongInteger(long_integer_t);
+
+void basic_value_setFromLongInteger(basic_value_t*, long_integer_t);
+#endif
+
+integer_t basic_valueToInt(basic_value_t*);
+
+void basic_value_setFromInt(basic_value_t*, integer_t);
 
 void basic_value_multeq(basic_value_t*, const basic_value_t*);
 
