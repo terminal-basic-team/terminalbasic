@@ -29,6 +29,8 @@ Parser::Value::Value() :
 type(INTEGER)
 {
 	value.integer = 0;
+	_value.type = BASIC_VALUE_TYPE_INTEGER;
+	_value.body.integer = (integer_t)(0);
 }
 
 #if USE_LONGINT
@@ -37,6 +39,8 @@ Parser::Value::Value(LongInteger v) :
 type(LONG_INTEGER)
 {
 	value.longInteger = v;
+	_value.type = BASIC_VALUE_TYPE_LONG_INTEGER;
+	_value.body.long_integer = v;
 }
 #endif // USE_LONGINT
 
@@ -44,14 +48,17 @@ Parser::Value::Value(Integer v) :
 type(INTEGER)
 {
 	value.integer = v;
+	_value.type = BASIC_VALUE_TYPE_INTEGER;
+	_value.body.integer = v;
 }
 
 #if USE_REALS
-
 Parser::Value::Value(Real v) :
 type(REAL)
 {
 	value.real = v;
+	_value.type = BASIC_VALUE_TYPE_REAL;
+	_value.body.real = v;
 }
 #endif // USE_REALS
 
@@ -59,88 +66,33 @@ Parser::Value::Value(bool v) :
 type(BOOLEAN)
 {
 	value.boolean = v;
+	_value.type = BASIC_VALUE_TYPE_LOGICAL;
+	_value.body.logical = v;
 }
 
 #if USE_REALS
-
 Parser::Value::operator Real() const
 {
-	switch (type) {
-#if USE_LONGINT
-	case LONG_INTEGER:
-		return (Real(value.longInteger));
-#endif // USE_LONGINT
-	case INTEGER:
-		return Real(value.integer);
-	case REAL:
-		return value.real;
-	case BOOLEAN:
-		return Real(value.boolean);
-	default:
-		return Real(NAN);
-	}
+	return basic_value_toReal(&_value);
 }
 #endif // USE_REALS
 
 Parser::Value::operator bool() const
 {
-	switch (type) {
-#if USE_LONGINT
-	case LONG_INTEGER:
-		return (bool(value.longInteger));
-#endif // USE_LONGINT
-	case INTEGER:
-		return bool(value.integer);
-#if USE_REALS
-	case REAL:
-		return bool(value.real);
-#endif // USE_REALS
-	case BOOLEAN:
-		return value.boolean;
-	default:
-		return false;
-	}
+	return basic_value_toLogical(&_value);
 }
 
 #if USE_LONGINT
 
 Parser::Value::operator LongInteger() const
 {
-	switch (type) {
-	case LONG_INTEGER:
-		return value.longInteger;
-	case INTEGER:
-		return LongInteger(value.integer);
-#if USE_REALS
-	case REAL:
-		return LongInteger(value.real);
-#endif // USE_REALS
-	case BOOLEAN:
-		return LongInteger(value.boolean);
-	default:
-		return LongInteger(0);
-	}
+	return basic_value_toLongInteger(&_value);
 }
 #endif // USE_LONGINT
 
 Parser::Value::operator Integer() const
 {
-	switch (type) {
-#if USE_LONGINT
-	case LONG_INTEGER:
-		return Integer(value.longInteger);
-#endif // USE_LONGINT
-	case INTEGER:
-		return value.integer;
-#if USE_REALS
-	case REAL:
-		return Integer(value.real);
-#endif // USE_REALS
-	case BOOLEAN:
-		return Integer(value.boolean);
-	default:
-		return Integer(0);
-	}
+	return basic_value_toInteger(&_value);
 }
 
 Parser::Value &
@@ -284,52 +236,14 @@ Parser::Value::operator+=(const Value &rhs)
 Parser::Value&
 Parser::Value::operator-=(const Value &rhs)
 {
-#if USE_REALS
-	if (rhs.type == REAL)
-		*this = Real(*this) - Real(rhs);
-	else
-#endif
-	switch (this->type) {
-#if USE_REALS
-	case REAL: this->value.real -= Real(rhs);
-		break;
-#endif
-#if USE_LONGINT
-	case LONG_INTEGER: this->value.longInteger -= LongInteger(rhs);
-		break;
-#endif
-	case INTEGER: this->value.integer -= Integer(rhs);
-		break;
-	default:
-		break;
-	}
-
+	basic_value_minuseq(&_value, &rhs._value);
 	return *this;
 }
 
 Parser::Value&
 Parser::Value::operator*=(const Value &rhs)
 {
-#if USE_REALS
-	if (rhs.type == REAL)
-		*this = Real(*this) * Real(rhs);
-	else
-#endif
-	switch (this->type) {
-#if USE_REALS
-	case REAL: this->value.real *= Real(rhs);
-		break;
-#endif
-#if USE_LONGINT
-	case LONG_INTEGER: this->value.longInteger *= LongInteger(rhs);
-		break;
-#endif
-	case INTEGER: this->value.integer *= Integer(rhs);
-		break;
-	default:
-		break;
-	}
-
+	basic_value_multeq(&_value, &rhs._value);
 	return *this;
 }
 
@@ -337,16 +251,7 @@ Parser::Value::operator*=(const Value &rhs)
 Parser::Value&
 Parser::Value::operator/=(const Value &rhs)
 {
-#if USE_REALS
-	value.real = Real(*this) / Real(rhs);
-	type = Value::REAL;
-#elif USE_LONGINT
-	value.longInteger = LongInteger(*this) / LongInteger(rhs);
-	type = Value::LONG_INTEGER;
-#else
-	value.integer = Integer(*this) / Integer(rhs);
-	type = Value::INTEGER;
-#endif
+	basic_value_diveq(&_value, &rhs._value);
 	return *this;
 }
 

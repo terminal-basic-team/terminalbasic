@@ -6,7 +6,7 @@
 #define FLOAT_DIGITS10 7
 
 void
-ftoa(float f, char *buf)
+_ftoa(float f, char *buf)
 {
 	if (f != f) {
 		strcpy(buf, "NAN");

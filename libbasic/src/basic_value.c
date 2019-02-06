@@ -4,7 +4,7 @@
 
 #if USE_REALS
 real_t
-basic_value_to_real(const basic_value_t *self)
+basic_value_toReal(const basic_value_t *self)
 {
 	switch (self->type) {
 #if USE_LONGINT
@@ -42,7 +42,7 @@ basic_value_setFromReal(basic_value_t* self, real_t val)
 
 #if USE_LONGINT
 long_integer_t
-basic_value_toLongInt(const basic_value_t* self)
+basic_value_toLongInteger(const basic_value_t* self)
 {
 	switch (self->type) {
 	case BASIC_VALUE_TYPE_LONG_INTEGER:
@@ -65,8 +65,7 @@ basic_value_fromLongInteger(long_integer_t other)
 {
 	basic_value_t result;
 	
-	result.type = BASIC_VALUE_TYPE_LONG_INTEGER;
-	result.body.long_integer = other;
+	basic_value_setFromLongInteger(&result, other);
 	
 	return result;
 }
@@ -79,11 +78,92 @@ basic_value_setFromLongInteger(basic_value_t* self, long_integer_t other)
 }
 #endif // USE_LONGINT
 
+integer_t
+basic_value_toInteger(const basic_value_t* self)
+{
+	switch (self->type) {
+#if USE_LONGINT
+	case BASIC_VALUE_TYPE_LONG_INTEGER:
+		return (integer_t)(self->body.long_integer);
+#endif // USE_LONGINT
+	case BASIC_VALUE_TYPE_INTEGER:
+		return self->body.integer;
+#if USE_REALS
+	case BASIC_VALUE_TYPE_REAL:
+		return (integer_t)(self->body.real);
+#endif // USE_REALS
+	case BASIC_VALUE_TYPE_LOGICAL:
+		return (integer_t)(self->body.logical);
+	default:
+		return (integer_t)(0);
+	}
+}
+
+basic_value_t
+basic_value_fromInteger(integer_t other)
+{
+	basic_value_t result;
+	
+	basic_value_setFromInteger(&result, other);
+	
+	return result;
+}
+
 void
-basic_value_setFromInt(basic_value_t* self, integer_t val)
+basic_value_setFromInteger(basic_value_t* self, integer_t val)
 {
 	self->type = BASIC_VALUE_TYPE_INTEGER;
 	self->body.integer = val;
+}
+
+BOOLEAN
+basic_value_toLogical(const basic_value_t* self)
+{
+	switch (self->type) {
+#if USE_LONGINT
+	case BASIC_VALUE_TYPE_LONG_INTEGER:
+		return (BOOLEAN)(self->body.long_integer);
+#endif // USE_LONGINT
+	case BASIC_VALUE_TYPE_INTEGER:
+		return (BOOLEAN)(self->body.integer);
+#if USE_REALS
+	case BASIC_VALUE_TYPE_REAL:
+		return (BOOLEAN)(self->body.real);
+#endif // USE_REALS
+	case BASIC_VALUE_TYPE_LOGICAL:
+		return self->body.logical;
+	default:
+		return FALSE;
+	}
+}
+
+void
+basic_value_minuseq(basic_value_t *self, const basic_value_t *rhs)
+{
+#if USE_REALS
+	if (rhs->type == BASIC_VALUE_TYPE_REAL)
+		basic_value_setFromReal(self, basic_value_toReal(self)-
+		    basic_value_toReal(rhs));
+	else
+#endif
+	switch (self->type) {
+#if USE_REALS
+	case BASIC_VALUE_TYPE_REAL: self->body.real -=
+	    basic_value_toReal(rhs);
+		break;
+#endif
+#if USE_LONGINT
+	case BASIC_VALUE_TYPE_LONG_INTEGER: self->body.long_integer -=
+	     basic_value_toLongInteger(rhs);
+		break;
+#endif
+	case BASIC_VALUE_TYPE_INTEGER: self->body.integer -=
+	    basic_value_toInteger(rhs);
+		break;
+	default:
+		break;
+	}
+
 }
 
 void
@@ -92,24 +172,39 @@ basic_value_multeq(basic_value_t *self, const basic_value_t *rhs)
 #if USE_REALS
 	if (rhs->type == BASIC_VALUE_TYPE_REAL) {
 		self->type = BASIC_VALUE_TYPE_REAL;
-		self->body.real = basic_value_to_real(self) * rhs->body.real;
+		self->body.real = basic_value_toReal(self) * rhs->body.real;
 	} else
 #endif
 	switch (self->type) {
 #if USE_REALS
 	case BASIC_VALUE_TYPE_REAL :
-		self->body.real *= rhs->body.real;
+		self->body.real *= basic_value_toReal(rhs);
 		break;
 #endif
 #if USE_LONGINT
 	case BASIC_VALUE_TYPE_LONG_INTEGER :
-		self->body.long_integer *= rhs->body.long_integer;
+		self->body.long_integer *= basic_value_toInteger(rhs);
 		break;
 #endif
 	case BASIC_VALUE_TYPE_INTEGER :
-		self->body.integer *= rhs->body.integer;
+		self->body.integer *= basic_value_toInteger(rhs);
 		break;
 	default:
 		break;
 	}
+}
+
+void
+basic_value_diveq(basic_value_t *self, const basic_value_t *rhs)
+{
+#if USE_REALS
+	basic_value_setFromReal(self, basic_value_toReal(self) /
+	    basic_value_toReal(rhs));
+#elif USE_LONGINT
+	basic_value_setFromLongInteger(self, basic_value_toLongInteger()self) /
+	    basic_value_toLongInteger(rhs));
+#else
+	basic_value_setFromInteger(self, basic_value_toInteger()self) /
+	    basic_value_toInteger(rhs));
+#endif
 }

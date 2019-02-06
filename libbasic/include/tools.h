@@ -6,9 +6,9 @@
 
 __BEGIN_DECLS
 
-void ftoa(float, char*);
+void _ftoa(float, char*);
 
-void dtoa(double, char*);
+void _dtoa(double, char*);
 
 void readU16(uint16_t*, const uint8_t*);
 

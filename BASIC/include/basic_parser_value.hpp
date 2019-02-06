@@ -20,6 +20,7 @@
 #define BASIC_PARSER_VALUE_HPP
 
 #include "basic_parser.hpp"
+#include "basic_value.h"
 
 #include <Printable.h>
 
@@ -107,6 +108,8 @@ public:
 	Type type;
 	
 	Body value;
+        
+        basic_value_t _value;
 	
 private:
 	/**
