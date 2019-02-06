@@ -189,13 +189,17 @@ Program::variableByName(const char *name)
 
 	for (auto f = variableByIndex(index); f != nullptr;
 	    f = variableByIndex(index)) {
+#if USE_DEFFN
 		if (!(f->type & TYPE_DEFFN)) {
+#endif
 			const int8_t res = strncmp(name, f->name, VARSIZE);
 			if (res == 0)
 				return f;
 			else if (res < 0)
 				break;
+#if USE_DEFFN
 		}
+#endif
 		index += f->size();
 	}
 	return nullptr;

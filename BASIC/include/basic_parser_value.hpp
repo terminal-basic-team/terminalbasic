@@ -20,6 +20,7 @@
 #define BASIC_PARSER_VALUE_HPP
 
 #include "basic_parser.hpp"
+
 #include <Printable.h>
 
 namespace BASIC

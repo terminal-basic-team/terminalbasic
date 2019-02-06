@@ -53,8 +53,8 @@ basic_value_toLongInt(const basic_value_t* self)
 	case BASIC_VALUE_TYPE_REAL:
 		return (long_integer_t)self->body.real;
 #endif // USE_REALS
-	case BOOLEAN:
-		return (long_integer_t)self->body.logical;
+	case BASIC_VALUE_TYPE_LOGICAL:
+		return (BOOLEAN)self->body.logical;
 	default:
 		return (long_integer_t)0;
 	}
