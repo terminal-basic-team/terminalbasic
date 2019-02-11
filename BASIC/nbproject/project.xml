@@ -7,7 +7,7 @@
             <c-extensions/>
             <cpp-extensions>cpp</cpp-extensions>
             <header-extensions>hpp</header-extensions>
-            <sourceEncoding>KOI8-R</sourceEncoding>
+            <sourceEncoding>IBM866</sourceEncoding>
             <make-dep-projects>
                 <make-dep-project>../../libarduinoemulator</make-dep-project>
                 <make-dep-project>../../libutft</make-dep-project>
@@ -85,9 +85,9 @@
             </confList>
             <formatting>
                 <project-formatting-style>true</project-formatting-style>
-                <c-style>OpenSolaris_1|OpenBSD</c-style>
-                <cpp-style>OpenSolaris_0|OpenBSD</cpp-style>
-                <header-style>OpenSolaris_2|OpenBSD</header-style>
+                <c-style>OpenBSD</c-style>
+                <cpp-style>OpenBSD</cpp-style>
+                <header-style>OpenBSD</header-style>
             </formatting>
         </data>
     </configuration>

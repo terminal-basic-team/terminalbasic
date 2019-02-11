@@ -80,7 +80,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=../../libsdcard/libsdcard/dist/Arduino_1284/Arduino-1.8.6-Linux/liblibsdcard.a ../../libps2uart/libps2uart/dist/Arduino_1284p/Arduino-1.8.6-Linux/liblibps2uart.a ../../tvoutex/livbtvoutex/dist/Arduino_1284/Arduino-Linux/liblivbtvoutex.a ../../libarduinoext/dist/Atmega1284/Arduino-Linux/liblibarduinoext.a ../../libarduino/dist/Atmega_1284/libarduino.a
+LDLIBSOPTIONS=../../libsdcard/libsdcard/dist/Arduino_1284/Arduino-1.8.6-Linux/liblibsdcard.a ../../libps2uart/libps2uart/dist/Arduino_1284p/Arduino-1.8.6-Linux/liblibps2uart.a ../../tvoutex/livbtvoutex/dist/Arduino_1284/Arduino-Linux/liblivbtvoutex.a ../../libarduinoext/dist/Atmega1284/Arduino-1.8.6-Linux/liblibarduinoext.a ../../libarduino/dist/Atmega_1284/libarduino.a
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -92,7 +92,7 @@ ${CND_DISTDIR}/${CND_CONF}/terminal-basic: ../../libps2uart/libps2uart/dist/Ardu
 
 ${CND_DISTDIR}/${CND_CONF}/terminal-basic: ../../tvoutex/livbtvoutex/dist/Arduino_1284/Arduino-Linux/liblivbtvoutex.a
 
-${CND_DISTDIR}/${CND_CONF}/terminal-basic: ../../libarduinoext/dist/Atmega1284/Arduino-Linux/liblibarduinoext.a
+${CND_DISTDIR}/${CND_CONF}/terminal-basic: ../../libarduinoext/dist/Atmega1284/Arduino-1.8.6-Linux/liblibarduinoext.a
 
 ${CND_DISTDIR}/${CND_CONF}/terminal-basic: ../../libarduino/dist/Atmega_1284/libarduino.a
 

@@ -80,7 +80,7 @@ namespace BASIC
 #if CONF_ERROR_STRINGS
 
 #if (LANG == LANG_RU)
-#include "strings_ru_koi8r.hpp"
+#include "strings_ru_cp866.hpp"
 #elif (LANG == LANG_EN)
 #include "strings_en.hpp"
 #endif
