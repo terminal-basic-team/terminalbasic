@@ -12,6 +12,8 @@ lexer_test_keywords()
 	const uint8_t s[] = "AND GOSUB GOTO IF LET PRINT RETURN";
 	basic_token_t tokens[] = {
 		BASIC_TOKEN_OP_AND,
+		BASIC_TOKEN_COM_CLS,
+		BASIC_TOKEN_KW_FOR,
 		BASIC_TOKEN_KW_GOSUB,
 		BASIC_TOKEN_KW_GOTO,
 		BASIC_TOKEN_KW_IF,
@@ -23,17 +25,16 @@ lexer_test_keywords()
 	basic_lexer_init(&lexer, s);
 
 	uint8_t i;
+	uint8_t buf[16];
 	for (i = 0; i<sizeof (tokens) / sizeof (tokens[0]); ++i) {
 		if (!basic_lexer_getnextPlain(&lexer)) {
 			fprintf(stderr, "basic_lexer_getnextPlain\n");
 			return FALSE;
 		}
-		if (lexer.token != tokens[i]) {
-			uint8_t buf[16];
-			basic_lexer_tokenString(tokens[i], buf);
-			fprintf(stderr, "token: %s\n", buf);
+		basic_lexer_tokenString(tokens[i], buf);
+		fprintf(stderr, "token: %s\n", buf);
+		if (lexer.token != tokens[i])
 			return FALSE;
-		}
 	}
 
 	return TRUE;

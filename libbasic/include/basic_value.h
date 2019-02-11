@@ -70,12 +70,21 @@ void basic_value_setFromInteger(basic_value_t*, integer_t);
 
 BOOLEAN basic_value_toLogical(const basic_value_t*);
 
+basic_value_t basic_value_fromLogical(BOOLEAN);
+
+void basic_value_setFromLogical(basic_value_t*, BOOLEAN);
+
 
 void basic_value_minuseq(basic_value_t*, const basic_value_t*);
 
 void basic_value_multeq(basic_value_t*, const basic_value_t*);
 
 void basic_value_diveq(basic_value_t*, const basic_value_t*);
+
+
+void basic_value_switchSign(basic_value_t*);
+
+BOOLEAN basic_value_equals(const basic_value_t*, const basic_value_t*);
 
 __END_DECLS
 

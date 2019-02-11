@@ -128,7 +128,14 @@
  */
 #define LANG_EN 0
 #define LANG_RU 1
-#define CONF_LANG LANG_EN
+#define CONF_LANG LANG_RU
+
+/*
+ * High-level code optimisation mode
+ */
+#define OPT_SPEED     1 // Extensive use of switch/case constructs
+#define OPT_SIZE      2 // Use cascade of if/else if instead of switch/case
+#define OPT           OPT_SIZE // Selected mode
 
 #endif /* BASIC_CONFIG_H */
 

@@ -26,41 +26,37 @@
 uint8_t*
 scanTable(const uint8_t *token, const uint8_t table[], uint8_t *index)
 {
-	uint8_t tokPos = 0, tabPos = 0;
+	uint8_t tokPos = 0, // Position in current token
+		tabPos = 0; // Index in the token table
 	while (TRUE) {
+		// Read next table byte
 		uint8_t c = pgm_read_byte(table);
+		// token byte to compare with table
 		uint8_t ct = token[tokPos];
 		/* If token table is over */
-		if (c == 0)
+		if (c == ASCII_ETX)
 			return NULL;
-		
 		/* Current symbol matches table element */
-		if (ct == c) {
+		if (c > ct)
+			return NULL;
+		else if (ct == c) {
 			++tokPos, ++table;
+			if (c == ASCII_NUL) {
+				*index = tabPos;
+				return (uint8_t*)token+tokPos;
+			}
 			continue;
-		/* Current symbol matches final token symbol: token found */
-		} else if (ct+(uint8_t)(0x80) == c) {
+		} else if (ct <= ' ') {
 			*index = tabPos;
-			++tokPos;
 			return (uint8_t*)token+tokPos;
 		} else {
-			/* Found last table token symbol, prepare to compare */
-			if (c & (uint8_t)(0x80))
-				c &= ~(uint8_t)(0x80);
-			/* Token not found in table */
-			if (c > ct && ct != 0)
-				return NULL;
-			else {
-				while ((pgm_read_byte(table++) & (uint8_t)(0x80)) ==
-				    0);
-				++tabPos, tokPos=0;
-			}
+			while (pgm_read_byte(table++) != ASCII_NUL);
+			++tabPos, tokPos=0;
 			continue;
 		}
 		/* Not current token, take next table row */
-		if (ct == 0) {
-			while ((pgm_read_byte(table++) & (uint8_t)(0x80)) ==
-				    0);
+		if (ct == ASCII_NUL) {
+			while (pgm_read_byte(table++) != ASCII_NUL);
 			++tabPos, tokPos=0;
 		}
 	}

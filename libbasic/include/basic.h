@@ -38,7 +38,7 @@ typedef enum ascii_codes
 	ASCII_NUL = 0x00, /* Null */
 	SOH = 0x01, /* Start of heading */
 	STX = 0x02, /* Start of text */
-	ETX = 0x03, /* End of text */
+	ASCII_ETX = 0x03, /* End of text */
 	EOT = 0x04, /* End of transmission */
 	ENQ = 0x05, /* Enquire */
 	ACK = 0x06, /* Acknowledgement */

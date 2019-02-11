@@ -231,6 +231,8 @@
       </item>
       <item path="../src/basic_lexer_eng.c" ex="false" tool="0" flavor2="0">
       </item>
+      <item path="../src/basic_lexer_ru.c" ex="false" tool="0" flavor2="0">
+      </item>
       <item path="../src/basic_value.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="../src/math/e_sqrtf.c" ex="false" tool="0" flavor2="0">

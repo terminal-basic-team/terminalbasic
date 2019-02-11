@@ -1,128 +1,132 @@
+#include "avr/pgmspace.h"
+#include "basic_config.h"
 #include "basic.h"
 
-#include "avr/pgmspace.h"
+#if CONF_LANG == LANG_EN
 
 const uint8_t _basic_lexer_symbolsShift PROGMEM = 0;
 
 const uint8_t _basic_lexer_tokenTable[] PROGMEM = {
-	0x80,
-	'A', 'N', 'D'+0x80,                // 1
+	ASCII_NUL,
+	'A', 'N', 'D',ASCII_NUL,                // 1
 #if USE_DUMP
-	'A', 'R', 'R', 'A', 'Y', 'S'+0x80, // 2
+	'A', 'R', 'R', 'A', 'Y', 'S',ASCII_NUL, // 2
 #endif
 #if USE_SAVE_LOAD
-	'C', 'H', 'A', 'I', 'N'+0x80,      // 4
+	'C', 'H', 'A', 'I', 'N', ASCII_NUL,      // 4
 #endif
 #if USE_TEXTATTRIBUTES
-	'C', 'L', 'S'+0x80,                // 5
+	'C', 'L', 'S', ASCII_NUL,                // 5
 #endif
 #if USESTOPCONT
-	'C', 'O', 'N', 'T'+0x80,           // 6
+	'C', 'O', 'N', 'T', ASCII_NUL,           // 6
 #endif
 #if USE_MATRIX
-	'C', 'O', 'N'+0x80,                // 7
+	'C', 'O', 'N', ASCII_NUL,                // 7
 #endif
 #if USE_DATA
-	'D', 'A', 'T', 'A'+0x80,           // 8
+	'D', 'A', 'T', 'A', ASCII_NUL,           // 8
 #endif
 #if USE_DEFFN
-	'D', 'E', 'F'+0x80,                // 9
+	'D', 'E', 'F', ASCII_NUL,                // 9
 #endif
 #if USE_DELAY
-	'D', 'E', 'L', 'A', 'Y'+0x80,      // 10
+	'D', 'E', 'L', 'A', 'Y', ASCII_NUL,      // 10
 #endif
 #if USE_MATRIX
-	'D', 'E', 'T'+0x80,                // 11
+	'D', 'E', 'T', ASCII_NUL,                // 11
 #endif
-	'D', 'I', 'M'+0x80,                // 12
+	'D', 'I', 'M', ASCII_NUL,                // 12
 #if USE_DIV_KW
-	'D', 'I', 'V'+0x80,                // 13
+	'D', 'I', 'V', ASCII_NUL,                // 13
 #endif
 #if USE_DOLOOP
-	'D', 'O'+0x80,                     // 14
+	'D', 'O', ASCII_NUL,                     // 14
 #endif
 #if USE_DUMP
-	'D', 'U', 'M', 'P'+0x80,           // 15
+	'D', 'U', 'M', 'P', ASCII_NUL,           // 15
 #endif
-	'E', 'N', 'D'+0x80,
-	'F', 'A', 'L', 'S', 'E'+0x80,
+	'E', 'N', 'D', ASCII_NUL,
+	'F', 'A', 'L', 'S', 'E', ASCII_NUL,
 #if USE_DEFFN
-	'F', 'N'+0x80,                     // 18
+	'F', 'N', ASCII_NUL,                     // 18
 #endif
-	'F', 'O', 'R'+0x80,                // 19
-	'G', 'O', 'S', 'U', 'B'+0x80,      // 20
-	'G', 'O', 'T', 'O'+0x80,           // 11
+	'F', 'O', 'R', ASCII_NUL,                // 19
+	'G', 'O', 'S', 'U', 'B', ASCII_NUL,      // 20
+	'G', 'O', 'T', 'O', ASCII_NUL,           // 11
 #if CONF_SEPARATE_GO_TO
-	'G', 'O'+0x80,                     // 12
+	'G', 'O', ASCII_NUL,                     // 12
 #endif
 #if USE_MATRIX
-	'I', 'D', 'N'+0x80,
+	'I', 'D', 'N', ASCII_NUL,
 #endif
-	'I', 'F'+0x80,                     // 16
-	'I', 'N', 'P', 'U', 'T'+0x80,      // 17
+	'I', 'F', ASCII_NUL,                     // 16
+	'I', 'N', 'P', 'U', 'T', ASCII_NUL,      // 17
 #if USE_MATRIX
-	'I', 'N', 'V'+0x80,
+	'I', 'N', 'V', ASCII_NUL,
 #endif
-	'L', 'E', 'T'+0x80,
-	'L', 'I', 'S', 'T'+0x80,           // 19
+	'L', 'E', 'T', ASCII_NUL,
+	'L', 'I', 'S', 'T', ASCII_NUL,           // 19
 #if USE_SAVE_LOAD
-	'L', 'O', 'A', 'D'+0x80,           // 20
+	'L', 'O', 'A', 'D', ASCII_NUL,           // 20
 #endif
 #if USE_TEXTATTRIBUTES
-	'L', 'O', 'C', 'A', 'T', 'E'+0x80, // 21
+	'L', 'O', 'C', 'A', 'T', 'E', ASCII_NUL, // 21
 #endif
 #if USE_DOLOOP
-	'L', 'O', 'O', 'P'+0x80,           // 22
+	'L', 'O', 'O', 'P', ASCII_NUL,           // 22
 #endif
 #if USE_MATRIX
-	'M', 'A', 'T'+0x80,                // 23
+	'M', 'A', 'T', ASCII_NUL,                // 23
 #endif
 #if USE_INTEGER_DIV
-	'M', 'O', 'D'+0x80,                // 24
+	'M', 'O', 'D', ASCII_NUL,                // 24
 #endif
-	'N', 'E', 'W'+0x80,                // 21
-	'N', 'E', 'X', 'T'+0x80,           // 22
-	'N', 'O', 'T'+0x80,
-	'O', 'N'+0x80,                     // 23
-	'O', 'R'+0x80,
-	'P', 'R', 'I', 'N', 'T'+0x80,
+	'N', 'E', 'W', ASCII_NUL,                // 21
+	'N', 'E', 'X', 'T', ASCII_NUL,           // 22
+	'N', 'O', 'T', ASCII_NUL,
+	'O', 'N', ASCII_NUL,                     // 23
+	'O', 'R', ASCII_NUL,
+	'P', 'R', 'I', 'N', 'T', ASCII_NUL,
 #if USE_RANDOM
-	'R', 'A', 'N', 'D', 'O', 'M', 'I', 'Z', 'E'+0x80, //26
+	'R', 'A', 'N', 'D', 'O', 'M', 'I', 'Z', 'E', ASCII_NUL, //26
 #endif
 #if USE_DATA
-	'R', 'E', 'A', 'D'+0x80,           // 27
+	'R', 'E', 'A', 'D', ASCII_NUL,           // 27
 #endif
-	'R', 'E', 'M'+0x80,
+	'R', 'E', 'M', ASCII_NUL,
 #if USE_DATA
-	'R', 'E', 'S', 'T', 'O', 'R', 'E'+0x80,
+	'R', 'E', 'S', 'T', 'O', 'R', 'E', ASCII_NUL,
 #endif
-	'R', 'E', 'T', 'U', 'R', 'N'+0x80,
-	'R', 'U', 'N'+0x80,
+	'R', 'E', 'T', 'U', 'R', 'N', ASCII_NUL,
+	'R', 'U', 'N', ASCII_NUL,
 #if USE_SAVE_LOAD
-	'S', 'A', 'V', 'E'+0x80,
+	'S', 'A', 'V', 'E', ASCII_NUL,
 #endif
 #if CONF_USE_SPC_PRINT_COM
-	'S', 'P', 'C'+0x80,
+	'S', 'P', 'C', ASCII_NUL,
 #endif
-	'S', 'T', 'E', 'P'+0x80,
+	'S', 'T', 'E', 'P', ASCII_NUL,
 #if USESTOPCONT
-	'S', 'T', 'O', 'P'+0x80,
+	'S', 'T', 'O', 'P', ASCII_NUL,
 #endif
 #if USE_TEXTATTRIBUTES
-	'T', 'A', 'B'+0x80,
+	'T', 'A', 'B', ASCII_NUL,
 #endif
-	'T', 'H', 'E', 'N'+0x80,
-	'T', 'O'+0x80,
+	'T', 'H', 'E', 'N', ASCII_NUL,
+	'T', 'O', ASCII_NUL,
 #if USE_MATRIX
-	'T', 'R', 'N'+0x80,
+	'T', 'R', 'N', ASCII_NUL,
 #endif
-	'T', 'R', 'U', 'E'+0x80,
+	'T', 'R', 'U', 'E', ASCII_NUL,
 #if USE_DUMP
-	'V', 'A', 'R', 'S'+0x80,
+	'V', 'A', 'R', 'S', ASCII_NUL,
 #endif
-	'X', 'O', 'R'+0x80,
+	'X', 'O', 'R', ASCII_NUL,
 #if USE_MATRIX
-	'Z', 'E', 'R'+0x80,
+	'Z', 'E', 'R',ASCII_NUL,
 #endif
-	'\0'
+	ASCII_ETX
 };
+
+#endif // CONF_LANG

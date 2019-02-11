@@ -479,28 +479,30 @@ void
 basic_lexer_tokenString(basic_token_t t, uint8_t *buf)
 {
 	if (t < BASIC_TOKEN_STAR) {
-		const uint8_t *result = _basic_lexer_tokenTable, *pointer = result;
+		const uint8_t *result = _basic_lexer_tokenTable,
+			      *pointer = result;
 		uint8_t c;
 		uint8_t index = 0;
 
 		do {
 			c = pgm_read_byte(pointer++);
-			if (c & 0x80) {
+			if (c == ASCII_NUL) {
 				if (index++ == (uint8_t) (t)) {
 					pointer = result;
 					result = buf;
-					while (((c = pgm_read_byte(pointer++)) & 0x80) == 0)
+					while ((c = pgm_read_byte(pointer++)) != ASCII_NUL)
 						*(buf++) = c;
-					*(buf++) = c & ~0x80;
 					*buf = 0;
+					return;
 				} else
 					result = pointer;
 			}
-		} while (c != 0);
+		} while (c != ASCII_ETX);
 	} else if (t < BASIC_TOKEN_INTEGER_IDENT)
 		strcpy_P((char*) buf,
 			(PGM_P) pgm_read_ptr(&(_basic_lexer_tokenStrings[
-					     (uint8_t) (t)-(uint8_t) (BASIC_TOKEN_STAR)])));
+			    (uint8_t)(t)-(uint8_t)(BASIC_TOKEN_STAR)]))
+		);
 	else
 		*buf = '\0';
 }

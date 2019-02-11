@@ -5,7 +5,6 @@
  */
 typedef enum basic_token
 {
-	BASIC_TOKEN_NOTOKEN = 0,  // 0
 	BASIC_TOKEN_OP_AND,       // 1
 #if USE_DUMP
 	BASIC_TOKEN_KW_ARRAYS,    // 2
@@ -44,7 +43,6 @@ typedef enum basic_token
 #if USE_DUMP
 	BASIC_TOKEN_COM_DUMP,      // 15
 #endif
-	BASIC_TOKEN_KW_END,        // 16
 	BASIC_TOKEN_KW_FALSE,      // 17
 #if USE_DEFFN
 	BASIC_TOKEN_KW_FN,         // 18
@@ -58,12 +56,9 @@ typedef enum basic_token
 #if USE_MATRIX
 	BASIC_TOKEN_KW_IDN,        // 23
 #endif
-	BASIC_TOKEN_KW_IF,         // 24
-	BASIC_TOKEN_KW_INPUT,      // 25
 #if USE_MATRIX
 	BASIC_TOKEN_KW_INV,        // 26
 #endif
-	BASIC_TOKEN_KW_LET,        // 27
 	BASIC_TOKEN_COM_LIST,      // 28
 #if USE_SAVE_LOAD
 	BASIC_TOKEN_COM_LOAD,      // 29
@@ -86,7 +81,6 @@ typedef enum basic_token
 	BASIC_TOKEN_KW_ON,         // 37
 //	KW_OPTION,     // 38
 	BASIC_TOKEN_OP_OR,         // 39
-	BASIC_TOKEN_KW_PRINT,      // 40
 #if USE_RANDOM
 	BASIC_TOKEN_KW_RANDOMIZE,  // 41
 #endif
@@ -97,8 +91,6 @@ typedef enum basic_token
 #if USE_DATA
 	BASIC_TOKEN_KW_RESTORE,    // 44
 #endif
-	BASIC_TOKEN_KW_RETURN,     // 45
-	BASIC_TOKEN_COM_RUN,       // 46
 #if USE_SAVE_LOAD
 	BASIC_TOKEN_COM_SAVE,      // 47
 #endif
@@ -106,9 +98,6 @@ typedef enum basic_token
 	BASIC_TOKEN_KW_SPC,        // 48
 #endif
 	BASIC_TOKEN_KW_STEP,       // 49
-#if USESTOPCONT
-	BASIC_TOKEN_KW_STOP,       // 50
-#endif
 #if USE_TEXTATTRIBUTES
 	BASIC_TOKEN_KW_TAB,        // 51
 #endif
@@ -124,6 +113,17 @@ typedef enum basic_token
 	BASIC_TOKEN_OP_XOR,        // 57
 #if USE_MATRIX
 	BASIC_TOKEN_KW_ZER,        // 58
+#endif
+	BASIC_TOKEN_NOTOKEN = 0,
+	BASIC_TOKEN_KW_INPUT,
+	BASIC_TOKEN_KW_RETURN,
+	BASIC_TOKEN_KW_PRINT,
+	BASIC_TOKEN_KW_IF,
+	BASIC_TOKEN_KW_END,
+	BASIC_TOKEN_COM_RUN,
+	BASIC_TOKEN_KW_LET,
+#if USESTOPCONT
+	BASIC_TOKEN_KW_STOP,       // 50
 #endif
 	// *
 	BASIC_TOKEN_STAR,          // 59
@@ -174,6 +174,7 @@ typedef enum basic_token
 	BASIC_TOKEN_BOOL_IDENT,    // 82
 
 	BASIC_TOKEN_C_INTEGER,     // 83
+	BASIC_TOKEN_C_LONG_INTEGER,// 83
 	BASIC_TOKEN_C_REAL,        // 84
 	BASIC_TOKEN_C_BOOLEAN,     // 85
 	BASIC_TOKEN_C_STRING,      // 86

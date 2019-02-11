@@ -109,7 +109,7 @@ public:
 	
 	Body value;
         
-        basic_value_t _value;
+        basic_value_t m_value;
 	
 private:
 	/**

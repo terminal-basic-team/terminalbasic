@@ -111,13 +111,6 @@ namespace BASIC
 #define AUTOCAPITALIZE    0
 
 /*
- * C++ level code optimisation mode
- */
-#define OPT_SPEED     1 // Extensive use of switch/case constructs
-#define OPT_SIZE      2 // Use cascade of if/else if instead of switch/case
-#define OPT           OPT_SIZE // Selected mode
-
-/*
  * SDcard module
  */
 #define USESD         0
