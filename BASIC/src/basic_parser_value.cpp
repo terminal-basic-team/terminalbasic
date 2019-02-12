@@ -25,17 +25,8 @@
 namespace BASIC
 {
 
-Parser::Value::Value()
-{
-	basic_value_setFromInteger(&m_value, 0);
-}
-
 #if USE_LONGINT
 
-Parser::Value::Value(LongInteger v)
-{
-	basic_value_setFromLongInteger(&m_value, v);
-}
 #endif // USE_LONGINT
 
 Parser::Value::Value(Integer v)
@@ -80,14 +71,6 @@ Parser::Value::operator Integer() const
 	return basic_value_toInteger(&m_value);
 }
 
-Parser::Value&
-Parser::Value::operator-()
-{
-	basic_value_switchSign(&m_value);
-	
-	return *this;
-}
-
 bool
 Parser::Value::operator<(const Value &rhs) const
 {
@@ -103,25 +86,7 @@ Parser::Value::operator==(const Value &rhs) const
 bool
 Parser::Value::operator>(const Value &rhs) const
 {
-#if USE_REALS
-	if (rhs.type() == REAL)
-		return Real(*this) > Real(rhs);
-	else
-#endif
-	switch (this->type()) {
-#if USE_REALS
-	case REAL:
-		return this->value.real > Real(rhs);
-#endif
-#if USE_LONGINT
-	case LONG_INTEGER:
-		return this->value.longInteger > LongInteger(rhs);
-#endif
-	case INTEGER:
-		return this->value.integer > Integer(rhs);
-	default:
-        	return false;
-	}
+	return basic_value_greater(&m_value, &rhs.m_value);
 }
 
 bool
@@ -191,96 +156,17 @@ Parser::Value::modEquals(const Value &rhs)
 	return *this;
 }
 
-void
-Parser::Value::powerMatchValue(const Value &rhs)
-{
-#if USE_LONGINT
-	if (rhs.type() == LONG_INTEGER
-#if USE_REALS
-	    && type() != REAL
-#endif
-	    )
-		*this = LongInteger(*this);
-#endif
-#if USE_REALS
-	if (rhs.type() == REAL || rhs < Integer(0))
-		*this = Real(*this);
-#endif
-}
-
 Parser::Value&
 Parser::Value::operator^=(const Value &rhs)
 {
-	powerMatchValue(rhs);
-	switch (type()) {
-	case INTEGER:
-	{
-		Integer r = 1;
-		for (Integer i = Integer(rhs); i > 0; --i)
-			r *= value.integer;
-		value.integer = r;
-	}
-		break;
-#if USE_LONGINT
-	case LONG_INTEGER:
-	{
-		LongInteger r = 1;
-		for (LongInteger i = LongInteger(rhs); i > 0 ; --i)
-			r *= value.longInteger;
-		value.longInteger = r;
-	}
-		break;
-#endif
-#if USE_REALS
-	case REAL:
-		value.real = pow(value.real, Real(rhs));
-		break;
-#endif
-	default:
-		break;
-	}
+	basic_value_poweq(&m_value, &rhs.m_value);
 	return *this;
 }
 
 void
 Parser::Value::switchSign()
 {
-	switch (type()) {
-	case INTEGER:
-		value.integer = -value.integer;
-		break;
-#if USE_LONGINT
-	case LONG_INTEGER:
-		value.longInteger = -value.longInteger;
-		break;
-#endif
-#if USE_REALS
-	case REAL:
-		value.real = -value.real;
-		break;
-#endif
-	case LOGICAL:
-		value.integer = -Integer(value.boolean);
-		setType(INTEGER);
-		break;
-	default:
-		break;
-	}
-}
-
-void
-Parser::Value::notOp()
-{
-	switch (type()) {
-	case INTEGER:
-		this->value.integer = ~this->value.integer;
-		break;
-	case LOGICAL:
-		this->value.boolean = !this->value.boolean;
-		break;
-	default:
-		break;
-	}
+	basic_value_switchSign(&m_value);
 }
 
 size_t
@@ -307,43 +193,16 @@ Parser::Value::size(Type t)
 Parser::Value&
 Parser::Value::operator|=(const Value &v)
 {
-	switch (type()) {
-	case INTEGER:
-		this->value.integer |= Integer(v);
-		break;
-	case LOGICAL:
-		this->value.boolean |= bool(v);
-		break;
-#if USE_LONGINT
-	case LONG_INTEGER:
-		this->value.longInteger |= LongInteger(v);
-		break;
-#endif
-	default:
-		break;
-	}
-
+	basic_value_oreq(&m_value, &v.m_value);
+	
 	return *this;
 }
 
 Parser::Value&
 Parser::Value::operator&=(const Value &v)
 {
-	switch (type()) {
-	case INTEGER:
-		this->value.integer &= Integer(v);
-		break;
-	case LOGICAL:
-		this->value.boolean &= bool(v);
-		break;
-#if USE_LONGINT
-	case LONG_INTEGER:
-		this->value.longInteger &= LongInteger(v);
-		break;
-#endif
-	default:
-		break;
-	}
+	basic_value_andeq(&m_value, &v.m_value);
+	
 	return *this;
 }
 
@@ -355,7 +214,7 @@ Parser::Value::printTo(Print& p) const
 	{
 		char buf[6]; // Size, sufficient to store both 'TRUE' and 'FALSE
 		const uint8_t *res;
-		if (value.boolean)
+		if (m_value.body.logical)
 			res = Lexer::getTokenString(Token::KW_TRUE, (uint8_t*)buf);
 		else
 			res = Lexer::getTokenString(Token::KW_FALSE, (uint8_t*)buf);
@@ -391,7 +250,7 @@ Parser::Value::printTo(Print& p) const
 		else
 			::dtostre(value.real, buf, 7, DTOSTR_ALWAYS_SIGN);
 #else
-		::sprintf(buf, "%- 12.9G", value.real);
+		::sprintf(buf, "%- 12.9G", m_value.body.real);
 #endif // ARDUINO
 		if (buf[1] == '0' && buf[2] == '.')
 			memmove(buf+1, buf+2, 15-2);
@@ -401,14 +260,14 @@ Parser::Value::printTo(Print& p) const
 #endif
 #if USE_LONGINT
 	case Parser::Value::LONG_INTEGER:
-		if (value.longInteger >= LongInteger(0))
+		if (m_value.body.long_integer >= LongInteger(0))
 			p.print(char(ASCII::SPACE));
-		return p.print(value.longInteger) + 1;
+		return p.print(m_value.body.long_integer) + 1;
 #endif // USE_LONGINT
 	case Parser::Value::INTEGER:
-		if (value.integer >= Integer(0))
+		if (m_value.body.integer >= Integer(0))
 			p.print(char(ASCII::SPACE));
-		return p.print(value.integer) + 1;
+		return p.print(m_value.body.integer) + 1;
 	default:
 		return p.print(char(ASCII::QMARK));
 	}

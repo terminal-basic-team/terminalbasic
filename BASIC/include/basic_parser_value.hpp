@@ -46,27 +46,25 @@ public:
 		STRING = BASIC_VALUE_TYPE_STRING
 	};
 
-	struct EXT_PACKED String
+	/**
+	 * @brief Default constructor
+	 * 
+	 * Initializes a value with 0 INTEGER, which s always available
+	 */
+	Value()
 	{
-		uint8_t size;
-		//char string[STRINGSIZE];
-	};
-
-	union EXT_PACKED Body
+		basic_value_setFromInteger(&m_value, 0);
+	}
+	
+#if USE_LONGINT
+	/**
+	 * @brief Constructor ftrom LongInteger number
+	 * @param v
+	 */
+	Value(LongInteger v)
 	{
-#if USE_LONGINT
-		LongInteger longInteger;
-#endif
-		Integer integer;
-#if USE_REALS
-		Real real;
-#endif
-		bool boolean;
-	};
-
-	Value();
-#if USE_LONGINT
-	Value(LongInteger);
+		basic_value_setFromLongInteger(&m_value, v);
+	}
 #endif
 	Value(Integer);
 #if USE_REALS
@@ -82,8 +80,6 @@ public:
 #if USE_LONGINT
 	explicit operator LongInteger() const;
 #endif
-
-	Value &operator-();
 	
 	bool operator<(const Value&) const;
 	bool operator==(const Value&) const;
@@ -101,7 +97,6 @@ public:
 	Value &operator|=(const Value&);
 	Value &operator&=(const Value&);
 	void switchSign();
-	void notOp();
 	
 	static size_t size(Type);
 	
@@ -114,16 +109,10 @@ public:
 	{
 		m_value.type = basic_value_type_t(newVal);
 	}
-	
-	Body value;
         
         basic_value_t m_value;
 	
 private:
-	/**
-	 * @brief match value type with the power type
-	 */
-	void powerMatchValue(const Value&);
 	// Printable interface
 	size_t printTo(Print& p) const override;
 };

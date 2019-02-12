@@ -1156,7 +1156,7 @@ Interpreter::doInput()
 			}
 		}
 		if (neg)
-			v = -v;
+			v.switchSign();
 		setVariable(_inputVarName, v);
 		if (l.getNext()) {
 			if (l.getToken() == Token::COMMA)
@@ -1505,7 +1505,7 @@ Interpreter::printTab(const Parser::Value &v, bool flag)
 	Integer tabs;
 #if USE_REALS
 	if (v.type() == Parser::Value::REAL)
-		tabs = math<Real>::round(v.value.real);
+		tabs = math<Real>::round(Real(v));
 	else
 #endif
 		tabs = Integer(v);

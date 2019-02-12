@@ -320,3 +320,124 @@ basic_value_equals(const basic_value_t* lhs, const basic_value_t* rhs)
         	return FALSE;
 	}
 }
+
+BOOLEAN
+basic_value_greater(const basic_value_t* lhs, const basic_value_t* rhs)
+{
+#if USE_REALS
+	if (rhs->type == BASIC_VALUE_TYPE_REAL)
+		return basic_value_toReal(lhs) > rhs->body.real;
+	else
+#endif
+	switch (lhs->type) {
+#if USE_REALS
+	case BASIC_VALUE_TYPE_REAL:
+		return lhs->body.real == basic_value_toReal(rhs);
+#endif
+#if USE_LONGINT
+	case BASIC_VALUE_TYPE_LONG_INTEGER:
+		return lhs->body.long_integer == basic_value_toLongInteger(rhs);
+#endif
+	case BASIC_VALUE_TYPE_INTEGER:
+		return lhs->body.integer == basic_value_toInteger(rhs);
+	case BASIC_VALUE_TYPE_LOGICAL:
+		return lhs->body.logical == basic_value_toLogical(rhs);
+	default:
+        	return FALSE;
+	}
+}
+
+static void
+_basic_value_powerMatch(basic_value_t *self, const basic_value_t *rhs)
+{
+#if USE_LONGINT
+	if (rhs->type == BASIC_VALUE_TYPE_LONG_INTEGER
+#if USE_REALS
+	    && self->type != BASIC_VALUE_TYPE_REAL
+#endif
+	    )
+		basic_value_setFromLongInteger(self,
+		    basic_value_toLongInteger(self));
+#endif
+#if USE_REALS
+	basic_value_t zer = basic_value_fromInteger(-1);
+	if (rhs->type == BASIC_VALUE_TYPE_REAL ||
+	    !basic_value_greater(rhs, &zer))
+		basic_value_setFromReal(self, basic_value_toReal(self));
+#endif
+}
+
+void
+basic_value_poweq(basic_value_t *self, const basic_value_t *rhs)
+{
+	_basic_value_powerMatch(self, rhs);
+	switch (self->type) {
+	case BASIC_VALUE_TYPE_INTEGER:
+	{
+		integer_t r = 1;
+		integer_t i;
+		for (i = basic_value_toInteger(rhs); i>0; --i)
+			r *= self->body.integer;
+		self->body.integer = r;
+	}
+		break;
+#if USE_LONGINT
+	case BASIC_VALUE_TYPE_LONG_INTEGER:
+	{
+		long_integer_t r = 1;
+		long_integer_t i;
+		for (i = (long_integer_t)(rhs); i>0; --i)
+			r *= self->body.long_integer;
+		self->body.long_integer = r;
+	}
+		break;
+#endif
+#if USE_REALS
+	case BASIC_VALUE_TYPE_REAL:
+		self->body.real = pow(self->body.real, basic_value_toReal(rhs));
+		break;
+#endif
+	default:
+		break;
+	}
+}
+
+void
+basic_value_oreq(basic_value_t* self, const basic_value_t* rhs)
+{
+	switch (self->type) {
+	case BASIC_VALUE_TYPE_INTEGER:
+		self->body.integer |= basic_value_toInteger(rhs);
+		break;
+	case BASIC_VALUE_TYPE_LOGICAL:
+		self->body.logical |= basic_value_toLogical(rhs);
+		break;
+#if USE_LONGINT
+	case BASIC_VALUE_TYPE_LONG_INTEGER:
+		self->body.long_integer |= basic_value_toLongInteger(rhs);
+		break;
+#endif
+	default:
+		break;
+	}
+}
+
+void
+basic_value_andeq(basic_value_t* self, const basic_value_t* rhs)
+{
+	switch (self->type) {
+	case BASIC_VALUE_TYPE_INTEGER:
+		self->body.integer &= basic_value_toInteger(rhs);
+		break;
+	case BASIC_VALUE_TYPE_LOGICAL:
+		self->body.logical &= basic_value_toLogical(rhs);
+		break;
+#if USE_LONGINT
+	case BASIC_VALUE_TYPE_LONG_INTEGER:
+		self->body.long_integer &= basic_value_toLongInteger(rhs);
+		break;
+#endif
+	default:
+		break;
+	}
+}

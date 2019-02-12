@@ -855,7 +855,7 @@ Parser::fExpression(Value &v)
 		if (!_lexer.getNext() || !fExpression(v))
 			return false;
 		if (_mode == EXECUTE)
-			v.notOp();
+			v.switchSign();
 		return true;
 	}
 	
@@ -1380,7 +1380,7 @@ Parser::fGotoStatement()
 			return false;
 		}
 		if (_mode == EXECUTE)
-			_interpreter.gotoLine(v.value.integer);
+			_interpreter.gotoLine(v);
 		return true;
 	} else
 		return false;

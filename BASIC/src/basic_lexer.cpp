@@ -596,154 +596,17 @@ Lexer::fitst_GT()
 void
 Lexer::decimalNumber()
 {
-	LOG_TRACE;
-
-#if USE_LONGINT
-	_value.setType(Parser::Value::LONG_INTEGER);
-	LongInteger *val = &_value.value.longInteger;
-#else
-	_value.setType(Parser::Value::INTEGER);
-	Integer *val = &_value.value.integer;
-#endif // USE_LONGINT
-#if USE_REALS
-	if (SYM == '.')
-		*val = 0;
-	else
-#endif
-		*val = SYM - '0';
-	while (SYM > 0) {
-#if USE_REALS
-		if (_value.type() == Parser::Value::REAL) {
-			next();
-			if (isdigit(SYM)) {
-				_value.value.real *= Real(10);
-				_value.value.real += SYM - '0';
-				continue;
-			}
-		} else if (SYM != '.') {
-
-#endif // USE_REALS
-			next();
-			if (isdigit(SYM)) {
-#if USE_REALS
-				if (*val > MAXINT/INT(10)) {
-					_value.setType(Parser::Value::REAL);
-					_value.value.real = Real(*val);
-					_value.value.real *= Real(10);
-					_value.value.real += SYM - '0';
-				} else {
-#endif
-					*val *= INT(10);
-					*val += SYM - '0';
-#if USE_REALS
-				}
-#endif
-				continue;
-			}
-#if USE_REALS
-		}
-#endif
-		
-			
-		switch (SYM) {
-#if USE_REALS
-		case '.':
-		{
-			if (_value.type() != Parser::Value::REAL) {
-				_value.setType(Parser::Value::REAL);
-				_value.value.real = Real(*val);
-			}
-			Real d = 1;
-			while (true) {
-				next();
-				if (isdigit(SYM)) {
-					d /= 10.f;
-					_value.value.real += Real(SYM - '0') * d;
-					continue;
-				} else if (SYM == 0) {
-					_token = Token::C_REAL;
-					return;
-				} else if (SYM == 'E' || SYM == 'e') {
-					if (!numberScale())
-						_token = Token::NOTOKENS;
-					else
-						_token = Token::C_REAL;
-					return;
-				} else {
-					_token = Token::C_REAL;
-					return;
-				}
-			}
-		}
-			break;
-		case 'E':
-		case 'e':
-		{
-			if (_value.type() == Parser::Value::INTEGER
-#if USE_LONGINT
-			    || _value.type() == Parser::Value::LONG_INTEGER
-#endif
-			    )
-				_value = Real(_value);
-			if (!numberScale()) {
-				_token = Token::NOTOKENS;
-				return;
-			}
-		}
-#endif
-		default:
-			if (_value.type() == Parser::Value::INTEGER
-#if USE_LONGINT
-			    || _value.type() == Parser::Value::LONG_INTEGER
-#endif
-			    )
-				_token = Token::C_INTEGER;
-#if USE_REALS
-			else
-				_token = Token::C_REAL;
-#endif
-			return;
-		}
-	}
 }
 
 void
 Lexer::binaryInteger()
 {
-#if USE_LONGINT
-	_value.setType(Parser::Value::LONG_INTEGER);
-#else
-	_value.setType(Parser::Value::INTEGER);
-#endif
-	union {
-		char buf[sizeof(INT)];
-		INT intVal;
-	} v;
-	for (uint8_t i=0; i<sizeof(INT); ++i) {
-		v.buf[i] = SYM;
-		next();
-	}
-#if USE_LONGINT
-	_value.value.longInteger = v.intVal;
-#else
-	_value.value.integer = v.intVal;
-#endif
 }
 
 #if USE_REALS
 void
 Lexer::binaryReal()
 {
-	_value.setType(Parser::Value::REAL);
-	union {
-		char buf[sizeof(Real)];
-		Real realVal;
-	} v;
-	for (uint8_t i=0; i<sizeof(Real); ++i) {
-		v.buf[i] = SYM;
-		next();
-	}
-	_value.value.real = v.realVal;
 }
 
 bool
