@@ -6,6 +6,18 @@
 
 __BEGIN_DECLS
 
+typedef uint8_t BOOLEAN;
+
+#ifndef TRUE
+#define TRUE ((BOOLEAN)1)
+#endif
+
+#ifndef FALSE
+#define FALSE ((BOOLEAN)0)
+#endif
+
+BOOLEAN tools_isAlpha(uint8_t);
+
 void _ftoa(float, char*);
 
 void _dtoa(double, char*);
@@ -25,16 +37,6 @@ void writeR32(float, uint8_t*);
 #define LOW_BYTE_U16(w) ((uint8_t)w)
 
 #define HIGH_BYTE_U16(w) ((uint8_t)((w) >> 8))
-
-typedef uint8_t BOOLEAN;
-
-#ifndef TRUE
-#define TRUE ((BOOLEAN)1)
-#endif
-
-#ifndef FALSE
-#define FALSE ((BOOLEAN)0)
-#endif
 
 __END_DECLS
 

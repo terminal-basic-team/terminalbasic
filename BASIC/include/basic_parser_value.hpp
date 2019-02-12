@@ -35,15 +35,15 @@ public:
 	 */
 	enum Type : uint8_t
 	{
-		INTEGER,
+		INTEGER = BASIC_VALUE_TYPE_INTEGER,
 #if USE_LONGINT
-		LONG_INTEGER,
+		LONG_INTEGER = BASIC_VALUE_TYPE_LONG_INTEGER,
 #endif
 #if USE_REALS
-		REAL,
+		REAL = BASIC_VALUE_TYPE_REAL,
 #endif
-		BOOLEAN,
-		STRING
+		LOGICAL = BASIC_VALUE_TYPE_LOGICAL,
+		STRING = BASIC_VALUE_TYPE_STRING
 	};
 
 	struct EXT_PACKED String
@@ -105,7 +105,15 @@ public:
 	
 	static size_t size(Type);
 	
-	Type type;
+	Type type() const
+	{
+		return Type(m_value.type);
+	}
+	
+	void setType(Type newVal)
+	{
+		m_value.type = basic_value_type_t(newVal);
+	}
 	
 	Body value;
         

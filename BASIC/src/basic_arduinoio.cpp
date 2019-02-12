@@ -124,7 +124,7 @@ ArduinoIO::comm_dwrite(Interpreter &i)
 {
 	Parser::Value v(false);
 	if (i.popValue(v)) {
-		if (v.type == Parser::Value::BOOLEAN) {
+		if (v.type() == Parser::Value::LOGICAL) {
 			INT v2;
 			if (getIntegerFromStack(i, v2)) {
 				pinMode(v2, OUTPUT);

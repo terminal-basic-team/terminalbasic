@@ -184,6 +184,34 @@ basic_value_minuseq(basic_value_t *self, const basic_value_t *rhs)
 }
 
 void
+basic_value_pluseq(basic_value_t *self, const basic_value_t *rhs)
+{
+#if USE_REALS
+	if (rhs->type == BASIC_VALUE_TYPE_REAL)
+		basic_value_setFromReal(self, basic_value_toReal(self)+
+		    rhs->body.real);
+	else
+#endif
+	switch (self->type) {
+#if USE_REALS
+	case BASIC_VALUE_TYPE_REAL:
+		self->body.real += basic_value_toReal(rhs);
+		break;
+#endif
+#if USE_LONGINT
+	case BASIC_VALUE_TYPE_LONG_INTEGER:
+		self->body.long_integer += basic_value_toLongInteger(rhs);
+		break;
+#endif
+	case BASIC_VALUE_TYPE_INTEGER:
+		self->body.integer += basic_value_toInteger(rhs);
+		break;
+	default:
+		break;
+	}
+}
+
+void
 basic_value_multeq(basic_value_t *self, const basic_value_t *rhs)
 {
 #if USE_REALS

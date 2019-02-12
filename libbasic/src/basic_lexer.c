@@ -382,7 +382,7 @@ basic_lexer_getnextPlain(basic_lexer_context_t *self)
 			if (isdigit(SYM)) {
 				_basic_lexer_decimalint(self);
 				return TRUE;
-			} else if (isalpha(SYM)) {
+			} else if (tools_isAlpha(SYM)) {
 				uint8_t index;
 				uint8_t *pos =
 				    (uint8_t*) self->string_to_parse +

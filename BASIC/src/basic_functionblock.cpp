@@ -103,11 +103,11 @@ FunctionBlock::general_func(Interpreter &i, _funcReal f)
 {
 	Parser::Value v(Real(0));
 	i.popValue(v);
-	if (v.type == Parser::Value::INTEGER ||
+	if (v.type() == Parser::Value::INTEGER ||
 #if USE_LONGINT
-	    v.type == Parser::Value::LONG_INTEGER ||
+	    v.type() == Parser::Value::LONG_INTEGER ||
 #endif
-	    v.type == Parser::Value::REAL) {
+	    v.type() == Parser::Value::REAL) {
 		v = (*f)(Real(v));
 		i.pushValue(v);
 		return true;
@@ -133,12 +133,12 @@ FunctionBlock::getIntegerFromStack(Interpreter &i, INT &num)
 {
 	Parser::Value v(Integer(0));
 	if (i.popValue(v) && (
-            v.type == Parser::Value::INTEGER
+            v.type() == Parser::Value::INTEGER
 #if USE_LONGINT
-	 || v.type == Parser::Value::LONG_INTEGER
+	 || v.type() == Parser::Value::LONG_INTEGER
 #endif
 #if USE_REALS
-	 || v.type == Parser::Value::REAL
+	 || v.type() == Parser::Value::REAL
 #endif
 	)) {
 		num  = INT(v);

@@ -117,12 +117,12 @@ Interpreter::valueFromVar(Parser::Value &v, const char *varName)
 		v = f->get<Real>();
 		break;
 #endif
-	case Parser::Value::BOOLEAN:
+	case Parser::Value::LOGICAL:
 		v = f->get<bool>();
 		break;
 	case Parser::Value::STRING:
 	{
-		v.type = Parser::Value::STRING;
+		v.setType(Parser::Value::STRING);
 		auto fr = _program.push(Program::StackFrame::STRING);
 		if (fr == nullptr) {
 			raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
@@ -553,8 +553,8 @@ Interpreter::print(const Parser::Value &v, VT100::TextAttr attr)
 {
 	AttrKeeper keeper(*this, attr);
 
-	switch (v.type) {
-	case Parser::Value::BOOLEAN:
+	switch (v.type()) {
+	case Parser::Value::LOGICAL:
 #if USE_REALS
 	case Parser::Value::REAL:
 #endif
@@ -689,9 +689,9 @@ Interpreter::run()
 void
 Interpreter::gotoLine(const Parser::Value &l)
 {
-	if (l.type != Parser::Value::INTEGER
+	if (l.type() != Parser::Value::INTEGER
 #if USE_LONGINT
-	&& l.type != Parser::Value::LONG_INTEGER
+	&& l.type() != Parser::Value::LONG_INTEGER
 #endif
 	) {
 		raiseError(DYNAMIC_ERROR, INTEGER_EXPRESSION_EXPECTED);
@@ -1214,7 +1214,7 @@ VariableFrame::size(Parser::Value::Type t)
 	else if (t == Parser::Value::REAL)
 		res += sizeof(Real);
 #endif // USE_REALS
-	else if (t == Parser::Value::BOOLEAN)
+	else if (t == Parser::Value::LOGICAL)
 		res += sizeof(bool);
 	else if (t == Parser::Value::STRING)
 		res += STRINGSIZE;
@@ -1227,7 +1227,7 @@ void
 Interpreter::set(VariableFrame &f, const Parser::Value &v)
 {
 	switch (f.type) {
-	case Parser::Value::BOOLEAN:
+	case Parser::Value::LOGICAL:
 	{
 		union
 		{
@@ -1504,7 +1504,7 @@ Interpreter::printTab(const Parser::Value &v, bool flag)
 {
 	Integer tabs;
 #if USE_REALS
-	if (v.type == Parser::Value::REAL)
+	if (v.type() == Parser::Value::REAL)
 		tabs = math<Real>::round(v.value.real);
 	else
 #endif
@@ -1818,7 +1818,7 @@ ArrayFrame::dataSize() const
 		mul *= sizeof (Real);
 		break;
 #endif
-	case Parser::Value::BOOLEAN:
+	case Parser::Value::LOGICAL:
 	{
 		uint16_t s = mul / 8;
 		if ((mul % 8) != 0)
@@ -1851,7 +1851,7 @@ ArrayFrame::get(uint16_t index, Parser::Value& v) const
 			v = get<Real>(index);
 			return true;
 #endif
-		case Parser::Value::BOOLEAN:
+		case Parser::Value::LOGICAL:
 		{
 			const uint8_t _byte = data()[index / 8];
 			v = bool((_byte >> (index % 8)) & 1);
@@ -1883,7 +1883,7 @@ ArrayFrame::set(uint16_t index, const Parser::Value &v)
 			set(index, Real(v));
 			return true;
 #endif
-		case Parser::Value::BOOLEAN:
+		case Parser::Value::LOGICAL:
 		{
 			uint8_t &_byte = data()[index / uint8_t(8)];
 			const bool _v = bool(v);
@@ -1945,7 +1945,7 @@ Interpreter::addArray(const char *name, uint8_t dim, uint16_t num)
 		uint16_t s = num / 8;
 		if ((num % 8) != 0)
 			++s;
-		t = Parser::Value::BOOLEAN;
+		t = Parser::Value::LOGICAL;
 		num = s;
 	} else { // real
 #if USE_REALS
@@ -1985,7 +1985,7 @@ Interpreter::typeFromName(const char *fname)
 		if (endsWith(fname, '%')) {
 		t = Parser::Value::INTEGER;
 	} else if (endsWith(fname, '!')) {
-		t = Parser::Value::BOOLEAN;
+		t = Parser::Value::LOGICAL;
 	} else if (endsWith(fname, '$')) {
 		t = Parser::Value::STRING;
 	} else {

@@ -105,12 +105,12 @@ InternalFunctions::func_abs(Interpreter &i)
 {
 	Parser::Value v(Integer(0));
 	i.popValue(v);
-	if (v.type == Parser::Value::INTEGER
+	if (v.type() == Parser::Value::INTEGER
 #if USE_LONGINT
-	 || v.type == Parser::Value::LONG_INTEGER
+	 || v.type() == Parser::Value::LONG_INTEGER
 #endif
 #if USE_REALS
-	 || v.type == Parser::Value::REAL
+	 || v.type() == Parser::Value::REAL
 #endif
 	    ) {
 		if (v < Parser::Value(Integer(0)))
@@ -127,7 +127,7 @@ InternalFunctions::func_asc(Interpreter &i)
 {
 	Parser::Value v;
 	i.popValue(v);
-	if (v.type == Parser::Value::STRING) {
+	if (v.type() == Parser::Value::STRING) {
 		const char *str;
 		i.popString(str);
 		v = Integer(str[0]);
@@ -146,7 +146,7 @@ InternalFunctions::func_chr(Interpreter &i)
 	i.popValue(v);
 	char buf[2] = {0,0};
 	buf[0] = Integer(v);
-	v.type = Parser::Value::STRING;
+	v.setType(Parser::Value::STRING);
 	i.pushString(buf);
 	i.pushValue(v);
 	return true;
@@ -160,7 +160,7 @@ InternalFunctions::func_get(Interpreter &i)
 	Parser::Value v;
 	char buf[2] = {0,0};
 	buf[0] = i.lastKey();
-	v.type = Parser::Value::STRING;
+	v.setType(Parser::Value::STRING);
 	i.pushString(buf);
 	i.pushValue(v);
 	return true;
@@ -179,11 +179,11 @@ InternalFunctions::func_int(Interpreter &i)
 {
 	Parser::Value v(Integer(0));
 	i.popValue(v);
-	if (v.type == Parser::Value::INTEGER
+	if (v.type() == Parser::Value::INTEGER
 #if USE_LONGINT
-	 || v.type == Parser::Value::LONG_INTEGER
+	 || v.type() == Parser::Value::LONG_INTEGER
 #endif
-	 || v.type == Parser::Value::REAL
+	 || v.type() == Parser::Value::REAL
 	    ) {
 		v = math<Real>::floor(Real(v));
 #if USE_LONGINT
@@ -207,7 +207,7 @@ InternalFunctions::func_left(Interpreter &i)
 	if (getIntegerFromStack(i, len)) {
 		Parser::Value v;
 		i.popValue(v);
-		if (v.type == Parser::Value::STRING) {
+		if (v.type() == Parser::Value::STRING) {
 			const char *str;
 			if (i.popString(str)) {
 				char buf[STRINGSIZE];
@@ -232,7 +232,7 @@ InternalFunctions::func_right(Interpreter &i)
 	if (getIntegerFromStack(i, len)) {
 		Parser::Value v;
 		i.popValue(v);
-		if (v.type == Parser::Value::STRING) {
+		if (v.type() == Parser::Value::STRING) {
 			const char *str;
 			if (i.popString(str)) {
 				char buf[STRINGSIZE];
@@ -255,7 +255,7 @@ InternalFunctions::func_len(Interpreter &i)
 {
 	Parser::Value v;
 	i.popValue(v);
-	if (v.type == Parser::Value::STRING) {
+	if (v.type() == Parser::Value::STRING) {
 		const char *str;
 		if (i.popString(str)) {
 			v = Integer(strnlen(str, STRINGSIZE));
@@ -318,7 +318,7 @@ InternalFunctions::func_str(Interpreter &i)
 	if (res >= sizeof(p.buf))
 		res = sizeof(p.buf)-1;
 	p.buf[res] = '\0';
-	v.type = Parser::Value::STRING;
+	v.setType(Parser::Value::STRING);
 	i.pushString(p.buf);
 	i.pushValue(v);
 	return true;

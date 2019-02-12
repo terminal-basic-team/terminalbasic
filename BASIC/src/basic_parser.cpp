@@ -955,8 +955,8 @@ Parser::fLogicalFinal(Value &v)
 			if (_lexer.getNext() && fSimpleExpression(v2)) {
 				if (_mode == Mode::EXECUTE) {
 #if USE_STRINGOPS
-					if (v.type == Value::STRING &&
-					   v2.type == Value::STRING)
+					if (v.type() == Value::STRING &&
+					   v2.type() == Value::STRING)
 						v = _interpreter.strCmp();
 					else
 #endif
@@ -1001,8 +1001,8 @@ Parser::fLogicalFinal(Value &v)
 				v = (v > v2) || (v == v2);
 			else if (t == Token::EQUALS) {
 #if USE_STRINGOPS
-				if (v.type == Value::STRING &&
-				    v2.type == Value::STRING)
+				if (v.type() == Value::STRING &&
+				    v2.type() == Value::STRING)
 					v = _interpreter.strCmp();
 				else
 #endif // USE_STRINGOPS
@@ -1013,8 +1013,8 @@ Parser::fLogicalFinal(Value &v)
 #endif
 			    ) {
 #if USE_STRINGOPS
-				if (v.type == Value::STRING &&
-				    v2.type == Value::STRING)
+				if (v.type() == Value::STRING &&
+				    v2.type() == Value::STRING)
 					v = !_interpreter.strCmp();
 				else
 #endif // USE_STRINGOPS
@@ -1049,8 +1049,8 @@ Parser::fSimpleExpression(Value &v)
 			if (_lexer.getNext() && fTerm(v2)) {
 				if (_mode == Mode::EXECUTE) {
 #if USE_STRINGOPS
-					if (v.type == Value::STRING &&
-						v2.type == Value::STRING)
+					if (v.type() == Value::STRING &&
+						v2.type() == Value::STRING)
 						_interpreter.strConcat();
 					else
 #endif // USE_STRINGOPS
@@ -1077,8 +1077,8 @@ Parser::fSimpleExpression(Value &v)
 				continue;
 			if ((t == Token::PLUS)) {
 #if USE_STRINGOPS
-				if (v.type == Value::STRING &&
-				    v2.type == Value::STRING)
+				if (v.type() == Value::STRING &&
+				    v2.type() == Value::STRING)
 					_interpreter.strConcat();
 				else
 #endif // USE_STRINGOPS
@@ -1298,7 +1298,7 @@ Parser::fFinal(Value &v)
 			}
 			if (_mode == EXECUTE) {
 				_interpreter.pushString(_lexer.id());
-				v.type = Value::Type::STRING;
+				v.setType(Value::Type::STRING);
 			}
 			_lexer.getNext();
 			return true;
@@ -1497,7 +1497,7 @@ Parser::fCommand()
 				Value v;
 				// String value already on stack after fExpression
 				if (fExpression(v)) {
-					if (v.type != Value::STRING)
+					if (v.type() != Value::STRING)
 						_interpreter.pushValue(v);
 				} else
 					break;

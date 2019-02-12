@@ -599,10 +599,10 @@ Lexer::decimalNumber()
 	LOG_TRACE;
 
 #if USE_LONGINT
-	_value.type = Parser::Value::LONG_INTEGER;
+	_value.setType(Parser::Value::LONG_INTEGER);
 	LongInteger *val = &_value.value.longInteger;
 #else
-	_value.type = Parser::Value::INTEGER;
+	_value.setType(Parser::Value::INTEGER);
 	Integer *val = &_value.value.integer;
 #endif // USE_LONGINT
 #if USE_REALS
@@ -613,7 +613,7 @@ Lexer::decimalNumber()
 		*val = SYM - '0';
 	while (SYM > 0) {
 #if USE_REALS
-		if (_value.type == Parser::Value::REAL) {
+		if (_value.type() == Parser::Value::REAL) {
 			next();
 			if (isdigit(SYM)) {
 				_value.value.real *= Real(10);
@@ -627,7 +627,7 @@ Lexer::decimalNumber()
 			if (isdigit(SYM)) {
 #if USE_REALS
 				if (*val > MAXINT/INT(10)) {
-					_value.type = Parser::Value::REAL;
+					_value.setType(Parser::Value::REAL);
 					_value.value.real = Real(*val);
 					_value.value.real *= Real(10);
 					_value.value.real += SYM - '0';
@@ -649,8 +649,8 @@ Lexer::decimalNumber()
 #if USE_REALS
 		case '.':
 		{
-			if (_value.type != Parser::Value::REAL) {
-				_value.type = Parser::Value::REAL;
+			if (_value.type() != Parser::Value::REAL) {
+				_value.setType(Parser::Value::REAL);
 				_value.value.real = Real(*val);
 			}
 			Real d = 1;
@@ -679,9 +679,9 @@ Lexer::decimalNumber()
 		case 'E':
 		case 'e':
 		{
-			if (_value.type == Parser::Value::INTEGER
+			if (_value.type() == Parser::Value::INTEGER
 #if USE_LONGINT
-			    || _value.type == Parser::Value::LONG_INTEGER
+			    || _value.type() == Parser::Value::LONG_INTEGER
 #endif
 			    )
 				_value = Real(_value);
@@ -692,9 +692,9 @@ Lexer::decimalNumber()
 		}
 #endif
 		default:
-			if (_value.type == Parser::Value::INTEGER
+			if (_value.type() == Parser::Value::INTEGER
 #if USE_LONGINT
-			    || _value.type == Parser::Value::LONG_INTEGER
+			    || _value.type() == Parser::Value::LONG_INTEGER
 #endif
 			    )
 				_token = Token::C_INTEGER;
@@ -711,9 +711,9 @@ void
 Lexer::binaryInteger()
 {
 #if USE_LONGINT
-	_value.type = Parser::Value::LONG_INTEGER;
+	_value.setType(Parser::Value::LONG_INTEGER);
 #else
-	_value.type = Parser::Value::INTEGER;
+	_value.setType(Parser::Value::INTEGER);
 #endif
 	union {
 		char buf[sizeof(INT)];
@@ -734,7 +734,7 @@ Lexer::binaryInteger()
 void
 Lexer::binaryReal()
 {
-	_value.type = Parser::Value::REAL;
+	_value.setType(Parser::Value::REAL);
 	union {
 		char buf[sizeof(Real)];
 		Real realVal;
@@ -809,7 +809,7 @@ Lexer::ident()
 		_token = Token::BOOL_IDENT;
 	} else
 		_token = Token::REAL_IDENT;
-	_value.type = Parser::Value::STRING;
+	_value.setType(Parser::Value::STRING);
 	_id[_valuePointer] = 0;
 }
 

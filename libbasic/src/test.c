@@ -9,8 +9,9 @@
 static BOOLEAN
 lexer_test_keywords()
 {
-	const uint8_t s[] = "AND GOSUB GOTO IF LET PRINT RETURN";
+	const uint8_t s[] = "ˆ‹ˆ\tAND CLS „‹Ÿ GOSUB GOTO …‘‹ˆ “‘’œ ‚›‚„ ‚‡‚€’ ‚‚„ “‘Š Š…–";
 	basic_token_t tokens[] = {
+		BASIC_TOKEN_OP_OR,
 		BASIC_TOKEN_OP_AND,
 		BASIC_TOKEN_COM_CLS,
 		BASIC_TOKEN_KW_FOR,
@@ -19,7 +20,10 @@ lexer_test_keywords()
 		BASIC_TOKEN_KW_IF,
 		BASIC_TOKEN_KW_LET,
 		BASIC_TOKEN_KW_PRINT,
-		BASIC_TOKEN_KW_RETURN
+		BASIC_TOKEN_KW_RETURN,
+		BASIC_TOKEN_KW_INPUT,
+		BASIC_TOKEN_COM_RUN,
+		BASIC_TOKEN_KW_END
 	};
 	basic_lexer_context_t lexer;
 	basic_lexer_init(&lexer, s);

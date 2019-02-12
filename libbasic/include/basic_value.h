@@ -75,6 +75,8 @@ basic_value_t basic_value_fromLogical(BOOLEAN);
 void basic_value_setFromLogical(basic_value_t*, BOOLEAN);
 
 
+void basic_value_pluseq(basic_value_t*, const basic_value_t*);
+
 void basic_value_minuseq(basic_value_t*, const basic_value_t*);
 
 void basic_value_multeq(basic_value_t*, const basic_value_t*);

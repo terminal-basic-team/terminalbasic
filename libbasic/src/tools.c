@@ -5,6 +5,16 @@
 
 #define FLOAT_DIGITS10 7
 
+BOOLEAN
+tools_isAlpha(uint8_t c)
+{
+	/* cp866 alpha symbols */
+	return (c >= 224 && c <= 247) ||
+	       (c >= 128 && c <= 175) ||
+	       (c >= 65 && c <= 90) ||
+	       (c >= 97 && c <= 122);
+}
+
 void
 _ftoa(float f, char *buf)
 {

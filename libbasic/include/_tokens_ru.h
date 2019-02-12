@@ -5,6 +5,7 @@
  */
 typedef enum basic_token
 {
+	BASIC_TOKEN_NOTOKEN = 0,  // 0
 	BASIC_TOKEN_OP_AND,       // 1
 #if USE_DUMP
 	BASIC_TOKEN_KW_ARRAYS,    // 2
@@ -47,7 +48,6 @@ typedef enum basic_token
 #if USE_DEFFN
 	BASIC_TOKEN_KW_FN,         // 18
 #endif
-	BASIC_TOKEN_KW_FOR,        // 19
 	BASIC_TOKEN_KW_GOSUB,      // 20
 	BASIC_TOKEN_KW_GOTO,       // 21
 #if CONF_SEPARATE_GO_TO
@@ -80,7 +80,6 @@ typedef enum basic_token
 	BASIC_TOKEN_OP_NOT,        // 36
 	BASIC_TOKEN_KW_ON,         // 37
 //	KW_OPTION,     // 38
-	BASIC_TOKEN_OP_OR,         // 39
 #if USE_RANDOM
 	BASIC_TOKEN_KW_RANDOMIZE,  // 41
 #endif
@@ -114,11 +113,12 @@ typedef enum basic_token
 #if USE_MATRIX
 	BASIC_TOKEN_KW_ZER,        // 58
 #endif
-	BASIC_TOKEN_NOTOKEN = 0,
 	BASIC_TOKEN_KW_INPUT,
 	BASIC_TOKEN_KW_RETURN,
 	BASIC_TOKEN_KW_PRINT,
+	BASIC_TOKEN_KW_FOR,
 	BASIC_TOKEN_KW_IF,
+	BASIC_TOKEN_OP_OR,
 	BASIC_TOKEN_KW_END,
 	BASIC_TOKEN_COM_RUN,
 	BASIC_TOKEN_KW_LET,
