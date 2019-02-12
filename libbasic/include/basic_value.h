@@ -83,10 +83,18 @@ void basic_value_multeq(basic_value_t*, const basic_value_t*);
 
 void basic_value_diveq(basic_value_t*, const basic_value_t*);
 
+void basic_value_poweq(basic_value_t*, const basic_value_t*);
+
+void basic_value_oreq(basic_value_t*, const basic_value_t*);
+
+void basic_value_andeq(basic_value_t*, const basic_value_t*);
+
 
 void basic_value_switchSign(basic_value_t*);
 
 BOOLEAN basic_value_equals(const basic_value_t*, const basic_value_t*);
+
+BOOLEAN basic_value_greater(const basic_value_t*, const basic_value_t*);
 
 __END_DECLS
 
