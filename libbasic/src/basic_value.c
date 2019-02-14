@@ -386,7 +386,7 @@ basic_value_poweq(basic_value_t *self, const basic_value_t *rhs)
 	{
 		long_integer_t r = 1;
 		long_integer_t i;
-		for (i = (long_integer_t)(rhs); i>0; --i)
+		for (i = basic_value_toLongInteger(rhs); i>0; --i)
 			r *= self->body.long_integer;
 		self->body.long_integer = r;
 	}

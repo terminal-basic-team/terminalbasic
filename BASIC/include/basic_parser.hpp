@@ -68,9 +68,10 @@ public:
 	 * @brief Parse a text string
 	 * @param str string to parse
 	 * @param ok successfull parsing flag
+	 * @param tok
 	 * @return end of parsed string
 	 */
-	bool parse(const char*, bool&);
+	bool parse(const uint8_t*, bool&, bool);
 
 	void stop();
 

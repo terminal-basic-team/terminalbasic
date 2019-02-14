@@ -59,12 +59,13 @@ _basic_lexer_decimalreal(basic_lexer_context_t*);
 #endif // USE_REALS
 
 void
-basic_lexer_init(basic_lexer_context_t *self, const uint8_t *str)
+basic_lexer_init(basic_lexer_context_t *self, const uint8_t *str, BOOLEAN tok)
 {
 	assert(str != NULL);
 
 	self->string_pointer = 0;
 	self->string_to_parse = str;
+	self->tokenized = tok;
 }
 
 #define SYM ((uint8_t)(self->string_to_parse[self->string_pointer]))
@@ -475,7 +476,16 @@ token_found:
 	return TRUE;
 }
 
-void
+BOOLEAN
+basic_lexer_getNext(basic_lexer_context_t* self)
+{
+	if (self->tokenized)
+		return basic_lexer_getnextTokenized(self);
+	else
+		return basic_lexer_getnextPlain(self);
+}
+
+BOOLEAN
 basic_lexer_tokenString(basic_token_t t, uint8_t *buf)
 {
 	if (t < BASIC_TOKEN_STAR) {
@@ -493,25 +503,29 @@ basic_lexer_tokenString(basic_token_t t, uint8_t *buf)
 					while ((c = pgm_read_byte(pointer++)) != ASCII_NUL)
 						*(buf++) = c;
 					*buf = 0;
-					return;
+					return TRUE;
 				} else
 					result = pointer;
 			}
 		} while (c != ASCII_ETX);
-	} else if (t < BASIC_TOKEN_INTEGER_IDENT)
+	} else if (t < BASIC_TOKEN_INTEGER_IDENT) {
 		strcpy_P((char*) buf,
 			(PGM_P) pgm_read_ptr(&(_basic_lexer_tokenStrings[
 			    (uint8_t)(t)-(uint8_t)(BASIC_TOKEN_STAR)]))
 		);
-	else
+	} else {
 		*buf = '\0';
+		return FALSE;
+	}
+	
+	return TRUE;
 }
 
 uint8_t
 basic_lexer_tokenize(basic_lexer_context_t *self, uint8_t *dst, uint8_t dstlen,
 		     const uint8_t *src)
 {
-	basic_lexer_init(self, src);
+	basic_lexer_init(self, src, FALSE);
 
 	uint8_t position = 0;
 	uint8_t lexerPosition = 0;

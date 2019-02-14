@@ -128,7 +128,7 @@
  */
 #define LANG_EN 0
 #define LANG_RU 1
-#define CONF_LANG LANG_RU
+#define CONF_LANG LANG_EN
 
 /*
  * High-level code optimisation mode

@@ -27,7 +27,7 @@
 namespace BASIC
 {
 
-class EXT_PACKED Parser::Value : public Printable
+class EXT_PACKED Parser::Value
 {
 public:
 	/**
@@ -112,9 +112,8 @@ public:
         
         basic_value_t m_value;
 	
-private:
 	// Printable interface
-	size_t printTo(Print& p) const override;
+	size_t printTo(Print& p) const;
 };
 
 } // namespace BASIC

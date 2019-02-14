@@ -131,11 +131,11 @@ Parser::stop()
 }
 
 bool
-Parser::parse(const char *s, bool &ok)
+Parser::parse(const uint8_t *s, bool &ok, bool tok)
 {
 	LOG_TRACE;
 
-	_lexer.init(s);
+	_lexer.init(s, tok);
 	_stopParse = false;
 	_error = NO_ERROR;
 	

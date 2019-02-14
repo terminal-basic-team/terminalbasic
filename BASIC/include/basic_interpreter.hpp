@@ -562,7 +562,7 @@ private:
 	// Syntactical analyzer object
 	Parser			 _parser;
 	//Input buffer
-	char			 _inputBuffer[PROGSTRINGSIZE];
+	uint8_t			 _inputBuffer[PROGSTRINGSIZE];
 	// Position in the input buffer
 	uint8_t			 _inputPosition;
 	// Input variable name string;

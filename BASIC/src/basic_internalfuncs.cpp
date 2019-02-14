@@ -314,7 +314,7 @@ InternalFunctions::func_str(Interpreter &i)
 	BufferPrint p;
 	Parser::Value v;
 	i.popValue(v);
-	size_t res = p.print(v);
+	size_t res = v.printTo(p);
 	if (res >= sizeof(p.buf))
 		res = sizeof(p.buf)-1;
 	p.buf[res] = '\0';

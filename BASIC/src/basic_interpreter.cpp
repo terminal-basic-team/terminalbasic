@@ -1,6 +1,6 @@
 /*
  * Terminal-BASIC is a lightweight BASIC-like language interpreter
- * Copyright (C) 2017-2018 Andrey V. Skvortsov <starling13@mail.ru>
+ * Copyright (C) 2017-2019 Andrey V. Skvortsov <starling13@mail.ru>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -295,7 +295,7 @@ Interpreter::step()
 		if (s != nullptr && c != char(ASCII::EOT)) {
 			bool res;
 			if (!_parser.parse(s->text + _program._current.position,
-			    res))
+			    res, true))
 				_program.getNextLine();
 			else
 				_program._current.position += _lexer.getPointer();
@@ -313,7 +313,7 @@ Interpreter::step()
 void
 Interpreter::exec()
 {
-	_lexer.init(_inputBuffer);
+	_lexer.init(_inputBuffer, false);
 	if (_inputPosition == 0 && _lexer.getNext() &&
 	    (_lexer.getToken() == Token::C_INTEGER)) {
 		Integer pLine = Integer(_lexer.getValue());
@@ -331,7 +331,7 @@ Interpreter::exec()
 		}
 	} else {
 		bool res;
-		while (_parser.parse(_inputBuffer+_inputPosition, res)) {
+		while (_parser.parse(_inputBuffer+_inputPosition, res, false)) {
 			if (!res) {
 				raiseError(STATIC_ERROR);
 				break;
@@ -431,7 +431,7 @@ Interpreter::list(uint16_t start, uint16_t stop)
 		
 		Lexer lex;
 #if LOOP_INDENT
-                lex.init(s->text);
+                lex.init(s->text, true);
 		int8_t diff = 0;
                 while (lex.getNext()) {
 			if (lex.getToken() == Token::KW_REM)
@@ -455,7 +455,7 @@ Interpreter::list(uint16_t start, uint16_t stop)
 		if (diff > 0)
 			_loopIndent += diff;
 #endif // LOOP_INDENT
-		lex.init(s->text);
+		lex.init(s->text, true);
 		while (lex.getNext()) {
 			print(lex);
 			if (lex.getToken() == Token::KW_REM) {
@@ -562,7 +562,7 @@ Interpreter::print(const Parser::Value &v, VT100::TextAttr attr)
 	case Parser::Value::LONG_INTEGER:
 #endif
 	case Parser::Value::INTEGER:
-		_output.print(v), _output.write(' ');
+		v.printTo(_output), _output.write(' ');
 		break;
 	case Parser::Value::STRING:
 	{
@@ -1121,7 +1121,7 @@ void
 Interpreter::doInput()
 {
 	Lexer l;
-	l.init(_inputBuffer);
+	l.init(_inputBuffer, false);
 	Parser::Value v(Integer(0));
 	bool neg = false;
 
@@ -1426,20 +1426,14 @@ Interpreter::print(Token t)
 {
 	char buf[10];
 	
-	if (t < Token::STAR) {
-		const uint8_t *res = Lexer::getTokenString(t,
-		    reinterpret_cast<uint8_t*>(buf));
-		if (res != nullptr)
-			print(buf, VT100::TextAttr(uint8_t(VT100::BRIGHT) |
-			    uint8_t(VT100::C_GREEN)));
-		else
-			print(ProgMemStrings::S_ERROR, VT100::TextAttr(uint8_t(VT100::BRIGHT) |
-			    uint8_t(VT100::C_RED)));
-	} else {
-		strcpy_P(buf, (PGM_P)pgm_read_ptr(&(Lexer::tokenStrings[
-		    uint8_t(t)-uint8_t(Token::STAR)])));
-		print(buf);
-	}
+	const bool res = Lexer::getTokenString(t,
+	    reinterpret_cast<uint8_t*>(buf));
+	if (res)
+		print(buf, VT100::TextAttr(uint8_t(VT100::BRIGHT) |
+		    uint8_t(VT100::C_GREEN)));
+	else
+		print(ProgMemStrings::S_ERROR, VT100::TextAttr(uint8_t(VT100::BRIGHT) |
+		    uint8_t(VT100::C_RED)));
 }
 
 #if USE_DATA

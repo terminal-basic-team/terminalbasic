@@ -30,14 +30,17 @@ typedef struct _basic_lexer_context_t
 	basic_value_t value;
 	/* scanner error */
 	basic_lexer_error_t _error;
+	
+	BOOLEAN tokenized;
 } basic_lexer_context_t;
 
 /**
  * @brief Initialize lexer by the string
  * @param self lexer context
  * @param str ASCII or tokenized basic string
+ * @param tokenized
  */
-void basic_lexer_init(basic_lexer_context_t*, const uint8_t*);
+void basic_lexer_init(basic_lexer_context_t*, const uint8_t*, BOOLEAN);
 
 /**
  * @brief Get next token from ASCII string
@@ -53,12 +56,14 @@ BOOLEAN basic_lexer_getnextPlain(basic_lexer_context_t*);
  */
 BOOLEAN basic_lexer_getnextTokenized(basic_lexer_context_t*);
 
+BOOLEAN basic_lexer_getNext(basic_lexer_context_t*);
+
 /**
  * @brief Get token text representation to buffer
  * @param t token
  * @param buf char buffer of appropriate length 
  */
-void basic_lexer_tokenString(basic_token_t, uint8_t*);
+BOOLEAN basic_lexer_tokenString(basic_token_t, uint8_t*);
 
 /**
  * @brief tokenize a string

@@ -213,12 +213,12 @@ Parser::Value::printTo(Print& p) const
 	case LOGICAL:
 	{
 		char buf[6]; // Size, sufficient to store both 'TRUE' and 'FALSE
-		const uint8_t *res;
+		bool res;
 		if (m_value.body.logical)
 			res = Lexer::getTokenString(Token::KW_TRUE, (uint8_t*)buf);
 		else
 			res = Lexer::getTokenString(Token::KW_FALSE, (uint8_t*)buf);
-		if (res != nullptr)
+		if (res)
 			return p.print(buf);
 		else
 			return 0;

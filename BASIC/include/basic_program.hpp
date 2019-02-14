@@ -48,7 +48,7 @@ public:
 		// size in bytes
 		uint8_t size;
 		// string body
-		char text[];
+		uint8_t text[];
 	};
 	
 	/**
@@ -249,7 +249,7 @@ public:
 	 * @param text
 	 * @return flag of success
 	 */
-	bool addLine(uint16_t, const char*);
+	bool addLine(uint16_t, const uint8_t*);
 	/**
 	 * @brief Remove program line
 	 * @param num line number
@@ -261,7 +261,7 @@ public:
 	 * @param text line text
 	 * @param len line length
 	 */
-	bool insert(uint16_t, const char*, uint8_t);
+	bool insert(uint16_t, const uint8_t*, uint8_t);
 	
 #if USE_EXTMEM
 	char *_text;
@@ -281,7 +281,7 @@ private:
 	 * @param len line body length
 	 * @return flag of success
 	 */
-	bool addLine(uint16_t, const char*, uint16_t);
+	bool addLine(uint16_t, const uint8_t*, uint8_t);
 	
 	// End of program text
 	Pointer _textEnd;
