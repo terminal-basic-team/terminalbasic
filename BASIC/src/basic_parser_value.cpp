@@ -230,7 +230,7 @@ Parser::Value::printTo(Print& p) const
 		char buf[15];
 #ifdef __AVR_ARCH__
 		int8_t decWhole = 1;
-		Real n = math<Real>::abs(value.real);
+		Real n = math<Real>::abs(m_value.body.real);
                 
 		if (n >= Real(1)) {
 			while (n >= Real(10)) {
@@ -246,9 +246,9 @@ Parser::Value::printTo(Print& p) const
 			}
 		}
 		if (decWhole >= -3 && decWhole <= 8)
-			::dtostrf(value.real, 14, 8 - decWhole, buf);
+			::dtostrf(m_value.body.real, 14, 8 - decWhole, buf);
 		else
-			::dtostre(value.real, buf, 7, DTOSTR_ALWAYS_SIGN);
+			::dtostre(m_value.body.real, buf, 7, DTOSTR_ALWAYS_SIGN);
 #else
 		::sprintf(buf, "%- 12.9G", m_value.body.real);
 #endif // ARDUINO
