@@ -10,9 +10,12 @@ terminalbasic_SOURCES=arduinoext.hpp \
 	Stdiostream.hpp \
 	arduino_logger.hpp \
 	ascii.hpp \
+	basic.h \
+	basic.hpp \
 	basic_arduinoio.cpp \
 	basic_arduinoio.hpp \
 	basic.cpp \
+	basic_config.h \
 	basic_exteeprom.cpp \
 	basic_exteeprom.hpp \
 	basic_functionblock.cpp \

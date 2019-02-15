@@ -6,11 +6,12 @@ VER=$(cat ./BASIC/version)
 SKETCH=./sketch/terminal-basic-$VER
 SRC_PATH=${SKETCH}/terminal-basic
 
-SRC="	./libbasic/include/basic.h
-	./libbasic/include/basic_config.h
-	./libbasic/include/basic.hpp
-	./BASIC/include/basic_common.hpp  \
-	./BASIC/src/basic_common.cpp \
+SRC="	./libbasic/include/basic.h \
+	./libbasic/include/basic_config.h \
+	./libbasic/include/_tokens_en.h \
+	./libbasic/include/_tokens_ru.h \
+	./BASIC/include/basi.hpp  \
+	./BASIC/src/basic.cpp \
 	./BASIC/include/config.hpp \
 	./BASIC/include/config_arduino.hpp \
 	./BASIC/include/basic_lexer.hpp  \

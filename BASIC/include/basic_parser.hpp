@@ -116,6 +116,9 @@ private:
 	bool fFnexec(Value&);
 #endif
 	bool fImplicitAssignment(char*);
+#if USE_PEEK_POKE
+	bool fPoke();
+#endif
 	bool fPrintList();
 	bool fPrintItem();
 	bool fExpression(Value&);

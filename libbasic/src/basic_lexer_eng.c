@@ -87,6 +87,9 @@ const uint8_t _basic_lexer_tokenTable[] PROGMEM = {
 	'N', 'O', 'T', ASCII_NUL,
 	'O', 'N', ASCII_NUL,                     // 23
 	'O', 'R', ASCII_NUL,
+#if USE_PEEK_POKE
+	'P', 'O', 'K', 'E', ASCII_NUL,
+#endif
 	'P', 'R', 'I', 'N', 'T', ASCII_NUL,
 #if USE_RANDOM
 	'R', 'A', 'N', 'D', 'O', 'M', 'I', 'Z', 'E', ASCII_NUL, //26

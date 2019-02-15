@@ -35,8 +35,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/src/basic.o \
 	${OBJECTDIR}/src/basic_arduinoio.o \
-	${OBJECTDIR}/src/basic_common.o \
 	${OBJECTDIR}/src/basic_dataparser.o \
 	${OBJECTDIR}/src/basic_exteeprom.o \
 	${OBJECTDIR}/src/basic_functionblock.o \
@@ -80,7 +80,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=../../libsdcard/libsdcard/dist/Arduino_UNO/Arduino-1.8.6-Linux/liblibsdcard.a ../../libarduinoext/dist/Arduino_uno/Arduino-1.8.6-Linux/liblibarduinoext.a ../../libps2uart/libps2uart/dist/Arduino_UNO/Arduino-Linux/liblibps2uart.a ../libbasic/libbasic_nb/dist/Arduino_UNO/Arduino-1.8.6-Linux/liblibbasic_nb.a ../../libarduino/dist/Arduino_UNO/libarduino.a
+LDLIBSOPTIONS=../../libsdcard/libsdcard/dist/Arduino_UNO/Arduino-1.8.6-Linux/liblibsdcard.a ../../libarduinoext/dist/Arduino_uno/Arduino-1.8.6-Linux/liblibarduinoext.a ../../libps2uart/libps2uart/dist/Arduino_UNO//liblibps2uart.a ../libbasic/libbasic_nb/dist/Arduino_UNO/Arduino-1.8.6-Linux/liblibbasic_nb.a ../../libarduino/dist/Arduino_UNO/libarduino.a
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -90,7 +90,7 @@ ${CND_DISTDIR}/${CND_CONF}/terminal-basic: ../../libsdcard/libsdcard/dist/Arduin
 
 ${CND_DISTDIR}/${CND_CONF}/terminal-basic: ../../libarduinoext/dist/Arduino_uno/Arduino-1.8.6-Linux/liblibarduinoext.a
 
-${CND_DISTDIR}/${CND_CONF}/terminal-basic: ../../libps2uart/libps2uart/dist/Arduino_UNO/Arduino-Linux/liblibps2uart.a
+${CND_DISTDIR}/${CND_CONF}/terminal-basic: ../../libps2uart/libps2uart/dist/Arduino_UNO//liblibps2uart.a
 
 ${CND_DISTDIR}/${CND_CONF}/terminal-basic: ../libbasic/libbasic_nb/dist/Arduino_UNO/Arduino-1.8.6-Linux/liblibbasic_nb.a
 
@@ -100,15 +100,15 @@ ${CND_DISTDIR}/${CND_CONF}/terminal-basic: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/terminal-basic ${OBJECTFILES} ${LDLIBSOPTIONS} -Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega328p
 
+${OBJECTDIR}/src/basic.o: src/basic.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -Wall -DARDUINO=10804 -DARDUINO_ARCH_AVR -DARDUINO_AVR_UNO -DF_CPU=16000000L -DNDEBUG -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/SoftwareSerial/src -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/Wire/src -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/EEPROM/src -I${ARDUINO_PATH}/libraries/SD/src -I${ARDUINO_PATH}/libraries/LiquidCrystal/src -Iinclude -I../../libarduinoext/include -I../TVoutEx -I../../libsdcard/SDCard/src -I../libbasic/include -include Arduino.h -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/basic.o src/basic.cpp
+
 ${OBJECTDIR}/src/basic_arduinoio.o: src/basic_arduinoio.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -Wall -DARDUINO=10804 -DARDUINO_ARCH_AVR -DARDUINO_AVR_UNO -DF_CPU=16000000L -DNDEBUG -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/SoftwareSerial/src -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/Wire/src -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/EEPROM/src -I${ARDUINO_PATH}/libraries/SD/src -I${ARDUINO_PATH}/libraries/LiquidCrystal/src -Iinclude -I../../libarduinoext/include -I../TVoutEx -I../../libsdcard/SDCard/src -I../libbasic/include -include Arduino.h -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/basic_arduinoio.o src/basic_arduinoio.cpp
-
-${OBJECTDIR}/src/basic_common.o: src/basic_common.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} "$@.d"
-	$(COMPILE.cc) -Wall -DARDUINO=10804 -DARDUINO_ARCH_AVR -DARDUINO_AVR_UNO -DF_CPU=16000000L -DNDEBUG -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/SoftwareSerial/src -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/Wire/src -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/EEPROM/src -I${ARDUINO_PATH}/libraries/SD/src -I${ARDUINO_PATH}/libraries/LiquidCrystal/src -Iinclude -I../../libarduinoext/include -I../TVoutEx -I../../libsdcard/SDCard/src -I../libbasic/include -include Arduino.h -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/basic_common.o src/basic_common.cpp
 
 ${OBJECTDIR}/src/basic_dataparser.o: src/basic_dataparser.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/src
@@ -219,6 +219,19 @@ ${TESTDIR}/tests/TableTest.o: tests/TableTest.cpp
 	$(COMPILE.cc) -Wall -DARDUINO=10804 -DARDUINO_ARCH_AVR -DARDUINO_AVR_UNO -DF_CPU=16000000L -DNDEBUG -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/SoftwareSerial/src -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/Wire/src -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/EEPROM/src -I${ARDUINO_PATH}/libraries/SD/src -I${ARDUINO_PATH}/libraries/LiquidCrystal/src -Iinclude -I../../libarduinoext/include -I../TVoutEx -I../../libsdcard/SDCard/src -I../libbasic/include -I. -include Arduino.h -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/TableTest.o tests/TableTest.cpp
 
 
+${OBJECTDIR}/src/basic_nomain.o: ${OBJECTDIR}/src/basic.o src/basic.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/basic.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -Wall -DARDUINO=10804 -DARDUINO_ARCH_AVR -DARDUINO_AVR_UNO -DF_CPU=16000000L -DNDEBUG -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/SoftwareSerial/src -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/Wire/src -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/EEPROM/src -I${ARDUINO_PATH}/libraries/SD/src -I${ARDUINO_PATH}/libraries/LiquidCrystal/src -Iinclude -I../../libarduinoext/include -I../TVoutEx -I../../libsdcard/SDCard/src -I../libbasic/include -include Arduino.h -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/basic_nomain.o src/basic.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/basic.o ${OBJECTDIR}/src/basic_nomain.o;\
+	fi
+
 ${OBJECTDIR}/src/basic_arduinoio_nomain.o: ${OBJECTDIR}/src/basic_arduinoio.o src/basic_arduinoio.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/basic_arduinoio.o`; \
@@ -230,19 +243,6 @@ ${OBJECTDIR}/src/basic_arduinoio_nomain.o: ${OBJECTDIR}/src/basic_arduinoio.o sr
 	    $(COMPILE.cc) -Wall -DARDUINO=10804 -DARDUINO_ARCH_AVR -DARDUINO_AVR_UNO -DF_CPU=16000000L -DNDEBUG -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/SoftwareSerial/src -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/Wire/src -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/EEPROM/src -I${ARDUINO_PATH}/libraries/SD/src -I${ARDUINO_PATH}/libraries/LiquidCrystal/src -Iinclude -I../../libarduinoext/include -I../TVoutEx -I../../libsdcard/SDCard/src -I../libbasic/include -include Arduino.h -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/basic_arduinoio_nomain.o src/basic_arduinoio.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/basic_arduinoio.o ${OBJECTDIR}/src/basic_arduinoio_nomain.o;\
-	fi
-
-${OBJECTDIR}/src/basic_common_nomain.o: ${OBJECTDIR}/src/basic_common.o src/basic_common.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/basic_common.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -Wall -DARDUINO=10804 -DARDUINO_ARCH_AVR -DARDUINO_AVR_UNO -DF_CPU=16000000L -DNDEBUG -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/SoftwareSerial/src -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/Wire/src -I${ARDUINO_PATH}/hardware/arduino/avr/libraries/EEPROM/src -I${ARDUINO_PATH}/libraries/SD/src -I${ARDUINO_PATH}/libraries/LiquidCrystal/src -Iinclude -I../../libarduinoext/include -I../TVoutEx -I../../libsdcard/SDCard/src -I../libbasic/include -include Arduino.h -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/basic_common_nomain.o src/basic_common.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/src/basic_common.o ${OBJECTDIR}/src/basic_common_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/basic_dataparser_nomain.o: ${OBJECTDIR}/src/basic_dataparser.o src/basic_dataparser.cpp 

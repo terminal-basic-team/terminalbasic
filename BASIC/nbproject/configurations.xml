@@ -2,8 +2,9 @@
 <configurationDescriptor version="100">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="include" displayName="include" projectFiles="true">
-      <itemPath>include/basic.hpp</itemPath>
       <itemPath>include/basic_arduinoio.hpp</itemPath>
+      <itemPath>include/basic_avr8io.hpp</itemPath>
+      <itemPath>include/basic_common.hpp</itemPath>
       <itemPath>include/basic_dataparser.hpp</itemPath>
       <itemPath>include/basic_exteeprom.hpp</itemPath>
       <itemPath>include/basic_functionblock.hpp</itemPath>
@@ -21,8 +22,8 @@
       <itemPath>include/config_linux.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="src" displayName="src" projectFiles="true">
-      <itemPath>src/basic.cpp</itemPath>
       <itemPath>src/basic_arduinoio.cpp</itemPath>
+      <itemPath>src/basic_common.cpp</itemPath>
       <itemPath>src/basic_dataparser.cpp</itemPath>
       <itemPath>src/basic_exteeprom.cpp</itemPath>
       <itemPath>src/basic_functionblock.cpp</itemPath>
@@ -40,7 +41,7 @@
       <itemPath>src/basic_program.cpp</itemPath>
       <itemPath>src/basic_sdfs.cpp</itemPath>
       <itemPath>src/strings_en.hpp</itemPath>
-      <itemPath>src/strings_ru.hpp</itemPath>
+      <itemPath>src/strings_ru_cp866.hpp</itemPath>
       <itemPath>src/ucbasic_main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -60,8 +61,46 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="TestFiles"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+      <logicalFolder name="f1"
+                     displayName="table test"
+                     projectFiles="true"
+                     kind="TEST">
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="ExternalFiles"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="TestFiles"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+      <logicalFolder name="f1"
+                     displayName="table test"
+                     projectFiles="true"
+                     kind="TEST">
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="ExternalFiles"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
   </logicalFolder>
   <sourceRootList>
+    <Elem>include</Elem>
+    <Elem>src</Elem>
+    <Elem>../TVoutEx</Elem>
+    <Elem>include</Elem>
+    <Elem>src</Elem>
+    <Elem>../TVoutEx</Elem>
     <Elem>include</Elem>
     <Elem>src</Elem>
     <Elem>../TVoutEx</Elem>

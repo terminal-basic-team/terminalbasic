@@ -48,6 +48,9 @@ static const uint8_t intFuncs[] PROGMEM = {
 #if USE_LEN
 	'L', 'E', 'N', ASCII_NUL,
 #endif
+#if USE_PEEK_POKE
+	'P', 'E', 'E', 'K', ASCII_NUL,
+#endif
 	'R', 'E', 'S', ASCII_NUL,
 #if USE_RIGHT
 	'R', 'I', 'G', 'H', 'T', '$', ASCII_NUL,
@@ -80,6 +83,9 @@ const FunctionBlock::function InternalFunctions::funcs[] PROGMEM = {
 #endif
 #if USE_LEN
 	InternalFunctions::func_len,
+#endif
+#if USE_PEEK_POKE
+	InternalFunctions::func_peek,
 #endif
 	InternalFunctions::func_result,
 #if USE_RIGHT
