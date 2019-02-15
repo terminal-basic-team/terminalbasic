@@ -317,7 +317,7 @@ basic_lexer_getnextPlain(basic_lexer_context_t *self)
 	/*_error = NO_ERROR;*/
 	self->_value_pointer = 0;
 	/* Iterate until end of input string */
-	while (SYM > 0) {
+	while (SYM > ASCII_NUL) {
 		switch (SYM) {
 		case '=':
 			self->token = BASIC_TOKEN_EQUALS;
@@ -479,8 +479,7 @@ basic_lexer_getnextTokenized(basic_lexer_context_t *self)
 				return FALSE;
 		}
 	}
-	++self->string_pointer;
-	return TRUE;
+	return FALSE;
 }
 
 BOOLEAN
@@ -612,6 +611,6 @@ basic_lexer_tokenize(basic_lexer_context_t *self, uint8_t *dst, uint8_t dstlen,
 		}
 		lexerPosition = self->string_pointer;
 	}
-	dst[position] = '\0';
-	return position;
+	dst[position] = ASCII_NUL;
+	return position+1;
 }
