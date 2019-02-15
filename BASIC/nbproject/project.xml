@@ -7,7 +7,7 @@
             <c-extensions/>
             <cpp-extensions>cpp</cpp-extensions>
             <header-extensions>hpp</header-extensions>
-            <sourceEncoding>IBM866</sourceEncoding>
+            <sourceEncoding>KOI8-R</sourceEncoding>
             <make-dep-projects>
                 <make-dep-project>../../libarduinoemulator</make-dep-project>
                 <make-dep-project>../../libutft</make-dep-project>
