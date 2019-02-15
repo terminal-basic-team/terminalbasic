@@ -123,12 +123,13 @@
  */
 #define USESTOPCONT       1
 
-/*
- * Localization
- */
 #define LANG_EN 0
 #define LANG_RU 1
-#define CONF_LANG LANG_EN
+
+/*
+ * Messages localization
+ */
+#define CONF_LANG LANG_RU
 
 /*
  * Lexer localization
@@ -143,4 +144,3 @@
 #define OPT           OPT_SIZE // Selected mode
 
 #endif /* BASIC_CONFIG_H */
-

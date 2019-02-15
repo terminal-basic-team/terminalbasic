@@ -79,9 +79,9 @@ namespace BASIC
 
 #if CONF_ERROR_STRINGS
 
-#if (LANG == LANG_RU)
-#include "strings_ru_koi8r.hpp"
-#elif (LANG == LANG_EN)
+#if (CONF_LANG == LANG_RU)
+#include "strings_ru.hpp"
+#elif (CONF_LANG == LANG_EN)
 #include "strings_en.hpp"
 #endif
 

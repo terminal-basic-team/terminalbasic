@@ -466,6 +466,10 @@ basic_lexer_getnextTokenized(basic_lexer_context_t *self)
 		case ASCII_DLE:
 			++self->string_pointer;
 			return _basic_lexer_tokenizedNext(self);
+		case '"':
+			++self->string_pointer;
+			_basic_lexer_stringConst(self);
+			return TRUE;
 		case ' ':
 		case '\t':
 			++self->string_pointer;
@@ -601,7 +605,7 @@ basic_lexer_tokenize(basic_lexer_context_t *self, uint8_t *dst, uint8_t dstlen,
 		else { // Other tokens
 			dst[position++] = ' ';
 			while (src[lexerPosition] == ' ' ||
-			src[lexerPosition] == '\t')
+			    src[lexerPosition] == '\t')
 				++lexerPosition;
 			const uint8_t siz = self->string_pointer - lexerPosition;
 			if ((position + siz) >= dstlen)
