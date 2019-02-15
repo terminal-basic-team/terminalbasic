@@ -23,7 +23,7 @@
 #include <inttypes.h>
 
 #include "arduinoext.hpp"
-#include "basic_common.hpp"
+#include "basic.hpp"
 #include "basic_internalfuncs.hpp"
 
 namespace BASIC

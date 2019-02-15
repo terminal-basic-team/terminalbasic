@@ -1534,8 +1534,8 @@ Parser::fForConds()
 	char vName[IDSIZE];
 	if (!fImplicitAssignment(vName) ||
 	    _lexer.getToken()!=Token::KW_TO || !_lexer.getNext() ||
-	    !fExpression(v))
-		return false;
+		    !fExpression(v))
+			return false;
 	
 	Value vStep(Integer(1));
 	if (_lexer.getToken() == Token::KW_STEP && (!_lexer.getNext() ||

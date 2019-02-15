@@ -29,36 +29,36 @@ namespace BASIC
 {
 
 static const uint8_t intFuncs[] PROGMEM = {
-	'A', 'B', 'S'+0x80,
+	'A', 'B', 'S', ASCII_NUL,
 #if USE_ASC
-	'A', 'S', 'C'+0x80,
+	'A', 'S', 'C', ASCII_NUL,
 #endif
 #if USE_CHR
-	'C', 'H', 'R', '$'+0x80,
+	'C', 'H', 'R', '$', ASCII_NUL,
 #endif
 #if USE_GET
-	'G', 'E', 'T', '$'+0x80,
+	'G', 'E', 'T', '$', ASCII_NUL,
 #endif
 #if USE_REALS
-	'I', 'N', 'T'+0x80,
+	'I', 'N', 'T', ASCII_NUL,
 #endif
 #if USE_LEFT
-	'L', 'E', 'F', 'T', '$'+0x80,
+	'L', 'E', 'F', 'T', '$', ASCII_NUL,
 #endif	
 #if USE_LEN
-	'L', 'E', 'N'+0x80,
+	'L', 'E', 'N', ASCII_NUL,
 #endif
-	'R', 'E', 'S'+0x80,
+	'R', 'E', 'S', ASCII_NUL,
 #if USE_RIGHT
-	'R', 'I', 'G', 'H', 'T', '$'+0x80,
+	'R', 'I', 'G', 'H', 'T', '$', ASCII_NUL,
 #endif
 #if USE_RANDOM
-	'R', 'N', 'D'+0x80,
+	'R', 'N', 'D', ASCII_NUL,
 #endif
-	'S', 'G', 'N'+0x80,
-        'S', 'T', 'R', '$'+0x80,
-	'T', 'I', 'M', 'E'+0x80,
-	0
+	'S', 'G', 'N', ASCII_NUL,
+        'S', 'T', 'R', '$', ASCII_NUL,
+	'T', 'I', 'M', 'E', ASCII_NUL,
+	ASCII_ETX
 };
 
 const FunctionBlock::function InternalFunctions::funcs[] PROGMEM = {

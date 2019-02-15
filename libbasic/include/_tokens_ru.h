@@ -76,7 +76,6 @@ typedef enum basic_token
 	BASIC_TOKEN_KW_MOD,        // 33
 #endif
 	BASIC_TOKEN_COM_NEW,       // 34
-	BASIC_TOKEN_KW_NEXT,       // 35
 	BASIC_TOKEN_OP_NOT,        // 36
 	BASIC_TOKEN_KW_ON,         // 37
 //	KW_OPTION,     // 38
@@ -96,12 +95,9 @@ typedef enum basic_token
 #if CONF_USE_SPC_PRINT_COM
 	BASIC_TOKEN_KW_SPC,        // 48
 #endif
-	BASIC_TOKEN_KW_STEP,       // 49
 #if USE_TEXTATTRIBUTES
 	BASIC_TOKEN_KW_TAB,        // 51
 #endif
-	BASIC_TOKEN_KW_THEN,       // 52
-	BASIC_TOKEN_KW_TO,         // 53
 #if USE_MATRIX
 	BASIC_TOKEN_KW_TRN,        // 54
 #endif
@@ -115,16 +111,20 @@ typedef enum basic_token
 #endif
 	BASIC_TOKEN_KW_INPUT,
 	BASIC_TOKEN_KW_RETURN,
+	BASIC_TOKEN_KW_NEXT,
 	BASIC_TOKEN_KW_PRINT,
 	BASIC_TOKEN_KW_FOR,
+	BASIC_TOKEN_KW_TO,
 	BASIC_TOKEN_KW_IF,
 	BASIC_TOKEN_OP_OR,
 	BASIC_TOKEN_KW_END,
 	BASIC_TOKEN_COM_RUN,
 	BASIC_TOKEN_KW_LET,
 #if USESTOPCONT
-	BASIC_TOKEN_KW_STOP,       // 50
+	BASIC_TOKEN_KW_STOP,
 #endif
+	BASIC_TOKEN_KW_THEN,
+	BASIC_TOKEN_KW_STEP,
 	// *
 	BASIC_TOKEN_STAR,          // 59
 	// /

@@ -2,7 +2,7 @@
 #include "basic_config.h"
 #include "basic.h"
 
-#if CONF_LANG == LANG_EN
+#if CONF_LEXER_LANG == LANG_EN
 
 const uint8_t _basic_lexer_symbolsShift PROGMEM = 0;
 
@@ -129,4 +129,4 @@ const uint8_t _basic_lexer_tokenTable[] PROGMEM = {
 	ASCII_ETX
 };
 
-#endif // CONF_LANG
+#endif // CONF_LEXER_LANG

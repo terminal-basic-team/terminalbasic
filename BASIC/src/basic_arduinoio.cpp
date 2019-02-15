@@ -27,12 +27,12 @@ namespace BASIC
 {
 
 static const uint8_t arduinoIOFuncs[] PROGMEM = {
-	'A', 'R', 'E', 'A', 'D', '%' + 0x80,
+	'A', 'R', 'E', 'A', 'D', '%', ASCII_NUL,
 #if USE_REALS
-	'A', 'R', 'E', 'A', 'D' + 0x80,
+	'A', 'R', 'E', 'A', 'D', ASCII_NUL,
 #endif
-	'D', 'R', 'E', 'A', 'D' + 0x80,
-	0
+	'D', 'R', 'E', 'A', 'D', ASCII_NUL,
+	ASCII_ETX
 };
 
 const FunctionBlock::function ArduinoIO::_funcs[] PROGMEM = {

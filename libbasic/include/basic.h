@@ -124,10 +124,12 @@ uint8_t *scanTable(const uint8_t*, const uint8_t[], uint8_t*);
  */
 uint8_t *scan(const uint8_t*, const uint8_t[], uint8_t*);
 
-#if CONF_LANG == LANG_EN
+#if CONF_LEXER_LANG == LANG_EN
 #include "_tokens_en.h"
-#elif CONF_LANG == LANG_RU
+#elif CONF_LEXER_LANG == LANG_RU
 #include "_tokens_ru.h"
+#else
+#error You should define CONF_LEXER_LANG to one of the supported languages
 #endif // CONF_LANG
 
 __END_DECLS

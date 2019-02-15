@@ -2,9 +2,8 @@
 <configurationDescriptor version="100">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="include" displayName="include" projectFiles="true">
-      <itemPath>../BASIC/include/basic.hpp</itemPath>
+      <itemPath>include/basic.hpp</itemPath>
       <itemPath>include/basic_arduinoio.hpp</itemPath>
-      <itemPath>include/basic_common.hpp</itemPath>
       <itemPath>include/basic_dataparser.hpp</itemPath>
       <itemPath>include/basic_exteeprom.hpp</itemPath>
       <itemPath>include/basic_functionblock.hpp</itemPath>
@@ -22,8 +21,8 @@
       <itemPath>include/config_linux.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="src" displayName="src" projectFiles="true">
+      <itemPath>src/basic.cpp</itemPath>
       <itemPath>src/basic_arduinoio.cpp</itemPath>
-      <itemPath>src/basic_common.cpp</itemPath>
       <itemPath>src/basic_dataparser.cpp</itemPath>
       <itemPath>src/basic_exteeprom.cpp</itemPath>
       <itemPath>src/basic_functionblock.cpp</itemPath>

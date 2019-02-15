@@ -131,6 +131,11 @@
 #define CONF_LANG LANG_EN
 
 /*
+ * Lexer localization
+ */
+#define CONF_LEXER_LANG LANG_RU
+
+/*
  * High-level code optimisation mode
  */
 #define OPT_SPEED     1 // Extensive use of switch/case constructs

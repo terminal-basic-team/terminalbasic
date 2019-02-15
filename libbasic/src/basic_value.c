@@ -216,8 +216,8 @@ basic_value_multeq(basic_value_t *self, const basic_value_t *rhs)
 {
 #if USE_REALS
 	if (rhs->type == BASIC_VALUE_TYPE_REAL) {
-		self->type = BASIC_VALUE_TYPE_REAL;
-		self->body.real = basic_value_toReal(self) * rhs->body.real;
+		basic_value_setFromReal(self, basic_value_toReal(self) *
+		    rhs->body.real);
 	} else
 #endif
 	switch (self->type) {
@@ -332,16 +332,16 @@ basic_value_greater(const basic_value_t* lhs, const basic_value_t* rhs)
 	switch (lhs->type) {
 #if USE_REALS
 	case BASIC_VALUE_TYPE_REAL:
-		return lhs->body.real == basic_value_toReal(rhs);
+		return lhs->body.real > basic_value_toReal(rhs);
 #endif
 #if USE_LONGINT
 	case BASIC_VALUE_TYPE_LONG_INTEGER:
-		return lhs->body.long_integer == basic_value_toLongInteger(rhs);
+		return lhs->body.long_integer > basic_value_toLongInteger(rhs);
 #endif
 	case BASIC_VALUE_TYPE_INTEGER:
-		return lhs->body.integer == basic_value_toInteger(rhs);
+		return lhs->body.integer > basic_value_toInteger(rhs);
 	case BASIC_VALUE_TYPE_LOGICAL:
-		return lhs->body.logical == basic_value_toLogical(rhs);
+		return lhs->body.logical > basic_value_toLogical(rhs);
 	default:
         	return FALSE;
 	}

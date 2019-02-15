@@ -2,7 +2,7 @@
 #include "basic_config.h"
 #include "basic.h"
 
-#if CONF_LANG == LANG_RU
+#if CONF_LEXER_LANG == LANG_RU
 
 const uint8_t _basic_lexer_symbolsShift PROGMEM = (uint8_t)('Ä')-'A';
 
@@ -76,7 +76,6 @@ const uint8_t _basic_lexer_tokenTable[] PROGMEM = {
 	'M', 'O', 'D', ASCII_NUL,                // 24
 #endif
 	'N', 'E', 'W', ASCII_NUL,                // 21
-	'N', 'E', 'X', 'T', ASCII_NUL,           // 22
 	'N', 'O', 'T', ASCII_NUL,
 	'O', 'N', ASCII_NUL,                     // 23
 #if USE_RANDOM
@@ -95,12 +94,9 @@ const uint8_t _basic_lexer_tokenTable[] PROGMEM = {
 #if CONF_USE_SPC_PRINT_COM
 	'S', 'P', 'C', ASCII_NUL,
 #endif
-	'S', 'T', 'E', 'P', ASCII_NUL,
 #if USE_TEXTATTRIBUTES
 	'T', 'A', 'B', ASCII_NUL,
 #endif
-	'T', 'H', 'E', 'N', ASCII_NUL,
-	'T', 'O', ASCII_NUL,
 #if USE_MATRIX
 	'T', 'R', 'N', ASCII_NUL,
 #endif
@@ -114,8 +110,10 @@ const uint8_t _basic_lexer_tokenTable[] PROGMEM = {
 #endif
 	'Ç', 'Ç', 'é', 'Ñ', ASCII_NUL,
 	'Ç', 'é', 'á', 'Ç', 'ê', 'Ä', 'í', ASCII_NUL,
+	'Ç', 'ë', '', ASCII_NUL,
 	'Ç', 'õ', 'Ç', 'é', 'Ñ', ASCII_NUL,
 	'Ñ', 'ã', 'ü', ASCII_NUL,
+	'Ñ', 'é', ASCII_NUL,
 	'Ö', 'ë', 'ã', 'à', ASCII_NUL,
 	'à', 'ã', 'à', ASCII_NUL,
 	'ä', 'é', 'ç', 'Ö', 'ñ', ASCII_NUL,
@@ -124,7 +122,9 @@ const uint8_t _basic_lexer_tokenTable[] PROGMEM = {
 #if USESTOPCONT
 	'ë', 'í', 'é', 'è', ASCII_NUL,
 #endif
+	'í', 'é', ASCII_NUL,
+	'ò', 'Ä', 'É', ASCII_NUL,
 	ASCII_ETX
 };
 
-#endif 
+#endif  // CONF_LEXER_LANG

@@ -471,7 +471,7 @@ basic_lexer_getnextTokenized(basic_lexer_context_t *self)
 			++self->string_pointer;
 			break;
 		default:
-			if (isalpha(SYM)) {
+			if (tools_isAlpha(SYM)) {
 				_basic_lexer_pushSym(self);
 				_basic_lexer_ident(self);
 				return TRUE;
