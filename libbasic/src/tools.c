@@ -138,6 +138,20 @@ writeU32(uint32_t num, uint8_t *buf)
 	*buf = s.bytes[0];
 }
 
+
+void
+readR32(float *num, const const uint8_t *buf)
+{
+	union R32 s;
+	
+	s.bytes[3] = *(buf++);
+	s.bytes[2] = *(buf++);
+	s.bytes[1] = *(buf++);
+	s.bytes[0] = *buf;
+	
+	*num = s.num;
+}
+
 void
 writeR32(float num, uint8_t *buf)
 {

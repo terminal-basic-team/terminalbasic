@@ -40,11 +40,11 @@ scanTable(const uint8_t *token, const uint8_t table[], uint8_t *index)
 		if (c > ct)
 			return NULL;
 		else if (ct == c) {
-			++tokPos, ++table;
 			if (c == ASCII_NUL) {
 				*index = tabPos;
 				return (uint8_t*)token+tokPos;
 			}
+			++tokPos, ++table;
 			continue;
 		} else if (ct <= ' ') {
 			*index = tabPos;

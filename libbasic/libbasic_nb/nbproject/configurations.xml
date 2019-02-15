@@ -5,7 +5,6 @@
       <itemPath>../include/_tokens_en.h</itemPath>
       <itemPath>../include/_tokens_ru.h</itemPath>
       <itemPath>../include/basic.h</itemPath>
-      <itemPath>../include/basic.hpp</itemPath>
       <itemPath>../include/basic_config.h</itemPath>
       <itemPath>../include/basic_lexer.h</itemPath>
       <itemPath>../include/basic_parser.h</itemPath>
@@ -73,8 +72,6 @@
       </item>
       <item path="../include/basic.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../include/basic.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="../include/basic_config.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/basic_lexer.h" ex="false" tool="3" flavor2="0">
@@ -133,8 +130,6 @@
       <item path="../include/_tokens_ru.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/basic.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/basic_config.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -203,8 +198,6 @@
       <item path="../include/_tokens_ru.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/basic.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/basic_config.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -279,8 +272,6 @@
       <item path="../include/_tokens_ru.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/basic.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/basic_config.h" ex="false" tool="3" flavor2="0">
       </item>

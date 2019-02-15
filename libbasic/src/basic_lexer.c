@@ -271,7 +271,7 @@ _basic_lexer_stringConst(basic_lexer_context_t *self)
 {
 	while (SYM != 0) {
 		if (SYM == '"') {
-			self->token = BASIC_TOKEN_STRING_IDENT;
+			self->token = BASIC_TOKEN_C_STRING;
 			self->_id[self->_value_pointer] = 0;
 			return;
 		}
@@ -425,17 +425,27 @@ _basic_lexer_tokenizedNext(basic_lexer_context_t *self)
 		++self->string_pointer;
 		switch (self->token) {
 		case BASIC_TOKEN_C_INTEGER :
-#if USE_LONGINT
-			self->value.type = BASIC_VALUE_TYPE_LONG_INTEGER;
-			readU32((uint32_t*)&self->value.body.long_integer,
-			     self->string_to_parse+self->string_pointer);
-#else
 			self->value.type = BASIC_VALUE_TYPE_INTEGER;
 			readU16((uint16_t*)&self->value.body.integer,
 			     self->string_to_parse+self->string_pointer);
-#endif
-			self->string_pointer += sizeof (INT);
+			self->string_pointer += sizeof (integer_t);
 			break;
+#if USE_LONGINT
+		case BASIC_TOKEN_C_LONG_INTEGER :
+			self->value.type = BASIC_VALUE_TYPE_LONG_INTEGER;
+			readU32((uint32_t*)&self->value.body.long_integer,
+			     self->string_to_parse+self->string_pointer);
+			self->string_pointer += sizeof (long_integer_t);
+			break;
+#endif
+#if USE_REALS
+		case BASIC_TOKEN_C_REAL :
+			self->value.type = BASIC_VALUE_TYPE_REAL;
+			readR32(&self->value.body.real,
+			     self->string_to_parse+self->string_pointer);
+			self->string_pointer += sizeof (real_t);
+			break;
+#endif
 		default:
 			break;
 		}
@@ -465,13 +475,10 @@ basic_lexer_getnextTokenized(basic_lexer_context_t *self)
 				_basic_lexer_pushSym(self);
 				_basic_lexer_ident(self);
 				return TRUE;
-			}
-			goto token_found; /* ? */
+			} else
+				return FALSE;
 		}
 	}
-
-	return FALSE;
-token_found:
 	++self->string_pointer;
 	return TRUE;
 }

@@ -9,29 +9,20 @@
 static BOOLEAN
 lexer_test_keywords()
 {
-	const uint8_t s[] = "àãà\tAND CLS Ñãü GOSUB GOTO Öëãà èìëíú ÇõÇéÑ ÇéáÇêÄí ÇÇéÑ èìëä äéçÖñ";
+	const uint8_t s[] = "LET A = 3";
 	basic_token_t tokens[] = {
-		BASIC_TOKEN_OP_OR,
-		BASIC_TOKEN_OP_AND,
-		BASIC_TOKEN_COM_CLS,
-		BASIC_TOKEN_KW_FOR,
-		BASIC_TOKEN_KW_GOSUB,
-		BASIC_TOKEN_KW_GOTO,
-		BASIC_TOKEN_KW_IF,
 		BASIC_TOKEN_KW_LET,
-		BASIC_TOKEN_KW_PRINT,
-		BASIC_TOKEN_KW_RETURN,
-		BASIC_TOKEN_KW_INPUT,
-		BASIC_TOKEN_COM_RUN,
-		BASIC_TOKEN_KW_END
+		BASIC_TOKEN_REAL_IDENT,
+		BASIC_TOKEN_EQUALS,
+		BASIC_TOKEN_C_INTEGER
 	};
 	basic_lexer_context_t lexer;
-	basic_lexer_init(&lexer, s);
+	basic_lexer_init(&lexer, s, FALSE);
 
 	uint8_t i;
 	uint8_t buf[16];
 	for (i = 0; i<sizeof (tokens) / sizeof (tokens[0]); ++i) {
-		if (!basic_lexer_getnextPlain(&lexer)) {
+		if (!basic_lexer_getNext(&lexer)) {
 			fprintf(stderr, "basic_lexer_getnextPlain\n");
 			return FALSE;
 		}
@@ -47,15 +38,12 @@ lexer_test_keywords()
 BOOLEAN
 lexer_test_tokenization()
 {
-	const uint8_t s[] = "40128 123456.012 .12 12. 12.32 13.1e2 13e3";
+	const uint8_t s[] = "LET A = 3";
 	basic_token_t tokens[] = {
-		BASIC_TOKEN_OP_AND,
-		BASIC_TOKEN_KW_GOSUB,
-		BASIC_TOKEN_KW_GOTO,
-		BASIC_TOKEN_KW_IF,
 		BASIC_TOKEN_KW_LET,
-		BASIC_TOKEN_KW_PRINT,
-		BASIC_TOKEN_KW_RETURN
+		BASIC_TOKEN_REAL_IDENT,
+		BASIC_TOKEN_EQUALS,
+		BASIC_TOKEN_C_INTEGER
 	};
 	uint8_t tokenized[41];
 	
@@ -63,9 +51,12 @@ lexer_test_tokenization()
 	
 	const uint8_t size = basic_lexer_tokenize(&lexer, tokenized,
 	    ARRAY_SIZE(tokenized), s);
-	basic_lexer_init(&lexer, tokenized);
-	while (basic_lexer_getnextTokenized(&lexer)) {
+	basic_lexer_init(&lexer, tokenized, TRUE);
+	while (basic_lexer_getNext(&lexer)) {
 		basic_token_t tok = lexer.token;
+		uint8_t buf[16];
+		basic_lexer_tokenString(tok, buf);
+		fprintf(stderr, "token: %s\n", buf);
 	}
 	
 	printf("Tokenized string of size %hhu\n", size);

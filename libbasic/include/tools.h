@@ -30,6 +30,8 @@ void readU32(uint32_t*, const uint8_t*);
 
 void writeU32(uint32_t, uint8_t*);
 
+void readR32(float*, const uint8_t*);
+
 void writeR32(float, uint8_t*);
 
 #define ARRAY_SIZE(a) (sizeof(a)/sizeof(a[0]))

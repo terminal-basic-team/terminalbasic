@@ -80,13 +80,13 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=../../libarduinoext/dist/Atmega_128a/Arduino-Linux/liblibarduinoext.a ../../libarduino/dist/Atmega_128a/libarduino.a
+LDLIBSOPTIONS=../../libarduinoext/dist/Atmega_128a/Arduino-1.8.6-Linux/liblibarduinoext.a ../../libarduino/dist/Atmega_128a/libarduino.a
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/basic
 
-${CND_DISTDIR}/${CND_CONF}/basic: ../../libarduinoext/dist/Atmega_128a/Arduino-Linux/liblibarduinoext.a
+${CND_DISTDIR}/${CND_CONF}/basic: ../../libarduinoext/dist/Atmega_128a/Arduino-1.8.6-Linux/liblibarduinoext.a
 
 ${CND_DISTDIR}/${CND_CONF}/basic: ../../libarduino/dist/Atmega_128a/libarduino.a
 
