@@ -141,7 +141,7 @@ Program::StackFrame::size(Type t)
 	else if (t == FOR_NEXT)
 		return (sizeof (Type) + sizeof (ForBody));
 	else if (t == STRING)
-		return (sizeof (Type) + STRINGSIZE);
+		return (sizeof (Type) + STRING_SIZE);
 	else if (t == ARRAY_DIMENSION)
 		return (sizeof (Type) + sizeof (uint16_t));
 	else if (t == ARRAY_DIMENSIONS)

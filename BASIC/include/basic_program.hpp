@@ -143,7 +143,7 @@ public:
 			uint16_t	arrayDimension;
 			ForBody		forFrame;
 			VariableBody	inputObject;
-			char		string[STRINGSIZE];
+			char		string[STRING_SIZE];
 			Parser::Value	value;
 		};
 		Body body;

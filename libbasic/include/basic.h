@@ -22,7 +22,7 @@
 #include "sys/cdefs.h"
 #include <stdint.h>
 
-#include "basic_config.h"
+#include "config.h"
 
 #if USE_REALS
 #include <math.h>
@@ -102,9 +102,6 @@ typedef float real_t;
 typedef double real_t;
 #define mf_pow pow
 #endif
-
-/* Size of the string identifiers */
-#define STRING_SIZE 72
 
 /**
  * @brief Scan token table

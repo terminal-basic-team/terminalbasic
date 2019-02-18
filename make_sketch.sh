@@ -7,10 +7,19 @@ SKETCH=./sketch/terminal-basic-$VER
 SRC_PATH=${SKETCH}/terminal-basic
 
 SRC="	./libbasic/include/basic.h \
-	./libbasic/include/basic_config.h \
+	./libbasic/src/basic.c \
+	./libbasic/include/config.h \
 	./libbasic/include/_tokens_en.h \
 	./libbasic/include/_tokens_ru.h \
-	./BASIC/include/basi.hpp  \
+	./libbasic/include/tools.h \
+	./libbasic/src/tools.c \
+	./libbasic/src/basic_lexer_en.c \
+	./libbasic/src/basic_lexer_ru.c \
+	./libbasic/include/basic_value.h \
+	./libbasic/src/basic_value.c \
+	./libbasic/include/basic_lexer.h \
+	./libbasic/src/basic_lexer.c \
+	./BASIC/include/basic.hpp  \
 	./BASIC/src/basic.cpp \
 	./BASIC/include/config.hpp \
 	./BASIC/include/config_arduino.hpp \
@@ -46,7 +55,7 @@ SRC="	./libbasic/include/basic.h \
 	./BASIC/src/basic_gfx_serial.cpp \
 	./BASIC/src/basic_sdfs.cpp \
 	./BASIC/src/strings_en.hpp \
-	./BASIC/src/strings_ru_koi8r.hpp \
+	./BASIC/src/strings_ru.hpp \
 	../libarduinoext/include/ascii.hpp \
 	../libarduinoext/include/vt100.hpp \
 	../libarduinoext/include/gfxterm.hpp \

@@ -37,7 +37,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/_ext/511e4115/basic.o \
 	${OBJECTDIR}/_ext/511e4115/basic_lexer.o \
-	${OBJECTDIR}/_ext/511e4115/basic_lexer_eng.o \
+	${OBJECTDIR}/_ext/511e4115/basic_lexer_en.o \
 	${OBJECTDIR}/_ext/511e4115/basic_lexer_ru.o \
 	${OBJECTDIR}/_ext/511e4115/basic_value.o \
 	${OBJECTDIR}/_ext/c3417bc2/e_sqrtf.o \
@@ -81,10 +81,10 @@ ${OBJECTDIR}/_ext/511e4115/basic_lexer.o: ../src/basic_lexer.c
 	${RM} "$@.d"
 	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/511e4115/basic_lexer.o ../src/basic_lexer.c
 
-${OBJECTDIR}/_ext/511e4115/basic_lexer_eng.o: ../src/basic_lexer_eng.c
+${OBJECTDIR}/_ext/511e4115/basic_lexer_en.o: ../src/basic_lexer_en.c
 	${MKDIR} -p ${OBJECTDIR}/_ext/511e4115
 	${RM} "$@.d"
-	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/511e4115/basic_lexer_eng.o ../src/basic_lexer_eng.c
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/511e4115/basic_lexer_en.o ../src/basic_lexer_en.c
 
 ${OBJECTDIR}/_ext/511e4115/basic_lexer_ru.o: ../src/basic_lexer_ru.c
 	${MKDIR} -p ${OBJECTDIR}/_ext/511e4115

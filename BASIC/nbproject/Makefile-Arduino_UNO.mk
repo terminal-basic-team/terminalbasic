@@ -80,7 +80,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=../../libsdcard/libsdcard/dist/Arduino_UNO/Arduino-1.8.6-Linux/liblibsdcard.a ../../libarduinoext/dist/Arduino_uno/Arduino-1.8.6-Linux/liblibarduinoext.a ../../libps2uart/libps2uart/dist/Arduino_UNO//liblibps2uart.a ../libbasic/libbasic_nb/dist/Arduino_UNO/Arduino-1.8.6-Linux/liblibbasic_nb.a ../../libarduino/dist/Arduino_UNO/libarduino.a
+LDLIBSOPTIONS=../../libsdcard/libsdcard/dist/Arduino_UNO/Arduino-1.8.6-Linux/liblibsdcard.a ../../libarduinoext/dist/Arduino_uno/Arduino-1.8.6-Linux/liblibarduinoext.a ../../libps2uart/libps2uart/dist/Arduino_UNO/Arduino-1.8.6-Linux/liblibps2uart.a ../libbasic/libbasic_nb/dist/Arduino_UNO/Arduino-1.8.6-Linux/liblibbasic_nb.a ../../libarduino/dist/Arduino_UNO/libarduino.a
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -90,7 +90,7 @@ ${CND_DISTDIR}/${CND_CONF}/terminal-basic: ../../libsdcard/libsdcard/dist/Arduin
 
 ${CND_DISTDIR}/${CND_CONF}/terminal-basic: ../../libarduinoext/dist/Arduino_uno/Arduino-1.8.6-Linux/liblibarduinoext.a
 
-${CND_DISTDIR}/${CND_CONF}/terminal-basic: ../../libps2uart/libps2uart/dist/Arduino_UNO//liblibps2uart.a
+${CND_DISTDIR}/${CND_CONF}/terminal-basic: ../../libps2uart/libps2uart/dist/Arduino_UNO/Arduino-1.8.6-Linux/liblibps2uart.a
 
 ${CND_DISTDIR}/${CND_CONF}/terminal-basic: ../libbasic/libbasic_nb/dist/Arduino_UNO/Arduino-1.8.6-Linux/liblibbasic_nb.a
 

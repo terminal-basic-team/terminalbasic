@@ -1,6 +1,6 @@
 /*
  * Terminal-BASIC is a lightweight BASIC-like language interpreter
- * Copyright (C) 2017-2018 Andrey V. Skvortsov <starling13@mail.ru>
+ * Copyright (C) 2017-2019 Andrey V. Skvortsov <starling13@mail.ru>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@
 
 #include <stdint.h>
 
-#include "basic_config.h"
+#include "config.h"
 
 namespace BASIC
 {
@@ -113,7 +113,7 @@ namespace BASIC
 /*
  * SDcard module
  */
-#define USESD         0
+#define USESD         1
 
 // Use text error strings
 #define CONF_ERROR_STRINGS 0
@@ -154,7 +154,7 @@ namespace BASIC
 /*
  * GFX module
  */
-#define USE_GFX          0
+#define USE_GFX          1
 #if USE_GFX
 #define SERIAL_GFX       0
 #endif
@@ -217,10 +217,10 @@ namespace BASIC
 	#define LIQCR_D3 2
 
 // Input select
-#define S_INPUT SERIAL_I
+#define S_INPUT SDL_I
 
 // Output select
-#define S_OUTPUT SERIAL_O
+#define S_OUTPUT TVOUT_O
 
 #if USE_EXTEEPROM
 	#define USE_WIRE 1
@@ -231,10 +231,7 @@ namespace BASIC
 /*
  * Max size of the program line
  */
-const uint8_t PROGSTRINGSIZE = 72;
-
-// Max size of the string constants/variables
-const uint8_t STRINGSIZE = 72;
+const uint8_t PROGSTRINGSIZE = 80;
 
 // Number of characters in variable name
 const uint8_t VARSIZE = 5;

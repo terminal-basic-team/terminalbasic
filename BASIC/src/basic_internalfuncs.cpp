@@ -216,8 +216,8 @@ InternalFunctions::func_left(Interpreter &i)
 		if (v.type() == Parser::Value::STRING) {
 			const char *str;
 			if (i.popString(str)) {
-				char buf[STRINGSIZE];
-				strncpy(buf, str, STRINGSIZE);
+				char buf[STRING_SIZE];
+				strncpy(buf, str, STRING_SIZE);
 				const uint8_t pos = min(len, strlen(str));
 				buf[pos] = char(0);
 				i.pushString(buf);
@@ -241,8 +241,8 @@ InternalFunctions::func_right(Interpreter &i)
 		if (v.type() == Parser::Value::STRING) {
 			const char *str;
 			if (i.popString(str)) {
-				char buf[STRINGSIZE];
-				strncpy(buf, str, STRINGSIZE);
+				char buf[STRING_SIZE];
+				strncpy(buf, str, STRING_SIZE);
 				const uint8_t strl = strlen(str);
 				len = min(len, strl);
 				i.pushString(buf+strl-len);
@@ -264,7 +264,7 @@ InternalFunctions::func_len(Interpreter &i)
 	if (v.type() == Parser::Value::STRING) {
 		const char *str;
 		if (i.popString(str)) {
-			v = Integer(strnlen(str, STRINGSIZE));
+			v = Integer(strnlen(str, STRING_SIZE));
 			i.pushValue(v);
 			return true;
 		}
@@ -310,7 +310,7 @@ public:
 			return -1;
 	}
 
-	char buf[STRINGSIZE];
+	char buf[STRING_SIZE];
 	uint8_t pointer;
 };
 

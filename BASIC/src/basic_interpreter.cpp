@@ -835,7 +835,7 @@ Interpreter::execFn(const char *name)
 	_program._current.position = ff->linePosition;
 	Program::Line *s = _program.current(_program._current);
 	if (s != nullptr)
-		_lexer.init(s->text + _program._current.position);
+		_lexer.init(s->text + _program._current.position, true);
 	else
 		raiseError(DYNAMIC_ERROR, INTERNAL_ERROR);
 }
@@ -922,7 +922,7 @@ Interpreter::returnFromFn()
 	}
 	Program::Line *s = _program.current(_program._current);
 	if (s != nullptr)
-		_lexer.init(s->text + _program._current.position);
+		_lexer.init(s->text + _program._current.position, true);
 	else {
 		raiseError(DYNAMIC_ERROR, INTERNAL_ERROR);
 		return;
@@ -1225,7 +1225,7 @@ VariableFrame::size(Parser::Value::Type t)
 	else if (t == Parser::Value::LOGICAL)
 		res += sizeof(bool);
 	else if (t == Parser::Value::STRING)
-		res += STRINGSIZE;
+		res += STRING_SIZE;
 
 	return res;
 #endif // OPT
@@ -1381,7 +1381,7 @@ Interpreter::writePgm(ProgMemStrings index)
 void
 Interpreter::writePgm(PGM_P str)
 {
-	char buf[STRINGSIZE];
+	char buf[STRING_SIZE];
 	strcpy_P(buf, str);
 
 	_output.print(buf);
@@ -1760,8 +1760,8 @@ Interpreter::strConcat()
 		if ((ff != nullptr) && (ff->_type == Program::StackFrame::STRING)) {
 			uint8_t l1 = strlen(ff->body.string);
 			uint8_t l2 = strlen(str1);
-			if (l1 + l2 >= STRINGSIZE)
-				l2 = STRINGSIZE - l1 - 1;
+			if (l1 + l2 >= STRING_SIZE)
+				l2 = STRING_SIZE - l1 - 1;
 			strncpy(ff->body.string + l1, str1, l2);
 			ff->body.string[l1 + l2] = 0;
 			return;
@@ -1776,7 +1776,7 @@ Interpreter::strCmp()
 	if (popString(str1)) {
 		const char *str2;
 		if (popString(str2))
-			return strncmp(str1, str2, STRINGSIZE) == 0;
+			return strncmp(str1, str2, STRING_SIZE) == 0;
 	}
 	return false;
 }

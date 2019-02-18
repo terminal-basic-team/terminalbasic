@@ -129,12 +129,15 @@
 /*
  * Messages localization
  */
-#define CONF_LANG LANG_RU
+#define CONF_LANG LANG_EN
 
 /*
  * Lexer localization
  */
-#define CONF_LEXER_LANG LANG_RU
+#define CONF_LEXER_LANG LANG_EN
+
+/* Size of the string identifiers */
+#define STRING_SIZE 72
 
 /*
  * High-level code optimisation mode
