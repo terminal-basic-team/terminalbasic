@@ -273,6 +273,7 @@ _basic_lexer_stringConst(basic_lexer_context_t *self)
 		if (SYM == '"') {
 			self->token = BASIC_TOKEN_C_STRING;
 			self->_id[self->_value_pointer] = 0;
+			++self->string_pointer;
 			return;
 		}
 		_basic_lexer_pushSym(self);
@@ -591,10 +592,7 @@ basic_lexer_tokenize(basic_lexer_context_t *self, uint8_t *dst, uint8_t dstlen,
 		else if (tok == BASIC_TOKEN_C_LONG_INTEGER) {
 			if (position+2+sizeof(long_integer_t) >= dstlen)
 				break;
-			dst[position++] = ASCII_			basic_value_setFromLogical(&self->value,
-			    self->token == BASIC_TOKEN_KW_TRUE);
-			self->token = BASIC_TOKEN_C_BOOLEAN;
-			break;DLE;
+			dst[position++] = ASCII_DLE;
 			dst[position++] = tok;
 			const long_integer_t v = self->value.body.long_integer;
 			writeU32((uint32_t)v, dst + position);

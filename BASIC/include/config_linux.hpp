@@ -55,7 +55,7 @@ const uint16_t SINGLE_PROGSIZE = PROGRAMSIZE / NUM_TERMINALS;
 const uint16_t SINGLE_PROGSIZE = PROGRAMSIZE;
 #endif
 
-}
+} // namespace BASIC
 
 // BEGIN PRIVATE
 
@@ -65,4 +65,4 @@ const uint16_t SINGLE_PROGSIZE = PROGRAMSIZE;
 
 // END PRIVATE
 
-#endif
+#endif // CONFIG_LINUX_HPP
