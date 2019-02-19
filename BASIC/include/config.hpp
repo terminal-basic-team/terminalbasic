@@ -113,7 +113,7 @@ namespace BASIC
 /*
  * SDcard module
  */
-#define USESD         1
+#define USESD         0
 
 // Use text error strings
 #define CONF_ERROR_STRINGS 0
@@ -154,7 +154,7 @@ namespace BASIC
 /*
  * GFX module
  */
-#define USE_GFX          1
+#define USE_GFX          0
 #if USE_GFX
 #define SERIAL_GFX       0
 #endif
@@ -217,10 +217,10 @@ namespace BASIC
 	#define LIQCR_D3 2
 
 // Input select
-#define S_INPUT SDL_I
+#define S_INPUT SERIALL_I
 
 // Output select
-#define S_OUTPUT TVOUT_O
+#define S_OUTPUT SERIALL_O
 
 #if USE_EXTEEPROM
 	#define USE_WIRE 1
