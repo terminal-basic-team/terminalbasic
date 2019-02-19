@@ -273,7 +273,6 @@ _basic_lexer_stringConst(basic_lexer_context_t *self)
 		if (SYM == '"') {
 			self->token = BASIC_TOKEN_C_STRING;
 			self->_id[self->_value_pointer] = 0;
-			++self->string_pointer;
 			return;
 		}
 		_basic_lexer_pushSym(self);
@@ -478,6 +477,7 @@ basic_lexer_getnextTokenized(basic_lexer_context_t *self)
 		case '"':
 			++self->string_pointer;
 			_basic_lexer_stringConst(self);
+			++self->string_pointer;
 			return TRUE;
 		case ' ':
 		case '\t':
