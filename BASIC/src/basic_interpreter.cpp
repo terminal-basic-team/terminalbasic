@@ -218,10 +218,12 @@ Interpreter::step()
 #if USE_DELAY
 	case DELAY:
 		c = char(ASCII::NUL);
-		if (_input.available() > 0)
+		if (_input.available() > 0) {
 			c = _input.read();
-		if (c == char(ASCII::EOT))
-			_state = SHELL;
+			_inputBuffer[0] = c;
+			if (c == char(ASCII::EOT))
+				_state = SHELL;
+		}
 		if (millis() >= _delayTimeout)
 			_state = _lastState;
 		break;
