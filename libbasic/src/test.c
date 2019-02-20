@@ -9,8 +9,11 @@
 static BOOLEAN
 lexer_test_keywords()
 {
-	const uint8_t s[] = "LET A = 3";
+	const uint8_t s[] = "ANDINV(LET A = 3";
 	basic_token_t tokens[] = {
+		BASIC_TOKEN_OP_AND,
+		BASIC_TOKEN_KW_INV,
+		BASIC_TOKEN_LPAREN,
 		BASIC_TOKEN_KW_LET,
 		BASIC_TOKEN_REAL_IDENT,
 		BASIC_TOKEN_EQUALS,

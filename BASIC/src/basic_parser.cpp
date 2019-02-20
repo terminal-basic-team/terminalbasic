@@ -1755,7 +1755,7 @@ Parser::fMatrixOperation()
 			return true;
 		}
 	}
-#endif
+#endif // USE_DATA
 	return false;
 }
 
