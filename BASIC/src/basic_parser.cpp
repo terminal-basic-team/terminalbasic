@@ -1517,9 +1517,10 @@ Parser::fCommand()
 		if ((c=_internal.getCommand(_lexer.id())) != nullptr) {
 			while (_lexer.getNext()) {
 				Value v;
-				// String value already on stack after fExpression
 				if (fExpression(v)) {
-					if (v.type() != Value::STRING)
+					// String value already on stack after fExpression
+					if (v.type() != Value::STRING &&
+					    _mode == EXECUTE)
 						_interpreter.pushValue(v);
 				} else
 					break;
@@ -1677,10 +1678,13 @@ Parser::fIdentifierExpr(char *varName, Value &v)
 				else if (_lexer.getToken() == Token::RPAREN) {
 					break;
 				} else {
-					if (!fExpression(arg))
+					if (fExpression(v)) {
+						// String value already on stack after fExpression
+						if (v.type() != Value::STRING &&
+						    _mode == Mode::EXECUTE)
+							_interpreter.pushValue(v);
+					} else
 						return false;
-					if (_mode == Mode::EXECUTE)
-						_interpreter.pushValue(arg);
 				}
 			} while (_lexer.getToken() == Token::COMMA);
 			_lexer.getNext();

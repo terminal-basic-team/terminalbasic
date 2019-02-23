@@ -131,31 +131,31 @@ InternalFunctions::func_abs(Interpreter &i)
 bool
 InternalFunctions::func_asc(Interpreter &i)
 {
-	Parser::Value v;
-	i.popValue(v);
-	if (v.type() == Parser::Value::STRING) {
-		const char *str;
-		i.popString(str);
+	const char *str;
+	if (i.popString(str)) {
+		Parser::Value v;
 		v = Integer(str[0]);
-		i.pushValue(v);
-		return true;
-	} else
-		return false;
+		if (i.pushValue(v))
+			return true;
+	}
+	return false;
 }
-#endif
+#endif // USE_ASC
 
 #if USE_CHR
 bool
 InternalFunctions::func_chr(Interpreter &i)
 {
-	Parser::Value v;
-	i.popValue(v);
-	char buf[2] = {0,0};
-	buf[0] = Integer(v);
-	v.setType(Parser::Value::STRING);
-	i.pushString(buf);
-	i.pushValue(v);
-	return true;
+	INT iv;
+	if (getIntegerFromStack(i, iv)) {
+		char buf[2] = { iv ,0 };
+		Parser::Value v;
+		v.setType(Parser::Value::STRING);
+		i.pushString(buf);
+		if (i.pushValue(v))
+			return true;
+	}
+	return false;
 }
 #endif
 
@@ -168,8 +168,7 @@ InternalFunctions::func_get(Interpreter &i)
 	buf[0] = i.lastKey();
 	v.setType(Parser::Value::STRING);
 	i.pushString(buf);
-	i.pushValue(v);
-	return true;
+	return i.pushValue(v);
 }
 #endif // USE_GET
 
@@ -211,19 +210,17 @@ InternalFunctions::func_left(Interpreter &i)
 {
 	INT len;
 	if (getIntegerFromStack(i, len)) {
-		Parser::Value v;
-		i.popValue(v);
-		if (v.type() == Parser::Value::STRING) {
-			const char *str;
-			if (i.popString(str)) {
-				char buf[STRING_SIZE];
-				strncpy(buf, str, STRING_SIZE);
-				const uint8_t pos = min(len, strlen(str));
-				buf[pos] = char(0);
-				i.pushString(buf);
-				i.pushValue(v);
+		const char *str;
+		if (i.popString(str)) {
+			char buf[STRING_SIZE];
+			strncpy(buf, str, STRING_SIZE);
+			const uint8_t pos = min(len, strlen(str));
+			buf[pos] = char(0);
+			i.pushString(buf);
+			Parser::Value v;
+			v.setType(Parser::Value::STRING);
+			if (i.pushValue(v))
 				return true;
-			}
 		}
 	}
 	return false;
@@ -236,19 +233,17 @@ InternalFunctions::func_right(Interpreter &i)
 {
 	INT len;
 	if (getIntegerFromStack(i, len)) {
-		Parser::Value v;
-		i.popValue(v);
-		if (v.type() == Parser::Value::STRING) {
-			const char *str;
-			if (i.popString(str)) {
-				char buf[STRING_SIZE];
-				strncpy(buf, str, STRING_SIZE);
-				const uint8_t strl = strlen(str);
-				len = min(len, strl);
-				i.pushString(buf+strl-len);
-				i.pushValue(v);
+		const char *str;
+		if (i.popString(str)) {
+			char buf[STRING_SIZE];
+			strncpy(buf, str, STRING_SIZE);
+			const uint8_t strl = strlen(str);
+			len = min(len, strl);
+			i.pushString(buf+strl-len);
+			Parser::Value v;
+			v.setType(Parser::Value::STRING);
+			if (i.pushValue(v))
 				return true;
-			}
 		}
 	}
 	return false;
@@ -259,15 +254,11 @@ InternalFunctions::func_right(Interpreter &i)
 bool
 InternalFunctions::func_len(Interpreter &i)
 {
-	Parser::Value v;
-	i.popValue(v);
-	if (v.type() == Parser::Value::STRING) {
-		const char *str;
-		if (i.popString(str)) {
-			v = Integer(strnlen(str, STRING_SIZE));
-			i.pushValue(v);
+	const char *str;
+	if (i.popString(str)) {
+		Parser::Value v(Integer(strnlen(str, STRING_SIZE)));
+		if (i.pushValue(v))
 			return true;
-		}
 	}
 	return false;
 }
