@@ -885,8 +885,8 @@ Parser::fExpression(Value &v)
 
 	while (true) {
 		const Token t = _lexer.getToken();
-		Value v2;
 		if (t == Token::OP_OR) {
+			Value v2;
 			if (!_lexer.getNext() || !fLogicalAdd(v2))
 				return false;
 			
@@ -913,8 +913,8 @@ Parser::fLogicalAdd(Value &v)
 
 	while (true) {
 		const Token t = _lexer.getToken();
-		Value v2;
 		if (t == Token::OP_AND) {
+			Value v2;
 			if (!_lexer.getNext() || !fLogicalFinal(v2))
 				return false;
 			
@@ -1574,7 +1574,6 @@ Parser::fForConds()
 				_stopParse = true;
 		}
 	}
-	
 	return true;
 }
 
