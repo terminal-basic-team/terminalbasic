@@ -611,6 +611,16 @@ basic_lexer_tokenize(basic_lexer_context_t *self, uint8_t *dst, uint8_t dstlen,
 			position += sizeof (real_t);
 		}
 #endif // USE_REALS
+		else if (tok == BASIC_TOKEN_C_BOOLEAN) {
+			/* One byte tokens need space of 2 bytes - DLE and token */
+			if (position+2 >= dstlen)
+				break;
+			dst[position++] = ASCII_DLE;
+			dst[position++] = self->value.body.logical ?
+				BASIC_TOKEN_KW_TRUE :
+				BASIC_TOKEN_KW_FALSE ;
+			lexerPosition = self->string_pointer;
+		}
 		else { // Other tokens
 			dst[position++] = ' ';
 			while (src[lexerPosition] == ' ' ||
