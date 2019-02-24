@@ -172,6 +172,20 @@ InternalFunctions::func_get(Interpreter &i)
 }
 #endif // USE_GET
 
+#if USE_PEEK_POKE
+bool
+InternalFunctions::func_peek(Interpreter &i)
+{
+	INT addr;
+	if (getIntegerFromStack(i, addr)) {
+		Parser::Value v(Integer(*((volatile uint8_t*)(addr))));
+		i.pushValue(v);
+		return true;
+	}
+	return false;
+}
+#endif // USE_PEEK_POKE
+
 bool
 InternalFunctions::func_result(Interpreter &i)
 {
