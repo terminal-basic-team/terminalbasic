@@ -53,6 +53,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/basic_parser_value.o \
 	${OBJECTDIR}/src/basic_program.o \
 	${OBJECTDIR}/src/basic_sdfs.o \
+	${OBJECTDIR}/src/test_module.o \
 	${OBJECTDIR}/src/ucbasic_main.o
 
 # Test Directory
@@ -185,6 +186,11 @@ ${OBJECTDIR}/src/basic_sdfs.o: src/basic_sdfs.cpp nbproject/Makefile-${CND_CONF}
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -O2 -Wall -s -Iinclude -I../../libarduinoext/include -I../../libarduinoemulator/include -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I../../tvoutex/TVoutEx `pkg-config --cflags posixcpp` `pkg-config --cflags sdl2` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/basic_sdfs.o src/basic_sdfs.cpp
+
+${OBJECTDIR}/src/test_module.o: src/test_module.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -O2 -Wall -s -Iinclude -I../../libarduinoext/include -I../../libarduinoemulator/include -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I../../tvoutex/TVoutEx `pkg-config --cflags posixcpp` `pkg-config --cflags sdl2` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/test_module.o src/test_module.cpp
 
 ${OBJECTDIR}/src/ucbasic_main.o: src/ucbasic_main.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/src
@@ -444,6 +450,19 @@ ${OBJECTDIR}/src/basic_sdfs_nomain.o: ${OBJECTDIR}/src/basic_sdfs.o src/basic_sd
 	    $(COMPILE.cc) -g -O2 -Wall -s -Iinclude -I../../libarduinoext/include -I../../libarduinoemulator/include -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I../../tvoutex/TVoutEx `pkg-config --cflags posixcpp` `pkg-config --cflags sdl2` -std=c++11  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/basic_sdfs_nomain.o src/basic_sdfs.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/basic_sdfs.o ${OBJECTDIR}/src/basic_sdfs_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/test_module_nomain.o: ${OBJECTDIR}/src/test_module.o src/test_module.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/test_module.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -O2 -Wall -s -Iinclude -I../../libarduinoext/include -I../../libarduinoemulator/include -I${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino -I../../tvoutex/TVoutEx `pkg-config --cflags posixcpp` `pkg-config --cflags sdl2` -std=c++11  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/test_module_nomain.o src/test_module.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/test_module.o ${OBJECTDIR}/src/test_module_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/ucbasic_main_nomain.o: ${OBJECTDIR}/src/ucbasic_main.o src/ucbasic_main.cpp 

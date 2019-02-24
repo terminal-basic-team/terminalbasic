@@ -1,6 +1,6 @@
 /*
  * Terminal-BASIC is a lightweight BASIC-like language interpreter
- * Copyright (C) 2016-2018 Andrey V. Skvortsov <starling13@mail.ru>
+ * Copyright (C) 2016-2019 Andrey V. Skvortsov <starling13@mail.ru>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -71,9 +71,13 @@
 #include "sdlstream.hpp"
 #endif
 
+#include "test_module.hpp"
+
 /**
  * Instantiating modules
  */
+
+static TestModule testModule;
 
 #if USEUTFT
 static UTFT	utft(CTE32HR, 38, 39, 40, 41);
@@ -225,6 +229,8 @@ setup()
 #if USESD
 	basic.addModule(&sdfs);
 #endif
+	
+	basic.addModule(&testModule);
 	
 	basic.init();
 #if BASIC_MULTITERMINAL

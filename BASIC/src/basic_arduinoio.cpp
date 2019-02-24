@@ -169,7 +169,6 @@ ArduinoIO::comm_notone(Interpreter &i)
 #endif
 
 #if USE_REALS
-
 Real
 ArduinoIO::aread_r(Real v)
 {
