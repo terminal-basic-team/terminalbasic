@@ -1,6 +1,6 @@
 /*
  * Terminal-BASIC is a lightweight BASIC-like language interpreter
- * Copyright (C) 2017-2018 Andrey V. Skvortsov <starling13@mail.ru>
+ * Copyright (C) 2017-2019 Andrey V. Skvortsov <starling13@mail.ru>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -217,11 +217,12 @@ Interpreter::step()
 	switch (_state) {
 #if USE_DELAY
 	case DELAY:
-		c = char(ASCII::NUL);
-		if (_input.available() > 0)
+		if (_input.available() > 0) {
 			c = _input.read();
-		if (c == char(ASCII::EOT))
-			_state = SHELL;
+			_inputBuffer[0] = c;
+			if (c == char(ASCII::EOT))
+				_state = SHELL;
+		}
 		if (millis() >= _delayTimeout)
 			_state = _lastState;
 		break;
