@@ -31,8 +31,6 @@
  * Parameters
  */
 
-// Use multiterminal mode
-#define BASIC_MULTITERMINAL       0
 #if BASIC_MULTITERMINAL
 #define NUM_TERMINALS 1
 #ifdef HAVE_HWSERIAL1

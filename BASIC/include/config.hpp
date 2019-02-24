@@ -18,7 +18,7 @@
 
 /**
  * @file config.hpp
- * @brief Configuration parameters
+ * @brief Configuration parameters, specific to Terminal-BASIC
  */
 
 #ifndef CONFIG_HPP
@@ -227,6 +227,9 @@ namespace BASIC
 #else
 	#define USE_WIRE 0
 #endif
+
+// Use multiterminal mode
+#define BASIC_MULTITERMINAL       0
 
 /*
  * Max size of the program line
