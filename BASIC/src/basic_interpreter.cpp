@@ -629,7 +629,7 @@ Interpreter::poke(Pointer a, Integer d)
 {
 	*((volatile uint8_t*)(a)) = d;
 }
-#endif
+#endif // USE_PEEK_POKE
 
 void
 Interpreter::print(Lexer &l)
