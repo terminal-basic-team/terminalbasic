@@ -48,28 +48,6 @@
                    displayName="TestFiles"
                    projectFiles="false"
                    kind="TEST_LOGICAL_FOLDER">
-      <logicalFolder name="f1"
-                     displayName="table test"
-                     projectFiles="true"
-                     kind="TEST">
-        <itemPath>tests/TableTest.cpp</itemPath>
-      </logicalFolder>
-    </logicalFolder>
-    <logicalFolder name="ExternalFiles"
-                   displayName="ExternalFiles"
-                   projectFiles="false"
-                   kind="IMPORTANT_FILES_FOLDER">
-      <itemPath>Makefile</itemPath>
-    </logicalFolder>
-    <logicalFolder name="TestFiles"
-                   displayName="TestFiles"
-                   projectFiles="false"
-                   kind="TEST_LOGICAL_FOLDER">
-      <logicalFolder name="f1"
-                     displayName="table test"
-                     projectFiles="true"
-                     kind="TEST">
-      </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="ExternalFiles"
@@ -164,21 +142,6 @@
                             group="bin"/>
         </packFileList>
       </packaging>
-      <folder path="TestFiles/f1">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f1</output>
-        </linkerTool>
-      </folder>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_avr8io.hpp" ex="false" tool="3" flavor2="0">
@@ -256,8 +219,6 @@
       <item path="src/strings_ru_cp866.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/TableTest.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Arduino_nano328" type="1">
@@ -325,21 +286,6 @@
           <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega328p</commandLine>
         </linkerTool>
       </compileType>
-      <folder path="TestFiles/f1">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f1</output>
-        </linkerTool>
-      </folder>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_avr8io.hpp" ex="false" tool="3" flavor2="0">
@@ -417,8 +363,6 @@
       <item path="src/strings_ru_cp866.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/TableTest.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Arduino_UNO" type="1">
@@ -512,21 +456,6 @@
           </makeArtifact>
         </requiredProjects>
       </compileType>
-      <folder path="TestFiles/f1">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f1</output>
-        </linkerTool>
-      </folder>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_avr8io.hpp" ex="false" tool="3" flavor2="0">
@@ -604,8 +533,6 @@
       <item path="src/strings_ru_cp866.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="tests/TableTest.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Arduino_mega2560" type="1">
@@ -720,21 +647,6 @@
           <commandLine>-Os -Wall -Wextra -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega2560</commandLine>
         </linkerTool>
       </compileType>
-      <folder path="TestFiles/f1">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f1</output>
-        </linkerTool>
-      </folder>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_avr8io.hpp" ex="false" tool="3" flavor2="0">
@@ -812,8 +724,6 @@
       <item path="src/strings_ru_cp866.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="tests/TableTest.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Atmega_128a" type="1">
@@ -877,21 +787,6 @@
           <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega128a</commandLine>
         </linkerTool>
       </compileType>
-      <folder path="TestFiles/f1">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f1</output>
-        </linkerTool>
-      </folder>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_avr8io.hpp" ex="false" tool="3" flavor2="0">
@@ -969,8 +864,6 @@
       <item path="src/strings_ru_cp866.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="tests/TableTest.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -1038,21 +931,6 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <folder path="TestFiles/f1">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f1</output>
-        </linkerTool>
-      </folder>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_avr8io.hpp" ex="false" tool="3" flavor2="0">
@@ -1131,8 +1009,6 @@
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
-      <item path="tests/TableTest.cpp" ex="false" tool="1" flavor2="0">
-      </item>
     </conf>
     <conf name="Arduino_mega2560_mainframe" type="1">
       <toolsSet>
@@ -1197,21 +1073,6 @@
           <commandLine>-Os -Wall -Wextra -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega2560</commandLine>
         </linkerTool>
       </compileType>
-      <folder path="TestFiles/f1">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f1</output>
-        </linkerTool>
-      </folder>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_avr8io.hpp" ex="false" tool="3" flavor2="0">
@@ -1290,8 +1151,6 @@
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
-      <item path="tests/TableTest.cpp" ex="false" tool="1" flavor2="0">
-      </item>
     </conf>
     <conf name="Arduino_nano168" type="1">
       <toolsSet>
@@ -1361,21 +1220,6 @@
           <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega168 -Wl,-Map,${CND_ARTIFACT_PATH_${CONF}}.map</commandLine>
         </linkerTool>
       </compileType>
-      <folder path="TestFiles/f1">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f1</output>
-        </linkerTool>
-      </folder>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_avr8io.hpp" ex="false" tool="3" flavor2="0">
@@ -1451,8 +1295,6 @@
       <item path="src/strings_ru_cp866.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/TableTest.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Atmega1284" type="1">
@@ -1563,21 +1405,6 @@
           <commandLine>-Os -Wall -Wextra -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega1284p</commandLine>
         </linkerTool>
       </compileType>
-      <folder path="TestFiles/f1">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f1</output>
-        </linkerTool>
-      </folder>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_avr8io.hpp" ex="false" tool="3" flavor2="0">
@@ -1655,8 +1482,6 @@
       <item path="src/strings_ru_cp866.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="tests/TableTest.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Arduino_mega2560_tvout" type="1">
@@ -1754,21 +1579,6 @@
           <commandLine>-Os -Wall -Wextra -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega2560</commandLine>
         </linkerTool>
       </compileType>
-      <folder path="TestFiles/f1">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f1</output>
-        </linkerTool>
-      </folder>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_avr8io.hpp" ex="false" tool="3" flavor2="0">
@@ -1847,8 +1657,6 @@
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
-      <item path="tests/TableTest.cpp" ex="false" tool="1" flavor2="0">
-      </item>
     </conf>
     <conf name="Arduino_pro328" type="1">
       <toolsSet>
@@ -1915,21 +1723,6 @@
           <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega328p</commandLine>
         </linkerTool>
       </compileType>
-      <folder path="TestFiles/f1">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f1</output>
-        </linkerTool>
-      </folder>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_avr8io.hpp" ex="false" tool="3" flavor2="0">
@@ -2008,8 +1801,6 @@
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
-      <item path="tests/TableTest.cpp" ex="false" tool="1" flavor2="0">
-      </item>
     </conf>
     <conf name="Arduino_nano168p" type="1">
       <toolsSet>
@@ -2076,21 +1867,6 @@
           <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega168p -Wl,-Map,${CND_ARTIFACT_PATH_${CONF}}.map</commandLine>
         </linkerTool>
       </compileType>
-      <folder path="TestFiles/f1">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f1</output>
-        </linkerTool>
-      </folder>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_avr8io.hpp" ex="false" tool="3" flavor2="0">
@@ -2168,8 +1944,6 @@
       <item path="src/strings_ru_cp866.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="tests/TableTest.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Arduino_DUE" type="1">
@@ -2288,21 +2062,6 @@
                             group="bin"/>
         </packFileList>
       </packaging>
-      <folder path="TestFiles/f1">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f1</output>
-        </linkerTool>
-      </folder>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_avr8io.hpp" ex="false" tool="3" flavor2="0">
@@ -2380,8 +2139,6 @@
       <item path="src/strings_ru_cp866.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="tests/TableTest.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
   </confs>
