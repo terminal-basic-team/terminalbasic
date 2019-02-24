@@ -19,7 +19,6 @@
       <itemPath>include/config.hpp</itemPath>
       <itemPath>include/config_arduino.hpp</itemPath>
       <itemPath>include/config_linux.hpp</itemPath>
-      <itemPath>include/test_module.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="src" displayName="src" projectFiles="true">
       <itemPath>src/basic.cpp</itemPath>
@@ -42,7 +41,6 @@
       <itemPath>src/basic_sdfs.cpp</itemPath>
       <itemPath>src/strings_en.hpp</itemPath>
       <itemPath>src/strings_ru.hpp</itemPath>
-      <itemPath>src/test_module.cpp</itemPath>
       <itemPath>src/ucbasic_main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -243,8 +241,6 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/test_module.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
@@ -284,8 +280,6 @@
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/test_module.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -404,8 +398,6 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/test_module.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
@@ -445,8 +437,6 @@
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/test_module.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -617,8 +607,6 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/test_module.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
@@ -658,8 +646,6 @@
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/test_module.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -827,8 +813,6 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/test_module.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
@@ -868,8 +852,6 @@
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/test_module.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -986,8 +968,6 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/test_module.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
@@ -1027,8 +1007,6 @@
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/test_module.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -1149,8 +1127,6 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/test_module.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
@@ -1190,8 +1166,6 @@
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/test_module.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -1310,8 +1284,6 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/test_module.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
@@ -1351,8 +1323,6 @@
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/test_module.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -1476,8 +1446,6 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/test_module.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
@@ -1515,8 +1483,6 @@
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/test_module.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1680,8 +1646,6 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/test_module.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
@@ -1721,8 +1685,6 @@
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/test_module.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -1873,8 +1835,6 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/test_module.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
@@ -1914,8 +1874,6 @@
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/test_module.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -2035,8 +1993,6 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/test_module.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
@@ -2076,8 +2032,6 @@
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/test_module.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -2198,8 +2152,6 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/test_module.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
@@ -2239,8 +2191,6 @@
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/test_module.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -2430,8 +2380,6 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/test_module.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
@@ -2471,8 +2419,6 @@
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/test_module.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
