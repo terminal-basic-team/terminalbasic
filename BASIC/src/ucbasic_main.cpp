@@ -71,13 +71,9 @@
 #include "sdlstream.hpp"
 #endif
 
-#include "test_module.hpp"
-
 /**
  * Instantiating modules
  */
-
-static TestModule testModule;
 
 #if USEUTFT
 static UTFT	utft(CTE32HR, 38, 39, 40, 41);
@@ -229,8 +225,6 @@ setup()
 #if USESD
 	basic.addModule(&sdfs);
 #endif
-	
-	basic.addModule(&testModule);
 	
 	basic.init();
 #if BASIC_MULTITERMINAL
