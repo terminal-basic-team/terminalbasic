@@ -40,9 +40,6 @@ typedef enum basic_token
 #if USE_MATRIX
 	BASIC_TOKEN_KW_CON,        // 7
 #endif
-#if USE_DATA
-	BASIC_TOKEN_KW_DATA,       // 8
-#endif
 #if USE_DEFFN
 	BASIC_TOKEN_KW_DEF,        // 9
 #endif
@@ -52,7 +49,6 @@ typedef enum basic_token
 #if USE_MATRIX
 	BASIC_TOKEN_KW_DET,        // 11
 #endif
-	BASIC_TOKEN_KW_DIM,        // 12
 #if USE_DIV_KW
 	BASIC_TOKEN_KW_DIV,        // 13
 #endif
@@ -77,7 +73,6 @@ typedef enum basic_token
 #if USE_MATRIX
 	BASIC_TOKEN_KW_INV,        // 26
 #endif
-	BASIC_TOKEN_COM_LIST,      // 28
 #if USE_SAVE_LOAD
 	BASIC_TOKEN_COM_LOAD,      // 29
 #endif
@@ -97,15 +92,11 @@ typedef enum basic_token
 	BASIC_TOKEN_OP_NOT,        // 36
 	BASIC_TOKEN_KW_ON,         // 37
 //	KW_OPTION,     // 38
+#if USE_PEEK_POKE
+	BASIC_TOKEN_KW_POKE,
+#endif
 #if USE_RANDOM
 	BASIC_TOKEN_KW_RANDOMIZE,  // 41
-#endif
-#if USE_DATA
-	BASIC_TOKEN_KW_READ,       // 42
-#endif
-	BASIC_TOKEN_KW_REM,        // 43
-#if USE_DATA
-	BASIC_TOKEN_KW_RESTORE,    // 44
 #endif
 #if USE_SAVE_LOAD
 	BASIC_TOKEN_COM_SAVE,      // 47
@@ -128,20 +119,32 @@ typedef enum basic_token
 	BASIC_TOKEN_KW_ZER,        // 58
 #endif
 	BASIC_TOKEN_KW_INPUT,
+#if USE_DATA
+	BASIC_TOKEN_KW_READ,
+#endif
 	BASIC_TOKEN_KW_RETURN,
-	BASIC_TOKEN_KW_NEXT,
 	BASIC_TOKEN_KW_PRINT,
+#if USE_DATA
+	BASIC_TOKEN_KW_DATA,
+#endif
 	BASIC_TOKEN_KW_FOR,
 	BASIC_TOKEN_KW_TO,
 	BASIC_TOKEN_KW_IF,
 	BASIC_TOKEN_OP_OR,
+	BASIC_TOKEN_KW_REM,
 	BASIC_TOKEN_KW_END,
+	BASIC_TOKEN_COM_LIST,
 	BASIC_TOKEN_COM_RUN,
 	BASIC_TOKEN_KW_LET,
+	BASIC_TOKEN_KW_DIM,
+#if USE_DATA
+	BASIC_TOKEN_KW_RESTORE,
+#endif
 #if USESTOPCONT
 	BASIC_TOKEN_KW_STOP,
 #endif
 	BASIC_TOKEN_KW_THEN,
+	BASIC_TOKEN_KW_NEXT,
 	BASIC_TOKEN_KW_STEP,
 	// *
 	BASIC_TOKEN_STAR,          // 59

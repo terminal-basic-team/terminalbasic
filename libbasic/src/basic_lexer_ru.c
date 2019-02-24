@@ -42,9 +42,6 @@ const uint8_t _basic_lexer_tokenTable[] PROGMEM = {
 #if USE_MATRIX
 	'C', 'O', 'N', ASCII_NUL,                // 7
 #endif
-#if USE_DATA
-	'D', 'A', 'T', 'A', ASCII_NUL,           // 8
-#endif
 #if USE_DEFFN
 	'D', 'E', 'F', ASCII_NUL,                // 9
 #endif
@@ -54,7 +51,6 @@ const uint8_t _basic_lexer_tokenTable[] PROGMEM = {
 #if USE_MATRIX
 	'D', 'E', 'T', ASCII_NUL,                // 11
 #endif
-	'D', 'I', 'M', ASCII_NUL,                // 12
 #if USE_DIV_KW
 	'D', 'I', 'V', ASCII_NUL,                // 13
 #endif
@@ -77,7 +73,6 @@ const uint8_t _basic_lexer_tokenTable[] PROGMEM = {
 	'I', 'D', 'N', ASCII_NUL,
 	'I', 'N', 'V', ASCII_NUL,
 #endif
-	'L', 'I', 'S', 'T', ASCII_NUL,           // 19
 #if USE_SAVE_LOAD
 	'L', 'O', 'A', 'D', ASCII_NUL,           // 20
 #endif
@@ -96,15 +91,11 @@ const uint8_t _basic_lexer_tokenTable[] PROGMEM = {
 	'N', 'E', 'W', ASCII_NUL,                // 21
 	'N', 'O', 'T', ASCII_NUL,
 	'O', 'N', ASCII_NUL,                     // 23
+#if USE_PEEK_POKE
+	'P', 'O', 'K', 'E', ASCII_NUL,
+#endif
 #if USE_RANDOM
 	'R', 'A', 'N', 'D', 'O', 'M', 'I', 'Z', 'E', ASCII_NUL, //26
-#endif
-#if USE_DATA
-	'R', 'E', 'A', 'D', ASCII_NUL,           // 27
-#endif
-	'R', 'E', 'M', ASCII_NUL,
-#if USE_DATA
-	'R', 'E', 'S', 'T', 'O', 'R', 'E', ASCII_NUL,
 #endif
 #if USE_SAVE_LOAD
 	'S', 'A', 'V', 'E', ASCII_NUL,
@@ -127,20 +118,32 @@ const uint8_t _basic_lexer_tokenTable[] PROGMEM = {
 	'Z', 'E', 'R',ASCII_NUL,
 #endif
 	'Ç', 'Ç', 'é', 'Ñ', ASCII_NUL,
+#if USE_DATA
+	'Ç', 'á', 'ü', 'í', 'ú', ASCII_NUL,
+#endif
 	'Ç', 'é', 'á', 'Ç', 'ê', 'Ä', 'í', ASCII_NUL,
-	'Ç', 'ë', '', ASCII_NUL,
 	'Ç', 'õ', 'Ç', 'é', 'Ñ', ASCII_NUL,
+#if USE_DATA
+	'Ñ', 'Ä', 'ç', 'ç', 'õ', 'Ö', ASCII_NUL,
+#endif
 	'Ñ', 'ã', 'ü', ASCII_NUL,
 	'Ñ', 'é', ASCII_NUL,
 	'Ö', 'ë', 'ã', 'à', ASCII_NUL,
 	'à', 'ã', 'à', ASCII_NUL,
+	'ä', 'é', 'å', ASCII_NUL,
 	'ä', 'é', 'ç', 'Ö', 'ñ', ASCII_NUL,
+	'ã', 'à', 'ë', 'í', 'Ä', 'í', 'ú',  ASCII_NUL,
 	'è', 'ì', 'ë', 'ä', ASCII_NUL,
 	'è', 'ì', 'ë', 'í', 'ú', ASCII_NUL,
+	'ê', 'Ä', 'á', 'å', 'Ö', 'ê', ASCII_NUL,
+#if USE_DATA
+	'ë', 'ç', 'é', 'Ç', 'Ä', ASCII_NUL,
+#endif
 #if USESTOPCONT
 	'ë', 'í', 'é', 'è', ASCII_NUL,
 #endif
 	'í', 'é', ASCII_NUL,
+	'ñ', 'à', 'ä', 'ã', ASCII_NUL,
 	'ò', 'Ä', 'É', ASCII_NUL,
 	ASCII_ETX
 };
