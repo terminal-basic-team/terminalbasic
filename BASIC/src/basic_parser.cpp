@@ -1530,7 +1530,8 @@ Parser::fCommand()
 				else
 					break;
 			}
-			_interpreter.execCommand(c);
+			if (_mode == EXECUTE)
+				_interpreter.execCommand(c);
 			return true;
 		}
 	default:
