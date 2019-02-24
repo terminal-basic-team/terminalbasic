@@ -1,5 +1,5 @@
 #include "test_module.hpp"
-//#include "basic_interpreter.hpp"
+#include "basic_interpreter.hpp"
 /*
 static const uint8_t testModuleFuncs[] PROGMEM = {
 	'H','Y','P','O','T',ASCII_NUL,
