@@ -1283,7 +1283,7 @@ Parser::fFinal(Value &v)
 			}
 			if (_mode == EXECUTE) {
 				_interpreter.pushString(_lexer.id());
-				v.type = Value::Type::STRING;
+				v.setType(Value::Type::STRING);
 			}
 			_lexer.getNext();
 			return true;

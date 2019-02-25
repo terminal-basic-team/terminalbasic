@@ -701,6 +701,18 @@
           <output>${CND_DISTDIR}/${CND_CONF}/terminal-basic</output>
           <linkerLibItems>
             <linkerLibProjectItem>
+              <makeArtifact PL="../libbasic/libbasic_nb"
+                            CT="3"
+                            CN="Arduino_MEGA"
+                            AC="false"
+                            BL="true"
+                            WD="../libbasic/libbasic_nb"
+                            BC="${MAKE}  -f Makefile CONF=Arduino_MEGA"
+                            CC="${MAKE}  -f Makefile CONF=Arduino_MEGA clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibbasic_nb.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
               <makeArtifact PL="../../libutft"
                             CT="3"
                             CN="Arduino_mega2560"

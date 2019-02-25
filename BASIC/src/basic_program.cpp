@@ -123,7 +123,7 @@ Program::StackFrame::size(Type t)
 	case FOR_NEXT:
 		return sizeof (Type) + sizeof (ForBody);
 	case STRING:
-		return sizeof (Type) + STRINGSIZE;
+		return sizeof (Type) + STRING_SIZE;
 	case ARRAY_DIMENSION:
 		return sizeof (Type) + sizeof (uint16_t);
 	case ARRAY_DIMENSIONS:
