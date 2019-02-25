@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <office:document xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0" xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:number="urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0" xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0" xmlns:chart="urn:oasis:names:tc:opendocument:xmlns:chart:1.0" xmlns:dr3d="urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:form="urn:oasis:names:tc:opendocument:xmlns:form:1.0" xmlns:script="urn:oasis:names:tc:opendocument:xmlns:script:1.0" xmlns:config="urn:oasis:names:tc:opendocument:xmlns:config:1.0" xmlns:ooo="http://openoffice.org/2004/office" xmlns:ooow="http://openoffice.org/2004/writer" xmlns:oooc="http://openoffice.org/2004/calc" xmlns:dom="http://www.w3.org/2001/xml-events" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rpt="http://openoffice.org/2005/report" xmlns:of="urn:oasis:names:tc:opendocument:xmlns:of:1.2" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:grddl="http://www.w3.org/2003/g/data-view#" xmlns:officeooo="http://openoffice.org/2009/office" xmlns:tableooo="http://openoffice.org/2009/table" xmlns:drawooo="http://openoffice.org/2010/draw" xmlns:calcext="urn:org:documentfoundation:names:experimental:calc:xmlns:calcext:1.0" xmlns:loext="urn:org:documentfoundation:names:experimental:office:xmlns:loext:1.0" xmlns:field="urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0" xmlns:formx="urn:openoffice:names:experimental:ooxml-odf-interop:xmlns:form:1.0" xmlns:css3t="http://www.w3.org/TR/css3-text/" office:version="1.2" office:mimetype="application/vnd.oasis.opendocument.text">
- <office:meta><meta:creation-date>2017-03-07T15:50:50.134093808</meta:creation-date><dc:date>2019-02-24T16:07:50.174091225</dc:date><meta:editing-duration>PT6H19M40S</meta:editing-duration><meta:editing-cycles>70</meta:editing-cycles><meta:generator>LibreOffice/5.2.7.2$Linux_X86_64 LibreOffice_project/20m0$Build-2</meta:generator><dc:title>Terminal-BASIC: Справочное руководство</dc:title><dc:creator>Андрей Викторович Скворцов</dc:creator><meta:document-statistic meta:table-count="1" meta:image-count="0" meta:object-count="1" meta:page-count="14" meta:paragraph-count="403" meta:word-count="1486" meta:character-count="11055" meta:non-whitespace-character-count="9769"/></office:meta>
+ <office:meta><meta:creation-date>2017-03-07T15:50:50.134093808</meta:creation-date><dc:date>2019-02-24T16:27:55.229068928</dc:date><meta:editing-duration>PT6H20M41S</meta:editing-duration><meta:editing-cycles>72</meta:editing-cycles><meta:generator>LibreOffice/5.2.7.2$Linux_X86_64 LibreOffice_project/20m0$Build-2</meta:generator><dc:title>Terminal-BASIC: Справочное руководство</dc:title><dc:creator>Андрей Викторович Скворцов</dc:creator><meta:document-statistic meta:table-count="1" meta:image-count="0" meta:object-count="1" meta:page-count="14" meta:paragraph-count="404" meta:word-count="1487" meta:character-count="11063" meta:non-whitespace-character-count="9777"/></office:meta>
  <office:settings>
   <config:config-item-set config:name="ooo:view-settings">
-   <config:config-item config:name="ViewAreaTop" config:type="long">188588</config:config-item>
+   <config:config-item config:name="ViewAreaTop" config:type="long">2598</config:config-item>
    <config:config-item config:name="ViewAreaLeft" config:type="long">0</config:config-item>
    <config:config-item config:name="ViewAreaWidth" config:type="long">29642</config:config-item>
-   <config:config-item config:name="ViewAreaHeight" config:type="long">18394</config:config-item>
+   <config:config-item config:name="ViewAreaHeight" config:type="long">19138</config:config-item>
    <config:config-item config:name="ShowRedlineChanges" config:type="boolean">true</config:config-item>
    <config:config-item config:name="InBrowseMode" config:type="boolean">false</config:config-item>
    <config:config-item-map-indexed config:name="Views">
     <config:config-item-map-entry>
      <config:config-item config:name="ViewId" config:type="string">view2</config:config-item>
-     <config:config-item config:name="ViewLeft" config:type="long">16958</config:config-item>
-     <config:config-item config:name="ViewTop" config:type="long">195458</config:config-item>
+     <config:config-item config:name="ViewLeft" config:type="long">16642</config:config-item>
+     <config:config-item config:name="ViewTop" config:type="long">8414</config:config-item>
      <config:config-item config:name="VisibleLeft" config:type="long">0</config:config-item>
-     <config:config-item config:name="VisibleTop" config:type="long">188588</config:config-item>
+     <config:config-item config:name="VisibleTop" config:type="long">2598</config:config-item>
      <config:config-item config:name="VisibleRight" config:type="long">29640</config:config-item>
-     <config:config-item config:name="VisibleBottom" config:type="long">206980</config:config-item>
+     <config:config-item config:name="VisibleBottom" config:type="long">21735</config:config-item>
      <config:config-item config:name="ZoomType" config:type="short">0</config:config-item>
      <config:config-item config:name="ViewLayoutColumns" config:type="short">0</config:config-item>
      <config:config-item config:name="ViewLayoutBookMode" config:type="boolean">false</config:config-item>
@@ -69,7 +69,7 @@
    <config:config-item config:name="InvertBorderSpacing" config:type="boolean">false</config:config-item>
    <config:config-item config:name="SaveGlobalDocumentLinks" config:type="boolean">false</config:config-item>
    <config:config-item config:name="TabsRelativeToIndent" config:type="boolean">true</config:config-item>
-   <config:config-item config:name="Rsid" config:type="int">3820372</config:config-item>
+   <config:config-item config:name="Rsid" config:type="int">3836757</config:config-item>
    <config:config-item config:name="PrintProspectRTL" config:type="boolean">false</config:config-item>
    <config:config-item config:name="PrintEmptyPages" config:type="boolean">false</config:config-item>
    <config:config-item config:name="ApplyUserData" config:type="boolean">true</config:config-item>
@@ -366,567 +366,570 @@
    <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
    <style:text-properties style:font-name="Liberation Sans2"/>
   </style:style>
-  <style:style style:name="P2" style:family="paragraph" style:parent-style-name="Heading">
+  <style:style style:name="P2" style:family="paragraph" style:parent-style-name="Header">
+   <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
+   <style:text-properties style:font-name="Liberation Sans2"/>
+  </style:style>
+  <style:style style:name="P3" style:family="paragraph" style:parent-style-name="Heading">
    <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
    <style:text-properties officeooo:rsid="001294f4" officeooo:paragraph-rsid="001294f4"/>
-  </style:style>
-  <style:style style:name="P3" style:family="paragraph" style:parent-style-name="Text_20_body">
-   <style:text-properties officeooo:rsid="000f4f3a" officeooo:paragraph-rsid="000f4f3a"/>
   </style:style>
   <style:style style:name="P4" style:family="paragraph" style:parent-style-name="Text_20_body">
+   <style:text-properties officeooo:rsid="000f4f3a" officeooo:paragraph-rsid="000f4f3a"/>
+  </style:style>
+  <style:style style:name="P5" style:family="paragraph" style:parent-style-name="Text_20_body">
    <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
    <style:text-properties officeooo:rsid="001294f4" officeooo:paragraph-rsid="001294f4"/>
   </style:style>
-  <style:style style:name="P5" style:family="paragraph" style:parent-style-name="Text_20_body">
+  <style:style style:name="P6" style:family="paragraph" style:parent-style-name="Text_20_body">
    <style:text-properties officeooo:rsid="00159f69" officeooo:paragraph-rsid="00159f69"/>
   </style:style>
-  <style:style style:name="P6" style:family="paragraph" style:parent-style-name="Text_20_body">
+  <style:style style:name="P7" style:family="paragraph" style:parent-style-name="Text_20_body">
    <style:text-properties officeooo:rsid="00159f69" officeooo:paragraph-rsid="0029ea79"/>
   </style:style>
-  <style:style style:name="P7" style:family="paragraph" style:parent-style-name="Text_20_body">
+  <style:style style:name="P8" style:family="paragraph" style:parent-style-name="Text_20_body">
    <style:text-properties fo:font-style="italic" officeooo:rsid="00159f69" officeooo:paragraph-rsid="00159f69" style:font-style-asian="italic" style:font-style-complex="italic"/>
   </style:style>
-  <style:style style:name="P8" style:family="paragraph" style:parent-style-name="Text_20_body">
+  <style:style style:name="P9" style:family="paragraph" style:parent-style-name="Text_20_body">
    <style:text-properties fo:font-style="italic" officeooo:rsid="00159f69" officeooo:paragraph-rsid="001eed29" style:font-style-asian="italic" style:font-style-complex="italic"/>
   </style:style>
-  <style:style style:name="P9" style:family="paragraph" style:parent-style-name="Text_20_body">
+  <style:style style:name="P10" style:family="paragraph" style:parent-style-name="Text_20_body">
    <style:text-properties fo:font-style="italic" officeooo:rsid="00159f69" officeooo:paragraph-rsid="0029ea79" style:font-style-asian="italic" style:font-style-complex="italic"/>
   </style:style>
-  <style:style style:name="P10" style:family="paragraph" style:parent-style-name="Text_20_body">
+  <style:style style:name="P11" style:family="paragraph" style:parent-style-name="Text_20_body">
    <style:text-properties fo:font-style="italic" officeooo:rsid="001607ff" officeooo:paragraph-rsid="001607ff" style:font-style-asian="italic" style:font-style-complex="italic"/>
   </style:style>
-  <style:style style:name="P11" style:family="paragraph" style:parent-style-name="Text_20_body">
+  <style:style style:name="P12" style:family="paragraph" style:parent-style-name="Text_20_body">
    <style:text-properties fo:font-style="italic" officeooo:rsid="001607ff" officeooo:paragraph-rsid="0024d269" style:font-style-asian="italic" style:font-style-complex="italic"/>
   </style:style>
-  <style:style style:name="P12" style:family="paragraph" style:parent-style-name="Text_20_body">
+  <style:style style:name="P13" style:family="paragraph" style:parent-style-name="Text_20_body">
    <style:text-properties fo:font-style="italic" officeooo:rsid="001607ff" officeooo:paragraph-rsid="0029ea79" style:font-style-asian="italic" style:font-style-complex="italic"/>
   </style:style>
-  <style:style style:name="P13" style:family="paragraph" style:parent-style-name="Text_20_body">
+  <style:style style:name="P14" style:family="paragraph" style:parent-style-name="Text_20_body">
    <style:text-properties fo:font-style="italic" officeooo:rsid="00216e8d" officeooo:paragraph-rsid="00216e8d" style:font-style-asian="italic" style:font-style-complex="italic"/>
   </style:style>
-  <style:style style:name="P14" style:family="paragraph" style:parent-style-name="Text_20_body">
+  <style:style style:name="P15" style:family="paragraph" style:parent-style-name="Text_20_body">
    <style:text-properties fo:font-style="italic" officeooo:rsid="0024d269" officeooo:paragraph-rsid="0024d269" style:font-style-asian="italic" style:font-style-complex="italic"/>
   </style:style>
-  <style:style style:name="P15" style:family="paragraph" style:parent-style-name="Text_20_body">
+  <style:style style:name="P16" style:family="paragraph" style:parent-style-name="Text_20_body">
    <style:text-properties fo:font-style="italic" officeooo:rsid="0024d269" officeooo:paragraph-rsid="0029ea79" style:font-style-asian="italic" style:font-style-complex="italic"/>
   </style:style>
-  <style:style style:name="P16" style:family="paragraph" style:parent-style-name="Text_20_body">
+  <style:style style:name="P17" style:family="paragraph" style:parent-style-name="Text_20_body">
    <style:text-properties officeooo:rsid="000d6ed4" officeooo:paragraph-rsid="000d6ed4"/>
   </style:style>
-  <style:style style:name="P17" style:family="paragraph" style:parent-style-name="Text_20_body">
+  <style:style style:name="P18" style:family="paragraph" style:parent-style-name="Text_20_body">
    <style:text-properties officeooo:rsid="001c66f2" officeooo:paragraph-rsid="001c66f2"/>
   </style:style>
-  <style:style style:name="P18" style:family="paragraph" style:parent-style-name="Text_20_body">
+  <style:style style:name="P19" style:family="paragraph" style:parent-style-name="Text_20_body">
    <style:text-properties officeooo:rsid="001da146" officeooo:paragraph-rsid="001da146"/>
   </style:style>
-  <style:style style:name="P19" style:family="paragraph" style:parent-style-name="Text_20_body">
+  <style:style style:name="P20" style:family="paragraph" style:parent-style-name="Text_20_body">
    <style:text-properties officeooo:rsid="001eed29" officeooo:paragraph-rsid="001eed29"/>
   </style:style>
-  <style:style style:name="P20" style:family="paragraph" style:parent-style-name="Text_20_body">
+  <style:style style:name="P21" style:family="paragraph" style:parent-style-name="Text_20_body">
    <style:text-properties officeooo:paragraph-rsid="001eed29"/>
   </style:style>
-  <style:style style:name="P21" style:family="paragraph" style:parent-style-name="Text_20_body">
+  <style:style style:name="P22" style:family="paragraph" style:parent-style-name="Text_20_body">
    <style:text-properties officeooo:rsid="001a8caf" officeooo:paragraph-rsid="001eed29"/>
   </style:style>
-  <style:style style:name="P22" style:family="paragraph" style:parent-style-name="Text_20_body">
+  <style:style style:name="P23" style:family="paragraph" style:parent-style-name="Text_20_body">
    <style:text-properties fo:font-style="normal" officeooo:rsid="00216e8d" officeooo:paragraph-rsid="00216e8d" style:font-style-asian="normal" style:font-style-complex="normal"/>
   </style:style>
-  <style:style style:name="P23" style:family="paragraph" style:parent-style-name="Text_20_body">
+  <style:style style:name="P24" style:family="paragraph" style:parent-style-name="Text_20_body">
    <style:text-properties fo:font-style="normal" officeooo:rsid="0029ea79" officeooo:paragraph-rsid="0029ea79" style:font-style-asian="normal" style:font-style-complex="normal"/>
   </style:style>
-  <style:style style:name="P24" style:family="paragraph" style:parent-style-name="Text_20_body">
+  <style:style style:name="P25" style:family="paragraph" style:parent-style-name="Text_20_body">
    <style:text-properties officeooo:rsid="00242327" officeooo:paragraph-rsid="00242327"/>
   </style:style>
-  <style:style style:name="P25" style:family="paragraph" style:parent-style-name="Text_20_body">
+  <style:style style:name="P26" style:family="paragraph" style:parent-style-name="Text_20_body">
    <style:text-properties officeooo:rsid="00242327" officeooo:paragraph-rsid="0029ea79"/>
   </style:style>
-  <style:style style:name="P26" style:family="paragraph" style:parent-style-name="Text_20_body">
+  <style:style style:name="P27" style:family="paragraph" style:parent-style-name="Text_20_body">
    <style:text-properties officeooo:paragraph-rsid="00242327"/>
   </style:style>
-  <style:style style:name="P27" style:family="paragraph" style:parent-style-name="Text_20_body">
+  <style:style style:name="P28" style:family="paragraph" style:parent-style-name="Text_20_body">
    <style:text-properties officeooo:rsid="0024d269" officeooo:paragraph-rsid="0024d269"/>
   </style:style>
-  <style:style style:name="P28" style:family="paragraph" style:parent-style-name="Text_20_body">
+  <style:style style:name="P29" style:family="paragraph" style:parent-style-name="Text_20_body">
    <style:text-properties officeooo:rsid="0024d269" officeooo:paragraph-rsid="0029ea79"/>
   </style:style>
-  <style:style style:name="P29" style:family="paragraph" style:parent-style-name="Text_20_body">
-   <style:paragraph-properties fo:text-align="justify" style:justify-single-word="false"/>
-   <style:text-properties officeooo:paragraph-rsid="00290e26"/>
-  </style:style>
   <style:style style:name="P30" style:family="paragraph" style:parent-style-name="Text_20_body">
-   <style:text-properties officeooo:rsid="0029ea79" officeooo:paragraph-rsid="0029ea79"/>
+   <style:paragraph-properties fo:text-align="justify" style:justify-single-word="false"/>
   </style:style>
   <style:style style:name="P31" style:family="paragraph" style:parent-style-name="Text_20_body">
    <style:paragraph-properties fo:text-align="justify" style:justify-single-word="false"/>
-   <style:text-properties officeooo:rsid="0029ea79" officeooo:paragraph-rsid="0029ea79"/>
+   <style:text-properties officeooo:paragraph-rsid="00290e26"/>
   </style:style>
   <style:style style:name="P32" style:family="paragraph" style:parent-style-name="Text_20_body">
-   <style:text-properties officeooo:paragraph-rsid="0029ea79"/>
+   <style:text-properties officeooo:rsid="0029ea79" officeooo:paragraph-rsid="0029ea79"/>
   </style:style>
   <style:style style:name="P33" style:family="paragraph" style:parent-style-name="Text_20_body">
-   <style:text-properties officeooo:paragraph-rsid="002bbef9"/>
+   <style:paragraph-properties fo:text-align="justify" style:justify-single-word="false"/>
+   <style:text-properties officeooo:rsid="0029ea79" officeooo:paragraph-rsid="0029ea79"/>
   </style:style>
   <style:style style:name="P34" style:family="paragraph" style:parent-style-name="Text_20_body">
+   <style:text-properties officeooo:paragraph-rsid="0029ea79"/>
+  </style:style>
+  <style:style style:name="P35" style:family="paragraph" style:parent-style-name="Text_20_body">
+   <style:text-properties officeooo:paragraph-rsid="002bbef9"/>
+  </style:style>
+  <style:style style:name="P36" style:family="paragraph" style:parent-style-name="Text_20_body">
    <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
    <style:text-properties fo:font-weight="bold" officeooo:rsid="002bbef9" officeooo:paragraph-rsid="002bbef9" style:font-weight-asian="bold" style:font-weight-complex="bold"/>
   </style:style>
-  <style:style style:name="P35" style:family="paragraph" style:parent-style-name="Text_20_body">
-   <style:text-properties officeooo:rsid="00302fca" officeooo:paragraph-rsid="00302fca"/>
-  </style:style>
-  <style:style style:name="P36" style:family="paragraph" style:parent-style-name="Text_20_body">
-   <style:paragraph-properties fo:text-align="justify" style:justify-single-word="false"/>
-   <style:text-properties officeooo:rsid="00302fca" officeooo:paragraph-rsid="00302fca"/>
-  </style:style>
   <style:style style:name="P37" style:family="paragraph" style:parent-style-name="Text_20_body">
-   <style:paragraph-properties fo:text-align="justify" style:justify-single-word="false"/>
-   <style:text-properties officeooo:rsid="00302fca" officeooo:paragraph-rsid="0030d3ac"/>
+   <style:text-properties officeooo:rsid="00302fca" officeooo:paragraph-rsid="00302fca"/>
   </style:style>
   <style:style style:name="P38" style:family="paragraph" style:parent-style-name="Text_20_body">
-   <style:text-properties officeooo:rsid="00302fca" officeooo:paragraph-rsid="0030d3ac"/>
+   <style:paragraph-properties fo:text-align="justify" style:justify-single-word="false"/>
+   <style:text-properties officeooo:rsid="00302fca" officeooo:paragraph-rsid="00302fca"/>
   </style:style>
   <style:style style:name="P39" style:family="paragraph" style:parent-style-name="Text_20_body">
    <style:paragraph-properties fo:text-align="justify" style:justify-single-word="false"/>
-   <style:text-properties officeooo:rsid="0030d3ac" officeooo:paragraph-rsid="003147d8"/>
+   <style:text-properties officeooo:rsid="00302fca" officeooo:paragraph-rsid="0030d3ac"/>
   </style:style>
   <style:style style:name="P40" style:family="paragraph" style:parent-style-name="Text_20_body">
-   <style:text-properties officeooo:rsid="003147d8" officeooo:paragraph-rsid="003147d8"/>
+   <style:paragraph-properties fo:text-align="justify" style:justify-single-word="false"/>
+   <style:text-properties officeooo:rsid="00302fca" officeooo:paragraph-rsid="0036a848"/>
   </style:style>
   <style:style style:name="P41" style:family="paragraph" style:parent-style-name="Text_20_body">
+   <style:text-properties officeooo:rsid="00302fca" officeooo:paragraph-rsid="0030d3ac"/>
+  </style:style>
+  <style:style style:name="P42" style:family="paragraph" style:parent-style-name="Text_20_body">
+   <style:paragraph-properties fo:text-align="justify" style:justify-single-word="false"/>
+   <style:text-properties officeooo:rsid="0030d3ac" officeooo:paragraph-rsid="003147d8"/>
+  </style:style>
+  <style:style style:name="P43" style:family="paragraph" style:parent-style-name="Text_20_body">
+   <style:text-properties officeooo:rsid="003147d8" officeooo:paragraph-rsid="003147d8"/>
+  </style:style>
+  <style:style style:name="P44" style:family="paragraph" style:parent-style-name="Text_20_body">
    <style:paragraph-properties fo:text-align="justify" style:justify-single-word="false"/>
    <style:text-properties officeooo:rsid="003147d8" officeooo:paragraph-rsid="003147d8"/>
   </style:style>
-  <style:style style:name="P42" style:family="paragraph" style:parent-style-name="Text_20_body">
+  <style:style style:name="P45" style:family="paragraph" style:parent-style-name="Text_20_body">
    <style:text-properties officeooo:rsid="003335e0" officeooo:paragraph-rsid="003335e0"/>
   </style:style>
-  <style:style style:name="P43" style:family="paragraph" style:parent-style-name="Text_20_body">
+  <style:style style:name="P46" style:family="paragraph" style:parent-style-name="Text_20_body">
    <style:paragraph-properties fo:text-align="justify" style:justify-single-word="false"/>
    <style:text-properties officeooo:rsid="003335e0" officeooo:paragraph-rsid="003335e0"/>
   </style:style>
-  <style:style style:name="P44" style:family="paragraph" style:parent-style-name="Title">
+  <style:style style:name="P47" style:family="paragraph" style:parent-style-name="Text_20_body">
+   <style:paragraph-properties fo:text-align="justify" style:justify-single-word="false"/>
+   <style:text-properties officeooo:rsid="0036a848" officeooo:paragraph-rsid="0036a848"/>
+  </style:style>
+  <style:style style:name="P48" style:family="paragraph" style:parent-style-name="Text_20_body">
+   <style:text-properties officeooo:rsid="0036a848" officeooo:paragraph-rsid="0036a848"/>
+  </style:style>
+  <style:style style:name="P49" style:family="paragraph" style:parent-style-name="Text_20_body">
+   <style:text-properties officeooo:rsid="0037d11a" officeooo:paragraph-rsid="0037d11a"/>
+  </style:style>
+  <style:style style:name="P50" style:family="paragraph" style:parent-style-name="Text_20_body">
+   <style:paragraph-properties fo:text-align="justify" style:justify-single-word="false"/>
+   <style:text-properties officeooo:rsid="0037d11a" officeooo:paragraph-rsid="0037d11a"/>
+  </style:style>
+  <style:style style:name="P51" style:family="paragraph" style:parent-style-name="Text_20_body">
+   <style:text-properties officeooo:rsid="0038d4d6" officeooo:paragraph-rsid="0038d4d6"/>
+  </style:style>
+  <style:style style:name="P52" style:family="paragraph" style:parent-style-name="Title">
    <style:text-properties officeooo:rsid="000c6bb9" officeooo:paragraph-rsid="000c6bb9"/>
   </style:style>
-  <style:style style:name="P45" style:family="paragraph" style:parent-style-name="Title">
+  <style:style style:name="P53" style:family="paragraph" style:parent-style-name="Title">
    <style:text-properties officeooo:paragraph-rsid="002d9271"/>
   </style:style>
-  <style:style style:name="P46" style:family="paragraph" style:parent-style-name="Subtitle">
+  <style:style style:name="P54" style:family="paragraph" style:parent-style-name="Subtitle">
    <style:text-properties officeooo:rsid="000c6bb9" officeooo:paragraph-rsid="000c6bb9"/>
   </style:style>
-  <style:style style:name="P47" style:family="paragraph" style:parent-style-name="Subtitle">
+  <style:style style:name="P55" style:family="paragraph" style:parent-style-name="Subtitle">
    <style:text-properties officeooo:rsid="00290e26" officeooo:paragraph-rsid="00290e26"/>
   </style:style>
-  <style:style style:name="P48" style:family="paragraph" style:parent-style-name="Contents_20_Heading">
+  <style:style style:name="P56" style:family="paragraph" style:parent-style-name="Contents_20_Heading">
    <style:paragraph-properties fo:break-before="page"/>
   </style:style>
-  <style:style style:name="P49" style:family="paragraph" style:parent-style-name="Heading_20_1">
+  <style:style style:name="P57" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:paragraph-properties fo:break-before="page"/>
   </style:style>
-  <style:style style:name="P50" style:family="paragraph" style:parent-style-name="Heading_20_1">
+  <style:style style:name="P58" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:paragraph-properties fo:break-before="page"/>
    <style:text-properties officeooo:rsid="000d6ed4" officeooo:paragraph-rsid="000d6ed4"/>
   </style:style>
-  <style:style style:name="P51" style:family="paragraph" style:parent-style-name="Heading_20_1">
+  <style:style style:name="P59" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:paragraph-properties fo:break-before="page"/>
    <style:text-properties officeooo:rsid="00159f69" officeooo:paragraph-rsid="00159f69"/>
   </style:style>
-  <style:style style:name="P52" style:family="paragraph" style:parent-style-name="Heading_20_1">
+  <style:style style:name="P60" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:paragraph-properties fo:break-before="page"/>
    <style:text-properties officeooo:rsid="0010dcfa" officeooo:paragraph-rsid="0010dcfa"/>
   </style:style>
-  <style:style style:name="P53" style:family="paragraph" style:parent-style-name="Heading_20_1">
+  <style:style style:name="P61" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:paragraph-properties fo:break-before="page"/>
    <style:text-properties officeooo:rsid="00290e26" officeooo:paragraph-rsid="00290e26"/>
   </style:style>
-  <style:style style:name="P54" style:family="paragraph" style:parent-style-name="Heading_20_1">
+  <style:style style:name="P62" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:paragraph-properties fo:break-before="page"/>
    <style:text-properties officeooo:rsid="0029ea79" officeooo:paragraph-rsid="0029ea79"/>
   </style:style>
-  <style:style style:name="P55" style:family="paragraph" style:parent-style-name="Heading_20_1">
+  <style:style style:name="P63" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:paragraph-properties fo:break-before="page"/>
    <style:text-properties officeooo:rsid="002bbef9" officeooo:paragraph-rsid="002bbef9"/>
   </style:style>
-  <style:style style:name="P56" style:family="paragraph" style:parent-style-name="Heading_20_1">
+  <style:style style:name="P64" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:paragraph-properties fo:break-before="page"/>
    <style:text-properties officeooo:rsid="002d3ef8" officeooo:paragraph-rsid="002d3ef8"/>
   </style:style>
-  <style:style style:name="P57" style:family="paragraph" style:parent-style-name="CommandLine">
+  <style:style style:name="P65" style:family="paragraph" style:parent-style-name="CommandLine">
    <style:text-properties fo:font-style="normal" officeooo:rsid="00166ef3" officeooo:paragraph-rsid="00166ef3" style:font-style-asian="normal" style:font-style-complex="normal"/>
   </style:style>
-  <style:style style:name="P58" style:family="paragraph" style:parent-style-name="CommandLine">
+  <style:style style:name="P66" style:family="paragraph" style:parent-style-name="CommandLine">
    <style:text-properties fo:font-style="normal" officeooo:rsid="00166ef3" officeooo:paragraph-rsid="0029ea79" style:font-style-asian="normal" style:font-style-complex="normal"/>
   </style:style>
-  <style:style style:name="P59" style:family="paragraph" style:parent-style-name="CommandLine">
+  <style:style style:name="P67" style:family="paragraph" style:parent-style-name="CommandLine">
    <style:text-properties fo:font-style="normal" officeooo:rsid="0029ea79" officeooo:paragraph-rsid="0029ea79" style:font-style-asian="normal" style:font-style-complex="normal"/>
   </style:style>
-  <style:style style:name="P60" style:family="paragraph" style:parent-style-name="CommandLine">
+  <style:style style:name="P68" style:family="paragraph" style:parent-style-name="CommandLine">
    <style:text-properties officeooo:rsid="00200c78" officeooo:paragraph-rsid="00200c78"/>
   </style:style>
-  <style:style style:name="P61" style:family="paragraph" style:parent-style-name="CommandLine">
+  <style:style style:name="P69" style:family="paragraph" style:parent-style-name="CommandLine">
    <style:text-properties officeooo:rsid="00200c78" officeooo:paragraph-rsid="0029ea79"/>
   </style:style>
-  <style:style style:name="P62" style:family="paragraph" style:parent-style-name="CommandLine">
+  <style:style style:name="P70" style:family="paragraph" style:parent-style-name="CommandLine">
    <style:text-properties officeooo:rsid="00216e8d" officeooo:paragraph-rsid="00216e8d"/>
   </style:style>
-  <style:style style:name="P63" style:family="paragraph" style:parent-style-name="CommandLine">
+  <style:style style:name="P71" style:family="paragraph" style:parent-style-name="CommandLine">
    <style:text-properties officeooo:rsid="00216e8d" officeooo:paragraph-rsid="0029ea79"/>
   </style:style>
-  <style:style style:name="P64" style:family="paragraph" style:parent-style-name="CommandLine">
+  <style:style style:name="P72" style:family="paragraph" style:parent-style-name="CommandLine">
    <style:text-properties officeooo:rsid="0024d269" officeooo:paragraph-rsid="0024d269"/>
   </style:style>
-  <style:style style:name="P65" style:family="paragraph" style:parent-style-name="CommandLine">
+  <style:style style:name="P73" style:family="paragraph" style:parent-style-name="CommandLine">
    <style:text-properties officeooo:rsid="0024d269" officeooo:paragraph-rsid="0029ea79"/>
   </style:style>
-  <style:style style:name="P66" style:family="paragraph" style:parent-style-name="CommandLine">
+  <style:style style:name="P74" style:family="paragraph" style:parent-style-name="CommandLine">
    <style:text-properties officeooo:paragraph-rsid="0029ea79"/>
   </style:style>
-  <style:style style:name="P67" style:family="paragraph" style:parent-style-name="CommandLine">
+  <style:style style:name="P75" style:family="paragraph" style:parent-style-name="CommandLine">
    <style:text-properties officeooo:rsid="0029ea79" officeooo:paragraph-rsid="0029ea79"/>
   </style:style>
-  <style:style style:name="P68" style:family="paragraph" style:parent-style-name="Contents_20_2">
+  <style:style style:name="P76" style:family="paragraph" style:parent-style-name="Contents_20_2">
    <style:paragraph-properties>
     <style:tab-stops>
      <style:tab-stop style:position="16.501cm" style:type="right" style:leader-style="dotted" style:leader-text="."/>
     </style:tab-stops>
    </style:paragraph-properties>
   </style:style>
-  <style:style style:name="P69" style:family="paragraph" style:parent-style-name="Contents_20_1">
+  <style:style style:name="P77" style:family="paragraph" style:parent-style-name="Contents_20_1">
    <style:paragraph-properties>
     <style:tab-stops>
      <style:tab-stop style:position="17cm" style:type="right" style:leader-style="dotted" style:leader-text="."/>
     </style:tab-stops>
    </style:paragraph-properties>
   </style:style>
-  <style:style style:name="P70" style:family="paragraph" style:parent-style-name="Contents_20_3">
+  <style:style style:name="P78" style:family="paragraph" style:parent-style-name="Contents_20_3">
    <style:paragraph-properties>
     <style:tab-stops>
      <style:tab-stop style:position="16.002cm" style:type="right" style:leader-style="dotted" style:leader-text="."/>
     </style:tab-stops>
    </style:paragraph-properties>
   </style:style>
-  <style:style style:name="P71" style:family="paragraph" style:parent-style-name="Heading_20_1">
+  <style:style style:name="P79" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:paragraph-properties fo:text-align="start" style:justify-single-word="false"/>
    <style:text-properties officeooo:rsid="001782d3" officeooo:paragraph-rsid="001782d3"/>
   </style:style>
-  <style:style style:name="P72" style:family="paragraph" style:parent-style-name="Heading_20_1">
+  <style:style style:name="P80" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:text-properties officeooo:paragraph-rsid="00290e26"/>
   </style:style>
-  <style:style style:name="P73" style:family="paragraph" style:parent-style-name="Heading_20_2">
+  <style:style style:name="P81" style:family="paragraph" style:parent-style-name="Heading_20_2">
    <style:text-properties officeooo:rsid="000d6ed4" officeooo:paragraph-rsid="000d6ed4"/>
   </style:style>
-  <style:style style:name="P74" style:family="paragraph" style:parent-style-name="Heading_20_2">
+  <style:style style:name="P82" style:family="paragraph" style:parent-style-name="Heading_20_2">
    <style:text-properties officeooo:rsid="000d6ed4" officeooo:paragraph-rsid="001c66f2"/>
   </style:style>
-  <style:style style:name="P75" style:family="paragraph" style:parent-style-name="Heading_20_2">
+  <style:style style:name="P83" style:family="paragraph" style:parent-style-name="Heading_20_2">
    <style:text-properties officeooo:rsid="000f4f3a" officeooo:paragraph-rsid="000f4f3a"/>
   </style:style>
-  <style:style style:name="P76" style:family="paragraph" style:parent-style-name="Heading_20_2">
+  <style:style style:name="P84" style:family="paragraph" style:parent-style-name="Heading_20_2">
    <style:text-properties officeooo:rsid="0010dcfa" officeooo:paragraph-rsid="0010dcfa"/>
   </style:style>
-  <style:style style:name="P77" style:family="paragraph" style:parent-style-name="Heading_20_2">
+  <style:style style:name="P85" style:family="paragraph" style:parent-style-name="Heading_20_2">
    <style:text-properties officeooo:rsid="001c66f2" officeooo:paragraph-rsid="001c66f2"/>
   </style:style>
-  <style:style style:name="P78" style:family="paragraph" style:parent-style-name="Heading_20_2">
+  <style:style style:name="P86" style:family="paragraph" style:parent-style-name="Heading_20_2">
    <style:text-properties officeooo:rsid="001da146" officeooo:paragraph-rsid="001da146"/>
   </style:style>
-  <style:style style:name="P79" style:family="paragraph" style:parent-style-name="Heading_20_2">
+  <style:style style:name="P87" style:family="paragraph" style:parent-style-name="Heading_20_2">
    <style:text-properties officeooo:rsid="001eed29" officeooo:paragraph-rsid="001eed29"/>
   </style:style>
-  <style:style style:name="P80" style:family="paragraph" style:parent-style-name="Heading_20_2">
+  <style:style style:name="P88" style:family="paragraph" style:parent-style-name="Heading_20_2">
    <style:text-properties officeooo:rsid="0029ea79" officeooo:paragraph-rsid="0029ea79"/>
   </style:style>
-  <style:style style:name="P81" style:family="paragraph" style:parent-style-name="Heading_20_2">
+  <style:style style:name="P89" style:family="paragraph" style:parent-style-name="Heading_20_2">
    <style:text-properties officeooo:rsid="002bbef9" officeooo:paragraph-rsid="002bbef9"/>
-  </style:style>
-  <style:style style:name="P82" style:family="paragraph" style:parent-style-name="Heading_20_3">
-   <style:text-properties officeooo:rsid="00159f69" officeooo:paragraph-rsid="00159f69"/>
-  </style:style>
-  <style:style style:name="P83" style:family="paragraph" style:parent-style-name="Heading_20_3">
-   <style:text-properties officeooo:paragraph-rsid="001eed29"/>
-  </style:style>
-  <style:style style:name="P84" style:family="paragraph" style:parent-style-name="Heading_20_3">
-   <style:text-properties officeooo:rsid="00242327" officeooo:paragraph-rsid="00242327"/>
-  </style:style>
-  <style:style style:name="P85" style:family="paragraph" style:parent-style-name="Heading_20_3">
-   <style:text-properties officeooo:rsid="00242327" officeooo:paragraph-rsid="0029ea79"/>
-  </style:style>
-  <style:style style:name="P86" style:family="paragraph" style:parent-style-name="Heading_20_3">
-   <style:text-properties officeooo:rsid="00216e8d"/>
-  </style:style>
-  <style:style style:name="P87" style:family="paragraph" style:parent-style-name="Heading_20_3">
-   <style:text-properties officeooo:rsid="0024d269" officeooo:paragraph-rsid="0024d269"/>
-  </style:style>
-  <style:style style:name="P88" style:family="paragraph" style:parent-style-name="Heading_20_3">
-   <style:text-properties officeooo:rsid="0024d269" officeooo:paragraph-rsid="0029ea79"/>
-  </style:style>
-  <style:style style:name="P89" style:family="paragraph" style:parent-style-name="Heading_20_3">
-   <style:text-properties officeooo:paragraph-rsid="0024d269"/>
   </style:style>
   <style:style style:name="P90" style:family="paragraph" style:parent-style-name="Heading_20_3">
-   <style:text-properties officeooo:paragraph-rsid="0029ea79"/>
+   <style:text-properties officeooo:rsid="00159f69" officeooo:paragraph-rsid="00159f69"/>
   </style:style>
   <style:style style:name="P91" style:family="paragraph" style:parent-style-name="Heading_20_3">
-   <style:text-properties officeooo:rsid="0029ea79" officeooo:paragraph-rsid="0029ea79"/>
+   <style:text-properties officeooo:paragraph-rsid="001eed29"/>
   </style:style>
   <style:style style:name="P92" style:family="paragraph" style:parent-style-name="Heading_20_3">
-   <style:text-properties officeooo:rsid="002bbef9" officeooo:paragraph-rsid="002bbef9"/>
+   <style:text-properties officeooo:rsid="00242327" officeooo:paragraph-rsid="00242327"/>
   </style:style>
-  <style:style style:name="P93" style:family="paragraph" style:parent-style-name="Sourcecode">
+  <style:style style:name="P93" style:family="paragraph" style:parent-style-name="Heading_20_3">
+   <style:text-properties officeooo:rsid="00242327" officeooo:paragraph-rsid="0029ea79"/>
+  </style:style>
+  <style:style style:name="P94" style:family="paragraph" style:parent-style-name="Heading_20_3">
    <style:text-properties officeooo:rsid="00216e8d"/>
   </style:style>
-  <style:style style:name="P94" style:family="paragraph" style:parent-style-name="Sourcecode">
-   <style:text-properties officeooo:rsid="00216e8d" officeooo:paragraph-rsid="00216e8d"/>
-  </style:style>
-  <style:style style:name="P95" style:family="paragraph" style:parent-style-name="Sourcecode">
-   <style:text-properties officeooo:rsid="00216e8d" officeooo:paragraph-rsid="0029ea79"/>
-  </style:style>
-  <style:style style:name="P96" style:family="paragraph" style:parent-style-name="Sourcecode">
+  <style:style style:name="P95" style:family="paragraph" style:parent-style-name="Heading_20_3">
    <style:text-properties officeooo:rsid="0024d269" officeooo:paragraph-rsid="0024d269"/>
   </style:style>
-  <style:style style:name="P97" style:family="paragraph" style:parent-style-name="Sourcecode">
+  <style:style style:name="P96" style:family="paragraph" style:parent-style-name="Heading_20_3">
    <style:text-properties officeooo:rsid="0024d269" officeooo:paragraph-rsid="0029ea79"/>
   </style:style>
-  <style:style style:name="P98" style:family="paragraph" style:parent-style-name="Sourcecode">
+  <style:style style:name="P97" style:family="paragraph" style:parent-style-name="Heading_20_3">
+   <style:text-properties officeooo:paragraph-rsid="0024d269"/>
+  </style:style>
+  <style:style style:name="P98" style:family="paragraph" style:parent-style-name="Heading_20_3">
    <style:text-properties officeooo:paragraph-rsid="0029ea79"/>
   </style:style>
-  <style:style style:name="P99" style:family="paragraph" style:parent-style-name="Sourcecode">
-   <style:text-properties fo:font-weight="bold" style:font-weight-asian="bold" style:font-weight-complex="bold"/>
+  <style:style style:name="P99" style:family="paragraph" style:parent-style-name="Heading_20_3">
+   <style:text-properties officeooo:rsid="0029ea79" officeooo:paragraph-rsid="0029ea79"/>
   </style:style>
-  <style:style style:name="P100" style:family="paragraph" style:parent-style-name="Sourcecode">
-   <style:text-properties fo:font-weight="bold" officeooo:paragraph-rsid="00302fca" style:font-weight-asian="bold" style:font-weight-complex="bold"/>
+  <style:style style:name="P100" style:family="paragraph" style:parent-style-name="Heading_20_3">
+   <style:text-properties officeooo:rsid="002bbef9" officeooo:paragraph-rsid="002bbef9"/>
   </style:style>
   <style:style style:name="P101" style:family="paragraph" style:parent-style-name="Sourcecode">
-   <style:text-properties officeooo:rsid="003147d8" officeooo:paragraph-rsid="003147d8"/>
+   <style:text-properties officeooo:rsid="00216e8d"/>
   </style:style>
   <style:style style:name="P102" style:family="paragraph" style:parent-style-name="Sourcecode">
-   <style:text-properties officeooo:paragraph-rsid="003147d8"/>
+   <style:text-properties officeooo:rsid="00216e8d" officeooo:paragraph-rsid="00216e8d"/>
   </style:style>
   <style:style style:name="P103" style:family="paragraph" style:parent-style-name="Sourcecode">
-   <style:text-properties fo:font-size="12pt" style:font-size-asian="12pt" style:font-size-complex="12pt"/>
+   <style:text-properties officeooo:rsid="00216e8d" officeooo:paragraph-rsid="0029ea79"/>
   </style:style>
   <style:style style:name="P104" style:family="paragraph" style:parent-style-name="Sourcecode">
-   <style:text-properties fo:font-size="12pt" fo:font-weight="bold" style:font-size-asian="12pt" style:font-weight-asian="bold" style:font-size-complex="12pt" style:font-weight-complex="bold"/>
+   <style:text-properties officeooo:rsid="0024d269" officeooo:paragraph-rsid="0024d269"/>
   </style:style>
   <style:style style:name="P105" style:family="paragraph" style:parent-style-name="Sourcecode">
+   <style:text-properties officeooo:rsid="0024d269" officeooo:paragraph-rsid="0029ea79"/>
+  </style:style>
+  <style:style style:name="P106" style:family="paragraph" style:parent-style-name="Sourcecode">
+   <style:text-properties officeooo:paragraph-rsid="0029ea79"/>
+  </style:style>
+  <style:style style:name="P107" style:family="paragraph" style:parent-style-name="Sourcecode">
+   <style:text-properties fo:font-weight="bold" style:font-weight-asian="bold" style:font-weight-complex="bold"/>
+  </style:style>
+  <style:style style:name="P108" style:family="paragraph" style:parent-style-name="Sourcecode">
+   <style:text-properties fo:font-weight="bold" officeooo:paragraph-rsid="00302fca" style:font-weight-asian="bold" style:font-weight-complex="bold"/>
+  </style:style>
+  <style:style style:name="P109" style:family="paragraph" style:parent-style-name="Sourcecode">
+   <style:text-properties fo:font-weight="bold" officeooo:paragraph-rsid="0036a848" style:font-weight-asian="bold" style:font-weight-complex="bold"/>
+  </style:style>
+  <style:style style:name="P110" style:family="paragraph" style:parent-style-name="Sourcecode">
+   <style:text-properties fo:font-weight="bold" officeooo:paragraph-rsid="0037d11a" style:font-weight-asian="bold" style:font-weight-complex="bold"/>
+  </style:style>
+  <style:style style:name="P111" style:family="paragraph" style:parent-style-name="Sourcecode">
+   <style:text-properties fo:font-weight="bold" officeooo:rsid="0037d11a" officeooo:paragraph-rsid="0037d11a" style:font-weight-asian="bold" style:font-weight-complex="bold"/>
+  </style:style>
+  <style:style style:name="P112" style:family="paragraph" style:parent-style-name="Sourcecode">
+   <style:text-properties fo:font-weight="bold" officeooo:rsid="0038d4d6" officeooo:paragraph-rsid="0038d4d6" style:font-weight-asian="bold" style:font-weight-complex="bold"/>
+  </style:style>
+  <style:style style:name="P113" style:family="paragraph" style:parent-style-name="Sourcecode">
+   <style:text-properties officeooo:rsid="003147d8" officeooo:paragraph-rsid="003147d8"/>
+  </style:style>
+  <style:style style:name="P114" style:family="paragraph" style:parent-style-name="Sourcecode">
+   <style:text-properties officeooo:paragraph-rsid="003147d8"/>
+  </style:style>
+  <style:style style:name="P115" style:family="paragraph" style:parent-style-name="Sourcecode">
+   <style:text-properties fo:font-size="12pt" style:font-size-asian="12pt" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="P116" style:family="paragraph" style:parent-style-name="Sourcecode">
+   <style:text-properties fo:font-size="12pt" officeooo:paragraph-rsid="0036a848" style:font-size-asian="12pt" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="P117" style:family="paragraph" style:parent-style-name="Sourcecode">
+   <style:text-properties fo:font-size="12pt" fo:font-weight="bold" style:font-size-asian="12pt" style:font-weight-asian="bold" style:font-size-complex="12pt" style:font-weight-complex="bold"/>
+  </style:style>
+  <style:style style:name="P118" style:family="paragraph" style:parent-style-name="Sourcecode">
    <style:text-properties fo:font-size="12pt" fo:font-weight="bold" officeooo:paragraph-rsid="003335e0" style:font-size-asian="12pt" style:font-weight-asian="bold" style:font-size-complex="12pt" style:font-weight-complex="bold"/>
   </style:style>
-  <style:style style:name="P106" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+  <style:style style:name="P119" style:family="paragraph" style:parent-style-name="Sourcecode">
+   <style:text-properties fo:font-size="12pt" fo:font-weight="bold" officeooo:rsid="003335e0" officeooo:paragraph-rsid="003335e0" style:font-size-asian="12pt" style:font-weight-asian="bold" style:font-size-complex="12pt" style:font-weight-complex="bold"/>
+  </style:style>
+  <style:style style:name="P120" style:family="paragraph" style:parent-style-name="Sourcecode">
+   <style:text-properties fo:font-size="12pt" fo:font-weight="bold" officeooo:paragraph-rsid="0036a848" style:font-size-asian="12pt" style:font-weight-asian="bold" style:font-size-complex="12pt" style:font-weight-complex="bold"/>
+  </style:style>
+  <style:style style:name="P121" style:family="paragraph" style:parent-style-name="Sourcecode">
+   <style:text-properties officeooo:paragraph-rsid="0036a848"/>
+  </style:style>
+  <style:style style:name="P122" style:family="paragraph" style:parent-style-name="Sourcecode">
+   <style:text-properties officeooo:rsid="0036a848" officeooo:paragraph-rsid="0036a848"/>
+  </style:style>
+  <style:style style:name="P123" style:family="paragraph" style:parent-style-name="Sourcecode">
+   <style:paragraph-properties fo:text-align="justify" style:justify-single-word="false"/>
+   <style:text-properties officeooo:rsid="003335e0" officeooo:paragraph-rsid="0036a848"/>
+  </style:style>
+  <style:style style:name="P124" style:family="paragraph" style:parent-style-name="Sourcecode">
+   <style:paragraph-properties fo:text-align="justify" style:justify-single-word="false"/>
+   <style:text-properties officeooo:rsid="003335e0" officeooo:paragraph-rsid="0037d11a"/>
+  </style:style>
+  <style:style style:name="P125" style:family="paragraph" style:parent-style-name="Sourcecode">
+   <style:text-properties officeooo:rsid="0037d11a" officeooo:paragraph-rsid="0037d11a"/>
+  </style:style>
+  <style:style style:name="P126" style:family="paragraph" style:parent-style-name="Sourcecode">
+   <style:text-properties officeooo:paragraph-rsid="0037d11a"/>
+  </style:style>
+  <style:style style:name="P127" style:family="paragraph" style:parent-style-name="Sourcecode">
+   <style:text-properties officeooo:rsid="0038d4d6" officeooo:paragraph-rsid="0038d4d6"/>
+  </style:style>
+  <style:style style:name="P128" style:family="paragraph" style:parent-style-name="Sourcecode">
+   <style:text-properties style:text-underline-style="none" fo:font-weight="bold" officeooo:rsid="0038d4d6" officeooo:paragraph-rsid="0038d4d6" style:font-weight-asian="bold" style:font-weight-complex="bold"/>
+  </style:style>
+  <style:style style:name="P129" style:family="paragraph" style:parent-style-name="Table_20_Contents">
    <style:text-properties style:font-name="Liberation Sans1" fo:font-size="13pt" officeooo:rsid="002bbef9" officeooo:paragraph-rsid="002bbef9" style:font-size-asian="10.5pt"/>
   </style:style>
-  <style:style style:name="P107" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+  <style:style style:name="P130" style:family="paragraph" style:parent-style-name="Table_20_Contents">
    <style:text-properties style:font-name="Liberation Sans1" fo:font-size="13pt" officeooo:rsid="0034ced1" officeooo:paragraph-rsid="0034ced1" style:font-size-asian="10.5pt"/>
   </style:style>
-  <style:style style:name="P108" style:family="paragraph" style:parent-style-name="Contents_20_4">
+  <style:style style:name="P131" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Liberation Sans1" fo:font-size="13pt" officeooo:rsid="0038d4d6" officeooo:paragraph-rsid="0038d4d6" style:font-size-asian="10.5pt"/>
+  </style:style>
+  <style:style style:name="P132" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Liberation Sans1" fo:font-size="13pt" fo:font-weight="bold" officeooo:rsid="002bbef9" officeooo:paragraph-rsid="002bbef9" style:font-size-asian="10.5pt" style:font-weight-asian="bold" style:font-weight-complex="bold"/>
+  </style:style>
+  <style:style style:name="P133" style:family="paragraph" style:parent-style-name="Contents_20_4">
    <style:paragraph-properties>
     <style:tab-stops>
      <style:tab-stop style:position="15.503cm" style:type="right" style:leader-style="dotted" style:leader-text="."/>
     </style:tab-stops>
    </style:paragraph-properties>
   </style:style>
-  <style:style style:name="P109" style:family="paragraph" style:parent-style-name="Text_20_body">
-   <style:paragraph-properties fo:text-align="justify" style:justify-single-word="false"/>
-   <style:text-properties officeooo:rsid="00302fca" officeooo:paragraph-rsid="0036a848"/>
+  <style:style style:name="P134" style:family="paragraph" style:parent-style-name="Text_20_body">
+   <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
+   <style:text-properties fo:font-weight="bold" officeooo:rsid="002bbef9" officeooo:paragraph-rsid="002bbef9" style:font-weight-asian="bold" style:font-weight-complex="bold"/>
   </style:style>
-  <style:style style:name="P110" style:family="paragraph" style:parent-style-name="Text_20_body">
-   <style:paragraph-properties fo:text-align="justify" style:justify-single-word="false"/>
-   <style:text-properties officeooo:rsid="003147d8" officeooo:paragraph-rsid="003147d8"/>
-  </style:style>
-  <style:style style:name="P111" style:family="paragraph" style:parent-style-name="Text_20_body">
-   <style:paragraph-properties fo:text-align="justify" style:justify-single-word="false"/>
-  </style:style>
-  <style:style style:name="P112" style:family="paragraph" style:parent-style-name="Text_20_body">
-   <style:paragraph-properties fo:text-align="justify" style:justify-single-word="false"/>
-   <style:text-properties officeooo:rsid="0036a848" officeooo:paragraph-rsid="0036a848"/>
-  </style:style>
-  <style:style style:name="P113" style:family="paragraph" style:parent-style-name="Text_20_body">
-   <style:text-properties officeooo:rsid="0036a848" officeooo:paragraph-rsid="0036a848"/>
-  </style:style>
-  <style:style style:name="P114" style:family="paragraph" style:parent-style-name="Text_20_body">
-   <style:text-properties officeooo:rsid="0037d11a" officeooo:paragraph-rsid="0037d11a"/>
-  </style:style>
-  <style:style style:name="P115" style:family="paragraph" style:parent-style-name="Text_20_body">
-   <style:paragraph-properties fo:text-align="justify" style:justify-single-word="false"/>
-   <style:text-properties officeooo:rsid="0037d11a" officeooo:paragraph-rsid="0037d11a"/>
-  </style:style>
-  <style:style style:name="P116" style:family="paragraph" style:parent-style-name="Text_20_body">
-   <style:text-properties officeooo:rsid="0038d4d6" officeooo:paragraph-rsid="0038d4d6"/>
-  </style:style>
-  <style:style style:name="P117" style:family="paragraph" style:parent-style-name="Heading_20_1" style:list-style-name=""/>
-  <style:style style:name="P118" style:family="paragraph" style:parent-style-name="Heading_20_1" style:list-style-name="">
+  <style:style style:name="P135" style:family="paragraph" style:parent-style-name="Heading_20_1" style:list-style-name=""/>
+  <style:style style:name="P136" style:family="paragraph" style:parent-style-name="Heading_20_1" style:list-style-name="">
    <style:paragraph-properties fo:text-align="start" style:justify-single-word="false"/>
    <style:text-properties officeooo:rsid="001782d3" officeooo:paragraph-rsid="001782d3"/>
   </style:style>
-  <style:style style:name="P119" style:family="paragraph" style:parent-style-name="Heading_20_1">
+  <style:style style:name="P137" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:text-properties officeooo:paragraph-rsid="00290e26"/>
   </style:style>
-  <style:style style:name="P120" style:family="paragraph" style:parent-style-name="Heading_20_1">
+  <style:style style:name="P138" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:paragraph-properties fo:break-before="page"/>
   </style:style>
-  <style:style style:name="P121" style:family="paragraph" style:parent-style-name="Heading_20_1">
+  <style:style style:name="P139" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:paragraph-properties fo:break-before="page"/>
    <style:text-properties officeooo:rsid="00290e26" officeooo:paragraph-rsid="00290e26"/>
   </style:style>
-  <style:style style:name="P122" style:family="paragraph" style:parent-style-name="Heading_20_1">
+  <style:style style:name="P140" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:paragraph-properties fo:break-before="page"/>
    <style:text-properties officeooo:rsid="002d3ef8" officeooo:paragraph-rsid="002d3ef8"/>
   </style:style>
-  <style:style style:name="P123" style:family="paragraph" style:parent-style-name="Heading_20_1">
+  <style:style style:name="P141" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:paragraph-properties fo:break-before="page"/>
    <style:text-properties officeooo:rsid="002bbef9" officeooo:paragraph-rsid="002bbef9"/>
   </style:style>
-  <style:style style:name="P124" style:family="paragraph" style:parent-style-name="Sourcecode">
-   <style:text-properties fo:font-size="12pt" fo:font-weight="bold" officeooo:rsid="003335e0" officeooo:paragraph-rsid="003335e0" style:font-size-asian="12pt" style:font-weight-asian="bold" style:font-size-complex="12pt" style:font-weight-complex="bold"/>
+  <style:style style:name="P142" style:family="paragraph" style:parent-style-name="Sourcecode">
+   <style:text-properties style:font-name="Liberation Mono" fo:font-weight="normal" officeooo:rsid="0036a848" officeooo:paragraph-rsid="0036a848" style:font-weight-asian="normal" style:font-weight-complex="normal"/>
   </style:style>
-  <style:style style:name="P125" style:family="paragraph" style:parent-style-name="Sourcecode">
-   <style:text-properties fo:font-size="12pt" fo:font-weight="bold" officeooo:paragraph-rsid="0036a848" style:font-size-asian="12pt" style:font-weight-asian="bold" style:font-size-complex="12pt" style:font-weight-complex="bold"/>
-  </style:style>
-  <style:style style:name="P126" style:family="paragraph" style:parent-style-name="Sourcecode">
-   <style:text-properties fo:font-size="12pt" officeooo:paragraph-rsid="0036a848" style:font-size-asian="12pt" style:font-size-complex="12pt"/>
-  </style:style>
-  <style:style style:name="P127" style:family="paragraph" style:parent-style-name="Sourcecode">
-   <style:text-properties officeooo:paragraph-rsid="0036a848"/>
-  </style:style>
-  <style:style style:name="P128" style:family="paragraph" style:parent-style-name="Sourcecode">
+  <style:style style:name="P143" style:family="paragraph" style:parent-style-name="Sourcecode">
    <style:text-properties fo:font-weight="bold" style:font-weight-asian="bold" style:font-weight-complex="bold"/>
-  </style:style>
-  <style:style style:name="P129" style:family="paragraph" style:parent-style-name="Sourcecode">
-   <style:text-properties fo:font-weight="bold" officeooo:paragraph-rsid="0036a848" style:font-weight-asian="bold" style:font-weight-complex="bold"/>
-  </style:style>
-  <style:style style:name="P130" style:family="paragraph" style:parent-style-name="Sourcecode">
-   <style:text-properties fo:font-weight="bold" officeooo:paragraph-rsid="0037d11a" style:font-weight-asian="bold" style:font-weight-complex="bold"/>
-  </style:style>
-  <style:style style:name="P131" style:family="paragraph" style:parent-style-name="Sourcecode">
-   <style:text-properties fo:font-weight="bold" officeooo:rsid="0037d11a" officeooo:paragraph-rsid="0037d11a" style:font-weight-asian="bold" style:font-weight-complex="bold"/>
-  </style:style>
-  <style:style style:name="P132" style:family="paragraph" style:parent-style-name="Sourcecode">
-   <style:text-properties fo:font-weight="bold" officeooo:rsid="0038d4d6" officeooo:paragraph-rsid="0038d4d6" style:font-weight-asian="bold" style:font-weight-complex="bold"/>
-  </style:style>
-  <style:style style:name="P133" style:family="paragraph" style:parent-style-name="Sourcecode">
-   <style:text-properties officeooo:rsid="0036a848" officeooo:paragraph-rsid="0036a848"/>
-  </style:style>
-  <style:style style:name="P134" style:family="paragraph" style:parent-style-name="Sourcecode">
-   <style:paragraph-properties fo:text-align="justify" style:justify-single-word="false"/>
-   <style:text-properties officeooo:rsid="003335e0" officeooo:paragraph-rsid="0036a848"/>
-  </style:style>
-  <style:style style:name="P135" style:family="paragraph" style:parent-style-name="Sourcecode">
-   <style:paragraph-properties fo:text-align="justify" style:justify-single-word="false"/>
-   <style:text-properties officeooo:rsid="003335e0" officeooo:paragraph-rsid="0037d11a"/>
-  </style:style>
-  <style:style style:name="P136" style:family="paragraph" style:parent-style-name="Sourcecode">
-   <style:text-properties officeooo:rsid="0037d11a" officeooo:paragraph-rsid="0037d11a"/>
-  </style:style>
-  <style:style style:name="P137" style:family="paragraph" style:parent-style-name="Sourcecode">
-   <style:text-properties officeooo:paragraph-rsid="0037d11a"/>
-  </style:style>
-  <style:style style:name="P138" style:family="paragraph" style:parent-style-name="Sourcecode">
-   <style:text-properties officeooo:rsid="0038d4d6" officeooo:paragraph-rsid="0038d4d6"/>
-  </style:style>
-  <style:style style:name="P139" style:family="paragraph" style:parent-style-name="Sourcecode">
-   <style:text-properties style:text-underline-style="none" fo:font-weight="bold" officeooo:rsid="0038d4d6" officeooo:paragraph-rsid="0038d4d6" style:font-weight-asian="bold" style:font-weight-complex="bold"/>
-  </style:style>
-  <style:style style:name="P140" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:text-properties style:font-name="Liberation Sans1" fo:font-size="13pt" officeooo:rsid="0038d4d6" officeooo:paragraph-rsid="0038d4d6" style:font-size-asian="10.5pt"/>
-  </style:style>
-  <style:style style:name="P141" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:text-properties style:font-name="Liberation Sans1" fo:font-size="13pt" fo:font-weight="bold" officeooo:rsid="002bbef9" officeooo:paragraph-rsid="002bbef9" style:font-size-asian="10.5pt" style:font-weight-asian="bold" style:font-weight-complex="bold"/>
-  </style:style>
-  <style:style style:name="P142" style:family="paragraph" style:parent-style-name="Header">
-   <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
-   <style:text-properties style:font-name="Liberation Sans2"/>
   </style:style>
   <style:style style:name="T1" style:family="text">
    <style:text-properties officeooo:rsid="0037d11a"/>
   </style:style>
   <style:style style:name="T2" style:family="text">
-   <style:text-properties officeooo:rsid="000d923a"/>
+   <style:text-properties officeooo:rsid="0037d11a"/>
   </style:style>
   <style:style style:name="T3" style:family="text">
-   <style:text-properties officeooo:rsid="000ec669"/>
+   <style:text-properties officeooo:rsid="000d923a"/>
   </style:style>
   <style:style style:name="T4" style:family="text">
-   <style:text-properties officeooo:rsid="00159f69"/>
+   <style:text-properties officeooo:rsid="000ec669"/>
   </style:style>
   <style:style style:name="T5" style:family="text">
-   <style:text-properties fo:font-style="italic" style:font-style-asian="italic" style:font-style-complex="italic"/>
+   <style:text-properties officeooo:rsid="00159f69"/>
   </style:style>
   <style:style style:name="T6" style:family="text">
-   <style:text-properties fo:font-style="italic" officeooo:rsid="00242327" style:font-style-asian="italic" style:font-style-complex="italic"/>
+   <style:text-properties fo:font-style="italic" style:font-style-asian="italic" style:font-style-complex="italic"/>
   </style:style>
   <style:style style:name="T7" style:family="text">
-   <style:text-properties fo:font-style="italic" officeooo:rsid="00271faf" style:font-style-asian="italic" style:font-style-complex="italic"/>
+   <style:text-properties fo:font-style="italic" officeooo:rsid="00242327" style:font-style-asian="italic" style:font-style-complex="italic"/>
   </style:style>
   <style:style style:name="T8" style:family="text">
-   <style:text-properties fo:font-style="italic" officeooo:rsid="0029ea79" style:font-style-asian="italic" style:font-style-complex="italic"/>
+   <style:text-properties fo:font-style="italic" officeooo:rsid="00271faf" style:font-style-asian="italic" style:font-style-complex="italic"/>
   </style:style>
   <style:style style:name="T9" style:family="text">
-   <style:text-properties officeooo:rsid="001607ff"/>
+   <style:text-properties fo:font-style="italic" officeooo:rsid="0029ea79" style:font-style-asian="italic" style:font-style-complex="italic"/>
   </style:style>
   <style:style style:name="T10" style:family="text">
-   <style:text-properties fo:font-style="normal" style:font-style-asian="normal" style:font-style-complex="normal"/>
+   <style:text-properties officeooo:rsid="001607ff"/>
   </style:style>
   <style:style style:name="T11" style:family="text">
-   <style:text-properties officeooo:rsid="00197dba"/>
+   <style:text-properties fo:font-style="normal" style:font-style-asian="normal" style:font-style-complex="normal"/>
   </style:style>
   <style:style style:name="T12" style:family="text">
-   <style:text-properties officeooo:rsid="001c66f2"/>
+   <style:text-properties officeooo:rsid="00197dba"/>
   </style:style>
   <style:style style:name="T13" style:family="text">
-   <style:text-properties officeooo:rsid="001da146"/>
+   <style:text-properties officeooo:rsid="001c66f2"/>
   </style:style>
   <style:style style:name="T14" style:family="text">
-   <style:text-properties officeooo:rsid="001eed29"/>
+   <style:text-properties officeooo:rsid="001da146"/>
   </style:style>
   <style:style style:name="T15" style:family="text">
-   <style:text-properties officeooo:rsid="00200c78"/>
+   <style:text-properties officeooo:rsid="001eed29"/>
   </style:style>
   <style:style style:name="T16" style:family="text">
-   <style:text-properties officeooo:rsid="00216e8d"/>
+   <style:text-properties officeooo:rsid="00200c78"/>
   </style:style>
   <style:style style:name="T17" style:family="text">
-   <style:text-properties officeooo:rsid="00242327"/>
+   <style:text-properties officeooo:rsid="00216e8d"/>
   </style:style>
   <style:style style:name="T18" style:family="text">
-   <style:text-properties officeooo:rsid="00245f95"/>
+   <style:text-properties officeooo:rsid="00242327"/>
   </style:style>
   <style:style style:name="T19" style:family="text">
-   <style:text-properties officeooo:rsid="0024d269"/>
+   <style:text-properties officeooo:rsid="00245f95"/>
   </style:style>
   <style:style style:name="T20" style:family="text">
-   <style:text-properties officeooo:rsid="00290e26"/>
+   <style:text-properties officeooo:rsid="0024d269"/>
   </style:style>
   <style:style style:name="T21" style:family="text">
-   <style:text-properties officeooo:rsid="0029ea79"/>
+   <style:text-properties officeooo:rsid="00290e26"/>
   </style:style>
   <style:style style:name="T22" style:family="text">
-   <style:text-properties officeooo:rsid="002d3ef8"/>
+   <style:text-properties officeooo:rsid="0029ea79"/>
   </style:style>
   <style:style style:name="T23" style:family="text">
-   <style:text-properties style:font-name="Liberation Mono" officeooo:rsid="00302fca"/>
+   <style:text-properties officeooo:rsid="002d3ef8"/>
   </style:style>
   <style:style style:name="T24" style:family="text">
-   <style:text-properties style:font-name="Liberation Mono" officeooo:rsid="0036a848"/>
+   <style:text-properties style:font-name="Liberation Mono" officeooo:rsid="00302fca"/>
   </style:style>
   <style:style style:name="T25" style:family="text">
-   <style:text-properties style:font-name="Liberation Mono" fo:font-weight="normal" style:font-weight-asian="normal" style:font-weight-complex="normal"/>
+   <style:text-properties style:font-name="Liberation Mono" officeooo:rsid="0036a848"/>
   </style:style>
   <style:style style:name="T26" style:family="text">
-   <style:text-properties fo:font-weight="bold" style:font-weight-asian="bold" style:font-weight-complex="bold"/>
+   <style:text-properties style:font-name="Liberation Mono" fo:font-weight="normal" style:font-weight-asian="normal" style:font-weight-complex="normal"/>
   </style:style>
   <style:style style:name="T27" style:family="text">
-   <style:text-properties fo:font-weight="bold" officeooo:rsid="003335e0" style:font-weight-asian="bold" style:font-weight-complex="bold"/>
+   <style:text-properties fo:font-weight="bold" style:font-weight-asian="bold" style:font-weight-complex="bold"/>
   </style:style>
   <style:style style:name="T28" style:family="text">
-   <style:text-properties officeooo:rsid="00302fe6"/>
+   <style:text-properties fo:font-weight="bold" officeooo:rsid="003335e0" style:font-weight-asian="bold" style:font-weight-complex="bold"/>
   </style:style>
   <style:style style:name="T29" style:family="text">
-   <style:text-properties officeooo:rsid="0030d3ac"/>
+   <style:text-properties officeooo:rsid="00302fe6"/>
   </style:style>
   <style:style style:name="T30" style:family="text">
-   <style:text-properties officeooo:rsid="003335e0"/>
+   <style:text-properties officeooo:rsid="0030d3ac"/>
   </style:style>
   <style:style style:name="T31" style:family="text">
-   <style:text-properties officeooo:rsid="0036a848"/>
+   <style:text-properties officeooo:rsid="003335e0"/>
   </style:style>
   <style:style style:name="T32" style:family="text">
-   <style:text-properties officeooo:rsid="0037d11a"/>
+   <style:text-properties officeooo:rsid="0036a848"/>
   </style:style>
   <style:style style:name="T33" style:family="text">
    <style:text-properties style:text-underline-style="solid" style:text-underline-width="auto" style:text-underline-color="font-color"/>
@@ -936,6 +939,9 @@
   </style:style>
   <style:style style:name="T35" style:family="text">
    <style:text-properties style:text-underline-style="none" fo:font-weight="bold" style:font-weight-asian="bold" style:font-weight-complex="bold"/>
+  </style:style>
+  <style:style style:name="T36" style:family="text">
+   <style:text-properties officeooo:rsid="003a8b55"/>
   </style:style>
   <style:style style:name="fr1" style:family="graphic" style:parent-style-name="Formula">
    <style:graphic-properties style:vertical-pos="from-top" style:horizontal-pos="from-left" style:horizontal-rel="paragraph-content" draw:ole-draw-aspect="1"/>
@@ -950,10 +956,17 @@
     <style:footnote-sep style:width="0.018cm" style:distance-before-sep="0.101cm" style:distance-after-sep="0.101cm" style:line-style="solid" style:adjustment="left" style:rel-width="25%" style:color="#000000"/>
    </style:page-layout-properties>
    <style:header-style>
-    <style:header-footer-properties fo:min-height="0.6cm" fo:margin-left="0cm" fo:margin-right="0cm" fo:margin-bottom="0.101cm" fo:background-color="transparent" style:dynamic-spacing="false" draw:fill="none"/>
+    <style:header-footer-properties fo:min-height="0.6cm" fo:margin-left="0cm" fo:margin-right="0cm" fo:margin-bottom="0.101cm" fo:background-color="transparent" style:dynamic-spacing="false" draw:fill="none" draw:fill-color="#729fcf"/>
    </style:header-style>
    <style:footer-style/>
   </style:page-layout>
+  <number:date-style style:name="N75" number:automatic-order="true">
+   <number:day/>
+   <number:text> </number:text>
+   <number:month number:textual="true"/>
+   <number:text>, </number:text>
+   <number:year number:style="long"/>
+  </number:date-style>
  </office:automatic-styles>
  <office:master-styles>
   <style:master-page style:name="Standard" style:page-layout-name="pm1">
@@ -974,12 +987,13 @@
     <text:sequence-decl text:display-outline-level="0" text:name="Text"/>
     <text:sequence-decl text:display-outline-level="0" text:name="Drawing"/>
    </text:sequence-decls>
-   <text:p text:style-name="P44">Terminal-BASIC</text:p>
-   <text:p text:style-name="P47">Справочное руководство</text:p>
-   <text:p text:style-name="P2"><text:span text:style-name="T20">А.В. Скворцов</text:span> &lt;<text:a xlink:type="simple" xlink:href="mailto:starling13@mail.ru" text:style-name="Internet_20_link" text:visited-style-name="Visited_20_Internet_20_Link">starling13@mail.ru</text:a>&gt;</text:p>
-   <text:p text:style-name="P4"><text:a xlink:type="simple" xlink:href="http://starling13.clan.su/" text:style-name="Internet_20_link" text:visited-style-name="Visited_20_Internet_20_Link">http://starling13.clan.su</text:a></text:p>
-   <text:p text:style-name="P34">Версия 2.0-alpha1</text:p>
-   <text:h text:style-name="P118" text:outline-level="1"/>
+   <text:p text:style-name="P52">Terminal-BASIC</text:p>
+   <text:p text:style-name="P55">Справочное руководство</text:p>
+   <text:p text:style-name="P3"><text:span text:style-name="T21">А.В. Скворцов</text:span> &lt;<text:a xlink:type="simple" xlink:href="mailto:starling13@mail.ru" text:style-name="Internet_20_link" text:visited-style-name="Visited_20_Internet_20_Link">starling13@mail.ru</text:a>&gt;</text:p>
+   <text:p text:style-name="P5"><text:a xlink:type="simple" xlink:href="http://starling13.clan.su/" text:style-name="Internet_20_link" text:visited-style-name="Visited_20_Internet_20_Link">http://starling13.clan.su</text:a></text:p>
+   <text:p text:style-name="P36">Версия 2.0-alpha<text:span text:style-name="T36">3</text:span></text:p>
+   <text:p text:style-name="P36"><text:date style:data-style-name="N75" text:date-value="2019-02-24T16:27:08.800916648" text:fixed="true">24 фев, 2019</text:date></text:p>
+   <text:h text:style-name="P136" text:outline-level="1"/>
    <text:table-of-content text:style-name="Sect1" text:name="Оглавление1">
     <text:table-of-content-source text:outline-level="4">
      <text:index-title-template text:style-name="Contents_20_Heading">Содержание</text:index-title-template>
@@ -1066,113 +1080,113 @@
     </text:table-of-content-source>
     <text:index-body>
      <text:index-title text:style-name="Sect1" text:name="Оглавление1_Head">
-      <text:p text:style-name="P48">Содержание</text:p>
+      <text:p text:style-name="P56">Содержание</text:p>
      </text:index-title>
-     <text:p text:style-name="P69"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1239_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">1Введение<text:tab/>3</text:a></text:p>
-     <text:p text:style-name="P69"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1116_1089627072" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">2Справочник команд и функций<text:tab/>4</text:a></text:p>
-     <text:p text:style-name="P68"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1241_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">2.1Ядро языка<text:tab/>4</text:a></text:p>
-     <text:p text:style-name="P70"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1243_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">2.1.1Команды<text:tab/>4</text:a></text:p>
-     <text:p text:style-name="P108"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1245_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Команда CONT<text:tab/>4</text:a></text:p>
-     <text:p text:style-name="P108"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1369_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Команда DELAY<text:tab/>4</text:a></text:p>
-     <text:p text:style-name="P108"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1247_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Команда DIM<text:tab/>4</text:a></text:p>
-     <text:p text:style-name="P108"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc545_1089627072" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Команда DUMP<text:tab/>4</text:a></text:p>
-     <text:p text:style-name="P108"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1249_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Команда END<text:tab/>4</text:a></text:p>
-     <text:p text:style-name="P108"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1371_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Команда FOR<text:tab/>4</text:a></text:p>
-     <text:p text:style-name="P108"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1373_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Команда INPUT<text:tab/>4</text:a></text:p>
-     <text:p text:style-name="P108"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1251_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Команда LET<text:tab/>4</text:a></text:p>
-     <text:p text:style-name="P108"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc547_1089627072" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Команда LIST<text:tab/>5</text:a></text:p>
-     <text:p text:style-name="P108"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc549_1089627072" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Команда POKE<text:tab/>5</text:a></text:p>
-     <text:p text:style-name="P108"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1253_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Команда PRINT<text:tab/>5</text:a></text:p>
-     <text:p text:style-name="P108"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1255_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Команда STOP<text:tab/>5</text:a></text:p>
-     <text:p text:style-name="P70"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1257_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">2.1.2Функции<text:tab/>6</text:a></text:p>
-     <text:p text:style-name="P108"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1375_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Функция ABS<text:tab/>6</text:a></text:p>
-     <text:p text:style-name="P108"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1377_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Функция CHR$<text:tab/>6</text:a></text:p>
-     <text:p text:style-name="P108"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc551_1089627072" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Функция INT<text:tab/>6</text:a></text:p>
-     <text:p text:style-name="P108"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1379_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Функция RND<text:tab/>6</text:a></text:p>
-     <text:p text:style-name="P108"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1381_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Функция SGN<text:tab/>6</text:a></text:p>
-     <text:p text:style-name="P108"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1383_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Функция STR$<text:tab/>6</text:a></text:p>
-     <text:p text:style-name="P108"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1385_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Функция TIME<text:tab/>6</text:a></text:p>
-     <text:p text:style-name="P68"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc553_1089627072" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">2.2Математический модуль<text:tab/>6</text:a></text:p>
-     <text:p text:style-name="P70"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc555_1089627072" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">2.2.1Функции<text:tab/>6</text:a></text:p>
-     <text:p text:style-name="P108"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc557_1089627072" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Функция ACS<text:tab/>6</text:a></text:p>
-     <text:p text:style-name="P108"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc559_1089627072" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Функция COS<text:tab/>6</text:a></text:p>
-     <text:p text:style-name="P108"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc561_1089627072" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Функция SIN<text:tab/>6</text:a></text:p>
-     <text:p text:style-name="P108"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc563_1089627072" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Функция SQR<text:tab/>6</text:a></text:p>
-     <text:p text:style-name="P68"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc565_1089627072" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">2.3Модуль работы со строками<text:tab/>6</text:a></text:p>
-     <text:p text:style-name="P70"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc567_1089627072" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">2.3.1Функции<text:tab/>6</text:a></text:p>
-     <text:p text:style-name="P108"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc569_1089627072" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Функция CHR$<text:tab/>6</text:a></text:p>
-     <text:p text:style-name="P108"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc571_1089627072" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Функция MID$<text:tab/>6</text:a></text:p>
-     <text:p text:style-name="P108"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc573_1089627072" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Функция LEFT$<text:tab/>6</text:a></text:p>
-     <text:p text:style-name="P68"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1118_1089627072" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">2.4Модуль ввода-вывода платформы Arduino<text:tab/>6</text:a></text:p>
-     <text:p text:style-name="P68"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1393_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">2.5Модуль работы с файловой системой<text:tab/>6</text:a></text:p>
-     <text:p text:style-name="P68"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1395_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">2.6Модуль графического вывода<text:tab/>6</text:a></text:p>
-     <text:p text:style-name="P69"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc575_1089627072" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">3Национальная лексика<text:tab/>7</text:a></text:p>
-     <text:p text:style-name="P69"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc668_1771205955" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">4Создание расширений языка<text:tab/>7</text:a></text:p>
+     <text:p text:style-name="P77"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1239_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">1Введение<text:tab/>3</text:a></text:p>
+     <text:p text:style-name="P77"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1116_1089627072" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">2Справочник команд и функций<text:tab/>4</text:a></text:p>
+     <text:p text:style-name="P76"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1241_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">2.1Ядро языка<text:tab/>4</text:a></text:p>
+     <text:p text:style-name="P78"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1243_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">2.1.1Команды<text:tab/>4</text:a></text:p>
+     <text:p text:style-name="P133"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1245_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Команда CONT<text:tab/>4</text:a></text:p>
+     <text:p text:style-name="P133"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1369_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Команда DELAY<text:tab/>4</text:a></text:p>
+     <text:p text:style-name="P133"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1247_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Команда DIM<text:tab/>4</text:a></text:p>
+     <text:p text:style-name="P133"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc545_1089627072" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Команда DUMP<text:tab/>4</text:a></text:p>
+     <text:p text:style-name="P133"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1249_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Команда END<text:tab/>4</text:a></text:p>
+     <text:p text:style-name="P133"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1371_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Команда FOR<text:tab/>4</text:a></text:p>
+     <text:p text:style-name="P133"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1373_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Команда INPUT<text:tab/>4</text:a></text:p>
+     <text:p text:style-name="P133"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1251_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Команда LET<text:tab/>4</text:a></text:p>
+     <text:p text:style-name="P133"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc547_1089627072" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Команда LIST<text:tab/>5</text:a></text:p>
+     <text:p text:style-name="P133"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc549_1089627072" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Команда POKE<text:tab/>5</text:a></text:p>
+     <text:p text:style-name="P133"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1253_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Команда PRINT<text:tab/>5</text:a></text:p>
+     <text:p text:style-name="P133"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1255_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Команда STOP<text:tab/>5</text:a></text:p>
+     <text:p text:style-name="P78"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1257_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">2.1.2Функции<text:tab/>6</text:a></text:p>
+     <text:p text:style-name="P133"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1375_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Функция ABS<text:tab/>6</text:a></text:p>
+     <text:p text:style-name="P133"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1377_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Функция CHR$<text:tab/>6</text:a></text:p>
+     <text:p text:style-name="P133"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc551_1089627072" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Функция INT<text:tab/>6</text:a></text:p>
+     <text:p text:style-name="P133"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1379_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Функция RND<text:tab/>6</text:a></text:p>
+     <text:p text:style-name="P133"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1381_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Функция SGN<text:tab/>6</text:a></text:p>
+     <text:p text:style-name="P133"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1383_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Функция STR$<text:tab/>6</text:a></text:p>
+     <text:p text:style-name="P133"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1385_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Функция TIME<text:tab/>6</text:a></text:p>
+     <text:p text:style-name="P76"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc553_1089627072" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">2.2Математический модуль<text:tab/>6</text:a></text:p>
+     <text:p text:style-name="P78"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc555_1089627072" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">2.2.1Функции<text:tab/>6</text:a></text:p>
+     <text:p text:style-name="P133"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc557_1089627072" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Функция ACS<text:tab/>6</text:a></text:p>
+     <text:p text:style-name="P133"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc559_1089627072" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Функция COS<text:tab/>6</text:a></text:p>
+     <text:p text:style-name="P133"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc561_1089627072" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Функция SIN<text:tab/>6</text:a></text:p>
+     <text:p text:style-name="P133"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc563_1089627072" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Функция SQR<text:tab/>6</text:a></text:p>
+     <text:p text:style-name="P76"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc565_1089627072" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">2.3Модуль работы со строками<text:tab/>6</text:a></text:p>
+     <text:p text:style-name="P78"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc567_1089627072" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">2.3.1Функции<text:tab/>6</text:a></text:p>
+     <text:p text:style-name="P133"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc569_1089627072" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Функция CHR$<text:tab/>6</text:a></text:p>
+     <text:p text:style-name="P133"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc571_1089627072" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Функция MID$<text:tab/>6</text:a></text:p>
+     <text:p text:style-name="P133"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc573_1089627072" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Функция LEFT$<text:tab/>6</text:a></text:p>
+     <text:p text:style-name="P76"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1118_1089627072" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">2.4Модуль ввода-вывода платформы Arduino<text:tab/>6</text:a></text:p>
+     <text:p text:style-name="P76"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1393_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">2.5Модуль работы с файловой системой<text:tab/>6</text:a></text:p>
+     <text:p text:style-name="P76"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc1395_1116085189" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">2.6Модуль графического вывода<text:tab/>6</text:a></text:p>
+     <text:p text:style-name="P77"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc575_1089627072" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">3Национальная лексика<text:tab/>7</text:a></text:p>
+     <text:p text:style-name="P77"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc668_1771205955" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">4Создание расширений языка<text:tab/>7</text:a></text:p>
     </text:index-body>
    </text:table-of-content>
-   <text:h text:style-name="P72" text:outline-level="1" text:is-list-header="true"/>
-   <text:h text:style-name="P53" text:outline-level="1"><text:bookmark-start text:name="__RefHeading___Toc1239_1116085189"/>Введение<text:bookmark-end text:name="__RefHeading___Toc1239_1116085189"/></text:h>
-   <text:p text:style-name="P29"><text:span text:style-name="T20">Terminal-BASIC (далее TB) — это свободная реализация языка программирования Бэйсик, частично соответствующая стандартам </text:span>ISO/IEC 6373:1984 / ГОСТ 27787-88.</text:p>
-   <text:p text:style-name="P31">TB предназначен для запуска на простейших встроенных системах, основанных на микроконтроллерах и <text:span text:style-name="T22">м</text:span>икропроцессорах с объёмом памяти программ от 32 кб и ОЗУ от 2 кб. Основной платформой для которой разрабатывается TB являются устройства, совместимые с Arduino (TM). Для целей ознакомления с TB, отладки и разработки самого интерпретатора поддерживается версия для ОС GNU/Linux.</text:p>
-   <text:h text:style-name="P56" text:outline-level="1"><text:bookmark-start text:name="__RefHeading___Toc1116_1089627072"/>Справочник команд и функций<text:bookmark-end text:name="__RefHeading___Toc1116_1089627072"/></text:h>
+   <text:h text:style-name="P80" text:outline-level="1" text:is-list-header="true"/>
+   <text:h text:style-name="P61" text:outline-level="1"><text:bookmark-start text:name="__RefHeading___Toc1239_1116085189"/>Введение<text:bookmark-end text:name="__RefHeading___Toc1239_1116085189"/></text:h>
+   <text:p text:style-name="P31"><text:span text:style-name="T21">Terminal-BASIC (далее TB) — это свободная реализация языка программирования Бэйсик, частично соответствующая стандартам </text:span>ISO/IEC 6373:1984 / ГОСТ 27787-88.</text:p>
+   <text:p text:style-name="P33">TB предназначен для запуска на простейших встроенных системах, основанных на микроконтроллерах и <text:span text:style-name="T23">м</text:span>икропроцессорах с объёмом памяти программ от 32 кб и ОЗУ от 2 кб. Основной платформой для которой разрабатывается TB являются устройства, совместимые с Arduino (TM). Для целей ознакомления с TB, отладки и разработки самого интерпретатора поддерживается версия для ОС GNU/Linux.</text:p>
+   <text:h text:style-name="P64" text:outline-level="1"><text:bookmark-start text:name="__RefHeading___Toc1116_1089627072"/>Справочник команд и функций<text:bookmark-end text:name="__RefHeading___Toc1116_1089627072"/></text:h>
    <text:h text:style-name="Heading_20_2" text:outline-level="2"><text:bookmark-start text:name="__RefHeading___Toc1241_1116085189"/>Ядро языка<text:bookmark-end text:name="__RefHeading___Toc1241_1116085189"/></text:h>
    <text:h text:style-name="Heading_20_3" text:outline-level="3"><text:bookmark-start text:name="__RefHeading___Toc1243_1116085189"/>Команды<text:bookmark-end text:name="__RefHeading___Toc1243_1116085189"/></text:h>
-   <text:h text:style-name="Heading_20_4" text:outline-level="4"><text:bookmark text:name="CONT"/><text:bookmark-start text:name="__RefHeading___Toc1245_1116085189"/><text:span text:style-name="T21">Команда </text:span>CONT<text:bookmark-end text:name="__RefHeading___Toc1245_1116085189"/></text:h>
-   <text:p text:style-name="P32"><text:span text:style-name="T8">Описание</text:span><text:span text:style-name="T6">:</text:span><text:span text:style-name="T17"> Продолжить выполнение программы, после остановки командой </text:span><text:a xlink:type="simple" xlink:href="#STOP" text:style-name="Internet_20_link" text:visited-style-name="Visited_20_Internet_20_Link"><text:span text:style-name="T17">STOP</text:span></text:a><text:span text:style-name="T17">.</text:span></text:p>
+   <text:h text:style-name="Heading_20_4" text:outline-level="4"><text:bookmark-start text:name="__RefHeading___Toc1245_1116085189"/><text:bookmark text:name="CONT"/><text:span text:style-name="T22">Команда </text:span>CONT<text:bookmark-end text:name="__RefHeading___Toc1245_1116085189"/></text:h>
+   <text:p text:style-name="P34"><text:span text:style-name="T9">Описание</text:span><text:span text:style-name="T7">:</text:span><text:span text:style-name="T18"> Продолжить выполнение программы, после остановки командой </text:span><text:a xlink:type="simple" xlink:href="#STOP" text:style-name="Internet_20_link" text:visited-style-name="Visited_20_Internet_20_Link"><text:span text:style-name="T18">STOP</text:span></text:a><text:span text:style-name="T18">.</text:span></text:p>
    <text:h text:style-name="Heading_20_4" text:outline-level="4"><text:bookmark-start text:name="__RefHeading___Toc1369_1116085189"/>Команда DELAY<text:bookmark-end text:name="__RefHeading___Toc1369_1116085189"/></text:h>
-   <text:p text:style-name="P32"><text:span text:style-name="T8">Описание</text:span><text:span text:style-name="T6">:</text:span><text:span text:style-name="T17"> </text:span><text:a xlink:type="simple" xlink:href="#STOP" text:style-name="Internet_20_link" text:visited-style-name="Visited_20_Internet_20_Link"><text:span text:style-name="T17">П</text:span></text:a><text:span text:style-name="T17">риостановить работу программы на заданное количество миллисекунд.</text:span></text:p>
-   <text:p text:style-name="P15"><text:span text:style-name="T21">Синтаксис</text:span>:</text:p>
-   <text:p text:style-name="P23">DELAY &lt;выражение&gt;</text:p>
+   <text:p text:style-name="P34"><text:span text:style-name="T9">Описание</text:span><text:span text:style-name="T7">:</text:span><text:span text:style-name="T18"> </text:span><text:a xlink:type="simple" xlink:href="#STOP" text:style-name="Internet_20_link" text:visited-style-name="Visited_20_Internet_20_Link"><text:span text:style-name="T18">П</text:span></text:a><text:span text:style-name="T18">риостановить работу программы на заданное количество миллисекунд.</text:span></text:p>
+   <text:p text:style-name="P16"><text:span text:style-name="T22">Синтаксис</text:span>:</text:p>
+   <text:p text:style-name="P24">DELAY &lt;выражение&gt;</text:p>
    <text:h text:style-name="Heading_20_4" text:outline-level="4"><text:bookmark-start text:name="__RefHeading___Toc1247_1116085189"/>Команда DIM<text:bookmark-end text:name="__RefHeading___Toc1247_1116085189"/></text:h>
-   <text:p text:style-name="P30"><text:span text:style-name="T5">Описание</text:span><text:span text:style-name="T6">:</text:span><text:span text:style-name="T17"> </text:span>Объявить массив</text:p>
-   <text:p text:style-name="P15"><text:span text:style-name="T21">Синтаксис</text:span>:</text:p>
-   <text:p text:style-name="P23">DIM &lt;имя&gt;(выражение[, выражение]*), [&lt;имя&gt;(выражение[, выражение]*)]*</text:p>
-   <text:p text:style-name="P12"><text:span text:style-name="T21">Пример использования</text:span>:</text:p>
-   <text:p text:style-name="P67">DIM A(12)</text:p>
-   <text:p text:style-name="P67">LET A(0) = 3.141592</text:p>
-   <text:p text:style-name="P67">LET I%=3,J%=2</text:p>
-   <text:p text:style-name="P59">DIM C%(I%,J%,I%*J%), D%(I%+J%)</text:p>
+   <text:p text:style-name="P32"><text:span text:style-name="T6">Описание</text:span><text:span text:style-name="T7">:</text:span><text:span text:style-name="T18"> </text:span>Объявить массив</text:p>
+   <text:p text:style-name="P16"><text:span text:style-name="T22">Синтаксис</text:span>:</text:p>
+   <text:p text:style-name="P24">DIM &lt;имя&gt;(выражение[, выражение]*), [&lt;имя&gt;(выражение[, выражение]*)]*</text:p>
+   <text:p text:style-name="P13"><text:span text:style-name="T22">Пример использования</text:span>:</text:p>
+   <text:p text:style-name="P75">DIM A(12)</text:p>
+   <text:p text:style-name="P75">LET A(0) = 3.141592</text:p>
+   <text:p text:style-name="P75">LET I%=3,J%=2</text:p>
+   <text:p text:style-name="P67">DIM C%(I%,J%,I%*J%), D%(I%+J%)</text:p>
    <text:h text:style-name="Heading_20_4" text:outline-level="4"><text:bookmark-start text:name="__RefHeading___Toc545_1089627072"/>Команда DUMP<text:bookmark-end text:name="__RefHeading___Toc545_1089627072"/></text:h>
    <text:h text:style-name="Heading_20_4" text:outline-level="4"><text:bookmark-start text:name="__RefHeading___Toc1249_1116085189"/>Команда END<text:bookmark-end text:name="__RefHeading___Toc1249_1116085189"/></text:h>
-   <text:p text:style-name="P30"><text:span text:style-name="T5">Описание</text:span><text:span text:style-name="T6">:</text:span><text:span text:style-name="T17"> </text:span>Завершить выполнение программы и вернуться в интерактивный режим.</text:p>
+   <text:p text:style-name="P32"><text:span text:style-name="T6">Описание</text:span><text:span text:style-name="T7">:</text:span><text:span text:style-name="T18"> </text:span>Завершить выполнение программы и вернуться в интерактивный режим.</text:p>
    <text:h text:style-name="Heading_20_4" text:outline-level="4"><text:bookmark-start text:name="__RefHeading___Toc1371_1116085189"/>Команда FOR<text:bookmark-end text:name="__RefHeading___Toc1371_1116085189"/></text:h>
    <text:h text:style-name="Heading_20_4" text:outline-level="4"><text:bookmark-start text:name="__RefHeading___Toc1373_1116085189"/>Команда INPUT<text:bookmark-end text:name="__RefHeading___Toc1373_1116085189"/></text:h>
-   <text:h text:style-name="Heading_20_4" text:outline-level="4"><text:bookmark-start text:name="__RefHeading___Toc1251_1116085189"/><text:span text:style-name="T21">Команда </text:span>LET<text:bookmark-end text:name="__RefHeading___Toc1251_1116085189"/></text:h>
-   <text:p text:style-name="P28"><text:span text:style-name="T8">Описание</text:span><text:span text:style-name="T5">:</text:span> <text:span text:style-name="T21">Присвоить переменной или элементу массива значение выражения</text:span></text:p>
-   <text:p text:style-name="P15"><text:span text:style-name="T21">Синтаксис</text:span>:</text:p>
-   <text:p text:style-name="P28">LET &lt;<text:span text:style-name="T21">переменная </text:span>| <text:span text:style-name="T21">элемент <text:s/>массива</text:span>&gt; = &lt;<text:span text:style-name="T21">выражение</text:span>&gt;</text:p>
-   <text:p text:style-name="P12"><text:soft-page-break/><text:span text:style-name="T21">Пример использования</text:span>:</text:p>
-   <text:p text:style-name="P65">LET A% = 3</text:p>
-   <text:p text:style-name="P65">PRINT A%</text:p>
-   <text:p text:style-name="P97"><text:s text:c="2"/>3</text:p>
-   <text:p text:style-name="P65">LET B(1,2) = PI()</text:p>
-   <text:p text:style-name="P65">PRINT B(1,2)</text:p>
-   <text:p text:style-name="P97"><text:s text:c="2"/>3.141592</text:p>
+   <text:h text:style-name="Heading_20_4" text:outline-level="4"><text:bookmark-start text:name="__RefHeading___Toc1251_1116085189"/><text:span text:style-name="T22">Команда </text:span>LET<text:bookmark-end text:name="__RefHeading___Toc1251_1116085189"/></text:h>
+   <text:p text:style-name="P29"><text:span text:style-name="T9">Описание</text:span><text:span text:style-name="T6">:</text:span> <text:span text:style-name="T22">Присвоить переменной или элементу массива значение выражения</text:span></text:p>
+   <text:p text:style-name="P16"><text:span text:style-name="T22">Синтаксис</text:span>:</text:p>
+   <text:p text:style-name="P29">LET &lt;<text:span text:style-name="T22">переменная </text:span>| <text:span text:style-name="T22">элемент <text:s/>массива</text:span>&gt; = &lt;<text:span text:style-name="T22">выражение</text:span>&gt;</text:p>
+   <text:p text:style-name="P13"><text:soft-page-break/><text:span text:style-name="T22">Пример использования</text:span>:</text:p>
+   <text:p text:style-name="P73">LET A% = 3</text:p>
+   <text:p text:style-name="P73">PRINT A%</text:p>
+   <text:p text:style-name="P105"><text:s text:c="2"/>3</text:p>
+   <text:p text:style-name="P73">LET B(1,2) = PI()</text:p>
+   <text:p text:style-name="P73">PRINT B(1,2)</text:p>
+   <text:p text:style-name="P105"><text:s text:c="2"/>3.141592</text:p>
    <text:h text:style-name="Heading_20_4" text:outline-level="4"><text:bookmark-start text:name="__RefHeading___Toc547_1089627072"/>Команда LIST<text:bookmark-end text:name="__RefHeading___Toc547_1089627072"/></text:h>
    <text:h text:style-name="Heading_20_4" text:outline-level="4"><text:bookmark-start text:name="__RefHeading___Toc549_1089627072"/>Команда POKE<text:bookmark-end text:name="__RefHeading___Toc549_1089627072"/></text:h>
-   <text:h text:style-name="Heading_20_4" text:outline-level="4"><text:bookmark-start text:name="__RefHeading___Toc1253_1116085189"/><text:span text:style-name="T21">Команда </text:span>PRINT<text:bookmark-end text:name="__RefHeading___Toc1253_1116085189"/></text:h>
-   <text:p text:style-name="P32"><text:span text:style-name="T8">Описание</text:span><text:span text:style-name="T5">:</text:span> <text:span text:style-name="T21">Вывести значения одного или нескольких выражений на основное устройство вывода.</text:span></text:p>
-   <text:p text:style-name="P9"><text:span text:style-name="T21">Синтаксис</text:span>:</text:p>
-   <text:p text:style-name="P6">PRINT <text:span text:style-name="T14">[ [ выражение</text:span> <text:span text:style-name="T15">| ; | , </text:span>]*</text:p>
-   <text:p text:style-name="P12"><text:span text:style-name="T21">Пример использования</text:span>:</text:p>
-   <text:p text:style-name="P66">PRINT «<text:span text:style-name="T9">Hello</text:span>, <text:span text:style-name="T9">World</text:span>!»</text:p>
-   <text:p text:style-name="P98">Hello World</text:p>
-   <text:p text:style-name="P32"/>
-   <text:p text:style-name="P61">PRINT «<text:span text:style-name="T16">First line</text:span>»</text:p>
-   <text:p text:style-name="P63">PRINT</text:p>
-   <text:p text:style-name="P63">PRINT «Second one»</text:p>
-   <text:p text:style-name="P95">First line</text:p>
-   <text:p text:style-name="P98"/>
-   <text:p text:style-name="P95">Second one</text:p>
-   <text:p text:style-name="P32"/>
-   <text:p text:style-name="P58">PRINT 2*2</text:p>
-   <text:p text:style-name="P98">4</text:p>
-   <text:p text:style-name="P32"/>
-   <text:p text:style-name="P58">PRINT «47.31+24.5^2=», 47.31+24.5^2</text:p>
-   <text:p text:style-name="P98"><text:span text:style-name="T10">47.31+24.5^2=<text:tab/><text:tab/></text:span>647.56</text:p>
-   <text:p text:style-name="P25"/>
-   <text:h text:style-name="Heading_20_4" text:outline-level="4"><text:bookmark-start text:name="__RefHeading___Toc1255_1116085189"/><text:bookmark text:name="STOP"/>Команда STOP<text:bookmark-end text:name="__RefHeading___Toc1255_1116085189"/></text:h>
-   <text:p text:style-name="P25"><text:span text:style-name="T8">Описание</text:span><text:span text:style-name="T5">:</text:span> <text:span text:style-name="T21">Приостановить выпонение программы и вернуться в интерактивный режим. Выполнение программы может быть продолжено командой </text:span><text:a xlink:type="simple" xlink:href="#CONT" text:style-name="Internet_20_link" text:visited-style-name="Visited_20_Internet_20_Link"><text:span text:style-name="T21">CONT</text:span></text:a><text:span text:style-name="T21">.</text:span></text:p>
+   <text:h text:style-name="Heading_20_4" text:outline-level="4"><text:bookmark-start text:name="__RefHeading___Toc1253_1116085189"/><text:span text:style-name="T22">Команда </text:span>PRINT<text:bookmark-end text:name="__RefHeading___Toc1253_1116085189"/></text:h>
+   <text:p text:style-name="P34"><text:span text:style-name="T9">Описание</text:span><text:span text:style-name="T6">:</text:span> <text:span text:style-name="T22">Вывести значения одного или нескольких выражений на основное устройство вывода.</text:span></text:p>
+   <text:p text:style-name="P10"><text:span text:style-name="T22">Синтаксис</text:span>:</text:p>
+   <text:p text:style-name="P7">PRINT <text:span text:style-name="T15">[ [ выражение</text:span> <text:span text:style-name="T16">| ; | , </text:span>]*</text:p>
+   <text:p text:style-name="P13"><text:span text:style-name="T22">Пример использования</text:span>:</text:p>
+   <text:p text:style-name="P74">PRINT «<text:span text:style-name="T10">Hello</text:span>, <text:span text:style-name="T10">World</text:span>!»</text:p>
+   <text:p text:style-name="P106">Hello World</text:p>
+   <text:p text:style-name="P34"/>
+   <text:p text:style-name="P69">PRINT «<text:span text:style-name="T17">First line</text:span>»</text:p>
+   <text:p text:style-name="P71">PRINT</text:p>
+   <text:p text:style-name="P71">PRINT «Second one»</text:p>
+   <text:p text:style-name="P103">First line</text:p>
+   <text:p text:style-name="P106"/>
+   <text:p text:style-name="P103">Second one</text:p>
+   <text:p text:style-name="P34"/>
+   <text:p text:style-name="P66">PRINT 2*2</text:p>
+   <text:p text:style-name="P106">4</text:p>
+   <text:p text:style-name="P34"/>
+   <text:p text:style-name="P66">PRINT «47.31+24.5^2=», 47.31+24.5^2</text:p>
+   <text:p text:style-name="P106"><text:span text:style-name="T11">47.31+24.5^2=<text:tab/><text:tab/></text:span>647.56</text:p>
+   <text:p text:style-name="P26"/>
+   <text:h text:style-name="Heading_20_4" text:outline-level="4"><text:bookmark text:name="STOP"/><text:bookmark-start text:name="__RefHeading___Toc1255_1116085189"/>Команда STOP<text:bookmark-end text:name="__RefHeading___Toc1255_1116085189"/></text:h>
+   <text:p text:style-name="P26"><text:span text:style-name="T9">Описание</text:span><text:span text:style-name="T6">:</text:span> <text:span text:style-name="T22">Приостановить выпонение программы и вернуться в интерактивный режим. Выполнение программы может быть продолжено командой </text:span><text:a xlink:type="simple" xlink:href="#CONT" text:style-name="Internet_20_link" text:visited-style-name="Visited_20_Internet_20_Link"><text:span text:style-name="T22">CONT</text:span></text:a><text:span text:style-name="T22">.</text:span></text:p>
    <text:h text:style-name="Heading_20_3" text:outline-level="3"><text:bookmark-start text:name="__RefHeading___Toc1257_1116085189"/><text:soft-page-break/>Функции<text:bookmark-end text:name="__RefHeading___Toc1257_1116085189"/></text:h>
    <text:h text:style-name="Heading_20_4" text:outline-level="4"><text:bookmark-start text:name="__RefHeading___Toc1375_1116085189"/>Функция ABS<text:bookmark-end text:name="__RefHeading___Toc1375_1116085189"/></text:h>
    <text:h text:style-name="Heading_20_4" text:outline-level="4"><text:bookmark-start text:name="__RefHeading___Toc1377_1116085189"/>Функция CHR$<text:bookmark-end text:name="__RefHeading___Toc1377_1116085189"/></text:h>
@@ -1195,231 +1209,231 @@
    <text:h text:style-name="Heading_20_2" text:outline-level="2"><text:bookmark-start text:name="__RefHeading___Toc1118_1089627072"/>Модуль ввода-вывода платформы Arduino<text:bookmark-end text:name="__RefHeading___Toc1118_1089627072"/></text:h>
    <text:h text:style-name="Heading_20_2" text:outline-level="2"><text:bookmark-start text:name="__RefHeading___Toc1393_1116085189"/>Модуль работы с файловой системой<text:bookmark-end text:name="__RefHeading___Toc1393_1116085189"/></text:h>
    <text:h text:style-name="Heading_20_2" text:outline-level="2"><text:bookmark-start text:name="__RefHeading___Toc1395_1116085189"/>Модуль графического вывода<text:bookmark-end text:name="__RefHeading___Toc1395_1116085189"/></text:h>
-   <text:p text:style-name="P45"/>
-   <text:p text:style-name="P32"/>
-   <text:h text:style-name="P55" text:outline-level="1"><text:bookmark-start text:name="__RefHeading___Toc575_1089627072"/>Национальная лексика<text:bookmark-end text:name="__RefHeading___Toc575_1089627072"/></text:h>
+   <text:p text:style-name="P53"/>
+   <text:p text:style-name="P34"/>
+   <text:h text:style-name="P63" text:outline-level="1"><text:bookmark-start text:name="__RefHeading___Toc575_1089627072"/>Национальная лексика<text:bookmark-end text:name="__RefHeading___Toc575_1089627072"/></text:h>
    <table:table table:name="Национальнаялексика" table:style-name="Национальнаялексика">
     <table:table-column table:style-name="Национальнаялексика.A"/>
     <table:table-column table:style-name="Национальнаялексика.B"/>
     <table:table-row>
      <table:table-cell table:style-name="Национальнаялексика.A1" office:value-type="string">
-      <text:p text:style-name="P141">Английский</text:p>
+      <text:p text:style-name="P132">Английский</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Национальнаялексика.B1" office:value-type="string">
-      <text:p text:style-name="P141">Русский</text:p>
+      <text:p text:style-name="P132">Русский</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Национальнаялексика.A2" office:value-type="string">
-      <text:p text:style-name="P107">DATA</text:p>
+      <text:p text:style-name="P130">DATA</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Национальнаялексика.B2" office:value-type="string">
-      <text:p text:style-name="P107">ДАННЫЕ</text:p>
+      <text:p text:style-name="P130">ДАННЫЕ</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Национальнаялексика.A2" office:value-type="string">
-      <text:p text:style-name="P107">DEF</text:p>
+      <text:p text:style-name="P130">DEF</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Национальнаялексика.B2" office:value-type="string">
-      <text:p text:style-name="P107">ОПР</text:p>
+      <text:p text:style-name="P130">ОПР</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Национальнаялексика.A2" office:value-type="string">
-      <text:p text:style-name="P140">DIM</text:p>
+      <text:p text:style-name="P131">DIM</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Национальнаялексика.B2" office:value-type="string">
-      <text:p text:style-name="P140">РАЗМЕР</text:p>
+      <text:p text:style-name="P131">РАЗМЕР</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Национальнаялексика.A2" office:value-type="string">
-      <text:p text:style-name="P106">END</text:p>
+      <text:p text:style-name="P129">END</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Национальнаялексика.B2" office:value-type="string">
-      <text:p text:style-name="P106">КОНЕЦ</text:p>
+      <text:p text:style-name="P129">КОНЕЦ</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Национальнаялексика.A2" office:value-type="string">
-      <text:p text:style-name="P140">FN</text:p>
+      <text:p text:style-name="P131">FN</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Национальнаялексика.B2" office:value-type="string">
-      <text:p text:style-name="P140">ФУНК</text:p>
+      <text:p text:style-name="P131">ФУНК</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Национальнаялексика.A2" office:value-type="string">
-      <text:p text:style-name="P106">FOR</text:p>
+      <text:p text:style-name="P129">FOR</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Национальнаялексика.B2" office:value-type="string">
-      <text:p text:style-name="P106">ДЛЯ</text:p>
+      <text:p text:style-name="P129">ДЛЯ</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Национальнаялексика.A2" office:value-type="string">
-      <text:p text:style-name="P140">GOSUB</text:p>
+      <text:p text:style-name="P131">GOSUB</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Национальнаялексика.B2" office:value-type="string">
-      <text:p text:style-name="P140">ВХОД</text:p>
+      <text:p text:style-name="P131">ВХОД</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Национальнаялексика.A2" office:value-type="string">
-      <text:p text:style-name="P140">GOTO</text:p>
+      <text:p text:style-name="P131">GOTO</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Национальнаялексика.B2" office:value-type="string">
-      <text:p text:style-name="P140">НА</text:p>
+      <text:p text:style-name="P131">НА</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Национальнаялексика.A2" office:value-type="string">
-      <text:p text:style-name="P106">IF</text:p>
+      <text:p text:style-name="P129">IF</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Национальнаялексика.B2" office:value-type="string">
-      <text:p text:style-name="P106">ЕСЛИ</text:p>
+      <text:p text:style-name="P129">ЕСЛИ</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Национальнаялексика.A2" office:value-type="string">
-      <text:p text:style-name="P106">INPUT</text:p>
+      <text:p text:style-name="P129">INPUT</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Национальнаялексика.B2" office:value-type="string">
-      <text:p text:style-name="P106">ВВОД</text:p>
+      <text:p text:style-name="P129">ВВОД</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Национальнаялексика.A2" office:value-type="string">
-      <text:p text:style-name="P106">LET</text:p>
+      <text:p text:style-name="P129">LET</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Национальнаялексика.B2" office:value-type="string">
-      <text:p text:style-name="P106">ПУСТЬ</text:p>
+      <text:p text:style-name="P129">ПУСТЬ</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Национальнаялексика.A2" office:value-type="string">
-      <text:p text:style-name="P140">LIST</text:p>
+      <text:p text:style-name="P131">LIST</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Национальнаялексика.B2" office:value-type="string">
-      <text:p text:style-name="P140">ЛИСТАТЬ</text:p>
+      <text:p text:style-name="P131">ЛИСТАТЬ</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Национальнаялексика.A2" office:value-type="string">
-      <text:p text:style-name="P140">MAT</text:p>
+      <text:p text:style-name="P131">MAT</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Национальнаялексика.B2" office:value-type="string">
-      <text:p text:style-name="P140">МАТ</text:p>
+      <text:p text:style-name="P131">МАТ</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Национальнаялексика.A2" office:value-type="string">
-      <text:p text:style-name="P106">NEXT</text:p>
+      <text:p text:style-name="P129">NEXT</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Национальнаялексика.B2" office:value-type="string">
-      <text:p text:style-name="P140">ЦИКЛ</text:p>
+      <text:p text:style-name="P131">ЦИКЛ</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Национальнаялексика.A2" office:value-type="string">
-      <text:p text:style-name="P140">ON</text:p>
+      <text:p text:style-name="P131">ON</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Национальнаялексика.B2" office:value-type="string">
-      <text:p text:style-name="P140">ПРИ</text:p>
+      <text:p text:style-name="P131">ПРИ</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Национальнаялексика.A2" office:value-type="string">
-      <text:p text:style-name="P106">OR</text:p>
+      <text:p text:style-name="P129">OR</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Национальнаялексика.B2" office:value-type="string">
-      <text:p text:style-name="P106">ИЛИ</text:p>
+      <text:p text:style-name="P129">ИЛИ</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Национальнаялексика.A2" office:value-type="string">
-      <text:p text:style-name="P106">PRINT</text:p>
+      <text:p text:style-name="P129">PRINT</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Национальнаялексика.B2" office:value-type="string">
-      <text:p text:style-name="P106">ВЫВОД</text:p>
+      <text:p text:style-name="P129">ВЫВОД</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Национальнаялексика.A2" office:value-type="string">
-      <text:p text:style-name="P140">READ</text:p>
+      <text:p text:style-name="P131">READ</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Национальнаялексика.B2" office:value-type="string">
-      <text:p text:style-name="P140">ВЗЯТЬ</text:p>
+      <text:p text:style-name="P131">ВЗЯТЬ</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Национальнаялексика.A2" office:value-type="string">
-      <text:p text:style-name="P140">REM</text:p>
+      <text:p text:style-name="P131">REM</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Национальнаялексика.B2" office:value-type="string">
-      <text:p text:style-name="P140">КОМ</text:p>
+      <text:p text:style-name="P131">КОМ</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Национальнаялексика.A2" office:value-type="string">
-      <text:p text:style-name="P140">RESTORE</text:p>
+      <text:p text:style-name="P131">RESTORE</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Национальнаялексика.B2" office:value-type="string">
-      <text:p text:style-name="P140">СНОВА</text:p>
+      <text:p text:style-name="P131">СНОВА</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Национальнаялексика.A2" office:value-type="string">
-      <text:p text:style-name="P106">RETURN</text:p>
+      <text:p text:style-name="P129">RETURN</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Национальнаялексика.B2" office:value-type="string">
-      <text:p text:style-name="P140">ВОЗВРАТ</text:p>
+      <text:p text:style-name="P131">ВОЗВРАТ</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Национальнаялексика.A2" office:value-type="string">
-      <text:p text:style-name="P106">RUN</text:p>
+      <text:p text:style-name="P129">RUN</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Национальнаялексика.B2" office:value-type="string">
-      <text:p text:style-name="P106">ПУСК</text:p>
+      <text:p text:style-name="P129">ПУСК</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Национальнаялексика.A2" office:value-type="string">
-      <text:p text:style-name="P106">STEP</text:p>
+      <text:p text:style-name="P129">STEP</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Национальнаялексика.B2" office:value-type="string">
-      <text:p text:style-name="P106">ШАГ</text:p>
+      <text:p text:style-name="P129">ШАГ</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Национальнаялексика.A2" office:value-type="string">
-      <text:p text:style-name="P106">STOP</text:p>
+      <text:p text:style-name="P129">STOP</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Национальнаялексика.B2" office:value-type="string">
-      <text:p text:style-name="P106">СТОП</text:p>
+      <text:p text:style-name="P129">СТОП</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Национальнаялексика.A2" office:value-type="string">
-      <text:p text:style-name="P106">TO</text:p>
+      <text:p text:style-name="P129">TO</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Национальнаялексика.B2" office:value-type="string">
-      <text:p text:style-name="P106">ДО</text:p>
+      <text:p text:style-name="P129">ДО</text:p>
      </table:table-cell>
     </table:table-row>
    </table:table>
-   <text:p text:style-name="P33"/>
-   <text:h text:style-name="P117" text:outline-level="1"/>
-   <text:h text:style-name="P49" text:outline-level="1"><text:bookmark-start text:name="__RefHeading___Toc668_1771205955"/>Создание расширений языка<text:bookmark-end text:name="__RefHeading___Toc668_1771205955"/></text:h>
-   <text:p text:style-name="P36">Для того чтобы добавить в TB возможность интерпретировать новые команды и функции не обязательно изменять код ядра языка. Набор функций и команд может быть сгруппирован в модуле расширения, пример разработки которого приведён в данном разделе.</text:p>
-   <text:p text:style-name="P36">В рассматриваемом примере будет создан модуль, содержащий команду MULTPRINT и функцию HYPOT. Команда MULTPRINT принимает два параметра: первый — целочисленное выражение, второй — строковое выражение. Результатом работы команды будет вывод на экран строки, заданной вторым параметром в количестве, заданном первым:</text:p>
-   <text:p text:style-name="P100"><text:bookmark-start text:name="__DdeLink__1005_654170950"/>MULTPRINT 3, <text:span text:style-name="T23">&quot;</text:span>123<text:span text:style-name="T23">&quot;</text:span></text:p>
+   <text:p text:style-name="P35"/>
+   <text:h text:style-name="P135" text:outline-level="1"/>
+   <text:h text:style-name="P57" text:outline-level="1"><text:bookmark-start text:name="__RefHeading___Toc668_1771205955"/>Создание расширений языка<text:bookmark-end text:name="__RefHeading___Toc668_1771205955"/></text:h>
+   <text:p text:style-name="P38">Для того чтобы добавить в TB возможность интерпретировать новые команды и функции не обязательно изменять код ядра языка. Набор функций и команд может быть сгруппирован в модуле расширения, пример разработки которого приведён в данном разделе.</text:p>
+   <text:p text:style-name="P38">В рассматриваемом примере будет создан модуль, содержащий команду MULTPRINT и функцию HYPOT. Команда MULTPRINT принимает два параметра: первый — целочисленное выражение, второй — строковое выражение. Результатом работы команды будет вывод на экран строки, заданной вторым параметром в количестве, заданном первым:</text:p>
+   <text:p text:style-name="P108"><text:bookmark-start text:name="__DdeLink__1005_654170950"/>MULTPRINT 3, <text:span text:style-name="T24">&quot;</text:span>123<text:span text:style-name="T24">&quot;</text:span></text:p>
    <text:p text:style-name="Sourcecode">123</text:p>
    <text:p text:style-name="Sourcecode">123</text:p>
    <text:p text:style-name="Sourcecode">123<text:bookmark-end text:name="__DdeLink__1005_654170950"/></text:p>
-   <text:p text:style-name="P35">Функция HYPOT принимает два вещественных параметра a и b и возвращает <text:span text:style-name="T28">значение функции</text:span><draw:frame draw:style-name="fr1" draw:name="Объект1" text:anchor-type="as-char" svg:y="-0.48cm" svg:width="2.062cm" svg:height="0.57cm" draw:z-index="0"><draw:object>
+   <text:p text:style-name="P37">Функция HYPOT принимает два вещественных параметра a и b и возвращает <text:span text:style-name="T29">значение функции</text:span><draw:frame draw:style-name="fr1" draw:name="Объект1" text:anchor-type="as-char" svg:y="-0.48cm" svg:width="2.062cm" svg:height="0.57cm" draw:z-index="0"><draw:object>
       <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
        <semantics>
         <mrow>
@@ -1476,250 +1490,250 @@
       </office:binary-data>
      </draw:image>
     </draw:frame>:</text:p>
-   <text:p text:style-name="P99">PRINT HYPOT(2.1, 0.145)</text:p>
+   <text:p text:style-name="P107">PRINT HYPOT(2.1, 0.145)</text:p>
    <text:p text:style-name="Sourcecode">2.105</text:p>
-   <text:p text:style-name="P35"/>
-   <text:p text:style-name="P109">Модуль расширения представляет собой C++ класс, унаследованный <text:span text:style-name="T29">от класса BASIC::FunctionBlock. Код модуля будет находиться в файлах test_module.hpp и </text:span><text:bookmark-start text:name="__DdeLink__672_1771205955"/><text:span text:style-name="T29">test_module.cpp</text:span><text:bookmark-end text:name="__DdeLink__672_1771205955"/><text:span text:style-name="T29">.</text:span></text:p>
-   <text:p text:style-name="P39">Заголовочный файл test_module.hpp должен содержать описание класса модуля:</text:p>
-   <text:p text:style-name="P101">#ifndef TEST_MODULE_HPP</text:p>
-   <text:p text:style-name="P101">#define TEST_MODULE_HPP</text:p>
-   <text:p text:style-name="P101"/>
-   <text:p text:style-name="P101">#include &quot;basic_functionblock.hpp&quot;</text:p>
-   <text:p text:style-name="P101"/>
-   <text:p text:style-name="P101">class TestModule : public BASIC::FunctionBlock</text:p>
-   <text:p text:style-name="P101">{</text:p>
-   <text:p text:style-name="P101">public:</text:p>
-   <text:p text:style-name="P101"><text:tab/>TestModule();<text:tab/></text:p>
-   <text:p text:style-name="P101">};</text:p>
-   <text:p text:style-name="P101"/>
+   <text:p text:style-name="P37"/>
+   <text:p text:style-name="P40">Модуль расширения представляет собой C++ класс, унаследованный <text:span text:style-name="T30">от класса BASIC::FunctionBlock. Код модуля будет находиться в файлах test_module.hpp и </text:span><text:bookmark-start text:name="__DdeLink__672_1771205955"/><text:span text:style-name="T30">test_module.cpp</text:span><text:bookmark-end text:name="__DdeLink__672_1771205955"/><text:span text:style-name="T30">.</text:span></text:p>
+   <text:p text:style-name="P42">Заголовочный файл test_module.hpp должен содержать описание класса модуля:</text:p>
+   <text:p text:style-name="P113">#ifndef TEST_MODULE_HPP</text:p>
+   <text:p text:style-name="P113">#define TEST_MODULE_HPP</text:p>
+   <text:p text:style-name="P113"/>
+   <text:p text:style-name="P113">#include &quot;basic_functionblock.hpp&quot;</text:p>
+   <text:p text:style-name="P113"/>
+   <text:p text:style-name="P113">class TestModule : public BASIC::FunctionBlock</text:p>
+   <text:p text:style-name="P113">{</text:p>
+   <text:p text:style-name="P113">public:</text:p>
+   <text:p text:style-name="P113"><text:tab/>TestModule();<text:tab/></text:p>
+   <text:p text:style-name="P113">};</text:p>
+   <text:p text:style-name="P113"/>
    <text:p text:style-name="Sourcecode">#endif // TEST_MODULE_HPP</text:p>
-   <text:p text:style-name="P38"/>
-   <text:p text:style-name="P41"><text:span text:style-name="T31">Файл реализации</text:span> <text:s/><text:span text:style-name="T29">test_module.cpp сначала </text:span>будет практически пустым, <text:span text:style-name="T31">и содержит только пустое тело конструктора по умолчанию.</text:span></text:p>
+   <text:p text:style-name="P41"/>
+   <text:p text:style-name="P44"><text:span text:style-name="T32">Файл реализации</text:span> <text:s/><text:span text:style-name="T30">test_module.cpp сначала </text:span>будет практически пустым, <text:span text:style-name="T32">и содержит только пустое тело конструктора по умолчанию.</text:span></text:p>
    <text:p text:style-name="Sourcecode">#include &quot;test_module.hpp&quot;</text:p>
-   <text:p text:style-name="P133">#include &quot;basic_interpreter.hpp&quot;</text:p>
+   <text:p text:style-name="P122">#include &quot;basic_interpreter.hpp&quot;</text:p>
    <text:p text:style-name="Sourcecode"><text:soft-page-break/></text:p>
    <text:p text:style-name="Sourcecode"><text:bookmark-start text:name="__DdeLink__1000_654170950"/>TestModule::TestModule()</text:p>
    <text:p text:style-name="Sourcecode">{</text:p>
    <text:p text:style-name="Sourcecode">}<text:bookmark-end text:name="__DdeLink__1000_654170950"/></text:p>
    <text:p text:style-name="Sourcecode"/>
-   <text:p text:style-name="P41">Далее необходимо подключить пока ещё пустой модуль к интерпретатору.</text:p>
-   <text:p text:style-name="P41">В файл ucbasic_main.cpp (или в файл скетча terminal-basic.ino) необходимо добавить директиву включения заголовочного файла модуля перед началом <text:span text:style-name="T31">объявления</text:span> модулей:</text:p>
+   <text:p text:style-name="P44">Далее необходимо подключить пока ещё пустой модуль к интерпретатору.</text:p>
+   <text:p text:style-name="P44">В файл ucbasic_main.cpp (или в файл скетча terminal-basic.ino) необходимо добавить директиву включения заголовочного файла модуля перед началом <text:span text:style-name="T32">объявления</text:span> модулей:</text:p>
    <text:p text:style-name="Sourcecode">...</text:p>
    <text:p text:style-name="Sourcecode">#if USE_SDL_ISTREAM</text:p>
    <text:p text:style-name="Sourcecode">#include &quot;sdlstream.hpp&quot;</text:p>
    <text:p text:style-name="Sourcecode">#endif</text:p>
    <text:p text:style-name="Sourcecode"/>
-   <text:p text:style-name="P99">#include &quot;test_module.hpp&quot;</text:p>
+   <text:p text:style-name="P107">#include &quot;test_module.hpp&quot;</text:p>
    <text:p text:style-name="Sourcecode"/>
    <text:p text:style-name="Sourcecode">/**</text:p>
    <text:p text:style-name="Sourcecode"><text:s/>* Instantiating modules</text:p>
    <text:p text:style-name="Sourcecode"><text:s/>*/</text:p>
    <text:p text:style-name="Sourcecode"/>
    <text:p text:style-name="Sourcecode">#if USEUTFT</text:p>
-   <text:p text:style-name="P102">...</text:p>
-   <text:p text:style-name="P40">Затем в том же файле необходимо создать экземпляр модуля:</text:p>
+   <text:p text:style-name="P114">...</text:p>
+   <text:p text:style-name="P43">Затем в том же файле необходимо создать экземпляр модуля:</text:p>
    <text:p text:style-name="Sourcecode">...</text:p>
    <text:p text:style-name="Sourcecode">/**</text:p>
    <text:p text:style-name="Sourcecode"><text:s/>* Instantiating modules</text:p>
    <text:p text:style-name="Sourcecode"><text:s/>*/</text:p>
-   <text:p text:style-name="P99"/>
-   <text:p text:style-name="P99">static TestModule testModule;</text:p>
+   <text:p text:style-name="P107"/>
+   <text:p text:style-name="P107">static TestModule testModule;</text:p>
    <text:p text:style-name="Sourcecode"/>
    <text:p text:style-name="Sourcecode">#if USEUTFT</text:p>
    <text:p text:style-name="Sourcecode">...</text:p>
-   <text:p text:style-name="P41">Наконец, перед инициализацией интерпретатора необходимо добавить модуль к списку активных:</text:p>
+   <text:p text:style-name="P44">Наконец, перед инициализацией интерпретатора необходимо добавить модуль к списку активных:</text:p>
    <text:p text:style-name="Sourcecode">...</text:p>
    <text:p text:style-name="Sourcecode">#if USESD</text:p>
    <text:p text:style-name="Sourcecode"><text:tab/>basic.addModule(&amp;sdfs);</text:p>
    <text:p text:style-name="Sourcecode">#endif</text:p>
    <text:p text:style-name="Sourcecode"><text:tab/></text:p>
-   <text:p text:style-name="Sourcecode"><text:tab/><text:span text:style-name="T26">basic.addModule(&amp;testModule);</text:span></text:p>
+   <text:p text:style-name="Sourcecode"><text:tab/><text:span text:style-name="T27">basic.addModule(&amp;testModule);</text:span></text:p>
    <text:p text:style-name="Sourcecode"><text:tab/></text:p>
    <text:p text:style-name="Sourcecode"><text:tab/>basic.init();</text:p>
    <text:p text:style-name="Sourcecode">...</text:p>
-   <text:p text:style-name="P41">Компиляция и запуск программы должны пройти без ошимбок, но новых <text:span text:style-name="T31">доступных </text:span>команд и функций пока не <text:span text:style-name="T31">появится</text:span>.</text:p>
-   <text:p text:style-name="P41">Для добавления команды MULTPRINT в классе модуля необходимо создать <text:soft-page-break/>статическ<text:span text:style-name="T30">ую функцию</text:span> реализации данной команды. Имя <text:span text:style-name="T30">функции</text:span> может быть любым:</text:p>
+   <text:p text:style-name="P44">Компиляция и запуск программы должны пройти без ошимбок, но новых <text:span text:style-name="T32">доступных </text:span>команд и функций пока не <text:span text:style-name="T32">появится</text:span>.</text:p>
+   <text:p text:style-name="P44">Для добавления команды MULTPRINT в классе модуля необходимо создать <text:soft-page-break/>статическ<text:span text:style-name="T31">ую функцию</text:span> реализации данной команды. Имя <text:span text:style-name="T31">функции</text:span> может быть любым:</text:p>
    <text:p text:style-name="Sourcecode">class TestModule : public BASIC::FunctionBlock</text:p>
    <text:p text:style-name="Sourcecode">{</text:p>
    <text:p text:style-name="Sourcecode">public:</text:p>
    <text:p text:style-name="Sourcecode"><text:tab/>TestModule();</text:p>
    <text:p text:style-name="Sourcecode"/>
-   <text:p text:style-name="P99"><text:tab/>static bool comm_multprint(BASIC::Interpreter&amp;);</text:p>
+   <text:p text:style-name="P107"><text:tab/>static bool comm_multprint(BASIC::Interpreter&amp;);</text:p>
    <text:p text:style-name="Sourcecode">};</text:p>
-   <text:p text:style-name="P43">Реализация команд и функций — это всегда функция, возвращающая значение типа bool и принимающая один параметр — ссылку на объект интерпретатора, вызвавшего команду или функцию.</text:p>
-   <text:p text:style-name="P42">Реализация в файле test_module.cpp пока останется пустой:</text:p>
-   <text:p text:style-name="P127">TestModule::TestModule()</text:p>
-   <text:p text:style-name="P127">{</text:p>
-   <text:p text:style-name="P127">}</text:p>
-   <text:p text:style-name="P127"/>
-   <text:p text:style-name="P99">bool</text:p>
-   <text:p text:style-name="P99">TestModule::comm_multprint(BASIC::Interpreter&amp; i)</text:p>
-   <text:p text:style-name="P99">{</text:p>
-   <text:p text:style-name="P99"><text:tab/>return true;</text:p>
-   <text:p text:style-name="P99">}</text:p>
-   <text:p text:style-name="P111">Возвращаемое значение показывает успешно ли завершена команда/функция или что-то пошло не так и необходимо сигнализировать о возникновении ошибки времени выполнения. Пустая реализация пока просто вернёт true;</text:p>
-   <text:p text:style-name="P43">Теперь необходимо назначить команде имя, по которому она будет вызываться в тексте программы. Для этого в файле test_module.cpp создаётся таблица символов модуля, состоящая из двух массивов, а в конструкторе класса указатели на данные массивы передаются родительскому классу:</text:p>
+   <text:p text:style-name="P46">Реализация команд и функций — это всегда функция, возвращающая значение типа bool и принимающая один параметр — ссылку на объект интерпретатора, вызвавшего команду или функцию.</text:p>
+   <text:p text:style-name="P45">Реализация в файле test_module.cpp пока останется пустой:</text:p>
+   <text:p text:style-name="P121">TestModule::TestModule()</text:p>
+   <text:p text:style-name="P121">{</text:p>
+   <text:p text:style-name="P121">}</text:p>
+   <text:p text:style-name="P121"/>
+   <text:p text:style-name="P107">bool</text:p>
+   <text:p text:style-name="P107">TestModule::comm_multprint(BASIC::Interpreter&amp; i)</text:p>
+   <text:p text:style-name="P107">{</text:p>
+   <text:p text:style-name="P107"><text:tab/>return true;</text:p>
+   <text:p text:style-name="P107">}</text:p>
+   <text:p text:style-name="P30">Возвращаемое значение показывает успешно ли завершена команда/функция или что-то пошло не так и необходимо сигнализировать о возникновении ошибки времени выполнения. Пустая реализация пока просто вернёт true;</text:p>
+   <text:p text:style-name="P46">Теперь необходимо назначить команде имя, по которому она будет вызываться в тексте программы. Для этого в файле test_module.cpp создаётся таблица символов модуля, состоящая из двух массивов, а в конструкторе класса указатели на данные массивы передаются родительскому классу:</text:p>
    <text:p text:style-name="Sourcecode">#include &quot;test_module.hpp&quot;</text:p>
    <text:p text:style-name="Sourcecode"/>
-   <text:p text:style-name="P129">static const uint8_t <text:bookmark-start text:name="__DdeLink__1003_654170950"/><text:span text:style-name="T31">tmCommandTokens</text:span><text:bookmark-end text:name="__DdeLink__1003_654170950"/>[] PROGMEM = {</text:p>
-   <text:p text:style-name="P99"><text:tab/>&apos;M&apos;,&apos;U&apos;,&apos;L&apos;,&apos;T&apos;,&apos;P&apos;,&apos;R&apos;,&apos;I&apos;,&apos;N&apos;,&apos;T&apos;,ASCII_NUL,</text:p>
-   <text:p text:style-name="P99"><text:tab/>ASCII_ETX</text:p>
-   <text:p text:style-name="P99">};</text:p>
-   <text:p text:style-name="P99"/>
-   <text:p text:style-name="P129">static const BASIC::FunctionBlock::command <text:span text:style-name="T31">tmCommandImps</text:span>[] PROGMEM = {</text:p>
-   <text:p text:style-name="P99"><text:tab/>TestModule::comm_multprint</text:p>
-   <text:p text:style-name="P99">};</text:p>
-   <text:p text:style-name="P99"/>
+   <text:p text:style-name="P109">static const uint8_t <text:bookmark-start text:name="__DdeLink__1003_654170950"/><text:span text:style-name="T32">tmCommandTokens</text:span><text:bookmark-end text:name="__DdeLink__1003_654170950"/>[] PROGMEM = {</text:p>
+   <text:p text:style-name="P107"><text:tab/>&apos;M&apos;,&apos;U&apos;,&apos;L&apos;,&apos;T&apos;,&apos;P&apos;,&apos;R&apos;,&apos;I&apos;,&apos;N&apos;,&apos;T&apos;,ASCII_NUL,</text:p>
+   <text:p text:style-name="P107"><text:tab/>ASCII_ETX</text:p>
+   <text:p text:style-name="P107">};</text:p>
+   <text:p text:style-name="P107"/>
+   <text:p text:style-name="P109">static const BASIC::FunctionBlock::command <text:span text:style-name="T32">tmCommandImps</text:span>[] PROGMEM = {</text:p>
+   <text:p text:style-name="P107"><text:tab/>TestModule::comm_multprint</text:p>
+   <text:p text:style-name="P107">};</text:p>
+   <text:p text:style-name="P107"/>
    <text:p text:style-name="Sourcecode">TestModule::TestModule()</text:p>
    <text:p text:style-name="Sourcecode">{</text:p>
-   <text:p text:style-name="P129"><text:tab/>commands = <text:span text:style-name="T31">tmCommandImps</text:span>;</text:p>
-   <text:p text:style-name="P129"><text:tab/>commandTokens = <text:span text:style-name="T31">tmCommandTokens</text:span>;</text:p>
+   <text:p text:style-name="P109"><text:tab/>commands = <text:span text:style-name="T32">tmCommandImps</text:span>;</text:p>
+   <text:p text:style-name="P109"><text:tab/>commandTokens = <text:span text:style-name="T32">tmCommandTokens</text:span>;</text:p>
    <text:p text:style-name="Sourcecode"><text:soft-page-break/>}</text:p>
-   <text:p text:style-name="P43">После сборки и запуска команда MULTPRINT, <text:span text:style-name="T31">вызванная без параметров</text:span> выпоняется без сообщений об ошибках.</text:p>
-   <text:p text:style-name="P43">Реализация данной команды потребует использования значений фактических параметров, заданных при её вызове. Значения параметров передаются на стеке интерпретатора в обратном порядке. В данном случае первым параметром является числовое значение количества выводимых строк, а вторым — сама выводимая строка. Таким образом, сначала со стека будет получена строка <text:span text:style-name="T31">(2-й параметр)</text:span>, а затем число её выводов <text:span text:style-name="T31">(1-й параметр)</text:span>:</text:p>
-   <text:p text:style-name="P126">bool</text:p>
-   <text:p text:style-name="P103">TestModule::comm_multprint(BASIC::Interpreter&amp; i)</text:p>
-   <text:p text:style-name="P103">{</text:p>
-   <text:p text:style-name="P103"><text:tab/><text:span text:style-name="T26">// </text:span><text:span text:style-name="T27">1.Получение строки</text:span></text:p>
-   <text:p text:style-name="P103"><text:tab/><text:span text:style-name="T26">const char *str; // </text:span><text:span text:style-name="T27">Указатель на строку в стеке</text:span></text:p>
-   <text:p text:style-name="P104"><text:tab/>if (i.popString(str)) {<text:tab/><text:bookmark-start text:name="__DdeLink__1013_654170950"/>// <text:span text:style-name="T30">Если последней была передана</text:span></text:p>
-   <text:p text:style-name="P105"><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/>// <text:span text:style-name="T30">строка</text:span><text:bookmark-end text:name="__DdeLink__1013_654170950"/></text:p>
-   <text:p text:style-name="P105"><text:tab/><text:tab/>// <text:span text:style-name="T30">2. Получение числа (количества выводов строки)</text:span></text:p>
-   <text:p text:style-name="P105"><text:tab/><text:tab/>BASIC::Parser::Value v;<text:tab/><text:bookmark-start text:name="__DdeLink__1015_654170950"/>// <text:span text:style-name="T30">Объект универсального</text:span></text:p>
-   <text:p text:style-name="P124"><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/>// значения<text:bookmark-end text:name="__DdeLink__1015_654170950"/></text:p>
-   <text:p text:style-name="P104"><text:tab/><text:tab/>if (i.popValue(v)) {<text:tab/><text:bookmark-start text:name="__DdeLink__1017_654170950"/>// <text:span text:style-name="T30">Если перед строкой</text:span></text:p>
-   <text:p text:style-name="P104"><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/>// <text:span text:style-name="T30">был передан ещё один параметр</text:span><text:bookmark-end text:name="__DdeLink__1017_654170950"/></text:p>
-   <text:p text:style-name="P104"><text:tab/><text:tab/><text:tab/><text:bookmark-start text:name="__DdeLink__1019_654170950"/>// <text:span text:style-name="T30">Явное приведение 1-го параметра к целому</text:span><text:bookmark-end text:name="__DdeLink__1019_654170950"/></text:p>
-   <text:p text:style-name="P104"><text:tab/><text:tab/><text:tab/>BASIC::Integer num = BASIC::Integer(v);</text:p>
-   <text:p text:style-name="P104"><text:tab/><text:tab/><text:tab/>// <text:span text:style-name="T30">Все данные получены, выполнение тела команды</text:span></text:p>
-   <text:p text:style-name="P104"><text:tab/><text:tab/><text:tab/>while (num-- &gt; 0) {</text:p>
-   <text:p text:style-name="P104"><text:tab/><text:tab/><text:tab/><text:tab/>i.print(str);</text:p>
-   <text:p text:style-name="P125"><text:tab/><text:tab/><text:tab/><text:tab/><text:span text:style-name="T31">i.newline();</text:span></text:p>
-   <text:p text:style-name="P104"><text:tab/><text:tab/><text:tab/>}</text:p>
-   <text:p text:style-name="P104"><text:tab/><text:tab/><text:tab/>return true; // <text:span text:style-name="T30">Команда выполнена успешно</text:span></text:p>
-   <text:p text:style-name="P104"><text:tab/><text:tab/>}</text:p>
-   <text:p text:style-name="P104"><text:tab/>}</text:p>
-   <text:p text:style-name="P104"><text:tab/>return false; // <text:span text:style-name="T30">Во всех остальных случаях ошибка</text:span></text:p>
-   <text:p text:style-name="P103">}</text:p>
-   <text:p text:style-name="P112">После сборки и запуска команда работает:</text:p>
-   <text:p text:style-name="P129"><text:bookmark-start text:name="__DdeLink__1021_654170950"/>MULTPRINT 3, <text:span text:style-name="T23">&quot;</text:span>123<text:span text:style-name="T23">&quot;</text:span></text:p>
-   <text:p text:style-name="P127">123</text:p>
-   <text:p text:style-name="P127">123</text:p>
-   <text:p text:style-name="P134">123<text:bookmark-end text:name="__DdeLink__1021_654170950"/></text:p>
-   <text:p text:style-name="P112">Однако числовой параметр был явно приведён к целому без проверки фактического значения, что может привести к нежелательной гибкости команды:</text:p>
-   <text:p text:style-name="P129">MULTPRINT <text:span text:style-name="T31">2.9999</text:span>, <text:span text:style-name="T23">&quot;</text:span><text:span text:style-name="T24">Real truncation</text:span><text:span text:style-name="T23">&quot;</text:span></text:p>
-   <text:p text:style-name="P133">Real truncation</text:p>
-   <text:p text:style-name="P133">Real truncation</text:p>
-   <text:p text:style-name="P133"/>
-   <text:p text:style-name="P133">…</text:p>
-   <text:p text:style-name="P133"/>
-   <text:p text:style-name="P129"><text:soft-page-break/>MULTPRINT <text:span text:style-name="T31">TRUE</text:span>, <text:span text:style-name="T23">&quot;</text:span><text:bookmark-start text:name="__DdeLink__1011_654170950"/><text:span text:style-name="T24">True is 1, False is 0 ?</text:span><text:bookmark-end text:name="__DdeLink__1011_654170950"/><text:span text:style-name="T23">&quot;</text:span></text:p>
-   <text:p text:style-name="P133"><text:span text:style-name="T25">True is 1, False is 0 ?</text:span></text:p>
-   <text:p text:style-name="P113">Следующее изменение не позволит запустить команду, если первый параметр не является целым:</text:p>
+   <text:p text:style-name="P46">После сборки и запуска команда MULTPRINT, <text:span text:style-name="T32">вызванная без параметров</text:span> выпоняется без сообщений об ошибках.</text:p>
+   <text:p text:style-name="P46">Реализация данной команды потребует использования значений фактических параметров, заданных при её вызове. Значения параметров передаются на стеке интерпретатора в обратном порядке. В данном случае первым параметром является числовое значение количества выводимых строк, а вторым — сама выводимая строка. Таким образом, сначала со стека будет получена строка <text:span text:style-name="T32">(2-й параметр)</text:span>, а затем число её выводов <text:span text:style-name="T32">(1-й параметр)</text:span>:</text:p>
+   <text:p text:style-name="P116">bool</text:p>
+   <text:p text:style-name="P115">TestModule::comm_multprint(BASIC::Interpreter&amp; i)</text:p>
+   <text:p text:style-name="P115">{</text:p>
+   <text:p text:style-name="P115"><text:tab/><text:span text:style-name="T27">// </text:span><text:span text:style-name="T28">1.Получение строки</text:span></text:p>
+   <text:p text:style-name="P115"><text:tab/><text:span text:style-name="T27">const char *str; // </text:span><text:span text:style-name="T28">Указатель на строку в стеке</text:span></text:p>
+   <text:p text:style-name="P117"><text:tab/>if (i.popString(str)) {<text:tab/><text:bookmark-start text:name="__DdeLink__1013_654170950"/>// <text:span text:style-name="T31">Если последней была передана</text:span></text:p>
+   <text:p text:style-name="P118"><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/>// <text:span text:style-name="T31">строка</text:span><text:bookmark-end text:name="__DdeLink__1013_654170950"/></text:p>
+   <text:p text:style-name="P118"><text:tab/><text:tab/>// <text:span text:style-name="T31">2. Получение числа (количества выводов строки)</text:span></text:p>
+   <text:p text:style-name="P118"><text:tab/><text:tab/>BASIC::Parser::Value v;<text:tab/><text:bookmark-start text:name="__DdeLink__1015_654170950"/>// <text:span text:style-name="T31">Объект универсального</text:span></text:p>
+   <text:p text:style-name="P119"><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/>// значения<text:bookmark-end text:name="__DdeLink__1015_654170950"/></text:p>
+   <text:p text:style-name="P117"><text:tab/><text:tab/>if (i.popValue(v)) {<text:tab/><text:bookmark-start text:name="__DdeLink__1017_654170950"/>// <text:span text:style-name="T31">Если перед строкой</text:span></text:p>
+   <text:p text:style-name="P117"><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/>// <text:span text:style-name="T31">был передан ещё один параметр</text:span><text:bookmark-end text:name="__DdeLink__1017_654170950"/></text:p>
+   <text:p text:style-name="P117"><text:tab/><text:tab/><text:tab/><text:bookmark-start text:name="__DdeLink__1019_654170950"/>// <text:span text:style-name="T31">Явное приведение 1-го параметра к целому</text:span><text:bookmark-end text:name="__DdeLink__1019_654170950"/></text:p>
+   <text:p text:style-name="P117"><text:tab/><text:tab/><text:tab/>BASIC::Integer num = BASIC::Integer(v);</text:p>
+   <text:p text:style-name="P117"><text:tab/><text:tab/><text:tab/>// <text:span text:style-name="T31">Все данные получены, выполнение тела команды</text:span></text:p>
+   <text:p text:style-name="P117"><text:tab/><text:tab/><text:tab/>while (num-- &gt; 0) {</text:p>
+   <text:p text:style-name="P117"><text:tab/><text:tab/><text:tab/><text:tab/>i.print(str);</text:p>
+   <text:p text:style-name="P120"><text:tab/><text:tab/><text:tab/><text:tab/><text:span text:style-name="T32">i.newline();</text:span></text:p>
+   <text:p text:style-name="P117"><text:tab/><text:tab/><text:tab/>}</text:p>
+   <text:p text:style-name="P117"><text:tab/><text:tab/><text:tab/>return true; // <text:span text:style-name="T31">Команда выполнена успешно</text:span></text:p>
+   <text:p text:style-name="P117"><text:tab/><text:tab/>}</text:p>
+   <text:p text:style-name="P117"><text:tab/>}</text:p>
+   <text:p text:style-name="P117"><text:tab/>return false; // <text:span text:style-name="T31">Во всех остальных случаях ошибка</text:span></text:p>
+   <text:p text:style-name="P115">}</text:p>
+   <text:p text:style-name="P47">После сборки и запуска команда работает:</text:p>
+   <text:p text:style-name="P109"><text:bookmark-start text:name="__DdeLink__1021_654170950"/>MULTPRINT 3, <text:span text:style-name="T24">&quot;</text:span>123<text:span text:style-name="T24">&quot;</text:span></text:p>
+   <text:p text:style-name="P121">123</text:p>
+   <text:p text:style-name="P121">123</text:p>
+   <text:p text:style-name="P123">123<text:bookmark-end text:name="__DdeLink__1021_654170950"/></text:p>
+   <text:p text:style-name="P47">Однако числовой параметр был явно приведён к целому без проверки фактического значения, что может привести к нежелательной гибкости команды:</text:p>
+   <text:p text:style-name="P109">MULTPRINT <text:span text:style-name="T32">2.9999</text:span>, <text:span text:style-name="T24">&quot;</text:span><text:span text:style-name="T25">Real truncation</text:span><text:span text:style-name="T24">&quot;</text:span></text:p>
+   <text:p text:style-name="P122">Real truncation</text:p>
+   <text:p text:style-name="P122">Real truncation</text:p>
+   <text:p text:style-name="P122"/>
+   <text:p text:style-name="P122">…</text:p>
+   <text:p text:style-name="P122"/>
+   <text:p text:style-name="P109"><text:soft-page-break/>MULTPRINT <text:span text:style-name="T32">TRUE</text:span>, <text:span text:style-name="T24">&quot;</text:span><text:bookmark-start text:name="__DdeLink__1011_654170950"/><text:span text:style-name="T25">True is 1, False is 0 ?</text:span><text:bookmark-end text:name="__DdeLink__1011_654170950"/><text:span text:style-name="T24">&quot;</text:span></text:p>
+   <text:p text:style-name="P142">True is 1, False is 0 ?</text:p>
+   <text:p text:style-name="P48">Следующее изменение не позволит запустить команду, если первый параметр не является целым:</text:p>
    <text:p text:style-name="Sourcecode">bool</text:p>
    <text:p text:style-name="Sourcecode">TestModule::comm_multprint(BASIC::Interpreter&amp; i)</text:p>
    <text:p text:style-name="Sourcecode">{</text:p>
-   <text:p text:style-name="P136"><text:tab/>const char *str;</text:p>
-   <text:p text:style-name="P136"><text:tab/>if (i.popString(str)) { <text:s/>// Если последней была передана</text:p>
-   <text:p text:style-name="P136"><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/>// строка</text:p>
-   <text:p text:style-name="P136"><text:tab/><text:tab/>BASIC::Parser::Value v; <text:s/>// Объект универсального</text:p>
-   <text:p text:style-name="P136"><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/>// значения</text:p>
-   <text:p text:style-name="P136"><text:tab/><text:tab/>if (i.popValue(v)) { // Если перед строкой</text:p>
-   <text:p text:style-name="P136"><text:tab/><text:tab/><text:tab/><text:tab/> <text:s text:c="4"/><text:tab/> // был передан ещё один параметр</text:p>
-   <text:p text:style-name="P136"><text:tab/><text:tab/><text:tab/><text:span text:style-name="T26">if (v.type() == BASIC::Parser::Value::INTEGER) {</text:span></text:p>
-   <text:p text:style-name="P136"><text:tab/><text:tab/><text:tab/><text:tab/>// Явное приведение 1-го параметра к целому</text:p>
-   <text:p text:style-name="P136"><text:tab/><text:tab/><text:tab/><text:tab/>BASIC::Integer num = BASIC::Integer(v);</text:p>
-   <text:p text:style-name="P136"><text:tab/><text:tab/><text:tab/><text:tab/>while (num-- &gt; 0) {</text:p>
-   <text:p text:style-name="P136"><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/>i.print(str);</text:p>
-   <text:p text:style-name="P136"><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/>i.newline();</text:p>
-   <text:p text:style-name="P136"><text:tab/><text:tab/><text:tab/><text:tab/>}</text:p>
-   <text:p text:style-name="P136"><text:tab/><text:tab/><text:tab/><text:tab/>return true;</text:p>
-   <text:p text:style-name="P136"><text:tab/><text:tab/><text:tab/><text:span text:style-name="T26">}</text:span></text:p>
-   <text:p text:style-name="P136"><text:tab/><text:tab/>}</text:p>
-   <text:p text:style-name="P136"><text:tab/>}</text:p>
-   <text:p text:style-name="P136"><text:tab/>return false;</text:p>
-   <text:p text:style-name="P136">}</text:p>
-   <text:p text:style-name="P114">Теперь при передаче параметра, не являющегося целым, выдаётся ошибка времени выполнения 17: Ошибка выполнения команды:</text:p>
-   <text:p text:style-name="P130">MULTPRINT <text:span text:style-name="T1">2+1</text:span>, <text:span text:style-name="T23">&quot;</text:span>123<text:span text:style-name="T23">&quot;</text:span></text:p>
-   <text:p text:style-name="P137">123</text:p>
-   <text:p text:style-name="P137">123</text:p>
-   <text:p text:style-name="P135">123</text:p>
-   <text:p text:style-name="P135"/>
-   <text:p text:style-name="P130">MULTPRINT 3.<text:span text:style-name="T1">0001</text:span>, <text:span text:style-name="T23">&quot;</text:span>123<text:span text:style-name="T23">&quot;</text:span></text:p>
-   <text:p text:style-name="P136">SEMANTIC ERROR 17</text:p>
+   <text:p text:style-name="P125"><text:tab/>const char *str;</text:p>
+   <text:p text:style-name="P125"><text:tab/>if (i.popString(str)) { <text:s/>// Если последней была передана</text:p>
+   <text:p text:style-name="P125"><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/>// строка</text:p>
+   <text:p text:style-name="P125"><text:tab/><text:tab/>BASIC::Parser::Value v; <text:s/>// Объект универсального</text:p>
+   <text:p text:style-name="P125"><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/>// значения</text:p>
+   <text:p text:style-name="P125"><text:tab/><text:tab/>if (i.popValue(v)) { // Если перед строкой</text:p>
+   <text:p text:style-name="P125"><text:tab/><text:tab/><text:tab/><text:tab/> <text:s text:c="4"/><text:tab/> // был передан ещё один параметр</text:p>
+   <text:p text:style-name="P125"><text:tab/><text:tab/><text:tab/><text:span text:style-name="T27">if (v.type() == BASIC::Parser::Value::INTEGER) {</text:span></text:p>
+   <text:p text:style-name="P125"><text:tab/><text:tab/><text:tab/><text:tab/>// Явное приведение 1-го параметра к целому</text:p>
+   <text:p text:style-name="P125"><text:tab/><text:tab/><text:tab/><text:tab/>BASIC::Integer num = BASIC::Integer(v);</text:p>
+   <text:p text:style-name="P125"><text:tab/><text:tab/><text:tab/><text:tab/>while (num-- &gt; 0) {</text:p>
+   <text:p text:style-name="P125"><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/>i.print(str);</text:p>
+   <text:p text:style-name="P125"><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/>i.newline();</text:p>
+   <text:p text:style-name="P125"><text:tab/><text:tab/><text:tab/><text:tab/>}</text:p>
+   <text:p text:style-name="P125"><text:tab/><text:tab/><text:tab/><text:tab/>return true;</text:p>
+   <text:p text:style-name="P125"><text:tab/><text:tab/><text:tab/><text:span text:style-name="T27">}</text:span></text:p>
+   <text:p text:style-name="P125"><text:tab/><text:tab/>}</text:p>
+   <text:p text:style-name="P125"><text:tab/>}</text:p>
+   <text:p text:style-name="P125"><text:tab/>return false;</text:p>
+   <text:p text:style-name="P125">}</text:p>
+   <text:p text:style-name="P49">Теперь при передаче параметра, не являющегося целым, выдаётся ошибка времени выполнения 17: Ошибка выполнения команды:</text:p>
+   <text:p text:style-name="P110">MULTPRINT <text:span text:style-name="T1">2+1</text:span>, <text:span text:style-name="T24">&quot;</text:span>123<text:span text:style-name="T24">&quot;</text:span></text:p>
+   <text:p text:style-name="P126">123</text:p>
+   <text:p text:style-name="P126">123</text:p>
+   <text:p text:style-name="P124">123</text:p>
+   <text:p text:style-name="P124"/>
+   <text:p text:style-name="P110">MULTPRINT 3.<text:span text:style-name="T1">0001</text:span>, <text:span text:style-name="T24">&quot;</text:span>123<text:span text:style-name="T24">&quot;</text:span></text:p>
+   <text:p text:style-name="P125">SEMANTIC ERROR 17</text:p>
    <text:p text:style-name="Text_20_body"/>
-   <text:p text:style-name="P115">Добавление функции HYPOT выполняется аналогично. Сначала создаётся функция класса модуля для реализации новой функции TB:</text:p>
-   <text:p text:style-name="P114"><text:bookmark-start text:name="__DdeLink__1023_654170950"/>test_module.hpp<text:bookmark-end text:name="__DdeLink__1023_654170950"/></text:p>
+   <text:p text:style-name="P50">Добавление функции HYPOT выполняется аналогично. Сначала создаётся функция класса модуля для реализации новой функции TB:</text:p>
+   <text:p text:style-name="P49"><text:bookmark-start text:name="__DdeLink__1023_654170950"/>test_module.hpp<text:bookmark-end text:name="__DdeLink__1023_654170950"/></text:p>
    <text:p text:style-name="Sourcecode"/>
    <text:p text:style-name="Sourcecode">class TestModule : public BASIC::FunctionBlock</text:p>
    <text:p text:style-name="Sourcecode">{</text:p>
    <text:p text:style-name="Sourcecode">public:</text:p>
    <text:p text:style-name="Sourcecode"><text:tab/>TestModule();</text:p>
-   <text:p text:style-name="Sourcecode"><text:span text:style-name="T26"/></text:p>
+   <text:p text:style-name="P107"/>
    <text:p text:style-name="Sourcecode"><text:tab/>static bool comm_multprint(BASIC::Interpreter&amp;);</text:p>
-   <text:p text:style-name="P137"><text:soft-page-break/><text:tab/><text:span text:style-name="T26">static bool func_hypot(BASIC::Interpreter&amp;);</text:span></text:p>
+   <text:p text:style-name="P126"><text:soft-page-break/><text:tab/><text:span text:style-name="T27">static bool func_hypot(BASIC::Interpreter&amp;);</text:span></text:p>
    <text:p text:style-name="Sourcecode">};</text:p>
    <text:p text:style-name="Sourcecode"/>
-   <text:p text:style-name="P115">Отличие функций от команд состоит в том, что если функция завершается успешно, то перед её завершением необходимо разместить на стеке интерпретатора объект универсального значения, содержащий результат функции:</text:p>
-   <text:p text:style-name="P114"><text:bookmark-start text:name="__DdeLink__1026_654170950"/>test_module.cpp<text:bookmark-end text:name="__DdeLink__1026_654170950"/></text:p>
+   <text:p text:style-name="P50">Отличие функций от команд состоит в том, что если функция завершается успешно, то перед её завершением необходимо разместить на стеке интерпретатора объект универсального значения, содержащий результат функции:</text:p>
+   <text:p text:style-name="P49"><text:bookmark-start text:name="__DdeLink__1026_654170950"/>test_module.cpp<text:bookmark-end text:name="__DdeLink__1026_654170950"/></text:p>
    <text:p text:style-name="Sourcecode"><text:tab/>}</text:p>
    <text:p text:style-name="Sourcecode"><text:tab/>return false;</text:p>
    <text:p text:style-name="Sourcecode">}</text:p>
-   <text:p text:style-name="P136"/>
-   <text:p text:style-name="P99">bool</text:p>
-   <text:p text:style-name="P99">TestModule::func_hypot(BASIC::Interpreter&amp; i)</text:p>
-   <text:p text:style-name="P99">{</text:p>
-   <text:p text:style-name="P131"><text:tab/>BASIC::Parser::Value v1; // Объект результата</text:p>
-   <text:p text:style-name="P131"><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/>// по умолчанию целое, равное 0)</text:p>
-   <text:p text:style-name="P131"><text:tab/>if (i.pushValue(v1)) // Размещение результата на стеке</text:p>
-   <text:p text:style-name="P131"><text:tab/><text:tab/><text:tab/>return true;</text:p>
-   <text:p text:style-name="P99"><text:tab/><text:span text:style-name="T1">return false;</text:span></text:p>
-   <text:p text:style-name="P99">}</text:p>
-   <text:p text:style-name="P114">Для функций в файле test_module.cpp необходимо создать отдельную таблицу символов:</text:p>
-   <text:p text:style-name="P136">static const uint8_t tmCommandTokens[] PROGMEM = {</text:p>
-   <text:p text:style-name="P136"><text:tab/>&apos;M&apos;,&apos;U&apos;,&apos;L&apos;,&apos;T&apos;,&apos;P&apos;,&apos;R&apos;,&apos;I&apos;,&apos;N&apos;,&apos;T&apos;,ASCII_NUL,</text:p>
-   <text:p text:style-name="P136"><text:tab/>ASCII_ETX</text:p>
-   <text:p text:style-name="P136">};</text:p>
-   <text:p text:style-name="P136"/>
-   <text:p text:style-name="P136">static const BASIC::FunctionBlock::command tmCommandImps[] PROGMEM = {</text:p>
-   <text:p text:style-name="P136"><text:tab/>TestModule::comm_multprint</text:p>
-   <text:p text:style-name="P136">};</text:p>
-   <text:p text:style-name="P136"/>
-   <text:p text:style-name="P99">static const uint8_t testModuleFuncs[] PROGMEM = {</text:p>
-   <text:p text:style-name="P99"><text:tab/>&apos;H&apos;,&apos;Y&apos;,&apos;P&apos;,&apos;O&apos;,&apos;T&apos;,ASCII_NUL,</text:p>
-   <text:p text:style-name="P99"><text:tab/>ASCII_ETX</text:p>
-   <text:p text:style-name="P99">};</text:p>
-   <text:p text:style-name="P99"/>
-   <text:p text:style-name="P99">static const BASIC::FunctionBlock::function funcs[] PROGMEM = {</text:p>
-   <text:p text:style-name="P99"><text:tab/>TestModule::func_hypot</text:p>
-   <text:p text:style-name="P99">};</text:p>
-   <text:p text:style-name="P114">В конструкторе нужно добавить ссылки на таблицу символов в модуль:</text:p>
+   <text:p text:style-name="P125"/>
+   <text:p text:style-name="P107">bool</text:p>
+   <text:p text:style-name="P107">TestModule::func_hypot(BASIC::Interpreter&amp; i)</text:p>
+   <text:p text:style-name="P107">{</text:p>
+   <text:p text:style-name="P111"><text:tab/>BASIC::Parser::Value v1; // Объект результата</text:p>
+   <text:p text:style-name="P111"><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/>// по умолчанию целое, равное 0)</text:p>
+   <text:p text:style-name="P111"><text:tab/>if (i.pushValue(v1)) // Размещение результата на стеке</text:p>
+   <text:p text:style-name="P111"><text:tab/><text:tab/><text:tab/>return true;</text:p>
+   <text:p text:style-name="P107"><text:tab/><text:span text:style-name="T1">return false;</text:span></text:p>
+   <text:p text:style-name="P107">}</text:p>
+   <text:p text:style-name="P49">Для функций в файле test_module.cpp необходимо создать отдельную таблицу символов:</text:p>
+   <text:p text:style-name="P125">static const uint8_t tmCommandTokens[] PROGMEM = {</text:p>
+   <text:p text:style-name="P125"><text:tab/>&apos;M&apos;,&apos;U&apos;,&apos;L&apos;,&apos;T&apos;,&apos;P&apos;,&apos;R&apos;,&apos;I&apos;,&apos;N&apos;,&apos;T&apos;,ASCII_NUL,</text:p>
+   <text:p text:style-name="P125"><text:tab/>ASCII_ETX</text:p>
+   <text:p text:style-name="P125">};</text:p>
+   <text:p text:style-name="P125"/>
+   <text:p text:style-name="P125">static const BASIC::FunctionBlock::command tmCommandImps[] PROGMEM = {</text:p>
+   <text:p text:style-name="P125"><text:tab/>TestModule::comm_multprint</text:p>
+   <text:p text:style-name="P125">};</text:p>
+   <text:p text:style-name="P125"/>
+   <text:p text:style-name="P107">static const uint8_t testModuleFuncs[] PROGMEM = {</text:p>
+   <text:p text:style-name="P107"><text:tab/>&apos;H&apos;,&apos;Y&apos;,&apos;P&apos;,&apos;O&apos;,&apos;T&apos;,ASCII_NUL,</text:p>
+   <text:p text:style-name="P107"><text:tab/>ASCII_ETX</text:p>
+   <text:p text:style-name="P107">};</text:p>
+   <text:p text:style-name="P107"/>
+   <text:p text:style-name="P107">static const BASIC::FunctionBlock::function funcs[] PROGMEM = {</text:p>
+   <text:p text:style-name="P107"><text:tab/>TestModule::func_hypot</text:p>
+   <text:p text:style-name="P107">};</text:p>
+   <text:p text:style-name="P49">В конструкторе нужно добавить ссылки на таблицу символов в модуль:</text:p>
    <text:p text:style-name="Sourcecode">TestModule::TestModule()</text:p>
    <text:p text:style-name="Sourcecode">{</text:p>
    <text:p text:style-name="Sourcecode"><text:tab/>commands = tmCommandImps;</text:p>
    <text:p text:style-name="Sourcecode"><text:tab/>commandTokens = tmCommandTokens;</text:p>
-   <text:p text:style-name="P99"><text:tab/>functions = tmFuncImps;</text:p>
-   <text:p text:style-name="P99"><text:soft-page-break/><text:tab/>functionTokens = tmFuncTokens;</text:p>
+   <text:p text:style-name="P107"><text:tab/>functions = tmFuncImps;</text:p>
+   <text:p text:style-name="P107"><text:soft-page-break/><text:tab/>functionTokens = tmFuncTokens;</text:p>
    <text:p text:style-name="Sourcecode">}</text:p>
-   <text:p text:style-name="P114">После запуска становится доступна функция HYPOT, не принимающая параметров и возвращающая 0:</text:p>
-   <text:p text:style-name="P99">PRINT HYPOT()</text:p>
+   <text:p text:style-name="P49">После запуска становится доступна функция HYPOT, не принимающая параметров и возвращающая 0:</text:p>
+   <text:p text:style-name="P107">PRINT HYPOT()</text:p>
    <text:p text:style-name="Sourcecode"><text:s/>0</text:p>
-   <text:p text:style-name="P116">Остаётся добавить получение параметров функции и добавить код вычисления её результата:</text:p>
-   <text:p text:style-name="P138">bool</text:p>
-   <text:p text:style-name="P138">TestModule::func_hypot(BASIC::Interpreter&amp; i)</text:p>
-   <text:p text:style-name="P138">{</text:p>
-   <text:p text:style-name="P138"><text:tab/>BASIC::Parser::Value v1,<text:span text:style-name="T26"> v2;</text:span></text:p>
-   <text:p text:style-name="P138"><text:tab/><text:span text:style-name="T26">if (i.popValue(v2)) {</text:span></text:p>
-   <text:p text:style-name="P132"><text:tab/><text:tab/>if (i.popValue(v1)) {</text:p>
-   <text:p text:style-name="P138"><text:tab/><text:tab/><text:tab/><text:span text:style-name="T26">const BASIC::Real rv1 = BASIC::Real(v1);</text:span></text:p>
-   <text:p text:style-name="P132"><text:tab/><text:tab/><text:tab/>const BASIC::Real rv2 = BASIC::Real(v2);</text:p>
-   <text:p text:style-name="P132"><text:tab/><text:tab/><text:tab/>v1 = sqrt(rv1*rv1 + rv2*rv2);</text:p>
-   <text:p text:style-name="P138"><text:tab/><text:tab/><text:tab/>if (i.pushValue(v1))</text:p>
-   <text:p text:style-name="P138"><text:tab/><text:tab/><text:tab/><text:tab/>return true;</text:p>
-   <text:p text:style-name="P138"><text:tab/><text:tab/><text:span text:style-name="T35">}</text:span></text:p>
-   <text:p text:style-name="P139"><text:tab/>}</text:p>
-   <text:p text:style-name="P138"><text:tab/>return true;</text:p>
-   <text:p text:style-name="P138">}</text:p>
+   <text:p text:style-name="P51">Остаётся добавить получение параметров функции и добавить код вычисления её результата:</text:p>
+   <text:p text:style-name="P127">bool</text:p>
+   <text:p text:style-name="P127">TestModule::func_hypot(BASIC::Interpreter&amp; i)</text:p>
+   <text:p text:style-name="P127">{</text:p>
+   <text:p text:style-name="P127"><text:tab/>BASIC::Parser::Value v1,<text:span text:style-name="T27"> v2;</text:span></text:p>
+   <text:p text:style-name="P127"><text:tab/><text:span text:style-name="T27">if (i.popValue(v2)) {</text:span></text:p>
+   <text:p text:style-name="P112"><text:tab/><text:tab/>if (i.popValue(v1)) {</text:p>
+   <text:p text:style-name="P127"><text:tab/><text:tab/><text:tab/><text:span text:style-name="T27">const BASIC::Real rv1 = BASIC::Real(v1);</text:span></text:p>
+   <text:p text:style-name="P112"><text:tab/><text:tab/><text:tab/>const BASIC::Real rv2 = BASIC::Real(v2);</text:p>
+   <text:p text:style-name="P112"><text:tab/><text:tab/><text:tab/>v1 = sqrt(rv1*rv1 + rv2*rv2);</text:p>
+   <text:p text:style-name="P127"><text:tab/><text:tab/><text:tab/>if (i.pushValue(v1))</text:p>
+   <text:p text:style-name="P127"><text:tab/><text:tab/><text:tab/><text:tab/>return true;</text:p>
+   <text:p text:style-name="P127"><text:tab/><text:tab/><text:span text:style-name="T35">}</text:span></text:p>
+   <text:p text:style-name="P128"><text:tab/>}</text:p>
+   <text:p text:style-name="P127"><text:tab/>return true;</text:p>
+   <text:p text:style-name="P127">}</text:p>
    <text:p text:style-name="Text_20_body"/>
   </office:text>
  </office:body>
