@@ -34,6 +34,10 @@
                     <name>Arduino_MEGA</name>
                     <type>3</type>
                 </confElem>
+                <confElem>
+                    <name>Arduino_nano168</name>
+                    <type>3</type>
+                </confElem>
             </confList>
             <formatting>
                 <project-formatting-style>true</project-formatting-style>

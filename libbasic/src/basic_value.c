@@ -264,10 +264,10 @@ basic_value_diveq(basic_value_t *self, const basic_value_t *rhs)
 	basic_value_setFromReal(self, basic_value_toReal(self) /
 	    basic_value_toReal(rhs));
 #elif USE_LONGINT
-	basic_value_setFromLongInteger(self, basic_value_toLongInteger()self) /
+	basic_value_setFromLongInteger(self, basic_value_toLongInteger(self) /
 	    basic_value_toLongInteger(rhs));
 #else
-	basic_value_setFromInteger(self, basic_value_toInteger()self) /
+	basic_value_setFromInteger(self, basic_value_toInteger(self) /
 	    basic_value_toInteger(rhs));
 #endif
 }
