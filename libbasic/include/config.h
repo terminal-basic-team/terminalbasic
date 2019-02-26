@@ -43,7 +43,7 @@
  * Support of 4-byte integer datatype
  * Functions, variables and arrays of long integer type ends with double % mark
  */
-#define USE_LONGINT          1
+#define USE_LONGINT          0
 
 /**
  * DUMP command support

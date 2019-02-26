@@ -109,12 +109,12 @@ FunctionBlock::general_func(Interpreter &i, _funcReal f)
 #endif
 	    v.type() == Parser::Value::REAL) {
 		v = (*f)(Real(v));
-		i.pushValue(v);
-		return true;
-	} else
-		return false;
+		if (i.pushValue(v))
+			return true;
+	}
+	return false;
 }
-#endif
+#endif // USE_LONGINT
 
 bool
 FunctionBlock::general_func(Interpreter &i, _funcInteger f)
@@ -122,10 +122,10 @@ FunctionBlock::general_func(Interpreter &i, _funcInteger f)
 	INT v;
 	if (getIntegerFromStack(i, v)) {
 		v = (*f)(v);
-		i.pushValue(v);
-		return true;
-	} else
-		return false;
+		if (i.pushValue(v))
+			return true;
+	}
+	return false;
 }
 
 bool
@@ -143,8 +143,8 @@ FunctionBlock::getIntegerFromStack(Interpreter &i, INT &num)
 	)) {
 		num  = INT(v);
 		return true;
-	} else
-		return false;
+	}
+	return false;
 }
 
 #undef _Integer

@@ -121,10 +121,10 @@ InternalFunctions::func_abs(Interpreter &i)
 	    ) {
 		if (v < Parser::Value(Integer(0)))
 			v.switchSign();
-		i.pushValue(v);
-		return true;
-	} else
-		return false;
+		if (i.pushValue(v))
+			return true;
+	}
+        return false;
 }
 
 #if USE_ASC
@@ -179,8 +179,8 @@ InternalFunctions::func_peek(Interpreter &i)
 	INT addr;
 	if (getIntegerFromStack(i, addr)) {
 		Parser::Value v(Integer(*((volatile uint8_t*)(addr))));
-		i.pushValue(v);
-		return true;
+		if (i.pushValue(v))
+                    return true;
 	}
 	return false;
 }
@@ -210,10 +210,10 @@ InternalFunctions::func_int(Interpreter &i)
 #else
 		v = Integer(v);
 #endif
-		i.pushValue(v);
-		return true;
-	} else
-		return false;
+		if (i.pushValue(v))
+                    return true;
+	}
+        return false;
 }
 #endif // USE_REALS
 
@@ -331,8 +331,7 @@ InternalFunctions::func_str(Interpreter &i)
 	p.buf[res] = '\0';
 	v.setType(Parser::Value::STRING);
 	i.pushString(p.buf);
-	i.pushValue(v);
-	return true;
+	return (i.pushValue(v));
 }
 
 #if USE_RANDOM
@@ -346,8 +345,7 @@ InternalFunctions::func_rnd(Interpreter &i)
 #else
 	Parser::Value v(Integer(random(0x7FFFFFFF)));
 #endif
-	i.pushValue(v);
-	return true;
+	return i.pushValue(v);
 }
 #endif // USE_RANDOM
 
@@ -361,8 +359,7 @@ InternalFunctions::func_tim(Interpreter &i)
 #else
 #define TYP Integer
 #endif
-	i.pushValue(TYP(TYP(millis()) / TYP(1000)));
-	return true;
+	return i.pushValue(TYP(TYP(millis()) / TYP(1000)));
 }
 
 } // namespace BASIC

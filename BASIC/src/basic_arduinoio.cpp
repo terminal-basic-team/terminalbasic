@@ -97,10 +97,10 @@ ArduinoIO::func_dread(Interpreter &i)
 	INT v;
 	if (getIntegerFromStack(i, v)) {
 		pinMode(v, INPUT);
-		i.pushValue(bool(digitalRead(v)));
-		return true;
-	} else
-		return false;
+		if (i.pushValue(bool(digitalRead(v))))
+			return true;
+	}
+	return false;
 }
 
 bool
@@ -115,7 +115,6 @@ ArduinoIO::comm_awrite(Interpreter &i)
 			return true;
 		}
 	}
-
 	return false;
 }
 
