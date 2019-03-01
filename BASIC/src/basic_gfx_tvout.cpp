@@ -139,6 +139,22 @@ GFXModule::command_point(Interpreter &i)
 }
 
 bool
+GFXModule::command_pointc(Interpreter &i)
+{
+	INT x,y,z;
+	
+	if (getIntegerFromStack(i, z)) {
+		if (getIntegerFromStack(i, y)) {
+			if (getIntegerFromStack(i, x)) {
+				TVoutEx::instance()->setPixel(x, y, Color_t(z));
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+bool
 GFXModule::command_screen(Interpreter &i)
 {
 	INT x;

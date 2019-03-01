@@ -30,9 +30,10 @@ static const uint8_t gfxTokens[] PROGMEM = {
 	'C','U','R','S','O','R', ASCII_NUL,
 	'L','I','N','E','T','O', ASCII_NUL,
 	'L','I','N','E', ASCII_NUL,
+	'P','O','I','N','T','C', ASCII_NUL,
 	'P','O','I','N','T', ASCII_NUL,
 	'S','C','R','E','E','N', ASCII_NUL,
-	 ASCII_ETX
+	ASCII_ETX
 };
 
 const FunctionBlock::function GFXModule::comms[] PROGMEM = {
@@ -42,6 +43,7 @@ const FunctionBlock::function GFXModule::comms[] PROGMEM = {
 	GFXModule::command_cursor,
 	GFXModule::command_lineto,
 	GFXModule::command_line,
+	GFXModule::command_pointc,
 	GFXModule::command_point,
 	GFXModule::command_screen
 };

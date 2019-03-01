@@ -180,6 +180,25 @@ GFXModule::command_screen(Interpreter &i)
 	return false;
 }
 
+bool
+GFXModule::command_pointc(Interpreter &i)
+{
+	INT x,y,z;
+	if (getIntegerFromStack(i, z)) {
+		if (getIntegerFromStack(i, y)) {
+			if (getIntegerFromStack(i, x)) {
+			  i.print(char(ASCII::DLE));
+			  i.print(char(GFXTERM::Command::CPOINT));
+			  write16(i, x);
+			  write16(i, y);
+			  i.print(char(z));
+			  return true;
+			}
+		}
+	}
+	return false;
+}
+
 } // namespace BASIC
 
 #endif // USE_GFX && SERIAL_GFX
