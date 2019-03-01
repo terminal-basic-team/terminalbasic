@@ -30,10 +30,13 @@ class GFXModule : public FunctionBlock
 public:
 	explicit GFXModule();
 
+	static bool command_boxc(Interpreter&);
 	static bool command_box(Interpreter&);
+	static bool command_circlec(Interpreter&);
 	static bool command_circle(Interpreter&);
 	static bool command_color(Interpreter&);
 	static bool command_cursor(Interpreter&);
+	static bool command_linec(Interpreter&);
 	static bool command_line(Interpreter&);
 	static bool command_lineto(Interpreter&);
 	static bool command_pointc(Interpreter&);

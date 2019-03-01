@@ -24,11 +24,14 @@ namespace BASIC
 {
 
 static const uint8_t gfxTokens[] PROGMEM = {
+	'B','O','X','C', ASCII_NUL,
 	'B','O','X', ASCII_NUL,
+	'C','I','R','C','L','E','C', ASCII_NUL,
 	'C','I','R','C','L','E', ASCII_NUL,
 	'C','O','L','O','R', ASCII_NUL,
 	'C','U','R','S','O','R', ASCII_NUL,
 	'L','I','N','E','T','O', ASCII_NUL,
+	'L','I','N','E','C', ASCII_NUL,
 	'L','I','N','E', ASCII_NUL,
 	'P','O','I','N','T','C', ASCII_NUL,
 	'P','O','I','N','T', ASCII_NUL,
@@ -37,15 +40,18 @@ static const uint8_t gfxTokens[] PROGMEM = {
 };
 
 const FunctionBlock::function GFXModule::comms[] PROGMEM = {
+	GFXModule::command_boxc,
 	GFXModule::command_box,
+	GFXModule::command_circlec,
 	GFXModule::command_circle,
 	GFXModule::command_color,
 	GFXModule::command_cursor,
 	GFXModule::command_lineto,
+	GFXModule::command_linec,
 	GFXModule::command_line,
 	GFXModule::command_pointc,
 	GFXModule::command_point,
-	GFXModule::command_screen
+	GFXModule::command_screen,
 };
 
 GFXModule::GFXModule()
