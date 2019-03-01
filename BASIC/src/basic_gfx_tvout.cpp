@@ -29,6 +29,27 @@ namespace BASIC
 void GFXModule::_init() {}
 
 bool
+GFXModule::command_boxc(Interpreter &i)
+{
+	INT x,y,w,h,c;
+	
+	if (getIntegerFromStack(i, c)) {
+		if (getIntegerFromStack(i, h)) {
+			if (getIntegerFromStack(i, w)) {
+				if (getIntegerFromStack(i, y)) {
+					if (getIntegerFromStack(i, x)) {
+						TVoutEx::instance()->drawRect(x, y,
+						    w, h, Color_t(c));
+						return true;
+					}
+				}
+			}
+		}
+	}
+	return false;
+}
+
+bool
 GFXModule::command_box(Interpreter &i)
 {
 	INT x,y,w,h;
@@ -160,22 +181,6 @@ GFXModule::command_lineto(Interpreter &i)
 		}
 	}
 	
-	return false;
-}
-
-bool
-GFXModule::command_pointc(Interpreter &i)
-{
-	INT x,y,z;
-	
-	if (getIntegerFromStack(i, z)) {
-		if (getIntegerFromStack(i, y)) {
-			if (getIntegerFromStack(i, x)) {
-				TVoutEx::instance()->setPixel(x, y, Color_t(z));
-				return true;
-			}
-		}
-	}
 	return false;
 }
 
