@@ -55,6 +55,22 @@ SDFSModule::SDFSModule()
 }
 
 void
+SDFSModule::loadAutorun(Interpreter& i)
+{
+	static const char ar[] PROGMEM = "/AUTORUN.BAS";
+	char ss[13];
+	strcpy_P(ss, ar);
+	SDCard::File f = SDCard::SDFS.open(ss);
+	if (!f)
+		return;
+	
+	if (!_loadText(f, i))
+		return;
+	
+	i.run();
+}
+
+void
 SDFSModule::_init()
 {
 	if (!SDCard::SDFS.begin())
