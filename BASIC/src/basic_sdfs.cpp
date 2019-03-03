@@ -149,7 +149,7 @@ SDFSModule::dsave(Interpreter &i)
 	for (Program::Line *s = i._program.getNextLine(); s != nullptr;
 	    s = i._program.getNextLine()) {
 		f.print(s->number);
-		lex.init(s->text, false);
+		lex.init(s->text, true);
 		while (lex.getNext()) {
 			f.write(' ');
 			Token t = lex.getToken();
