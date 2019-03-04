@@ -169,19 +169,19 @@ SDFSModule::dsave(Interpreter &i)
 		while (lex.getNext()) {
 			f.write(' ');
 			Token t = lex.getToken();
-			if (t < Token::STAR) {
+			if (t < Token::INTEGER_IDENT) {
 				uint8_t buf[16];
 				const bool res = Lexer::getTokenString(t,
 				    reinterpret_cast<uint8_t*>(buf));
 				if (res)
-					f.print((char*)buf);
+					f.print((const char*)buf);
 				else {
 					f.close();
 					return false;
 				}
-			} else if (t <= Token::BOOL_IDENT) {
+			} else if (t < Token::C_INTEGER) {
 				f.print(lex.id());
-			} else if (t <= Token::C_BOOLEAN) {
+			} else if (t < Token::C_STRING) {
 				lex.getValue().printTo(f);
 			} else if (t == Token::C_STRING) {
 				f.write('"');
