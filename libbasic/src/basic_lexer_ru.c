@@ -26,7 +26,6 @@ const uint8_t _basic_lexer_symbolsShift PROGMEM = (uint8_t)('Ä')-'A';
 
 const uint8_t _basic_lexer_tokenTable[] PROGMEM = {
 	ASCII_NUL,
-	'A', 'N', 'D',ASCII_NUL,                // 1
 #if USE_DUMP
 	'A', 'R', 'R', 'A', 'Y', 'S',ASCII_NUL, // 2
 #endif
@@ -65,7 +64,6 @@ const uint8_t _basic_lexer_tokenTable[] PROGMEM = {
 	'F', 'N', ASCII_NUL,                     // 18
 #endif
 	'G', 'O', 'S', 'U', 'B', ASCII_NUL,      // 20
-	'G', 'O', 'T', 'O', ASCII_NUL,           // 11
 #if CONF_SEPARATE_GO_TO
 	'G', 'O', ASCII_NUL,                     // 12
 #endif
@@ -89,8 +87,6 @@ const uint8_t _basic_lexer_tokenTable[] PROGMEM = {
 	'M', 'O', 'D', ASCII_NUL,                // 24
 #endif
 	'N', 'E', 'W', ASCII_NUL,                // 21
-	'N', 'O', 'T', ASCII_NUL,
-	'O', 'N', ASCII_NUL,                     // 23
 #if USE_PEEK_POKE
 	'P', 'O', 'K', 'E', ASCII_NUL,
 #endif
@@ -130,9 +126,13 @@ const uint8_t _basic_lexer_tokenTable[] PROGMEM = {
 	'Ñ', 'é', ASCII_NUL,
 	'Ö', 'ë', 'ã', 'à', ASCII_NUL,
 	'à', 'ã', 'à', ASCII_NUL,
+        'à', ASCII_NUL,
 	'ä', 'é', 'å', ASCII_NUL,
 	'ä', 'é', 'ç', 'Ö', 'ñ', ASCII_NUL,
 	'ã', 'à', 'ë', 'í', 'Ä', 'í', 'ú',  ASCII_NUL,
+	'ç', 'Ä', ASCII_NUL,
+	'ç', 'Ö', ASCII_NUL,
+	'è', 'ê', 'à', ASCII_NUL,
 	'è', 'ì', 'ë', 'ä', ASCII_NUL,
 	'è', 'ì', 'ë', 'í', 'ú', ASCII_NUL,
 	'ê', 'Ä', 'á', 'å', 'Ö', 'ê', ASCII_NUL,
