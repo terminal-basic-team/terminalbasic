@@ -41,9 +41,6 @@ const uint8_t _basic_lexer_tokenTable[] PROGMEM = {
 #if USE_MATRIX
 	'C', 'O', 'N', ASCII_NUL,                // 7
 #endif
-#if USE_DEFFN
-	'D', 'E', 'F', ASCII_NUL,                // 9
-#endif
 #if USE_DELAY
 	'D', 'E', 'L', 'A', 'Y', ASCII_NUL,      // 10
 #endif
@@ -60,9 +57,6 @@ const uint8_t _basic_lexer_tokenTable[] PROGMEM = {
 	'D', 'U', 'M', 'P', ASCII_NUL,           // 15
 #endif
 	'F', 'A', 'L', 'S', 'E', ASCII_NUL,
-#if USE_DEFFN
-	'F', 'N', ASCII_NUL,                     // 18
-#endif
 	'G', 'O', 'S', 'U', 'B', ASCII_NUL,      // 20
 #if CONF_SEPARATE_GO_TO
 	'G', 'O', ASCII_NUL,                     // 12
@@ -132,6 +126,9 @@ const uint8_t _basic_lexer_tokenTable[] PROGMEM = {
 	'ã', 'à', 'ë', 'í', 'Ä', 'í', 'ú',  ASCII_NUL,
 	'ç', 'Ä', ASCII_NUL,
 	'ç', 'Ö', ASCII_NUL,
+#if USE_DEFFN
+	'é', 'è', 'ê', ASCII_NUL,
+#endif
 	'è', 'ê', 'à', ASCII_NUL,
 	'è', 'ì', 'ë', 'ä', ASCII_NUL,
 	'è', 'ì', 'ë', 'í', 'ú', ASCII_NUL,
@@ -143,6 +140,9 @@ const uint8_t _basic_lexer_tokenTable[] PROGMEM = {
 	'ë', 'í', 'é', 'è', ASCII_NUL,
 #endif
 	'í', 'é', ASCII_NUL,
+#if USE_DEFFN
+	'î', 'ì', 'ç', 'ä', ASCII_NUL,
+#endif
 	'ñ', 'à', 'ä', 'ã', ASCII_NUL,
 	'ò', 'Ä', 'É', ASCII_NUL,
 	ASCII_ETX
