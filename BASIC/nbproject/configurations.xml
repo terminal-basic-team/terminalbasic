@@ -288,7 +288,7 @@
     </conf>
     <conf name="Arduino_nano328" type="1">
       <toolsSet>
-        <compilerSet>Arduino|GNU</compilerSet>
+        <compilerSet>Arduino-1.8.6|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
@@ -483,22 +483,10 @@
           <output>${CND_DISTDIR}/${CND_CONF}/terminal-basic</output>
           <linkerLibItems>
             <linkerLibProjectItem>
-              <makeArtifact PL="../../libsdcard/libsdcard"
-                            CT="3"
-                            CN="Arduino_UNO"
-                            AC="true"
-                            BL="true"
-                            WD="../../libsdcard/libsdcard"
-                            BC="${MAKE}  -f Makefile CONF=Arduino_UNO"
-                            CC="${MAKE}  -f Makefile CONF=Arduino_UNO clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibsdcard.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
               <makeArtifact PL="../../libarduinoext"
                             CT="3"
                             CN="Arduino_uno"
-                            AC="false"
+                            AC="true"
                             BL="true"
                             WD="../../libarduinoext"
                             BC="${MAKE}  -f Makefile CONF=Arduino_uno"
@@ -510,7 +498,7 @@
               <makeArtifact PL="../../libps2uart/libps2uart"
                             CT="3"
                             CN="Arduino_UNO"
-                            AC="false"
+                            AC="true"
                             BL="true"
                             WD="../../libps2uart/libps2uart"
                             BC="${MAKE}  -f Makefile CONF=Arduino_UNO"
@@ -522,7 +510,7 @@
               <makeArtifact PL="../libbasic/libbasic_nb"
                             CT="3"
                             CN="Arduino_UNO"
-                            AC="true"
+                            AC="false"
                             BL="true"
                             WD="../libbasic/libbasic_nb"
                             BC="${MAKE}  -f Makefile CONF=Arduino_UNO"
