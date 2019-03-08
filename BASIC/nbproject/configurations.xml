@@ -469,7 +469,7 @@
           <incFile>
             <pElem>Arduino.h</pElem>
           </incFile>
-          <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -fno-threadsafe-statics -MMD -mmcu=atmega328p -ffunction-sections -fdata-sections -flto -fno-rtti -mcall-prologues</commandLine>
+          <commandLine>-Os -w -Wextra -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -flto -mcall-prologues -mmcu=atmega328p</commandLine>
           <preprocessorList>
             <Elem>ARDUINO=10806</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
@@ -531,7 +531,7 @@
               </makeArtifact>
             </linkerLibProjectItem>
           </linkerLibItems>
-          <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega328p</commandLine>
+          <commandLine>-w -Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega328p</commandLine>
         </linkerTool>
         <requiredProjects>
           <makeArtifact PL="../libbasic/libbasic_nb"
@@ -642,7 +642,7 @@
     </conf>
     <conf name="Arduino_mega2560" type="1">
       <toolsSet>
-        <compilerSet>Arduino|GNU</compilerSet>
+        <compilerSet>Arduino-1.8.6|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
@@ -675,7 +675,7 @@
           </incFile>
           <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -fno-threadsafe-statics -MMD -mmcu=atmega2560 -ffunction-sections -fdata-sections -flto -fno-rtti -mcall-prologues</commandLine>
           <preprocessorList>
-            <Elem>ARDUINO=10804</Elem>
+            <Elem>ARDUINO=10806</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_MEGA2560</Elem>
             <Elem>F_CPU=16000000L</Elem>
