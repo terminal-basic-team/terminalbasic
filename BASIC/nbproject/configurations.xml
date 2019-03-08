@@ -471,7 +471,7 @@
           </incFile>
           <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -fno-threadsafe-statics -MMD -mmcu=atmega328p -ffunction-sections -fdata-sections -flto -fno-rtti -mcall-prologues</commandLine>
           <preprocessorList>
-            <Elem>ARDUINO=10804</Elem>
+            <Elem>ARDUINO=10806</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_UNO</Elem>
             <Elem>F_CPU=16000000L</Elem>
