@@ -248,7 +248,7 @@
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs</pElem>
             <pElem>../../../libarduinoext/include</pElem>
           </incDir>
-          <commandLine>-Os -Wextra -std=gnu11 -ffunction-sections -fdata-sections -MMD -mmcu=atmega328p -flto -fno-fat-lto-objects -mcall-prologues</commandLine>
+          <commandLine>-Os -w -Wextra -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects -mcall-prologues -mmcu=atmega328p</commandLine>
           <preprocessorList>
             <Elem>ARDUINO=10806</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
