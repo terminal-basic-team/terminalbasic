@@ -243,7 +243,6 @@
           <developmentMode>0</developmentMode>
           <incDir>
             <pElem>../include</pElem>
-            <pElem>../../../libarduinoemulator/include</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs</pElem>
             <pElem>../../../libarduinoext/include</pElem>
@@ -317,9 +316,8 @@
           <developmentMode>0</developmentMode>
           <incDir>
             <pElem>../include</pElem>
-            <pElem>../../../libarduinoemulator/include</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
-            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs</pElem>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/variants/mega</pElem>
             <pElem>../../../libarduinoext/include</pElem>
           </incDir>
           <commandLine>-Os -Wextra -std=gnu11 -ffunction-sections -fdata-sections -MMD -mmcu=atmega2560 -flto -fno-fat-lto-objects -mcall-prologues</commandLine>
@@ -391,7 +389,6 @@
           <developmentMode>0</developmentMode>
           <incDir>
             <pElem>../include</pElem>
-            <pElem>../../../libarduinoemulator/include</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/variants/eightanaloginputs</pElem>
             <pElem>../../../libarduinoext/include</pElem>
