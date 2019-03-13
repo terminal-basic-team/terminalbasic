@@ -37,7 +37,7 @@
  * When enabled, all variables and arrays, which names are not ending with "$ ! %"
  * are treated as reals. Mathematical functions support depend on this option
  */
-#define USE_REALS               REAL_NONE
+#define USE_REALS               REAL_SINGLE
 
 /*
  * Support of 4-byte integer datatype
@@ -110,7 +110,7 @@
 /*
  * Use ANSI text attributes
  */
-#define USE_TEXTATTRIBUTES   0
+#define USE_TEXTATTRIBUTES   1
 #if USE_TEXTATTRIBUTES
 	/*
 	 * Support of SPC(N) print command
@@ -126,7 +126,7 @@
 /**
  * PEEK FUNCTION, POKE command support
  */
-#define USE_PEEK_POKE 0
+#define USE_PEEK_POKE 1
 
 #define LANG_EN 0
 #define LANG_RU 1
