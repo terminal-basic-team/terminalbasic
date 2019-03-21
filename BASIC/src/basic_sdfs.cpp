@@ -27,6 +27,10 @@
 namespace BASIC
 {
 
+#if USE_FILEOP
+static SDCard::File userFiles[5];
+#endif // USE_FILEOP
+
 SDCard::File SDFSModule::_root;
 
 static const uint8_t sdfsCommands[] PROGMEM = {
@@ -34,24 +38,57 @@ static const uint8_t sdfsCommands[] PROGMEM = {
 	'D', 'I', 'R', 'E', 'C', 'T', 'O', 'R', 'Y', ASCII_NUL,
 	'D', 'L', 'O', 'A', 'D', ASCII_NUL,
 	'D', 'S', 'A', 'V', 'E', ASCII_NUL,
+#if USE_FILEOP
+	'F', 'C', 'L', 'O', 'S', 'E', ASCII_NUL,
+	'F', 'W', 'R', 'I', 'T', 'E', ASCII_NUL,
+#endif
 	'H', 'E', 'A', 'D', 'E', 'R', ASCII_NUL,
 	'S', 'C', 'R', 'A', 'T', 'C', 'H', ASCII_NUL,
 	ASCII_ETX
 };
+
+#if USE_FILEOP
+static const uint8_t sdfsFunctions[] PROGMEM = {
+	'F', 'O', 'P', 'E', 'N', ASCII_NUL,
+	'F', 'S', 'I', 'Z', 'E', ASCII_NUL,
+	ASCII_ETX
+};
+
+static bool com_fclose(Interpreter&);
+static bool com_fwrite(Interpreter&);
+
+#endif // USE_FILEOP
 
 const FunctionBlock::function  SDFSModule::_commands[] PROGMEM = {
 	SDFSModule::dchain,
 	SDFSModule::directory,
 	SDFSModule::dload,
 	SDFSModule::dsave,
+#if USE_FILEOP
+	com_fclose,
+	com_fwrite,
+#endif
 	SDFSModule::header,
 	SDFSModule::scratch
 };
+
+static bool func_fopen(Interpreter&);
+static bool func_fsize(Interpreter&);
+
+#if USE_FILEOP
+const FunctionBlock::function _functions[] PROGMEM = {
+	func_fopen, func_fsize
+};
+#endif
 
 SDFSModule::SDFSModule()
 {
 	commands = _commands;
 	commandTokens = sdfsCommands;
+#if USE_FILEOP
+	functions = _functions;
+	functionTokens = sdfsFunctions;
+#endif
 }
 
 void
@@ -81,6 +118,87 @@ SDFSModule::_init()
 	if (!_root || !_root.isDirectory())
 		abort();
 }
+
+#if USE_FILEOP
+
+static bool
+com_fclose(Interpreter& i)
+{
+	Parser::Value v;
+	if (i.popValue(v)) {
+		const Integer ind = Integer(v);
+		if (ind >= 0 && ind < 5) {
+			if (userFiles[ind]) {
+				userFiles[ind].close();
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+static bool
+com_fwrite(Interpreter& i)
+{
+	Parser::Value v;
+	if (i.popValue(v)) {
+		const Integer ind = Integer(v);
+		if (ind >= 0 && ind < 5) {
+			if (userFiles[ind]) {
+				if (i.popValue(v)) {
+					userFiles[ind].write(Integer(v));
+					return true;
+				}
+			}
+		}
+	}
+	return false;
+}
+
+static bool
+func_fopen(Interpreter& i)
+{
+	uint8_t currentFile;
+	for (currentFile = 0; currentFile<5; ++currentFile)
+		if (!userFiles[currentFile])
+			break;
+	if (currentFile < 5) {
+		const char* s;
+		if (i.popString(s)) {
+			userFiles[currentFile] = SDCard::SDFS.open(s,
+			    SDCard::Mode::WRITE |
+			    SDCard::Mode::READ |
+			    SDCard::Mode::CREAT);
+			if (userFiles[currentFile]) {
+				if (i.pushValue(Integer(currentFile))) {
+					++currentFile;
+					return true;
+				}
+				// Can't push fileno, close file
+				userFiles[currentFile].close();
+			}
+		}
+	}
+	return false;
+}
+
+static bool
+func_fsize(Interpreter& i)
+{
+	Parser::Value v;
+	if (i.popValue(v)) {
+		const Integer ind = Integer(v);
+		if (ind >= 0 && ind < 5) {
+			if (userFiles[ind]) {
+				if (i.pushValue(Integer(userFiles[ind].size())))
+					return true;
+			}
+		}
+	}
+	return false;
+}
+
+#endif // USE_FILEOP
 
 bool
 SDFSModule::directory(Interpreter &i)

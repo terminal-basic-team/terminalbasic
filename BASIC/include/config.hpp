@@ -114,6 +114,10 @@ namespace BASIC
  * SDcard module
  */
 #define USESD         0
+#if USESD
+	// Unix-like file operations
+	#define USE_FILEOP 1
+#endif
 
 // Use text error strings
 #define CONF_ERROR_STRINGS 0
