@@ -50,12 +50,10 @@ static const uint8_t sdfsCommands[] PROGMEM = {
 #if USE_FILEOP
 static const uint8_t sdfsFunctions[] PROGMEM = {
 	'F', 'O', 'P', 'E', 'N', ASCII_NUL,
+	'F', 'R', 'E', 'A', 'D', ASCII_NUL,
 	'F', 'S', 'I', 'Z', 'E', ASCII_NUL,
 	ASCII_ETX
 };
-
-static bool com_fclose(Interpreter&);
-static bool com_fwrite(Interpreter&);
 
 #endif // USE_FILEOP
 
@@ -65,21 +63,20 @@ const FunctionBlock::function  SDFSModule::_commands[] PROGMEM = {
 	SDFSModule::dload,
 	SDFSModule::dsave,
 #if USE_FILEOP
-	com_fclose,
-	com_fwrite,
+	SDFSModule::com_fclose,
+	SDFSModule::com_fwrite,
 #endif
 	SDFSModule::header,
 	SDFSModule::scratch
 };
 
-static bool func_fopen(Interpreter&);
-static bool func_fsize(Interpreter&);
-
 #if USE_FILEOP
-const FunctionBlock::function _functions[] PROGMEM = {
-	func_fopen, func_fsize
+const FunctionBlock::function SDFSModule::_functions[] PROGMEM = {
+	SDFSModule::func_fopen,
+	SDFSModule::func_fread,
+	SDFSModule::func_fsize
 };
-#endif
+#endif // USE_FILEOP
 
 SDFSModule::SDFSModule()
 {
@@ -121,15 +118,14 @@ SDFSModule::_init()
 
 #if USE_FILEOP
 
-static bool
-com_fclose(Interpreter& i)
+bool
+SDFSModule::com_fclose(Interpreter& i)
 {
-	Parser::Value v;
-	if (i.popValue(v)) {
-		const Integer ind = Integer(v);
-		if (ind >= 0 && ind < 5) {
-			if (userFiles[ind]) {
-				userFiles[ind].close();
+	INT iv;
+	if (getIntegerFromStack(i, iv)) {
+		if (iv >= 0 && iv < 5) {
+			if (userFiles[iv]) {
+				userFiles[iv].close();
 				return true;
 			}
 		}
@@ -137,16 +133,16 @@ com_fclose(Interpreter& i)
 	return false;
 }
 
-static bool
-com_fwrite(Interpreter& i)
+bool
+SDFSModule::com_fwrite(Interpreter& i)
 {
-	Parser::Value v;
-	if (i.popValue(v)) {
-		const Integer ind = Integer(v);
-		if (ind >= 0 && ind < 5) {
-			if (userFiles[ind]) {
-				if (i.popValue(v)) {
-					userFiles[ind].write(Integer(v));
+	INT iv;
+	if (getIntegerFromStack(i, iv)) {
+		if (iv >= 0 && iv < 5) {
+			if (userFiles[iv]) {
+				INT bv;
+				if (getIntegerFromStack(i, bv)) {
+					userFiles[iv].write(bv);
 					return true;
 				}
 			}
@@ -155,8 +151,8 @@ com_fwrite(Interpreter& i)
 	return false;
 }
 
-static bool
-func_fopen(Interpreter& i)
+bool
+SDFSModule::func_fopen(Interpreter& i)
 {
 	uint8_t currentFile;
 	for (currentFile = 0; currentFile<5; ++currentFile)
@@ -182,15 +178,29 @@ func_fopen(Interpreter& i)
 	return false;
 }
 
-static bool
-func_fsize(Interpreter& i)
+bool
+SDFSModule::func_fread(Interpreter& i)
 {
-	Parser::Value v;
-	if (i.popValue(v)) {
-		const Integer ind = Integer(v);
-		if (ind >= 0 && ind < 5) {
-			if (userFiles[ind]) {
-				if (i.pushValue(Integer(userFiles[ind].size())))
+	INT iv;
+	if (getIntegerFromStack(i, iv)) {
+		if (iv >= 0 && iv < 5) {
+			if (userFiles[iv]) {
+				if (i.pushValue(Integer(userFiles[iv].read())))
+					return true;
+			}
+		}
+	}
+	return false;
+}
+
+bool
+SDFSModule::func_fsize(Interpreter& i)
+{
+	INT iv;
+	if (getIntegerFromStack(i, iv)) {
+		if (iv >= 0 && iv < 5) {
+			if (userFiles[iv]) {
+				if (i.pushValue(INT(userFiles[iv].size())))
 					return true;
 			}
 		}

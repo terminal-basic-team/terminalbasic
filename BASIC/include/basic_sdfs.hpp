@@ -49,12 +49,23 @@ private:
 	static bool scratch(Interpreter&);
 	static bool dload(Interpreter&);
 	static bool header(Interpreter&);
+#if USE_FILEOP
+	static bool com_fclose(Interpreter&);
+	static bool com_fwrite(Interpreter&);
+	
+	static bool func_fopen(Interpreter&);
+	static bool func_fsize(Interpreter&);
+	static bool func_fread(Interpreter&);
+#endif
 	
 	static bool getFileName(Interpreter&, char[]);
 	static bool _loadText(SDCard::File&, Interpreter&);
 	
 	static SDCard::File	_root;
 	static const FunctionBlock::function _commands[] PROGMEM;
+#if USE_FILEOP
+	static const FunctionBlock::function _functions[] PROGMEM;
+#endif
 };
 
 } // namespace BASIC
