@@ -166,8 +166,8 @@ SDFSModule::func_fopen(Interpreter& i)
 			    SDCard::Mode::READ |
 			    SDCard::Mode::CREAT);
 			if (userFiles[currentFile]) {
+				userFiles[currentFile].seek(0);
 				if (i.pushValue(Integer(currentFile))) {
-					++currentFile;
 					return true;
 				}
 				// Can't push fileno, close file
@@ -185,7 +185,7 @@ SDFSModule::func_fread(Interpreter& i)
 	if (getIntegerFromStack(i, iv)) {
 		if (iv >= 0 && iv < 5) {
 			if (userFiles[iv]) {
-				if (i.pushValue(Integer(userFiles[iv].read())))
+				if (i.pushValue(INT(userFiles[iv].read())))
 					return true;
 			}
 		}
