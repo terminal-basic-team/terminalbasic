@@ -24,7 +24,6 @@
 
 #if USESD
 
-#include <SD.h>
 #include <sd.hpp>
 
 namespace BASIC

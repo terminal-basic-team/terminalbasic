@@ -461,6 +461,7 @@
             <pElem>include</pElem>
             <pElem>../../libarduinoext/include</pElem>
             <pElem>../libbasic/include</pElem>
+            <pElem>../../libsdcard/SDCard/src</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>
@@ -500,6 +501,18 @@
                             BC="${MAKE}  -f Makefile CONF=Arduino_UNO"
                             CC="${MAKE}  -f Makefile CONF=Arduino_UNO clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibps2uart.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../libsdcard/libsdcard"
+                            CT="3"
+                            CN="Arduino_UNO"
+                            AC="true"
+                            BL="true"
+                            WD="../../libsdcard/libsdcard"
+                            BC="${MAKE}  -f Makefile CONF=Arduino_UNO"
+                            CC="${MAKE}  -f Makefile CONF=Arduino_UNO clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibsdcard.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -654,9 +667,9 @@
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/SPI/src</pElem>
             <pElem>${ARDUINO_PATH}/libraries/TVoutfonts</pElem>
             <pElem>${ARDUINO_PATH}/libraries/TVout</pElem>
+            <pElem>${ARDUINO_PATH}/libraries/SD/src</pElem>
             <pElem>${ARDUINO_PATH}/libraries/PS2Keyboard</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/Wire/src</pElem>
-            <pElem>${ARDUINO_PATH}/libraries/SD/src</pElem>
             <pElem>include</pElem>
             <pElem>../../libarduinoext/include</pElem>
             <pElem>../TVoutEx</pElem>
