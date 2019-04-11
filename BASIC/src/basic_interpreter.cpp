@@ -572,7 +572,10 @@ Interpreter::print(const Parser::Value &v, VT100::TextAttr attr)
 	case Parser::Value::LOGICAL:
 #if USE_REALS
 	case Parser::Value::REAL:
+#if USE_LONG_REALS
+	case Parser::Value::LONG_REAL:
 #endif
+#endif // USE_REALS
 #if USE_LONGINT
 	case Parser::Value::LONG_INTEGER:
 #endif
@@ -1236,6 +1239,10 @@ VariableFrame::size(Parser::Value::Type t)
 #if USE_REALS
 	else if (t == Parser::Value::REAL)
 		res += sizeof(Real);
+#if USE_LONG_REALS
+	else if (t == Parser::Value::LONG_REAL)
+		res += sizeof(LongReal);
+#endif
 #endif // USE_REALS
 	else if (t == Parser::Value::LOGICAL)
 		res += sizeof(bool);
@@ -1297,6 +1304,19 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 		*U.r = Real(v);
 	}
 		break;
+#if USE_LONG_REALS
+	case Parser::Value::LONG_REAL:
+	{
+		union
+		{
+			char *b;
+			LongReal *r;
+		} U;
+		U.b = f.bytes;
+		*U.r = LongReal(v);
+	}
+		break;	
+#endif
 #endif // USE_REALS
 	case Parser::Value::STRING:
 	{
@@ -2005,10 +2025,17 @@ Interpreter::typeFromName(const char *fname)
 		t = Parser::Value::LOGICAL;
 	} else if (endsWith(fname, '$')) {
 		t = Parser::Value::STRING;
-	} else {
+	}
 #if USE_REALS
+#if USE_LONG_REALS
+         else if (endsWith(fname, '!')) {
+		t = Parser::Value::LONG_REAL;
+	}
+#endif // USE_LONG_REALS
+         else {
 		t = Parser::Value::REAL;
 #else
+	 else {
 		t = Parser::Value::INTEGER;
 #endif // USE_REALS
 	}

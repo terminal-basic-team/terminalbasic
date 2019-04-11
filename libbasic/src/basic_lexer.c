@@ -329,7 +329,14 @@ _basic_lexer_ident(basic_lexer_context_t *self)
 	} else if (SYM == '@') {
 		_basic_lexer_pushSym(self);
 		self->token = BASIC_TOKEN_BOOL_IDENT;
-	} else
+	}
+#if USE_LONG_REALS
+	else if  (SYM == '!') {
+		_basic_lexer_pushSym(self);
+		self->token = BASIC_TOKEN_LONG_REAL_IDENT;
+	}
+#endif
+	 else
 		self->token = BASIC_TOKEN_REAL_IDENT;
 	self->value.type = BASIC_VALUE_TYPE_STRING;
 	self->_id[self->_value_pointer] = 0;

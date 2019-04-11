@@ -291,10 +291,15 @@ basic_value_multeq(basic_value_t *self, const basic_value_t *rhs)
 #endif
 	switch (self->type) {
 #if USE_REALS
+#if USE_LONG_REALS
+	case BASIC_VALUE_TYPE_LONG_REAL :
+		self->body.long_real *= basic_value_toLongReal(rhs);
+		break;
+#endif // USE_LONG_REALS
 	case BASIC_VALUE_TYPE_REAL :
 		self->body.real *= basic_value_toReal(rhs);
 		break;
-#endif
+#endif // USE_REALS
 #if USE_LONGINT
 	case BASIC_VALUE_TYPE_LONG_INTEGER :
 		self->body.long_integer *= basic_value_toInteger(rhs);
@@ -312,15 +317,20 @@ void
 basic_value_diveq(basic_value_t *self, const basic_value_t *rhs)
 {
 #if USE_REALS
+#if USE_LONG_REALS
+	basic_value_setFromLongReal(self, basic_value_toLongReal(self) /
+	    basic_value_toLongReal(rhs));
+#else
 	basic_value_setFromReal(self, basic_value_toReal(self) /
 	    basic_value_toReal(rhs));
+#endif // USE_LONG_REALS
 #elif USE_LONGINT
-	basic_value_setFromLongInteger(self, basic_value_toLongInteger(self) /
+    	basic_value_setFromLongInteger(self, basic_value_toLongInteger(self) /
 	    basic_value_toLongInteger(rhs));
 #else
 	basic_value_setFromInteger(self, basic_value_toInteger(self) /
 	    basic_value_toInteger(rhs));
-#endif
+#endif // USE_REALS
 }
 
 void
