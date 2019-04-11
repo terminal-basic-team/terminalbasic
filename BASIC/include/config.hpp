@@ -223,10 +223,10 @@ namespace BASIC
 	#define LIQCR_D3 2
 
 // Input select
-#define S_INPUT SERIAL_I
+#define S_INPUT SERIALL_I
 
 // Output select
-#define S_OUTPUT SERIAL_O
+#define S_OUTPUT SERIALL_O
 
 #if USE_EXTEEPROM
 	#define USE_WIRE 1
