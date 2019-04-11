@@ -121,7 +121,12 @@ Interpreter::valueFromVar(Parser::Value &v, const char *varName)
 	case Parser::Value::REAL:
 		v = f->get<Real>();
 		break;
+#if USE_LONG_REALS
+	case Parser::Value::LONG_REAL:
+		v = f->get<LongReal>();
+		break;
 #endif
+#endif // USE_REALS
 	case Parser::Value::LOGICAL:
 		v = f->get<bool>();
 		break;
@@ -1945,7 +1950,7 @@ Interpreter::addArray(const char *name, uint8_t dim, uint16_t num)
 
 	Parser::Value::Type t;
 #if USE_LONGINT
-	if (endsWith(name, "%%")) {
+	if (endsWith(name, "%!")) {
 		t = Parser::Value::LONG_INTEGER;
 		num *= sizeof (LongInteger);
 	} else
@@ -1953,7 +1958,7 @@ Interpreter::addArray(const char *name, uint8_t dim, uint16_t num)
 	    if (endsWith(name, '%')) {
 		t = Parser::Value::INTEGER;
 		num *= sizeof (Integer);
-	} else if (endsWith(name, '!')) {
+	} else if (endsWith(name, '@')) {
 		uint16_t s = num / 8;
 		if ((num % 8) != 0)
 			++s;
@@ -1990,13 +1995,13 @@ Interpreter::typeFromName(const char *fname)
 {
 	Parser::Value::Type t;
 #if USE_LONGINT
-	if (endsWith(fname, "%%")) {
+	if (endsWith(fname, "%!")) {
 		t = Parser::Value::LONG_INTEGER;
 	} else
 #endif // USE_LONGINT
 		if (endsWith(fname, '%')) {
 		t = Parser::Value::INTEGER;
-	} else if (endsWith(fname, '!')) {
+	} else if (endsWith(fname, '@')) {
 		t = Parser::Value::LOGICAL;
 	} else if (endsWith(fname, '$')) {
 		t = Parser::Value::STRING;

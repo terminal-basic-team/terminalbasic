@@ -33,6 +33,10 @@ basic_value_toReal(const basic_value_t *self)
 		return (real_t)(self->body.integer);
 	case BASIC_VALUE_TYPE_REAL:
 		return self->body.real;
+#if USE_LONG_REALS
+	case BASIC_VALUE_TYPE_LONG_REAL:
+		return (real_t)self->body.long_real;
+#endif
 	case BASIC_VALUE_TYPE_LOGICAL:
 		return (real_t)(self->body.logical);
 	default:
@@ -56,6 +60,46 @@ basic_value_setFromReal(basic_value_t* self, real_t val)
 	self->type = BASIC_VALUE_TYPE_REAL;
 	self->body.real = val;
 }
+
+#if USE_LONG_REALS
+long_real_t
+basic_value_toLongReal(const basic_value_t *self)
+{
+	switch (self->type) {
+#if USE_LONGINT
+	case BASIC_VALUE_TYPE_LONG_INTEGER:
+		return (long_real_t)(self->body.long_integer);
+#endif // USE_LONGINT
+	case BASIC_VALUE_TYPE_INTEGER:
+		return (long_real_t)(self->body.integer);
+	case BASIC_VALUE_TYPE_REAL:
+		return (long_real_t)self->body.real;
+	case BASIC_VALUE_TYPE_LONG_REAL:
+		return self->body.long_real;
+	case BASIC_VALUE_TYPE_LOGICAL:
+		return (long_real_t)(self->body.logical);
+	default:
+		return (long_real_t)(NAN);
+	}
+}
+
+basic_value_t
+basic_value_from_longReal(long_real_t other)
+{
+	basic_value_t result;
+	
+	basic_value_setFromLongReal(&result, other);
+	
+	return result;
+}
+
+void
+basic_value_setFromLongReal(basic_value_t* self, long_real_t val)
+{
+	self->type = BASIC_VALUE_TYPE_LONG_REAL;
+	self->body.long_real = val;
+}
+#endif // USE_LONG_REALS
 #endif // USE_REALS
 
 #if USE_LONGINT
@@ -70,6 +114,10 @@ basic_value_toLongInteger(const basic_value_t* self)
 #if USE_REALS
 	case BASIC_VALUE_TYPE_REAL:
 		return (long_integer_t)self->body.real;
+#if USE_LONG_REALS
+	case BASIC_VALUE_TYPE_LONG_REAL:
+		return (long_integer_t)self->body.long_real;
+#endif
 #endif // USE_REALS
 	case BASIC_VALUE_TYPE_LOGICAL:
 		return (BOOLEAN)self->body.logical;
@@ -109,6 +157,9 @@ basic_value_toInteger(const basic_value_t* self)
 #if USE_REALS
 	case BASIC_VALUE_TYPE_REAL:
 		return (integer_t)(self->body.real);
+#if USE_LONG_REALS
+		
+#endif
 #endif // USE_REALS
 	case BASIC_VALUE_TYPE_LOGICAL:
 		return (integer_t)(self->body.logical);

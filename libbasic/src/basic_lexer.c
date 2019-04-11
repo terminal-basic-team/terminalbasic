@@ -159,7 +159,7 @@ lexer_number_scale(basic_lexer_context_t *self)
 		} else {
 			if (!sign)
 				scale = -scale;
-			real_t pw = mf_pow((real_t) (10), (real_t) scale);
+			real_t pw = powf((real_t) (10), (real_t) scale);
 			basic_value_t pwv = basic_value_from_real(pw);
 			basic_value_multeq(&self->value, &pwv);
 			return TRUE;
@@ -317,7 +317,7 @@ _basic_lexer_ident(basic_lexer_context_t *self)
 	if (SYM == '%') {
 		_basic_lexer_pushSym(self);
 #if USE_LONGINT
-		if (SYM == '%') {
+		if (SYM == '!') {
 			_basic_lexer_pushSym(self);
 			self->token = BASIC_TOKEN_LONGINT_IDENT;
 		} else
@@ -326,7 +326,7 @@ _basic_lexer_ident(basic_lexer_context_t *self)
 	} else if (SYM == '$') {
 		_basic_lexer_pushSym(self);
 		self->token = BASIC_TOKEN_STRING_IDENT;
-	} else if (SYM == '!') {
+	} else if (SYM == '@') {
 		_basic_lexer_pushSym(self);
 		self->token = BASIC_TOKEN_BOOL_IDENT;
 	} else

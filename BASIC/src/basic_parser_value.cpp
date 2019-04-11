@@ -39,6 +39,12 @@ Parser::Value::Value(Real v)
 {
 	basic_value_setFromReal(&m_value, v);
 }
+#if USE_LONG_REALS
+Parser::Value::Value(LongReal v)
+{
+	basic_value_setFromLongReal(&m_value, v);
+}
+#endif
 #endif // USE_REALS
 
 Parser::Value::Value(bool v)
@@ -51,6 +57,12 @@ Parser::Value::operator Real() const
 {
 	return basic_value_toReal(&m_value);
 }
+#if USE_LONG_REALS
+Parser::Value::operator LongReal() const
+{
+	return basic_value_toLongReal(&m_value);
+}
+#endif
 #endif // USE_REALS
 
 Parser::Value::operator bool() const
@@ -181,8 +193,12 @@ Parser::Value::size(Type t)
 #endif
 #if USE_REALS
 	case REAL:
-		return sizeof(Real);	
+		return sizeof(Real);
+#if USE_LONG_REALS
+	case LONG_REAL:
+		return sizeof(LongReal);
 #endif
+#endif // USE_REALS
 	case LOGICAL:
 		return sizeof(bool);
 	default:
@@ -256,8 +272,15 @@ Parser::Value::printTo(Print& p) const
 			memmove(buf+1, buf+2, 15-2);
 		return p.print(buf);
 	}
-		break;
+#if USE_LONG_REALS
+	case LONG_REAL:
+	{
+		char buf[18];
+		::sprintf(buf, "%- 15.12G", m_value.body.long_real);
+		return p.print(buf);
+	}
 #endif
+#endif // USE_REALS
 #if USE_LONGINT
 	case Parser::Value::LONG_INTEGER:
 		if (m_value.body.long_integer >= LongInteger(0))

@@ -105,11 +105,12 @@ constexpr const LongInteger MaxLongInteger = MAX_LONG_INTEGER;
 #endif // USE_LONGINT
 typedef ::INT INT;
 // floating point type
-#if USE_REALS == REAL_SINGLE
-typedef float Real;
-#elif USE_REALS == REAL_DOUBLE
-typedef double Real;
+#if USE_REALS
+using Real = real_t;
+#if USE_LONG_REALS
+using LongReal = long_real_t;
 #endif
+#endif // USE_REALS
 
 // Number of characters in command/function identifier
 const uint8_t IDSIZE = 8;

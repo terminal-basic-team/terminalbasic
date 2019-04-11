@@ -78,9 +78,10 @@ private:
 	static Real cot_r(Real);
 	static Real sin_r(Real);
 	static Real tan_r(Real);
+#if USE_LONG_REALS
+	static LongReal cot_lr(LongReal);
 #endif
-	static Real exp_r(Real);
-	static Real log_r(Real);
+#endif // M_TRIGONOMETRIC
 	static Real sqr_r(Real);
 #if M_ADDITIONAL
 	static Real cbr_r(Real);
