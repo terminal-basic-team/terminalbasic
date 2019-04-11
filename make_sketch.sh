@@ -55,7 +55,7 @@ SRC="	./libbasic/include/basic.h \
 	./BASIC/src/basic_gfx_serial.cpp \
 	./BASIC/src/basic_sdfs.cpp \
 	./BASIC/src/strings_en.hpp \
-	./BASIC/src/strings_ru_koi8r.hpp \
+	./BASIC/src/strings_ru.hpp \
 	../libarduinoext/include/ascii.hpp \
 	../libarduinoext/include/vt100.hpp \
 	../libarduinoext/include/gfxterm.hpp \
