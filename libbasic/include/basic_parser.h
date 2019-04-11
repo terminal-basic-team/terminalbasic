@@ -1,6 +1,6 @@
 /*
  * Terminal-BASIC is a lightweight BASIC-like language interpreter
- * Copyright (C) 2016-2019 Andrey V. Skvortsov <starling13@mail.ru>
+ * Copyright (C) 2017-2019 Andrey V. Skvortsov <starling13@mail.ru>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,31 +16,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef BASIC_PARSER_H
+#define BASIC_PARSER_H
+
+#include "basic.h"
+
+__BEGIN_DECLS
+
+typedef struct {
+	
+} basic_parser_context_t;
+
 /**
- * @file	basic_dataparser.hpp
+ * 
+ * @param self context
+ * @param str string to parse
+ * @param success flag of successfull execution
+ * @return true if there are more operators in string
  */
+BOOLEAN basic_parser_parse(basic_parser_context_t*, const char*, BOOLEAN*);
 
-#ifndef BASIC_DATAPARSER_HPP
-#define BASIC_DATAPARSER_HPP
+__END_DECLS
 
-#include "basic_interpreter.hpp"
+#endif /* BASIC_PARSER_H */
 
-namespace BASIC
-{
-
-class DataParser
-{
-public:
-	DataParser(Interpreter&);
-	bool searchData(const uint8_t*, Parser::Value&);
-	bool read(const uint8_t*, Parser::Value&);
-	const Lexer &lexer() const { return _lexer; }
-private:
-	bool readValue(Parser::Value&);
-	Lexer	     _lexer;
-	Interpreter &_interpreter;
-};
-
-} // namespace BASIC
-
-#endif

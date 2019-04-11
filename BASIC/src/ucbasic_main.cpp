@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "basic_common.hpp"
+#include "basic.hpp"
 #include "basic_interpreter.hpp"
 
 #include "arduino_logger.hpp"
@@ -89,7 +89,7 @@ static LiquidCrystalVt100 lsvt100(lCrystal, 20, 4, lCrBuf);
 #endif
 
 #if USESD
-static BASIC::SDFSModule sdfs;
+BASIC::SDFSModule sdfs;
 #endif
 
 #if USEMATH

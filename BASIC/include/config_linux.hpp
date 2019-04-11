@@ -22,8 +22,6 @@
 #include "Arduino.h"
 #include "config.hpp"
 
-// Use multiterminal mode
-#define BASIC_MULTITERMINAL       0
 #if BASIC_MULTITERMINAL
 #define NUM_TERMINALS 1
 #ifdef HAVE_HWSERIAL1
@@ -55,7 +53,7 @@ const uint16_t SINGLE_PROGSIZE = PROGRAMSIZE / NUM_TERMINALS;
 const uint16_t SINGLE_PROGSIZE = PROGRAMSIZE;
 #endif
 
-}
+} // namespace BASIC
 
 // BEGIN PRIVATE
 
@@ -65,4 +63,4 @@ const uint16_t SINGLE_PROGSIZE = PROGRAMSIZE;
 
 // END PRIVATE
 
-#endif
+#endif // CONFIG_LINUX_HPP

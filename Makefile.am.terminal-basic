@@ -14,8 +14,7 @@ terminalbasic_SOURCES=arduinoext.hpp \
 	basic.hpp \
 	basic_arduinoio.cpp \
 	basic_arduinoio.hpp \
-	basic_common.hpp \
-	basic_common.cpp \
+	basic.cpp \
 	basic_config.h \
 	basic_exteeprom.cpp \
 	basic_exteeprom.hpp \
@@ -26,7 +25,7 @@ terminalbasic_SOURCES=arduinoext.hpp \
 	basic_gfx_tvout.cpp \
 	basic_gfx_serial.cpp \
 	basic_gfx_utft.cpp \
-	basic_common.hpp \
+	basic.hpp \
 	basic_internalfuncs.cpp \
 	basic_internalfuncs.hpp \
 	basic_interpreter.cpp \

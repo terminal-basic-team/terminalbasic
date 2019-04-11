@@ -95,7 +95,7 @@
 /*
  * Use >< as not-equals operator (with default <>)
  */
-#define CONF_USE_ALTERNATIVE_NE 1
+#define CONF_USE_ALTERNATIVE_NE 0
 
 /*
  * Structured loop support
@@ -127,5 +127,28 @@
  * PEEK FUNCTION, POKE command support
  */
 #define USE_PEEK_POKE 1
+
+#define LANG_EN 0
+#define LANG_RU 1
+
+/*
+ * Messages localization
+ */
+#define CONF_LANG LANG_EN
+
+/*
+ * Lexer localization
+ */
+#define CONF_LEXER_LANG LANG_EN
+
+/* Size of the string identifiers */
+#define STRING_SIZE 72
+
+/*
+ * High-level code optimisation mode
+ */
+#define OPT_SPEED     1 // Extensive use of switch/case constructs
+#define OPT_SIZE      2 // Use cascade of if/else if instead of switch/case
+#define OPT           OPT_SIZE // Selected mode
 
 #endif /* BASIC_CONFIG_H */
