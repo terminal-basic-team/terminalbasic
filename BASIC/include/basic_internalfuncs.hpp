@@ -55,6 +55,9 @@ private:
 #if USE_LEN
 	static bool func_len(Interpreter&);
 #endif
+#if USE_MID || USE_SEG
+	static bool func_mid(Interpreter&);
+#endif
 #if USE_PEEK_POKE
 	static bool func_peek(Interpreter&);
 #endif
