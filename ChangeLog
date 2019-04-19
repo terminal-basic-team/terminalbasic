@@ -29,6 +29,7 @@ r2.0-alpha-3 (23.02.2019) Release, dedicated to the Defender of the Fatherlad Da
 r2.0-alpha-2 (19.02.2019)
 
   * Fix some lexer-related regressions
+  * Fix GET$() function issue while DELAY command is active
 
 r2.0-alpha-1 (17.02.2019)
 
