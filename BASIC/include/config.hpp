@@ -72,7 +72,11 @@ namespace BASIC
 	// LEFT$ function, return leftmost part of the string
 	#define USE_LEFT           0
 	// RIGHT$ function, return rightmost part of the string
-	#define USE_RIGHT          0
+	#define USE_RIGHT          1
+	// MID$ function, return middle part of the string
+	#define USE_MID            1
+	// A variant of MID$ equivalent
+	#define USE_SEG            1
 	// HEX$ function, return sting with hexsadecimal representation of the expression value
 	#define USE_HEX     0
 #endif // USE_STRINGOPS
