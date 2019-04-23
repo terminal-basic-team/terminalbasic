@@ -16,12 +16,14 @@ SRC="	./libbasic/include/basic.h
 	./libbasic/include/config.h
 	./libbasic/include/_tokens_en.h
 	./libbasic/include/_tokens_ru.h
-	./libbasic/src/basic_lexer_en.c \
-	./libbasic/src/basic_lexer_ru.c \
 	./libbasic/include/basic_value.h \
 	./libbasic/src/basic_value.c \
 	./libbasic/include/basic_lexer.h \
 	./libbasic/src/basic_lexer.c \
+	./libbasic/src/basic_lexer_en.c \
+	./libbasic/src/basic_lexer_ru.c \
+	./libbasic/include/_tokens_en.h \
+	./libbasic/include/_tokens_ru.h \
 	./BASIC/include/basic.hpp  \
 	./BASIC/src/basic.cpp \
 	./BASIC/include/basic_lexer.hpp  \

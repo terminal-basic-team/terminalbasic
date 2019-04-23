@@ -6,16 +6,18 @@ terminalbasic_SOURCES=arduinoext.hpp \
 	Stream.h \
 	Printable.h \
 	Print.h \
+	tools.h \
+	tools.c \
 	emuserial.hpp \
 	Stdiostream.hpp \
 	arduino_logger.hpp \
 	ascii.hpp \
 	basic.h \
 	basic.hpp \
+	basic.c \
 	basic_arduinoio.cpp \
 	basic_arduinoio.hpp \
 	basic.cpp \
-	basic_config.h \
 	basic_exteeprom.cpp \
 	basic_exteeprom.hpp \
 	basic_functionblock.cpp \
@@ -25,12 +27,15 @@ terminalbasic_SOURCES=arduinoext.hpp \
 	basic_gfx_tvout.cpp \
 	basic_gfx_serial.cpp \
 	basic_gfx_utft.cpp \
-	basic.hpp \
 	basic_internalfuncs.cpp \
 	basic_internalfuncs.hpp \
 	basic_interpreter.cpp \
 	basic_interpreter_matrix.cpp \
 	basic_interpreter.hpp \
+	basic_lexer_ru.c \
+	basic_lexer_en.c \
+	basic_lexer.c \
+	basic_lexer.h \
 	basic_lexer.cpp \
 	basic_lexer.hpp \
 	basic_math.cpp \
@@ -45,10 +50,13 @@ terminalbasic_SOURCES=arduinoext.hpp \
 	basic_sdfs.hpp \
 	basic_dataparser.cpp \
 	basic_dataparser.hpp \
+	basic_value.h \
+	basic_value.c \
 	strings_en.hpp \
-	strings_ru_koi8r.hpp \
+	strings_ru.hpp \
 	bytearray.cpp \
 	bytearray.hpp \
+	config.h \
 	config.hpp \
 	helper.hpp \
 	i2ceeprom.hpp \
@@ -80,6 +88,8 @@ terminalbasic_SOURCES=arduinoext.hpp \
 	Font6x8_cyr_cue13.cpp \
 	vt100.hpp \
 	vt100.cpp \
+	_tokens_en.h \
+	_tokens_ru.h \
 	avr/interrupt.h \
 	avr/io.h \
 	avr/pgmspace.h \

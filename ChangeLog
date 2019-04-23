@@ -1,3 +1,21 @@
+r2.1-alpha1 (22.04.2019)
+
+  * Change logical variables and arrays ending from "!" to "@"
+  * Change long integer variables and arrays ending from "%%" to "%!"
+  * Change GET$ function to more common INKEY$
+  * Add partial support of long reals (variable/array name ends with "!")
+  * Add functions MID$/SEG$
+
+r2.0.1 (21.04.2019)
+
+  * Fix bug with parsing real constants with E/e and w/o decimal point
+  * Fix bug wirh saving program by DSAVE with REM lines
+
+r2.0 (11.04.2019)
+
+  * Reduce unnecessary spaces, generated in source file with DSAVE
+  * Fix undefined behaviour when load from file with long lines
+
 r2.0-rc1 (24.03.2019)
 
   * Add binary file operations to SD module
@@ -29,7 +47,6 @@ r2.0-alpha-3 (23.02.2019) Release, dedicated to the Defender of the Fatherlad Da
 r2.0-alpha-2 (19.02.2019)
 
   * Fix some lexer-related regressions
-  * Fix GET$() function issue while DELAY command is active
 
 r2.0-alpha-1 (17.02.2019)
 
