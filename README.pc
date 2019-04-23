@@ -16,7 +16,7 @@ eeprom.img file contains program, saved with "SAVE" command, while
 SD directory contains SD card emulator contents.
 
 You can place example programs in ~/ucbasic/SD and load them using
-" DSAVE "File name w/o extension" " command.
+"DLOAD "File name w/o extension" " command.
 
 A set of sources for test programs can be downloaded from
 https://cloud.mail.ru/public/45SG/gGc2kFpBk
