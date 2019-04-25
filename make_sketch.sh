@@ -49,6 +49,8 @@ SRC="	./libbasic/include/basic.h \
 	./BASIC/include/basic_internalfuncs.hpp \
 	./BASIC/src/basic_internalfuncs.cpp \
 	./BASIC/include/basic_gfx.hpp \
+	./BASIC/src/tvoutprint.cpp \
+	./BASIC/include/tvoutprint.hpp \
 	./BASIC/src/basic_gfx.cpp \
 	./BASIC/src/basic_gfx_tvout.cpp \
 	./BASIC/src/basic_gfx_utft.cpp \
