@@ -41,17 +41,17 @@
 #if BASIC_MULTITERMINAL
 #define NUM_TERMINALS 1
 #ifdef HAVE_HWSERIAL1
-#define SERIAL_PORT1 SerialL1
+#define SERIAL_PORT1 Serial1
 #undef NUM_TERMINALS
 #define NUM_TERMINALS 2
 #endif
 #ifdef HAVE_HWSERIAL2
-#define SERIAL_PORT2 SerialL2
+#define SERIAL_PORT2 Serial2
 #undef NUM_TERMINALS
 #define NUM_TERMINALS 3
 #endif
 #ifdef HAVE_HWSERIAL3
-#define SERIAL_PORT3 SerialL3
+#define SERIAL_PORT3 Serial3
 #undef NUM_TERMINALS
 #define NUM_TERMINALS 4
 #endif
