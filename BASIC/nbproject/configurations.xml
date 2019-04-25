@@ -19,6 +19,7 @@
       <itemPath>include/config.hpp</itemPath>
       <itemPath>include/config_arduino.hpp</itemPath>
       <itemPath>include/config_linux.hpp</itemPath>
+      <itemPath>include/tvoutprint.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="src" displayName="src" projectFiles="true">
       <itemPath>src/basic.cpp</itemPath>
@@ -41,6 +42,7 @@
       <itemPath>src/basic_sdfs.cpp</itemPath>
       <itemPath>src/strings_en.hpp</itemPath>
       <itemPath>src/strings_ru.hpp</itemPath>
+      <itemPath>src/tvoutprint.cpp</itemPath>
       <itemPath>src/ucbasic_main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -88,7 +90,7 @@
             <pElem>../../libarduinoemulator/include</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
             <pElem>../../libarduinoext/include</pElem>
-            <pElem>../../tvoutex/TVoutEx</pElem>
+            <pElem>../../tvoutex/TVoutEx/src/</pElem>
             <pElem>../libbasic/include</pElem>
           </incDir>
           <commandLine>`pkg-config --cflags posixcpp` `pkg-config --cflags sdl2`</commandLine>
@@ -241,6 +243,8 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/tvoutprint.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
@@ -280,6 +284,8 @@
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tvoutprint.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -398,6 +404,8 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/tvoutprint.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
@@ -437,6 +445,8 @@
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tvoutprint.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -604,6 +614,8 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/tvoutprint.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
@@ -644,6 +656,8 @@
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/tvoutprint.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="tests/TableTest.cpp" ex="false" tool="1" flavor2="0">
@@ -676,13 +690,13 @@
             <pElem>../UTFT/include</pElem>
             <pElem>../../libsdcard/SDCard/src</pElem>
             <pElem>../../libutft/UTFT</pElem>
-            <pElem>../../tvoutex/TVoutEx</pElem>
+            <pElem>../../tvoutex/TVoutEx/src/</pElem>
             <pElem>../libbasic/include</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>
           </incFile>
-          <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -fno-threadsafe-statics -MMD -mmcu=atmega2560 -ffunction-sections -fdata-sections -flto -fno-rtti -mcall-prologues</commandLine>
+          <commandLine>-O2 -Wextra -std=gnu++11 -fpermissive -fno-exceptions -fno-threadsafe-statics -MMD -mmcu=atmega2560 -ffunction-sections -fdata-sections -flto -fno-rtti</commandLine>
           <preprocessorList>
             <Elem>ARDUINO=10806</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
@@ -696,6 +710,7 @@
         </ccTool>
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/terminal-basic</output>
+          <commandlineTool>avr-g++</commandlineTool>
           <linkerLibItems>
             <linkerLibProjectItem>
               <makeArtifact PL="../libbasic/libbasic_nb"
@@ -770,7 +785,7 @@
               </makeArtifact>
             </linkerLibProjectItem>
           </linkerLibItems>
-          <commandLine>-Os -Wall -Wextra -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega2560</commandLine>
+          <commandLine>-Wall -Wextra -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega2560</commandLine>
         </linkerTool>
       </compileType>
       <folder path="TestFiles/f1">
@@ -822,6 +837,8 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/tvoutprint.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
@@ -861,6 +878,8 @@
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tvoutprint.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -977,6 +996,8 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/tvoutprint.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
@@ -1016,6 +1037,8 @@
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tvoutprint.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -1136,6 +1159,8 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/tvoutprint.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
@@ -1175,6 +1200,8 @@
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tvoutprint.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -1293,6 +1320,8 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/tvoutprint.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
@@ -1332,6 +1361,8 @@
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tvoutprint.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -1467,6 +1498,8 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/tvoutprint.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
@@ -1504,6 +1537,8 @@
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tvoutprint.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1667,6 +1702,8 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/tvoutprint.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
@@ -1706,6 +1743,8 @@
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tvoutprint.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -1856,6 +1895,8 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/tvoutprint.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
@@ -1895,6 +1936,8 @@
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tvoutprint.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -2014,6 +2057,8 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/tvoutprint.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
@@ -2053,6 +2098,8 @@
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tvoutprint.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -2173,6 +2220,8 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/tvoutprint.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
@@ -2212,6 +2261,8 @@
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tvoutprint.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -2401,6 +2452,8 @@
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/tvoutprint.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
@@ -2440,6 +2493,8 @@
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tvoutprint.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
       </item>

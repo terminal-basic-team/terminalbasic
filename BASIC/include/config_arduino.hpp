@@ -81,7 +81,7 @@ const uint16_t PROGRAMSIZE = 6144;
 #elif (!USE_EXTMEM) && (USESD)
 const uint16_t PROGRAMSIZE = 5900;
 #else
-const uint16_t PROGRAMSIZE = 900;
+const uint16_t PROGRAMSIZE = 512;
 #endif
 #elif defined (__AVR_ATmega128__) || defined (__AVR_ATmega128A__)
 const uint16_t PROGRAMSIZE = 3072;

@@ -320,7 +320,7 @@
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/variants/mega</pElem>
             <pElem>../../../libarduinoext/include</pElem>
           </incDir>
-          <commandLine>-Os -Wextra -std=gnu11 -ffunction-sections -fdata-sections -MMD -mmcu=atmega2560 -flto -fno-fat-lto-objects -mcall-prologues</commandLine>
+          <commandLine>-O2 -Wextra -std=gnu11 -ffunction-sections -fdata-sections -MMD -mmcu=atmega2560 -flto -fno-fat-lto-objects</commandLine>
           <preprocessorList>
             <Elem>ARDUINO=10806</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
