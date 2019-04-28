@@ -127,20 +127,20 @@ Math::func_atn(Interpreter &i)
 bool
 Math::func_exp(Interpreter &i)
 {
-	return general_func(i, &expf);
+	return general_func(i, &exp_r);
 }
 
 bool
 Math::func_log(Interpreter &i)
 {
-	return general_func(i, &logf);
+	return general_func(i, &log_r);
 }
 
 #if M_TRIGONOMETRIC
 bool
 Math::func_cos(Interpreter &i)
 {
-	return general_func(i, &cosf);
+	return general_func(i, &cos_r);
 }
 
 bool
@@ -152,13 +152,25 @@ Math::func_cot(Interpreter &i)
 bool
 Math::func_sin(Interpreter &i)
 {
-	return general_func(i, &sinf);
+	return general_func(i, &sin_r);
 }
 
 bool
 Math::func_tan(Interpreter &i)
 {
-	return general_func(i, &tanf);
+	return general_func(i, &tan_r);
+}
+
+Real
+Math::sin_r(Real v)
+{
+	return sin(v);
+}
+
+Real
+Math::cos_r(Real v)
+{
+	return cos(v);
 }
 
 Real
@@ -167,6 +179,11 @@ Math::cot_r(Real v)
 	return Real(1) / tan(v);
 }
 
+Real
+Math::tan_r(Real v)
+{
+	return tan(v);
+}
 #endif // M_TRIGONOMETRIC
 
 #if M_HYPERBOLIC
@@ -210,7 +227,7 @@ Math::tanh_r(Real v)
 bool
 Math::func_sqr(Interpreter &i)
 {
-	return general_func(i, &sqrtf);
+	return general_func(i, &sqr_r);
 }
 
 bool
@@ -247,6 +264,24 @@ Math::atn_r(Real v)
 	return atan(v);
 }
 #endif // M_REVERSE_TRIGONOMETRIC
+
+Real
+Math::exp_r(Real v)
+{
+	return exp(v);
+}
+
+Real
+Math::log_r(Real v)
+{
+	return log(v);
+}
+
+Real
+Math::sqr_r(Real v)
+{
+	return sqrt(v);
+}
 
 #if M_ADDITIONAL
 Real

@@ -82,6 +82,8 @@ private:
 	static LongReal cot_lr(LongReal);
 #endif
 #endif // M_TRIGONOMETRIC
+	static Real exp_r(Real);
+	static Real log_r(Real);
 	static Real sqr_r(Real);
 #if M_ADDITIONAL
 	static Real cbr_r(Real);
