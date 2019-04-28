@@ -187,8 +187,8 @@ Program::variableByName(const char *name)
 {
 	auto index = _textEnd;
 
-	for (auto f = variableByIndex(index); f != nullptr;
-	    f = variableByIndex(index)) {
+	VariableFrame* f;
+	while ((f = variableByIndex(index)) != nullptr) {
 #if USE_DEFFN
 		if (!(f->type & TYPE_DEFFN)) {
 #endif
@@ -211,8 +211,8 @@ Program::functionByName(const char *name)
 {
 	auto index = _textEnd;
 
-	for (auto f = variableByIndex(index); f != nullptr;
-	    f = variableByIndex(index)) {
+	VariableFrame* f;
+	while ((f = variableByIndex(index)) != nullptr) {
 		if (f->type & TYPE_DEFFN) {
 			const int8_t res = strncmp(name, f->name, VARSIZE);
 			if (res == 0)
@@ -324,7 +324,7 @@ Program::arrayByName(const char *name)
 VariableFrame*
 Program::variableByIndex(Pointer index)
 {
-	if (index < _variablesEnd)
+	if (index >= _textEnd && index < _variablesEnd)
 		return reinterpret_cast<VariableFrame*> (_text + index);
 	else
 		return nullptr;
@@ -333,7 +333,10 @@ Program::variableByIndex(Pointer index)
 ArrayFrame*
 Program::arrayByIndex(Pointer index)
 {
-	return reinterpret_cast<ArrayFrame*> (_text + index);
+	if (index >= _variablesEnd && index < _arraysEnd)
+		return reinterpret_cast<ArrayFrame*> (_text + index);
+	else
+		return nullptr;
 }
 
 bool
