@@ -1851,10 +1851,15 @@ ArrayFrame::dataSize() const
 		break;
 #endif
 #if USE_REALS
+#if USE_LONG_REALS
+	case Parser::Value::LONG_REAL:
+		mul *= sizeof (LongReal);
+		break;	
+#endif // USE_LONG_REALS
 	case Parser::Value::REAL:
 		mul *= sizeof (Real);
 		break;
-#endif
+#endif // USE_REALS
 	case Parser::Value::LOGICAL:
 	{
 		uint16_t s = mul / 8;
@@ -1884,6 +1889,11 @@ ArrayFrame::get(uint16_t index, Parser::Value& v) const
 			return true;
 #endif
 #if USE_REALS
+#if USE_LONG_REALS
+		case Parser::Value::LONG_REAL:
+			v = get<LongReal>(index);
+			return true;	
+#endif // USE_LONG_REALS
 		case Parser::Value::REAL:
 			v = get<Real>(index);
 			return true;
@@ -1916,10 +1926,15 @@ ArrayFrame::set(uint16_t index, const Parser::Value &v)
 			return true;
 #endif
 #if USE_REALS
+#if USE_LONG_REALS
+		case Parser::Value::LONG_REAL:
+			set(index, LongReal(v));
+			return true;	
+#endif
 		case Parser::Value::REAL:
 			set(index, Real(v));
 			return true;
-#endif
+#endif // USE_REALS
 		case Parser::Value::LOGICAL:
 		{
 			uint8_t &_byte = data()[index / uint8_t(8)];
@@ -1986,11 +2001,17 @@ Interpreter::addArray(const char *name, uint8_t dim, uint16_t num)
 		num = s;
 	} else { // real
 #if USE_REALS
-		t = Parser::Value::REAL;
-		num *= sizeof (Real);
+#if USE_LONG_REALS
+		if (endsWith(name, '!')) {
+			t = Parser::Value::LONG_REAL;
+			num *= sizeof (LongReal);
+		} else {
+#endif // USE_LONG_REALS
+			t = Parser::Value::REAL;
+			num *= sizeof (Real);
 #else  // Integer
-		t = Parser::Value::INTEGER;
-		num *= sizeof (Integer);
+			t = Parser::Value::INTEGER;
+			num *= sizeof (Integer);
 #endif
 	}
 

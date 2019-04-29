@@ -483,13 +483,24 @@ _basic_value_powerMatch(basic_value_t *self, const basic_value_t *rhs)
 	    )
 		basic_value_setFromLongInteger(self,
 		    basic_value_toLongInteger(self));
-#endif
+#endif // USE_LONGINT
 #if USE_REALS
 	basic_value_t zer = basic_value_fromInteger(-1);
-	if (rhs->type == BASIC_VALUE_TYPE_REAL ||
-	    !basic_value_greater(rhs, &zer))
-		basic_value_setFromReal(self, basic_value_toReal(self));
+#if USE_LONG_REALS
+        if (rhs->type == BASIC_VALUE_TYPE_LONG_REAL)
+		basic_value_setFromLongReal(self, basic_value_toLongReal(self));
+	else
 #endif
+	if (rhs->type == BASIC_VALUE_TYPE_REAL &&
+	    self->type != BASIC_VALUE_TYPE_LONG_REAL)
+		basic_value_setFromReal(self, basic_value_toReal(self));
+	else if (!basic_value_greater(rhs, &zer) &&
+#if USE_LONG_REALS
+		self->type != BASIC_VALUE_TYPE_LONG_REAL &&
+#endif
+		self->type != BASIC_VALUE_TYPE_REAL)
+		basic_value_setFromReal(self, basic_value_toReal(self));
+#endif // USE_REALS
 }
 
 void
