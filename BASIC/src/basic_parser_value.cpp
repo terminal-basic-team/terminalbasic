@@ -243,7 +243,7 @@ Parser::Value::printTo(Print& p) const
 #if USE_REALS
 	case REAL:
 	{
-		char buf[15];
+		char buf[14];
 #ifdef __AVR_ARCH__
 		int8_t decWhole = 1;
 		Real n = math<Real>::abs(m_value.body.real);
@@ -261,22 +261,24 @@ Parser::Value::printTo(Print& p) const
 					break;
 			}
 		}
-		if (decWhole >= -3 && decWhole <= 8)
-			::dtostrf(m_value.body.real, 14, 8 - decWhole, buf);
+		if (decWhole >= -3 && decWhole <= 7)
+			::dtostrf(m_value.body.real, 13, 7 - decWhole, buf);
 		else
-			::dtostre(m_value.body.real, buf, 7, DTOSTR_ALWAYS_SIGN);
+			::dtostre(m_value.body.real, buf, 6, DTOSTR_ALWAYS_SIGN);
 #else
 		::sprintf(buf, "%- .6G", m_value.body.real);
 #endif // ARDUINO
 		if (buf[1] == '0' && buf[2] == '.')
-			memmove(buf+1, buf+2, 15-2);
+			memmove(buf+1, buf+2, 14-2);
 		return p.print(buf);
 	}
 #if USE_LONG_REALS
 	case LONG_REAL:
 	{
-		char buf[18];
-		::sprintf(buf, "%- 15.12G", m_value.body.long_real);
+		char buf[16];
+		::sprintf(buf, "%- .10G", m_value.body.long_real);
+		if (buf[1] == '0' && buf[2] == '.')
+			memmove(buf+1, buf+2, 16-2);
 		return p.print(buf);
 	}
 #endif
