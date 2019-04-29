@@ -62,7 +62,7 @@ namespace BASIC
 #define USE_STRINGOPS      1
 #if USE_STRINGOPS
 	// GET$ function, returns string from last pressed key symbol
-	#define USE_GET            1
+	#define USE_INKEY            1
 	// CHR$ function, returns string from the parameter ASCII code
 	#define USE_CHR            1
 	// ASC function, returns code of the first symbol in a string

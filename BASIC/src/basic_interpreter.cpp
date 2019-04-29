@@ -302,7 +302,7 @@ Interpreter::step()
 		c = char(ASCII::NUL);
 		if (_input.available() > 0) {
 			c = _input.read();
-#if USE_GET
+#if USE_INKEY
 			_inputBuffer[0] = c;
 #endif // USE_GET
 		}
@@ -488,7 +488,7 @@ Interpreter::addModule(FunctionBlock *module)
 	_parser.addModule(module);
 }
 
-#if USE_GET
+#if USE_INKEY
 uint8_t
 Interpreter::lastKey()
 {
@@ -704,7 +704,7 @@ Interpreter::run()
 {
 	_program.reset(_program._textEnd);
 	_state = EXECUTE;
-#if USE_GET
+#if USE_INKEY
 	_inputBuffer[0] = 0;
 #endif
 #if USE_DATA

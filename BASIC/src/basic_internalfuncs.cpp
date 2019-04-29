@@ -39,8 +39,8 @@ static const uint8_t intFuncs[] PROGMEM = {
 #if USE_HEX
 	'H', 'E', 'X', '$', ASCII_NUL,
 #endif
-#if USE_GET
-	'G', 'E', 'T', '$', ASCII_NUL,
+#if USE_INKEY
+	'I', 'N', 'K', 'E', 'Y', '$', ASCII_NUL,
 #endif
 #if USE_REALS
 	'I', 'N', 'T', ASCII_NUL,
@@ -84,8 +84,8 @@ const FunctionBlock::function InternalFunctions::funcs[] PROGMEM = {
 #if USE_HEX
 	InternalFunctions::func_hex,
 #endif
-#if USE_GET
-	InternalFunctions::func_get,
+#if USE_INKEY
+	InternalFunctions::func_inkey,
 #endif
 #if USE_REALS
 	InternalFunctions::func_int,
@@ -202,9 +202,9 @@ InternalFunctions::func_hex(Interpreter &i)
 }
 #endif // USE_HEX
 
-#if USE_GET
+#if USE_INKEY
 bool
-InternalFunctions::func_get(Interpreter &i)
+InternalFunctions::func_inkey(Interpreter &i)
 {
 	Parser::Value v;
 	char buf[2] = {0,0};
