@@ -555,6 +555,8 @@ Interpreter::dump(DumpMode mode)
 			_output.print(')');
 			_output.print(":\t");
 			_output.println();
+			
+			index += f->size();
 		}
 	}
 		break;
