@@ -68,7 +68,7 @@ static const uint8_t intFuncs[] PROGMEM = {
 	'S', 'E', 'G', '$', ASCII_NUL,
 #endif
 	'S', 'G', 'N', ASCII_NUL,
-        'S', 'T', 'R', '$', ASCII_NUL,
+	'S', 'T', 'R', '$', ASCII_NUL,
 	'T', 'I', 'M', 'E', ASCII_NUL,
 	ASCII_ETX
 };
