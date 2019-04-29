@@ -543,9 +543,8 @@ Interpreter::dump(DumpMode mode)
 	case ARRAYS:
 	{
 		auto index = _program._variablesEnd;
-		for (auto f = _program.arrayByIndex(index);
-		    _program.objectIndex(f) < _program._arraysEnd;
-		    f = _program.arrayByIndex(_program.objectIndex(f) + f->size())) {
+		ArrayFrame* f;
+		while (f = _program.arrayByIndex(index)) {
 			_output.print(f->name);
 			_output.print('(');
 			_output.print(f->dimension[0]);
@@ -1970,14 +1969,15 @@ Interpreter::addArray(const char *name, uint8_t dim, uint16_t num)
 {
 	Pointer index = _program._variablesEnd;
 	ArrayFrame *f;
-	for (f = _program.arrayByIndex(index); index < _program._arraysEnd;
-	    index += f->size(), f = _program.arrayByIndex(index)) {
+	while (f = _program.arrayByIndex(index)) {
 		int res = strcmp(name, f->name);
 		if (res == 0) {
 			raiseError(DYNAMIC_ERROR, REDIMED_ARRAY);
 			return nullptr;
 		} else if (res < 0)
 			break;
+		
+		index += f->size();
 	}
 
 	if (f == nullptr)
@@ -1989,8 +1989,8 @@ Interpreter::addArray(const char *name, uint8_t dim, uint16_t num)
 		t = Parser::Value::LONG_INTEGER;
 		num *= sizeof (LongInteger);
 	} else
-#endif      
-	    if (endsWith(name, '%')) {
+#endif  
+	if (endsWith(name, '%')) {
 		t = Parser::Value::INTEGER;
 		num *= sizeof (Integer);
 	} else if (endsWith(name, '@')) {
@@ -2013,6 +2013,7 @@ Interpreter::addArray(const char *name, uint8_t dim, uint16_t num)
 			t = Parser::Value::INTEGER;
 			num *= sizeof (Integer);
 #endif
+		}
 	}
 
 	const uint16_t dist = sizeof (ArrayFrame) + sizeof (uint16_t) * dim + num;

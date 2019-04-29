@@ -309,14 +309,14 @@ Program::arrayByName(const char *name)
 {
 	auto index = _variablesEnd;
 
-	for (auto f = arrayByIndex(index); index < _arraysEnd;
-	    index += f->size(),
-	    f = arrayByIndex(index)) {
+	ArrayFrame* f;
+	while (f = arrayByIndex(index)) {
 		const int8_t res = strcmp(name, f->name);
 		if (res == 0) {
 			return f;
 		} else if (res < 0)
 			break;
+		index += f->size();
 	}
 	return nullptr;
 }
