@@ -247,11 +247,11 @@ InternalFunctions::func_int(Interpreter &i)
 #endif
 	 || v.type() == Parser::Value::REAL
 	    ) {
-		v = math<Real>::floor(Real(v));
+		Real vv = math<Real>::floor(Real(v));
 #if USE_LONGINT
-		v = LongInteger(v);
+		v = LongInteger(vv);
 #else
-		v = Integer(v);
+		v = Integer(vv);
 #endif
 		if (i.pushValue(v))
                     return true;
