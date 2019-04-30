@@ -2014,8 +2014,10 @@ Interpreter::addArray(const char *name, uint8_t dim, uint16_t num)
 #else  // Integer
 			t = Parser::Value::INTEGER;
 			num *= sizeof (Integer);
-#endif
+#if USE_LONG_REALS
 		}
+#endif
+#endif // USE_REALS
 	}
 
 	const uint16_t dist = sizeof (ArrayFrame) + sizeof (uint16_t) * dim + num;

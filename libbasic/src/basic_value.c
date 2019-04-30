@@ -491,8 +491,11 @@ _basic_value_powerMatch(basic_value_t *self, const basic_value_t *rhs)
 		basic_value_setFromLongReal(self, basic_value_toLongReal(self));
 	else
 #endif
-	if (rhs->type == BASIC_VALUE_TYPE_REAL &&
-	    self->type != BASIC_VALUE_TYPE_LONG_REAL)
+	if (rhs->type == BASIC_VALUE_TYPE_REAL
+#if USE_LONG_REALS
+         && self->type != BASIC_VALUE_TYPE_LONG_REAL
+#endif
+		)
 		basic_value_setFromReal(self, basic_value_toReal(self));
 	else if (!basic_value_greater(rhs, &zer) &&
 #if USE_LONG_REALS
