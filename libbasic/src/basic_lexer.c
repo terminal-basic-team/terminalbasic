@@ -260,7 +260,7 @@ _basic_lexer_decimalint(basic_lexer_context_t *self)
 			const integer_t v = val * (integer_t) 10;
 #if USE_LONGINT
 			if ((val > MAX_INTEGER / (integer_t) (10)) ||
-			(v > MAX_INTEGER - d)) {
+			    (v > MAX_INTEGER - d)) {
 				self->value.body.long_integer = val;
 				_basic_lexer_decimallongint(self);
 				return;

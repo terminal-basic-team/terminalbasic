@@ -2011,12 +2011,12 @@ Interpreter::addArray(const char *name, uint8_t dim, uint16_t num)
 #endif // USE_LONG_REALS
 			t = Parser::Value::REAL;
 			num *= sizeof (Real);
-#else  // Integer
-			t = Parser::Value::INTEGER;
-			num *= sizeof (Integer);
 #if USE_LONG_REALS
 		}
 #endif
+#else  // Integer
+			t = Parser::Value::INTEGER;
+			num *= sizeof (Integer);
 #endif // USE_REALS
 	}
 

@@ -1305,8 +1305,7 @@ Parser::fFinal(Value &v)
 			return false;
 		}
 #else
-		if (t == Token::C_INTEGER || t == Token::C_REAL ||
-		    t == Token::C_BOOLEAN) {
+		if ((t >= Token::C_INTEGER) && (t <= Token::C_BOOLEAN)) {
 			if (_mode == EXECUTE)
 				v = _lexer.getValue();
 			_lexer.getNext();

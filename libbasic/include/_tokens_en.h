@@ -198,7 +198,9 @@ typedef enum basic_token
 	BASIC_TOKEN_BOOL_IDENT,    // 82
 
 	BASIC_TOKEN_C_INTEGER,     // 83
+#if USE_LONGINT
 	BASIC_TOKEN_C_LONG_INTEGER,// 83
+#endif
 	BASIC_TOKEN_C_REAL,        // 84
 #if USE_LONG_REALS
 	BASIC_TOKEN_C_LONG_REAL,   // 85
