@@ -54,6 +54,8 @@ SRC="	./libbasic/include/basic.h
 	./BASIC/src/basic_internalfuncs.cpp \
 	./BASIC/include/basic_gfx.hpp \
 	./BASIC/src/basic_gfx.cpp \
+	./BASIC/src/tvoutprint.cpp \
+	./BASIC/include/tvoutprint.hpp \
 	./BASIC/src/basic_gfx_tvout.cpp \
 	./BASIC/src/basic_gfx_utft.cpp \
 	./BASIC/src/basic_gfx_serial.cpp \
@@ -88,16 +90,16 @@ cp ./Makefile.am.terminal-basic "${SRC_PATH}/Makefile.am"
 rsync -r ../libarduinoemulator/include/ ${SRC_PATH}
 rsync -r ../libarduinoemulator/src/ ${SRC_PATH}
 
-cp ../tvoutex/TVoutEx/*.cpp ${SRC_PATH}
-cp ../tvoutex/TVoutEx/*.h ${SRC_PATH}
-cp ../tvoutex/TVoutEx/*.hpp ${SRC_PATH}
+cp ../tvoutex/TVoutEx/src/*.cpp ${SRC_PATH}
+cp ../tvoutex/TVoutEx/src/*.h ${SRC_PATH}
+cp ../tvoutex/TVoutEx/src/*.hpp ${SRC_PATH}
 cp ../tvoutex/livbtvoutex/*.cpp ${SRC_PATH}
 mkdir ${SRC_PATH}/spec
-cp ../tvoutex/TVoutEx/spec/* ${SRC_PATH}/spec
+cp ../tvoutex/TVoutEx/src/spec/* ${SRC_PATH}/spec
 mkdir ${SRC_PATH}/utility
-cp ../tvoutex/TVoutEx/utility/*.h ${SRC_PATH}/utility/
-cp ../tvoutex/TVoutEx/utility/*.hpp ${SRC_PATH}/utility/
-cp ../tvoutex/TVoutEx/utility/*.cpp ${SRC_PATH}
+cp ../tvoutex/TVoutEx/src/utility/*.h ${SRC_PATH}/utility/
+cp ../tvoutex/TVoutEx/src/utility/*.hpp ${SRC_PATH}/utility/
+cp ../tvoutex/TVoutEx/src/utility/*.cpp ${SRC_PATH}
 
 for file in $SRC
 do

@@ -80,10 +80,10 @@ terminalbasic_SOURCES=arduinoext.hpp \
 	TVoutEx.cpp \
 	VideoGen.cpp \
 	VideoGen.h \
-	TVoutPrint.hpp \
+	tvoutprint.cpp \
+	tvoutprint.hpp \
 	sdlstream.hpp \
 	tvoutex_sdlem.cpp \
-	TVoutPrint.cpp \
 	Stdiostream.cpp \
 	Font6x8_cyr_cue13.cpp \
 	vt100.hpp \
