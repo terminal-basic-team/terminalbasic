@@ -59,22 +59,22 @@ namespace BASIC
 #endif // USE_REALS
 
 // Use string functions and operations
-#define USE_STRINGOPS      1
+#define USE_STRINGOPS     1
 #if USE_STRINGOPS
 	// GET$ function, returns string from last pressed key symbol
-	#define USE_GET            1
+	#define USE_GET   1
 	// CHR$ function, returns string from the parameter ASCII code
-	#define USE_CHR            1
+	#define USE_CHR   1
 	// ASC function, returns code of the first symbol in a string
-	#define USE_ASC            1
+	#define USE_ASC   1
 	// LEN function, returns length of the string
-	#define USE_LEN            1
+	#define USE_LEN   1
 	// LEFT$ function, return leftmost part of the string
-	#define USE_LEFT           0
+	#define USE_LEFT  0
 	// RIGHT$ function, return rightmost part of the string
-	#define USE_RIGHT          0
+	#define USE_RIGHT 0
 	// HEX$ function, return sting with hexsadecimal representation of the expression value
-	#define USE_HEX     0
+	#define USE_HEX   0
 #endif // USE_STRINGOPS
 /*
  * Clear program memory on NEW command
@@ -83,7 +83,7 @@ namespace BASIC
 /**
  * Allow INPUT command with text message e.g. INPUT "A:";A
  */
-#define INPUT_WITH_TEXT      0
+#define INPUT_WITH_TEXT    0
 
 #if USE_TEXTATTRIBUTES
 	/*
@@ -118,7 +118,7 @@ namespace BASIC
 #define USESD         0
 #if USESD
 	// Unix-like file operations
-	#define USE_FILEOP 1
+	#define USE_FILEOP 0
 #endif
 
 // Use text error strings
