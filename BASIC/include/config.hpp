@@ -87,7 +87,11 @@ namespace BASIC
 /**
  * Allow INPUT command with text message e.g. INPUT "A:";A
  */
-#define INPUT_WITH_TEXT      0
+#define OPT_INPUT_WITH_TEXT      1
+/**
+ * Implicit arrays without DIM statement
+ */
+#define OPT_IMPLICIT_ARRAYS 1
 
 #if USE_TEXTATTRIBUTES
 	/*
