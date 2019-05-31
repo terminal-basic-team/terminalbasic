@@ -127,6 +127,9 @@ namespace BASIC
 #if USESD
 	// Unix-like file operations
 	#define USE_FILEOP 1
+	#if USE_FILEOP
+		#define FILE_NUMBER 3
+	#endif
 #endif
 
 // Use text error strings
