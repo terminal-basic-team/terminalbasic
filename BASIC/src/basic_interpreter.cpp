@@ -1788,7 +1788,9 @@ Interpreter::confirm()
 		char c = _input.read();
 		_output.print(c);
 		while (_input.available() <= 0);
-		if (_input.read() != int(ASCII::CR)) {
+		const char eol = _input.read();
+		if (eol != char(ASCII::CR) &&
+		    eol != char(ASCII::LF)) {
 			newline();
 			continue;
 		}
