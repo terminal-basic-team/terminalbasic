@@ -322,13 +322,14 @@
             <pElem>include</pElem>
             <pElem>../../libarduinoext/include</pElem>
             <pElem>../../tvoutex/TVoutEx</pElem>
+            <pElem>../libbasic/include</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>
           </incFile>
           <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -fno-threadsafe-statics -MMD -mmcu=atmega328p -ffunction-sections -fdata-sections -flto -fno-rtti -mcall-prologues</commandLine>
           <preprocessorList>
-            <Elem>ARDUINO=10804</Elem>
+            <Elem>ARDUINO=10806</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_NANO</Elem>
             <Elem>F_CPU=16000000L</Elem>
@@ -1408,7 +1409,7 @@
           </incFile>
           <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -fno-threadsafe-statics -MMD -mmcu=atmega168 -ffunction-sections -fdata-sections -flto -fno-rtti -mcall-prologues</commandLine>
           <preprocessorList>
-            <Elem>ARDUINO=10804</Elem>
+            <Elem>ARDUINO=10806</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_NANO</Elem>
             <Elem>F_CPU=16000000L</Elem>
@@ -1436,7 +1437,7 @@
               <makeArtifact PL="../../libarduinoext"
                             CT="3"
                             CN="Arduino_nano168"
-                            AC="false"
+                            AC="true"
                             BL="true"
                             WD="../../libarduinoext"
                             BC="${MAKE}  -f Makefile CONF=Arduino_nano168"
