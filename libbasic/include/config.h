@@ -95,11 +95,6 @@
 #define CONF_USE_ALTERNATIVE_NE 0
 
 /*
- * Structured loop support
- */
-#define USE_DOLOOP           0
-
-/*
  * SAVE, LOAD and CHAIN commands support
  */
 #define USE_SAVE_LOAD        1

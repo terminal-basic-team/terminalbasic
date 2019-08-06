@@ -48,9 +48,6 @@ typedef enum basic_token
 #if USE_DIV_KW
 	BASIC_TOKEN_KW_DIV,        // 13
 #endif
-#if USE_DOLOOP
-	BASIC_TOKEN_KW_DO,         // 14
-#endif
 #if USE_DUMP
 	BASIC_TOKEN_COM_DUMP,      // 15
 #endif
@@ -68,12 +65,6 @@ typedef enum basic_token
 #endif
 #if USE_TEXTATTRIBUTES
 	BASIC_TOKEN_COM_LOCATE,    // 30
-#endif
-#if USE_DOLOOP
-	BASIC_TOKEN_KW_LOOP,       // 31
-#endif
-#if USE_MATRIX
-	BASIC_TOKEN_KW_MAT,        // 32
 #endif
 #if USE_INTEGER_DIV
 	BASIC_TOKEN_KW_MOD,        // 33
@@ -123,6 +114,9 @@ typedef enum basic_token
 	BASIC_TOKEN_KW_REM,
 	BASIC_TOKEN_KW_END,
 	BASIC_TOKEN_COM_LIST,
+#if USE_MATRIX
+	BASIC_TOKEN_KW_MAT,        // 32
+#endif
 	BASIC_TOKEN_KW_GOTO,
 	BASIC_TOKEN_OP_NOT,
 #if USE_DEFFN

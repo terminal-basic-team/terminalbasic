@@ -58,9 +58,6 @@ const uint8_t _basic_lexer_tokenTable[] PROGMEM = {
 #if USE_DIV_KW
 	'D', 'I', 'V', ASCII_NUL,                // 13
 #endif
-#if USE_DOLOOP
-	'D', 'O', ASCII_NUL,                     // 14
-#endif
 #if USE_DUMP
 	'D', 'U', 'M', 'P', ASCII_NUL,           // 15
 #endif
@@ -90,9 +87,6 @@ const uint8_t _basic_lexer_tokenTable[] PROGMEM = {
 #endif
 #if USE_TEXTATTRIBUTES
 	'L', 'O', 'C', 'A', 'T', 'E', ASCII_NUL, // 21
-#endif
-#if USE_DOLOOP
-	'L', 'O', 'O', 'P', ASCII_NUL,           // 22
 #endif
 #if USE_MATRIX
 	'M', 'A', 'T', ASCII_NUL,                // 23
