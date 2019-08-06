@@ -3,6 +3,7 @@
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="include" displayName="include" projectFiles="true">
       <itemPath>../include/_tokens_en.h</itemPath>
+      <itemPath>../include/_tokens_fr.h</itemPath>
       <itemPath>../include/_tokens_ru.h</itemPath>
       <itemPath>../include/basic.h</itemPath>
       <itemPath>../include/basic_lexer.h</itemPath>
@@ -21,6 +22,7 @@
       <itemPath>../src/basic.c</itemPath>
       <itemPath>../src/basic_lexer.c</itemPath>
       <itemPath>../src/basic_lexer_en.c</itemPath>
+      <itemPath>../src/basic_lexer_fr.c</itemPath>
       <itemPath>../src/basic_lexer_ru.c</itemPath>
       <itemPath>../src/basic_value.c</itemPath>
       <itemPath>../src/test.c</itemPath>
@@ -68,6 +70,8 @@
       </compileType>
       <item path="../include/_tokens_en.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../include/_tokens_fr.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../include/_tokens_ru.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/basic.h" ex="false" tool="3" flavor2="0">
@@ -89,6 +93,8 @@
       <item path="../src/basic_lexer.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="../src/basic_lexer_en.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="../src/basic_lexer_fr.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="../src/basic_lexer_ru.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -127,6 +133,8 @@
       </compileType>
       <item path="../include/_tokens_en.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../include/_tokens_fr.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../include/_tokens_ru.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/basic.h" ex="false" tool="3" flavor2="0">
@@ -148,6 +156,8 @@
       <item path="../src/basic_lexer.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="../src/basic_lexer_en.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="../src/basic_lexer_fr.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="../src/basic_lexer_ru.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -195,6 +205,8 @@
       </compileType>
       <item path="../include/_tokens_en.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../include/_tokens_fr.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../include/_tokens_ru.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/basic.h" ex="false" tool="3" flavor2="0">
@@ -216,6 +228,8 @@
       <item path="../src/basic_lexer.c" ex="false" tool="0" flavor2="9">
       </item>
       <item path="../src/basic_lexer_en.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="../src/basic_lexer_fr.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="../src/basic_lexer_ru.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -268,6 +282,8 @@
       </compileType>
       <item path="../include/_tokens_en.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../include/_tokens_fr.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../include/_tokens_ru.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/basic.h" ex="false" tool="3" flavor2="0">
@@ -289,6 +305,8 @@
       <item path="../src/basic_lexer.c" ex="false" tool="0" flavor2="9">
       </item>
       <item path="../src/basic_lexer_en.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="../src/basic_lexer_fr.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="../src/basic_lexer_ru.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -341,6 +359,8 @@
       </compileType>
       <item path="../include/_tokens_en.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../include/_tokens_fr.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../include/_tokens_ru.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/basic.h" ex="false" tool="3" flavor2="0">
@@ -362,6 +382,8 @@
       <item path="../src/basic_lexer.c" ex="false" tool="0" flavor2="9">
       </item>
       <item path="../src/basic_lexer_en.c" ex="false" tool="0" flavor2="9">
+      </item>
+      <item path="../src/basic_lexer_fr.c" ex="false" tool="0" flavor2="9">
       </item>
       <item path="../src/basic_lexer_ru.c" ex="false" tool="0" flavor2="9">
       </item>
@@ -414,6 +436,8 @@
       </compileType>
       <item path="../include/_tokens_en.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../include/_tokens_fr.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../include/_tokens_ru.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/basic.h" ex="false" tool="3" flavor2="0">
@@ -435,6 +459,8 @@
       <item path="../src/basic_lexer.c" ex="false" tool="0" flavor2="9">
       </item>
       <item path="../src/basic_lexer_en.c" ex="false" tool="0" flavor2="9">
+      </item>
+      <item path="../src/basic_lexer_fr.c" ex="false" tool="0" flavor2="9">
       </item>
       <item path="../src/basic_lexer_ru.c" ex="false" tool="0" flavor2="9">
       </item>

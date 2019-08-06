@@ -127,6 +127,7 @@
 
 #define LANG_EN 0
 #define LANG_RU 1
+#define LANG_FR 3
 
 /*
  * Messages localization
