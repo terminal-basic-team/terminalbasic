@@ -29,7 +29,7 @@ namespace BASIC
 {
 
 static const char intFuncs[] PROGMEM = {
-#if CONF_LANG == LANG_EN
+#if CONF_LEXER_LANG == LANG_EN
 	'A', 'B', 'S', ASCII_NUL,
 #if USE_ASC
 	'A', 'S', 'C', ASCII_NUL,
@@ -71,7 +71,7 @@ static const char intFuncs[] PROGMEM = {
 	'S', 'G', 'N', ASCII_NUL,
 	'S', 'T', 'R', '$', ASCII_NUL,
 	'T', 'I', 'M', 'E', ASCII_NUL,
-#elif CONF_LANG == LANG_RU
+#elif CONF_LEXER_LANG == LANG_RU
 	'A', 'B', 'S', ASCII_NUL,
 #if USE_ASC
 	'A', 'S', 'C', ASCII_NUL,
@@ -118,7 +118,7 @@ static const char intFuncs[] PROGMEM = {
 };
 
 const FunctionBlock::function InternalFunctions::funcs[] PROGMEM = {
-#if CONF_LANG == LANG_EN
+#if CONF_LEXER_LANG == LANG_EN
 	InternalFunctions::func_abs,
 #if USE_ASC
 	InternalFunctions::func_asc,
@@ -160,7 +160,7 @@ const FunctionBlock::function InternalFunctions::funcs[] PROGMEM = {
 	InternalFunctions::func_sgn,
 	InternalFunctions::func_str,
 	InternalFunctions::func_tim,
-#elif CONF_LANG == LANG_RU
+#elif CONF_LEXER_LANG == LANG_RU
 	InternalFunctions::func_abs,
 #if USE_ASC
 	InternalFunctions::func_asc,
@@ -188,7 +188,6 @@ const FunctionBlock::function InternalFunctions::funcs[] PROGMEM = {
 	InternalFunctions::func_mid,
 #endif
 	InternalFunctions::func_sgn,
-	InternalFunctions::func_str,
 	InternalFunctions::func_tim,
 	
 #if USE_LEN
@@ -203,6 +202,7 @@ const FunctionBlock::function InternalFunctions::funcs[] PROGMEM = {
 #if USE_MID
 	InternalFunctions::func_mid,
 #endif
+	InternalFunctions::func_str
 #endif // CONF_LANG
 };
 
