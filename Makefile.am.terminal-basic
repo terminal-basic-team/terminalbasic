@@ -33,6 +33,7 @@ terminalbasic_SOURCES=arduinoext.hpp \
 	basic_interpreter_matrix.cpp \
 	basic_interpreter.hpp \
 	basic_lexer_ru.c \
+	basic_lexer_fr.c \
 	basic_lexer_en.c \
 	basic_lexer.c \
 	basic_lexer.h \
@@ -53,6 +54,7 @@ terminalbasic_SOURCES=arduinoext.hpp \
 	basic_value.h \
 	basic_value.c \
 	strings_en.hpp \
+	strings_fr.hpp \
 	strings_ru.hpp \
 	bytearray.cpp \
 	bytearray.hpp \

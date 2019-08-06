@@ -15,14 +15,17 @@ SRC="	./libbasic/include/basic.h
 	./libbasic/src/tools.c
 	./libbasic/include/config.h
 	./libbasic/include/_tokens_en.h
+	./libbasic/include/_tokens_fr.h
 	./libbasic/include/_tokens_ru.h
 	./libbasic/include/basic_value.h \
 	./libbasic/src/basic_value.c \
 	./libbasic/include/basic_lexer.h \
 	./libbasic/src/basic_lexer.c \
 	./libbasic/src/basic_lexer_en.c \
+	./libbasic/src/basic_lexer_fr.c \
 	./libbasic/src/basic_lexer_ru.c \
 	./libbasic/include/_tokens_en.h \
+	./libbasic/include/_tokens_fr.h \
 	./libbasic/include/_tokens_ru.h \
 	./BASIC/include/basic.hpp  \
 	./BASIC/src/basic.cpp \
@@ -63,6 +66,7 @@ SRC="	./libbasic/include/basic.h
 	./BASIC/src/basic_sdfs.cpp \
 	./BASIC/src/ucbasic_main.cpp \
 	./BASIC/src/strings_en.hpp \
+	./BASIC/src/strings_fr.hpp \
 	./BASIC/src/strings_ru.hpp \
 	../libarduinoext/include/vt100.hpp \
 	../libarduinoext/include/matrix.hpp \

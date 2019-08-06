@@ -10,10 +10,12 @@ SRC="	./libbasic/include/basic.h \
 	./libbasic/src/basic.c \
 	./libbasic/include/config.h \
 	./libbasic/include/_tokens_en.h \
+	./libbasic/include/_tokens_fr.h \
 	./libbasic/include/_tokens_ru.h \
 	./libbasic/include/tools.h \
 	./libbasic/src/tools.c \
 	./libbasic/src/basic_lexer_en.c \
+	./libbasic/src/basic_lexer_fr.c \
 	./libbasic/src/basic_lexer_ru.c \
 	./libbasic/include/basic_value.h \
 	./libbasic/src/basic_value.c \
@@ -57,6 +59,7 @@ SRC="	./libbasic/include/basic.h \
 	./BASIC/src/basic_gfx_serial.cpp \
 	./BASIC/src/basic_sdfs.cpp \
 	./BASIC/src/strings_en.hpp \
+	./BASIC/src/strings_fr.hpp \
 	./BASIC/src/strings_ru.hpp \
 	../libarduinoext/include/ascii.hpp \
 	../libarduinoext/include/vt100.hpp \
