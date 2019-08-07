@@ -30,6 +30,8 @@ static const uint8_t gfxTokens[] PROGMEM = {
 	'C','I','R','C','L','E', ASCII_NUL,
 	'C','O','L','O','R', ASCII_NUL,
 	'C','U','R','S','O','R', ASCII_NUL,
+	'E','L','L','I','P','S','E','C',ASCII_NUL,
+	'E','L','L','I','P','S','E',ASCII_NUL,
 	'L','I','N','E','T','O', ASCII_NUL,
 	'L','I','N','E','C', ASCII_NUL,
 	'L','I','N','E', ASCII_NUL,
