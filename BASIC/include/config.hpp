@@ -173,7 +173,10 @@ namespace BASIC
  */
 #define USE_GFX          0
 #if USE_GFX
-#define SERIAL_GFX       0
+// Use drawing functions with explisit color setting
+#define GFX_EXP_COLOR 1
+// Serial binary graphics protocol
+#define SERIAL_GFX    0
 #endif
 
 /*
