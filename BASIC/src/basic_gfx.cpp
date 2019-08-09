@@ -48,6 +48,8 @@ const FunctionBlock::function GFXModule::comms[] PROGMEM = {
 	GFXModule::command_circle,
 	GFXModule::command_color,
 	GFXModule::command_cursor,
+	GFXModule::command_ellipsec,
+	GFXModule::command_ellipse,
 	GFXModule::command_lineto,
 	GFXModule::command_linec,
 	GFXModule::command_line,
