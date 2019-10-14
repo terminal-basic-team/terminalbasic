@@ -255,7 +255,7 @@ InternalFunctions::func_chr(Interpreter &i)
 {
 	INT iv;
 	if (getIntegerFromStack(i, iv)) {
-		char buf[2] = { iv ,0 };
+		char buf[2] = { char(iv) ,0 };
 		Parser::Value v;
 		v.setType(Parser::Value::STRING);
 		i.pushString(buf);
