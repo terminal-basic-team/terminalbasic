@@ -1997,7 +1997,7 @@ Interpreter::addArray(const char *name, uint8_t dim, uint16_t num)
 {
 	Pointer index = _program._variablesEnd;
 	ArrayFrame *f;
-	while (f = _program.arrayByIndex(index)) {
+	while ((f = _program.arrayByIndex(index)) != nullptr) {
 		int res = strcmp(name, f->name);
 		if (res == 0) {
 			raiseError(DYNAMIC_ERROR, REDIMED_ARRAY);
