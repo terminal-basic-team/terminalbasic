@@ -85,10 +85,12 @@ rm -rf $SKETCH
 mkdir -p $SKETCH
 mkdir -p $SRC_PATH
 mkdir -p $SRC_PATH/sys
+mkdir -p $SRC_PATH/avr
 
 cp README.sketch ./sketch/README
 cp ./BASIC/src/ucbasic_main.cpp "${SRC_PATH}/terminal-basic.ino"
 cp ../libarduinoext/include/sys/cdefs.h "${SRC_PATH}/sys/"
+cp ./pgmspace.h "${SRC_PATH}/avr/"
 
 for file in $SRC
 do
