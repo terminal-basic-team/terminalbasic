@@ -99,10 +99,6 @@ namespace BASIC
 	 */
 	#define USE_COLORATTRIBUTES       1
 	/*
-	 * Support of SPC(N) print command
-	 */
-	#define CONF_USE_SPC_PRINT_COM    1
-	/*
 	 * Set print zones width (tab spacing)
 	 */
 	#define SET_PRINTZNES             1
