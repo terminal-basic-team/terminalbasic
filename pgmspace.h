@@ -19,13 +19,12 @@
 #ifndef PGMSPACE_H
 #define PGMSPACE_H
 
-#include <stdint.h>
-#include <string.h>
-
-#if (defined ARDUINO_ARCH_AVR) || (defined ARDUINO_ARCH_SAM)
-#error 1
+#if (defined ARDUINO_ARCH_AVR) || (defined ARDUINO_ARCH_SAM) || (defined ARDUINO_ARCH_ESP8266)
 #include_next <avr/pgmspace.h>
 #else
+
+#include <stdint.h>
+#include <string.h>
 
 #define PGM_P const char*
 #define PROGMEM
