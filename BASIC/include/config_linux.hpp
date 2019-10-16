@@ -45,12 +45,12 @@ namespace BASIC
 {
 
 // Number of bytes for program text, variables and stack
-const uint16_t PROGRAMSIZE = 32768;
+const pointer_t PROGRAMSIZE = 128000;
 
 #if BASIC_MULTITERMINAL
-const uint16_t SINGLE_PROGSIZE = PROGRAMSIZE / NUM_TERMINALS;
+const pointer_t SINGLE_PROGSIZE = PROGRAMSIZE / NUM_TERMINALS;
 #else
-const uint16_t SINGLE_PROGSIZE = PROGRAMSIZE;
+const pointer_t SINGLE_PROGSIZE = PROGRAMSIZE;
 #endif
 
 } // namespace BASIC

@@ -80,7 +80,6 @@ typedef enum ascii_codes
 	DEL = 0x7F
 } ascii_codes_t;
 
-typedef uint16_t pointer_t;
 // integer type
 typedef int16_t integer_t;
 #define MAX_INTEGER (integer_t)(INT16_MAX)

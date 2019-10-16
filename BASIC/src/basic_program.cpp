@@ -27,7 +27,7 @@
 namespace BASIC
 {
 
-Program::Program(uint16_t progsize) :
+Program::Program(Pointer progsize) :
 #if USE_EXTMEM
 _text(reinterpret_cast<char*> (EXTMEM_ADDRESS)),
 #endif
@@ -356,10 +356,10 @@ Program::removeLine(uint16_t num)
 {
 	const Line *line = this->lineByNumber(num, 0);
 	if (line != nullptr) {
-		const uint16_t index = objectIndex(line);
+		const Pointer index = objectIndex(line);
 		assert(index < _textEnd);
-		const uint16_t next = index+line->size;
-		const uint16_t len = _arraysEnd-next;
+		const Pointer next = index+line->size;
+		const Pointer len = _arraysEnd-next;
 		_textEnd -= line->size;
 		_variablesEnd -= line->size;
 		_arraysEnd -= line->size;
@@ -375,21 +375,25 @@ Program::addLine(uint16_t num, const uint8_t *text, uint8_t len)
 	if (_textEnd == 0) // First string insertion
 		return insert(num, text, len);
 
-	const uint16_t strLen = sizeof(Line) + len;
-	// Iterate over
+	const uint8_t strLen = sizeof(Line) + len;
+	// Iterate over lines
 	Line *cur;
 	for (cur = current(_current); _current.index < _textEnd;
 	    cur = current(_current)) {
 		if (num < cur->number) {
+			// Current line has number greater then new one,
+			// point of insertion
 			break;
-		} else if (num == cur->number) { // Replace string
-			const uint16_t newSize = strLen;
-			const uint16_t curSize = cur->size;
-			const int16_t dist = long(newSize) - curSize;
-			const uint16_t bytes2copy = _arraysEnd -
+		} else if (num == cur->number) {
+			// Current line has number equals to new one,
+			// replace string
+			const uint8_t newSize = strLen;
+			const uint8_t curSize = cur->size;
+			const int8_t dist = newSize - curSize;
+			const Pointer bytes2copy = _arraysEnd -
 			    (_current.index + curSize);
 			if ((_arraysEnd + dist) >= _sp)
-				return (false);
+				return false;
 			memmove(_text + _current.index + newSize,
 			    _text + _current.index + curSize, bytes2copy);
 			cur->number = num;

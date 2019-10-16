@@ -1092,7 +1092,7 @@ Interpreter::eepromProgramChecksum(uint16_t len)
 #endif // SAVE_LOAD_CHECKSUM
 
 bool
-Interpreter::checkText(uint16_t &len)
+Interpreter::checkText(Pointer &len)
 {
 	EEpromHeader_t h;
 
@@ -1118,7 +1118,7 @@ Interpreter::checkText(uint16_t &len)
 }
 
 void
-Interpreter::loadText(uint16_t len, bool showProgress)
+Interpreter::loadText(Pointer len, bool showProgress)
 {
 	EEPROMClass e;
 

@@ -542,13 +542,13 @@ private:
 	 * @param len Length of the program
 	 * @return Flag of success
 	 */
-	bool checkText(uint16_t&);
+	bool checkText(Pointer&);
 	/**
 	 * @brief load program memory from eeprom
 	 * @param len Length of program
 	 * @param showPogress show loading progress
 	 */
-	void loadText(uint16_t, bool=true);
+	void loadText(Pointer, bool=true);
 #if SAVE_LOAD_CHECKSUM
 	uint16_t eepromProgramChecksum(uint16_t);
 #endif
