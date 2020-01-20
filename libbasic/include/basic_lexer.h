@@ -38,6 +38,7 @@ struct basic_lexer_context
 	const uint8_t *string_to_parse;
 	/* position in the parsing string */
 	uint8_t string_pointer;
+	
 	basic_token_t token;
 	
 	/* current identifier string */

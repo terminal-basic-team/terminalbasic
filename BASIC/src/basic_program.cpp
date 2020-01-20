@@ -358,19 +358,12 @@ Program::addLine(Parser& parser, uint16_t num, const uint8_t *line)
 			auto c = parser.getCommand(lexer.id());
 			if (c != nullptr) {
 				
-				struct S {
-					uint8_t t[2];
-					FunctionBlock::command c;
-				};
-				
 				const int8_t tokLen = lexer.getPointer();
 				size -= tokLen-2-sizeof(uintptr_t);
 				memmove(tempBuffer+2+sizeof(uintptr_t), tempBuffer+lexer.getPointer(), size-2);
 				tempBuffer[0] = ASCII_DLE;
 				tempBuffer[1] = BASIC_TOKEN_COMMAND;
-				S* s = reinterpret_cast<S*>(&tempBuffer);
-				s->c = c;
-				tempBuffer[size] = 0;
+				writeValue(uintptr_t(c), &tempBuffer[2]);
 			}
 		}
 	}

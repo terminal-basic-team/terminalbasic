@@ -136,6 +136,7 @@ private:
 	bool fFinal(Value&);
 	bool fIfStatement();
 	bool fCommand();
+	void fCommandArguments(FunctionBlock::command);
 	bool fGotoStatement();
 	bool fForConds();
 	bool fIdentifier(char*);

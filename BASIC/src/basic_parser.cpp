@@ -1530,28 +1530,23 @@ Parser::fCommand()
 #endif
 	case Token::REAL_IDENT:
 	case Token::INTEGER_IDENT:
-	case Token::BOOL_IDENT:
+	case Token::BOOL_IDENT: {
 		FunctionBlock::command c;
 		if ((c=_internal.getCommand(_lexer.id())) != nullptr) {
-			while (_lexer.getNext()) {
-				Value v;
-				if (fExpression(v)) {
-					// String value already on stack after fExpression
-					if (v.type() != Value::STRING &&
-					    getMode() == EXECUTE)
-						_interpreter.pushValue(v);
-				} else
-					break;
-				
-				if (_lexer.getToken() == Token::COMMA)
-					continue;
-				else
-					break;
-			}
-			if (getMode() == EXECUTE)
-				_interpreter.execCommand(c);
+			fCommandArguments(c);
 			return true;
 		}
+	}
+		break;
+	case Token::COMMAND: {
+		auto sp = _lexer.getPointer();
+		FunctionBlock::command c =
+		    reinterpret_cast<FunctionBlock::command>(
+		    readValue<uintptr_t>(_lexer.getString()+sp));
+		_lexer.setPointer(sp+sizeof(uintptr_t));
+		fCommandArguments(c);
+		return true;
+	}
 	default:
 		break;
 	}
@@ -1562,6 +1557,28 @@ Parser::fCommand()
 		return true;
 	}
 	return false;
+}
+
+void
+Parser::fCommandArguments(FunctionBlock::command c)
+{
+	while (_lexer.getNext()) {
+		Value v;
+		if (fExpression(v)) {
+			// String value already on stack after fExpression
+			if (v.type() != Value::STRING &&
+			    getMode() == EXECUTE)
+				_interpreter.pushValue(v);
+		} else
+			break;
+
+		if (_lexer.getToken() == Token::COMMA)
+			continue;
+		else
+			break;
+	}
+	if (getMode() == EXECUTE)
+		_interpreter.execCommand(c);
 }
 
 /*
