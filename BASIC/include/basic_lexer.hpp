@@ -53,6 +53,7 @@ public:
 	/**
 	 * @brief initialize lexer session
 	 * @param str null-terminating string to extract tokens from
+	 * @param tok tokenized text flag
 	 */
 	void init(const uint8_t*, bool);
 	/**

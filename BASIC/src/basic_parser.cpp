@@ -120,6 +120,12 @@ void Parser::init()
 	_internal.init();
 }
 
+FunctionBlock::command
+Parser::getCommand(const char* str)
+{
+	return _internal.getCommand(str);
+}
+
 void Parser::addModule(FunctionBlock *module)
 {
 	_internal.setNext(module);

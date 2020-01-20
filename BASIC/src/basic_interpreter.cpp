@@ -335,7 +335,7 @@ Interpreter::exec()
 		uint8_t position = _lexer.getPointer();
 		_lexer.getNext();
 		if (_lexer.getToken() != Token::NOTOKENS) {
-			if (!_program.addLine(pLine, _inputBuffer + position)) {
+			if (!_program.addLine(_parser, pLine, _inputBuffer + position)) {
 				raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
 				_state = SHELL;
 			} else

@@ -86,6 +86,8 @@ public:
 	}
 
 	void init();
+	
+	FunctionBlock::command getCommand(const char*);
 
 	void addModule(FunctionBlock*);
 #if CONF_ERROR_STRINGS

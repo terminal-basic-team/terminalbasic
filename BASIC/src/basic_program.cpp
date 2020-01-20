@@ -23,6 +23,7 @@
 #include <string.h>
 
 #include "basic_interpreter.hpp"
+#include "basic_parser.hpp"
 
 namespace BASIC
 {
@@ -340,13 +341,39 @@ Program::arrayByIndex(Pointer index)
 }
 
 bool
-Program::addLine(uint16_t num, const uint8_t *line)
+Program::addLine(Parser& parser, uint16_t num, const uint8_t *line)
 {
 	uint8_t size;
 	uint8_t tempBuffer[2*PROGSTRINGSIZE];
 
 	Lexer lexer;
 	size = lexer.tokenize(tempBuffer, 2*PROGSTRINGSIZE, line);
+        
+	lexer.init(tempBuffer, true);
+	
+	if (lexer.getNext()) {
+		const auto token = lexer.getToken();
+		if (token >= Token::INTEGER_IDENT &&
+		    token <= Token::BOOL_IDENT) {
+			auto c = parser.getCommand(lexer.id());
+			if (c != nullptr) {
+				
+				struct S {
+					uint8_t t[2];
+					FunctionBlock::command c;
+				};
+				
+				const int8_t tokLen = lexer.getPointer();
+				size -= tokLen-2-sizeof(uintptr_t);
+				memmove(tempBuffer+2+sizeof(uintptr_t), tempBuffer+lexer.getPointer(), size-2);
+				tempBuffer[0] = ASCII_DLE;
+				tempBuffer[1] = BASIC_TOKEN_COMMAND;
+				S* s = reinterpret_cast<S*>(&tempBuffer);
+				s->c = c;
+				tempBuffer[size] = 0;
+			}
+		}
+	}
 
 	return addLine(num, tempBuffer, size);
 }
