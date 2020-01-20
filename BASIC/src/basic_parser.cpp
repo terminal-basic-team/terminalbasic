@@ -109,13 +109,14 @@ PGM_P const Parser::errorStrings[] PROGMEM = {
 #endif // CONF_ERROR_STRINGS
 
 Parser::Parser(Lexer &l, Interpreter &i) :
-_lexer(l), _interpreter(i), _mode(EXECUTE)
+_lexer(l), _interpreter(i)
 {
+	setMode(EXECUTE);
 }
 
 void Parser::init()
 {
-	_mode = EXECUTE;
+	setMode(EXECUTE);
 	_internal.init();
 }
 
@@ -127,7 +128,7 @@ void Parser::addModule(FunctionBlock *module)
 void
 Parser::stop()
 {
-	_stopParse = true;
+	m_context.stopParse = true;
 }
 
 bool
@@ -136,7 +137,7 @@ Parser::parse(const uint8_t *s, bool &ok, bool tok)
 	LOG_TRACE;
 
 	_lexer.init(s, tok);
-	_stopParse = false;
+	m_context.stopParse = false;
 	_error = NO_ERROR;
 	
 	if (_lexer.getNext())
@@ -159,7 +160,7 @@ Parser::fOperators(bool &ok)
 		ok = false;
 		return true;
 	}
-	if (_stopParse) {
+	if (m_context.stopParse) {
 		ok = true;
 		return false;
 	}
@@ -175,6 +176,18 @@ Parser::fOperators(bool &ok)
 		ok = false;
 		return true;
 	}
+}
+
+Parser::Mode
+Parser::getMode() const
+{
+	return Mode(m_context.mode);
+}
+
+void
+Parser::setMode(Mode newVal)
+{
+	m_context.mode = newVal;
 }
 
 bool
@@ -244,9 +257,9 @@ Parser::fOperator()
 #if USESTOPCONT
 	case Token::KW_STOP:
 #endif
-		if (_mode == EXECUTE)
+		if (getMode() == EXECUTE)
 			_interpreter.end();
-		_stopParse = true;
+		m_context.stopParse = true;
 		_lexer.getNext();
 		break;
 	case Token::KW_FOR:
@@ -260,7 +273,7 @@ Parser::fOperator()
 			return false;
 		}
 		bool res = fOnStatement(uint8_t(INT(v)));
-		_stopParse = true;
+		m_context.stopParse = true;
 		return res;
 	}
 	case Token::KW_GOSUB: {
@@ -269,11 +282,11 @@ Parser::fOperator()
 			_error = EXPRESSION_EXPECTED;
 			return false;
 		}
-		if (_mode == EXECUTE) {
+		if (getMode() == EXECUTE) {
 			_interpreter.pushReturnAddress();
 			_interpreter.gotoLine(v);
 		}
-		_stopParse = true;
+		m_context.stopParse = true;
 		break;
 	}
 	case Token::KW_IF: {
@@ -283,11 +296,11 @@ Parser::fOperator()
 			return false;
 		}
 		bool res;
-		if (_mode == EXECUTE) {
+		if (getMode() == EXECUTE) {
 			if (!bool(v))
-				_mode = SCAN;
+				setMode(SCAN);
 			res = fIfStatement();
-			_mode = EXECUTE;
+			setMode(EXECUTE);
 		} else
 			res = fIfStatement();
 		if (!res)
@@ -309,7 +322,7 @@ Parser::fOperator()
 		if (!fVarList()) {
 			_error = VARIABLES_LIST_EXPECTED;
 			return false;
-		} else if (_mode == EXECUTE)
+		} else if (getMode() == EXECUTE)
 			_interpreter.input();
 		break;
 	case Token::KW_LET: {
@@ -328,12 +341,12 @@ Parser::fOperator()
 		char vName[IDSIZE];
 		if (!_lexer.getNext() || !fIdentifier(vName))
 			return false;
-		if (_mode == EXECUTE) {
+		if (getMode() == EXECUTE) {
 			vName[VARSIZE-1] = '\0';
-			_stopParse = !_interpreter.next(vName);
+			m_context.stopParse = !_interpreter.next(vName);
 		} else
-			_mode = EXECUTE;
-		if (!_stopParse)
+			setMode(EXECUTE);
+		if (!m_context.stopParse)
 			_lexer.getNext();
 	}
 		break;
@@ -347,12 +360,12 @@ Parser::fOperator()
 		if (_lexer.getNext()) {
 			if (!fPrintList())
 				return false;
-		} else if (_mode == EXECUTE)
+		} else if (getMode() == EXECUTE)
 			_interpreter.newline();
 		break;
 #if USE_RANDOM
 	case Token::KW_RANDOMIZE:
-		if (_mode == EXECUTE)
+		if (getMode() == EXECUTE)
 			_interpreter.randomize();
 		_lexer.getNext();
 		break;
@@ -378,9 +391,9 @@ Parser::fOperator()
 		break;
 #endif // USE_DATA
 	case Token::KW_RETURN:
-		if (_mode == EXECUTE) {
+		if (getMode() == EXECUTE) {
 			_interpreter.returnFromSub();
-			_stopParse = true;
+			m_context.stopParse = true;
 		}
 		_lexer.getNext();
 		break;
@@ -731,7 +744,7 @@ Parser::fPoke()
 	Parser::Value v, v2;
 	if (fExpression(v) && (_lexer.getToken() == Token::COMMA) &&
 	 _lexer.getNext() && fExpression(v2)) {
-		if (_mode == EXECUTE)
+		if (getMode() == EXECUTE)
 			_interpreter.poke(Integer(v), Integer(v2));
 		return true;
 	}
@@ -763,7 +776,7 @@ Parser::fImplicitAssignment(char *varName)
 		Value v;
 		if (_lexer.getToken() == Token::EQUALS) {
 			if (_lexer.getNext() && fExpression(v)) {
-				if (_mode == EXECUTE) {
+				if (getMode() == EXECUTE) {
 					varName[VARSIZE-1] = '\0';
 					if (array)
 						_interpreter.setArrayElement(
@@ -798,7 +811,7 @@ Parser::fPrintList()
 		const Token t = _lexer.getToken();
 		switch (t) {
 		case Token::COMMA:
-			if (_mode == EXECUTE)
+			if (getMode() == EXECUTE)
 				_interpreter.print(char(ASCII::HT));
 			_lexer.getNext();
 			if (!fPrintItem())
@@ -812,7 +825,7 @@ Parser::fPrintList()
 				return true;
 			break;
 		default:
-			if (_mode == EXECUTE)
+			if (getMode() == EXECUTE)
 				_interpreter.newline();
 			return true;
 		}
@@ -840,7 +853,7 @@ Parser::fPrintItem()
 			if (_lexer.getNext() && _lexer.getToken() == Token::LPAREN &&
 			    _lexer.getNext() && fExpression(v) &&
 			    _lexer.getToken() == Token::RPAREN) {
-				if (_mode == EXECUTE)
+				if (getMode() == EXECUTE)
 					_interpreter.printTab(v, flag);
 				_lexer.getNext();
 			} else
@@ -854,7 +867,7 @@ Parser::fPrintItem()
 				return false;
 			}
 
-			if (_mode == EXECUTE)
+			if (getMode() == EXECUTE)
 				_interpreter.print(v);
 		}
 	}
@@ -875,7 +888,7 @@ Parser::fExpression(Value &v)
 	if (_lexer.getToken() == Token::OP_NOT) {
 		if (!_lexer.getNext() || !fExpression(v))
 			return false;
-		if (_mode == EXECUTE)
+		if (getMode() == EXECUTE)
 			v.switchSign();
 		return true;
 	}
@@ -890,7 +903,7 @@ Parser::fExpression(Value &v)
 			if (!_lexer.getNext() || !fLogicalAdd(v2))
 				return false;
 			
-			if (_mode != Mode::EXECUTE)
+			if (getMode() != Mode::EXECUTE)
 				continue;
 			v |= v2;
 		} else
@@ -918,7 +931,7 @@ Parser::fLogicalAdd(Value &v)
 			if (!_lexer.getNext() || !fLogicalFinal(v2))
 				return false;
 			
-			if (_mode != Mode::EXECUTE)
+			if (getMode() != Mode::EXECUTE)
 				continue;
 			v &= v2;
 		} else
@@ -1009,7 +1022,7 @@ Parser::fLogicalFinal(Value &v)
 			if (!_lexer.getNext() || !fSimpleExpression(v2))
 				return false;
 			
-			if (_mode != Mode::EXECUTE)
+			if (getMode() != Mode::EXECUTE)
 				continue;
 			
 			if (t == Token::LT)
@@ -1094,7 +1107,7 @@ Parser::fSimpleExpression(Value &v)
 		if (t == Token::PLUS || t == Token::MINUS) {
 			if (!_lexer.getNext() || !fTerm(v2))
 				return false;
-			if (_mode != Mode::EXECUTE)
+			if (getMode() != Mode::EXECUTE)
 				continue;
 			if ((t == Token::PLUS)) {
 #if USE_STRINGOPS
@@ -1180,7 +1193,7 @@ Parser::fTerm(Value &v)
 			if (!_lexer.getNext() || !fFactor(v2))
 				return false;
 			
-			if (_mode != Mode::EXECUTE)
+			if (getMode() != Mode::EXECUTE)
 				continue;
 			
 			if (t == Token::STAR)
@@ -1222,7 +1235,7 @@ Parser::fFactor(Value &v)
 	} else if (t == Token::MINUS) { // Unary minus, switch sign
 		if (!_lexer.getNext() || !fFactor(v))
 			return false;
-		if (_mode == EXECUTE)
+		if (getMode() == EXECUTE)
 			v.switchSign();
 		return true;
 	}
@@ -1236,7 +1249,7 @@ Parser::fFactor(Value &v)
 		if (t == Token::POW) {
 			Value v2;
 			if (_lexer.getNext() && fFinal(v2)) {
-				if (_mode == Mode::EXECUTE)
+				if (getMode() == Mode::EXECUTE)
 					v ^= v2;
 			} else
 				return false;
@@ -1306,7 +1319,7 @@ Parser::fFinal(Value &v)
 		}
 #else
 		if ((t >= Token::C_INTEGER) && (t <= Token::C_BOOLEAN)) {
-			if (_mode == EXECUTE)
+			if (getMode() == EXECUTE)
 				v = _lexer.getValue();
 			_lexer.getNext();
 			return true;
@@ -1316,7 +1329,7 @@ Parser::fFinal(Value &v)
 				_lexer.getNext();
 				return false;
 			}
-			if (_mode == EXECUTE) {
+			if (getMode() == EXECUTE) {
 				_interpreter.pushString(_lexer.id());
 				v.setType(Value::Type::STRING);
 			}
@@ -1355,7 +1368,7 @@ Parser::fIfStatement()
 	if (t == Token::KW_THEN) {
 		if (_lexer.getNext()) {
 			if (_lexer.getToken() == Token::C_INTEGER) {
-				if (_mode == EXECUTE)
+				if (getMode() == EXECUTE)
 					_interpreter.gotoLine(_lexer.getValue());
 				_lexer.getNext();
 				return true;
@@ -1399,7 +1412,7 @@ Parser::fGotoStatement()
 			_error = EXPRESSION_EXPECTED;
 			return false;
 		}
-		if (_mode == EXECUTE)
+		if (getMode() == EXECUTE)
 			_interpreter.gotoLine(v);
 		return true;
 	} else
@@ -1442,7 +1455,7 @@ Parser::fCommand()
 				_lexer.getNext();
 			}
 		}
-		if (_mode == EXECUTE)
+		if (getMode() == EXECUTE)
 			_interpreter.dump(mode);
 		return true;
 	}
@@ -1451,7 +1464,7 @@ Parser::fCommand()
 	case Token::COM_DELAY: {
 		Parser::Value v;
 		if (_lexer.getNext() && fExpression(v)) {
-			if (_mode == EXECUTE)
+			if (getMode() == EXECUTE)
 				_interpreter.delay(Integer(v));
 			return true;
 		} else
@@ -1476,7 +1489,7 @@ Parser::fCommand()
 			stop = Integer(_lexer.getValue());
 			_lexer.getNext();
 		}
-		if (_mode == EXECUTE)
+		if (getMode() == EXECUTE)
 			_interpreter.list(start, stop);
 	}
 		return true;
@@ -1491,7 +1504,7 @@ Parser::fCommand()
 		if (_lexer.getNext() && fExpression(v1) &&
 		    _lexer.getToken() == Token::COMMA && _lexer.getNext() &&
 		    fExpression(v2)) {
-			if (_mode == EXECUTE)
+			if (getMode() == EXECUTE)
 				_interpreter.locate(Integer(v1), Integer(v2));
 			return true;
 		} else
@@ -1519,7 +1532,7 @@ Parser::fCommand()
 				if (fExpression(v)) {
 					// String value already on stack after fExpression
 					if (v.type() != Value::STRING &&
-					    _mode == EXECUTE)
+					    getMode() == EXECUTE)
 						_interpreter.pushValue(v);
 				} else
 					break;
@@ -1529,7 +1542,7 @@ Parser::fCommand()
 				else
 					break;
 			}
-			if (_mode == EXECUTE)
+			if (getMode() == EXECUTE)
 				_interpreter.execCommand(c);
 			return true;
 		}
@@ -1537,7 +1550,7 @@ Parser::fCommand()
 		break;
 	}
 	if (f != nullptr) {
-		if (_mode == EXECUTE)
+		if (getMode() == EXECUTE)
 			(_interpreter.*f)();
 		_lexer.getNext();
 		return true;
@@ -1581,15 +1594,15 @@ Parser::fForConds()
 		return false;
 	}
 	
-	if (_mode == EXECUTE) {
+	if (getMode() == EXECUTE) {
 		Program::StackFrame *f = _interpreter.pushForLoop(vName,
 		    _lexer.getPointer(), vFinal, vStep);
 		_interpreter.setVariable(vName, v);
 		if (f != nullptr) {
 			if (_interpreter.testFor(*f))
-				_mode = SCAN;
+				setMode(SCAN);
 			else
-				_stopParse = true;
+				m_context.stopParse = true;
 		}
 	}
 	return true;
@@ -1604,7 +1617,7 @@ Parser::fVarList()
 	do {
 		if (!fIdentifier(varName))
 			return false;
-		if (_mode == EXECUTE) {
+		if (getMode() == EXECUTE) {
 			varName[VARSIZE-1] = '\0';
 			_interpreter.pushInputObject(varName);
 		}
@@ -1639,7 +1652,7 @@ Parser::fArrayList()
 		if (!fIdentifier(arrName) ||
 		    !_lexer.getNext() || !fArray(dimensions))
 			return false;
-		if (_mode == Mode::EXECUTE) {
+		if (getMode() == Mode::EXECUTE) {
 			_interpreter.pushDimensions(dimensions);
 			arrName[VARSIZE-1] = '\0';
 			_interpreter.newArray(arrName);
@@ -1672,7 +1685,7 @@ Parser::fDimensions(uint8_t &dimensions)
 	do {
 		if (!_lexer.getNext() || !fExpression(v))
 			return false;
-		if (_mode == Mode::EXECUTE)
+		if (getMode() == Mode::EXECUTE)
 			_interpreter.pushDimension(Integer(v));
 		++dimensions;
 	} while (_lexer.getToken() == Token::COMMA);
@@ -1696,16 +1709,17 @@ Parser::fIdentifierExpr(char *varName, Value &v)
 					break;
 				} else {
 					if (fExpression(v)) {
-						// String value already on stack after fExpression
+						// String value already on stack
+						// after fExpression
 						if (v.type() != Value::STRING &&
-						    _mode == Mode::EXECUTE)
+						    getMode() == Mode::EXECUTE)
 							_interpreter.pushValue(v);
 					} else
 						return false;
 				}
 			} while (_lexer.getToken() == Token::COMMA);
 			_lexer.getNext();
-			if (_mode == EXECUTE) {
+			if (getMode() == EXECUTE) {
 				bool result = true;
 				result = ((*f)(_interpreter));
 				if (!result || !_interpreter.popValue(v))
@@ -1714,7 +1728,7 @@ Parser::fIdentifierExpr(char *varName, Value &v)
 		} else { // No such function, array variable
 			uint8_t dim;
 			if (fArray(dim)) {
-				if (_mode == EXECUTE) {
+				if (getMode() == EXECUTE) {
 					varName[VARSIZE-1] = '\0';
 					return _interpreter.valueFromArray(v,
 					    varName);
@@ -1723,7 +1737,7 @@ Parser::fIdentifierExpr(char *varName, Value &v)
 				return false;
 		}
 	} else // variable
-		if (_mode == EXECUTE) {
+		if (getMode() == EXECUTE) {
 			varName[VARSIZE-1] = '\0';
 			_interpreter.valueFromVar(v, varName);
 		}

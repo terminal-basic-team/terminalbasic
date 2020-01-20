@@ -33,7 +33,7 @@ typedef enum basic_lexer_error
 	BASIC_LEXER_ERROR_STRING_OVERFLOW = 1
 } basic_lexer_error_t;
 
-typedef struct _basic_lexer_context_t
+struct basic_lexer_context
 {
 	const uint8_t *string_to_parse;
 	/* position in the parsing string */
@@ -50,7 +50,7 @@ typedef struct _basic_lexer_context_t
 	basic_lexer_error_t _error;
 	
 	BOOLEAN tokenized;
-} basic_lexer_context_t;
+};
 
 /**
  * @brief Initialize lexer by the string

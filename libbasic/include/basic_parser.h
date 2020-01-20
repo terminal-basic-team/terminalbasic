@@ -20,12 +20,26 @@
 #define BASIC_PARSER_H
 
 #include "basic.h"
+#include "tools.h"
 
 __BEGIN_DECLS
 
-typedef struct {
-	
-} basic_parser_context_t;
+/**
+ * Parser mode: syntax check or execute commands of the interpreter
+ * context
+ */
+typedef enum
+{
+	BASIC_PARSER_SCAN = 0,
+	BASIC_PARSER_EXECUTE = 1
+} basic_parser_mode_t;
+
+struct basic_parser_context {
+    	// current mode
+	uint8_t mode;
+	// stop parsing string flag
+	BOOLEAN stopParse;
+};
 
 /**
  * 
@@ -35,6 +49,8 @@ typedef struct {
  * @return true if there are more operators in string
  */
 BOOLEAN basic_parser_parse(basic_parser_context_t*, const char*, BOOLEAN*);
+
+BOOLEAN basic_parser_fidenifier(basic_parser_context_t*, const char*);
 
 __END_DECLS
 

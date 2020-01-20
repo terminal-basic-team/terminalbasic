@@ -129,6 +129,12 @@ uint8_t *scan(const uint8_t*, const uint8_t[], uint8_t*);
 #error You should define CONF_LEXER_LANG to one of the supported languages
 #endif // CONF_LANG
 
+struct basic_lexer_context;
+typedef struct basic_lexer_context basic_lexer_context_t;
+
+struct basic_parser_context;
+typedef struct basic_parser_context basic_parser_context_t;
+
 __END_DECLS
 
 #endif /* BASIC_H */
