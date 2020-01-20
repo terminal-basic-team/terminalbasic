@@ -351,22 +351,6 @@ Program::addLine(uint16_t num, const uint8_t *line)
 	return addLine(num, tempBuffer, size);
 }
 
-void
-Program::removeLine(uint16_t num)
-{
-	const Line *line = this->lineByNumber(num, 0);
-	if (line != nullptr) {
-		const Pointer index = objectIndex(line);
-		assert(index < _textEnd);
-		const Pointer next = index+line->size;
-		const Pointer len = _arraysEnd-next;
-		_textEnd -= line->size;
-		_variablesEnd -= line->size;
-		_arraysEnd -= line->size;
-		memmove(_text+index, _text+next, len);
-	}
-}
-
 bool
 Program::addLine(uint16_t num, const uint8_t *text, uint8_t len)
 {
@@ -406,6 +390,22 @@ Program::addLine(uint16_t num, const uint8_t *text, uint8_t len)
 		_current.index += cur->size;
 	}
 	return insert(num, text, len);
+}
+
+void
+Program::removeLine(uint16_t num)
+{
+	const Line *line = this->lineByNumber(num, 0);
+	if (line != nullptr) {
+		const Pointer index = objectIndex(line);
+		assert(index < _textEnd);
+		const Pointer next = index+line->size;
+		const Pointer len = _arraysEnd-next;
+		_textEnd -= line->size;
+		_variablesEnd -= line->size;
+		_arraysEnd -= line->size;
+		memmove(_text+index, _text+next, len);
+	}
 }
 
 bool

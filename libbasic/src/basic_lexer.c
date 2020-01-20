@@ -499,7 +499,6 @@ BOOLEAN
 basic_lexer_getnextTokenized(basic_lexer_context_t *self)
 {
 	self->token = BASIC_TOKEN_NOTOKEN;
-	/*_error = NO_ERROR;*/
 	self->_value_pointer = 0;
 	/* Iterate until end of input string */
 	while (SYM > ASCII_NUL) {
