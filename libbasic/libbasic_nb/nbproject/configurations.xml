@@ -24,6 +24,7 @@
       <itemPath>../src/basic_lexer_en.c</itemPath>
       <itemPath>../src/basic_lexer_fr.c</itemPath>
       <itemPath>../src/basic_lexer_ru.c</itemPath>
+      <itemPath>../src/basic_parser.c</itemPath>
       <itemPath>../src/basic_value.c</itemPath>
       <itemPath>../src/test.c</itemPath>
       <itemPath>../src/tools.c</itemPath>
@@ -98,6 +99,8 @@
       </item>
       <item path="../src/basic_lexer_ru.c" ex="false" tool="0" flavor2="0">
       </item>
+      <item path="../src/basic_parser.c" ex="false" tool="0" flavor2="0">
+      </item>
       <item path="../src/basic_value.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="../src/math/e_sqrtf.c" ex="false" tool="0" flavor2="0">
@@ -160,6 +163,8 @@
       <item path="../src/basic_lexer_fr.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="../src/basic_lexer_ru.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="../src/basic_parser.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="../src/basic_value.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -232,6 +237,8 @@
       <item path="../src/basic_lexer_fr.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="../src/basic_lexer_ru.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="../src/basic_parser.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="../src/basic_value.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -310,6 +317,8 @@
       </item>
       <item path="../src/basic_lexer_ru.c" ex="false" tool="0" flavor2="0">
       </item>
+      <item path="../src/basic_parser.c" ex="false" tool="0" flavor2="0">
+      </item>
       <item path="../src/basic_value.c" ex="false" tool="0" flavor2="9">
       </item>
       <item path="../src/math/e_sqrtf.c" ex="false" tool="0" flavor2="9">
@@ -387,6 +396,8 @@
       </item>
       <item path="../src/basic_lexer_ru.c" ex="false" tool="0" flavor2="9">
       </item>
+      <item path="../src/basic_parser.c" ex="false" tool="0" flavor2="0">
+      </item>
       <item path="../src/basic_value.c" ex="false" tool="0" flavor2="9">
       </item>
       <item path="../src/math/e_sqrtf.c" ex="false" tool="0" flavor2="9">
@@ -463,6 +474,8 @@
       <item path="../src/basic_lexer_fr.c" ex="false" tool="0" flavor2="9">
       </item>
       <item path="../src/basic_lexer_ru.c" ex="false" tool="0" flavor2="9">
+      </item>
+      <item path="../src/basic_parser.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="../src/basic_value.c" ex="false" tool="0" flavor2="9">
       </item>
