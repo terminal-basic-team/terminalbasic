@@ -696,8 +696,10 @@ Interpreter::print(Lexer &l)
 			print(l.id(), VT100::C_BLUE);
 		else if (t == Token::COMMAND) {
 			uint8_t buf[8];
-			_parser.getCommandName(reinterpret_cast<FunctionBlock::command>(
-			    LongInteger(_lexer.getValue())), buf);
+			FunctionBlock::command com =
+			    reinterpret_cast<FunctionBlock::command>(
+			    readValue<uintptr_t>((const uint8_t*)l.id()));
+			_parser.getCommandName(com, buf);
 			AttrKeeper a(*this, VT100::C_MAGENTA);
 			_output.print((const char*)buf);
 		} else

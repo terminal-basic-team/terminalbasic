@@ -1548,8 +1548,7 @@ Parser::fCommand()
 		auto sp = _lexer.getPointer();
 		FunctionBlock::command c =
 		    reinterpret_cast<FunctionBlock::command>(
-		    LongInteger(_lexer.getValue()));
-		_lexer.setPointer(sp+sizeof(uintptr_t));
+		    readValue<uintptr_t>((const uint8_t*)_lexer.id()));
 		fCommandArguments(c);
 		return true;
 	}
