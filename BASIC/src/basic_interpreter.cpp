@@ -694,6 +694,7 @@ Interpreter::print(Lexer &l)
                         _output.print(char(ASCII::SPACE));
 		} else if (t >= Token::INTEGER_IDENT && t <= Token::BOOL_IDENT)
 			print(l.id(), VT100::C_BLUE);
+#if FAST_MODULE_CALL
 		else if (t == Token::COMMAND) {
 			uint8_t buf[8];
 			FunctionBlock::command com =
@@ -702,7 +703,9 @@ Interpreter::print(Lexer &l)
 			_parser.getCommandName(com, buf);
 			AttrKeeper a(*this, VT100::C_MAGENTA);
 			_output.print((const char*)buf);
-		} else
+		}
+#endif
+		else
 			_output.print(char(ASCII::QMARK));
 #endif
 	}

@@ -21,7 +21,9 @@ SRC="	./libbasic/include/basic.h \
 	./libbasic/src/basic_value.c \
 	./libbasic/include/basic_lexer.h \
 	./libbasic/src/basic_lexer.c \
-	./BASIC/include/basic.hpp  \
+	./libbasic/include/basic_parser.h \
+	./libbasic/src/basic_parser.c \
+	./BASIC/include/basic.hpp \
 	./BASIC/src/basic.cpp \
 	./BASIC/include/config.hpp \
 	./BASIC/include/config_arduino.hpp \

@@ -1544,6 +1544,7 @@ Parser::fCommand()
 		}
 	}
 		break;
+#if FAST_MODULE_CALL
 	case Token::COMMAND: {
 		auto sp = _lexer.getPointer();
 		FunctionBlock::command c =
@@ -1552,6 +1553,7 @@ Parser::fCommand()
 		fCommandArguments(c);
 		return true;
 	}
+#endif
 	default:
 		break;
 	}

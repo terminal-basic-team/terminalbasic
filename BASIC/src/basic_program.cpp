@@ -349,15 +349,14 @@ Program::addLine(Parser& parser, uint16_t num, const uint8_t *line)
 	Lexer lexer;
 	size = lexer.tokenize(tempBuffer, 2*PROGSTRINGSIZE, line);
         
+#if FAST_MODULE_CALL
 	lexer.init(tempBuffer, true);
-	
 	if (lexer.getNext()) {
 		const auto token = lexer.getToken();
 		if (token >= Token::INTEGER_IDENT &&
 		    token <= Token::BOOL_IDENT) {
 			auto c = parser.getCommand(lexer.id());
-			if (c != nullptr) {
-				
+			if (c != nullptr) {	
 				const int8_t tokLen = lexer.getPointer();
 				size -= tokLen-2-sizeof(uintptr_t);
 				memmove(tempBuffer+2+sizeof(uintptr_t), tempBuffer+lexer.getPointer(), size-2);
@@ -367,6 +366,7 @@ Program::addLine(Parser& parser, uint16_t num, const uint8_t *line)
 			}
 		}
 	}
+#endif // FAST_MODULE_CALL
 
 	return addLine(num, tempBuffer, size);
 }

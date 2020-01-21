@@ -201,8 +201,8 @@ typedef enum basic_token
 #endif
 	BASIC_TOKEN_C_BOOLEAN,     // 86
 	BASIC_TOKEN_C_STRING,      // 87
-	
+#if FAST_MODULE_CALL
 	BASIC_TOKEN_COMMAND,       // 88
-	
+#endif
 	BASIC_TOKEN_NUM_TOKENS     // 89
 } basic_token_t;

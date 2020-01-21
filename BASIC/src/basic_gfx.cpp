@@ -41,7 +41,7 @@ static const uint8_t gfxTokens[] PROGMEM = {
 	ASCII_ETX
 };
 
-const FunctionBlock::function GFXModule::comms[] PROGMEM = {
+const FunctionBlock::command GFXModule::comms[] PROGMEM = {
 	GFXModule::command_boxc,
 	GFXModule::command_box,
 	GFXModule::command_circlec,

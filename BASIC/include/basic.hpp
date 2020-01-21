@@ -361,10 +361,10 @@ enum class Token : uint8_t
 #endif
 	C_BOOLEAN = BASIC_TOKEN_C_BOOLEAN,     // 85
 	C_STRING = BASIC_TOKEN_C_STRING,       // 86
-	
-	COMMAND = BASIC_TOKEN_COMMAND,
-
-	NUM_TOKENS = BASIC_TOKEN_NUM_TOKENS    // 87
+#if FAST_MODULE_CALL
+	COMMAND = BASIC_TOKEN_COMMAND,         // 87
+#endif
+	NUM_TOKENS = BASIC_TOKEN_NUM_TOKENS    // 88
 };
 
 template <typename T>

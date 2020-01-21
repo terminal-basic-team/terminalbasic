@@ -73,7 +73,8 @@ FunctionBlock::getCommandName(command c, uint8_t* buf) const
 	uint8_t index = 0;
 	command wc;
 	if (commands != nullptr) {
-		while ((wc = pgm_read_ptr(&commands[index])) != nullptr) {
+		while ((wc = reinterpret_cast<command>(
+		    pgm_read_ptr(&commands[index]))) != nullptr) {
 			if (wc == c) {
 				getToken(commandTokens, index, buf);
 				return;

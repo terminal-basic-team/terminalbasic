@@ -487,11 +487,13 @@ _basic_lexer_tokenizedNext(basic_lexer_context_t *self)
 			self->string_pointer += sizeof (real_t);
 			break;
 #endif
+#if FAST_MODULE_CALL
 		case BASIC_TOKEN_COMMAND:
 			memcpy(&self->_id, self->string_to_parse + self->string_pointer,
 			    sizeof (uintptr_t));
 			self->string_pointer += sizeof (uintptr_t);
 			break;
+#endif
 		default:
 			break;
 		}
