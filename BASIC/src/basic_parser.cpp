@@ -126,6 +126,12 @@ Parser::getCommand(const char* str)
 	return _internal.getCommand(str);
 }
 
+void
+Parser::getCommandName(FunctionBlock::command c, uint8_t* buf)
+{
+	_internal.getCommandName(c, buf);
+}
+
 void Parser::addModule(FunctionBlock *module)
 {
 	_internal.setNext(module);
@@ -1542,7 +1548,7 @@ Parser::fCommand()
 		auto sp = _lexer.getPointer();
 		FunctionBlock::command c =
 		    reinterpret_cast<FunctionBlock::command>(
-		    readValue<uintptr_t>(_lexer.getString()+sp));
+		    LongInteger(_lexer.getValue()));
 		_lexer.setPointer(sp+sizeof(uintptr_t));
 		fCommandArguments(c);
 		return true;

@@ -88,6 +88,8 @@ public:
 	void init();
 	
 	FunctionBlock::command getCommand(const char*);
+	
+	void getCommandName(FunctionBlock::command, uint8_t*);
 
 	void addModule(FunctionBlock*);
 #if CONF_ERROR_STRINGS

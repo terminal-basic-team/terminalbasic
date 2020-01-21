@@ -111,13 +111,12 @@ typedef double long_real_t;
 uint8_t *scanTable(const uint8_t*, const uint8_t[], uint8_t*);
 
 /**
- * @brief Scan token table
- * @param token
- * @param table
- * @param index
- * @return find flag
+ * 
+ * @param table [in]
+ * @param index [in]
+ * @param tokenString [out]
  */
-uint8_t *scan(const uint8_t*, const uint8_t[], uint8_t*);
+void getToken(const uint8_t*, uint8_t, uint8_t*);
 
 #if CONF_LEXER_LANG == LANG_EN
 #include "_tokens_en.h"

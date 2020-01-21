@@ -446,7 +446,7 @@ Interpreter::list(uint16_t start, uint16_t stop)
 		
 		Lexer lex;
 #if LOOP_INDENT
-                lex.init(s->text, true);
+		lex.init(s->text, true);
 		int8_t diff = 0;
                 while (lex.getNext()) {
 			if (lex.getToken() == Token::KW_REM)
@@ -694,7 +694,13 @@ Interpreter::print(Lexer &l)
                         _output.print(char(ASCII::SPACE));
 		} else if (t >= Token::INTEGER_IDENT && t <= Token::BOOL_IDENT)
 			print(l.id(), VT100::C_BLUE);
-		else
+		else if (t == Token::COMMAND) {
+			uint8_t buf[8];
+			_parser.getCommandName(reinterpret_cast<FunctionBlock::command>(
+			    LongInteger(_lexer.getValue())), buf);
+			AttrKeeper a(*this, VT100::C_MAGENTA);
+			_output.print((const char*)buf);
+		} else
 			_output.print(char(ASCII::QMARK));
 #endif
 	}

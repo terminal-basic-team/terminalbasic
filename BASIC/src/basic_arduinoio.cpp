@@ -65,7 +65,8 @@ const FunctionBlock::command ArduinoIO::_commands[] PROGMEM = {
 	ArduinoIO::comm_notone,
 	ArduinoIO::comm_tone,
 #endif
-	ArduinoIO::comm_dwrite
+	ArduinoIO::comm_dwrite,
+	nullptr
 };
 
 ArduinoIO::ArduinoIO()

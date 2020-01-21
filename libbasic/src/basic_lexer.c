@@ -462,7 +462,7 @@ _basic_lexer_tokenizedNext(basic_lexer_context_t *self)
 		case BASIC_TOKEN_KW_TRUE:
 		case BASIC_TOKEN_KW_FALSE:
 			basic_value_setFromLogical(&self->value,
-						self->token == BASIC_TOKEN_KW_TRUE);
+			    self->token == BASIC_TOKEN_KW_TRUE);
 			self->token = BASIC_TOKEN_C_BOOLEAN;
 			break;
 		case BASIC_TOKEN_C_INTEGER:
@@ -487,6 +487,11 @@ _basic_lexer_tokenizedNext(basic_lexer_context_t *self)
 			self->string_pointer += sizeof (real_t);
 			break;
 #endif
+		case BASIC_TOKEN_COMMAND:
+			memcpy(&self->_id, self->string_to_parse + self->string_pointer,
+			    sizeof (uintptr_t));
+			self->string_pointer += sizeof (uintptr_t);
+			break;
 		default:
 			break;
 		}
@@ -542,8 +547,7 @@ basic_lexer_tokenString(basic_token_t t, uint8_t *buf)
 	if (t < BASIC_TOKEN_STAR) {
 		const uint8_t *result = _basic_lexer_tokenTable,
 		    *pointer = result;
-		uint8_t c;
-		uint8_t index = 0;
+		uint8_t c, index = 0;
 
 		do {
 			c = pgm_read_byte(pointer++);
