@@ -347,22 +347,30 @@ Program::addLine(Parser& parser, uint16_t num, const uint8_t *line)
 	uint8_t tempBuffer[2*PROGSTRINGSIZE];
 
 	Lexer lexer;
+	// 1-st pass tokenization: lexer do what it can by itself
 	size = lexer.tokenize(tempBuffer, 2*PROGSTRINGSIZE, line);
         
+	// 2-nd pass tokenization: command calls translated into command
+	//  implementation asddress
 #if FAST_MODULE_CALL
 	lexer.init(tempBuffer, true);
-	if (lexer.getNext()) {
+	while (lexer.getNext()) {
 		const auto token = lexer.getToken();
 		if (token >= Token::INTEGER_IDENT &&
 		    token <= Token::BOOL_IDENT) {
 			auto c = parser.getCommand(lexer.id());
-			if (c != nullptr) {	
-				const int8_t tokLen = lexer.getPointer();
-				size -= tokLen-2-sizeof(uintptr_t);
-				memmove(tempBuffer+2+sizeof(uintptr_t), tempBuffer+lexer.getPointer(), size-2);
-				tempBuffer[0] = ASCII_DLE;
-				tempBuffer[1] = BASIC_TOKEN_COMMAND;
-				writeValue(uintptr_t(c), &tempBuffer[2]);
+			if (c != nullptr) {
+				const int8_t tokLen = strlen(lexer.id());
+				const int8_t dist = tokLen-2-sizeof(uintptr_t);
+				const uint8_t pos = lexer.getPointer() - tokLen;
+				
+				size -= dist;
+				tempBuffer[pos] = ASCII_DLE;
+				tempBuffer[pos+1] = BASIC_TOKEN_COMMAND;
+				memmove(tempBuffer+pos+2+sizeof(uintptr_t),
+				    tempBuffer+lexer.getPointer(), size-2);
+				writeValue(uintptr_t(c), &tempBuffer[pos+2]);
+				lexer.setPointer(lexer.getPointer()-dist);
 			}
 		}
 	}

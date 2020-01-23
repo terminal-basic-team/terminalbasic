@@ -81,6 +81,11 @@
 #define CONF_SEPARATE_GO_TO     0
 
 /*
+ * Fast command call using function address
+ */
+#define FAST_MODULE_CALL 1
+
+/*
  * Support of integer division and modulo operation
  */
 #define USE_INTEGER_DIV      1

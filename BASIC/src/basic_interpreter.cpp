@@ -696,13 +696,12 @@ Interpreter::print(Lexer &l)
 			print(l.id(), VT100::C_BLUE);
 #if FAST_MODULE_CALL
 		else if (t == Token::COMMAND) {
-			uint8_t buf[8];
+			uint8_t buf[16];
 			FunctionBlock::command com =
 			    reinterpret_cast<FunctionBlock::command>(
 			    readValue<uintptr_t>((const uint8_t*)l.id()));
 			_parser.getCommandName(com, buf);
-			AttrKeeper a(*this, VT100::C_MAGENTA);
-			_output.print((const char*)buf);
+			print((const char*)buf, VT100::C_BLUE);
 		}
 #endif
 		else
