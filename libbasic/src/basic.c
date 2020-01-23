@@ -72,6 +72,7 @@ void getToken(const uint8_t* table, uint8_t index, uint8_t* buf)
 		if (index == 0) {
 			while ((byte = pgm_read_byte(table++)) != ASCII_NUL)
 				*(buf++) = byte;
+			break;
 		}
 	}
 	
