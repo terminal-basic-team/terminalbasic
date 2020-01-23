@@ -482,6 +482,8 @@ public:
 #endif // USE_DEFFN
 
 	Program _program;
+	
+	Parser& parser() { return _parser; }
 private:
 	
 	class AttrKeeper;

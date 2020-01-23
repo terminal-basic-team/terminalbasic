@@ -29,6 +29,7 @@ namespace BASIC
 class VariableFrame;
 class ArrayFrame;
 class Interpreter;
+class Parser;
 
 /**
  * @brief BASIC program in memory
@@ -249,7 +250,7 @@ public:
 	 * @param text
 	 * @return flag of success
 	 */
-	bool addLine(uint16_t, const uint8_t*);
+	bool addLine(Parser&, uint16_t, const uint8_t*);
 	/**
 	 * @brief Remove program line
 	 * @param num line number

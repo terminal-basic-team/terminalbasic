@@ -111,13 +111,12 @@ typedef double long_real_t;
 uint8_t *scanTable(const uint8_t*, const uint8_t[], uint8_t*);
 
 /**
- * @brief Scan token table
- * @param token
- * @param table
- * @param index
- * @return find flag
+ * 
+ * @param table [in]
+ * @param index [in]
+ * @param tokenString [out]
  */
-uint8_t *scan(const uint8_t*, const uint8_t[], uint8_t*);
+void getToken(const uint8_t*, uint8_t, uint8_t*);
 
 #if CONF_LEXER_LANG == LANG_EN
 #include "_tokens_en.h"
@@ -128,6 +127,12 @@ uint8_t *scan(const uint8_t*, const uint8_t[], uint8_t*);
 #else
 #error You should define CONF_LEXER_LANG to one of the supported languages
 #endif // CONF_LANG
+
+struct basic_lexer_context;
+typedef struct basic_lexer_context basic_lexer_context_t;
+
+struct basic_parser_context;
+typedef struct basic_parser_context basic_parser_context_t;
 
 __END_DECLS
 
