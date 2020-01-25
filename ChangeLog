@@ -1,3 +1,7 @@
+r2.2-alpha1 (24.01.2020)
+
+  * Fix multiple regressions
+
 r2.2-alpha1 (22.01.2020)
 
   * Speedup of the commands from modules calling (ArduinoIO, GFX ...), using translation
