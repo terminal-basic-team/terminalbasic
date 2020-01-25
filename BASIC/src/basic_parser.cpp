@@ -203,6 +203,18 @@ Parser::setMode(Mode newVal)
 }
 
 bool
+Parser::getSTopParse() const
+{
+	return m_context.stopParse;
+}
+
+void
+Parser::setStopParse(bool newVal)
+{
+	m_context.stopParse = newVal;
+}
+
+bool
 Parser::testExpression(Value &v)
 {
 	if (!_lexer.getNext() || !fExpression(v)) {
@@ -252,15 +264,15 @@ Parser::fOperator()
 #endif // USE_DEFFN
 #if USE_DATA
 	case Token::KW_DATA: {
-		if (_mode == EXECUTE)
-			_mode = SCAN;
+		if (getMode() == EXECUTE)
+			setMode(SCAN);
 		if (!_lexer.getNext())
 			return false;
 		bool res = fDataStatement();
 		if (!res)
 			_error = INVALID_DATA_EXPR;
-		if (_mode == SCAN)
-			_mode = EXECUTE;
+		if (getMode() == SCAN)
+			setMode(EXECUTE);
 		return res;
 	}
 #endif // USE_DATA
@@ -397,7 +409,7 @@ Parser::fOperator()
 		break;
 #if USE_DATA
 	case Token::KW_RESTORE:
-		if (_mode == EXECUTE)
+		if (getMode() == EXECUTE)
 			_interpreter.restore();
 		_lexer.getNext();
 		break;
@@ -613,7 +625,7 @@ Parser::fReadStatement()
 					return false;
 			} else
 				array = false;
-			if (_mode == EXECUTE) {
+			if (getMode() == EXECUTE) {
 				varName[VARSIZE-1] = '\0';
 				Value v;
 				const bool res = _interpreter.read(v);
@@ -671,8 +683,8 @@ Parser::fDefStatement()
 				}
 			}
 		        if (_lexer.getToken() == Token::EQUALS) {
-				auto m = _mode;
-				_mode = SCAN;
+				auto m = getMode();
+				setMode(SCAN);
 
 				_interpreter.newFunction(buf, pos);
 				if (!_lexer.getNext())
@@ -680,7 +692,7 @@ Parser::fDefStatement()
 				Value v;
 				const bool res = fExpression(v);
 				
-				_mode = m;
+				setMode(m);
 				return res;
 			}
 		}
@@ -709,7 +721,7 @@ Parser::fFnexec(Value &v)
 					return false;
 			}
 		}
-		if (_mode == EXECUTE) {
+		if (getMode() == EXECUTE) {
 			_interpreter.pushReturnAddress();
 			_interpreter.execFn(varName);
 
@@ -741,7 +753,7 @@ Parser::fFnexec(Value &v)
 			_interpreter.returnFromFn();
 			_lexer.getNext();
 		}
-		_stopParse = true;
+		setStopParse(true);
 		return true;
 	}
 	return false;
@@ -1804,7 +1816,7 @@ Parser::fMatrixOperation()
 		}
 	} else if (_lexer.getToken() == Token::KW_DET) {
 		if (_lexer.getNext() && fIdentifier(buf)) {
-			if (_mode == Mode::EXECUTE)
+			if (getMode() == EXECUTE)
 				_interpreter.matrixDet(buf);
 			_lexer.getNext();
 			return true;
@@ -1813,7 +1825,7 @@ Parser::fMatrixOperation()
 #if USE_DATA
 	else if (_lexer.getToken() == Token::KW_READ) {
 		if (_lexer.getNext() && fIdentifier(buf)) {
-			if (_mode == Mode::EXECUTE)
+			if (getMode() == EXECUTE)
 				_interpreter.matrixRead(buf);
 			_lexer.getNext();
 			return true;
@@ -1828,7 +1840,7 @@ Parser::fMatrixPrint()
 {
 	char buf[IDSIZE];
 	if (fIdentifier(buf)) {
-		if (_mode == Mode::EXECUTE) {
+		if (getMode() == EXECUTE) {
 			buf[VARSIZE-1] = '\0';
 			_interpreter.printMatrix(buf);
 		}
@@ -1846,15 +1858,15 @@ Parser::fMatrixExpression(const char *buf)
 	
 	switch (t) {
 	case Token::KW_ZER: // Zero matrix
-		if (_mode == Mode::EXECUTE)
+		if (getMode() == EXECUTE)
 			_interpreter.zeroMatrix(buf);
 		return true;
 	case Token::KW_CON: // Ones matrix
-		if (_mode == Mode::EXECUTE)
+		if (getMode() == EXECUTE)
 			_interpreter.onesMatrix(buf);
 		return true;
 	case Token::KW_IDN: // Identity matrix
-		if (_mode == Mode::EXECUTE)
+		if (getMode() == EXECUTE)
 			_interpreter.identMatrix(buf);
 		return true;
 	case Token::LPAREN: { // Scalar
@@ -1864,7 +1876,7 @@ Parser::fMatrixExpression(const char *buf)
 		    _lexer.getToken() == Token::RPAREN &&
 		    _lexer.getNext() && _lexer.getToken() == Token::STAR &&
 		    _lexer.getNext() && fIdentifier(first)) {
-			if (_mode == Mode::EXECUTE) {
+			if (getMode() == EXECUTE) {
 				_interpreter.pushValue(v);
 				_interpreter.assignMatrix(buf, first, nullptr,
 				    Interpreter::MO_SCALE);
@@ -1882,7 +1894,7 @@ Parser::fMatrixExpression(const char *buf)
 		if (_lexer.getNext() && _lexer.getToken() == Token::LPAREN &&
 		    _lexer.getNext() && fIdentifier(first) &&
 		    _lexer.getNext() && _lexer.getToken() == Token::RPAREN) {
-			if (_mode == Mode::EXECUTE)
+			if (getMode() == EXECUTE)
 				_interpreter.assignMatrix(buf, first, nullptr,
 				    mo);
 			return true;
@@ -1912,14 +1924,14 @@ Parser::fMatrixExpression(const char *buf)
 			}
 			char second[VARSIZE];
 			if (_lexer.getNext() && fIdentifier(second)) {
-				if (_mode == Mode::EXECUTE)
+				if (getMode() == EXECUTE)
 					_interpreter.assignMatrix(buf, first,
 					    second, mo);
 				return true;
 			} else
 				return false;
 		}
-		if (_mode == Mode::EXECUTE)
+		if (getMode() == EXECUTE)
 			_interpreter.assignMatrix(buf, first);
 		return true;
 	}

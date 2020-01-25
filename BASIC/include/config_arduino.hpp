@@ -1,6 +1,6 @@
 /*
  * Terminal-BASIC is a lightweight BASIC-like language interpreter
- * Copyright (C) 2016-2019 Andrey V. Skvortsov <starling13@mail.ru>
+ * Copyright (C) 2016-2020 Andrey V. Skvortsov <starling13@mail.ru>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -93,7 +93,7 @@ const pointer_t PROGRAMSIZE = 1024;
 #endif
 #elif defined (__AVR_ATmega168__) || defined (__AVR_ATmega168P__)
 const pointer_t PROGRAMSIZE = 384;
-#elif defined ARDUIN_ARCH_SAM
+#elif defined ARDUINO_ARCH_SAM
 const pointer_t PROGRAMSIZE = 65535;
 #elif defined ARDUINO_ARCH_ESP32
 const pointer_t PROGRAMSIZE = 65535;

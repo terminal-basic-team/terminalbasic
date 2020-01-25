@@ -110,6 +110,9 @@ private:
 	void setMode(Mode);
 	Mode getMode() const;
 	
+	void setStopParse(bool);
+	bool getSTopParse() const;
+	
 	bool testExpression(Value&);
 	
 	bool fOperators(bool&);
