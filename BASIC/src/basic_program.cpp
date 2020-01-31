@@ -190,6 +190,12 @@ Program::variableByName(const char *name)
 
 	VariableFrame* f;
 	while ((f = variableByIndex(index)) != nullptr) {
+#if CONF_USE_ALIGN
+		if (_text[index] == 0) {
+			++index;
+			continue;
+		}
+#endif
 #if USE_DEFFN
 		if (!(f->type & TYPE_DEFFN)) {
 #endif

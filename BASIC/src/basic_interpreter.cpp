@@ -523,10 +523,15 @@ Interpreter::dump(DumpMode mode)
 	case VARS:
 	{
 		auto index = _program._textEnd;
-		for (auto f = _program.variableByIndex(index);
-		    (f != nullptr) && (_program.objectIndex(f) <
-		    _program._variablesEnd); f = _program.variableByIndex(
-		    _program.objectIndex(f) + f->size())) {
+		VariableFrame* f;
+		while ((f = _program.variableByIndex(index)) != nullptr) {
+#if CONF_USE_ALIGN
+			if (_program._text[index] == 0) {
+				++index;
+				continue;
+			}
+#endif
+			index += f->size();
 #if USE_DEFFN
 			if (f->type & TYPE_DEFFN)
 				continue;
@@ -1641,8 +1646,14 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 	Pointer index = _program._textEnd;
 
 	VariableFrame *f;
-	for (f = _program.variableByIndex(index); f != nullptr; index += f->size(),
-	    f = _program.variableByIndex(index)) {
+	while ((f = _program.variableByIndex(index)) != nullptr) {
+#if CONF_USE_ALIGN
+		if (*((const uint8_t*)f) == 0) {
+			++index;
+			continue;
+		}
+#endif
+		index += f->size();
 #if USE_DEFFN
 		if (f->type & TYPE_DEFFN)
 			continue;
@@ -1655,17 +1666,48 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 			break;
 	}
 
-	if (f == nullptr)
+	const Parser::Value::Type t = typeFromName(name);
+#if CONF_USE_ALIGN
+	const uint8_t vs = VariableFrame::size(t);
+	uint8_t dist = vs;
+#else
+	const uint8_t dist = VariableFrame::size(t);
+#endif
+	if (f == nullptr) {
+#if CONF_USE_ALIGN
+		uint8_t a = 0;
+		Pointer i = index + sizeof(VariableFrame);
+		if (t == Parser::Value::Type::INTEGER) {
+			a = i % sizeof (Integer);
+		}
+#if USE_REALS
+		else if (t == Parser::Value::Type::REAL) {
+			a = i % sizeof (Real);
+			if (a > 0)
+				a = sizeof (Real) - a;
+		}
+#endif // USE_REALS
+		for (i=index; i<index+a; ++i) {
+			_program._text[i] = 0;
+		}
+		index = i;
+		dist += a;
+#endif // CONF_USE_ALIGN
 		f = reinterpret_cast<VariableFrame*> (_program._text + index);
 
-	const Parser::Value::Type t = typeFromName(name);
-	const uint16_t dist = VariableFrame::size(t);
 	if (_program._arraysEnd+dist >= _program._sp) {
 		raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
 		return nullptr;
 	}
+#if CONF_USE_ALIGN
+	const auto src = _program._text + index;
+	const auto dst = src + dist;
+	if (_program._arraysEnd > index)
+		memmove(dst, src, _program._arraysEnd - index);
+#else
 	memmove(_program._text + index + dist, _program._text + index,
 	    _program._arraysEnd - index);
+#endif
 	f->type = t;
 	strncpy(f->name, name, VARSIZE);
 	_program._variablesEnd += dist;
