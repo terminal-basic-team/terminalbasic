@@ -1694,6 +1694,7 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 		dist += a;
 #endif // CONF_USE_ALIGN
 		f = reinterpret_cast<VariableFrame*> (_program._text + index);
+	}
 
 	if (_program._arraysEnd+dist >= _program._sp) {
 		raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
