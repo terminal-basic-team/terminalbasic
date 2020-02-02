@@ -523,10 +523,15 @@ Interpreter::dump(DumpMode mode)
 	case VARS:
 	{
 		auto index = _program._textEnd;
-		for (auto f = _program.variableByIndex(index);
-		    (f != nullptr) && (_program.objectIndex(f) <
-		    _program._variablesEnd); f = _program.variableByIndex(
-		    _program.objectIndex(f) + f->size())) {
+		VariableFrame* f;
+		while ((f = _program.variableByIndex(index)) != nullptr) {
+#if CONF_USE_ALIGN
+			if (_program._text[index] == 0) {
+				++index;
+				continue;
+			}
+#endif
+			index += f->size();
 #if USE_DEFFN
 			if (f->type & TYPE_DEFFN)
 				continue;
@@ -1463,7 +1468,7 @@ Interpreter::newFunction(const char *fname, uint8_t pos)
 		f = reinterpret_cast<VariableFrame*> (_program._text + index);
 
 	const Parser::Value::Type t = Parser::Value::Type(
-	    uint8_t(typeFromName(fname)) | TYPE_DEFFN);
+	    uint8_t(Parser::Value::typeFromName(fname)) | TYPE_DEFFN);
 	const uint16_t dist = VariableFrame::size(t);
 	if ((_program._arraysEnd + dist)>= _program._sp) {
 		raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
@@ -1640,39 +1645,67 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 {
 	Pointer index = _program._textEnd;
 
-	VariableFrame *f;
-	for (f = _program.variableByIndex(index); f != nullptr; index += f->size(),
-	    f = _program.variableByIndex(index)) {
-#if USE_DEFFN
-		if (f->type & TYPE_DEFFN)
-			continue;
+#if CONF_USE_ALIGN
+	Pointer lastIndex = index;
 #endif
-		const auto res = strcmp(name, f->name);
-		if (res == 0) {
-			set(*f, v);
-			return f;
-		} else if (res < 0)
-			break;
+	VariableFrame *f;
+	while ((f = _program.variableByIndex(index)) != nullptr) {
+#if CONF_USE_ALIGN
+		if (_program._text[index] == 0) {
+			++index;
+			continue;
+		}
+#endif
+#if USE_DEFFN
+		if (!(f->type & TYPE_DEFFN)) {
+#endif
+			const auto res = strcmp(name, f->name);
+			if (res == 0) {
+				set(*f, v);
+				return f;
+			} else if (res < 0)
+				break;
+
+#if USE_DEFFN
+		}
+#endif
+		index += f->size();
+#if CONF_USE_ALIGN
+		lastIndex = index;
+#endif
 	}
 
-	if (f == nullptr)
+	const Parser::Value::Type t = Parser::Value::typeFromName(name);
+#if CONF_USE_ALIGN
+	const uint8_t vs = VariableFrame::size(t);
+	uint8_t dist = vs;
+	index = lastIndex;
+	f = reinterpret_cast<VariableFrame*> (_program._text + index);
+#else
+	const uint8_t dist = VariableFrame::size(t);
+	if (f == nullptr) {
 		f = reinterpret_cast<VariableFrame*> (_program._text + index);
-
-	const Parser::Value::Type t = typeFromName(name);
-	const uint16_t dist = VariableFrame::size(t);
+	}
+#endif
+	
 	if (_program._arraysEnd+dist >= _program._sp) {
 		raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
 		return nullptr;
 	}
 	memmove(_program._text + index + dist, _program._text + index,
 	    _program._arraysEnd - index);
-	f->type = t;
-	strncpy(f->name, name, VARSIZE);
 	_program._variablesEnd += dist;
 	_program._arraysEnd += dist;
+	f->type = t;
+	strncpy(f->name, name, VARSIZE);
 	set(*f, v);
+	
+	if (!_program.alignVars(index)) {
+		raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
+		f = nullptr;
+	}
 
-	return f;
+	return _program.variableByName(name);
 }
 
 void
@@ -2070,38 +2103,6 @@ Interpreter::addArray(const char *name, uint8_t dim, uint16_t num)
 	_program._arraysEnd += dist;
 
 	return f;
-}
-
-Parser::Value::Type
-Interpreter::typeFromName(const char *fname)
-{
-	Parser::Value::Type t;
-#if USE_LONGINT
-	if (endsWith(fname, "%!")) {
-		t = Parser::Value::LONG_INTEGER;
-	} else
-#endif // USE_LONGINT
-		if (endsWith(fname, '%')) {
-		t = Parser::Value::INTEGER;
-	} else if (endsWith(fname, '@')) {
-		t = Parser::Value::LOGICAL;
-	} else if (endsWith(fname, '$')) {
-		t = Parser::Value::STRING;
-	}
-#if USE_REALS
-#if USE_LONG_REALS
-         else if (endsWith(fname, '!')) {
-		t = Parser::Value::LONG_REAL;
-	}
-#endif // USE_LONG_REALS
-         else {
-		t = Parser::Value::REAL;
-#else
-	 else {
-		t = Parser::Value::INTEGER;
-#endif // USE_REALS
-	}
-	return t;
 }
 
 } // namespace BASIC
