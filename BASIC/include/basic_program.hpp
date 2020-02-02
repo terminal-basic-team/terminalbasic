@@ -264,6 +264,14 @@ public:
 	 */
 	bool insert(uint16_t, const uint8_t*, uint8_t);
 	
+#if CONF_USE_ALIGN
+	/**
+	 * @brief Align variables
+	 * @param index address of the first variable frame to align from
+	 */
+	bool alignVars(Pointer);
+#endif
+	
 #if USE_EXTMEM
 	char *_text;
 #else

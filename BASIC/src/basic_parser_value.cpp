@@ -298,4 +298,36 @@ Parser::Value::printTo(Print& p) const
 	}
 }
 
+Parser::Value::Type
+Parser::Value::typeFromName(const char *fname)
+{
+	Parser::Value::Type t;
+#if USE_LONGINT
+	if (endsWith(fname, "%!")) {
+		t = Parser::Value::LONG_INTEGER;
+	} else
+#endif // USE_LONGINT
+		if (endsWith(fname, '%')) {
+		t = Parser::Value::INTEGER;
+	} else if (endsWith(fname, '@')) {
+		t = Parser::Value::LOGICAL;
+	} else if (endsWith(fname, '$')) {
+		t = Parser::Value::STRING;
+	}
+#if USE_REALS
+#if USE_LONG_REALS
+         else if (endsWith(fname, '!')) {
+		t = Parser::Value::LONG_REAL;
+	}
+#endif // USE_LONG_REALS
+         else {
+		t = Parser::Value::REAL;
+#else
+	 else {
+		t = Parser::Value::INTEGER;
+#endif // USE_REALS
+	}
+	return t;
+}
+
 } // namespace BASIC

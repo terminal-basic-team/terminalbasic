@@ -439,7 +439,11 @@ public:
 	 * @param var name of the variable
 	 */
 	void valueFromVar(Parser::Value&, const char*);
-
+	/**
+	 * @brief Fill value object with the value of an array element
+	 * @param val value object
+	 * @param var name of the array
+	 */
 	bool valueFromArray(Parser::Value&, const char*);
 	/**
 	 * @brief push string constant on the stack
@@ -488,9 +492,18 @@ private:
 	
 	class AttrKeeper;
 #if USE_MATRIX
-	
+	/**
+	 * @Fill matrix elements with the value
+	 * @param array name for the matrix
+	 * @param value object to fill the matrix with
+	 */
 	void fillMatrix(const char*, const Parser::Value&);
-	
+	/**
+	 * 
+	 * @param frame
+	 * @param rows
+	 * @param columns
+	 */
 	void setMatrixSize(ArrayFrame&, uint16_t, uint16_t);
 	/**
 	 * @brief Get 2 dimensional array from stack
@@ -513,8 +526,7 @@ private:
 	 */
 	ArrayFrame *getSquareArray(const char*);
 #endif // USE_MATRIX
-	// Return Variable/Array/Function type based on it's name
-	static Parser::Value::Type typeFromName(const char*);
+	
 	// Get next input object from stack
 	bool nextInput();
 	// Place input values to objects

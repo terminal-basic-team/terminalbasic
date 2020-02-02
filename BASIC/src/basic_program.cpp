@@ -419,7 +419,7 @@ Program::addLine(uint16_t num, const uint8_t *text, uint8_t len)
 			memcpy(cur->text, text, len);
 			_textEnd += dist, _variablesEnd += dist,
 			    _arraysEnd += dist;
-			return true;
+			return alignVars(_textEnd);
 		}
 		_current.index += cur->size;
 	}
@@ -439,6 +439,7 @@ Program::removeLine(uint16_t num)
 		_variablesEnd -= line->size;
 		_arraysEnd -= line->size;
 		memmove(_text+index, _text+next, len);
+		alignVars(_textEnd);
 	}
 }
 
@@ -458,7 +459,7 @@ Program::insert(uint16_t num, const uint8_t *text, uint8_t len)
 	cur->size = strLen;
 	memcpy(cur->text, text, len);
 	_textEnd += strLen, _variablesEnd += strLen, _arraysEnd += strLen;
-	return true;
+	return alignVars(_textEnd);
 }
 
 void
@@ -484,5 +485,72 @@ Program::_reset()
 #endif
 	_sp = programSize;
 }
+
+#if CONF_USE_ALIGN
+bool
+Program::alignVars(Pointer index)
+{
+	Pointer lastIndex = index;
+	VariableFrame *f;
+	while ((f = variableByIndex(index)) != nullptr) {
+		if (_text[index] == 0) {
+			++index;
+			continue;
+		}
+#if USE_DEFFN
+		if (f->type & TYPE_DEFFN) {
+			index += f->size();
+			continue;
+		}
+#endif
+		const Parser::Value::Type t = f->type;
+		int8_t a = 0;
+		Pointer i = lastIndex + sizeof(VariableFrame);
+		if (t == Parser::Value::Type::INTEGER) {
+			a = i % sizeof (Integer);
+		}
+#if USE_LONGINT
+		else if (t == Parser::Value::Type::LONG_INTEGER) {
+			a = i % sizeof (LongInteger);
+			if (a > 0)
+				a = sizeof (LongInteger) - a;
+		}
+#endif
+#if USE_REALS
+		else if (t == Parser::Value::Type::REAL) {
+			a = i % sizeof (Real);
+			if (a > 0)
+				a = sizeof (Real) - a;
+		}
+#if USE_LONG_REALS
+		else if (t == Parser::Value::Type::LONG_REAL) {
+			a = i % sizeof (LongReal);
+			if (a > 0)
+				a = sizeof (LongReal) - a;
+		}
+#endif
+#endif // USE_REALS
+		int8_t dist = a - index + lastIndex;
+		
+		if (_arraysEnd+dist >= _sp) {
+			return false;
+		}
+		const auto src = _text + index;
+		const auto dst = src + dist;
+		if (_arraysEnd > index)
+			memmove(dst, src, _arraysEnd - index);
+		for (i=lastIndex; i<lastIndex+a; ++i) {
+			_text[i] = 0;
+		}
+		_variablesEnd += dist;
+		_arraysEnd += dist;
+		
+		lastIndex += a + VariableFrame::size(t);
+		index = lastIndex;
+	}
+	
+	return true;
+}
+#endif // CONF_USE_ALIGN
 
 } // namespace BASIC
