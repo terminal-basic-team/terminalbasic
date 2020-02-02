@@ -419,7 +419,11 @@ Program::addLine(uint16_t num, const uint8_t *text, uint8_t len)
 			memcpy(cur->text, text, len);
 			_textEnd += dist, _variablesEnd += dist,
 			    _arraysEnd += dist;
+#if CONF_USE_ALIGN
 			return alignVars(_textEnd);
+#else
+			return true;
+#endif
 		}
 		_current.index += cur->size;
 	}
@@ -439,7 +443,9 @@ Program::removeLine(uint16_t num)
 		_variablesEnd -= line->size;
 		_arraysEnd -= line->size;
 		memmove(_text+index, _text+next, len);
+#if CONF_USE_ALIGN
 		alignVars(_textEnd);
+#endif
 	}
 }
 
@@ -459,7 +465,9 @@ Program::insert(uint16_t num, const uint8_t *text, uint8_t len)
 	cur->size = strLen;
 	memcpy(cur->text, text, len);
 	_textEnd += strLen, _variablesEnd += strLen, _arraysEnd += strLen;
+#if CONF_USE_ALIGN
 	return alignVars(_textEnd);
+#endif
 }
 
 void

@@ -1698,14 +1698,20 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 	_program._arraysEnd += dist;
 	f->type = t;
 	strncpy(f->name, name, VARSIZE);
-	set(*f, v);
-	
+#if CONF_USE_ALIGN
 	if (!_program.alignVars(index)) {
 		raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
 		f = nullptr;
+	} else {
+		f = _program.variableByName(name);
+		if (f!=nullptr)
+			set(*f, v);
 	}
+#else
+	set(*f, v);
+#endif
 
-	return _program.variableByName(name);
+	return f;
 }
 
 void
