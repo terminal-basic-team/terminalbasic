@@ -467,6 +467,8 @@ Program::insert(uint16_t num, const uint8_t *text, uint8_t len)
 	_textEnd += strLen, _variablesEnd += strLen, _arraysEnd += strLen;
 #if CONF_USE_ALIGN
 	return alignVars(_textEnd);
+#else
+	return true;
 #endif
 }
 
