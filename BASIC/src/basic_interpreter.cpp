@@ -1778,6 +1778,7 @@ Interpreter::newArray(const char *name)
 				array->dimension[dim] = f->body.arrayDimension;
 				_program.pop();
 			}
+			_program.alignArrays(_program.objectIndex(array));
 		}
 	}
 }

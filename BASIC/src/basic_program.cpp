@@ -562,6 +562,67 @@ Program::alignVars(Pointer index)
 	
 	return true;
 }
+
+bool
+Program::alignArrays(Pointer index)
+{
+	Pointer lastIndex = index;
+	ArrayFrame *f;
+	while ((f = arrayByIndex(index)) != nullptr) {
+		if (_text[index] == 0) {
+			++index;
+			continue;
+		}
+		
+		const Parser::Value::Type t = f->type;
+		int8_t a = 0;
+		const uint16_t fsize = f->size();
+		Pointer i = lastIndex + fsize - f->dataSize();
+		if (t == Parser::Value::Type::INTEGER) {
+			a = i % sizeof (Integer);
+		}
+#if USE_LONGINT
+		else if (t == Parser::Value::Type::LONG_INTEGER) {
+			a = i % sizeof (LongInteger);
+			if (a > 0)
+				a = sizeof (LongInteger) - a;
+		}
+#endif
+#if USE_REALS
+		else if (t == Parser::Value::Type::REAL) {
+			a = i % sizeof (Real);
+			if (a > 0)
+				a = sizeof (Real) - a;
+		}
+#if USE_LONG_REALS
+		else if (t == Parser::Value::Type::LONG_REAL) {
+			a = i % sizeof (LongReal);
+			if (a > 0)
+				a = sizeof (LongReal) - a;
+		}
+#endif
+#endif // USE_REALS
+		int8_t dist = a - index + lastIndex;
+		
+		if (_arraysEnd+dist >= _sp) {
+			return false;
+		}
+		const auto src = _text + index;
+		const auto dst = src + dist;
+		if (_arraysEnd > index)
+			memmove(dst, src, _arraysEnd - index);
+		for (i=lastIndex; i<lastIndex+a; ++i) {
+			_text[i] = 0;
+		}
+		_arraysEnd += dist;
+		
+		lastIndex += a + fsize;
+		index = lastIndex;
+	}
+	
+	return true;
+}
+
 #endif // CONF_USE_ALIGN
 
 } // namespace BASIC
