@@ -19,6 +19,9 @@
       <itemPath>include/config.hpp</itemPath>
       <itemPath>include/config_arduino.hpp</itemPath>
       <itemPath>include/config_linux.hpp</itemPath>
+      <itemPath>src/strings_en.hpp</itemPath>
+      <itemPath>src/strings_fr.hpp</itemPath>
+      <itemPath>src/strings_ru.hpp</itemPath>
       <itemPath>include/tvoutprint.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="src" displayName="src" projectFiles="true">
@@ -40,9 +43,6 @@
       <itemPath>src/basic_parser_value.cpp</itemPath>
       <itemPath>src/basic_program.cpp</itemPath>
       <itemPath>src/basic_sdfs.cpp</itemPath>
-      <itemPath>src/strings_en.hpp</itemPath>
-      <itemPath>src/strings_fr.hpp</itemPath>
-      <itemPath>src/strings_ru.hpp</itemPath>
       <itemPath>src/tvoutprint.cpp</itemPath>
       <itemPath>src/ucbasic_main.cpp</itemPath>
     </logicalFolder>
@@ -686,7 +686,7 @@
           <incFile>
             <pElem>Arduino.h</pElem>
           </incFile>
-          <commandLine>-O2 -Wextra -std=gnu++11 -fpermissive -fno-exceptions -fno-threadsafe-statics -MMD -mmcu=atmega2560 -ffunction-sections -fdata-sections -flto -fno-rtti</commandLine>
+          <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -fno-threadsafe-statics -MMD -mmcu=atmega2560 -ffunction-sections -fdata-sections -flto -fno-rtti</commandLine>
           <preprocessorList>
             <Elem>ARDUINO=10806</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
