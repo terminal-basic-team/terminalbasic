@@ -270,6 +270,12 @@ public:
 	 * @param index address of the first variable frame to align from
 	 */
 	bool alignVars(Pointer);
+	
+	bool alignArrays(Pointer);
+	
+	int8_t alignPointer(
+	    Pointer,
+	    Parser::Value::Type);
 #endif
 	
 #if USE_EXTMEM

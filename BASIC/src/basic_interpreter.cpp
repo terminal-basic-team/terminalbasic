@@ -550,7 +550,13 @@ Interpreter::dump(DumpMode mode)
 	{
 		auto index = _program._variablesEnd;
 		ArrayFrame* f;
-		while (f = _program.arrayByIndex(index)) {
+		while ((f = _program.arrayByIndex(index)) != nullptr) {
+#if CONF_USE_ALIGN
+			if (_program._text[index] == 0) {
+				++index;
+				continue;
+			}
+#endif
 			_output.print(f->name);
 			_output.print('(');
 			_output.print(f->dimension[0]);
@@ -1778,7 +1784,9 @@ Interpreter::newArray(const char *name)
 				array->dimension[dim] = f->body.arrayDimension;
 				_program.pop();
 			}
+#if CONF_USE_ALIGN
 			_program.alignArrays(_program.objectIndex(array));
+#endif
 		}
 	}
 }
@@ -2049,6 +2057,12 @@ Interpreter::addArray(const char *name, uint8_t dim, uint16_t num)
 	Pointer index = _program._variablesEnd;
 	ArrayFrame *f;
 	while ((f = _program.arrayByIndex(index)) != nullptr) {
+#if CONF_USE_ALIGN
+		if (_program._text[index] == 0) {
+			++index;
+			continue;
+		}
+#endif
 		int res = strcmp(name, f->name);
 		if (res == 0) {
 			raiseError(DYNAMIC_ERROR, REDIMED_ARRAY);
