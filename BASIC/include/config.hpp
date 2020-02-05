@@ -50,7 +50,7 @@ namespace BASIC
 		/*
 		 * ACS ASN ATN
 		 */
-		#define M_REVERSE_TRIGONOMETRIC 0
+		#define M_REVERSE_TRIGONOMETRIC 1
 		/*
 		 * CBR (cubic root) ...
 		 */
@@ -70,7 +70,7 @@ namespace BASIC
 	// LEN function, returns length of the string
 	#define USE_LEN     1
 	// LEFT$ function, return leftmost part of the string
-	#define USE_LEFT    0
+	#define USE_LEFT    1
 	// RIGHT$ function, return rightmost part of the string
 	#define USE_RIGHT   1
 	// MID$ function, return middle part of the string
@@ -78,7 +78,7 @@ namespace BASIC
 	// A variant of MID$ equivalent
 	#define USE_SEG     1
 	// HEX$ function, return string with hexsadecimal representation of the expression value
-	#define USE_HEX     0
+	#define USE_HEX     1
 #endif // USE_STRINGOPS
 /*
  * Clear program memory on NEW command
@@ -165,7 +165,7 @@ namespace BASIC
  */
 #define LINE_NUM_INDENT  1
 
-#define CONF_USE_ALIGN 1
+#define CONF_USE_ALIGN 0
 /*
  * GFX module
  */
