@@ -42,7 +42,7 @@ public:
 	/**
 	 * @brief BASIC program string object
 	 */
-	struct EXT_PACKED Line
+	struct PACKED Line
 	{
 		// string decimal number (label)
 		uint16_t number;
@@ -55,7 +55,7 @@ public:
 	/**
 	 * @brief BASIC program position marker
 	 */
-	struct EXT_PACKED Position
+	struct PACKED Position
 	{
 		// line index in program memory
 		Pointer index;
@@ -66,7 +66,7 @@ public:
 	/**
 	 * @program stack frame object
 	 */
-	struct EXT_PACKED StackFrame
+	struct PACKED StackFrame
 	{
 		/**
 		 * @brief Stack frame type
@@ -92,7 +92,7 @@ public:
 		/**
 		 * @brief FOR-loop state frame body
 		 */
-		struct EXT_PACKED ForBody
+		struct PACKED ForBody
 		{
 			// Program counter on loop begin
 			Pointer 	calleeIndex;
@@ -110,7 +110,7 @@ public:
 		/**
 		 * @brief Subprogram return address frame body
 		 */
-		struct EXT_PACKED GosubReturn
+		struct PACKED GosubReturn
 		{
 			// Program counter of the colee string
 			Pointer calleeIndex;
@@ -121,7 +121,7 @@ public:
 		/**
 		 * @brief Input object frame body
 		 */
-		struct EXT_PACKED VariableBody
+		struct PACKED VariableBody
 		{
 			enum Type : uint8_t
 			{
@@ -137,7 +137,7 @@ public:
 
 		Type _type;
 
-		union EXT_PACKED Body
+		union PACKED Body
 		{
 			GosubReturn	gosubReturn;
 			uint8_t		arrayDimensions;

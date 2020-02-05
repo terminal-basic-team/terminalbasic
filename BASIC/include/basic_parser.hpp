@@ -58,7 +58,7 @@ public:
 		MISSING_RPAREN = 10
 	};
 
-	class EXT_PACKED Value;
+	class PACKED Value;
 	/**
 	 * @brief constructor
 	 * @param lexer Lexical analyzer object refertence

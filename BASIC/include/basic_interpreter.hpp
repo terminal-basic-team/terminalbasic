@@ -32,7 +32,7 @@ namespace BASIC
 /**
  * @brief variable memory frame
  */
-struct EXT_PACKED VariableFrame
+struct PACKED VariableFrame
 {
 	/**
 	 * @brief size of the initialized frame
@@ -73,7 +73,7 @@ struct EXT_PACKED VariableFrame
 /**
  * Array memory frame
  */
-struct EXT_PACKED ArrayFrame
+struct PACKED ArrayFrame
 {
 	/**
 	 * @brief get frame size in bytes
@@ -148,7 +148,7 @@ struct EXT_PACKED ArrayFrame
 /**
  * Array memory frame
  */
-struct EXT_PACKED FunctionFrame
+struct PACKED FunctionFrame
 {
 	uint16_t lineNumber;
 	uint8_t linePosition;
