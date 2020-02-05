@@ -279,7 +279,7 @@
     </conf>
     <conf name="Arduino_nano328" type="1">
       <toolsSet>
-        <compilerSet>Arduino-1.8.6|GNU</compilerSet>
+        <compilerSet>Arduino-1.8.10|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
@@ -302,7 +302,7 @@
           </incFile>
           <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -fno-threadsafe-statics -MMD -mmcu=atmega328p -ffunction-sections -fdata-sections -flto -fno-rtti -mcall-prologues</commandLine>
           <preprocessorList>
-            <Elem>ARDUINO=10806</Elem>
+            <Elem>ARDUINO=10810</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_NANO</Elem>
             <Elem>F_CPU=16000000L</Elem>
@@ -317,11 +317,11 @@
               <makeArtifact PL="../../libarduinoext"
                             CT="3"
                             CN="Arduino_nano328"
-                            AC="true"
+                            AC="false"
                             BL="true"
                             WD="../../libarduinoext"
-                            BC="${MAKE}  -f Makefile CONF=Arduino_nano328"
-                            CC="${MAKE}  -f Makefile CONF=Arduino_nano328 clean"
+                            BC="${MAKE} -j4 -f Makefile CONF=Arduino_nano328"
+                            CC="${MAKE} -j4 -f Makefile CONF=Arduino_nano328 clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinoext.a">
               </makeArtifact>
             </linkerLibProjectItem>
@@ -332,9 +332,21 @@
                             AC="true"
                             BL="true"
                             WD="../../libarduino"
-                            BC="${MAKE}  -f Makefile CONF=Nano328"
-                            CC="${MAKE}  -f Makefile CONF=Nano328 clean"
+                            BC="${MAKE} -j4 -f Makefile CONF=Nano328"
+                            CC="${MAKE} -j4 -f Makefile CONF=Nano328 clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/libarduino.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../libbasic/libbasic_nb"
+                            CT="3"
+                            CN="Arduino_nano328"
+                            AC="false"
+                            BL="true"
+                            WD="../libbasic/libbasic_nb"
+                            BC="${MAKE} -j4 -f Makefile CONF=Arduino_nano328"
+                            CC="${MAKE} -j4 -f Makefile CONF=Arduino_nano328 clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibbasic_nb.a">
               </makeArtifact>
             </linkerLibProjectItem>
           </linkerLibItems>
@@ -443,7 +455,7 @@
     </conf>
     <conf name="Arduino_UNO" type="1">
       <toolsSet>
-        <compilerSet>Arduino-1.8.6|GNU</compilerSet>
+        <compilerSet>Arduino-1.8.10|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
@@ -655,7 +667,7 @@
     </conf>
     <conf name="Arduino_mega2560" type="1">
       <toolsSet>
-        <compilerSet>Arduino-1.8.6|GNU</compilerSet>
+        <compilerSet>Arduino-1.8.10|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
@@ -880,7 +892,7 @@
     </conf>
     <conf name="Atmega_128a" type="1">
       <toolsSet>
-        <compilerSet>Arduino|GNU</compilerSet>
+        <compilerSet>Arduino-1.8.10|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
@@ -1206,7 +1218,7 @@
     </conf>
     <conf name="Arduino_mega2560_mainframe" type="1">
       <toolsSet>
-        <compilerSet>Arduino|GNU</compilerSet>
+        <compilerSet>Arduino-1.8.10|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
@@ -1369,7 +1381,7 @@
     </conf>
     <conf name="Arduino_nano168" type="1">
       <toolsSet>
-        <compilerSet>Arduino|GNU</compilerSet>
+        <compilerSet>Arduino-1.8.10|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
@@ -1547,7 +1559,7 @@
     </conf>
     <conf name="Atmega1284" type="1">
       <toolsSet>
-        <compilerSet>Arduino|GNU</compilerSet>
+        <compilerSet>Arduino-1.8.10|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
@@ -1755,7 +1767,7 @@
     </conf>
     <conf name="Arduino_mega2560_tvout" type="1">
       <toolsSet>
-        <compilerSet>Arduino|GNU</compilerSet>
+        <compilerSet>Arduino-1.8.10|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
@@ -1950,7 +1962,7 @@
     </conf>
     <conf name="Arduino_pro328" type="1">
       <toolsSet>
-        <compilerSet>Arduino|GNU</compilerSet>
+        <compilerSet>Arduino-1.8.10|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
@@ -2114,7 +2126,7 @@
     </conf>
     <conf name="Arduino_nano168p" type="1">
       <toolsSet>
-        <compilerSet>Arduino|GNU</compilerSet>
+        <compilerSet>Arduino-1.8.10|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
@@ -2279,7 +2291,7 @@
     </conf>
     <conf name="Arduino_DUE" type="1">
       <toolsSet>
-        <compilerSet>Arduino_ARM|GNU</compilerSet>
+        <compilerSet>default</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
