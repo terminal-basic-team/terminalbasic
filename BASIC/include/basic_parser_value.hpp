@@ -27,7 +27,7 @@
 namespace BASIC
 {
 
-class EXT_PACKED Parser::Value
+class PACKED Parser::Value
 {
 public:
 	/**

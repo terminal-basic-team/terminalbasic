@@ -319,6 +319,12 @@ Program::arrayByName(const char *name)
 
 	ArrayFrame* f;
 	while ((f = arrayByIndex(index)) != nullptr) {
+#if CONF_USE_ALIGN
+		if (_text[index] == 0) {
+			++index;
+			continue;
+		}
+#endif
 		const int8_t res = strcmp(name, f->name);
 		if (res == 0) {
 			return f;
@@ -515,33 +521,9 @@ Program::alignVars(Pointer index)
 		}
 #endif
 		const Parser::Value::Type t = f->type;
-		int8_t a = 0;
 		Pointer i = lastIndex + sizeof(VariableFrame);
-		if (t == Parser::Value::Type::INTEGER) {
-			a = i % sizeof (Integer);
-		}
-#if USE_LONGINT
-		else if (t == Parser::Value::Type::LONG_INTEGER) {
-			a = i % sizeof (LongInteger);
-			if (a > 0)
-				a = sizeof (LongInteger) - a;
-		}
-#endif
-#if USE_REALS
-		else if (t == Parser::Value::Type::REAL) {
-			a = i % sizeof (Real);
-			if (a > 0)
-				a = sizeof (Real) - a;
-		}
-#if USE_LONG_REALS
-		else if (t == Parser::Value::Type::LONG_REAL) {
-			a = i % sizeof (LongReal);
-			if (a > 0)
-				a = sizeof (LongReal) - a;
-		}
-#endif
-#endif // USE_REALS
-		int8_t dist = a - index + lastIndex;
+		int8_t a = alignPointer(i, t);
+		int8_t dist = a - int8_t(index - lastIndex);
 		
 		if (_arraysEnd+dist >= _sp) {
 			return false;
@@ -555,6 +537,8 @@ Program::alignVars(Pointer index)
 		}
 		_variablesEnd += dist;
 		_arraysEnd += dist;
+		
+		alignVars(_variablesEnd);
 		
 		lastIndex += a + VariableFrame::size(t);
 		index = lastIndex;
@@ -575,34 +559,10 @@ Program::alignArrays(Pointer index)
 		}
 		
 		const Parser::Value::Type t = f->type;
-		int8_t a = 0;
 		const uint16_t fsize = f->size();
 		Pointer i = lastIndex + fsize - f->dataSize();
-		if (t == Parser::Value::Type::INTEGER) {
-			a = i % sizeof (Integer);
-		}
-#if USE_LONGINT
-		else if (t == Parser::Value::Type::LONG_INTEGER) {
-			a = i % sizeof (LongInteger);
-			if (a > 0)
-				a = sizeof (LongInteger) - a;
-		}
-#endif
-#if USE_REALS
-		else if (t == Parser::Value::Type::REAL) {
-			a = i % sizeof (Real);
-			if (a > 0)
-				a = sizeof (Real) - a;
-		}
-#if USE_LONG_REALS
-		else if (t == Parser::Value::Type::LONG_REAL) {
-			a = i % sizeof (LongReal);
-			if (a > 0)
-				a = sizeof (LongReal) - a;
-		}
-#endif
-#endif // USE_REALS
-		int8_t dist = a - index + lastIndex;
+		int8_t a = alignPointer(i, t);
+		int8_t dist = a - int8_t(index - lastIndex);
 		
 		if (_arraysEnd+dist >= _sp) {
 			return false;
@@ -621,6 +581,40 @@ Program::alignArrays(Pointer index)
 	}
 	
 	return true;
+}
+
+int8_t
+Program::alignPointer(
+    Pointer i,
+    Parser::Value::Type t)
+{
+	int8_t a = 0;
+	
+	if (t == Parser::Value::Type::INTEGER) {
+		a = i % sizeof (Integer);
+	}
+#if USE_LONGINT
+	else if (t == Parser::Value::Type::LONG_INTEGER) {
+		a = i % sizeof (LongInteger);
+		if (a > 0)
+			a = sizeof (LongInteger) - a;
+	}
+#endif
+#if USE_REALS
+	else if (t == Parser::Value::Type::REAL) {
+		a = i % sizeof (Real);
+		if (a > 0)
+			a = sizeof (Real) - a;
+	}
+#if USE_LONG_REALS
+	else if (t == Parser::Value::Type::LONG_REAL) {
+		a = i % sizeof (LongReal);
+		if (a > 0)
+			a = sizeof (LongReal) - a;
+	}
+#endif
+#endif // USE_REALS
+	return a;
 }
 
 #endif // CONF_USE_ALIGN
