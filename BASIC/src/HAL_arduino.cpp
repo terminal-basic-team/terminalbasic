@@ -6,6 +6,14 @@
 
 #include "Arduino.h"
 
+void HAL_initialize()
+{
+}
+
+void HAL_finalize()
+{
+}
+
 void HAL_time_sleep_ms(uint32_t ms)
 {
 	delay(ms);
