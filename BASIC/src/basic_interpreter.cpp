@@ -617,7 +617,7 @@ Interpreter::print(const Parser::Value &v, VT100::TextAttr attr)
 void
 Interpreter::delay(uint16_t ms)
 {
-	_delayTimeout = millis() + ms;
+	_delayTimeout = HAL_time_gettime_ms() + ms;
 	_lastState = _state == EXECUTE ? EXECUTE : SHELL;
 	_state = DELAY;
 }
@@ -1049,7 +1049,7 @@ Interpreter::save()
 		EEPROMClass e;
 		// Write program to EEPROM
 		for (Pointer p = 0; p < _program._textEnd; ++p) {
-			e.update(p + sizeof (EEpromHeader_t), _program._text[p]);
+			HAL_nvram_write(p+sizeof(EEpromHeader_t), _program._text[p]);
 			_output.print('.');
 		}
 	}
@@ -1142,10 +1142,8 @@ Interpreter::checkText(Pointer &len)
 void
 Interpreter::loadText(Pointer len, bool showProgress)
 {
-	EEPROMClass e;
-
 	for (Pointer p = 0; p < len; ++p) {
-		_program._text[p] = e.read(p + sizeof (EEpromHeader_t));
+		_program._text[p] = HAL_nvram_read(p + sizeof (EEpromHeader_t));
 		if (showProgress)
 			_output.print('.');
 	}

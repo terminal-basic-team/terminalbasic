@@ -25,6 +25,8 @@
       <itemPath>include/tvoutprint.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="src" displayName="src" projectFiles="true">
+      <itemPath>src/HAL_arduino.cpp</itemPath>
+      <itemPath>src/HAL_arduino_AVR8.cpp</itemPath>
       <itemPath>src/basic.cpp</itemPath>
       <itemPath>src/basic_arduinoio.cpp</itemPath>
       <itemPath>src/basic_dataparser.cpp</itemPath>
@@ -228,6 +230,8 @@
       </item>
       <item path="include/tvoutprint.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
@@ -403,6 +407,10 @@
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tvoutprint.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HAL_arduino_AVR8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -615,6 +623,10 @@
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tvoutprint.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HAL_arduino_AVR8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -841,6 +853,10 @@
       </item>
       <item path="include/tvoutprint.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HAL_arduino_AVR8.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
@@ -1001,6 +1017,10 @@
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tvoutprint.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HAL_arduino_AVR8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1167,6 +1187,10 @@
       </item>
       <item path="include/tvoutprint.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HAL_arduino_AVR8.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
@@ -1329,6 +1353,10 @@
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tvoutprint.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HAL_arduino_AVR8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1509,6 +1537,10 @@
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tvoutprint.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HAL_arduino_AVR8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1716,6 +1748,10 @@
       </item>
       <item path="include/tvoutprint.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HAL_arduino_AVR8.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
@@ -1911,6 +1947,10 @@
       </item>
       <item path="include/tvoutprint.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HAL_arduino_AVR8.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
@@ -2074,6 +2114,10 @@
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tvoutprint.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HAL_arduino_AVR8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -2239,6 +2283,10 @@
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tvoutprint.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HAL_arduino_AVR8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -2455,6 +2503,10 @@
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tvoutprint.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HAL_arduino_AVR8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
