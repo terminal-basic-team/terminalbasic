@@ -150,6 +150,8 @@ static BASIC::Interpreter basic(SERIAL_PORT_I, SERIAL_PORT_O, BASIC::SINGLE_PROG
 void
 setup()
 {
+	HAL_initialize();
+	
 #if USE_WIRE
 	Wire.begin();
 	Wire.setClock(400000);

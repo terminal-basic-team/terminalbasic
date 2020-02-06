@@ -25,13 +25,10 @@
 
 #include "basic.hpp"
 
-#if USE_SAVE_LOAD
-#include <EEPROM.h>
 #if SAVE_LOAD_CHECKSUM
 #include <util/crc16.h>
 #include <stdint.h>
 #endif
-#endif // USE_SAVE_LOAD
 
 #include "helper.hpp"
 #include "math.hpp"
@@ -1041,17 +1038,14 @@ Interpreter::save()
 		.crc16 = 0
 	};
 #if SAVE_LOAD_CHECKSUM
-	// Compute program checksum
-	for (Pointer p = 0; p < _program._textEnd; ++p)
-		h.crc16 = _crc16_update(h.crc16, _program._text[p]);
 #endif
-	{
-		EEPROMClass e;
-		// Write program to EEPROM
-		for (Pointer p = 0; p < _program._textEnd; ++p) {
-			HAL_nvram_write(p+sizeof(EEpromHeader_t), _program._text[p]);
-			_output.print('.');
-		}
+	// Write program to EEPROM
+	for (Pointer p = 0; p < _program._textEnd; ++p) {
+		const uint8_t pb = _program._text[p];
+		HAL_nvram_write(p+sizeof(EEpromHeader_t), pb);
+		// Compute program checksum
+		h.crc16 = _crc16_update(h.crc16, pb);
+		_output.print('.');
 	}
 	newline();
 #if SAVE_LOAD_CHECKSUM
@@ -1060,8 +1054,7 @@ Interpreter::save()
 
 	if (crc == h.crc16) {
 #endif
-		EEPROMClass e;
-		e.put(0, h);
+		HAL_nvram_write_buf(0, &h, sizeof(h));
 #if SAVE_LOAD_CHECKSUM
 	} else
 		raiseError(DYNAMIC_ERROR, BAD_CHECKSUM);
@@ -1099,12 +1092,11 @@ Interpreter::chain()
 uint16_t
 Interpreter::eepromProgramChecksum(uint16_t len)
 {
-	EEPROMClass e;
 	// Compute checksum
 	uint16_t crc = 0, p;
 	for (p = sizeof (EEpromHeader_t); p < len + sizeof (EEpromHeader_t);
 	    ++p) {
-		uint8_t b = e.read(p);
+		uint8_t b = HAL_nvram_read(p);
 		crc = _crc16_update(crc, b);
 		_output.print('.');
 	}
@@ -1117,11 +1109,7 @@ bool
 Interpreter::checkText(Pointer &len)
 {
 	EEpromHeader_t h;
-
-	{
-		EEPROMClass e;
-		e.get(0, h);
-	}
+	HAL_nvram_read_buf(0, &h, sizeof(h));
 
 	if ((h.len > SINGLE_PROGSIZE) ||
 	    (h.magic_FFFFminuslen != uint16_t(0xFFFF) - h.len)) {
