@@ -255,7 +255,7 @@
     </conf>
     <conf name="Arduino_UNO" type="3">
       <toolsSet>
-        <compilerSet>Arduino-1.8.6|GNU</compilerSet>
+        <compilerSet>Arduino-1.8.10|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
@@ -270,7 +270,7 @@
           </incDir>
           <commandLine>-Os -w -Wextra -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects -mcall-prologues -mmcu=atmega328p</commandLine>
           <preprocessorList>
-            <Elem>ARDUINO=10806</Elem>
+            <Elem>ARDUINO=10810</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_UNO</Elem>
             <Elem>F_CPU=16000000L</Elem>
@@ -334,7 +334,7 @@
     </conf>
     <conf name="Arduino_MEGA" type="3">
       <toolsSet>
-        <compilerSet>Arduino-1.8.6|GNU</compilerSet>
+        <compilerSet>Arduino-1.8.10|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
@@ -349,7 +349,7 @@
           </incDir>
           <commandLine>-O2 -Wextra -std=gnu11 -ffunction-sections -fdata-sections -MMD -mmcu=atmega2560 -flto -fno-fat-lto-objects</commandLine>
           <preprocessorList>
-            <Elem>ARDUINO=10806</Elem>
+            <Elem>ARDUINO=10810</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_MEGA2560</Elem>
             <Elem>F_CPU=16000000L</Elem>
