@@ -48,7 +48,7 @@ const FunctionBlock::function ExtEEPROM::_commands[] PROGMEM = {
 	ExtEEPROM::com_esave
 };
 
-struct EXT_PACKED ZoneHeader
+struct PACKED ZoneHeader
 {
 	uint16_t number;
 	uint16_t crc;

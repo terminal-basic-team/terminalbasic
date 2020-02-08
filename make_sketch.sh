@@ -9,6 +9,7 @@ SRC_PATH=${SKETCH}/terminal-basic
 SRC="	./libbasic/include/basic.h \
 	./libbasic/src/basic.c \
 	./libbasic/include/config.h \
+	./libbasic/include/HAL.h \
 	./libbasic/include/_tokens_en.h \
 	./libbasic/include/_tokens_fr.h \
 	./libbasic/include/_tokens_ru.h \
@@ -55,6 +56,9 @@ SRC="	./libbasic/include/basic.h \
 	./BASIC/include/basic_gfx.hpp \
 	./BASIC/src/tvoutprint.cpp \
 	./BASIC/include/tvoutprint.hpp \
+	./BASIC/src/HAL_arduino.cpp \
+	./BASIC/src/HAL_avr8.c \
+	./BASIC/src/HAL_esp8266.cpp \
 	./BASIC/src/basic_gfx.cpp \
 	./BASIC/src/basic_gfx_tvout.cpp \
 	./BASIC/src/basic_gfx_utft.cpp \

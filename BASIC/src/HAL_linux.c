@@ -113,4 +113,4 @@ uint32_t HAL_time_gettime_ms()
 	return 0;
 }
 
-#endif // __linux__
+#endif /* __linux__ */
