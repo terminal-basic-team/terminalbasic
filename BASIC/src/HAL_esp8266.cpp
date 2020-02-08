@@ -19,26 +19,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifdef ARDUINO_ARCH_AVR
-
-#include <avr/io.h>
-#include <avr/eeprom.h>
+#ifdef ARDUINO_ARCH_ESP8266
 
 #include "HAL.h"
 
 HAL_nvram_address_t HAL_nvram_getsize()
 {
-	return HAL_nvram_address_t(E2END+1);
+
 }
 
 uint8_t HAL_nvram_read(HAL_nvram_address_t addr)
 {
-	return eeprom_read_byte((uint8_t*)addr);
 }
 
 void HAL_nvram_write(HAL_nvram_address_t addr, uint8_t byte)
 {
-	return eeprom_update_byte((uint8_t*)addr, byte);
 }
 
-#endif // ARDUINO_ARCH_AVR
+#endif // ARDUINO_ARCH_ESP8266
