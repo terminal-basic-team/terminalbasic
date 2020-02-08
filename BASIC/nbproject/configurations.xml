@@ -419,8 +419,6 @@
       </item>
       <item path="src/HAL_arduino_AVR8.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/HAL_linux.c" ex="false" tool="0" flavor2="0">
-      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">

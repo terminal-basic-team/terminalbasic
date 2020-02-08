@@ -20,7 +20,6 @@
       <itemPath>../src/math/math_private.h</itemPath>
     </logicalFolder>
     <logicalFolder name="src" displayName="src" projectFiles="true">
-      <itemPath>../src/HAL.c</itemPath>
       <itemPath>../src/basic.c</itemPath>
       <itemPath>../src/basic_lexer.c</itemPath>
       <itemPath>../src/basic_lexer_en.c</itemPath>
@@ -93,8 +92,6 @@
       </item>
       <item path="../include/tools.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../src/HAL.c" ex="false" tool="0" flavor2="0">
-      </item>
       <item path="../src/basic.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="../src/basic_lexer.c" ex="false" tool="0" flavor2="0">
@@ -161,8 +158,6 @@
       <item path="../include/terminal.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/tools.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../src/HAL.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="../src/basic.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -239,8 +234,6 @@
       <item path="../include/terminal.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/tools.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../src/HAL.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="../src/basic.c" ex="false" tool="0" flavor2="9">
       </item>
@@ -323,8 +316,6 @@
       </item>
       <item path="../include/tools.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../src/HAL.c" ex="false" tool="0" flavor2="0">
-      </item>
       <item path="../src/basic.c" ex="false" tool="0" flavor2="9">
       </item>
       <item path="../src/basic_lexer.c" ex="false" tool="0" flavor2="9">
@@ -405,8 +396,6 @@
       <item path="../include/terminal.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/tools.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../src/HAL.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="../src/basic.c" ex="false" tool="0" flavor2="9">
       </item>
@@ -489,8 +478,6 @@
       </item>
       <item path="../include/tools.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../src/HAL.c" ex="false" tool="0" flavor2="0">
-      </item>
       <item path="../src/basic.c" ex="false" tool="0" flavor2="9">
       </item>
       <item path="../src/basic_lexer.c" ex="false" tool="0" flavor2="9">
@@ -571,8 +558,6 @@
       <item path="../include/terminal.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/tools.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../src/HAL.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="../src/basic.c" ex="false" tool="0" flavor2="9">
       </item>

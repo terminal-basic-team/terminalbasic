@@ -39,16 +39,12 @@ HAL_nvram_address_t HAL_nvram_getsize();
  */
 void HAL_nvram_write(HAL_nvram_address_t, uint8_t);
 
-void HAL_nvram_write_buf(HAL_nvram_address_t, const void*, uint32_t);
-
 /**
  * @brief read byte from NVRAM
  * @param address
  * @return byte
  */
 uint8_t HAL_nvram_read(HAL_nvram_address_t);
-
-void HAL_nvram_read_buf(HAL_nvram_address_t, void*, uint32_t);
 
 /*** Terminal interface ***/
 
