@@ -443,6 +443,14 @@ inline void writeValue(T v, uint8_t* str)
 	writeValueOfSize<sizeof(T)>(v, str);
 }
 
+#if CONF_USE_ALIGN
+#define READ_VALUE(V) readValue<decltype(V)>(reinterpret_cast<const uint8_t*>(&(V)))
+#define WRITE_VALUE(D, V) writeValue(V, reinterpret_cast<uint8_t*>(&D))
+#else
+#define READ_VALUE(V) (V)
+#define WRITE_VALUE(D, V) D = (V)
+#endif // CONF_USE_ALIGN
+
 } // namespace BASIC
 
 #endif // BASIC_COMMON_HPP

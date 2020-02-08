@@ -397,18 +397,19 @@ Interpreter::list(uint16_t start, uint16_t stop)
 	for (auto s = _program.getNextLine(); s != nullptr;
 	    s = _program.getNextLine()) {
 		// Output onlyselected lines subrange
-		if (s->number < start)
+		const auto snumber = READ_VALUE(s->number);
+		if (snumber < start)
 			continue;
-		if (stop > 0 && s->number > stop)
+		if (stop > 0 && snumber > stop)
 			break;
 
-		if (s->number > 9999)
+		if (snumber > 9999)
 			order = 4;
-		else if (s->number > 999)
+		else if (snumber > 999)
 			order = 3;
-		else if (s->number > 99)
+		else if (snumber > 99)
 			order = 2;
-		else if (s->number > 9)
+		else if (snumber > 9)
 			order = 1;
 	}
 #endif // LINE_NUM_INDENT
@@ -419,22 +420,23 @@ Interpreter::list(uint16_t start, uint16_t stop)
 #endif
 	for (auto s = _program.getNextLine(); s != nullptr;
 	    s = _program.getNextLine()) {
-		// Output onlyselected lines subrange
-		if (s->number < start)
+		const auto snumber = READ_VALUE(s->number);
+		// Output only selected lines subrange
+		if (snumber < start)
 			continue;
-		if (stop > 0 && s->number > stop)
+		if ((stop > 0) && (snumber > stop))
 			break;
 
 		// Output line number
 #if LINE_NUM_INDENT
 		uint8_t indent;
-		if (s->number > 9999)
+		if (snumber > 9999)
 			indent = order - 4;
-		else if (s->number > 999)
+		else if (snumber > 999)
 			indent = order - 3;
-		else if (s->number > 99)
+		else if (snumber > 99)
 			indent = order - 2;
-		else if (s->number > 9)
+		else if (snumber > 9)
 			indent = order - 1;
 		else
 			indent = order;
@@ -442,7 +444,7 @@ Interpreter::list(uint16_t start, uint16_t stop)
 		while (indent-- > 0)
 			_output.print(char(ASCII::SPACE));
 #endif // LINE_NUM_INDENT
-		print(long(s->number), VT100::C_YELLOW);
+		print(long(snumber), VT100::C_YELLOW);
 		
 		Lexer lex;
 #if LOOP_INDENT
