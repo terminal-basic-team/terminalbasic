@@ -22,18 +22,62 @@
 #ifdef ARDUINO_ARCH_ESP8266
 
 #include "HAL.h"
+#include "FS.h"
 
-HAL_nvram_address_t HAL_nvram_getsize()
+#define NVRAMSIZE 32768
+
+static File f;
+
+void
+HAL_initialize()
 {
-
+	if (!SPIFFS.begin())
+		exit(1);
 }
 
-uint8_t HAL_nvram_read(HAL_nvram_address_t addr)
+void
+HAL_finalize()
 {
 }
 
-void HAL_nvram_write(HAL_nvram_address_t addr, uint8_t byte)
+HAL_nvram_address_t
+HAL_nvram_getsize()
 {
+	return NVRAMSIZE;
+}
+
+uint8_t
+HAL_nvram_read(HAL_nvram_address_t addr)
+{
+	f = SPIFFS.open("/nvram.bin", "r");
+	if (!f)
+		exit(2);
+	if (!f.seek(uint32_t(addr)))
+		exit(3);
+	uint8_t r = f.read();
+	f.close();
+	return r;
+}
+
+void
+HAL_nvram_write(HAL_nvram_address_t addr, uint8_t b)
+{
+	f = SPIFFS.open("/nvram.bin", "r+");
+	if (!f)
+		exit(2);
+
+	if (f.size() > uint32_t(addr)) {
+		if (!f.seek(uint32_t(addr)))
+			exit(3);
+	} else {
+		if (!f.seek(f.size()))
+			exit(3);
+		while (f.size() < uint32_t(addr)) {
+			f.write(0xFF);
+		}
+	}
+	f.write(b);
+	f.close();
 }
 
 #endif // ARDUINO_ARCH_ESP8266
