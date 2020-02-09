@@ -766,7 +766,7 @@ Interpreter::pushReturnAddress()
 	const uint8_t textPosition = _lexer.getPointer();
 	auto f = _program.push(Program::StackFrame::SUBPROGRAM_RETURN);
 	if (f != nullptr) {
-		f->body.gosubReturn.calleeIndex = _program._current.index;
+		WRITE_VALUE(f->body.gosubReturn.calleeIndex, _program._current.index);
 		f->body.gosubReturn.textPosition = _program._current.position +
 		    textPosition;
 	} else
@@ -781,7 +781,7 @@ Interpreter::returnFromSub()
 		if (f == nullptr)
 			break;
 		if (f->_type == Program::StackFrame::SUBPROGRAM_RETURN) {
-			_program.jump(f->body.gosubReturn.calleeIndex);
+			_program.jump(READ_VALUE(f->body.gosubReturn.calleeIndex));
 			_program._current.position = f->body.gosubReturn.textPosition;
 			_program.pop();
 			return;
@@ -799,7 +799,7 @@ Interpreter::pushForLoop(const char *varName, uint8_t textPosition,
 	auto f = _program.push(Program::StackFrame::FOR_NEXT);
 	if (f != nullptr) {
 	    	auto &fBody = f->body.forFrame;
-		fBody.calleeIndex = _program._current.index;
+		WRITE_VALUE(fBody.calleeIndex, _program._current.index);
 		fBody.textPosition = _program._current.position +
 		    textPosition;
 		fBody.finalvalue = v;
@@ -961,7 +961,7 @@ Interpreter::returnFromFn()
 	
 	const auto f = _program.currentStackFrame();
 	if ((f != nullptr) && (f->_type == Program::StackFrame::SUBPROGRAM_RETURN)) {
-		_program._current.index = f->body.gosubReturn.calleeIndex;
+		_program._current.index = READ_VALUE(f->body.gosubReturn.calleeIndex);
 		_program._current.position = f->body.gosubReturn.textPosition;
 		_program.pop();
 	} else {
@@ -1025,7 +1025,7 @@ Interpreter::testFor(Program::StackFrame &f)
 		_program.pop();
 		return true;
 	}
-	_program.jump(fBody.calleeIndex);
+	_program.jump(READ_VALUE(fBody.calleeIndex));
 	_program._current.position = fBody.textPosition;
 	return false;
 }
