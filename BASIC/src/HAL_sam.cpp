@@ -19,10 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifdef ARDUINO_ARCH_AVR
-
-#include <avr/io.h>
-#include <avr/eeprom.h>
+#ifdef ARDUINO_ARCH_SAM
 
 #include "HAL.h"
 
@@ -38,17 +35,16 @@ HAL_finalize()
 
 HAL_nvram_address_t HAL_nvram_getsize()
 {
-	return (HAL_nvram_address_t)(E2END+1);
+	return 0;
 }
 
-uint8_t HAL_nvram_read(HAL_nvram_address_t addr)
+uint8_t HAL_nvram_read(HAL_nvram_address_t)
 {
-	return eeprom_read_byte((uint8_t*)addr);
+	return 0;
 }
 
-void HAL_nvram_write(HAL_nvram_address_t addr, uint8_t byte)
+void HAL_nvram_write(HAL_nvram_address_t, uint8_t)
 {
-	return eeprom_update_byte((uint8_t*)addr, byte);
 }
 
-#endif /* ARDUINO_ARCH_AVR */
+#endif // ARDUINO_ARCH_SAM

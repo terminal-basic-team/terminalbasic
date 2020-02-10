@@ -19,16 +19,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifdef ARDUINO_ARCH_AVR
-
-#include <avr/io.h>
-#include <avr/eeprom.h>
+#ifdef ARDUINO_ARCH_ESP32
 
 #include "HAL.h"
+#include "FS.h"
+#include "SPIFFS.h"
+
+#define NVRAMSIZE 65536
+
+static File f;
 
 void
 HAL_initialize()
 {
+	if (!SPIFFS.begin(false))
+		if (!SPIFFS.begin(true))
+			exit(1);
 }
 
 void
@@ -36,19 +42,50 @@ HAL_finalize()
 {
 }
 
-HAL_nvram_address_t HAL_nvram_getsize()
+HAL_nvram_address_t
+HAL_nvram_getsize()
 {
-	return (HAL_nvram_address_t)(E2END+1);
+	return NVRAMSIZE;
 }
 
-uint8_t HAL_nvram_read(HAL_nvram_address_t addr)
+uint8_t
+HAL_nvram_read(HAL_nvram_address_t addr)
 {
-	return eeprom_read_byte((uint8_t*)addr);
+	f = SPIFFS.open("/nvram.bin", "r");
+	if (!f)
+		exit(2);
+	if (!f.seek(uint32_t(addr)))
+		exit(3);
+	uint8_t r = f.read();
+	f.close();
+	return r;
 }
 
-void HAL_nvram_write(HAL_nvram_address_t addr, uint8_t byte)
+void
+HAL_nvram_write(HAL_nvram_address_t addr, uint8_t b)
 {
-	return eeprom_update_byte((uint8_t*)addr, byte);
+	Serial.println((uint32_t) addr, HEX);
+	f = SPIFFS.open("/nvram.bin", "r+");
+	if (!f) {
+		f = SPIFFS.open("/nvram.bin", "w");
+		if (!f) {
+			exit(1);
+		}
+	}
+
+	if (f.size() > uint32_t(addr)) {
+		if (!f.seek(uint32_t(addr)))
+			exit(2);
+	} else {
+		if (!f.seek(f.size()))
+			exit(2);
+		while (f.size() < uint32_t(addr)) {
+			f.write(0xFF);
+		}
+	}
+
+	f.write(b);
+	f.close();
 }
 
-#endif /* ARDUINO_ARCH_AVR */
+#endif // ARDUINO_ARCH_ESP32

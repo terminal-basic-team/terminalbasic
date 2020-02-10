@@ -27,8 +27,10 @@
     <logicalFolder name="src" displayName="src" projectFiles="true">
       <itemPath>src/HAL_arduino.cpp</itemPath>
       <itemPath>src/HAL_avr8.c</itemPath>
+      <itemPath>src/HAL_esp32.cpp</itemPath>
       <itemPath>src/HAL_esp8266.cpp</itemPath>
       <itemPath>src/HAL_linux.c</itemPath>
+      <itemPath>src/HAL_sam.cpp</itemPath>
       <itemPath>src/basic.cpp</itemPath>
       <itemPath>src/basic_arduinoio.cpp</itemPath>
       <itemPath>src/basic_dataparser.cpp</itemPath>
@@ -240,9 +242,13 @@
       </item>
       <item path="src/HAL_avr8.c" ex="false" tool="0" flavor2="0">
       </item>
+      <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_linux.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -439,7 +445,11 @@
       </item>
       <item path="src/HAL_avr8.c" ex="false" tool="0" flavor2="0">
       </item>
+      <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -497,6 +507,21 @@
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <cTool>
+          <developmentMode>0</developmentMode>
+          <incDir>
+            <pElem>../libbasic/include</pElem>
+            <pElem>../../libarduinoext/include</pElem>
+          </incDir>
+          <commandLine>-Os -w -Wextra -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects -mcall-prologues -mmcu=atmega328p</commandLine>
+          <preprocessorList>
+            <Elem>ARDUINO=10810</Elem>
+            <Elem>ARDUINO_ARCH_AVR</Elem>
+            <Elem>ARDUINO_AVR_UNO</Elem>
+            <Elem>F_CPU=16000000L</Elem>
+          </preprocessorList>
+          <warningLevel>2</warningLevel>
+        </cTool>
         <ccTool>
           <developmentMode>0</developmentMode>
           <incDir>
@@ -657,9 +682,13 @@
       </item>
       <item path="src/HAL_avr8.c" ex="false" tool="0" flavor2="0">
       </item>
+      <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_linux.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -890,9 +919,13 @@
       </item>
       <item path="src/HAL_avr8.c" ex="false" tool="0" flavor2="0">
       </item>
+      <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_linux.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1059,9 +1092,13 @@
       </item>
       <item path="src/HAL_avr8.c" ex="false" tool="0" flavor2="0">
       </item>
+      <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_linux.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1232,9 +1269,13 @@
       </item>
       <item path="src/HAL_avr8.c" ex="false" tool="0" flavor2="0">
       </item>
+      <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_linux.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1403,9 +1444,13 @@
       </item>
       <item path="src/HAL_avr8.c" ex="false" tool="0" flavor2="0">
       </item>
+      <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_linux.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1591,9 +1636,13 @@
       </item>
       <item path="src/HAL_avr8.c" ex="false" tool="0" flavor2="0">
       </item>
+      <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_linux.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1805,9 +1854,13 @@
       </item>
       <item path="src/HAL_avr8.c" ex="false" tool="0" flavor2="0">
       </item>
+      <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_linux.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -2008,9 +2061,13 @@
       </item>
       <item path="src/HAL_avr8.c" ex="false" tool="0" flavor2="0">
       </item>
+      <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_linux.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -2180,9 +2237,13 @@
       </item>
       <item path="src/HAL_avr8.c" ex="false" tool="0" flavor2="0">
       </item>
+      <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_linux.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -2353,9 +2414,13 @@
       </item>
       <item path="src/HAL_avr8.c" ex="false" tool="0" flavor2="0">
       </item>
+      <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_linux.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -2577,9 +2642,13 @@
       </item>
       <item path="src/HAL_avr8.c" ex="false" tool="0" flavor2="0">
       </item>
+      <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_linux.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>

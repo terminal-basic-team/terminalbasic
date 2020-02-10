@@ -39,8 +39,15 @@ void HAL_finalize();
 
 /*** Non volatile RAM interface ***/
 
+/**
+ * @address
+ */
 typedef uint32_t HAL_nvram_address_t;
 
+/**
+ * @brief Get NVRAM size
+ * @return 
+ */
 HAL_nvram_address_t HAL_nvram_getsize();
 
 /**
