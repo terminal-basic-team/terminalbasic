@@ -1594,7 +1594,7 @@ Interpreter::raiseError(ErrorType type, ErrorCodes errorCode, bool fatal)
 	// Output Program line number if running program
 	const Program::Line *l = _program.current(_program._current);
 	if ((_state == EXECUTE) && (l != nullptr)) {
-		print(long(l->number), VT100::C_YELLOW);
+		print(long(READ_VALUE(l->number)), VT100::C_YELLOW);
 		_output.print(':');
 	}
 	if (type == DYNAMIC_ERROR)

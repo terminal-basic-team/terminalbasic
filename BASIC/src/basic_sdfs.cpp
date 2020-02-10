@@ -311,7 +311,7 @@ SDFSModule::dsave(Interpreter &i)
 	Lexer lex;
 	for (Program::Line *s = i._program.getNextLine(); s != nullptr;
 	    s = i._program.getNextLine()) {
-		f.print(s->number);
+		f.print(READ_VALUE(s->number));
 		lex.init(s->text, true);
 		Token tPrev = Token::NOTOKENS;
 		while (lex.getNext()) {
