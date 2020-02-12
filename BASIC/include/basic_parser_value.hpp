@@ -131,6 +131,20 @@ public:
 	size_t printTo(Print& p) const;
 };
 
+template <>
+inline void writeValue<Parser::Value>(Parser::Value v, uint8_t* str)
+{
+	memcpy(str, &v, sizeof(v));
+}
+
+template <>
+inline typename Parser::Value readValue<Parser::Value>(const uint8_t* str)
+{
+	Parser::Value result;
+	memcpy(&result, str, sizeof(result));
+	return result;
+}
+
 } // namespace BASIC
 
 #endif // BASIC_PARSER_VALUE_HPP

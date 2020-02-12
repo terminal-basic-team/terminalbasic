@@ -816,7 +816,7 @@ Interpreter::pushValue(const Parser::Value &v)
 {
 	auto f = _program.push(Program::StackFrame::VALUE);
 	if (f != nullptr) {
-		f->body.value = v;
+		WRITE_VALUE(f->body.value, v);
 		return true;
 	} else {
 		raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
@@ -839,7 +839,7 @@ Interpreter::popValue(Parser::Value &v)
 {
 	const auto f = _program.currentStackFrame();
 	if ((f != nullptr) && (f->_type == Program::StackFrame::VALUE)) {
-		v = f->body.value;
+		v = READ_VALUE(f->body.value);
 		_program.pop();
 		return true;
 	} else {

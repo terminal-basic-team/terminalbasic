@@ -409,7 +409,7 @@ inline uint16_t readValueOfSize<2>(const uint8_t* str)
 }
 
 template <typename T>
-inline typename type_factory<sizeof(T)>::unsigned_type readValue(const uint8_t* str)
+inline T readValue(const uint8_t* str)
 {
 	return readValueOfSize<sizeof(T)>(str);
 }
