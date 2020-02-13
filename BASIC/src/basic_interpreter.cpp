@@ -802,8 +802,8 @@ Interpreter::pushForLoop(const char *varName, uint8_t textPosition,
 		WRITE_VALUE(fBody.calleeIndex, _program._current.index);
 		fBody.textPosition = _program._current.position +
 		    textPosition;
-		fBody.finalvalue = v;
-		fBody.stepValue = vStep;
+		WRITE_VALUE(fBody.finalvalue, v);
+		WRITE_VALUE(fBody.stepValue, vStep);
 		strcpy(fBody.varName, varName);
 	} else
 		raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
@@ -996,7 +996,7 @@ Interpreter::next(const char *varName)
 			if (strcmp(f->body.forFrame.varName, varName) == 0) {
 				Parser::Value v;
 				valueFromVar(v, varName);
-				v += f->body.forFrame.stepValue;
+				v += READ_VALUE(f->body.forFrame.stepValue);
 				setVariable(varName, v);
 				return testFor(*f);
 			} else
@@ -1016,12 +1016,12 @@ Interpreter::testFor(Program::StackFrame &f)
 	auto &fBody = f.body.forFrame;
 	Parser::Value v;
 	valueFromVar(v, fBody.varName);
-	if (fBody.stepValue > Parser::Value(Integer(0))) {
-		if (v > fBody.finalvalue) {
+	if (READ_VALUE(fBody.stepValue) > Parser::Value(Integer(0))) {
+		if (v > READ_VALUE(fBody.finalvalue)) {
 			_program.pop();
 			return true;
 		}
-	} else if (v < fBody.finalvalue) {
+	} else if (v < READ_VALUE(fBody.finalvalue)) {
 		_program.pop();
 		return true;
 	}

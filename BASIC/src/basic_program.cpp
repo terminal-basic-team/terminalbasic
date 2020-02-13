@@ -249,7 +249,7 @@ Program::push(StackFrame::Type t)
 	if ((_sp - s) < _arraysEnd)
 		return nullptr;
 
-	_sp -= StackFrame::size(t);
+	_sp -= s;
 	StackFrame *f = stackFrameByIndex(_sp);
 	if (f != nullptr)
 		f->_type = t;
