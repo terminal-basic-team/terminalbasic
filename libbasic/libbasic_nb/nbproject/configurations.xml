@@ -424,7 +424,7 @@
     </conf>
     <conf name="Arduino_nano168" type="3">
       <toolsSet>
-        <compilerSet>Arduino-1.8.6|GNU</compilerSet>
+        <compilerSet>Arduino-1.8.10|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
@@ -439,7 +439,7 @@
           </incDir>
           <commandLine>-Os -Wextra -std=gnu11 -ffunction-sections -fdata-sections -MMD -mmcu=atmega168 -flto -fno-fat-lto-objects -mcall-prologues</commandLine>
           <preprocessorList>
-            <Elem>ARDUINO=10806</Elem>
+            <Elem>ARDUINO=10810</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_NANO</Elem>
             <Elem>F_CPU=16000000L</Elem>
