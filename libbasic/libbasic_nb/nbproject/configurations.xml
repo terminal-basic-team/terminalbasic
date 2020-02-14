@@ -2,6 +2,7 @@
 <configurationDescriptor version="100">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="include" displayName="include" projectFiles="true">
+      <itemPath>../include/HAL.h</itemPath>
       <itemPath>../include/_tokens_en.h</itemPath>
       <itemPath>../include/_tokens_fr.h</itemPath>
       <itemPath>../include/_tokens_ru.h</itemPath>
@@ -69,6 +70,8 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="../include/HAL.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../include/_tokens_en.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/_tokens_fr.h" ex="false" tool="3" flavor2="0">
@@ -134,6 +137,8 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="../include/HAL.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../include/_tokens_en.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/_tokens_fr.h" ex="false" tool="3" flavor2="0">
@@ -208,6 +213,8 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="../include/HAL.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../include/_tokens_en.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/_tokens_fr.h" ex="false" tool="3" flavor2="0">
@@ -287,6 +294,8 @@
           <ranlibTool>avr-gcc-ranlib</ranlibTool>
         </archiverTool>
       </compileType>
+      <item path="../include/HAL.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../include/_tokens_en.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/_tokens_fr.h" ex="false" tool="3" flavor2="0">
@@ -366,6 +375,8 @@
           <ranlibTool>avr-gcc-ranlib</ranlibTool>
         </archiverTool>
       </compileType>
+      <item path="../include/HAL.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../include/_tokens_en.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/_tokens_fr.h" ex="false" tool="3" flavor2="0">
@@ -413,7 +424,7 @@
     </conf>
     <conf name="Arduino_nano168" type="3">
       <toolsSet>
-        <compilerSet>Arduino-1.8.6|GNU</compilerSet>
+        <compilerSet>Arduino-1.8.10|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
@@ -428,7 +439,7 @@
           </incDir>
           <commandLine>-Os -Wextra -std=gnu11 -ffunction-sections -fdata-sections -MMD -mmcu=atmega168 -flto -fno-fat-lto-objects -mcall-prologues</commandLine>
           <preprocessorList>
-            <Elem>ARDUINO=10806</Elem>
+            <Elem>ARDUINO=10810</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_NANO</Elem>
             <Elem>F_CPU=16000000L</Elem>
@@ -445,6 +456,8 @@
           <ranlibTool>avr-gcc-ranlib</ranlibTool>
         </archiverTool>
       </compileType>
+      <item path="../include/HAL.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../include/_tokens_en.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/_tokens_fr.h" ex="false" tool="3" flavor2="0">
@@ -524,6 +537,8 @@
           <ranlibTool>avr-gcc-ranlib</ranlibTool>
         </archiverTool>
       </compileType>
+      <item path="../include/HAL.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../include/_tokens_en.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/_tokens_fr.h" ex="false" tool="3" flavor2="0">
