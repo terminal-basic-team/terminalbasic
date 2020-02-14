@@ -76,6 +76,11 @@
 #define USE_DELAY           1
 
 /*
+ * Allow ON ... GOTO ... statements
+ */
+#define CONF_USE_ON_GOTO    0
+
+/*
  * Allow GO TO OPERATOR in addition to GOTO
  */
 #define CONF_SEPARATE_GO_TO     0
