@@ -990,9 +990,10 @@ Interpreter::returnFromFn()
 bool
 Interpreter::next(const char *varName)
 {
-        do {
+	do {
 		Program::StackFrame *f = _program.currentStackFrame();
-		if ((f != nullptr) && (f->_type == Program::StackFrame::FOR_NEXT)) { // Correct frame
+		if ((f != nullptr) &&
+		    (f->_type == Program::StackFrame::FOR_NEXT)) { // Correct frame
 			if (strcmp(f->body.forFrame.varName, varName) == 0) {
 				Parser::Value v;
 				valueFromVar(v, varName);
