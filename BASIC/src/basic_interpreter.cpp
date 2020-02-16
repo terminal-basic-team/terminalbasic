@@ -842,10 +842,8 @@ Interpreter::popValue(Parser::Value &v)
 		v = READ_VALUE(f->body.value);
 		_program.pop();
 		return true;
-	} else {
-//		raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
+	} else
 		return false;
-	}
 }
 
 bool
