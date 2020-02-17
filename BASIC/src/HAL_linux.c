@@ -32,6 +32,7 @@
 #include <unistd.h>
 
 #include <sys/stat.h>
+#include <time.h>
 
 #define FILES_PATH "/terminal_basic_HAL/"
 #define NVRAM_FILE "nvram.img"
@@ -110,7 +111,13 @@ void HAL_nvram_write(HAL_nvram_address_t address, uint8_t b)
 
 uint32_t HAL_time_gettime_ms()
 {
-	return 0;
+	struct timespec ts;
+	if (clock_gettime(CLOCK_MONOTONIC, &ts) != 0) {
+		perror("clock_gettime");
+		exit(EXIT_FAILURE);
+	}
+	
+	return ts.tv_sec * 1000l + ts.tv_nsec / 1000000l;
 }
 
 #endif /* __linux__ */

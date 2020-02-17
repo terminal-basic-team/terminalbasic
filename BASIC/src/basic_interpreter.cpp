@@ -237,7 +237,7 @@ Interpreter::step()
 			if (c == char(ASCII::EOT))
 				_state = SHELL;
 		}
-		if (millis() >= _delayTimeout)
+		if (HAL_time_gettime_ms() >= _delayTimeout)
 			_state = _lastState;
 		break;
 #endif // USE_DELAY
@@ -863,7 +863,7 @@ Interpreter::popString(const char *&str)
 void
 Interpreter::randomize()
 {
-	::randomSeed(millis());
+	::randomSeed(HAL_time_gettime_ms());
 }
 
 #if USE_DEFFN
