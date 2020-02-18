@@ -1621,7 +1621,8 @@ bool
 Interpreter::arrayElementIndex(ArrayFrame *f, uint16_t &index)
 {
 	index = 0;
-	uint8_t dim = f->numDimensions, mul = 1;
+	uint8_t dim = f->numDimensions;
+	uint16_t mul = 1;
 	while (dim-- > 0) {
 		Program::StackFrame *sf = _program.currentStackFrame();
 		if (sf == nullptr ||
