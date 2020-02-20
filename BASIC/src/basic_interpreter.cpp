@@ -237,7 +237,7 @@ Interpreter::step()
 			if (c == char(ASCII::EOT))
 				_state = SHELL;
 		}
-		if (millis() >= _delayTimeout)
+		if (HAL_time_gettime_ms() >= _delayTimeout)
 			_state = _lastState;
 		break;
 #endif // USE_DELAY
@@ -842,10 +842,8 @@ Interpreter::popValue(Parser::Value &v)
 		v = READ_VALUE(f->body.value);
 		_program.pop();
 		return true;
-	} else {
-//		raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
+	} else
 		return false;
-	}
 }
 
 bool
@@ -865,7 +863,7 @@ Interpreter::popString(const char *&str)
 void
 Interpreter::randomize()
 {
-	::randomSeed(millis());
+	::randomSeed(HAL_time_gettime_ms());
 }
 
 #if USE_DEFFN
@@ -990,9 +988,10 @@ Interpreter::returnFromFn()
 bool
 Interpreter::next(const char *varName)
 {
-        do {
+	do {
 		Program::StackFrame *f = _program.currentStackFrame();
-		if ((f != nullptr) && (f->_type == Program::StackFrame::FOR_NEXT)) { // Correct frame
+		if ((f != nullptr) &&
+		    (f->_type == Program::StackFrame::FOR_NEXT)) { // Correct frame
 			if (strcmp(f->body.forFrame.varName, varName) == 0) {
 				Parser::Value v;
 				valueFromVar(v, varName);
@@ -1622,7 +1621,8 @@ bool
 Interpreter::arrayElementIndex(ArrayFrame *f, uint16_t &index)
 {
 	index = 0;
-	uint8_t dim = f->numDimensions, mul = 1;
+	uint8_t dim = f->numDimensions;
+	uint16_t mul = 1;
 	while (dim-- > 0) {
 		Program::StackFrame *sf = _program.currentStackFrame();
 		if (sf == nullptr ||
