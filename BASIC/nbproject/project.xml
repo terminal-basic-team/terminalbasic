@@ -12,12 +12,13 @@
                 <make-dep-project>../../libarduinoemulator</make-dep-project>
                 <make-dep-project>../../libps2uart/libps2uart</make-dep-project>
                 <make-dep-project>../../libutft</make-dep-project>
+                <make-dep-project>../../libtvoutex/netbenas</make-dep-project>
                 <make-dep-project>../libarduino</make-dep-project>
                 <make-dep-project>../arduinoext</make-dep-project>
                 <make-dep-project>../../libarduinoext</make-dep-project>
                 <make-dep-project>../libbasic/libbasic_nb</make-dep-project>
-                <make-dep-project>../../tvoutex/livbtvoutex</make-dep-project>
                 <make-dep-project>../../libarduino</make-dep-project>
+                <make-dep-project>../../tvoutex/livbtvoutex</make-dep-project>
                 <make-dep-project>../../libarduinodue</make-dep-project>
                 <make-dep-project>../../libsdcard/libsdcard</make-dep-project>
             </make-dep-projects>
