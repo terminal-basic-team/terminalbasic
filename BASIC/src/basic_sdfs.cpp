@@ -128,12 +128,8 @@ SDFSModule::com_fclose(Interpreter& i)
 {
 	INT iv;
 	if (getIntegerFromStack(i, iv)) {
-		if (iv >= 0 && iv < FILE_NUMBER) {
-			if (userFiles[iv]) {
-				userFiles[iv].close();
-				return true;
-			}
-		}
+		HAL_extmem_closefile(HAL_extmem_file_t(iv));
+		return true;
 	}
 	return false;
 }
@@ -143,13 +139,10 @@ SDFSModule::com_fseek(Interpreter& i)
 {
 	INT iv;
 	if (getIntegerFromStack(i, iv)) {
-		if (iv >= 0 && iv < FILE_NUMBER) {
-			if (userFiles[iv]) {
-				INT bv;
-				if (getIntegerFromStack(i, bv)) {
-					return userFiles[iv].seek(bv);
-				}
-			}
+		INT bv;
+		if (getIntegerFromStack(i, bv)) {
+			HAL_extmem_setfileposition(iv, bv);
+			return true;
 		}
 	}
 	return false;
@@ -174,26 +167,13 @@ SDFSModule::com_fwrite(Interpreter& i)
 bool
 SDFSModule::func_fopen(Interpreter& i)
 {
-	uint8_t currentFile;
-	for (currentFile = 0; currentFile<FILE_NUMBER; ++currentFile)
-		if (!userFiles[currentFile])
-			break;
-	if (currentFile < FILE_NUMBER) {
-		const char* s;
-		if (i.popString(s)) {
-			userFiles[currentFile] = SDCard::SDFS.open(s,
-			    SDCard::Mode::WRITE |
-			    SDCard::Mode::READ |
-			    SDCard::Mode::CREAT);
-			if (userFiles[currentFile]) {
-				userFiles[currentFile].seek(0);
-				if (i.pushValue(Integer(currentFile))) {
-					return true;
-				}
-				// Can't push fileno, close file
-				userFiles[currentFile].close();
-			}
+	const char* s;
+	if (i.popString(s)) {
+		HAL_extmem_file_t f = HAL_extmem_openfile(s);
+		if (i.pushValue(Integer(f))) {
+			return true;
 		}
+		HAL_extmem_closefile(f);
 	}
 	return false;
 }
@@ -218,12 +198,8 @@ SDFSModule::func_fsize(Interpreter& i)
 {
 	INT iv;
 	if (getIntegerFromStack(i, iv)) {
-		if (iv >= 0 && iv < FILE_NUMBER) {
-			if (userFiles[iv]) {
-				if (i.pushValue(INT(userFiles[iv].size())))
-					return true;
-			}
-		}
+		if (i.pushValue(INT(HAL_extmem_getfilesize(iv))))
+			return true;
 	}
 	return false;
 }

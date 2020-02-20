@@ -100,9 +100,9 @@ uint8_t HAL_extmem_readfromfile(HAL_extmem_file_t);
 
 void HAL_extmem_writetofile(HAL_extmem_file_t, uint8_t);
 
-uint32_t HAL_extmem_getfileposition(HAL_extmem_file_t);
+HAL_extmem_fileposition_t HAL_extmem_getfileposition(HAL_extmem_file_t);
 
-void HAL_extmem_setfileposition(HAL_extmem_file_t, uint32_t);
+void HAL_extmem_setfileposition(HAL_extmem_file_t, HAL_extmem_fileposition_t);
 
 HAL_extmem_fileposition_t HAL_extmem_getfilesize(HAL_extmem_file_t);
 

@@ -37,9 +37,16 @@
 #define FILES_PATH "/terminal_basic_HAL/"
 #define NVRAM_FILE "nvram.img"
 
-static int nvram_file = -1;
+#define EXTMEM_NUM_FILES 8
+#define EXTMEM_DIR_PATH "extmem/"
 
-void HAL_initialize()
+static int nvram_file = -1;
+static int extmem_files[EXTMEM_NUM_FILES];
+
+static char ext_root[256];
+
+void
+HAL_initialize()
 {
 	/* Initialize nvram and external memory directories */
 	const char *homedir = NULL;
@@ -73,9 +80,22 @@ void HAL_initialize()
 		perror("atexit");
 		exit(EXIT_FAILURE);
 	}
+	
+	strncpy(ext_root, root, 256);
+	strncat(ext_root, EXTMEM_DIR_PATH, strlen(EXTMEM_DIR_PATH));
+	DIR *ucbasicExtmem = opendir(ext_root);
+	if (ucbasicExtmem == NULL)
+		if (mkdir(ext_root, 0770) == -1) {
+			perror("mkdir");
+			exit(EXIT_FAILURE);
+		}
+	
+	for (size_t i=0; i<EXTMEM_NUM_FILES; ++i)
+		extmem_files[i] = -1;
 }
 
-void HAL_finalize()
+void
+HAL_finalize()
 {
 	if (close(nvram_file) != 0) {
 		perror("close");
@@ -83,7 +103,8 @@ void HAL_finalize()
 	}
 }
 
-uint8_t HAL_nvram_read(HAL_nvram_address_t address)
+uint8_t
+HAL_nvram_read(HAL_nvram_address_t address)
 {
 	if (lseek(nvram_file, (off_t)address, SEEK_SET) == (off_t)-1) {
 		perror("lseek");
@@ -97,7 +118,8 @@ uint8_t HAL_nvram_read(HAL_nvram_address_t address)
 	return buf;
 }
 
-void HAL_nvram_write(HAL_nvram_address_t address, uint8_t b)
+void
+HAL_nvram_write(HAL_nvram_address_t address, uint8_t b)
 {
 	if (lseek(nvram_file, (off_t)address, SEEK_SET) == (off_t)-1) {
 		perror("lseek");
@@ -109,7 +131,8 @@ void HAL_nvram_write(HAL_nvram_address_t address, uint8_t b)
 	}
 }
 
-uint32_t HAL_time_gettime_ms()
+uint32_t
+HAL_time_gettime_ms()
 {
 	struct timespec ts;
 	if (clock_gettime(CLOCK_MONOTONIC, &ts) != 0) {
@@ -118,6 +141,82 @@ uint32_t HAL_time_gettime_ms()
 	}
 	
 	return ts.tv_sec * 1000l + ts.tv_nsec / 1000000l;
+}
+
+HAL_extmem_file_t
+HAL_extmem_openfile(const char* str)
+{
+	char fpath[256];
+	strncpy(fpath, ext_root, 256);
+	strncat(fpath, str, 256);
+	
+	int fp = open(fpath, O_CREAT|O_RDWR, S_IRUSR|S_IWUSR);
+	if (fp == -1) {
+		perror("open");
+		exit(EXIT_FAILURE);
+	}
+	
+	for (size_t i=0; i<EXTMEM_NUM_FILES; ++i) {
+		if (extmem_files[i] == -1) {
+			extmem_files[i] = fp;
+			return i+1;
+		}
+	}
+	
+	return 0;
+}
+
+void HAL_extmem_closefile(HAL_extmem_file_t file)
+{
+	if ((file == 0)
+	 || (file > EXTMEM_NUM_FILES)
+	 || (extmem_files[file-1] == -1))
+		return;
+	
+	if (close(extmem_files[file-1]) != 0) {
+		perror("close");
+		exit(EXIT_FAILURE);
+	}
+}
+
+off_t
+_seek(HAL_extmem_file_t file, off_t pos, int whence)
+{
+	if ((file == 0)
+	 || (file > EXTMEM_NUM_FILES)
+	 || (extmem_files[file-1] == -1))
+		return;
+	
+	off_t res = lseek(extmem_files[file-1], pos, whence);
+	if (res == -1) {
+		perror("lseek");
+		exit(EXIT_FAILURE);
+	}
+	
+	return res;
+}
+
+HAL_extmem_fileposition_t
+HAL_extmem_getfileposition(HAL_extmem_file_t file)
+{
+	return _seek(file, 0, SEEK_CUR);
+}
+
+void
+HAL_extmem_setfileposition(HAL_extmem_file_t file,
+    HAL_extmem_fileposition_t pos)
+{
+	_seek(file, pos, SEEK_SET);
+}
+
+HAL_extmem_fileposition_t
+HAL_extmem_getfilesize(HAL_extmem_file_t file)
+{
+	off_t current = _seek(file, 0, SEEK_CUR);
+	off_t result =  _seek(file, 0, SEEK_END);
+	_seek(file, current, SEEK_SET);
+	
+	return result;
 }
 
 #endif /* __linux__ */
