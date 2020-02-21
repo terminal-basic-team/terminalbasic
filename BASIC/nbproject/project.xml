@@ -39,6 +39,10 @@
                     <type>1</type>
                 </confElem>
                 <confElem>
+                    <name>Debug_SDL</name>
+                    <type>1</type>
+                </confElem>
+                <confElem>
                     <name>Arduino_nano328</name>
                     <type>1</type>
                 </confElem>

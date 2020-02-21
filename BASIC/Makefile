@@ -134,10 +134,13 @@ help: .help-post
 
 ARCH=""
 
-copy_Debug : ARCH=i686-linux_static-dbg
+copy_Debug : ARCH=i686-linux-dbg
 copy_Debug : copy-pc
+	
+copy_Debug_SDL : ARCH=i686-sdl2-dbg
+copy_Debug_SDL : copy-pc
 
-copy_Release : ARCH=i686-linux_static
+copy_Release : ARCH=i686-linux
 copy_Release : copy-pc
 
 copy-pc:

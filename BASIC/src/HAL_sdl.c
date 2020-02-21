@@ -19,13 +19,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifdef HAL_LINUX
-
-#ifndef __linux__
-#error "__linux__ macro not defined"
-#endif
+#ifdef HAL_SDL
 
 #include "HAL.h"
+
+#include <SDL.h>
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -46,13 +44,19 @@
 #define EXTMEM_DIR_PATH "extmem/"
 
 static int nvram_file = -1;
-static int extmem_files[EXTMEM_NUM_FILES];
+static SDL_RWops* extmem_files[EXTMEM_NUM_FILES];
 
 static char ext_root[256];
 
 void
 HAL_initialize()
 {
+	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+		SDL_LogError(SDL_LOG_CATEGORY_SYSTEM, "SDL_Init: %s",
+		    SDL_GetError());
+		exit(EXIT_FAILURE);
+	}
+	
 	/* Initialize nvram and external memory directories */
 	const char *homedir = NULL;
 	if ((homedir = getenv("HOME")) == NULL) {
@@ -96,7 +100,7 @@ HAL_initialize()
 		}
 	
 	for (size_t i=0; i<EXTMEM_NUM_FILES; ++i)
-		extmem_files[i] = -1;
+		extmem_files[i] = NULL;
 }
 
 void
@@ -106,6 +110,8 @@ HAL_finalize()
 		perror("close");
 		exit(EXIT_FAILURE);
 	}
+	
+	SDL_Quit();
 }
 
 uint8_t
@@ -155,25 +161,37 @@ HAL_extmem_openfile(const char* str)
 	strncpy(fpath, ext_root, 256);
 	strncat(fpath, str, 256);
 	
-	int fp = open(fpath, O_CREAT|O_RDWR, S_IRUSR|S_IWUSR);
-	if (fp == -1) {
-		perror("open");
+	SDL_RWops *file = SDL_RWFromFile(fpath, "ab");
+	if (file == NULL) {
+		SDL_LogError(SDL_LOG_CATEGORY_SYSTEM, "SDL_RWFromFile: %s",
+		    SDL_GetError());
+		exit(EXIT_FAILURE);
+	}
+	if (SDL_RWclose(file) != 0) {
+		SDL_LogError(SDL_LOG_CATEGORY_SYSTEM, "SDL_RWclose: %s",
+		    SDL_GetError());
+		exit(EXIT_FAILURE);
+	}
+	file = SDL_RWFromFile(fpath, "r+b");
+	if (file == NULL) {
+		SDL_LogError(SDL_LOG_CATEGORY_SYSTEM, "SDL_RWFromFile: %s",
+		    SDL_GetError());
 		exit(EXIT_FAILURE);
 	}
 	
 	for (size_t i=0; i<EXTMEM_NUM_FILES; ++i) {
-		if (extmem_files[i] == -1) {
-			extmem_files[i] = fp;
+		if (extmem_files[i] == NULL) {
+			extmem_files[i] = file;
 			return i+1;
 		}
 	}
-	
 	return 0;
 }
 
-void HAL_extmem_closefile(HAL_extmem_file_t file)
+void
+HAL_extmem_closefile(HAL_extmem_file_t file)
 {
-	if ((file == 0)
+	/*if ((file == 0)
 	 || (file > EXTMEM_NUM_FILES)
 	 || (extmem_files[file-1] == -1))
 		return;
@@ -182,13 +200,13 @@ void HAL_extmem_closefile(HAL_extmem_file_t file)
 		perror("close");
 		exit(EXIT_FAILURE);
 	}
-	extmem_files[file-1] = -1;
+	extmem_files[file-1] = -1;*/
 }
 
 off_t
 _seek(HAL_extmem_file_t file, off_t pos, int whence)
 {
-	if ((file == 0)
+	/*if ((file == 0)
 	 || (file > EXTMEM_NUM_FILES)
 	 || (extmem_files[file-1] == -1))
 		return;
@@ -199,36 +217,36 @@ _seek(HAL_extmem_file_t file, off_t pos, int whence)
 		exit(EXIT_FAILURE);
 	}
 	
-	return res;
+	return res;*/
 }
 
 HAL_extmem_fileposition_t
 HAL_extmem_getfileposition(HAL_extmem_file_t file)
 {
-	return _seek(file, 0, SEEK_CUR);
+	//return _seek(file, 0, SEEK_CUR);
 }
 
 void
 HAL_extmem_setfileposition(HAL_extmem_file_t file,
     HAL_extmem_fileposition_t pos)
 {
-	_seek(file, pos, SEEK_SET);
+	//_seek(file, pos, SEEK_SET);
 }
 
 HAL_extmem_fileposition_t
 HAL_extmem_getfilesize(HAL_extmem_file_t file)
 {
-	off_t current = _seek(file, 0, SEEK_CUR);
+	/*off_t current = _seek(file, 0, SEEK_CUR);
 	off_t result =  _seek(file, 0, SEEK_END);
 	_seek(file, current, SEEK_SET);
 	
-	return result;
+	return result;*/
 }
 
 uint8_t
 HAL_extmem_readfromfile(HAL_extmem_file_t file)
 {
-	if ((file == 0)
+	/*if ((file == 0)
 	 || (file > EXTMEM_NUM_FILES)
 	 || (extmem_files[file-1] == -1))
 		return;
@@ -237,19 +255,19 @@ HAL_extmem_readfromfile(HAL_extmem_file_t file)
 	if (read(extmem_files[file-1], &result, 1) != 1)
 		fputs("HAL error \"read\": Can't read from file", stderr);
 	
-	return result;
+	return result;*/
 }
 
 void
 HAL_extmem_writetofile(HAL_extmem_file_t file, uint8_t byte)
 {
-	if ((file == 0)
+	/*if ((file == 0)
 	 || (file > EXTMEM_NUM_FILES)
 	 || (extmem_files[file-1] == -1))
 		return;
 	
 	if (write(extmem_files[file-1], &byte, 1) != 1)
-		fputs("HAL error \"write\": Can't write to file", stderr);
+		fputs("HAL error \"write\": Can't write to file", stderr);*/
 }
 
-#endif /* HAL_LINUX */
+#endif /* HAL_SDL */
