@@ -103,8 +103,8 @@
             <pElem>../../libarduinoemulator/include</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
             <pElem>../../libarduinoext/include</pElem>
-            <pElem>../../tvoutex/TVoutEx/src/</pElem>
             <pElem>../libbasic/include</pElem>
+            <pElem>../../libtvoutex/TVoutEx/src</pElem>
           </incDir>
           <commandLine>`pkg-config --cflags posixcpp` `pkg-config --cflags sdl2`</commandLine>
           <warningLevel>2</warningLevel>
@@ -113,15 +113,15 @@
           <output>${CND_DISTDIR}/${CND_CONF}/basic</output>
           <linkerLibItems>
             <linkerLibProjectItem>
-              <makeArtifact PL="../../tvoutex/livbtvoutex"
+              <makeArtifact PL="../../libtvoutex/netbenas"
                             CT="3"
                             CN="Debug_PC"
                             AC="true"
                             BL="true"
-                            WD="../../tvoutex/livbtvoutex"
+                            WD="../../libtvoutex/netbenas"
                             BC="${MAKE}  -f Makefile CONF=Debug_PC"
                             CC="${MAKE}  -f Makefile CONF=Debug_PC clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblivbtvoutex.a">
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnetbenas.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -331,7 +331,6 @@
             <pElem>${ARDUINO_PATH}/libraries/SD/src</pElem>
             <pElem>include</pElem>
             <pElem>../../libarduinoext/include</pElem>
-            <pElem>../../tvoutex/TVoutEx</pElem>
             <pElem>../libbasic/include</pElem>
           </incDir>
           <incFile>
@@ -746,6 +745,21 @@
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <cTool>
+          <developmentMode>0</developmentMode>
+          <incDir>
+            <pElem>../libbasic/include</pElem>
+            <pElem>../../libarduinoext/include</pElem>
+          </incDir>
+          <commandLine>-Os -Wextra -std=gnu11 -ffunction-sections -fdata-sections -MMD -mmcu=atmega2560 -flto -fno-fat-lto-objects -mcall-prologues</commandLine>
+          <preprocessorList>
+            <Elem>ARDUINO=10810</Elem>
+            <Elem>ARDUINO_ARCH_AVR</Elem>
+            <Elem>ARDUINO_AVR_MEGA2560</Elem>
+            <Elem>F_CPU=16000000L</Elem>
+          </preprocessorList>
+          <warningLevel>2</warningLevel>
+        </cTool>
         <ccTool>
           <developmentMode>0</developmentMode>
           <standard>8</standard>
@@ -766,8 +780,8 @@
             <pElem>../UTFT/include</pElem>
             <pElem>../../libsdcard/SDCard/src</pElem>
             <pElem>../../libutft/UTFT</pElem>
-            <pElem>../../tvoutex/TVoutEx/src/</pElem>
             <pElem>../libbasic/include</pElem>
+            <pElem>../../libtvoutex/TVoutEx/src</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>
@@ -813,18 +827,6 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../../tvoutex/livbtvoutex"
-                            CT="3"
-                            CN="Arduino_MEGA2560"
-                            AC="false"
-                            BL="true"
-                            WD="../../tvoutex/livbtvoutex"
-                            BC="${MAKE}  -f Makefile CONF=Arduino_MEGA2560"
-                            CC="${MAKE}  -f Makefile CONF=Arduino_MEGA2560 clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblivbtvoutex.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
               <makeArtifact PL="../../libarduinoext"
                             CT="3"
                             CN="Arduino_mega2560"
@@ -834,6 +836,18 @@
                             BC="${MAKE}  -f Makefile CONF=Arduino_mega2560"
                             CC="${MAKE}  -f Makefile CONF=Arduino_mega2560 clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinoext.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../libtvoutex/netbenas"
+                            CT="3"
+                            CN="Arduino_MEGA2560"
+                            AC="false"
+                            BL="true"
+                            WD="../../libtvoutex/netbenas"
+                            BC="${MAKE}  -f Makefile CONF=Arduino_MEGA2560"
+                            CC="${MAKE}  -f Makefile CONF=Arduino_MEGA2560 clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnetbenas.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -987,12 +1001,14 @@
           <developmentMode>0</developmentMode>
           <standard>8</standard>
           <incDir>
+            <pElem>include</pElem>
+            <pElem>../libbasic/include</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/SoftwareSerial/src</pElem>
-            <pElem>include</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/EEPROM/src</pElem>
             <pElem>../../libarduinoext/include</pElem>
             <pElem>../../libarduino/include/variants/crumbuino128</pElem>
+            <pElem>../../libsdcard/SDCard/src</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>
@@ -1031,6 +1047,18 @@
                             BC="${MAKE}  -f Makefile CONF=Atmega_128a"
                             CC="${MAKE}  -f Makefile CONF=Atmega_128a clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/libarduino.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../libbasic/libbasic_nb"
+                            CT="3"
+                            CN="Arduino_MEGA"
+                            AC="true"
+                            BL="true"
+                            WD="../libbasic/libbasic_nb"
+                            BC="${MAKE}  -f Makefile CONF=Arduino_MEGA"
+                            CC="${MAKE}  -f Makefile CONF=Arduino_MEGA clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibbasic_nb.a">
               </makeArtifact>
             </linkerLibProjectItem>
           </linkerLibItems>
@@ -1535,7 +1563,6 @@
             <pElem>${ARDUINO_PATH}/libraries/TVoutfonts</pElem>
             <pElem>include</pElem>
             <pElem>../../libarduinoext/include</pElem>
-            <pElem>../TVoutEx</pElem>
             <pElem>../libbasic/include</pElem>
           </incDir>
           <incFile>
@@ -1729,15 +1756,15 @@
             <pElem>../../libarduinoext/include</pElem>
             <pElem>../../libsdcard/SDCard/src</pElem>
             <pElem>../../libps2uart/ps2uartKeyboard</pElem>
-            <pElem>../../tvoutex/TVoutEx</pElem>
             <pElem>../libbasic/include</pElem>
+            <pElem>../../libtvoutex/TVoutEx/src</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>
           </incFile>
           <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -fno-threadsafe-statics -MMD -mmcu=atmega1284p -ffunction-sections -fdata-sections -flto -fno-rtti -mcall-prologues</commandLine>
           <preprocessorList>
-            <Elem>ARDUINO=10804</Elem>
+            <Elem>ARDUINO=10810</Elem>
             <Elem>ARDUINO_1284P_AVR_DEVELOPERS</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>F_CPU=16000000L</Elem>
@@ -1775,15 +1802,15 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../../tvoutex/livbtvoutex"
+              <makeArtifact PL="../../libtvoutex/netbenas"
                             CT="3"
                             CN="Arduino_1284"
-                            AC="true"
+                            AC="false"
                             BL="true"
-                            WD="../../tvoutex/livbtvoutex"
+                            WD="../../libtvoutex/netbenas"
                             BC="${MAKE}  -f Makefile CONF=Arduino_1284"
                             CC="${MAKE}  -f Makefile CONF=Arduino_1284 clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblivbtvoutex.a">
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnetbenas.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -1948,8 +1975,8 @@
             <pElem>${ARDUINO_PATH}/libraries/SD/src</pElem>
             <pElem>include</pElem>
             <pElem>../../libarduinoext/include</pElem>
-            <pElem>../../tvoutex/TVoutEx</pElem>
             <pElem>../../libsdcard/SDCard</pElem>
+            <pElem>../../libtvoutex/TVoutEx/src</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>
@@ -1982,15 +2009,15 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../../tvoutex/livbtvoutex"
+              <makeArtifact PL="../../libtvoutex/netbenas"
                             CT="3"
                             CN="Arduino_MEGA2560"
-                            AC="true"
+                            AC="false"
                             BL="true"
-                            WD="../../tvoutex/livbtvoutex"
+                            WD="../../libtvoutex/netbenas"
                             BC="${MAKE}  -f Makefile CONF=Arduino_MEGA2560"
                             CC="${MAKE}  -f Makefile CONF=Arduino_MEGA2560 clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblivbtvoutex.a">
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnetbenas.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -2140,6 +2167,10 @@
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <cTool>
+          <developmentMode>0</developmentMode>
+          <warningLevel>2</warningLevel>
+        </cTool>
         <ccTool>
           <developmentMode>0</developmentMode>
           <standard>8</standard>
@@ -2158,7 +2189,7 @@
           </incFile>
           <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -fno-threadsafe-statics -MMD -mmcu=atmega328p -ffunction-sections -fdata-sections -flto -fno-rtti -mcall-prologues</commandLine>
           <preprocessorList>
-            <Elem>ARDUINO=10804</Elem>
+            <Elem>ARDUINO=10810</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_PRO</Elem>
             <Elem>F_CPU=16000000L</Elem>
