@@ -171,7 +171,8 @@ HAL_extmem_openfile(const char* str)
 	return 0;
 }
 
-void HAL_extmem_closefile(HAL_extmem_file_t file)
+void
+HAL_extmem_closefile(HAL_extmem_file_t file)
 {
 	if ((file == 0)
 	 || (file > EXTMEM_NUM_FILES)
@@ -191,7 +192,7 @@ _seek(HAL_extmem_file_t file, off_t pos, int whence)
 	if ((file == 0)
 	 || (file > EXTMEM_NUM_FILES)
 	 || (extmem_files[file-1] == -1))
-		return;
+		return 0;
 	
 	off_t res = lseek(extmem_files[file-1], pos, whence);
 	if (res == -1) {

@@ -1,6 +1,9 @@
 /*
  * Terminal-BASIC is a lightweight BASIC-like language interpreter
- * Copyright (C) 2017-2019 Andrey V. Skvortsov <starling13@mail.ru>
+ * 
+ * Copyright (C) 2016-2018 Andrey V. Skvortsov <starling13@mail.ru>
+ * Copyright (C) 2019,2020 Terminal-BASIC team
+ *     <https://bitbucket.org/%7Bf50d6fee-8627-4ce4-848d-829168eedae5%7D/>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -63,6 +66,22 @@ void HAL_nvram_write(HAL_nvram_address_t, uint8_t);
  * @return byte
  */
 uint8_t HAL_nvram_read(HAL_nvram_address_t);
+
+/**
+ * 
+ * @param address
+ * @param buf
+ * @param length
+ */
+void HAL_nvram_read_buf(HAL_nvram_address_t, void*, uint32_t);
+
+/**
+ * 
+ * @param address
+ * @param buf
+ * @param length
+ */
+void HAL_nvram_write_buf(HAL_nvram_address_t, const void*, uint32_t);
 
 /*** Terminal interface ***/
 

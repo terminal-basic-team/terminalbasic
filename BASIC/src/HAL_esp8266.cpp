@@ -25,8 +25,10 @@
 #include "FS.h"
 
 #define NVRAMSIZE 32768
+#define EXTMEM_NUM_FILES 4
 
 static File f;
+static File extmem_files[EXTMEM_NUM_FILES];
 
 void
 HAL_initialize()
@@ -86,6 +88,69 @@ HAL_nvram_write(HAL_nvram_address_t addr, uint8_t b)
 	}
 	f.write(b);
 	f.close();
+}
+
+HAL_extmem_file_t
+HAL_extmem_openfile(const char* str)
+{
+	size_t i=0;
+	for (; i<EXTMEM_NUM_FILES; ++i) {
+		if (!extmem_files[i])
+			break;
+	}
+	
+	if (i == EXTMEM_NUM_FILES)
+		return 0;
+	
+	extmem_files[i] = SPIFFS.open("str", "r+");
+	if (!extmem_files[i]) {
+		extmem_files[i] = SPIFFS.open("str", "w");
+		if (!extmem_files[i])
+			return 0;
+	}
+	
+	return i+1;
+}
+
+void
+HAL_extmem_closefile(HAL_extmem_file_t file)
+{
+	if ((file == 0)
+	 || (file > EXTMEM_NUM_FILES)
+	 || (!extmem_files[file-1]))
+		return;
+	
+	extmem_files[file-1].close();
+}
+
+uint32_t
+_seek(HAL_extmem_file_t file, uint32_t pos, SeekMode whence)
+{
+	if ((file == 0)
+	 || (file > EXTMEM_NUM_FILES)
+	 || (!extmem_files[file-1]))
+		return 0;
+	
+	extmem_files[file-1].seek(pos, whence);
+	return pos;
+}
+
+void
+HAL_extmem_setfileposition(HAL_extmem_file_t file,
+    HAL_extmem_fileposition_t pos)
+{
+	_seek(file, pos, SeekSet);
+}
+
+HAL_extmem_fileposition_t
+HAL_extmem_getfilesize(HAL_extmem_file_t file)
+{
+	if ((file == 0)
+	 || (file > EXTMEM_NUM_FILES)
+	 || (!extmem_files[file-1]))
+		return 0;
+	
+	return extmem_files[file-1].size();
 }
 
 #endif // ARDUINO_ARCH_ESP8266

@@ -50,10 +50,6 @@ void writeR64(double, uint8_t*);
 
 void readR64(double*, const uint8_t*);
 
-void HAL_nvram_read_buf(HAL_nvram_address_t, void*, uint32_t);
-
-void HAL_nvram_write_buf(HAL_nvram_address_t, const void*, uint32_t);
-
 #define ARRAY_SIZE(a) (sizeof(a)/sizeof(a[0]))
 
 #define LOW_BYTE_U16(w) ((uint8_t)w)
