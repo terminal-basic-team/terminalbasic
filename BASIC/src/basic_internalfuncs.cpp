@@ -414,7 +414,7 @@ InternalFunctions::func_mid(Interpreter& i)
 			if (i.popString(str)) {
 				char buf[STRING_SIZE];
 				const auto strl = strlen(str);
-				if (start > strl)
+				if (size_t(start) > strl)
 					buf[0] = 0;
 				else {
 					start = min(uint8_t(start), uint8_t(strl));
