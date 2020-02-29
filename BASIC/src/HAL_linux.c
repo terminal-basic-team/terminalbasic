@@ -232,7 +232,7 @@ HAL_extmem_readfromfile(HAL_extmem_file_t file)
 	if ((file == 0)
 	 || (file > EXTMEM_NUM_FILES)
 	 || (extmem_files[file-1] == -1))
-		return;
+		return 0;
 	
 	char result = '\0';
 	if (read(extmem_files[file-1], &result, 1) != 1)
@@ -251,6 +251,52 @@ HAL_extmem_writetofile(HAL_extmem_file_t file, uint8_t byte)
 	
 	if (write(extmem_files[file-1], &byte, 1) != 1)
 		fputs("HAL error \"write\": Can't write to file", stderr);
+}
+
+uint16_t
+HAL_extmem_getnumfiles()
+{
+	DIR *extRootDir = opendir(ext_root);
+	if (extRootDir == NULL) {
+		perror("opendir");
+		exit(EXIT_FAILURE);
+	}
+	
+	uint16_t result = 0;
+	
+	struct dirent* de;
+	while ((de = readdir(extRootDir)) != NULL) {
+		if (de->d_type == DT_DIR)
+			continue;
+		result++;
+	}
+	
+	return result;
+}
+
+void
+HAL_extmem_getfilename(uint16_t num, char name[13])
+{
+	DIR *extRootDir = opendir(ext_root);
+	if (extRootDir == NULL) {
+		perror("opendir");
+		exit(EXIT_FAILURE);
+	}
+	
+	struct dirent* de;
+	while ((de = readdir(extRootDir)) != NULL) {
+		if (de->d_type == DT_DIR)
+			continue;
+		if (num == 0) {
+			strncpy(name, de->d_name, 12);
+			break;
+		}
+		num--;
+	}
+	if (num > 0) {
+		name[0] = '\0';
+		return;
+	}
 }
 
 #endif /* HAL_LINUX */

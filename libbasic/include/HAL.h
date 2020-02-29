@@ -107,29 +107,82 @@ uint8_t HAL_terminal_isdataready(HAL_terminal_t);
 
 /*** External memory interface ***/
 
+/**
+ * File handle
+ */
 typedef uint8_t HAL_extmem_file_t;
 
+/**
+ * Position in file/file size
+ */
 typedef uint32_t HAL_extmem_fileposition_t;
 
+/**
+ * @brief Open file in external memory
+ * @param path
+ * @return file handle > 0 or 0 on error
+ */
 HAL_extmem_file_t HAL_extmem_openfile(const char*);
 
+/**
+ * @brief close opened file
+ * @param handle
+ */
 void HAL_extmem_closefile(HAL_extmem_file_t);
 
+/**
+ * @brief Read byte from file
+ * @param handle
+ * @return byte
+ */
 uint8_t HAL_extmem_readfromfile(HAL_extmem_file_t);
 
+/**
+ * @brief Write byte to file
+ * @param handle
+ * @param byte
+ */
 void HAL_extmem_writetofile(HAL_extmem_file_t, uint8_t);
 
+/**
+ * @brief 
+ * @param handle
+ * @return position
+ */
 HAL_extmem_fileposition_t HAL_extmem_getfileposition(HAL_extmem_file_t);
 
+/**
+ * @brief Set position in file
+ * @param handle
+ * @param position
+ */
 void HAL_extmem_setfileposition(HAL_extmem_file_t, HAL_extmem_fileposition_t);
 
+/**
+ * @brief handle
+ * @param handle
+ * @return file size
+ */
 HAL_extmem_fileposition_t HAL_extmem_getfilesize(HAL_extmem_file_t);
 
+/**
+ * @brief
+ * @return 
+ */
 uint32_t HAL_extmem_getfreespace();
 
+/**
+ * @brief Get number of 
+ * @return number of files
+ */
 uint16_t HAL_extmem_getnumfiles();
 
-void HAL_extmem_getfilename(uint16_t, char[11]);
+/**
+ * @brief Get file name in a directory
+ * @param num [in] entry number 
+ * @param name [out]
+ */
+void HAL_extmem_getfilename(uint16_t, char[13]);
 
 /*** Time interface ***/
 
