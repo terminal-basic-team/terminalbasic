@@ -141,7 +141,7 @@ SDFSModule::com_fseek(Interpreter& i)
 	if (getIntegerFromStack(i, iv)) {
 		INT bv;
 		if (getIntegerFromStack(i, bv)) {
-			HAL_extmem_setfileposition(iv, bv);
+			HAL_extmem_setfileposition(HAL_extmem_file_t(iv), bv);
 			return true;
 		}
 	}
@@ -153,12 +153,10 @@ SDFSModule::com_fwrite(Interpreter& i)
 {
 	INT iv;
 	if (getIntegerFromStack(i, iv)) {
-		if (iv >= 0 && iv < FILE_NUMBER) {
-			if (userFiles[iv]) {
-				INT bv;
-				if (getIntegerFromStack(i, bv))
-					return (userFiles[iv].write(bv) == 1);
-			}
+		INT bv;
+		if (getIntegerFromStack(i, bv)) {
+			HAL_extmem_writetofile(HAL_extmem_file_t(iv), bv);
+			return true;
 		}
 	}
 	return false;
@@ -170,9 +168,8 @@ SDFSModule::func_fopen(Interpreter& i)
 	const char* s;
 	if (i.popString(s)) {
 		HAL_extmem_file_t f = HAL_extmem_openfile(s);
-		if (i.pushValue(Integer(f))) {
+		if (i.pushValue(Integer(f)))
 			return true;
-		}
 		HAL_extmem_closefile(f);
 	}
 	return false;
@@ -183,12 +180,9 @@ SDFSModule::func_fread(Interpreter& i)
 {
 	INT iv;
 	if (getIntegerFromStack(i, iv)) {
-		if (iv >= 0 && iv < FILE_NUMBER) {
-			if (userFiles[iv]) {
-				if (i.pushValue(INT(userFiles[iv].read())))
-					return true;
-			}
-		}
+		if (i.pushValue(
+		    INT(HAL_extmem_readfromfile(HAL_extmem_file_t(iv)))))
+			return true;
 	}
 	return false;
 }
@@ -221,37 +215,31 @@ SDFSModule::directory(Interpreter &i)
 			startFile = iv;
 		}
 	}
-
-	_root.rewindDirectory();
-
+	
 	char buf[17];
 	strcpy_P(buf, (PGM_P)str);
 	i.print(buf);
 	i.newline();
-	Integer index = 0;
-	for (SDCard::File ff = _root.openNextFile(); ff; ff = _root.openNextFile()) {
-		++index;
-		if (index < startFile) {
-			ff.close();
+	
+	const uint16_t numFiles = HAL_extmem_getnumfiles();
+	char fname[13];
+	for (uint16_t index=0; index<numFiles; ++index) {
+		if (index < startFile)
 			continue;
-		}
-		if (index > endFile) {
-			ff.close();
+		if (index > endFile)
 			break;
-		}
-		i.print(index);
+		i.print(Integer(index));
 		i.print('\t');
-		i.print(ff.name());
-		uint8_t len = min((uint8_t(13)-strlen(ff.name())),
+		HAL_extmem_getfilename(index, fname);
+		i.print(fname);
+		uint8_t len = min((uint8_t(13)-strlen(fname)),
 		    uint8_t(13));
 		while (len-- > 0)
 			i.print(' ');
-		if (ff.isDirectory())
-			i.print(ProgMemStrings::S_DIR);
-		else
-			i.print(Integer(ff.size()));
+		HAL_extmem_file_t f = HAL_extmem_openfile(fname);
+		i.print(Integer(HAL_extmem_getfilesize(f)));
+		HAL_extmem_closefile(f);
 		i.newline();
-		ff.close();
 	}
 	return true;
 }
