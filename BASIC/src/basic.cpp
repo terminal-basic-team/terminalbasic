@@ -51,9 +51,6 @@ static const char strVARS[] PROGMEM = "VARS";
 static const char strARRAYS[] PROGMEM = "ARRAYS";
 static const char strSTACK[] PROGMEM = "STACK";
 #endif
-#if USESD
-static const char strDIR[] PROGMEM = "DIR";
-#endif
 static const char strREALLY[] PROGMEM = "REALLY";
 static const char strEND[] PROGMEM = "END";
 #if USE_TEXTATTRIBUTES
@@ -98,9 +95,6 @@ static PGM_P const progmemStrings[uint8_t(ProgMemStrings::NUM_STRINGS)] PROGMEM 
 	strVARS, // VARS
 	strARRAYS, // ARRAYS
 	strSTACK, // STACK
-#endif
-#if USESD
-	strDIR, // DIR
 #endif
 	strREALLY, // REALLY
 	strEND, // END
