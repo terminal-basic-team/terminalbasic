@@ -14,26 +14,29 @@ SRC="	./libbasic/include/basic.h
 	./libbasic/include/tools.h
 	./libbasic/src/tools.c
 	./libbasic/include/config.h
+	./libbasic/include/HAL.h
 	./libbasic/include/_tokens_en.h
 	./libbasic/include/_tokens_fr.h
 	./libbasic/include/_tokens_ru.h
-	./libbasic/include/basic_value.h \
-	./libbasic/src/basic_value.c \
-	./libbasic/include/basic_lexer.h \
-	./libbasic/src/basic_lexer.c \
-	./libbasic/src/basic_lexer_en.c \
-	./libbasic/src/basic_lexer_fr.c \
-	./libbasic/src/basic_lexer_ru.c \
+	./libbasic/include/basic_value.h
+	./libbasic/src/basic_value.c
+	./libbasic/include/basic_lexer.h
+	./libbasic/src/basic_lexer.c
+	./libbasic/src/basic_lexer_en.c
+	./libbasic/src/basic_lexer_fr.c
+	./libbasic/src/basic_lexer_ru.c
 	./libbasic/include/_tokens_en.h \
 	./libbasic/include/_tokens_fr.h \
 	./libbasic/include/_tokens_ru.h \
 	./BASIC/include/basic.hpp  \
-	./BASIC/src/basic.cpp \
-	./BASIC/include/basic_lexer.hpp  \
-	./BASIC/src/basic_lexer.cpp  \
-	./BASIC/include/config.hpp \
-	./BASIC/include/version.h \
-	./BASIC/src/basic.cpp \
+	./BASIC/src/basic.cpp
+	./BASIC/include/basic_lexer.hpp
+	./BASIC/src/basic_lexer.cpp
+	./BASIC/include/config.hpp
+	./BASIC/include/config_linux.hpp
+	./BASIC/include/version.h
+	./BASIC/src/basic.cpp
+	./BASIC/src/HAL_linux.c
 	./BASIC/include/basic_interpreter.hpp \
 	./BASIC/include/basic_program.hpp \
 	./BASIC/include/basic_parser.hpp \
@@ -83,8 +86,7 @@ SRC="	./libbasic/include/basic.h
 	../libarduinoext/src/seriallight.cpp \
 	../libarduinoext/include/ascii.hpp"
 
-COPY_FILES="README README.pc ChangeLog COPYING configure.ac Makefile.am \
-	BASIC/include/config.hpp BASIC/include/config_linux.hpp"
+COPY_FILES="README README.pc ChangeLog COPYING configure.ac Makefile.am"
 
 rm -rf $SKETCH
 mkdir -p $SKETCH
@@ -94,16 +96,16 @@ cp ./Makefile.am.terminal-basic "${SRC_PATH}/Makefile.am"
 rsync -r ../libarduinoemulator/include/ ${SRC_PATH}
 rsync -r ../libarduinoemulator/src/ ${SRC_PATH}
 
-cp ../tvoutex/TVoutEx/src/*.cpp ${SRC_PATH}
-cp ../tvoutex/TVoutEx/src/*.h ${SRC_PATH}
-cp ../tvoutex/TVoutEx/src/*.hpp ${SRC_PATH}
-cp ../tvoutex/livbtvoutex/*.cpp ${SRC_PATH}
+cp ../libtvoutex/TVoutEx/src/*.cpp ${SRC_PATH}
+cp ../libtvoutex/TVoutEx/src/*.h ${SRC_PATH}
+cp ../libtvoutex/TVoutEx/src/*.hpp ${SRC_PATH}
+cp ../libtvoutex/netbenas/*.cpp ${SRC_PATH}
 mkdir ${SRC_PATH}/spec
-cp ../tvoutex/TVoutEx/src/spec/* ${SRC_PATH}/spec
+cp ../libtvoutex/TVoutEx/src/spec/* ${SRC_PATH}/spec
 mkdir ${SRC_PATH}/utility
-cp ../tvoutex/TVoutEx/src/utility/*.h ${SRC_PATH}/utility/
-cp ../tvoutex/TVoutEx/src/utility/*.hpp ${SRC_PATH}/utility/
-cp ../tvoutex/TVoutEx/src/utility/*.cpp ${SRC_PATH}
+cp ../libtvoutex/TVoutEx/src/utility/*.h ${SRC_PATH}/utility/
+cp ../libtvoutex/TVoutEx/src/utility/*.hpp ${SRC_PATH}/utility/
+cp ../libtvoutex/TVoutEx/src/utility/*.cpp ${SRC_PATH}
 
 for file in $SRC
 do

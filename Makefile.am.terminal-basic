@@ -3,7 +3,6 @@ AM_CXXFLAGS= -fno-rtti -Wall
 bin_PROGRAMS=terminalbasic
 terminalbasic_SOURCES=arduinoext.hpp \
 	Arduino.h \
-	Stream.h \
 	Printable.h \
 	Print.h \
 	tools.h \
@@ -15,6 +14,7 @@ terminalbasic_SOURCES=arduinoext.hpp \
 	basic.h \
 	basic.hpp \
 	basic.c \
+	HAL_linux.c \
 	basic_arduinoio.cpp \
 	basic_arduinoio.hpp \
 	basic.cpp \
@@ -60,6 +60,8 @@ terminalbasic_SOURCES=arduinoext.hpp \
 	bytearray.hpp \
 	config.h \
 	config.hpp \
+	config_linux.hpp \
+	HAL.h \
 	helper.hpp \
 	i2ceeprom.hpp \
 	math.hpp \
@@ -79,6 +81,7 @@ terminalbasic_SOURCES=arduinoext.hpp \
 	version.h \
 	main.cpp \
 	sdlstream.cpp \
+	Stream.h \
 	TVoutEx.cpp \
 	VideoGen.cpp \
 	VideoGen.h \
@@ -106,9 +109,7 @@ terminalbasic_SOURCES=arduinoext.hpp \
 	utility/Font8x8ext.h \
 	utility/Font8x8.h \
 	utility/Font8x8zx80.hpp \
-	utility/FontALL.h \
-	../config.hpp \
-	../config_linux.hpp
+	utility/FontALL.h
 
 terminalbasic_CXXFLAGS=${posixcpp_CFLAGS} ${sdl2_CFLAGS} -I../ -Iutility -std=gnu++11 \
 	-DF_CPU=16000000 -D__AVR_ATmega2560__ -DSDL_DEBUG
