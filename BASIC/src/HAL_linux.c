@@ -172,6 +172,12 @@ HAL_extmem_openfile(const char* str)
 }
 
 void
+HAL_extmem_deletefile(const char* str)
+{
+	unlink(str);
+}
+
+void
 HAL_extmem_closefile(HAL_extmem_file_t file)
 {
 	if ((file == 0)
