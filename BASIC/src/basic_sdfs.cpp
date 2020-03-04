@@ -43,6 +43,7 @@ static const uint8_t sdfsCommands[] PROGMEM = {
 	'D', 'S', 'A', 'V', 'E', ASCII_NUL,
 #if USE_FILEOP
 	'F', 'C', 'L', 'O', 'S', 'E', ASCII_NUL,
+	'F', 'D', 'E', 'L', 'E', 'T', 'E',  ASCII_NUL,
 	'F', 'S', 'E', 'E', 'K', ASCII_NUL,
 	'F', 'W', 'R', 'I', 'T', 'E', ASCII_NUL,
 #endif
@@ -68,11 +69,15 @@ const FunctionBlock::function  SDFSModule::_commands[] PROGMEM = {
 	SDFSModule::dsave,
 #if USE_FILEOP
 	SDFSModule::com_fclose,
+	SDFSModule::com_fdelete,
 	SDFSModule::com_fseek,
 	SDFSModule::com_fwrite,
 #endif
 	SDFSModule::header,
 	SDFSModule::scratch
+#if FAST_MODULE_CALL
+	, nullptr
+#endif
 };
 
 #if USE_FILEOP
@@ -99,11 +104,12 @@ SDFSModule::loadAutorun(Interpreter& i)
 	static const char ar[] PROGMEM = "/AUTORUN.BAS";
 	char ss[13];
 	strcpy_P(ss, ar);
-	SDCard::File f = SDCard::SDFS.open(ss);
-	if (!f)
+	HAL_extmem_file_t f = HAL_extmem_openfile(ss);
+	if (f == 0)
 		return;
 	
-	if (!_loadText(f, i))
+	FileStream fs(f);
+	if (!_loadText(fs, i))
 		return;
 	
 	i.run();
@@ -158,6 +164,17 @@ SDFSModule::com_fwrite(Interpreter& i)
 			HAL_extmem_writetofile(HAL_extmem_file_t(iv), bv);
 			return true;
 		}
+	}
+	return false;
+}
+
+bool
+SDFSModule::com_fdelete(Interpreter& i)
+{
+	const char* s;
+	if (i.popString(s)) {
+		HAL_extmem_deletefile(s);
+		return true;
 	}
 	return false;
 }
@@ -265,38 +282,40 @@ SDFSModule::dchain(Interpreter &i)
 	if (!getFileName(i, ss))
 		return false;
 	
-	SDCard::File f = SDCard::SDFS.open(ss);
-	if (!f)
+	HAL_extmem_file_t f = HAL_extmem_openfile(ss);
+	if (f == 0)
 		return false;
+	
+	FileStream fs(f);
 	
 	i._program.clearProg();
 	i._program.moveData(0);
 	i._program.jump(0);
 	i.stop();
-	return _loadText(f, i);
+	return _loadText(fs, i);
 }
 
 bool
 SDFSModule::dsave(Interpreter &i)
 {
-	SDCard::File f;
+	FileStream fs;
 	
 	{ // Stack section 1
-	char ss[16];
-	if (getFileName(i, ss))
-		SDCard::SDFS.remove(ss);
-	f = SDCard::SDFS.open(ss, SDCard::Mode::WRITE |
-	    SDCard::Mode::READ | SDCard::Mode::CREAT);
+		char ss[16];
+		if (getFileName(i, ss))
+			HAL_extmem_deletefile(ss);
+		HAL_extmem_file_t f = HAL_extmem_openfile(ss);
+		if (f == 0)
+			return false;
+		fs.setFile(f);
 	} // Stack section 1
-	if (!f)
-		return false;
 	
 	i._program.reset();
 	{ // Stack section 2
 	Lexer lex;
 	for (Program::Line *s = i._program.getNextLine(); s != nullptr;
 	    s = i._program.getNextLine()) {
-		f.print(READ_VALUE(s->number));
+		fs.print(READ_VALUE(s->number));
 		lex.init(s->text, true);
 		Token tPrev = Token::NOTOKENS;
 		while (lex.getNext()) {
@@ -304,32 +323,32 @@ SDFSModule::dsave(Interpreter &i)
 			if (t != Token::COMMA &&
 			    t != Token::RPAREN &&
 			    tPrev != Token::LPAREN)
-			    f.write(' ');
+			    fs.write(' ');
 			tPrev = t;
 			if (t < Token::INTEGER_IDENT) {
 				uint8_t buf[16];
 				const bool res = Lexer::getTokenString(t,
 				    reinterpret_cast<uint8_t*>(buf));
 				if (res)
-					f.print((const char*)buf);
+					fs.print((const char*)buf);
 				else {
-					f.close();
+					fs.close();
 					return false;
 				}
 				if (t == Token::KW_REM) {
-					f.write(' ');
-					f.print((const char*)s->text +
+					fs.write(' ');
+					fs.print((const char*)s->text +
 					    lex.getPointer());
 					break;
 				}
 			} else if (t < Token::C_INTEGER) {
-				f.print(lex.id());
+				fs.print(lex.id());
 			} else if (t < Token::C_STRING) {
-				lex.getValue().printTo(f);
+				lex.getValue().printTo(fs);
 			} else if (t == Token::C_STRING) {
-				f.write('"');
-				f.print(lex.id());
-				f.write('"');
+				fs.write('"');
+				fs.print(lex.id());
+				fs.write('"');
 			}
 #if FAST_MODULE_CALL
 			else if (t == Token::COMMAND) {
@@ -338,19 +357,19 @@ SDFSModule::dsave(Interpreter &i)
 				    reinterpret_cast<FunctionBlock::command>(
 				    readValue<uintptr_t>((const uint8_t*)lex.id()));
 				i.parser().getCommandName(com, buf);
-				f.print((const char*)buf);
+				fs.print((const char*)buf);
 			}
 #endif
 		}
-		f.print('\n');
+		fs.print('\n');
 	}
 	} // Stack section 2
-	f.close();
+	fs.close();
 	return true;
 }
 
 bool
-SDFSModule::_loadText(SDCard::File &f, Interpreter &i)
+SDFSModule::_loadText(FileStream &f, Interpreter &i)
 {
 	while (true) {
 		char buf[PROGSTRINGSIZE] = {0, };
@@ -395,13 +414,15 @@ SDFSModule::dload(Interpreter &i)
 	if (!getFileName(i, ss))
 		return false;
 	
-	SDCard::File f = SDCard::SDFS.open(ss);
-	if (!f)
+	HAL_extmem_file_t f = HAL_extmem_openfile(ss);
+	if (f == 0)
 		return false;
+	
+	FileStream fs(f);
 	
 	i._program.newProg();
 	
-	return _loadText(f, i);
+	return _loadText(fs, i);
 }
 
 bool
