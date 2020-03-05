@@ -101,8 +101,6 @@ public:
 	
 	void loadAutorun(Interpreter&);
 	
-protected:
-	void _init() override;
 private:
 	static bool dchain(Interpreter&);
 	static bool dsave(Interpreter&);
@@ -119,12 +117,10 @@ private:
 	static bool func_fopen(Interpreter&);
 	static bool func_fsize(Interpreter&);
 	static bool func_fread(Interpreter&);
-#endif
-	
+#endif // USE_FILEOP
 	static bool getFileName(Interpreter&, char[]);
 	static bool _loadText(FileStream&, Interpreter&);
 	
-	static SDCard::File	_root;
 	static const FunctionBlock::function _commands[] PROGMEM;
 #if USE_FILEOP
 	static const FunctionBlock::function _functions[] PROGMEM;

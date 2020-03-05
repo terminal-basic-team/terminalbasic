@@ -27,7 +27,7 @@
 #include "HAL.h"
 
 void
-HAL_initialize()
+HAL_initialize_concrete()
 {
 }
 

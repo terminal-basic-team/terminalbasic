@@ -26,18 +26,37 @@
 #define EXTMEM_FILENUM 5
 // ~configuration
 
+#include <string.h>
+
 #include "HAL.h"
 #include "Arduino.h"
 #if USE_SD_EXTMEM
 #include "sd.hpp"
 #endif
 
-void HAL_time_sleep_ms(uint32_t ms)
+__BEGIN_DECLS
+void
+HAL_initialize_concrete();
+__END_DECLS
+
+void
+HAL_initialize()
+{
+#if USE_SD_EXTMEM
+	if (!SDCard::SDFS.begin())
+		abort();
+#endif
+	HAL_initialize_concrete();
+}
+
+void
+HAL_time_sleep_ms(uint32_t ms)
 {
 	delay(ms);
 }
 
-uint32_t HAL_time_gettime_ms()
+uint32_t
+HAL_time_gettime_ms()
 {
 	return millis();
 }	
@@ -45,6 +64,15 @@ uint32_t HAL_time_gettime_ms()
 #if USE_SD_EXTMEM
 
 static SDCard::File files[EXTMEM_FILENUM];
+
+static SDCard::File
+getRoorDir()
+{
+	SDCard::File root = SDCard::SDFS.open("/",
+	    SDCard::Mode::WRITE | SDCard::Mode::READ | SDCard::Mode::CREAT);
+	if (!root || !root.isDirectory())
+		abort();
+}
 
 HAL_extmem_file_t
 HAL_extmem_openfile(const char* path)
@@ -107,6 +135,37 @@ HAL_extmem_closefile(HAL_extmem_file_t f)
 {
 	if ((f > 0) && files[f-1]) {
 		files[f-1].close();
+	}
+}
+
+uint16_t
+HAL_extmem_getnumfiles()
+{
+	uint16_t result = 0;
+	auto root = getRoorDir();
+	root.rewindDirectory();
+	SDCard::File f;
+	while (f=root.openNextFile(SDCard::Mode::READ_ONLY)) {
+		++result;
+		f.close();
+	}
+	return result;
+}
+
+void
+HAL_extmem_getfilename(uint16_t num, char path[13])
+{
+	auto root = getRoorDir();
+	root.rewindDirectory();
+	SDCard::File f;
+	uint16_t n = num;
+	while (f=root.openNextFile(SDCard::Mode::READ_ONLY)) {
+		if (n-- == 0) {
+			strncpy(path, f.name(), 13);
+			f.close();
+			return;
+		}
+		f.close();
 	}
 }
 
