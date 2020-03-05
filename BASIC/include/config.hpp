@@ -120,10 +120,10 @@ namespace BASIC
 #define AUTOCAPITALIZE    0
 
 /*
- * SDcard module
+ * External memory filesystem module
  */
-#define USESD         0
-#if USESD
+#define CONF_USE_EXTMEMFS         1
+#if CONF_USE_EXTMEMFS
 	// Unix-like file operations
 	#define USE_FILEOP 1
 	#if USE_FILEOP

@@ -124,6 +124,10 @@ typedef uint32_t HAL_extmem_fileposition_t;
  */
 HAL_extmem_file_t HAL_extmem_openfile(const char*);
 
+/**
+ * @brief Delete file from external memory
+ * @param path
+ */
 void HAL_extmem_deletefile(const char*);
 
 /**

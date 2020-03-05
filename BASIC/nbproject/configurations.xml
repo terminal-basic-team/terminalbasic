@@ -6,6 +6,7 @@
       <itemPath>include/basic_arduinoio.hpp</itemPath>
       <itemPath>include/basic_dataparser.hpp</itemPath>
       <itemPath>include/basic_exteeprom.hpp</itemPath>
+      <itemPath>include/basic_extmemfs.hpp</itemPath>
       <itemPath>include/basic_functionblock.hpp</itemPath>
       <itemPath>include/basic_gfx.hpp</itemPath>
       <itemPath>include/basic_internalfuncs.hpp</itemPath>
@@ -15,7 +16,6 @@
       <itemPath>include/basic_parser.hpp</itemPath>
       <itemPath>include/basic_parser_value.hpp</itemPath>
       <itemPath>include/basic_program.hpp</itemPath>
-      <itemPath>include/basic_sdfs.hpp</itemPath>
       <itemPath>include/config.hpp</itemPath>
       <itemPath>include/config_arduino.hpp</itemPath>
       <itemPath>include/config_linux.hpp</itemPath>
@@ -36,6 +36,7 @@
       <itemPath>src/basic_arduinoio.cpp</itemPath>
       <itemPath>src/basic_dataparser.cpp</itemPath>
       <itemPath>src/basic_exteeprom.cpp</itemPath>
+      <itemPath>src/basic_extmemfs.cpp</itemPath>
       <itemPath>src/basic_functionblock.cpp</itemPath>
       <itemPath>src/basic_gfx.cpp</itemPath>
       <itemPath>src/basic_gfx_serial.cpp</itemPath>
@@ -49,7 +50,6 @@
       <itemPath>src/basic_parser.cpp</itemPath>
       <itemPath>src/basic_parser_value.cpp</itemPath>
       <itemPath>src/basic_program.cpp</itemPath>
-      <itemPath>src/basic_sdfs.cpp</itemPath>
       <itemPath>src/tvoutprint.cpp</itemPath>
       <itemPath>src/ucbasic_main.cpp</itemPath>
     </logicalFolder>
@@ -230,6 +230,8 @@
       </item>
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_extmemfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
@@ -247,8 +249,6 @@
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -278,6 +278,8 @@
       </item>
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/basic_extmemfs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
@@ -303,8 +305,6 @@
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -455,6 +455,8 @@
       </item>
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_extmemfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
@@ -472,8 +474,6 @@
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -503,6 +503,8 @@
       </item>
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/basic_extmemfs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
@@ -528,8 +530,6 @@
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -657,6 +657,8 @@
       </item>
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_extmemfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
@@ -674,8 +676,6 @@
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -705,6 +705,8 @@
       </item>
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/basic_extmemfs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
@@ -730,8 +732,6 @@
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -896,6 +896,8 @@
       </item>
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_extmemfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
@@ -913,8 +915,6 @@
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -946,6 +946,8 @@
       </item>
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/basic_extmemfs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
@@ -971,8 +973,6 @@
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1150,6 +1150,8 @@
       </item>
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_extmemfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
@@ -1167,8 +1169,6 @@
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1200,6 +1200,8 @@
       </item>
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/basic_extmemfs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
@@ -1225,8 +1227,6 @@
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1339,6 +1339,8 @@
       </item>
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_extmemfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
@@ -1356,8 +1358,6 @@
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1389,6 +1389,8 @@
       </item>
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/basic_extmemfs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
@@ -1414,8 +1416,6 @@
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1518,6 +1518,8 @@
       </item>
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_extmemfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
@@ -1535,8 +1537,6 @@
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1568,6 +1568,8 @@
       </item>
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/basic_extmemfs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
@@ -1593,8 +1595,6 @@
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1695,6 +1695,8 @@
       </item>
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_extmemfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
@@ -1712,8 +1714,6 @@
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1745,6 +1745,8 @@
       </item>
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/basic_extmemfs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
@@ -1770,8 +1772,6 @@
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1903,6 +1903,8 @@
       </item>
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_extmemfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
@@ -1920,8 +1922,6 @@
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -2123,6 +2123,8 @@
       </item>
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_extmemfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
@@ -2140,8 +2142,6 @@
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -2173,6 +2173,8 @@
       </item>
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/basic_extmemfs.cpp" ex="false" tool="1" flavor2="8">
+      </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
@@ -2198,8 +2200,6 @@
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -2332,6 +2332,8 @@
       </item>
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_extmemfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
@@ -2349,8 +2351,6 @@
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -2382,6 +2382,8 @@
       </item>
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/basic_extmemfs.cpp" ex="false" tool="1" flavor2="8">
+      </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
@@ -2407,8 +2409,6 @@
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -2514,6 +2514,8 @@
       </item>
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_extmemfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
@@ -2531,8 +2533,6 @@
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -2564,6 +2564,8 @@
       </item>
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/basic_extmemfs.cpp" ex="true" tool="1" flavor2="8">
+      </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
@@ -2589,8 +2591,6 @@
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_sdfs.cpp" ex="true" tool="1" flavor2="8">
       </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -2693,6 +2693,8 @@
       </item>
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_extmemfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
@@ -2710,8 +2712,6 @@
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -2743,6 +2743,8 @@
       </item>
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="8">
       </item>
+      <item path="src/basic_extmemfs.cpp" ex="true" tool="1" flavor2="8">
+      </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="8">
@@ -2768,8 +2770,6 @@
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_sdfs.cpp" ex="true" tool="1" flavor2="8">
       </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -2923,6 +2923,8 @@
       </item>
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_extmemfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
@@ -2940,8 +2942,6 @@
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -2973,6 +2973,8 @@
       </item>
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="8">
       </item>
+      <item path="src/basic_extmemfs.cpp" ex="false" tool="1" flavor2="8">
+      </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="8">
@@ -2998,8 +3000,6 @@
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>

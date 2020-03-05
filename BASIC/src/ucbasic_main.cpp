@@ -36,8 +36,8 @@
 #include "ps2uartstream.hpp"
 #endif
 
-#if USESD
-#include "basic_sdfs.hpp"
+#if CONF_USE_EXTMEMFS
+#include "basic_extmemfs.hpp"
 #endif
 
 #if USEUTFT
@@ -91,8 +91,8 @@ static uint8_t lCrBuf[20*4];
 static LiquidCrystalVt100 lsvt100(lCrystal, 20, 4, lCrBuf);
 #endif
 
-#if USESD
-BASIC::SDFSModule sdfs;
+#if CONF_USE_EXTMEMFS
+BASIC::ExtmemFSModule sdfs;
 #endif
 
 #if USEMATH
@@ -227,7 +227,7 @@ setup()
 	basic.addModule(&extEeprom);
 #endif
 	
-#if USESD
+#if CONF_USE_EXTMEMFS
 	basic.addModule(&sdfs);
 #endif
 	

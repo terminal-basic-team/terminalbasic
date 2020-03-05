@@ -25,7 +25,7 @@
 #include "basic_functionblock.hpp"
 #include "basic_interpreter.hpp"
 
-#if USESD
+#if CONF_USE_EXTMEMFS
 
 #include <sd.hpp>
 
@@ -90,13 +90,14 @@ public:
 };
 
 /**
- * @brief Module with commands to store the programs on SD card
+ * @brief Module with commands to store the programs on the exxternal memory
+ *     file system
  */
-class SDFSModule : public FunctionBlock
+class ExtmemFSModule : public FunctionBlock
 {
 	// Function block interface
 public:
-	SDFSModule();
+	ExtmemFSModule();
 	
 	void loadAutorun(Interpreter&);
 	

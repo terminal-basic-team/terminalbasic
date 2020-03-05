@@ -21,9 +21,16 @@
 
 #ifdef ARDUINO
 
-#include "HAL.h"
+// configuration
+#define USE_SD_EXTMEM 1
+#define EXTMEM_FILENUM 5
+// ~configuration
 
+#include "HAL.h"
 #include "Arduino.h"
+#if USE_SD_EXTMEM
+#include "sd.hpp"
+#endif
 
 void HAL_time_sleep_ms(uint32_t ms)
 {
@@ -33,6 +40,81 @@ void HAL_time_sleep_ms(uint32_t ms)
 uint32_t HAL_time_gettime_ms()
 {
 	return millis();
+}	
+
+#if USE_SD_EXTMEM
+
+static SDCard::File files[EXTMEM_FILENUM];
+
+HAL_extmem_file_t
+HAL_extmem_openfile(const char* path)
+{
+	uint8_t i=0;
+	for (; i<EXTMEM_FILENUM; ++i) {
+		if (!files[i])
+			break;
+	}
+	if (i<EXTMEM_FILENUM) {
+		files[i] = SDCard::SDFS.open(path, SDCard::Mode::CREAT|SDCard::Mode::WRITE|
+		    SDCard::Mode::READ);
+		if (files[i])
+			return i+1;
+	}
+	return 0;
 }
+
+HAL_extmem_fileposition_t
+HAL_extmem_getfilesize(HAL_extmem_file_t f)
+{
+	if ((f > 0) && files[f-1])
+		return files[f-1].size();
+	return 0;
+}
+
+HAL_extmem_fileposition_t
+HAL_extmem_getfileposition(HAL_extmem_file_t f)
+{
+	if ((f > 0) && files[f-1])
+		return files[f-1].position();
+	return 0;
+}
+
+void
+HAL_extmem_setfileposition(HAL_extmem_file_t f, HAL_extmem_fileposition_t pos)
+{
+	if ((f > 0) && files[f-1])
+		return files[f-1].seek(pos);
+	return 0;
+}
+
+uint8_t
+HAL_extmem_readfromfile(HAL_extmem_file_t f)
+{
+	if ((f > 0) && files[f-1])
+		return files[f-1].read();
+	return 0;
+}
+
+void
+HAL_extmem_writetofile(HAL_extmem_file_t f, uint8_t b)
+{
+	if ((f > 0) && files[f-1])
+		files[f-1].write(b);
+}
+
+void
+HAL_extmem_closefile(HAL_extmem_file_t f)
+{
+	if ((f > 0) && files[f-1]) {
+		files[f-1].close();
+	}
+}
+
+void
+HAL_extmem_deletefile(const char* path)
+{
+	SDCard::SDFS.remove(path);
+}
+#endif // USE_SD_EXTMEM
 
 #endif // ARDUINO

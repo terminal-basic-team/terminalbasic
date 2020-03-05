@@ -19,9 +19,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "basic_sdfs.hpp"
+#include "basic_extmemfs.hpp"
 
-#if USESD
+#if CONF_USE_EXTMEMFS
 
 #include "basic_program.hpp"
 #include <assert.h>
@@ -34,7 +34,7 @@ namespace BASIC
 static SDCard::File userFiles[FILE_NUMBER];
 #endif // USE_FILEOP
 
-SDCard::File SDFSModule::_root;
+SDCard::File ExtmemFSModule::_root;
 
 static const uint8_t sdfsCommands[] PROGMEM = {
 	'D', 'C', 'H', 'A', 'I', 'N', ASCII_NUL,
@@ -62,33 +62,33 @@ static const uint8_t sdfsFunctions[] PROGMEM = {
 
 #endif // USE_FILEOP
 
-const FunctionBlock::function  SDFSModule::_commands[] PROGMEM = {
-	SDFSModule::dchain,
-	SDFSModule::directory,
-	SDFSModule::dload,
-	SDFSModule::dsave,
+const FunctionBlock::function  ExtmemFSModule::_commands[] PROGMEM = {
+	ExtmemFSModule::dchain,
+	ExtmemFSModule::directory,
+	ExtmemFSModule::dload,
+	ExtmemFSModule::dsave,
 #if USE_FILEOP
-	SDFSModule::com_fclose,
-	SDFSModule::com_fdelete,
-	SDFSModule::com_fseek,
-	SDFSModule::com_fwrite,
+	ExtmemFSModule::com_fclose,
+	ExtmemFSModule::com_fdelete,
+	ExtmemFSModule::com_fseek,
+	ExtmemFSModule::com_fwrite,
 #endif
-	SDFSModule::header,
-	SDFSModule::scratch
+	ExtmemFSModule::header,
+	ExtmemFSModule::scratch
 #if FAST_MODULE_CALL
 	, nullptr
 #endif
 };
 
 #if USE_FILEOP
-const FunctionBlock::function SDFSModule::_functions[] PROGMEM = {
-	SDFSModule::func_fopen,
-	SDFSModule::func_fread,
-	SDFSModule::func_fsize
+const FunctionBlock::function ExtmemFSModule::_functions[] PROGMEM = {
+	ExtmemFSModule::func_fopen,
+	ExtmemFSModule::func_fread,
+	ExtmemFSModule::func_fsize
 };
 #endif // USE_FILEOP
 
-SDFSModule::SDFSModule()
+ExtmemFSModule::ExtmemFSModule()
 {
 	commands = _commands;
 	commandTokens = sdfsCommands;
@@ -99,7 +99,7 @@ SDFSModule::SDFSModule()
 }
 
 void
-SDFSModule::loadAutorun(Interpreter& i)
+ExtmemFSModule::loadAutorun(Interpreter& i)
 {
 	static const char ar[] PROGMEM = "/AUTORUN.BAS";
 	char ss[13];
@@ -116,7 +116,7 @@ SDFSModule::loadAutorun(Interpreter& i)
 }
 
 void
-SDFSModule::_init()
+ExtmemFSModule::_init()
 {
 	if (!SDCard::SDFS.begin())
 		abort();
@@ -130,7 +130,7 @@ SDFSModule::_init()
 #if USE_FILEOP
 
 bool
-SDFSModule::com_fclose(Interpreter& i)
+ExtmemFSModule::com_fclose(Interpreter& i)
 {
 	INT iv;
 	if (getIntegerFromStack(i, iv)) {
@@ -141,7 +141,7 @@ SDFSModule::com_fclose(Interpreter& i)
 }
 
 bool
-SDFSModule::com_fseek(Interpreter& i)
+ExtmemFSModule::com_fseek(Interpreter& i)
 {
 	INT iv;
 	if (getIntegerFromStack(i, iv)) {
@@ -155,7 +155,7 @@ SDFSModule::com_fseek(Interpreter& i)
 }
 
 bool
-SDFSModule::com_fwrite(Interpreter& i)
+ExtmemFSModule::com_fwrite(Interpreter& i)
 {
 	INT iv;
 	if (getIntegerFromStack(i, iv)) {
@@ -169,7 +169,7 @@ SDFSModule::com_fwrite(Interpreter& i)
 }
 
 bool
-SDFSModule::com_fdelete(Interpreter& i)
+ExtmemFSModule::com_fdelete(Interpreter& i)
 {
 	const char* s;
 	if (i.popString(s)) {
@@ -180,7 +180,7 @@ SDFSModule::com_fdelete(Interpreter& i)
 }
 
 bool
-SDFSModule::func_fopen(Interpreter& i)
+ExtmemFSModule::func_fopen(Interpreter& i)
 {
 	const char* s;
 	if (i.popString(s)) {
@@ -193,7 +193,7 @@ SDFSModule::func_fopen(Interpreter& i)
 }
 
 bool
-SDFSModule::func_fread(Interpreter& i)
+ExtmemFSModule::func_fread(Interpreter& i)
 {
 	INT iv;
 	if (getIntegerFromStack(i, iv)) {
@@ -205,7 +205,7 @@ SDFSModule::func_fread(Interpreter& i)
 }
 
 bool
-SDFSModule::func_fsize(Interpreter& i)
+ExtmemFSModule::func_fsize(Interpreter& i)
 {
 	INT iv;
 	if (getIntegerFromStack(i, iv)) {
@@ -218,7 +218,7 @@ SDFSModule::func_fsize(Interpreter& i)
 #endif // USE_FILEOP
 
 bool
-SDFSModule::directory(Interpreter &i)
+ExtmemFSModule::directory(Interpreter &i)
 {
 	static const char str[] PROGMEM = "SD CARD CONTENTS";
 	
@@ -262,7 +262,7 @@ SDFSModule::directory(Interpreter &i)
 }
 
 bool
-SDFSModule::scratch(Interpreter &i)
+ExtmemFSModule::scratch(Interpreter &i)
 {
 	if (!i.confirm())
 		return true;
@@ -276,7 +276,7 @@ SDFSModule::scratch(Interpreter &i)
 }
 
 bool
-SDFSModule::dchain(Interpreter &i)
+ExtmemFSModule::dchain(Interpreter &i)
 {
 	char ss[16];
 	if (!getFileName(i, ss))
@@ -296,7 +296,7 @@ SDFSModule::dchain(Interpreter &i)
 }
 
 bool
-SDFSModule::dsave(Interpreter &i)
+ExtmemFSModule::dsave(Interpreter &i)
 {
 	FileStream fs;
 	
@@ -369,7 +369,7 @@ SDFSModule::dsave(Interpreter &i)
 }
 
 bool
-SDFSModule::_loadText(FileStream &f, Interpreter &i)
+ExtmemFSModule::_loadText(FileStream &f, Interpreter &i)
 {
 	while (true) {
 		char buf[PROGSTRINGSIZE] = {0, };
@@ -408,7 +408,7 @@ SDFSModule::_loadText(FileStream &f, Interpreter &i)
 }
 
 bool
-SDFSModule::dload(Interpreter &i)
+ExtmemFSModule::dload(Interpreter &i)
 {
 	char ss[16];
 	if (!getFileName(i, ss))
@@ -426,7 +426,7 @@ SDFSModule::dload(Interpreter &i)
 }
 
 bool
-SDFSModule::header(Interpreter &i)
+ExtmemFSModule::header(Interpreter &i)
 {
 	if (!i.confirm())
 		return true;
@@ -446,7 +446,7 @@ SDFSModule::header(Interpreter &i)
 }
 
 bool
-SDFSModule::getFileName(Interpreter &i, char ss[])
+ExtmemFSModule::getFileName(Interpreter &i, char ss[])
 {
 	static const char strBAS[] PROGMEM = ".BAS";
 	
