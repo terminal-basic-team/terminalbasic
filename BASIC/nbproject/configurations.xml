@@ -91,6 +91,7 @@
       </toolsSet>
       <compileType>
         <cTool>
+          <standard>10</standard>
           <incDir>
             <pElem>../libbasic/include</pElem>
           </incDir>
@@ -1184,8 +1185,15 @@
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+          <standard>10</standard>
+          <incDir>
+            <pElem>../libbasic/include</pElem>
+          </incDir>
+        </cTool>
         <ccTool>
-          <developmentMode>4</developmentMode>
+          <developmentMode>5</developmentMode>
           <stripSymbols>true</stripSymbols>
           <standard>8</standard>
           <incDir>
@@ -1193,7 +1201,8 @@
             <pElem>../../libarduinoext/include</pElem>
             <pElem>../../libarduinoemulator/include</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
-            <pElem>../../tvoutex/TVoutEx</pElem>
+            <pElem>../../libtvoutex/TVoutEx/src</pElem>
+            <pElem>../libbasic/include</pElem>
           </incDir>
           <commandLine>`pkg-config --cflags posixcpp` `pkg-config --cflags sdl2`</commandLine>
           <warningLevel>2</warningLevel>
@@ -1202,15 +1211,15 @@
           <output>${CND_DISTDIR}/${CND_CONF}/terminal-basic</output>
           <linkerLibItems>
             <linkerLibProjectItem>
-              <makeArtifact PL="../../tvoutex/livbtvoutex"
+              <makeArtifact PL="../../libtvoutex/netbenas"
                             CT="3"
                             CN="Release_PC"
                             AC="false"
                             BL="true"
-                            WD="../../tvoutex/livbtvoutex"
-                            BC="${MAKE}  -f Makefile CONF=Release_PC"
-                            CC="${MAKE}  -f Makefile CONF=Release_PC clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblivbtvoutex.a">
+                            WD="../../libtvoutex/netbenas"
+                            BC="${MAKE} -j8 -f Makefile CONF=Release_PC"
+                            CC="${MAKE} -j8 -f Makefile CONF=Release_PC clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnetbenas.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
