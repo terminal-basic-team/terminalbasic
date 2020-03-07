@@ -57,6 +57,7 @@
       </toolsSet>
       <compileType>
         <cTool>
+          <standard>10</standard>
           <incDir>
             <pElem>../include</pElem>
             <pElem>../../../libarduinoemulator/include</pElem>
@@ -127,9 +128,18 @@
       <compileType>
         <cTool>
           <developmentMode>5</developmentMode>
+          <standard>10</standard>
+          <incDir>
+            <pElem>../include</pElem>
+            <pElem>../../../libarduinoemulator/include</pElem>
+          </incDir>
+          <warningLevel>2</warningLevel>
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>../include</pElem>
+          </incDir>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
