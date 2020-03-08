@@ -27,6 +27,7 @@
 #include <stdint.h>
 
 #include "sys/cdefs.h"
+#include "tools.h"
 
 __BEGIN_DECLS
 
@@ -122,13 +123,13 @@ typedef uint32_t HAL_extmem_fileposition_t;
  * @param path
  * @return file handle > 0 or 0 on error
  */
-HAL_extmem_file_t HAL_extmem_openfile(const char*);
+HAL_extmem_file_t HAL_extmem_openfile(const char[13]);
 
 /**
  * @brief Delete file from external memory
  * @param path
  */
-void HAL_extmem_deletefile(const char*);
+void HAL_extmem_deletefile(const char[13]);
 
 /**
  * @brief close opened file
@@ -189,6 +190,13 @@ uint16_t HAL_extmem_getnumfiles();
  * @param name [out]
  */
 void HAL_extmem_getfilename(uint16_t, char[13]);
+
+/**
+ * @brief
+ * @param fname 
+ * @return 
+ */
+BOOLEAN HAL_extmem_fileExists(const char[13]);
 
 /*** Time interface ***/
 

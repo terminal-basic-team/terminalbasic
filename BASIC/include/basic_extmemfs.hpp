@@ -27,8 +27,6 @@
 
 #if CONF_USE_EXTMEMFS
 
-#include <sd.hpp>
-
 namespace BASIC
 {
 

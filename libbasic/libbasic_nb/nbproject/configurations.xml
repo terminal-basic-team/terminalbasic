@@ -57,11 +57,11 @@
       </toolsSet>
       <compileType>
         <cTool>
-          <standard>10</standard>
           <incDir>
             <pElem>../include</pElem>
             <pElem>../../../libarduinoemulator/include</pElem>
           </incDir>
+          <commandLine>-std=gnu11</commandLine>
           <warningLevel>2</warningLevel>
         </cTool>
         <ccTool>

@@ -30,10 +30,6 @@
 namespace BASIC
 {
 
-#if USE_FILEOP
-static SDCard::File userFiles[FILE_NUMBER];
-#endif // USE_FILEOP
-
 static const uint8_t sdfsCommands[] PROGMEM = {
 	'D', 'C', 'H', 'A', 'I', 'N', ASCII_NUL,
 	'D', 'I', 'R', 'E', 'C', 'T', 'O', 'R', 'Y', ASCII_NUL,
@@ -235,7 +231,7 @@ ExtmemFSModule::directory(Interpreter &i)
 		i.print('\t');
 		HAL_extmem_getfilename(index, fname);
 		i.print(fname);
-		uint8_t len = min((uint8_t(13)-strlen(fname)),
+		uint8_t len = min(uint8_t(13-strlen(fname)),
 		    uint8_t(13));
 		while (len-- > 0)
 			i.print(' ');
@@ -255,7 +251,7 @@ ExtmemFSModule::scratch(Interpreter &i)
 
 	char ss[16];
 	if (getFileName(i, ss)) {
-		SDCard::SDFS.remove(ss);
+		HAL_extmem_deletefile(ss);
 		return true;
 	} else
 		return false;
@@ -417,13 +413,10 @@ ExtmemFSModule::header(Interpreter &i)
 	if (!i.confirm())
 		return true;
 
-	char ss[16];
-	
-	const uint16_t numFiles = HAL_extmem_getnumfiles();
 	char fname[13];
-	for (uint16_t index=0; index<numFiles; ++index) {
-		HAL_extmem_getfilename(index, ss);
-		HAL_extmem_deletefile(ss);
+	while (HAL_extmem_getnumfiles() > 0) {
+		HAL_extmem_getfilename(0, fname);
+		HAL_extmem_deletefile(fname);
 	}
 	return true;
 }
@@ -441,7 +434,7 @@ ExtmemFSModule::getFileName(Interpreter &i, char ss[])
 	strcpy(ss + 1, s);
 	strcpy_P(ss + len + 1, (PGM_P)strBAS);
 
-	return SDCard::SDFS.exists(ss);
+	return HAL_extmem_fileExists(ss);
 }
 
 } // namespace BASIC

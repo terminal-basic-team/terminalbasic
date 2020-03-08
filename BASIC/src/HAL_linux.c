@@ -149,7 +149,7 @@ HAL_time_gettime_ms()
 }
 
 HAL_extmem_file_t
-HAL_extmem_openfile(const char* str)
+HAL_extmem_openfile(const char str[13])
 {
 	char fpath[256];
 	strncpy(fpath, ext_root, 256);
@@ -172,9 +172,9 @@ HAL_extmem_openfile(const char* str)
 }
 
 void
-HAL_extmem_deletefile(const char* str)
+HAL_extmem_deletefile(const char fname[13])
 {
-	unlink(str);
+	unlink(fname);
 }
 
 void
@@ -303,6 +303,12 @@ HAL_extmem_getfilename(uint16_t num, char name[13])
 		name[0] = '\0';
 		return;
 	}
+}
+
+BOOLEAN
+HAL_extmem_fileExists(const char fname[13])
+{
+	
 }
 
 #endif /* HAL_LINUX */

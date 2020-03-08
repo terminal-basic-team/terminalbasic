@@ -93,10 +93,10 @@
       </toolsSet>
       <compileType>
         <cTool>
-          <standard>10</standard>
           <incDir>
             <pElem>../libbasic/include</pElem>
           </incDir>
+          <commandLine>-std=gnu11</commandLine>
           <preprocessorList>
             <Elem>HAL_LINUX</Elem>
           </preprocessorList>

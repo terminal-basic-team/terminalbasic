@@ -4,8 +4,6 @@
 #include "sys/cdefs.h"
 #include <stdint.h>
 
-#include "HAL.h"
-
 __BEGIN_DECLS
 
 typedef uint8_t BOOLEAN;
