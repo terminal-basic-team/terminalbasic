@@ -98,6 +98,9 @@ ExtmemFSModule::loadAutorun(Interpreter& i)
 	static const char ar[] PROGMEM = "/AUTORUN.BAS";
 	char ss[13];
 	strcpy_P(ss, ar);
+	
+	if (!HAL_extmem_fileExists(ss))
+		return;
 	HAL_extmem_file_t f = HAL_extmem_openfile(ss);
 	if (f == 0)
 		return;
@@ -396,6 +399,8 @@ ExtmemFSModule::dload(Interpreter &i)
 	if (!getFileName(i, ss))
 		return false;
 	
+	if (!HAL_extmem_fileExists(ss))
+		return false;
 	HAL_extmem_file_t f = HAL_extmem_openfile(ss);
 	if (f == 0)
 		return false;

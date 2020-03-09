@@ -75,7 +75,7 @@ getRoorDir()
 }
 
 HAL_extmem_file_t
-HAL_extmem_openfile(const char* path)
+HAL_extmem_openfile(const char path[13])
 {
 	uint8_t i=0;
 	for (; i<EXTMEM_FILENUM; ++i) {

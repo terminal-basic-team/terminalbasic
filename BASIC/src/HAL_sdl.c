@@ -145,13 +145,7 @@ HAL_nvram_write(HAL_nvram_address_t address, uint8_t b)
 uint32_t
 HAL_time_gettime_ms()
 {
-	struct timespec ts;
-	if (clock_gettime(CLOCK_MONOTONIC, &ts) != 0) {
-		perror("clock_gettime");
-		exit(EXIT_FAILURE);
-	}
-	
-	return ts.tv_sec * 1000l + ts.tv_nsec / 1000000l;
+	return 	SDL_GetTicks();
 }
 
 HAL_extmem_file_t

@@ -174,7 +174,11 @@ HAL_extmem_openfile(const char str[13])
 void
 HAL_extmem_deletefile(const char fname[13])
 {
-	unlink(fname);
+	char fpath[256];
+	strncpy(fpath, ext_root, 256);
+	strncat(fpath, fname, 256);
+	
+	unlink(fpath);
 }
 
 void
@@ -308,7 +312,13 @@ HAL_extmem_getfilename(uint16_t num, char name[13])
 BOOLEAN
 HAL_extmem_fileExists(const char fname[13])
 {
+	char fpath[256];
+	strncpy(fpath, ext_root, 256);
+	strncat(fpath, fname, 256);
 	
+	if (access(fpath, F_OK) == 0)
+		return TRUE;
+	return FALSE;
 }
 
 #endif /* HAL_LINUX */
