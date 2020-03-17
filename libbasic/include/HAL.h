@@ -43,6 +43,8 @@ void HAL_finalize();
 
 /*** Non volatile RAM interface ***/
 
+#if HAL_NVRAM
+
 /**
  * @address
  */
@@ -84,6 +86,8 @@ void HAL_nvram_read_buf(HAL_nvram_address_t, void*, uint32_t);
  */
 void HAL_nvram_write_buf(HAL_nvram_address_t, const void*, uint32_t);
 
+#endif /* HAL_NVRAM */
+
 /*** Terminal interface ***/
 
 typedef uint8_t HAL_terminal_t;
@@ -107,6 +111,8 @@ uint8_t HAL_terminal_read(HAL_terminal_t);
 uint8_t HAL_terminal_isdataready(HAL_terminal_t);
 
 /*** External memory interface ***/
+
+#if HAL_EXTMEM
 
 /**
  * File handle
@@ -198,6 +204,8 @@ void HAL_extmem_getfilename(uint16_t, char[13]);
  */
 BOOLEAN HAL_extmem_fileExists(const char[13]);
 
+#endif /* HAL_EXTMEM */
+
 /*** Time interface ***/
 
 /**
@@ -211,6 +219,86 @@ void HAL_time_sleep_ms(uint32_t);
  * @return time in milliseconds
  */
 uint32_t HAL_time_gettime_ms();
+
+#if HAL_GFX
+
+typedef enum {
+	HAL_GFX_COLOR_BLACK,
+	HAL_GFX_COLOR_WHITE,
+	HAL_GFX_COLOR_RED,
+	HAL_GFX_COLOR_GREEN,
+	HAL_GFX_COLOR_BLUE,
+	HAL_GFX_COLOR_CYAN,
+	HAL_GFX_COLOR_MAGENTA,
+	HAL_GFX_COLOR_YELLOW,
+	HAL_GFX_COLOR_GRAY
+} HAL_gfx_color_t;
+
+/**
+ * @param fgcolor
+ * @param bgcolor
+ */
+void HAL_gfx_setColor(HAL_gfx_color_t, HAL_gfx_color_t);
+
+/**
+ * @param x
+ * @param y
+ */
+void HAL_gfx_point(uint16_t, uint16_t);
+
+/**
+ * @param x
+ * @param y
+ * @param color
+ */
+void HAL_gfx_pointc(uint16_t, uint16_t, HAL_gfx_color_t);
+
+/**
+ * @param x1
+ * @param y1
+ * @param x2
+ * @param y2
+ */
+void HAL_gfx_line(uint16_t, uint16_t, uint16_t, uint16_t);
+
+/**
+ * @param x1
+ * @param y1
+ * @param x2
+ * @param y2
+ * @param color
+ */
+void HAL_gfx_linec(uint16_t, uint16_t, uint16_t, uint16_t, HAL_gfx_color_t);
+
+/**
+ * @param x
+ * @param y
+ */
+void HAL_gfx_lineto(uint16_t, uint16_t);
+
+/**
+ * @param x
+ * @param y
+ * @param color
+ */
+void HAL_gfx_linetoc(uint16_t, uint16_t, HAL_gfx_color_t);
+
+/**
+ * @param x
+ * @param y
+ * @param r
+ */
+void HAL_gfx_circle(uint16_t, uint16_t, uint16_t);
+
+/**
+ * @param x
+ * @param y
+ * @param r
+ * @param color
+ */
+void HAL_gfx_circlec(uint16_t, uint16_t, uint16_t, HAL_gfx_color_t);
+
+#endif /* HAL_GFX */
 
 __END_DECLS
 

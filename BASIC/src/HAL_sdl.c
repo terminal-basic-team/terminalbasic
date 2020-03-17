@@ -44,7 +44,10 @@
 #define EXTMEM_DIR_PATH "extmem/"
 
 static int nvram_file = -1;
-static SDL_RWops* extmem_files[EXTMEM_NUM_FILES];
+static int extmem_files[EXTMEM_NUM_FILES];
+
+static int nvram_file = -1;
+//static SDL_RWops* extmem_files[EXTMEM_NUM_FILES];
 
 static char ext_root[256];
 
