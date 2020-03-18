@@ -28,6 +28,7 @@
 
 #include "sys/cdefs.h"
 #include "tools.h"
+#include "HAL_config.h"
 
 __BEGIN_DECLS
 
