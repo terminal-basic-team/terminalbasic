@@ -224,6 +224,7 @@ uint32_t HAL_time_gettime_ms();
 #if HAL_GFX
 
 typedef enum {
+	HAL_GFX_NOTACOLOR = 0,
 	HAL_GFX_COLOR_BLACK,
 	HAL_GFX_COLOR_WHITE,
 	HAL_GFX_COLOR_RED,
@@ -232,14 +233,16 @@ typedef enum {
 	HAL_GFX_COLOR_CYAN,
 	HAL_GFX_COLOR_MAGENTA,
 	HAL_GFX_COLOR_YELLOW,
-	HAL_GFX_COLOR_GRAY
+	HAL_GFX_COLOR_GRAY,
+		
+	HAL_GFX_NUMCOLORS
 } HAL_gfx_color_t;
 
 /**
  * @param fgcolor
  * @param bgcolor
  */
-void HAL_gfx_setColor(HAL_gfx_color_t, HAL_gfx_color_t);
+void HAL_gfx_setColor(HAL_gfx_color_t);
 
 /**
  * @param x

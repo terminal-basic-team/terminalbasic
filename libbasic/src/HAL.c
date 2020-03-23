@@ -42,3 +42,20 @@ HAL_nvram_read_buf(HAL_nvram_address_t address, void* buf, uint32_t size)
 }
 
 #endif /* HAL_NVRAM */
+
+#if HAL_GFX
+void
+HAL_gfx_pointc(uint16_t x, uint16_t y, HAL_gfx_color_t color)
+{
+	HAL_gfx_setColor(color);
+	HAL_gfx_point(x, y);
+}
+
+void
+HAL_gfx_linec(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, HAL_gfx_color_t color)
+{
+	HAL_gfx_setColor(color);
+	HAL_gfx_line(x1, y1, x2, y2);
+}
+   
+#endif /* HAL_GFX */

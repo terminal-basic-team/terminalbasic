@@ -21,6 +21,10 @@
 
 #include "basic.hpp"
 
+#if USE_SAVE_LOAD and !(HAL_NVRAM)
+#error "USE_SAVE_LOAD option requires HAL to support HAL_NVRAM"
+#endif
+
 namespace BASIC
 {
 

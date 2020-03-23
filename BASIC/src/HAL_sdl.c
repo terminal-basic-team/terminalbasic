@@ -40,8 +40,9 @@
 #include <sys/stat.h>
 #include <time.h>
 
-#define FILES_PATH "/terminal_basic_HAL/"
+#if HAL_NVRAM
 #define NVRAM_FILE "nvram.img"
+#endif
 
 #define EXTMEM_NUM_FILES 8
 #define EXTMEM_DIR_PATH "extmem/"
@@ -53,6 +54,21 @@ static SDL_Renderer* renderer = NULL;
 
 static char ext_root[256];
 
+#if HAL_GFX
+struct {Uint8 r,g,b,a;} colors[HAL_GFX_NUMCOLORS] = {
+	{0,0,0,0}, /*HAL_GFX_NOTACOLOR = 0,*/
+	{0,0,0,255}, /*HAL_GFX_COLOR_BLACK,*/
+	{255,255,255,255}, /*HAL_GFX_COLOR_WHITE,*/
+	{255,0,0,255}, /*HAL_GFX_COLOR_RED,*/
+	{0,255,0,255}, /*HAL_GFX_COLOR_GREEN,*/
+	{0,0,255,255}, /*HAL_GFX_COLOR_BLUE,*/
+	{0,255,255,255}, /*HAL_GFX_COLOR_CYAN,*/
+	{255,0,255,255}, /*HAL_GFX_COLOR_MAGENTA,*/
+	{255,255,0,255}, /*HAL_GFX_COLOR_YELLOW,*/
+	{127,127,127,255} /*HAL_GFX_COLOR_GRAY,*/
+};
+#endif /* HAL_GFX */
+
 void
 HAL_initialize()
 {
@@ -62,6 +78,7 @@ HAL_initialize()
 		exit(EXIT_FAILURE);
 	}
 	
+#if HAL_NVRAM
 	/* Initialize nvram and external memory directories */
 	SDL_RWops* nvram_file = SDL_RWFromFile(NVRAM_FILE, "r+");
 	if (nvram_file == NULL) {
@@ -78,6 +95,7 @@ HAL_initialize()
 		    SDL_GetError());
 		exit(EXIT_FAILURE);
 	}
+#endif
 
 	if (atexit(&HAL_finalize) != 0) {
 		perror("atexit");
@@ -120,6 +138,7 @@ HAL_finalize()
 	SDL_Quit();
 }
 
+#if HAL_NVRAM
 uint8_t
 HAL_nvram_read(HAL_nvram_address_t address)
 {
@@ -197,6 +216,7 @@ HAL_nvram_write(HAL_nvram_address_t address, uint8_t b)
 		exit(EXIT_FAILURE);
 	}
 }
+#endif /* HAL_NVRAM */
 
 uint32_t
 HAL_time_gettime_ms()
@@ -368,13 +388,31 @@ HAL_extmem_getfilename(uint16_t num, char name[13])
 BOOLEAN
 HAL_extmem_fileExists(const char fname[13])
 {
-	char fpath[256];
-	strncpy(fpath, ext_root, 256);
-	strncat(fpath, fname, 256);
-	
-	if (access(fpath, F_OK) == 0)
-		return TRUE;
-	return FALSE;
+	SDL_RWops* tfile = SDL_RWFromFile(fname, "r");
+	return tfile != NULL;
 }
+
+#if HAL_GFX
+void
+HAL_gfx_setColor(HAL_gfx_color_t color)
+{
+	SDL_SetRenderDrawColor(renderer, colors[color].r, colors[color].g,
+	    colors[color].b, colors[color].a);
+}
+
+void
+HAL_gfx_point(uint16_t x, uint16_t y)
+{
+	SDL_RenderDrawPoint(renderer, x, y);
+	SDL_RenderPresent(renderer);
+}
+
+void
+HAL_gfx_line(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2)
+{
+	SDL_RenderDrawLine(renderer, x1, y1, x2, y2);
+	SDL_RenderPresent(renderer);
+}
+#endif /* HAL_GFX */
 
 #endif /* HAL_SDL */
