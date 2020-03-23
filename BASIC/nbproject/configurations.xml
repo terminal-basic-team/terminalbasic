@@ -317,10 +317,10 @@
       </toolsSet>
       <compileType>
         <cTool>
-          <developmentMode>0</developmentMode>
           <incDir>
             <pElem>../libbasic/include</pElem>
           </incDir>
+          <commandLine>`pkg-config --cflags sdl2`</commandLine>
           <preprocessorList>
             <Elem>HAL_SDL</Elem>
           </preprocessorList>
@@ -472,16 +472,6 @@
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tvoutprint.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/HAL_avr8.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HAL_linux.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_sdl.c" ex="false" tool="0" flavor2="0">
       </item>

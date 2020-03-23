@@ -277,6 +277,23 @@ void HAL_gfx_linec(uint16_t, uint16_t, uint16_t, uint16_t, HAL_gfx_color_t);
 /**
  * @param x
  * @param y
+ * @param w
+ * @param h
+ */
+void HAL_gfx_rect(uint16_t, uint16_t, uint16_t, uint16_t);
+
+/**
+ * @param x
+ * @param y
+ * @param w
+ * @param h
+ * @param color
+ */
+void HAL_gfx_rectc(uint16_t, uint16_t, uint16_t, uint16_t, HAL_gfx_color_t);
+
+/**
+ * @param x
+ * @param y
  */
 void HAL_gfx_lineto(uint16_t, uint16_t);
 

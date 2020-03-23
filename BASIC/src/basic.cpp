@@ -25,6 +25,10 @@
 #error "USE_SAVE_LOAD option requires HAL to support HAL_NVRAM"
 #endif
 
+#if USE_GFX and !(HAL_GFX)
+#error "USE_GFX option requires HAL to support HAL_GFX"
+#endif
+
 namespace BASIC
 {
 

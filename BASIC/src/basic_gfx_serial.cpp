@@ -39,18 +39,21 @@ write16(Interpreter &i, int16_t v)
 bool
 GFXModule::command_box(Interpreter &i)
 {
-	INT x,y,w,h;
-	
+	INT h;
 	if (getIntegerFromStack(i, h)) {
+		INT w;
 		if (getIntegerFromStack(i, w)) {
+			INT y;
 			if (getIntegerFromStack(i, y)) {
+				INT x;
 				if (getIntegerFromStack(i, x)) {
-					i.print(char(ASCII::DLE));
+					/*i.print(char(ASCII::DLE));
 					i.print(char(GFXTERM::Command::BOX));
 					write16(i, x);
 					write16(i, y);
 					write16(i, w);
-					write16(i, h);
+					write16(i, h);*/
+					HAL_gfx_rect(x,y,w,h);
 					return true;
 				}
 			}
@@ -217,8 +220,8 @@ GFXModule::command_screen(Interpreter &i)
 bool
 GFXModule::command_boxc(Interpreter &i)
 {
-	INT z;
-	if (getIntegerFromStack(i, z)) {
+	INT c;
+	if (getIntegerFromStack(i, c)) {
 		INT h;
 		if (getIntegerFromStack(i, h)) {
 			INT w;
@@ -227,13 +230,14 @@ GFXModule::command_boxc(Interpreter &i)
 				if (getIntegerFromStack(i, y)) {
 					INT x;
 					if (getIntegerFromStack(i, x)) {
-						i.print(char(ASCII::DLE));
+						/*i.print(char(ASCII::DLE));
 						i.print(char(GFXTERM::Command::BOXC));
 						write16(i, x);
 						write16(i, y);
 						write16(i, w);
 						write16(i, h);
-						i.print(char(z));
+						i.print(char(c));*/
+						HAL_gfx_rectc(x,y,w,h, HAL_gfx_color_t(c));
 						return true;
 					}
 				}

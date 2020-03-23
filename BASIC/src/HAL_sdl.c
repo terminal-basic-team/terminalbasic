@@ -55,7 +55,7 @@ static SDL_Renderer* renderer = NULL;
 static char ext_root[256];
 
 #if HAL_GFX
-struct {Uint8 r,g,b,a;} colors[HAL_GFX_NUMCOLORS] = {
+static const struct {Uint8 r,g,b,a;} colors[HAL_GFX_NUMCOLORS] = {
 	{0,0,0,0}, /*HAL_GFX_NOTACOLOR = 0,*/
 	{0,0,0,255}, /*HAL_GFX_COLOR_BLACK,*/
 	{255,255,255,255}, /*HAL_GFX_COLOR_WHITE,*/
@@ -67,6 +67,8 @@ struct {Uint8 r,g,b,a;} colors[HAL_GFX_NUMCOLORS] = {
 	{255,255,0,255}, /*HAL_GFX_COLOR_YELLOW,*/
 	{127,127,127,255} /*HAL_GFX_COLOR_GRAY,*/
 };
+static HAL_gfx_color_t fgColor = HAL_GFX_NOTACOLOR;
+static HAL_gfx_color_t bgColor = HAL_GFX_NOTACOLOR;
 #endif /* HAL_GFX */
 
 void
@@ -396,6 +398,7 @@ HAL_extmem_fileExists(const char fname[13])
 void
 HAL_gfx_setColor(HAL_gfx_color_t color)
 {
+	fgColor = color;
 	SDL_SetRenderDrawColor(renderer, colors[color].r, colors[color].g,
 	    colors[color].b, colors[color].a);
 }
@@ -412,6 +415,18 @@ HAL_gfx_line(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2)
 {
 	SDL_RenderDrawLine(renderer, x1, y1, x2, y2);
 	SDL_RenderPresent(renderer);
+}
+
+void
+HAL_gfx_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h)
+{
+	SDL_Rect rect = { .x = x, .y = y, .w = w, .h = h };
+	if (bgColor != HAL_GFX_NOTACOLOR) {
+		HAL_gfx_setColor(bgColor);
+		SDL_RenderFillRect(renderer, &rect);
+	}
+	HAL_gfx_setColor(fgColor);
+	SDL_RenderDrawRect(renderer, &rect);
 }
 #endif /* HAL_GFX */
 

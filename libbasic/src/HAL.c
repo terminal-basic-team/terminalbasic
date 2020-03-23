@@ -57,5 +57,12 @@ HAL_gfx_linec(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, HAL_gfx_color_
 	HAL_gfx_setColor(color);
 	HAL_gfx_line(x1, y1, x2, y2);
 }
+
+void
+HAL_gfx_rectc(uint16_t x, uint16_t y, uint16_t w, uint16_t h, HAL_gfx_color_t color)
+{
+    	HAL_gfx_setColor(color);
+	HAL_gfx_rect(x, y, w, h);
+}
    
 #endif /* HAL_GFX */
