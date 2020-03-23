@@ -21,6 +21,9 @@
 
 #ifdef HAL_SDL
 
+#define HAL_SDL_WIDTH 640
+#define HAL_SDL_HEIGHT 480
+
 #include "HAL.h"
 
 #include <SDL.h>
@@ -43,8 +46,10 @@
 #define EXTMEM_NUM_FILES 8
 #define EXTMEM_DIR_PATH "extmem/"
 
-static int nvram_file = -1;
-static SDL_RWops* extmem_files[EXTMEM_NUM_FILES];
+static int extmem_files[EXTMEM_NUM_FILES];
+static SDL_RWops* extmemFiles[EXTMEM_NUM_FILES];
+static SDL_Window* window = NULL;
+static SDL_Renderer* renderer = NULL;
 
 static char ext_root[256];
 
@@ -58,58 +63,59 @@ HAL_initialize()
 	}
 	
 	/* Initialize nvram and external memory directories */
-	const char *homedir = NULL;
-	if ((homedir = getenv("HOME")) == NULL) {
-		struct passwd* p = getpwuid(getuid());
-		if (p != NULL)
-			homedir = p->pw_dir;
-	}
-	
-	char root[256], fpath[256];
-	strncpy(root, homedir, 256);
-	strncat(root, FILES_PATH, strlen(FILES_PATH));
-	
-	strncpy(fpath, root, 256);
-	strncat(fpath, NVRAM_FILE, strlen(NVRAM_FILE));
-	
-	DIR *ucbasicHome = opendir(root);
-	if (ucbasicHome == NULL)
-		if (mkdir(root, 0770) == -1) {
-			perror("mkdir");
+	SDL_RWops* nvram_file = SDL_RWFromFile(NVRAM_FILE, "r+");
+	if (nvram_file == NULL) {
+		nvram_file = SDL_RWFromFile(NVRAM_FILE, "w+");
+		if (nvram_file == NULL) {
+			SDL_LogError(SDL_LOG_CATEGORY_SYSTEM, "SDL_RWFromFile: %s",
+			    SDL_GetError());
 			exit(EXIT_FAILURE);
 		}
-	
-	nvram_file = open(fpath, O_CREAT|O_RDWR, S_IRUSR|S_IWUSR);
-	if (nvram_file == -1) {
-		perror("open");
-		exit(EXIT_FAILURE);
 	}
 	
+	if (SDL_RWclose(nvram_file) != 0) {
+		SDL_LogError(SDL_LOG_CATEGORY_SYSTEM, "SDL_RWclose: %s",
+		    SDL_GetError());
+		exit(EXIT_FAILURE);
+	}
+
 	if (atexit(&HAL_finalize) != 0) {
 		perror("atexit");
 		exit(EXIT_FAILURE);
 	}
 	
-	strncpy(ext_root, root, 256);
-	strncat(ext_root, EXTMEM_DIR_PATH, strlen(EXTMEM_DIR_PATH));
-	DIR *ucbasicExtmem = opendir(ext_root);
-	if (ucbasicExtmem == NULL)
-		if (mkdir(ext_root, 0770) == -1) {
-			perror("mkdir");
-			exit(EXIT_FAILURE);
-		}
-	
 	for (size_t i=0; i<EXTMEM_NUM_FILES; ++i)
-		extmem_files[i] = NULL;
+		extmemFiles[i] = NULL;
+	
+	window = SDL_CreateWindow("Terminal-BASIC", 0,0, HAL_SDL_WIDTH,
+	    HAL_SDL_HEIGHT, 0);
+	if (window == NULL) {
+		SDL_LogError(SDL_LOG_CATEGORY_SYSTEM, "SDL_CreateWindow: %s",
+		    SDL_GetError());
+		exit(EXIT_FAILURE);
+	}
+	
+	renderer = SDL_CreateRenderer(window, -1, 0);
+	if (renderer == NULL) {
+		SDL_LogError(SDL_LOG_CATEGORY_SYSTEM, "SDL_CreateRenderer: %s",
+		    SDL_GetError());
+		exit(EXIT_FAILURE);
+	}
+	
+	if (SDL_RenderClear(renderer) != 0) {
+		SDL_LogError(SDL_LOG_CATEGORY_SYSTEM, "SDL_RenderClear: %s",
+		    SDL_GetError());
+		exit(EXIT_FAILURE);
+	}
+	
+	SDL_RenderPresent(renderer);
 }
 
 void
 HAL_finalize()
 {
-	if (close(nvram_file) != 0) {
-		perror("close");
-		exit(EXIT_FAILURE);
-	}
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
 	
 	SDL_Quit();
 }
@@ -117,27 +123,77 @@ HAL_finalize()
 uint8_t
 HAL_nvram_read(HAL_nvram_address_t address)
 {
-	if (lseek(nvram_file, (off_t)address, SEEK_SET) == (off_t)-1) {
-		perror("lseek");
+	SDL_RWops* nvram_file = SDL_RWFromFile(NVRAM_FILE, "r");
+	if (nvram_file == NULL) {
+		SDL_LogError(SDL_LOG_CATEGORY_SYSTEM, "SDL_RWFromFile: %s",
+		    SDL_GetError());
 		exit(EXIT_FAILURE);
 	}
-	char buf;
-	if (read(nvram_file, &buf, 1) == -1) {
-		perror("read");
+	if (SDL_RWseek(nvram_file, (uint32_t)(address), RW_SEEK_SET) == -1) {
+		SDL_LogError(SDL_LOG_CATEGORY_SYSTEM, "SDL_RWseek: %s",
+		    SDL_GetError());
 		exit(EXIT_FAILURE);
 	}
-	return buf;
+	
+	uint8_t r;
+	if (SDL_RWread(nvram_file, &r, 1, 1) == 0) {
+		SDL_LogError(SDL_LOG_CATEGORY_SYSTEM, "SDL_RWread: %s",
+		    SDL_GetError());
+		exit(EXIT_FAILURE);
+	}
+
+	if (SDL_RWclose(nvram_file) != 0) {
+		SDL_LogError(SDL_LOG_CATEGORY_SYSTEM, "SDL_RWclose: %s",
+		    SDL_GetError());
+		exit(EXIT_FAILURE);
+	}
+	
+	return r;
 }
 
 void
 HAL_nvram_write(HAL_nvram_address_t address, uint8_t b)
 {
-	if (lseek(nvram_file, (off_t)address, SEEK_SET) == (off_t)-1) {
-		perror("lseek");
+	SDL_RWops* nvram_file = SDL_RWFromFile(NVRAM_FILE, "r+");
+	if (nvram_file == NULL) {
+		SDL_LogError(SDL_LOG_CATEGORY_SYSTEM, "SDL_RWFromFile: %s",
+		    SDL_GetError());
 		exit(EXIT_FAILURE);
 	}
-	if (write(nvram_file, &b, 1) != 1) {
-		perror("write");
+
+	Sint64 size = SDL_RWseek(nvram_file, 0, RW_SEEK_END);
+	if (size == -1) {
+		SDL_LogError(SDL_LOG_CATEGORY_SYSTEM, "SDL_RWseek: %s",
+		    SDL_GetError());
+		exit(EXIT_FAILURE);
+	}
+	
+	if (size > (Sint64)(address)) {
+		if (SDL_RWseek(nvram_file, (Sint64)(address), RW_SEEK_SET) == -1) {
+			SDL_LogError(SDL_LOG_CATEGORY_SYSTEM, "SDL_RWseek: %s",
+			    SDL_GetError());
+			exit(EXIT_FAILURE);
+		}
+	} else {
+		Sint64 diff = (Sint64)(address) - size;
+		char* buf = (char*)malloc(diff);
+		if (SDL_RWwrite(nvram_file, buf, diff, 1) != diff) {
+			SDL_LogError(SDL_LOG_CATEGORY_SYSTEM, "SDL_RWwrite: %s",
+			    SDL_GetError());
+			free(buf);
+			exit(EXIT_FAILURE);
+		}
+		free(buf);
+	}
+	if (SDL_RWwrite(nvram_file, &b, 1, 1) == 0) {
+		SDL_LogError(SDL_LOG_CATEGORY_SYSTEM, "SDL_RWwrite: %s",
+		    SDL_GetError());
+		exit(EXIT_FAILURE);
+	}
+	
+	if (SDL_RWclose(nvram_file) != 0) {
+		SDL_LogError(SDL_LOG_CATEGORY_SYSTEM, "SDL_RWclose: %s",
+		    SDL_GetError());
 		exit(EXIT_FAILURE);
 	}
 }
@@ -147,45 +203,44 @@ HAL_time_gettime_ms()
 {
 	return 	SDL_GetTicks();
 }
-
+	
 HAL_extmem_file_t
-HAL_extmem_openfile(const char* str)
+HAL_extmem_openfile(const char str[13])
 {
 	char fpath[256];
 	strncpy(fpath, ext_root, 256);
 	strncat(fpath, str, 256);
 	
-	SDL_RWops *file = SDL_RWFromFile(fpath, "ab");
-	if (file == NULL) {
-		SDL_LogError(SDL_LOG_CATEGORY_SYSTEM, "SDL_RWFromFile: %s",
-		    SDL_GetError());
-		exit(EXIT_FAILURE);
-	}
-	if (SDL_RWclose(file) != 0) {
-		SDL_LogError(SDL_LOG_CATEGORY_SYSTEM, "SDL_RWclose: %s",
-		    SDL_GetError());
-		exit(EXIT_FAILURE);
-	}
-	file = SDL_RWFromFile(fpath, "r+b");
-	if (file == NULL) {
-		SDL_LogError(SDL_LOG_CATEGORY_SYSTEM, "SDL_RWFromFile: %s",
-		    SDL_GetError());
+	int fp = open(fpath, O_CREAT|O_RDWR, S_IRUSR|S_IWUSR);
+	if (fp == -1) {
+		perror("open");
 		exit(EXIT_FAILURE);
 	}
 	
 	for (size_t i=0; i<EXTMEM_NUM_FILES; ++i) {
-		if (extmem_files[i] == NULL) {
-			extmem_files[i] = file;
+		if (extmem_files[i] == -1) {
+			extmem_files[i] = fp;
 			return i+1;
 		}
 	}
+	
 	return 0;
+}
+
+void
+HAL_extmem_deletefile(const char fname[13])
+{
+	char fpath[256];
+	strncpy(fpath, ext_root, 256);
+	strncat(fpath, fname, 256);
+	
+	unlink(fpath);
 }
 
 void
 HAL_extmem_closefile(HAL_extmem_file_t file)
 {
-	/*if ((file == 0)
+	if ((file == 0)
 	 || (file > EXTMEM_NUM_FILES)
 	 || (extmem_files[file-1] == -1))
 		return;
@@ -194,16 +249,16 @@ HAL_extmem_closefile(HAL_extmem_file_t file)
 		perror("close");
 		exit(EXIT_FAILURE);
 	}
-	extmem_files[file-1] = -1;*/
+	extmem_files[file-1] = -1;
 }
 
 off_t
 _seek(HAL_extmem_file_t file, off_t pos, int whence)
 {
-	/*if ((file == 0)
+	if ((file == 0)
 	 || (file > EXTMEM_NUM_FILES)
 	 || (extmem_files[file-1] == -1))
-		return;
+		return 0;
 	
 	off_t res = lseek(extmem_files[file-1], pos, whence);
 	if (res == -1) {
@@ -211,57 +266,115 @@ _seek(HAL_extmem_file_t file, off_t pos, int whence)
 		exit(EXIT_FAILURE);
 	}
 	
-	return res;*/
+	return res;
 }
 
 HAL_extmem_fileposition_t
 HAL_extmem_getfileposition(HAL_extmem_file_t file)
 {
-	//return _seek(file, 0, SEEK_CUR);
+	return _seek(file, 0, SEEK_CUR);
 }
 
 void
 HAL_extmem_setfileposition(HAL_extmem_file_t file,
     HAL_extmem_fileposition_t pos)
 {
-	//_seek(file, pos, SEEK_SET);
+	_seek(file, pos, SEEK_SET);
 }
 
 HAL_extmem_fileposition_t
 HAL_extmem_getfilesize(HAL_extmem_file_t file)
 {
-	/*off_t current = _seek(file, 0, SEEK_CUR);
+	off_t current = _seek(file, 0, SEEK_CUR);
 	off_t result =  _seek(file, 0, SEEK_END);
 	_seek(file, current, SEEK_SET);
 	
-	return result;*/
+	return result;
 }
 
 uint8_t
 HAL_extmem_readfromfile(HAL_extmem_file_t file)
 {
-	/*if ((file == 0)
+	if ((file == 0)
 	 || (file > EXTMEM_NUM_FILES)
 	 || (extmem_files[file-1] == -1))
-		return;
+		return 0;
 	
 	char result = '\0';
 	if (read(extmem_files[file-1], &result, 1) != 1)
 		fputs("HAL error \"read\": Can't read from file", stderr);
 	
-	return result;*/
+	return result;
 }
 
 void
 HAL_extmem_writetofile(HAL_extmem_file_t file, uint8_t byte)
 {
-	/*if ((file == 0)
+	if ((file == 0)
 	 || (file > EXTMEM_NUM_FILES)
 	 || (extmem_files[file-1] == -1))
 		return;
 	
 	if (write(extmem_files[file-1], &byte, 1) != 1)
-		fputs("HAL error \"write\": Can't write to file", stderr);*/
+		fputs("HAL error \"write\": Can't write to file", stderr);
+}
+
+uint16_t
+HAL_extmem_getnumfiles()
+{
+	DIR *extRootDir = opendir(ext_root);
+	if (extRootDir == NULL) {
+		perror("opendir");
+		exit(EXIT_FAILURE);
+	}
+	
+	uint16_t result = 0;
+	
+	struct dirent* de;
+	while ((de = readdir(extRootDir)) != NULL) {
+		if (de->d_type == DT_DIR)
+			continue;
+		result++;
+	}
+	
+	return result;
+}
+
+void
+HAL_extmem_getfilename(uint16_t num, char name[13])
+{
+	DIR *extRootDir = opendir(ext_root);
+	if (extRootDir == NULL) {
+		perror("opendir");
+		exit(EXIT_FAILURE);
+	}
+	
+	struct dirent* de;
+	while ((de = readdir(extRootDir)) != NULL) {
+		if (de->d_type == DT_DIR)
+			continue;
+		if (num == 0) {
+			strncpy(name, de->d_name, 12);
+			break;
+		}
+		num--;
+	}
+	if (num > 0) {
+		name[0] = '\0';
+		return;
+	}
+}
+
+BOOLEAN
+HAL_extmem_fileExists(const char fname[13])
+{
+	char fpath[256];
+	strncpy(fpath, ext_root, 256);
+	strncat(fpath, fname, 256);
+	
+	if (access(fpath, F_OK) == 0)
+		return TRUE;
+	return FALSE;
 }
 
 #endif /* HAL_SDL */
