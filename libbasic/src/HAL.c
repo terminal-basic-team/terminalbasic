@@ -64,5 +64,18 @@ HAL_gfx_rectc(uint16_t x, uint16_t y, uint16_t w, uint16_t h, HAL_gfx_color_t co
     	HAL_gfx_setColor(color);
 	HAL_gfx_rect(x, y, w, h);
 }
+
+void
+HAL_gfx_circlec(uint16_t x, uint16_t y, uint16_t r, HAL_gfx_color_t color) {
+	HAL_gfx_setColor(color);
+	HAL_gfx_circle(x, y, r);
+}
+
+void
+HAL_gfx_setColors(HAL_gfx_color_t fgColor, HAL_gfx_color_t bgColor)
+{
+    HAL_gfx_setColor(fgColor);
+    HAL_gfx_setBgColor(bgColor);
+}
    
 #endif /* HAL_GFX */

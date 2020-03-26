@@ -47,12 +47,6 @@ GFXModule::command_box(Interpreter &i)
 			if (getIntegerFromStack(i, y)) {
 				INT x;
 				if (getIntegerFromStack(i, x)) {
-					/*i.print(char(ASCII::DLE));
-					i.print(char(GFXTERM::Command::BOX));
-					write16(i, x);
-					write16(i, y);
-					write16(i, w);
-					write16(i, h);*/
 					HAL_gfx_rect(x,y,w,h);
 					return true;
 				}
@@ -94,11 +88,7 @@ GFXModule::command_circle(Interpreter &i)
 		if (getIntegerFromStack(i, y)) {
 			INT x;
 			if (getIntegerFromStack(i, x)) {
-				i.print(char(ASCII::DLE));
-				i.print(char(GFXTERM::Command::CIRCLEC));
-				write16(i, x);
-				write16(i, y);
-				write16(i, r);
+				HAL_gfx_circle(x,y,r);
 				return true;
 			}
 		}
@@ -114,11 +104,7 @@ GFXModule::command_color(Interpreter &i)
 	if (getIntegerFromStack(i, b)) {
 		INT c;
 		if (getIntegerFromStack(i, c)) {
-			/*i.print(char(ASCII::DLE));
-			i.print(char(GFXTERM::Command::COLOR));
-			i.print(char(c));
-			i.print(char(b));*/
-			HAL_gfx_setColor(HAL_gfx_color_t(c));
+			HAL_gfx_setColors(HAL_gfx_color_t(c), HAL_gfx_color_t(b));
 			return true;
 		}
 	}
@@ -151,12 +137,6 @@ GFXModule::command_line(Interpreter &i)
 			if (getIntegerFromStack(i, y1)) {
 				INT x1;
 				if (getIntegerFromStack(i, x1)) {
-					/*i.print(char(ASCII::DLE));
-					i.print(char(GFXTERM::Command::LINE));
-					write16(i, x1);
-					write16(i, y1);
-					write16(i, x2);
-					write16(i, y2);*/
 					HAL_gfx_line(x1, y1, x2, y2);
 					return true;
 				}
@@ -191,10 +171,6 @@ GFXModule::command_point(Interpreter &i)
 	
 	if (getIntegerFromStack(i, y)) {
 		if (getIntegerFromStack(i, x)) {
-			/*i.print(char(ASCII::DLE));
-			i.print(char(GFXTERM::Command::POINT));
-			write16(i, x);
-			write16(i, y);*/
 			HAL_gfx_point(x, y);
 			return true;
 		}
@@ -297,11 +273,13 @@ GFXModule::command_pointc(Interpreter &i)
 bool
 GFXModule::command_circlec(Interpreter &i)
 {
-	INT x,y,r,z;
-	
+	INT z;
 	if (getIntegerFromStack(i, z)) {
+		INT r;
 		if (getIntegerFromStack(i, r)) {
+			INT y;
 			if (getIntegerFromStack(i, y)) {
+				INT x;
 				if (getIntegerFromStack(i, x)) {
 					i.print(char(ASCII::DLE));
 					i.print(char(GFXTERM::Command::CIRCLEC));

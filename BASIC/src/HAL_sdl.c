@@ -21,10 +21,7 @@
 
 #ifdef HAL_SDL
 
-#define HAL_SDL_WIDTH 640
-#define HAL_SDL_HEIGHT 480
-
-#include "HAL.h"
+#include "HAL_sdl.h"
 
 #include <SDL.h>
 
@@ -44,7 +41,6 @@
 #define NVRAM_FILE "nvram.img"
 #endif
 
-#define EXTMEM_NUM_FILES 8
 #define EXTMEM_DIR_PATH "extmem/"
 
 static int extmem_files[EXTMEM_NUM_FILES];
@@ -220,6 +216,8 @@ HAL_nvram_write(HAL_nvram_address_t address, uint8_t b)
 }
 #endif /* HAL_NVRAM */
 
+#if HAL_EXTMEM
+
 uint32_t
 HAL_time_gettime_ms()
 {
@@ -394,13 +392,28 @@ HAL_extmem_fileExists(const char fname[13])
 	return tfile != NULL;
 }
 
+#endif /* HAL_EXTMEM */
+
 #if HAL_GFX
+
+void
+_setColor(HAL_gfx_color_t color)
+{
+	SDL_SetRenderDrawColor(renderer, colors[color].r, colors[color].g,
+	    colors[color].b, colors[color].a);
+}
+
 void
 HAL_gfx_setColor(HAL_gfx_color_t color)
 {
 	fgColor = color;
-	SDL_SetRenderDrawColor(renderer, colors[color].r, colors[color].g,
-	    colors[color].b, colors[color].a);
+	_setColor(color);
+}
+
+void
+HAL_gfx_setBgColor(HAL_gfx_color_t color)
+{
+	bgColor = color;
 }
 
 void
@@ -422,11 +435,72 @@ HAL_gfx_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h)
 {
 	SDL_Rect rect = { .x = x, .y = y, .w = w, .h = h };
 	if (bgColor != HAL_GFX_NOTACOLOR) {
-		HAL_gfx_setColor(bgColor);
+		_setColor(bgColor);
 		SDL_RenderFillRect(renderer, &rect);
 	}
-	HAL_gfx_setColor(fgColor);
+	_setColor(fgColor);
 	SDL_RenderDrawRect(renderer, &rect);
+	SDL_RenderPresent(renderer);
+}
+
+void
+HAL_gfx_circle(uint16_t x0, uint16_t y0, uint16_t radius)
+{
+	int f = 1 - radius;
+	int ddF_x = 1;
+	int ddF_y = -2 * radius;
+	int x = 0;
+	int y = radius;
+	uint8_t pyy = y, pyx = x;
+
+	//there is a fill color
+	if (bgColor != HAL_GFX_NOTACOLOR) {
+		_setColor(bgColor);
+		SDL_RenderDrawLine(renderer, x0 - radius, y0, x0 + radius, y0);
+	}
+
+	_setColor(fgColor);
+	SDL_RenderDrawPoint(renderer, x0, y0 + radius);
+	SDL_RenderDrawPoint(renderer, x0, y0 - radius);
+	SDL_RenderDrawPoint(renderer, x0 + radius, y0);
+	SDL_RenderDrawPoint(renderer, x0 - radius, y0);
+
+	while (x < y) {
+		if (f >= 0) {
+			y--;
+			ddF_y += 2;
+			f += ddF_y;
+		}
+		x++;
+		ddF_x += 2;
+		f += ddF_x;
+
+		//there is a fill color
+		if (bgColor != HAL_GFX_NOTACOLOR) {
+			//prevent double draws on the same rows
+			_setColor(bgColor);
+			if (pyy != y) {
+				SDL_RenderDrawLine(renderer, x0 - x, y0 + y, x0 + x, y0 + y);
+				SDL_RenderDrawLine(renderer, x0 - x, y0 - y, x0 + x, y0 - y);
+			}
+			if (pyx != x && x != y) {
+				SDL_RenderDrawLine(renderer, x0 - y, y0 + x, x0 + y, y0 + x);
+				SDL_RenderDrawLine(renderer, x0 - y, y0 - x, x0 + y, y0 - x);
+			}
+			pyy = y;
+			pyx = x;
+		}
+		_setColor(fgColor);
+		SDL_RenderDrawPoint(renderer, x0 + x, y0 + y);
+		SDL_RenderDrawPoint(renderer, x0 - x, y0 + y);
+		SDL_RenderDrawPoint(renderer, x0 + x, y0 - y);
+		SDL_RenderDrawPoint(renderer, x0 - x, y0 - y);
+		SDL_RenderDrawPoint(renderer, x0 + y, y0 + x);
+		SDL_RenderDrawPoint(renderer, x0 - y, y0 + x);
+		SDL_RenderDrawPoint(renderer, x0 + y, y0 - x);
+		SDL_RenderDrawPoint(renderer, x0 - y, y0 - x);
+	}
+	SDL_RenderPresent(renderer);
 }
 #endif /* HAL_GFX */
 

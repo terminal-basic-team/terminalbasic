@@ -109,7 +109,7 @@ uint8_t HAL_terminal_read(HAL_terminal_t);
  * @parram termno
  * @return number of bytes, ready to read
  */
-uint8_t HAL_terminal_isdataready(HAL_terminal_t);
+BOOLEAN HAL_terminal_isdataready(HAL_terminal_t);
 
 /*** External memory interface ***/
 
@@ -240,9 +240,20 @@ typedef enum {
 
 /**
  * @param fgcolor
- * @param bgcolor
  */
 void HAL_gfx_setColor(HAL_gfx_color_t);
+
+
+/**
+ * @param bgcolor
+ */
+void HAL_gfx_setBgColor(HAL_gfx_color_t);
+
+/**
+ * @param fgColor
+ * @param bgColor
+ */
+void HAL_gfx_setColors(HAL_gfx_color_t, HAL_gfx_color_t);
 
 /**
  * @param x
@@ -324,4 +335,3 @@ void HAL_gfx_circlec(uint16_t, uint16_t, uint16_t, HAL_gfx_color_t);
 __END_DECLS
 
 #endif /* HAL_H */
-

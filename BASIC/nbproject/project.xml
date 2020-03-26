@@ -6,7 +6,7 @@
             <name>BASIC</name>
             <c-extensions>c</c-extensions>
             <cpp-extensions>cpp</cpp-extensions>
-            <header-extensions>hpp</header-extensions>
+            <header-extensions>h,hpp</header-extensions>
             <sourceEncoding>IBM866</sourceEncoding>
             <make-dep-projects>
                 <make-dep-project>../../libarduinoemulator</make-dep-project>

@@ -21,17 +21,17 @@
 
 #ifdef ARDUINO
 
-// configuration
-#define USE_SD_EXTMEM 1
-#define EXTMEM_FILENUM 5
-// ~configuration
-
 #include <string.h>
 
-#include "HAL.h"
+#include "HAL_arduino.h"
 #include "Arduino.h"
-#if USE_SD_EXTMEM
+
+#if HAL_ARDUINO_EXTMEM == HAL_ARDUINO_EXTMEM_SDFS
 #include "sd.hpp"
+#endif
+
+#if HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_SERIAL
+#include "gfxterm.hpp"
 #endif
 
 __BEGIN_DECLS
@@ -42,11 +42,61 @@ __END_DECLS
 void
 HAL_initialize()
 {
-#if USE_SD_EXTMEM
+#if HAL_ARDUINO_EXTMEM == HAL_ARDUINO_EXTMEM_SDFS
 	if (!SDCard::SDFS.begin())
 		abort();
 #endif
 	HAL_initialize_concrete();
+	
+#if HAL_ARDUINO_TERMINAL == HAL_ARDUINO_TERMINAL_SERIAL
+	Serial.begin(HAL_ARDUINO_TERMINAL_SERIAL_0_BR);
+#if defined(HAVE_HWSERIAL1) && (HAL_TERMINAL_NUM > 0)
+	Serial1.begin(HAL_ARDUINO_TERMINAL_SERIAL_1_BR);
+#endif
+#if defined(HAVE_HWSERIAL2) && (HAL_TERMINAL_NUM > 1)
+	Serial1.begin(HAL_ARDUINO_TERMINAL_SERIAL_2_BR);
+#endif
+#if defined(HAVE_HWSERIAL3) && (HAL_TERMINAL_NUM > 2)
+	Serial1.begin(HAL_ARDUINO_TERMINAL_SERIAL_3_BR);
+#endif
+#endif // HAL_ARDUINO_TERMINAL
+}
+
+#if HAL_ARDUINO_TERMINAL == HAL_ARDUINO_TERMINAL_SERIAL
+
+void
+HAL_terminal_write(HAL_terminal_t t, uint8_t b)
+{
+	if (t == 0)
+		Serial.write(b);
+#if defined(HAVE_HWSERIAL1) && (HAL_TERMINAL_NUM > 0)
+	else if (t == 1)
+		Serial1.write(b);
+#endif
+}
+
+uint8_t
+HAL_terminal_read(HAL_terminal_t t)
+{
+	if (t == 0)
+		return Serial.read();
+#if defined(HAVE_HWSERIAL1) && (HAL_TERMINAL_NUM > 0)
+	else if (t == 1)
+		return Serial1.read();
+#endif
+	return 0;
+}
+
+BOOLEAN
+HAL_terminal_isdataready(HAL_terminal_t t)
+{
+	if (t == 0)
+		return Serial.available();
+#if defined(HAVE_HWSERIAL1) && (HAL_TERMINAL_NUM > 0)
+	else if (t == 1)
+		return Serial1.read();
+#endif
+	return FALSE;
 }
 
 void
@@ -59,11 +109,13 @@ uint32_t
 HAL_time_gettime_ms()
 {
 	return millis();
-}	
+}
 
-#if USE_SD_EXTMEM
+#endif // HAL_ARDUINO_TERMINAL
 
-static SDCard::File files[EXTMEM_FILENUM];
+#if HAL_ARDUINO_EXTMEM == HAL_ARDUINO_EXTMEM_SDFS
+
+static SDCard::File files[EXTMEM_NUM_FILES];
 
 static SDCard::File
 getRootDir()
@@ -78,15 +130,13 @@ HAL_extmem_file_t
 HAL_extmem_openfile(const char path[13])
 {
 	uint8_t i=0;
-	for (; i<EXTMEM_FILENUM; ++i) {
-		if (!files[i])
-			break;
-	}
-	if (i<EXTMEM_FILENUM) {
-		files[i] = SDCard::SDFS.open(path, SDCard::Mode::CREAT|SDCard::Mode::WRITE|
-		    SDCard::Mode::READ);
-		if (files[i])
-			return i+1;
+	for (; i<EXTMEM_NUM_FILES; ++i) {
+		if (!files[i]) {
+			files[i] = SDCard::SDFS.open(path, SDCard::Mode::CREAT|SDCard::Mode::WRITE|
+			    SDCard::Mode::READ);
+			if (files[i])
+				return i+1;
+		}
 	}
 	return 0;
 }
@@ -178,9 +228,87 @@ HAL_extmem_deletefile(const char path[13])
 BOOLEAN
 HAL_extmem_fileExists(const char path[13])
 {
-	SDCard::SDFS.exists();
+	SDCard::SDFS.exists(path);
 }
 
-#endif // USE_SD_EXTMEM
+#endif // HAL_ARDUINO_EXTMEM
+
+#if HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_SERIAL
+
+static void
+_write16(int16_t v)
+{
+	HAL_terminal_write(HAL_ARDUINO_GFX_SERIAL_TERMNO, uint8_t(v>>8));
+	HAL_terminal_write(HAL_ARDUINO_GFX_SERIAL_TERMNO, uint8_t(v&0xFFu));
+}
+
+static HAL_gfx_color_t _colors[2] = {HAL_GFX_NOTACOLOR, HAL_GFX_NOTACOLOR};
+
+void
+_writeCommand(GFXTERM::Command c)
+{
+	HAL_terminal_write(HAL_ARDUINO_GFX_SERIAL_TERMNO, uint8_t(ASCII::DLE));
+	HAL_terminal_write(HAL_ARDUINO_GFX_SERIAL_TERMNO, uint8_t(c));
+}
+
+void
+_setColors()
+{
+	_writeCommand(GFXTERM::Command::COLOR);
+	HAL_terminal_write(HAL_ARDUINO_GFX_SERIAL_TERMNO, uint8_t(_colors[0]));
+	HAL_terminal_write(HAL_ARDUINO_GFX_SERIAL_TERMNO, uint8_t(_colors[1]));
+}
+
+void
+HAL_gfx_setColor(HAL_gfx_color_t color)
+{
+	_colors[0] = color;
+	
+	_setColors();
+}
+
+void
+HAL_gfx_setBgColor(HAL_gfx_color_t color)
+{
+	_colors[1] = color;
+	
+	_setColors();
+}
+
+void
+HAL_gfx_point(uint16_t x, uint16_t y)
+{
+	_writeCommand(GFXTERM::Command::POINT);
+	_write16(x); _write16(y);
+}
+
+void
+HAL_gfx_line(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2)
+{
+	_writeCommand(GFXTERM::Command::LINE);
+	_write16(x1); _write16(y1); _write16(x2); _write16(y2);
+}
+
+void
+HAL_gfx_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h)
+{
+	_writeCommand(GFXTERM::Command::BOX);
+	_write16(x); _write16(y); _write16(w); _write16(h);
+}
+
+void
+HAL_gfx_lineto(uint16_t x, uint16_t y)
+{
+	
+}
+
+void
+HAL_gfx_circle(uint16_t x, uint16_t y, uint16_t r)
+{
+	_writeCommand(GFXTERM::Command::CIRCLEC);
+	_write16(x); _write16(y); _write16(r);
+}
+
+#endif // HAL_ARDUINO_GFX
 
 #endif // ARDUINO
