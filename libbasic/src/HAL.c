@@ -44,6 +44,8 @@ HAL_nvram_read_buf(HAL_nvram_address_t address, void* buf, uint32_t size)
 #endif /* HAL_NVRAM */
 
 #if HAL_GFX
+
+#if HAL_GFX_EXPCOLOR_SIMPL
 void
 HAL_gfx_pointc(uint16_t x, uint16_t y, HAL_gfx_color_t color)
 {
@@ -66,10 +68,12 @@ HAL_gfx_rectc(uint16_t x, uint16_t y, uint16_t w, uint16_t h, HAL_gfx_color_t co
 }
 
 void
-HAL_gfx_circlec(uint16_t x, uint16_t y, uint16_t r, HAL_gfx_color_t color) {
+HAL_gfx_circlec(uint16_t x, uint16_t y, uint16_t r, HAL_gfx_color_t color)
+{
 	HAL_gfx_setColor(color);
 	HAL_gfx_circle(x, y, r);
 }
+#endif /* HAL_GFX_EXPCOLOR_SIMPL */
 
 void
 HAL_gfx_setColors(HAL_gfx_color_t fgColor, HAL_gfx_color_t bgColor)

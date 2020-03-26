@@ -47,5 +47,9 @@
  * Enable GFX interface functions
  */
 #define HAL_GFX 1
+#if HAL_GFX
+/* Default implementation of the explicit color setting commands */
+#define HAL_GFX_EXPCOLOR_SIMPL 1
+#endif /* HAL_GFX */
 
 #endif /* HAL_CONFIG_H */

@@ -309,6 +309,40 @@ HAL_gfx_circle(uint16_t x, uint16_t y, uint16_t r)
 	_write16(x); _write16(y); _write16(r);
 }
 
+#if !HAL_GFX_EXPCOLOR_SIMPL
+void
+HAL_gfx_pointc(uint16_t x, uint16_t y, HAL_gfx_color_t color)
+{
+	_writeCommand(GFXTERM::Command::POINTC);
+	_write16(x); _write16(y);
+	HAL_terminal_write(HAL_ARDUINO_GFX_SERIAL_TERMNO, uint8_t(color));
+}
+
+void
+HAL_gfx_linec(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, HAL_gfx_color_t color)
+{
+	_writeCommand(GFXTERM::Command::LINEC);
+	_write16(x1); _write16(y1); _write16(x2); _write16(y2);
+	HAL_terminal_write(HAL_ARDUINO_GFX_SERIAL_TERMNO, uint8_t(color));
+}
+
+void
+HAL_gfx_rectc(uint16_t x, uint16_t y, uint16_t w, uint16_t h, HAL_gfx_color_t color)
+{
+	_writeCommand(GFXTERM::Command::BOXC);
+	_write16(x); _write16(y); _write16(w); _write16(h);
+	HAL_terminal_write(HAL_ARDUINO_GFX_SERIAL_TERMNO, uint8_t(color));
+}
+
+void
+HAL_gfx_circlec(uint16_t x, uint16_t y, uint16_t r, HAL_gfx_color_t color)
+{
+	_writeCommand(GFXTERM::Command::CIRCLEC);
+	_write16(x); _write16(y); _write16(r);
+	HAL_terminal_write(HAL_ARDUINO_GFX_SERIAL_TERMNO, uint8_t(color));
+}
+#endif /* HAL_GFX_EXPCOLOR_SIMPL */
+
 #endif // HAL_ARDUINO_GFX
 
 #endif // ARDUINO

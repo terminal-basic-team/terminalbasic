@@ -48,13 +48,13 @@ static SDL_RWops* extmemFiles[EXTMEM_NUM_FILES];
 static SDL_Window* window = NULL;
 static SDL_Renderer* renderer = NULL;
 
-static char ext_root[256];
+//static char ext_root[256];
 
 #if HAL_GFX
 static const struct {Uint8 r,g,b,a;} colors[HAL_GFX_NUMCOLORS] = {
 	{0,0,0,0}, /*HAL_GFX_NOTACOLOR = 0,*/
-	{0,0,0,255}, /*HAL_GFX_COLOR_BLACK,*/
 	{255,255,255,255}, /*HAL_GFX_COLOR_WHITE,*/
+	{0,0,0,255}, /*HAL_GFX_COLOR_BLACK,*/
 	{255,0,0,255}, /*HAL_GFX_COLOR_RED,*/
 	{0,255,0,255}, /*HAL_GFX_COLOR_GREEN,*/
 	{0,0,255,255}, /*HAL_GFX_COLOR_BLUE,*/
@@ -134,6 +134,12 @@ HAL_finalize()
 	SDL_DestroyWindow(window);
 	
 	SDL_Quit();
+}
+
+uint32_t
+HAL_time_gettime_ms()
+{
+	return 	SDL_GetTicks();
 }
 
 #if HAL_NVRAM
@@ -217,21 +223,11 @@ HAL_nvram_write(HAL_nvram_address_t address, uint8_t b)
 #endif /* HAL_NVRAM */
 
 #if HAL_EXTMEM
-
-uint32_t
-HAL_time_gettime_ms()
-{
-	return 	SDL_GetTicks();
-}
 	
 HAL_extmem_file_t
 HAL_extmem_openfile(const char str[13])
 {
-	char fpath[256];
-	strncpy(fpath, ext_root, 256);
-	strncat(fpath, str, 256);
-	
-	int fp = open(fpath, O_CREAT|O_RDWR, S_IRUSR|S_IWUSR);
+	int fp = open(str, O_CREAT|O_RDWR, S_IRUSR|S_IWUSR);
 	if (fp == -1) {
 		perror("open");
 		exit(EXIT_FAILURE);
@@ -250,11 +246,7 @@ HAL_extmem_openfile(const char str[13])
 void
 HAL_extmem_deletefile(const char fname[13])
 {
-	char fpath[256];
-	strncpy(fpath, ext_root, 256);
-	strncat(fpath, fname, 256);
-	
-	unlink(fpath);
+	unlink(fname);
 }
 
 void
@@ -342,7 +334,7 @@ HAL_extmem_writetofile(HAL_extmem_file_t file, uint8_t byte)
 uint16_t
 HAL_extmem_getnumfiles()
 {
-	DIR *extRootDir = opendir(ext_root);
+	DIR *extRootDir = opendir("./");
 	if (extRootDir == NULL) {
 		perror("opendir");
 		exit(EXIT_FAILURE);
@@ -363,7 +355,7 @@ HAL_extmem_getnumfiles()
 void
 HAL_extmem_getfilename(uint16_t num, char name[13])
 {
-	DIR *extRootDir = opendir(ext_root);
+	DIR *extRootDir = opendir("./");
 	if (extRootDir == NULL) {
 		perror("opendir");
 		exit(EXIT_FAILURE);
