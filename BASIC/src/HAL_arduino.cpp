@@ -26,7 +26,7 @@
 #include "HAL_arduino.h"
 #include "Arduino.h"
 
-#if HAL_ARDUINO_EXTMEM == HAL_ARDUINO_EXTMEM_SDFS
+#if HAL_EXTMEM && (HAL_ARDUINO_EXTMEM == HAL_ARDUINO_EXTMEM_SDFS)
 #include "sd.hpp"
 #endif
 
@@ -42,24 +42,23 @@ __END_DECLS
 void
 HAL_initialize()
 {
-#if HAL_ARDUINO_EXTMEM == HAL_ARDUINO_EXTMEM_SDFS
+#if HAL_ARDUINO_TERMINAL == HAL_ARDUINO_TERMINAL_SERIAL
+  Serial.begin(HAL_ARDUINO_TERMINAL_SERIAL_0_BR);
+#if defined(HAVE_HWSERIAL1) && (HAL_TERMINAL_NUM > 0)
+  Serial1.begin(HAL_ARDUINO_TERMINAL_SERIAL_1_BR);
+#endif
+#if defined(HAVE_HWSERIAL2) && (HAL_TERMINAL_NUM > 1)
+  Serial1.begin(HAL_ARDUINO_TERMINAL_SERIAL_2_BR);
+#endif
+#if defined(HAVE_HWSERIAL3) && (HAL_TERMINAL_NUM > 2)
+  Serial1.begin(HAL_ARDUINO_TERMINAL_SERIAL_3_BR);
+#endif
+#endif // HAL_ARDUINO_TERMINAL
+#if HAL_EXTMEM && (HAL_ARDUINO_EXTMEM == HAL_ARDUINO_EXTMEM_SDFS)
 	if (!SDCard::SDFS.begin())
 		abort();
 #endif
 	HAL_initialize_concrete();
-	
-#if HAL_ARDUINO_TERMINAL == HAL_ARDUINO_TERMINAL_SERIAL
-	Serial.begin(HAL_ARDUINO_TERMINAL_SERIAL_0_BR);
-#if defined(HAVE_HWSERIAL1) && (HAL_TERMINAL_NUM > 0)
-	Serial1.begin(HAL_ARDUINO_TERMINAL_SERIAL_1_BR);
-#endif
-#if defined(HAVE_HWSERIAL2) && (HAL_TERMINAL_NUM > 1)
-	Serial1.begin(HAL_ARDUINO_TERMINAL_SERIAL_2_BR);
-#endif
-#if defined(HAVE_HWSERIAL3) && (HAL_TERMINAL_NUM > 2)
-	Serial1.begin(HAL_ARDUINO_TERMINAL_SERIAL_3_BR);
-#endif
-#endif // HAL_ARDUINO_TERMINAL
 }
 
 #if HAL_ARDUINO_TERMINAL == HAL_ARDUINO_TERMINAL_SERIAL
@@ -113,7 +112,7 @@ HAL_time_gettime_ms()
 
 #endif // HAL_ARDUINO_TERMINAL
 
-#if HAL_ARDUINO_EXTMEM == HAL_ARDUINO_EXTMEM_SDFS
+#if HAL_EXTMEM && (HAL_ARDUINO_EXTMEM == HAL_ARDUINO_EXTMEM_SDFS)
 
 static SDCard::File files[EXTMEM_NUM_FILES];
 
@@ -161,8 +160,7 @@ void
 HAL_extmem_setfileposition(HAL_extmem_file_t f, HAL_extmem_fileposition_t pos)
 {
 	if ((f > 0) && files[f-1])
-		return files[f-1].seek(pos);
-	return 0;
+		files[f-1].seek(pos);
 }
 
 uint8_t
@@ -233,7 +231,7 @@ HAL_extmem_fileExists(const char path[13])
 
 #endif // HAL_ARDUINO_EXTMEM
 
-#if HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_SERIAL
+#if HAL_GFX && (HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_SERIAL)
 
 static void
 _write16(int16_t v)

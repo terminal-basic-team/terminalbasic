@@ -29,8 +29,10 @@
 
 static File f;
 
+__BEGIN_DECLS
+
 void
-HAL_initialize()
+HAL_initialize_concrete()
 {
 	if (!SPIFFS.begin(false))
 		if (!SPIFFS.begin(true))
@@ -44,6 +46,8 @@ HAL_initialize()
 		f.close();
 	}
 }
+
+__END_DECLS
 
 void
 HAL_finalize()
@@ -72,11 +76,9 @@ HAL_nvram_read(HAL_nvram_address_t addr)
 void
 HAL_nvram_write(HAL_nvram_address_t addr, uint8_t b)
 {
-	Serial.println((uint32_t) addr, HEX);
 	f = SPIFFS.open("/nvram.bin", "r+");
-	if (!f) {
+	if (!f)
 		exit(5);
-	}
 
 	if (f.size() > uint32_t(addr)) {
 		if (!f.seek(uint32_t(addr)))
