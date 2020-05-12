@@ -6,6 +6,7 @@
       <itemPath>include/basic_arduinoio.hpp</itemPath>
       <itemPath>include/basic_dataparser.hpp</itemPath>
       <itemPath>include/basic_exteeprom.hpp</itemPath>
+      <itemPath>include/basic_extmemfs.hpp</itemPath>
       <itemPath>include/basic_functionblock.hpp</itemPath>
       <itemPath>include/basic_gfx.hpp</itemPath>
       <itemPath>include/basic_internalfuncs.hpp</itemPath>
@@ -15,7 +16,6 @@
       <itemPath>include/basic_parser.hpp</itemPath>
       <itemPath>include/basic_parser_value.hpp</itemPath>
       <itemPath>include/basic_program.hpp</itemPath>
-      <itemPath>include/basic_sdfs.hpp</itemPath>
       <itemPath>include/config.hpp</itemPath>
       <itemPath>include/config_arduino.hpp</itemPath>
       <itemPath>include/config_linux.hpp</itemPath>
@@ -31,10 +31,12 @@
       <itemPath>src/HAL_esp8266.cpp</itemPath>
       <itemPath>src/HAL_linux.c</itemPath>
       <itemPath>src/HAL_sam.cpp</itemPath>
+      <itemPath>src/HAL_sdl.c</itemPath>
       <itemPath>src/basic.cpp</itemPath>
       <itemPath>src/basic_arduinoio.cpp</itemPath>
       <itemPath>src/basic_dataparser.cpp</itemPath>
       <itemPath>src/basic_exteeprom.cpp</itemPath>
+      <itemPath>src/basic_extmemfs.cpp</itemPath>
       <itemPath>src/basic_functionblock.cpp</itemPath>
       <itemPath>src/basic_gfx.cpp</itemPath>
       <itemPath>src/basic_gfx_serial.cpp</itemPath>
@@ -48,7 +50,6 @@
       <itemPath>src/basic_parser.cpp</itemPath>
       <itemPath>src/basic_parser_value.cpp</itemPath>
       <itemPath>src/basic_program.cpp</itemPath>
-      <itemPath>src/basic_sdfs.cpp</itemPath>
       <itemPath>src/tvoutprint.cpp</itemPath>
       <itemPath>src/ucbasic_main.cpp</itemPath>
     </logicalFolder>
@@ -67,6 +68,7 @@
                    displayName="ExternalFiles"
                    projectFiles="false"
                    kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>../ChangeLog</itemPath>
       <itemPath>Makefile</itemPath>
     </logicalFolder>
   </logicalFolder>
@@ -94,6 +96,10 @@
           <incDir>
             <pElem>../libbasic/include</pElem>
           </incDir>
+          <commandLine>-std=gnu11</commandLine>
+          <preprocessorList>
+            <Elem>HAL_LINUX</Elem>
+          </preprocessorList>
           <warningLevel>2</warningLevel>
         </cTool>
         <ccTool>
@@ -103,25 +109,252 @@
             <pElem>../../libarduinoemulator/include</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
             <pElem>../../libarduinoext/include</pElem>
-            <pElem>../../tvoutex/TVoutEx/src/</pElem>
             <pElem>../libbasic/include</pElem>
+            <pElem>../../libtvoutex/TVoutEx/src</pElem>
           </incDir>
-          <commandLine>`pkg-config --cflags posixcpp` `pkg-config --cflags sdl2`</commandLine>
+          <commandLine>`pkg-config --cflags posixcpp`</commandLine>
+          <preprocessorList>
+            <Elem>HAL_LINUX</Elem>
+          </preprocessorList>
           <warningLevel>2</warningLevel>
         </ccTool>
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/basic</output>
           <linkerLibItems>
             <linkerLibProjectItem>
-              <makeArtifact PL="../../tvoutex/livbtvoutex"
+              <makeArtifact PL="../../libtvoutex/netbenas"
                             CT="3"
                             CN="Debug_PC"
                             AC="true"
                             BL="true"
-                            WD="../../tvoutex/livbtvoutex"
+                            WD="../../libtvoutex/netbenas"
                             BC="${MAKE}  -f Makefile CONF=Debug_PC"
                             CC="${MAKE}  -f Makefile CONF=Debug_PC clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblivbtvoutex.a">
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnetbenas.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../libarduinoemulator"
+                            CT="3"
+                            CN="Debug"
+                            AC="false"
+                            BL="true"
+                            WD="../../libarduinoemulator"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinoemulator.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../libarduinoext"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../../libarduinoext"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinoext.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibFileItem>/usr/local/lib/libposixcpp.a</linkerLibFileItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../libbasic/libbasic_nb"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../libbasic/libbasic_nb"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibbasic_nb.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+          </linkerLibItems>
+        </linkerTool>
+        <requiredProjects>
+          <makeArtifact PL="../libbasic/libbasic_nb"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="true"
+                        WD="../libbasic/libbasic_nb"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibbasic_nb.a">
+          </makeArtifact>
+        </requiredProjects>
+      </compileType>
+      <packaging>
+        <packType>Tar</packType>
+        <output>${CND_DISTDIR}/${CND_CONF}/package/basic.tar</output>
+        <packFileList>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
+        </packFileList>
+      </packaging>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
+      <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_dataparser.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_extmemfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_internalfuncs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_interpreter.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_lexer.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_math.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_parser.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/tvoutprint.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HAL_avr8.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HAL_linux.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HAL_sdl.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_extmemfs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_serial.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_interpreter_matrix.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_math.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/strings_fr.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tvoutprint.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/TableTest.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Debug_SDL" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>true</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <incDir>
+            <pElem>../libbasic/include</pElem>
+          </incDir>
+          <commandLine>`pkg-config --cflags sdl2`</commandLine>
+          <preprocessorList>
+            <Elem>HAL_SDL</Elem>
+          </preprocessorList>
+          <warningLevel>2</warningLevel>
+        </cTool>
+        <ccTool>
+          <standard>8</standard>
+          <incDir>
+            <pElem>include</pElem>
+            <pElem>../../libarduinoemulator/include</pElem>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
+            <pElem>../../libarduinoext/include</pElem>
+            <pElem>../libbasic/include</pElem>
+            <pElem>../../libtvoutex/TVoutEx/src</pElem>
+          </incDir>
+          <commandLine>`pkg-config --cflags posixcpp` `pkg-config --cflags sdl2`</commandLine>
+          <preprocessorList>
+            <Elem>HAL_SDL</Elem>
+          </preprocessorList>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <linkerTool>
+          <output>${CND_DISTDIR}/${CND_CONF}/basic</output>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../libtvoutex/netbenas"
+                            CT="3"
+                            CN="Debug_PC"
+                            AC="true"
+                            BL="true"
+                            WD="../../libtvoutex/netbenas"
+                            BC="${MAKE}  -f Makefile CONF=Debug_PC"
+                            CC="${MAKE}  -f Makefile CONF=Debug_PC clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnetbenas.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -212,6 +445,8 @@
       </item>
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_extmemfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
@@ -230,8 +465,6 @@
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
@@ -240,15 +473,7 @@
       </item>
       <item path="include/tvoutprint.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/HAL_avr8.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HAL_linux.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/HAL_sdl.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -257,6 +482,8 @@
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_extmemfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -283,8 +510,6 @@
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -331,7 +556,6 @@
             <pElem>${ARDUINO_PATH}/libraries/SD/src</pElem>
             <pElem>include</pElem>
             <pElem>../../libarduinoext/include</pElem>
-            <pElem>../../tvoutex/TVoutEx</pElem>
             <pElem>../libbasic/include</pElem>
           </incDir>
           <incFile>
@@ -413,6 +637,8 @@
       </item>
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_extmemfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
@@ -430,8 +656,6 @@
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -451,6 +675,8 @@
       </item>
       <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/HAL_sdl.c" ex="false" tool="0" flavor2="0">
+      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
@@ -458,6 +684,8 @@
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_extmemfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -484,8 +712,6 @@
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -650,6 +876,8 @@
       </item>
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_extmemfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
@@ -667,8 +895,6 @@
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -690,6 +916,8 @@
       </item>
       <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/HAL_sdl.c" ex="false" tool="0" flavor2="0">
+      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
@@ -697,6 +925,8 @@
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_extmemfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -724,8 +954,6 @@
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_fr.hpp" ex="false" tool="3" flavor2="0">
@@ -746,6 +974,21 @@
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <cTool>
+          <developmentMode>0</developmentMode>
+          <incDir>
+            <pElem>../libbasic/include</pElem>
+            <pElem>../../libarduinoext/include</pElem>
+          </incDir>
+          <commandLine>-Os -Wextra -std=gnu11 -ffunction-sections -fdata-sections -MMD -mmcu=atmega2560 -flto -fno-fat-lto-objects -mcall-prologues</commandLine>
+          <preprocessorList>
+            <Elem>ARDUINO=10810</Elem>
+            <Elem>ARDUINO_ARCH_AVR</Elem>
+            <Elem>ARDUINO_AVR_MEGA2560</Elem>
+            <Elem>F_CPU=16000000L</Elem>
+          </preprocessorList>
+          <warningLevel>2</warningLevel>
+        </cTool>
         <ccTool>
           <developmentMode>0</developmentMode>
           <standard>8</standard>
@@ -766,8 +1009,8 @@
             <pElem>../UTFT/include</pElem>
             <pElem>../../libsdcard/SDCard/src</pElem>
             <pElem>../../libutft/UTFT</pElem>
-            <pElem>../../tvoutex/TVoutEx/src/</pElem>
             <pElem>../libbasic/include</pElem>
+            <pElem>../../libtvoutex/TVoutEx/src</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>
@@ -813,18 +1056,6 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../../tvoutex/livbtvoutex"
-                            CT="3"
-                            CN="Arduino_MEGA2560"
-                            AC="false"
-                            BL="true"
-                            WD="../../tvoutex/livbtvoutex"
-                            BC="${MAKE}  -f Makefile CONF=Arduino_MEGA2560"
-                            CC="${MAKE}  -f Makefile CONF=Arduino_MEGA2560 clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblivbtvoutex.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
               <makeArtifact PL="../../libarduinoext"
                             CT="3"
                             CN="Arduino_mega2560"
@@ -834,6 +1065,18 @@
                             BC="${MAKE}  -f Makefile CONF=Arduino_mega2560"
                             CC="${MAKE}  -f Makefile CONF=Arduino_mega2560 clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinoext.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../libtvoutex/netbenas"
+                            CT="3"
+                            CN="Arduino_MEGA2560"
+                            AC="false"
+                            BL="true"
+                            WD="../../libtvoutex/netbenas"
+                            BC="${MAKE}  -f Makefile CONF=Arduino_MEGA2560"
+                            CC="${MAKE}  -f Makefile CONF=Arduino_MEGA2560 clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnetbenas.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -887,6 +1130,8 @@
       </item>
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_extmemfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
@@ -904,8 +1149,6 @@
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -927,6 +1170,8 @@
       </item>
       <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/HAL_sdl.c" ex="false" tool="0" flavor2="0">
+      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
@@ -934,6 +1179,8 @@
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_extmemfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -961,8 +1208,6 @@
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
-      <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_fr.hpp" ex="false" tool="3" flavor2="0">
@@ -987,12 +1232,14 @@
           <developmentMode>0</developmentMode>
           <standard>8</standard>
           <incDir>
+            <pElem>include</pElem>
+            <pElem>../libbasic/include</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/SoftwareSerial/src</pElem>
-            <pElem>include</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/EEPROM/src</pElem>
             <pElem>../../libarduinoext/include</pElem>
             <pElem>../../libarduino/include/variants/crumbuino128</pElem>
+            <pElem>../../libsdcard/SDCard/src</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>
@@ -1033,6 +1280,18 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/libarduino.a">
               </makeArtifact>
             </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../libbasic/libbasic_nb"
+                            CT="3"
+                            CN="Arduino_MEGA"
+                            AC="true"
+                            BL="true"
+                            WD="../libbasic/libbasic_nb"
+                            BC="${MAKE}  -f Makefile CONF=Arduino_MEGA"
+                            CC="${MAKE}  -f Makefile CONF=Arduino_MEGA clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibbasic_nb.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
           </linkerLibItems>
           <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega128a</commandLine>
         </linkerTool>
@@ -1060,6 +1319,8 @@
       </item>
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_extmemfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
@@ -1077,8 +1338,6 @@
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1100,6 +1359,8 @@
       </item>
       <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/HAL_sdl.c" ex="false" tool="0" flavor2="0">
+      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
@@ -1107,6 +1368,8 @@
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_extmemfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1134,8 +1397,6 @@
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
-      <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_fr.hpp" ex="false" tool="3" flavor2="0">
@@ -1156,8 +1417,15 @@
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+          <standard>10</standard>
+          <incDir>
+            <pElem>../libbasic/include</pElem>
+          </incDir>
+        </cTool>
         <ccTool>
-          <developmentMode>4</developmentMode>
+          <developmentMode>5</developmentMode>
           <stripSymbols>true</stripSymbols>
           <standard>8</standard>
           <incDir>
@@ -1165,7 +1433,8 @@
             <pElem>../../libarduinoext/include</pElem>
             <pElem>../../libarduinoemulator/include</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
-            <pElem>../../tvoutex/TVoutEx</pElem>
+            <pElem>../../libtvoutex/TVoutEx/src</pElem>
+            <pElem>../libbasic/include</pElem>
           </incDir>
           <commandLine>`pkg-config --cflags posixcpp` `pkg-config --cflags sdl2`</commandLine>
           <warningLevel>2</warningLevel>
@@ -1174,15 +1443,15 @@
           <output>${CND_DISTDIR}/${CND_CONF}/terminal-basic</output>
           <linkerLibItems>
             <linkerLibProjectItem>
-              <makeArtifact PL="../../tvoutex/livbtvoutex"
+              <makeArtifact PL="../../libtvoutex/netbenas"
                             CT="3"
                             CN="Release_PC"
                             AC="false"
                             BL="true"
-                            WD="../../tvoutex/livbtvoutex"
-                            BC="${MAKE}  -f Makefile CONF=Release_PC"
-                            CC="${MAKE}  -f Makefile CONF=Release_PC clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblivbtvoutex.a">
+                            WD="../../libtvoutex/netbenas"
+                            BC="${MAKE} -j8 -f Makefile CONF=Release_PC"
+                            CC="${MAKE} -j8 -f Makefile CONF=Release_PC clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnetbenas.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -1237,6 +1506,8 @@
       </item>
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_extmemfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
@@ -1254,8 +1525,6 @@
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1277,6 +1546,8 @@
       </item>
       <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/HAL_sdl.c" ex="false" tool="0" flavor2="0">
+      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
@@ -1284,6 +1555,8 @@
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_extmemfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1310,8 +1583,6 @@
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1412,6 +1683,8 @@
       </item>
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_extmemfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
@@ -1429,8 +1702,6 @@
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1452,6 +1723,8 @@
       </item>
       <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/HAL_sdl.c" ex="false" tool="0" flavor2="0">
+      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
@@ -1459,6 +1732,8 @@
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_extmemfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -1485,8 +1760,6 @@
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1535,7 +1808,6 @@
             <pElem>${ARDUINO_PATH}/libraries/TVoutfonts</pElem>
             <pElem>include</pElem>
             <pElem>../../libarduinoext/include</pElem>
-            <pElem>../TVoutEx</pElem>
             <pElem>../libbasic/include</pElem>
           </incDir>
           <incFile>
@@ -1619,6 +1891,8 @@
       </item>
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_extmemfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
@@ -1636,8 +1910,6 @@
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1658,6 +1930,8 @@
       <item path="src/HAL_linux.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HAL_sdl.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1729,15 +2003,15 @@
             <pElem>../../libarduinoext/include</pElem>
             <pElem>../../libsdcard/SDCard/src</pElem>
             <pElem>../../libps2uart/ps2uartKeyboard</pElem>
-            <pElem>../../tvoutex/TVoutEx</pElem>
             <pElem>../libbasic/include</pElem>
+            <pElem>../../libtvoutex/TVoutEx/src</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>
           </incFile>
           <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -fno-threadsafe-statics -MMD -mmcu=atmega1284p -ffunction-sections -fdata-sections -flto -fno-rtti -mcall-prologues</commandLine>
           <preprocessorList>
-            <Elem>ARDUINO=10804</Elem>
+            <Elem>ARDUINO=10810</Elem>
             <Elem>ARDUINO_1284P_AVR_DEVELOPERS</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>F_CPU=16000000L</Elem>
@@ -1775,15 +2049,15 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../../tvoutex/livbtvoutex"
+              <makeArtifact PL="../../libtvoutex/netbenas"
                             CT="3"
                             CN="Arduino_1284"
-                            AC="true"
+                            AC="false"
                             BL="true"
-                            WD="../../tvoutex/livbtvoutex"
+                            WD="../../libtvoutex/netbenas"
                             BC="${MAKE}  -f Makefile CONF=Arduino_1284"
                             CC="${MAKE}  -f Makefile CONF=Arduino_1284 clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblivbtvoutex.a">
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnetbenas.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -1837,6 +2111,8 @@
       </item>
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_extmemfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
@@ -1854,8 +2130,6 @@
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1877,6 +2151,8 @@
       </item>
       <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/HAL_sdl.c" ex="false" tool="0" flavor2="0">
+      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
@@ -1884,6 +2160,8 @@
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_extmemfs.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -1910,8 +2188,6 @@
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1948,15 +2224,15 @@
             <pElem>${ARDUINO_PATH}/libraries/SD/src</pElem>
             <pElem>include</pElem>
             <pElem>../../libarduinoext/include</pElem>
-            <pElem>../../tvoutex/TVoutEx</pElem>
             <pElem>../../libsdcard/SDCard</pElem>
+            <pElem>../../libtvoutex/TVoutEx/src</pElem>
           </incDir>
           <incFile>
             <pElem>Arduino.h</pElem>
           </incFile>
           <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -fno-threadsafe-statics -MMD -mmcu=atmega2560 -ffunction-sections -fdata-sections -fno-rtti -mcall-prologues</commandLine>
           <preprocessorList>
-            <Elem>ARDUINO=10804</Elem>
+            <Elem>ARDUINO=10810</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_MEGA2560</Elem>
             <Elem>F_CPU=16000000L</Elem>
@@ -1982,15 +2258,15 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../../tvoutex/livbtvoutex"
+              <makeArtifact PL="../../libtvoutex/netbenas"
                             CT="3"
                             CN="Arduino_MEGA2560"
-                            AC="true"
+                            AC="false"
                             BL="true"
-                            WD="../../tvoutex/livbtvoutex"
+                            WD="../../libtvoutex/netbenas"
                             BC="${MAKE}  -f Makefile CONF=Arduino_MEGA2560"
                             CC="${MAKE}  -f Makefile CONF=Arduino_MEGA2560 clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblivbtvoutex.a">
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnetbenas.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -2044,6 +2320,8 @@
       </item>
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_extmemfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
@@ -2061,8 +2339,6 @@
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -2084,6 +2360,8 @@
       </item>
       <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/HAL_sdl.c" ex="false" tool="0" flavor2="0">
+      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
@@ -2091,6 +2369,8 @@
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_extmemfs.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -2118,8 +2398,6 @@
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
-      <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="8">
-      </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_fr.hpp" ex="false" tool="3" flavor2="0">
@@ -2140,6 +2418,10 @@
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <cTool>
+          <developmentMode>0</developmentMode>
+          <warningLevel>2</warningLevel>
+        </cTool>
         <ccTool>
           <developmentMode>0</developmentMode>
           <standard>8</standard>
@@ -2158,7 +2440,7 @@
           </incFile>
           <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -fno-threadsafe-statics -MMD -mmcu=atmega328p -ffunction-sections -fdata-sections -flto -fno-rtti -mcall-prologues</commandLine>
           <preprocessorList>
-            <Elem>ARDUINO=10804</Elem>
+            <Elem>ARDUINO=10810</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_PRO</Elem>
             <Elem>F_CPU=16000000L</Elem>
@@ -2220,6 +2502,8 @@
       </item>
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_extmemfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
@@ -2237,8 +2521,6 @@
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -2260,6 +2542,8 @@
       </item>
       <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/HAL_sdl.c" ex="false" tool="0" flavor2="0">
+      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
@@ -2267,6 +2551,8 @@
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_extmemfs.cpp" ex="true" tool="1" flavor2="8">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -2293,8 +2579,6 @@
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_sdfs.cpp" ex="true" tool="1" flavor2="8">
       </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -2397,6 +2681,8 @@
       </item>
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_extmemfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
@@ -2414,8 +2700,6 @@
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -2437,6 +2721,8 @@
       </item>
       <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/HAL_sdl.c" ex="false" tool="0" flavor2="0">
+      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
@@ -2444,6 +2730,8 @@
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_extmemfs.cpp" ex="true" tool="1" flavor2="8">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -2470,8 +2758,6 @@
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_sdfs.cpp" ex="true" tool="1" flavor2="8">
       </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -2625,6 +2911,8 @@
       </item>
       <item path="include/basic_exteeprom.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_extmemfs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic_functionblock.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_gfx.hpp" ex="false" tool="3" flavor2="0">
@@ -2642,8 +2930,6 @@
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/basic_sdfs.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -2665,6 +2951,8 @@
       </item>
       <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/HAL_sdl.c" ex="false" tool="0" flavor2="0">
+      </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
@@ -2672,6 +2960,8 @@
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_exteeprom.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_extmemfs.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -2698,8 +2988,6 @@
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_sdfs.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>

@@ -60,7 +60,7 @@ OBJCOPY_ARM=/opt/Arduino/gcc-arm-none-eabi-4.8.3-2014q1/bin/arm-none-eabi-objcop
 SIZE_ARM=/opt/Arduino/gcc-arm-none-eabi-4.8.3-2014q1/bin/arm-none-eabi-size
 
 BUILD:=$(shell cat "./build-${CONF}")
-VERSION:=2.2.rc1-${BUILD}
+VERSION:=2.3-a1-${BUILD}
 
 # build
 build: .build-post
@@ -134,10 +134,13 @@ help: .help-post
 
 ARCH=""
 
-copy_Debug : ARCH=i686-linux_static-dbg
+copy_Debug : ARCH=i686-linux-dbg
 copy_Debug : copy-pc
+	
+copy_Debug_SDL : ARCH=i686-sdl2-dbg
+copy_Debug_SDL : copy-pc
 
-copy_Release : ARCH=i686-linux_static
+copy_Release : ARCH=i686-linux
 copy_Release : copy-pc
 
 copy-pc:

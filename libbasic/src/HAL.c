@@ -19,36 +19,50 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifdef ARDUINO_ARCH_AVR
-
-#include <avr/io.h>
-#include <avr/eeprom.h>
-
 #include "HAL.h"
 
-void
-HAL_initialize_concrete()
-{
-}
+#if HAL_NVRAM
 
 void
-HAL_finalize()
+HAL_nvram_write_buf(HAL_nvram_address_t address, const void* buf, uint32_t size)
 {
+	const uint8_t* bp = (const uint8_t*)buf;
+	HAL_nvram_address_t a;
+	for (a=address; a<address+size; ++a)
+		HAL_nvram_write(a, *(bp++));
 }
 
-HAL_nvram_address_t HAL_nvram_getsize()
+void
+HAL_nvram_read_buf(HAL_nvram_address_t address, void* buf, uint32_t size)
 {
-	return (HAL_nvram_address_t)(E2END+1);
+	uint8_t* bp = (uint8_t*)buf;
+	HAL_nvram_address_t a;
+	for (a=address; a<address+size; ++a)
+		*(bp++) = HAL_nvram_read(a);
 }
 
-uint8_t HAL_nvram_read(HAL_nvram_address_t addr)
+#endif /* HAL_NVRAM */
+
+#if HAL_GFX
+void
+HAL_gfx_pointc(uint16_t x, uint16_t y, HAL_gfx_color_t color)
 {
-	return eeprom_read_byte((uint8_t*)addr);
+	HAL_gfx_setColor(color);
+	HAL_gfx_point(x, y);
 }
 
-void HAL_nvram_write(HAL_nvram_address_t addr, uint8_t byte)
+void
+HAL_gfx_linec(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, HAL_gfx_color_t color)
 {
-	return eeprom_update_byte((uint8_t*)addr, byte);
+	HAL_gfx_setColor(color);
+	HAL_gfx_line(x1, y1, x2, y2);
 }
 
-#endif /* ARDUINO_ARCH_AVR */
+void
+HAL_gfx_rectc(uint16_t x, uint16_t y, uint16_t w, uint16_t h, HAL_gfx_color_t color)
+{
+    	HAL_gfx_setColor(color);
+	HAL_gfx_rect(x, y, w, h);
+}
+   
+#endif /* HAL_GFX */

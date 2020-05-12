@@ -10,6 +10,7 @@ SRC="	./libbasic/include/basic.h \
 	./libbasic/src/basic.c \
 	./libbasic/include/config.h \
 	./libbasic/include/HAL.h \
+	./libbasic/src/HAL.c \
 	./libbasic/include/_tokens_en.h \
 	./libbasic/include/_tokens_fr.h \
 	./libbasic/include/_tokens_ru.h \
@@ -50,7 +51,7 @@ SRC="	./libbasic/include/basic.h \
 	./BASIC/src/basic_math.cpp \
 	./BASIC/include/basic_parser_value.hpp \
 	./BASIC/src/basic_parser_value.cpp \
-	./BASIC/include/basic_sdfs.hpp \
+	./BASIC/include/basic_extmemfs.hpp \
 	./BASIC/include/basic_internalfuncs.hpp \
 	./BASIC/src/basic_internalfuncs.cpp \
 	./BASIC/include/basic_gfx.hpp \
@@ -65,7 +66,7 @@ SRC="	./libbasic/include/basic.h \
 	./BASIC/src/basic_gfx_tvout.cpp \
 	./BASIC/src/basic_gfx_utft.cpp \
 	./BASIC/src/basic_gfx_serial.cpp \
-	./BASIC/src/basic_sdfs.cpp \
+	./BASIC/src/basic_extmemfs.cpp \
 	./BASIC/src/strings_en.hpp \
 	./BASIC/src/strings_fr.hpp \
 	./BASIC/src/strings_ru.hpp \
@@ -111,4 +112,4 @@ do
 done
 
 cd ./sketch
-tar -czvf ./terminal-basic-${VER}-arduino-sketch.tar.gz ./README ./terminal-basic-${VER} ../../tvoutex/TVoutEx ../../libsdcard/SDCard ../../libutft/UTFT ../../libps2uart/ps2uartKeyboard
+tar -czvf ./terminal-basic-${VER}-arduino-sketch.tar.gz ./README ./terminal-basic-${VER} ../../libtvoutex/TVoutEx ../../libsdcard/SDCard ../../libutft/UTFT ../../libps2uart/ps2uartKeyboard

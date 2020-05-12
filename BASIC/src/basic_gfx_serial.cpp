@@ -39,18 +39,21 @@ write16(Interpreter &i, int16_t v)
 bool
 GFXModule::command_box(Interpreter &i)
 {
-	INT x,y,w,h;
-	
+	INT h;
 	if (getIntegerFromStack(i, h)) {
+		INT w;
 		if (getIntegerFromStack(i, w)) {
+			INT y;
 			if (getIntegerFromStack(i, y)) {
+				INT x;
 				if (getIntegerFromStack(i, x)) {
-					i.print(char(ASCII::DLE));
+					/*i.print(char(ASCII::DLE));
 					i.print(char(GFXTERM::Command::BOX));
 					write16(i, x);
 					write16(i, y);
 					write16(i, w);
-					write16(i, h);
+					write16(i, h);*/
+					HAL_gfx_rect(x,y,w,h);
 					return true;
 				}
 			}
@@ -83,16 +86,39 @@ GFXModule::command_ellipse(Interpreter &i)
 }
 
 bool
+GFXModule::command_circle(Interpreter &i)
+{
+	INT r;
+	if (getIntegerFromStack(i, r)) {
+		INT y;
+		if (getIntegerFromStack(i, y)) {
+			INT x;
+			if (getIntegerFromStack(i, x)) {
+				i.print(char(ASCII::DLE));
+				i.print(char(GFXTERM::Command::CIRCLEC));
+				write16(i, x);
+				write16(i, y);
+				write16(i, r);
+				return true;
+			}
+		}
+	}
+	
+	return false;
+}
+
+bool
 GFXModule::command_color(Interpreter &i)
 {
-	INT c, b;
-	
+	INT b;
 	if (getIntegerFromStack(i, b)) {
+		INT c;
 		if (getIntegerFromStack(i, c)) {
-			i.print(char(ASCII::DLE));
+			/*i.print(char(ASCII::DLE));
 			i.print(char(GFXTERM::Command::COLOR));
 			i.print(char(c));
-			i.print(char(b));
+			i.print(char(b));*/
+			HAL_gfx_setColor(HAL_gfx_color_t(c));
 			return true;
 		}
 	}
@@ -117,18 +143,21 @@ GFXModule::command_cursor(Interpreter &i)
 bool
 GFXModule::command_line(Interpreter &i)
 {
-	INT x1,y1,x2,y2;
-	
+	INT y2;
 	if (getIntegerFromStack(i, y2)) {
+		INT x2;
 		if (getIntegerFromStack(i, x2)) {
+			INT y1;
 			if (getIntegerFromStack(i, y1)) {
+				INT x1;
 				if (getIntegerFromStack(i, x1)) {
-					i.print(char(ASCII::DLE));
+					/*i.print(char(ASCII::DLE));
 					i.print(char(GFXTERM::Command::LINE));
 					write16(i, x1);
 					write16(i, y1);
 					write16(i, x2);
-					write16(i, y2);
+					write16(i, y2);*/
+					HAL_gfx_line(x1, y1, x2, y2);
 					return true;
 				}
 			}
@@ -162,10 +191,11 @@ GFXModule::command_point(Interpreter &i)
 	
 	if (getIntegerFromStack(i, y)) {
 		if (getIntegerFromStack(i, x)) {
-			i.print(char(ASCII::DLE));
+			/*i.print(char(ASCII::DLE));
 			i.print(char(GFXTERM::Command::POINT));
 			write16(i, x);
-			write16(i, y);
+			write16(i, y);*/
+			HAL_gfx_point(x, y);
 			return true;
 		}
 	}
@@ -190,8 +220,8 @@ GFXModule::command_screen(Interpreter &i)
 bool
 GFXModule::command_boxc(Interpreter &i)
 {
-	INT z;
-	if (getIntegerFromStack(i, z)) {
+	INT c;
+	if (getIntegerFromStack(i, c)) {
 		INT h;
 		if (getIntegerFromStack(i, h)) {
 			INT w;
@@ -200,13 +230,14 @@ GFXModule::command_boxc(Interpreter &i)
 				if (getIntegerFromStack(i, y)) {
 					INT x;
 					if (getIntegerFromStack(i, x)) {
-						i.print(char(ASCII::DLE));
+						/*i.print(char(ASCII::DLE));
 						i.print(char(GFXTERM::Command::BOXC));
 						write16(i, x);
 						write16(i, y);
 						write16(i, w);
 						write16(i, h);
-						i.print(char(z));
+						i.print(char(c));*/
+						HAL_gfx_rectc(x,y,w,h, HAL_gfx_color_t(c));
 						return true;
 					}
 				}
@@ -244,15 +275,18 @@ GFXModule::command_ellipsec(Interpreter &i)
 bool
 GFXModule::command_pointc(Interpreter &i)
 {
-	INT x,y,z;
-	if (getIntegerFromStack(i, z)) {
+	INT c;
+	if (getIntegerFromStack(i, c)) {
+		INT y;
 		if (getIntegerFromStack(i, y)) {
+			INT x;
 			if (getIntegerFromStack(i, x)) {
-				i.print(char(ASCII::DLE));
+				/*i.print(char(ASCII::DLE));
 				i.print(char(GFXTERM::Command::POINTC));
 				write16(i, x);
 				write16(i, y);
-				i.print(char(z));
+				i.print(char(c));*/
+				HAL_gfx_pointc(x, y, HAL_gfx_color_t(c));
 				return true;
 			}
 		}
@@ -286,20 +320,24 @@ GFXModule::command_circlec(Interpreter &i)
 bool
 GFXModule::command_linec(Interpreter &i)
 {
-	INT x1,y1,x2,y2,z;
-	
-	if (getIntegerFromStack(i, z)) {
+	INT c;
+	if (getIntegerFromStack(i, c)) {
+		INT y2;
 		if (getIntegerFromStack(i, y2)) {
+			INT x2;
 			if (getIntegerFromStack(i, x2)) {
+				INT y1;
 				if (getIntegerFromStack(i, y1)) {
+					INT x1;
 					if (getIntegerFromStack(i, x1)) {
-						i.print(char(ASCII::DLE));
+						/*i.print(char(ASCII::DLE));
 						i.print(char(GFXTERM::Command::LINEC));
 						write16(i, x1);
 						write16(i, y1);
 						write16(i, x2);
 						write16(i, y2);
-						i.print(char(z));
+						i.print(char(c));*/
+						HAL_gfx_linec(x1, y1, x2, y2, HAL_gfx_color_t(c));
 						return true;
 					}
 				}

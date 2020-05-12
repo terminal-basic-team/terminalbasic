@@ -36,8 +36,8 @@
 #include "ps2uartstream.hpp"
 #endif
 
-#if USESD
-#include "basic_sdfs.hpp"
+#if CONF_USE_EXTMEMFS
+#include "basic_extmemfs.hpp"
 #endif
 
 #if USEUTFT
@@ -56,7 +56,7 @@
 #include "tvoutprint.hpp"
 #include "utility/Font6x8.h"
 #include "utility/Font8x8.h"
-#include "utility/Font6x8_cyr_koe13.hpp"
+#include "utility/font6x8_cp866.h"
 #endif
 
 #if USE_EXTEEPROM
@@ -91,8 +91,8 @@ static uint8_t lCrBuf[20*4];
 static LiquidCrystalVt100 lsvt100(lCrystal, 20, 4, lCrBuf);
 #endif
 
-#if USESD
-BASIC::SDFSModule sdfs;
+#if CONF_USE_EXTMEMFS
+BASIC::ExtmemFSModule sdfs;
 #endif
 
 #if USEMATH
@@ -176,7 +176,7 @@ setup()
 	ps2usartStream.begin();
 #endif
 #if USETVOUT
-	tvOut.selectFont(Font6x8);
+	tvOut.selectFont(Font6x8_cp866);
 	tvOut.begin(PAL, TVOUT_HORIZ, TVOUT_VERT, tvOutBuf);
 #elif USEUTFT
 	utftPrint.begin();
@@ -227,7 +227,7 @@ setup()
 	basic.addModule(&extEeprom);
 #endif
 	
-#if USESD
+#if CONF_USE_EXTMEMFS
 	basic.addModule(&sdfs);
 #endif
 	

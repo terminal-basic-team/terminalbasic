@@ -19,36 +19,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifdef ARDUINO_ARCH_AVR
+#ifndef HAL_CONFIG_H
+#define HAL_CONFIG_H
 
-#include <avr/io.h>
-#include <avr/eeprom.h>
+/*
+ * Enable NVRAM read/write functions
+ */
+#define HAL_NVRAM 1
 
-#include "HAL.h"
+/*
+ * Enable external memory interface functions
+ */
+#define HAL_EXTMEM 1
 
-void
-HAL_initialize_concrete()
-{
-}
+/*
+ * Enable GFX interface functions
+ */
+#define HAL_GFX 1
 
-void
-HAL_finalize()
-{
-}
-
-HAL_nvram_address_t HAL_nvram_getsize()
-{
-	return (HAL_nvram_address_t)(E2END+1);
-}
-
-uint8_t HAL_nvram_read(HAL_nvram_address_t addr)
-{
-	return eeprom_read_byte((uint8_t*)addr);
-}
-
-void HAL_nvram_write(HAL_nvram_address_t addr, uint8_t byte)
-{
-	return eeprom_update_byte((uint8_t*)addr, byte);
-}
-
-#endif /* ARDUINO_ARCH_AVR */
+#endif /* HAL_CONFIG_H */
