@@ -2,6 +2,9 @@
 #include <inttypes.h>
 #include <string.h>
 #include "tools.h"
+#include "HAL.h"
+
+#include "stack_cpu.h"
 
 #define DEBUG 1
 #if DEBUG
@@ -12,62 +15,22 @@
 #define DEBUG(...)
 #endif
 
-typedef struct
-{
-	uint8_t i_memory[256];
-	uint8_t d_memory[256];
-	uint8_t pc;
-	uint8_t sp;
-} stack_cpu_t;
+#define IMEMORY_SIZE 256
+#define DMEMORY_SIZE 256
 
-typedef enum
-{
-	OP_NOP = 0,
-	OP_LOAD = 1,
-	OP_STORE = 2,
-	OP_ADD = 3,
-	NUM_OPCODES
-} opcode_t;
-
-typedef enum
-{
-	DT_NONE = 0 << 5,
-	DT_INT1 = 1 << 5,
-	DT_INT2 = 2 << 5,
-	DT_INT4 = 3 << 5,
-	DT_INT8 = 4 << 5,
-	DT_REAL4 = 5 << 5,
-	DT_REAL8 = 6 << 5,
-	    
-	NUM_DATATYPES
-} datatype_t;
-
-const char* opcode_strings[(uint8_t)NUM_OPCODES] = {
-	"NOP",
-	"LOAD",
-	"STORE"
-};
-
-#define OPCODE(a) (opcode_t)(a & 0b00011111)
-
-const char* datatype_strings[(uint8_t)NUM_DATATYPES] = {
-	"NONE",
-	"I1",
-	"I2",
-	"I4",
-	"I8",
-	"R4",
-	"R8"
-};
-
-#define DATATYPE(a) (datatype_t)(a & 0b11100000)
-
-void stack_cpu_init(stack_cpu_t* self)
+void
+stack_cpu_init(
+    stack_cpu_t* self,
+    uint8_t* imemory,
+    uint8_t* dmemory)
 {
 	DEBUG_P("%s\n", __PRETTY_FUNCTION__);
 	
-	memset(self->i_memory, 0, sizeof(self->i_memory));
-	memset(self->d_memory, 0, sizeof(self->d_memory));
+	self->i_memory = imemory;
+	self->d_memory = dmemory;
+	
+	memset(self->i_memory, 0, IMEMORY_SIZE);
+	memset(self->d_memory, 0, DMEMORY_SIZE);
 	self->sp = 0;
 	self->pc = 0;
 	
@@ -88,70 +51,84 @@ void stack_cpu_step(stack_cpu_t* self)
 	DEBUG_P("PC: %x ", self->pc);
 	
 	uint8_t ib = self->i_memory[self->pc];
-	DEBUG_P("byte: %x ", ib);
+	DEBUG_P("byte: %02x ", ib);
 	
-	opcode_t oc = OPCODE(ib);
+	const opcode_t oc = OPCODE(ib);
 	DEBUG_P("OPCODE: %s", opcode_strings[oc]);
 	
-	datatype_t dt = DATATYPE(ib);
+	const datatype_t dt = DATATYPE(ib);
 	DEBUG_P(".%s", datatype_strings[dt >> 5]);
 	
 	switch (oc) {
 	case OP_LOAD: {
 		ib = self->i_memory[++self->pc];
-		DEBUG_P(" %02x", ib);
 		switch (dt) {
 		case DT_INT1:
 			self->d_memory[--self->sp] = self->d_memory[ib];
 			break;
-		case DT_INT2:
+		case DT_INT2: {
 			self->sp -= 2;
-			readU16((uint16_t*)(self->d_memory+(self->sp)),
-			    self->d_memory+ib);
+			uint16_t b;
+			readU16(&b, self->d_memory+ib);
+			writeU16(b, self->d_memory+(self->sp));
+		}
 			break;
-		case DT_INT4:
+		case DT_INT4: {
 			self->sp -= 4;
-			readU32((uint32_t*)(self->d_memory+(self->sp)),
-			    self->d_memory+ib);
+			uint32_t b;
+			readU32(&b, self->d_memory+ib);
+			writeU32(b, self->d_memory+(self->sp));
+		}
 			break;
-		case DT_INT8:
+		case DT_INT8: {
 			self->sp -= 8;
-			readU64((uint64_t*)(self->d_memory+(self->sp)),
-			    self->d_memory+ib);
+			uint64_t b;
+			readU64(&b, self->d_memory+ib);
+			writeU64(b, self->d_memory+(self->sp));
+		}
 			break;
-		case DT_REAL4:
+		case DT_REAL4: {
 			self->sp -= 4;
-			readR32((float*)(self->d_memory+(self->sp)),
-			    self->d_memory+ib);
+			float b;
+			readR32(&b, self->d_memory+ib);
+			writeR32(b, self->d_memory+(self->sp));
+		}
 			break;
-		case DT_REAL8:
+		case DT_REAL8: {
 			self->sp -= 8;
-			readR64((double*)(self->d_memory+(self->sp)),
-			    self->d_memory+ib);
+			double b;
+			readR64(&b, self->d_memory+ib);
+			writeR64(b, self->d_memory+(self->sp));
+		}
 			break;
 		}
 	} break;
 	case OP_STORE: {
 		ib = self->i_memory[++self->pc];
-		DEBUG_P(" %02x", ib);
 		switch (dt) {
 		case DT_INT1:
 			self->d_memory[ib] = self->d_memory[self->sp++];
 			break;
-		case DT_INT2:
-			readU16((uint16_t*)(self->d_memory+ib),
-			    self->d_memory+(self->sp));
+		case DT_INT2: {
+			uint16_t b;
+			readU16(&b, self->d_memory+(self->sp));
+			writeU16(b, self->d_memory+ib);
 			self->sp += 2;
+		}
 			break;
-		case DT_INT4:
-			readU32((uint32_t*)(self->d_memory+ib),
-			    self->d_memory+(self->sp));
+		case DT_INT4: {
+			uint32_t b;
+			readU32(&b, self->d_memory+(self->sp));
+			writeU32(b, self->d_memory+ib);
 			self->sp += 4;
+		}
 			break;
-		case DT_INT8:
-			readU64((uint64_t*)(self->d_memory+ib),
-			    self->d_memory+(self->sp));
+		case DT_INT8: {
+			uint64_t b;
+			readU64(&b, self->d_memory+(self->sp));
+			writeU64(b, self->d_memory+ib);
 			self->sp += 8;
+		}
 			break;
 		case DT_REAL4:
 			readR32((float*)(self->d_memory+ib),
@@ -176,10 +153,37 @@ void stack_cpu_step(stack_cpu_t* self)
 		case DT_INT2: {
 			uint16_t a;
 			readU16(&a, self->d_memory+self->sp);
-			self->sp +=2;
+			self->sp += 2;
 			uint16_t b;
 			readU16(&b, self->d_memory+self->sp);
 			writeU16((int16_t)a + (int16_t)b, self->d_memory+self->sp);
+		}
+			break;
+		case DT_INT4: {
+			uint32_t a;
+			readU32(&a, self->d_memory+self->sp);
+			self->sp += 4;
+			uint16_t b;
+			readU16(&b, self->d_memory+self->sp);
+			writeU16((int16_t)a + (int16_t)b, self->d_memory+self->sp);
+		}
+			break;
+		case DT_REAL4: {
+			float a;
+			readR32(&a, self->d_memory+self->sp);
+			self->sp += 4;
+			float b;
+			readR32(&b, self->d_memory+self->sp);
+			writeR32(a + b, self->d_memory+self->sp);
+		}
+			break;
+		case DT_REAL8: {
+			double a;
+			readR64(&a, self->d_memory+self->sp);
+			self->sp += 4;
+			double b;
+			readR64(&b, self->d_memory+self->sp);
+			writeR64(a + b, self->d_memory+self->sp);
 		}
 			break;
 		}
@@ -192,31 +196,23 @@ void stack_cpu_step(stack_cpu_t* self)
 	self->pc++;
 }
 
+typedef struct
+{
+	stack_cpu_t* cpu;
+} monitor_t;
+
 int
 main(int argc, char** argv)
 {
 	stack_cpu_t cpu;
 	
-	stack_cpu_init(&cpu);
+	uint8_t imemory[IMEMORY_SIZE], dmemory[DMEMORY_SIZE];
+	
+	stack_cpu_init(&cpu, imemory, dmemory);
 	
 	while (1) {
 		stack_cpu_step(&cpu);
 	}
 	
 	return EXIT_SUCCESS;
-}
-
-
-HAL_nvram_address_t HAL_nvram_getsize()
-{
-	return 0;
-}
-
-uint8_t HAL_nvram_read(HAL_nvram_address_t)
-{
-	return 0;
-}
-
-void HAL_nvram_write(HAL_nvram_address_t, uint8_t)
-{
 }
