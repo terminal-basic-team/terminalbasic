@@ -5,6 +5,9 @@
 
 __BEGIN_DECLS
 
+#define IMEMORY_SIZE 256
+#define DMEMORY_SIZE 256
+
 typedef struct
 {
 	uint8_t *i_memory;
@@ -35,26 +38,17 @@ typedef enum
 	NUM_DATATYPES
 } datatype_t;
 
-const char* opcode_strings[(uint8_t)NUM_OPCODES] = {
-	"NOP",
-	"LOAD",
-	"STORE",
-	"ADD"
-};
+extern const char* opcode_strings[];
 
 #define OPCODE(a) (opcode_t)(a & 0b00011111)
 
-const char* datatype_strings[(uint8_t)NUM_DATATYPES] = {
-	"NONE",
-	"I1",
-	"I2",
-	"I4",
-	"I8",
-	"R4",
-	"R8"
-};
+extern const char* datatype_strings[];
 
 #define DATATYPE(a) (datatype_t)(a & 0b11100000)
+
+void stack_cpu_init(stack_cpu_t*, uint8_t*, uint8_t*);
+
+void stack_cpu_step(stack_cpu_t*);
 
 __END_DECLS
 

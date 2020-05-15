@@ -15,8 +15,22 @@
 #define DEBUG(...)
 #endif
 
-#define IMEMORY_SIZE 256
-#define DMEMORY_SIZE 256
+const char* opcode_strings[(uint8_t)NUM_OPCODES] = {
+	"NOP",
+	"LOAD",
+	"STORE",
+	"ADD"
+};
+
+const char* datatype_strings[(uint8_t)NUM_DATATYPES] = {
+	"NONE",
+	"I1",
+	"I2",
+	"I4",
+	"I8",
+	"R4",
+	"R8"
+};
 
 void
 stack_cpu_init(
@@ -44,7 +58,8 @@ stack_cpu_init(
 	self->i_memory[4] = 1;
 }
 
-void stack_cpu_step(stack_cpu_t* self)
+void
+stack_cpu_step(stack_cpu_t* self)
 {
 	DEBUG_P("%s\n", __PRETTY_FUNCTION__);
 	
@@ -130,15 +145,19 @@ void stack_cpu_step(stack_cpu_t* self)
 			self->sp += 8;
 		}
 			break;
-		case DT_REAL4:
-			readR32((float*)(self->d_memory+ib),
-			    self->d_memory+(self->sp));
+		case DT_REAL4: {
+			float b;
+			readR32(&b, self->d_memory+(self->sp));
+			writeR32(b, self->d_memory+ib);
 			self->sp += 4;
+		}
 			break;
-		case DT_REAL8:
-			readR64((double*)(self->d_memory+ib),
-			    self->d_memory+(self->sp));
+		case DT_REAL8: {
+			double b;
+			readR64(&b, self->d_memory+(self->sp));
+			writeR64(b, self->d_memory+ib);
 			self->sp += 8;
+		}
 			break;
 		}
 	} break;
@@ -156,16 +175,25 @@ void stack_cpu_step(stack_cpu_t* self)
 			self->sp += 2;
 			uint16_t b;
 			readU16(&b, self->d_memory+self->sp);
-			writeU16((int16_t)a + (int16_t)b, self->d_memory+self->sp);
+			writeU16(a + b, self->d_memory+self->sp);
 		}
 			break;
 		case DT_INT4: {
 			uint32_t a;
 			readU32(&a, self->d_memory+self->sp);
 			self->sp += 4;
-			uint16_t b;
-			readU16(&b, self->d_memory+self->sp);
-			writeU16((int16_t)a + (int16_t)b, self->d_memory+self->sp);
+			uint32_t b;
+			readU32(&b, self->d_memory+self->sp);
+			writeU32(a + b, self->d_memory+self->sp);
+		}
+			break;
+		case DT_INT8: {
+			uint64_t a;
+			readU64(&a, self->d_memory+self->sp);
+			self->sp += 4;
+			uint64_t b;
+			readU64(&b, self->d_memory+self->sp);
+			writeU64(a + b, self->d_memory+self->sp);
 		}
 			break;
 		case DT_REAL4: {
@@ -200,19 +228,3 @@ typedef struct
 {
 	stack_cpu_t* cpu;
 } monitor_t;
-
-int
-main(int argc, char** argv)
-{
-	stack_cpu_t cpu;
-	
-	uint8_t imemory[IMEMORY_SIZE], dmemory[DMEMORY_SIZE];
-	
-	stack_cpu_init(&cpu, imemory, dmemory);
-	
-	while (1) {
-		stack_cpu_step(&cpu);
-	}
-	
-	return EXIT_SUCCESS;
-}

@@ -1,0 +1,2 @@
+	LOAD.I1	0x00
+	STORE.I2	0x01
