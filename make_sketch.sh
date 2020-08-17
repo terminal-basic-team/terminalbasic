@@ -7,44 +7,46 @@ SKETCH=./sketch/terminal-basic-$VER
 SRC_PATH=${SKETCH}/terminal-basic
 
 SRC="	./libbasic/include/basic.h \
-	./libbasic/src/basic.c \
+	./libbasic/include/basic_lexer.h \
+	./libbasic/include/basic_parser.h \
+	./libbasic/include/basic_value.h \
 	./libbasic/include/config.h \
 	./libbasic/include/HAL.h \
-	./libbasic/src/HAL.c \
+	./libbasic/include/HAL_config.h \
+	./libbasic/include/tools.h \
 	./libbasic/include/_tokens_en.h \
 	./libbasic/include/_tokens_fr.h \
 	./libbasic/include/_tokens_ru.h \
-	./libbasic/include/tools.h \
+	./libbasic/src/basic.c \
+	./libbasic/src/HAL.c \
 	./libbasic/src/tools.c \
 	./libbasic/src/basic_lexer_en.c \
 	./libbasic/src/basic_lexer_fr.c \
 	./libbasic/src/basic_lexer_ru.c \
-	./libbasic/include/basic_value.h \
 	./libbasic/src/basic_value.c \
-	./libbasic/include/basic_lexer.h \
 	./libbasic/src/basic_lexer.c \
-	./libbasic/include/basic_parser.h \
 	./libbasic/src/basic_parser.c \
 	./BASIC/include/basic.hpp \
-	./BASIC/src/basic.cpp \
+	./BASIC/include/basic_arduinoio.hpp \
+	./BASIC/include/basic_dataparser.hpp \
+	./BASIC/include/basic_interpreter.hpp \
+	./BASIC/include/basic_lexer.hpp  \
+	./BASIC/include/basic_parser.hpp \
+	./BASIC/include/basic_program.hpp \
 	./BASIC/include/config.hpp \
 	./BASIC/include/config_arduino.hpp \
-	./BASIC/include/basic_lexer.hpp  \
+	./BASIC/include/HAL_arduino.h \
+	./BASIC/src/basic.cpp \
 	./BASIC/src/basic_lexer.cpp  \
 	./BASIC/include/version.h \
-	./BASIC/include/basic_parser.hpp \
 	./BASIC/src/basic_parser.cpp \
-	./BASIC/include/basic_interpreter.hpp \
 	./BASIC/src/basic_interpreter.cpp \
 	./BASIC/src/basic_interpreter_matrix.cpp \
-	./BASIC/include/basic_dataparser.hpp \
 	./BASIC/src/basic_dataparser.cpp \
-	./BASIC/include/basic_program.hpp \
 	./BASIC/src/basic_program.cpp \
 	./BASIC/include/basic_exteeprom.hpp \
 	./BASIC/src/basic_exteeprom.cpp \
 	./BASIC/include/basic_functionblock.hpp \
-	./BASIC/include/basic_arduinoio.hpp \
 	./BASIC/include/basic_math.hpp \
 	./BASIC/src/basic_functionblock.cpp \
 	./BASIC/src/basic_arduinoio.cpp \
