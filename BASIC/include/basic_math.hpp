@@ -71,6 +71,10 @@ private:
 	static bool func_log(Interpreter&);
 	static bool func_sqr(Interpreter&);
 	static bool func_pi(Interpreter&);
+#if USE_LONG_REALS
+	static bool func_exp_lr(Interpreter&);
+	static bool func_pi_lr(Interpreter&);
+#endif
 #if M_ADDITIONAL
 	static bool func_cbr(Interpreter&);
 	static bool func_hyp(Interpreter&);
@@ -93,6 +97,9 @@ private:
 	static Real exp_r(Real);
 	static Real log_r(Real);
 	static Real sqr_r(Real);
+#if USE_LONG_REALS
+	static LongReal exp_lr(LongReal);
+#endif
 #if M_ADDITIONAL
 	static Real cbr_r(Real);
 	static Real log10_r(Real);
