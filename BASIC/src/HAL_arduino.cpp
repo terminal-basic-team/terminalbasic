@@ -26,6 +26,10 @@
 #include "HAL_arduino.h"
 #include "Arduino.h"
 
+#if HAL_ARDUINO_TERMINAL == HAL_ARDUINO_TERMINAL_SERIALLIGHT
+#include "seriallight.hpp"
+#endif
+
 #if HAL_EXTMEM && (HAL_ARDUINO_EXTMEM == HAL_ARDUINO_EXTMEM_SDFS)
 #include "sd.hpp"
 #endif
@@ -43,22 +47,47 @@ void
 HAL_initialize()
 {
 #if HAL_ARDUINO_TERMINAL == HAL_ARDUINO_TERMINAL_SERIAL
-  Serial.begin(HAL_ARDUINO_TERMINAL_SERIAL_0_BR);
+	Serial.begin(HAL_ARDUINO_TERMINAL_SERIAL_0_BR);
 #if defined(HAVE_HWSERIAL1) && (HAL_TERMINAL_NUM > 0)
-  Serial1.begin(HAL_ARDUINO_TERMINAL_SERIAL_1_BR);
+	Serial1.begin(HAL_ARDUINO_TERMINAL_SERIAL_1_BR);
 #endif
 #if defined(HAVE_HWSERIAL2) && (HAL_TERMINAL_NUM > 1)
-  Serial1.begin(HAL_ARDUINO_TERMINAL_SERIAL_2_BR);
+	Serial2.begin(HAL_ARDUINO_TERMINAL_SERIAL_2_BR);
 #endif
 #if defined(HAVE_HWSERIAL3) && (HAL_TERMINAL_NUM > 2)
-  Serial1.begin(HAL_ARDUINO_TERMINAL_SERIAL_3_BR);
+	Serial3.begin(HAL_ARDUINO_TERMINAL_SERIAL_3_BR);
+#endif
+#elif HAL_ARDUINO_TERMINAL == HAL_ARDUINO_TERMINAL_SERIALLIGHT
+	SerialL.begin(HAL_ARDUINO_TERMINAL_SERIAL_0_BR);
+#if defined(HAVE_HWSERIAL1) && (HAL_TERMINAL_NUM > 0)
+	SerialL1.begin(HAL_ARDUINO_TERMINAL_SERIAL_1_BR);
+#endif
+#if defined(HAVE_HWSERIAL2) && (HAL_TERMINAL_NUM > 1)
+	SerialL2.begin(HAL_ARDUINO_TERMINAL_SERIAL_2_BR);
+#endif
+#if defined(HAVE_HWSERIAL3) && (HAL_TERMINAL_NUM > 2)
+	SerialL3.begin(HAL_ARDUINO_TERMINAL_SERIAL_3_BR);
 #endif
 #endif // HAL_ARDUINO_TERMINAL
+
+
 #if HAL_EXTMEM && (HAL_ARDUINO_EXTMEM == HAL_ARDUINO_EXTMEM_SDFS)
 	if (!SDCard::SDFS.begin())
 		abort();
 #endif
 	HAL_initialize_concrete();
+}
+
+void
+HAL_time_sleep_ms(uint32_t ms)
+{
+	delay(ms);
+}
+
+uint32_t
+HAL_time_gettime_ms()
+{
+	return millis();
 }
 
 #if HAL_ARDUINO_TERMINAL == HAL_ARDUINO_TERMINAL_SERIAL
@@ -96,18 +125,6 @@ HAL_terminal_isdataready(HAL_terminal_t t)
 		return Serial1.read();
 #endif
 	return FALSE;
-}
-
-void
-HAL_time_sleep_ms(uint32_t ms)
-{
-	delay(ms);
-}
-
-uint32_t
-HAL_time_gettime_ms()
-{
-	return millis();
 }
 
 #endif // HAL_ARDUINO_TERMINAL
