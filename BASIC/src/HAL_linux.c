@@ -40,19 +40,24 @@
 #include <time.h>
 
 #define FILES_PATH "/terminal_basic_HAL/"
+#if HAL_NVRAM
 #define NVRAM_FILE "nvram.img"
+static int nvram_file = -1;
+#endif
 
+#if HAL_EXTMEM
 #define EXTMEM_NUM_FILES 8
 #define EXTMEM_DIR_PATH "extmem/"
 
-static int nvram_file = -1;
 static int extmem_files[EXTMEM_NUM_FILES];
 
 static char ext_root[256];
+#endif
 
 void
 HAL_initialize()
 {
+#if HAL_NVRAM
 	/* Initialize nvram and external memory directories */
 	const char *homedir = NULL;
 	if ((homedir = getenv("HOME")) == NULL) {
@@ -85,7 +90,9 @@ HAL_initialize()
 		perror("atexit");
 		exit(EXIT_FAILURE);
 	}
-	
+#endif // HAL_NVRAM
+
+#if HAL_EXTMEM
 	strncpy(ext_root, root, 256);
 	strncat(ext_root, EXTMEM_DIR_PATH, strlen(EXTMEM_DIR_PATH));
 	DIR *ucbasicExtmem = opendir(ext_root);
@@ -97,17 +104,21 @@ HAL_initialize()
 	
 	for (size_t i=0; i<EXTMEM_NUM_FILES; ++i)
 		extmem_files[i] = -1;
+#endif // HAL_EXTMEM
 }
 
 void
 HAL_finalize()
 {
+#if HAL_NVRAM
 	if (close(nvram_file) != 0) {
 		perror("close");
 		exit(EXIT_FAILURE);
 	}
+#endif // HAL_NVRAM
 }
 
+#if HAL_NVRAM
 uint8_t
 HAL_nvram_read(HAL_nvram_address_t address)
 {
@@ -135,6 +146,7 @@ HAL_nvram_write(HAL_nvram_address_t address, uint8_t b)
 		exit(EXIT_FAILURE);
 	}
 }
+#endif // HAL_NVRAM
 
 uint32_t
 HAL_time_gettime_ms()
@@ -147,6 +159,8 @@ HAL_time_gettime_ms()
 	
 	return ts.tv_sec * 1000l + ts.tv_nsec / 1000000l;
 }
+
+#if HAL_EXTMEM
 
 HAL_extmem_file_t
 HAL_extmem_openfile(const char str[13])
@@ -320,5 +334,7 @@ HAL_extmem_fileExists(const char fname[13])
 		return TRUE;
 	return FALSE;
 }
+
+#endif // HAL_EXTMEM
 
 #endif /* HAL_LINUX */
