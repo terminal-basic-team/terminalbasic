@@ -30,11 +30,11 @@
 /*
  * Enable external memory interface functions
  */
-#define HAL_EXTMEM 1
+#define HAL_EXTMEM 0
 
 /*
  * Enable GFX interface functions
  */
-#define HAL_GFX 1
+#define HAL_GFX 0
 
 #endif /* HAL_CONFIG_H */

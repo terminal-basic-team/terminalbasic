@@ -248,17 +248,7 @@
       </item>
       <item path="include/tvoutprint.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/HAL_avr8.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/HAL_linux.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HAL_sdl.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>

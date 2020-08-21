@@ -22,8 +22,10 @@
 #ifdef ARDUINO
 
 // configuration
+#if HAL_EXTMEM
 #define USE_SD_EXTMEM 1
 #define EXTMEM_FILENUM 5
+#endif
 // ~configuration
 
 #include <string.h>
@@ -178,7 +180,7 @@ HAL_extmem_deletefile(const char path[13])
 BOOLEAN
 HAL_extmem_fileExists(const char path[13])
 {
-	SDCard::SDFS.exists();
+	SDCard::SDFS.exists(path);
 }
 
 #endif // USE_SD_EXTMEM
