@@ -23,7 +23,7 @@
 
 #include <string.h>
 
-#include "HAL.h"
+#include "HAL_arduino.h"
 #include "Arduino.h"
 
 #if HAL_EXTMEM && (HAL_ARDUINO_EXTMEM == HAL_ARDUINO_EXTMEM_SDFS)
