@@ -21,10 +21,7 @@
 
 #ifdef HAL_SDL
 
-#define HAL_SDL_WIDTH 640
-#define HAL_SDL_HEIGHT 480
-
-#include "HAL.h"
+#include "HAL_sdl.h"
 
 #include <SDL.h>
 
@@ -44,21 +41,20 @@
 #define NVRAM_FILE "nvram.img"
 #endif
 
-#define EXTMEM_NUM_FILES 8
 #define EXTMEM_DIR_PATH "extmem/"
 
-static int extmem_files[EXTMEM_NUM_FILES];
+//static int extmem_files[EXTMEM_NUM_FILES];
 static SDL_RWops* extmemFiles[EXTMEM_NUM_FILES];
 static SDL_Window* window = NULL;
 static SDL_Renderer* renderer = NULL;
 
-static char ext_root[256];
+//static char ext_root[256];
 
 #if HAL_GFX
 static const struct {Uint8 r,g,b,a;} colors[HAL_GFX_NUMCOLORS] = {
 	{0,0,0,0}, /*HAL_GFX_NOTACOLOR = 0,*/
-	{0,0,0,255}, /*HAL_GFX_COLOR_BLACK,*/
 	{255,255,255,255}, /*HAL_GFX_COLOR_WHITE,*/
+	{0,0,0,255}, /*HAL_GFX_COLOR_BLACK,*/
 	{255,0,0,255}, /*HAL_GFX_COLOR_RED,*/
 	{0,255,0,255}, /*HAL_GFX_COLOR_GREEN,*/
 	{0,0,255,255}, /*HAL_GFX_COLOR_BLUE,*/
@@ -138,6 +134,12 @@ HAL_finalize()
 	SDL_DestroyWindow(window);
 	
 	SDL_Quit();
+}
+
+uint32_t
+HAL_time_gettime_ms()
+{
+	return 	SDL_GetTicks();
 }
 
 #if HAL_NVRAM
@@ -220,28 +222,24 @@ HAL_nvram_write(HAL_nvram_address_t address, uint8_t b)
 }
 #endif /* HAL_NVRAM */
 
-uint32_t
-HAL_time_gettime_ms()
-{
-	return 	SDL_GetTicks();
-}
+#if HAL_EXTMEM
 	
 HAL_extmem_file_t
 HAL_extmem_openfile(const char str[13])
 {
-	char fpath[256];
-	strncpy(fpath, ext_root, 256);
-	strncat(fpath, str, 256);
-	
-	int fp = open(fpath, O_CREAT|O_RDWR, S_IRUSR|S_IWUSR);
-	if (fp == -1) {
-		perror("open");
-		exit(EXIT_FAILURE);
+	SDL_RWops* fp = SDL_RWFromFile(str, "r+");
+	if (fp == NULL) {
+		fp = SDL_RWFromFile(str, "w+");
+		if (fp == NULL) {
+			SDL_LogError(SDL_LOG_CATEGORY_SYSTEM, "SDL_RWFromFile: %s",
+			    SDL_GetError());
+			exit(EXIT_FAILURE);
+		}
 	}
 	
 	for (size_t i=0; i<EXTMEM_NUM_FILES; ++i) {
-		if (extmem_files[i] == -1) {
-			extmem_files[i] = fp;
+		if (extmemFiles[i] == NULL) {
+			extmemFiles[i] = fp;
 			return i+1;
 		}
 	}
@@ -252,11 +250,7 @@ HAL_extmem_openfile(const char str[13])
 void
 HAL_extmem_deletefile(const char fname[13])
 {
-	char fpath[256];
-	strncpy(fpath, ext_root, 256);
-	strncat(fpath, fname, 256);
-	
-	unlink(fpath);
+	unlink(fname);
 }
 
 void
@@ -264,27 +258,29 @@ HAL_extmem_closefile(HAL_extmem_file_t file)
 {
 	if ((file == 0)
 	 || (file > EXTMEM_NUM_FILES)
-	 || (extmem_files[file-1] == -1))
+	 || (extmemFiles[file-1] == NULL))
 		return;
 	
-	if (close(extmem_files[file-1]) != 0) {
-		perror("close");
+	if (SDL_RWclose(extmemFiles[file-1]) != 0) {
+		SDL_LogError(SDL_LOG_CATEGORY_SYSTEM, "SDL_RWclose: %s",
+		    SDL_GetError());
 		exit(EXIT_FAILURE);
 	}
-	extmem_files[file-1] = -1;
+	extmemFiles[file-1] = NULL;
 }
 
 off_t
-_seek(HAL_extmem_file_t file, off_t pos, int whence)
+_seek(HAL_extmem_file_t file, Sint64 pos, int whence)
 {
 	if ((file == 0)
 	 || (file > EXTMEM_NUM_FILES)
-	 || (extmem_files[file-1] == -1))
+	 || (extmemFiles[file-1] == NULL))
 		return 0;
 	
-	off_t res = lseek(extmem_files[file-1], pos, whence);
+	Sint64 res = SDL_RWseek(extmemFiles[file-1], pos, whence);
 	if (res == -1) {
-		perror("lseek");
+		SDL_LogError(SDL_LOG_CATEGORY_SYSTEM, "SDL_RWseek: %s",
+		    SDL_GetError());
 		exit(EXIT_FAILURE);
 	}
 	
@@ -319,14 +315,16 @@ HAL_extmem_readfromfile(HAL_extmem_file_t file)
 {
 	if ((file == 0)
 	 || (file > EXTMEM_NUM_FILES)
-	 || (extmem_files[file-1] == -1))
+	 || (extmemFiles[file-1] == NULL))
 		return 0;
 	
-	char result = '\0';
-	if (read(extmem_files[file-1], &result, 1) != 1)
-		fputs("HAL error \"read\": Can't read from file", stderr);
-	
-	return result;
+	uint8_t r;
+	if (SDL_RWread(extmemFiles[file-1], &r, 1, 1) == 0) {
+		SDL_LogError(SDL_LOG_CATEGORY_SYSTEM, "SDL_RWread: %s",
+		    SDL_GetError());
+		exit(EXIT_FAILURE);
+	}
+	return r;
 }
 
 void
@@ -334,17 +332,20 @@ HAL_extmem_writetofile(HAL_extmem_file_t file, uint8_t byte)
 {
 	if ((file == 0)
 	 || (file > EXTMEM_NUM_FILES)
-	 || (extmem_files[file-1] == -1))
+	 || (extmemFiles[file-1] == NULL))
 		return;
 	
-	if (write(extmem_files[file-1], &byte, 1) != 1)
-		fputs("HAL error \"write\": Can't write to file", stderr);
+	if (SDL_RWwrite(extmemFiles[file-1], &byte, 1, 1) == 0) {
+		SDL_LogError(SDL_LOG_CATEGORY_SYSTEM, "SDL_RWwrite: %s",
+		    SDL_GetError());
+		exit(EXIT_FAILURE);
+	}
 }
 
 uint16_t
 HAL_extmem_getnumfiles()
 {
-	DIR *extRootDir = opendir(ext_root);
+	DIR *extRootDir = opendir("./");
 	if (extRootDir == NULL) {
 		perror("opendir");
 		exit(EXIT_FAILURE);
@@ -365,7 +366,7 @@ HAL_extmem_getnumfiles()
 void
 HAL_extmem_getfilename(uint16_t num, char name[13])
 {
-	DIR *extRootDir = opendir(ext_root);
+	DIR *extRootDir = opendir("./");
 	if (extRootDir == NULL) {
 		perror("opendir");
 		exit(EXIT_FAILURE);
@@ -394,13 +395,28 @@ HAL_extmem_fileExists(const char fname[13])
 	return tfile != NULL;
 }
 
+#endif /* HAL_EXTMEM */
+
 #if HAL_GFX
+
+void
+_setColor(HAL_gfx_color_t color)
+{
+	SDL_SetRenderDrawColor(renderer, colors[color].r, colors[color].g,
+	    colors[color].b, colors[color].a);
+}
+
 void
 HAL_gfx_setColor(HAL_gfx_color_t color)
 {
 	fgColor = color;
-	SDL_SetRenderDrawColor(renderer, colors[color].r, colors[color].g,
-	    colors[color].b, colors[color].a);
+	_setColor(color);
+}
+
+void
+HAL_gfx_setBgColor(HAL_gfx_color_t color)
+{
+	bgColor = color;
 }
 
 void
@@ -422,11 +438,72 @@ HAL_gfx_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h)
 {
 	SDL_Rect rect = { .x = x, .y = y, .w = w, .h = h };
 	if (bgColor != HAL_GFX_NOTACOLOR) {
-		HAL_gfx_setColor(bgColor);
+		_setColor(bgColor);
 		SDL_RenderFillRect(renderer, &rect);
 	}
-	HAL_gfx_setColor(fgColor);
+	_setColor(fgColor);
 	SDL_RenderDrawRect(renderer, &rect);
+	SDL_RenderPresent(renderer);
+}
+
+void
+HAL_gfx_circle(uint16_t x0, uint16_t y0, uint16_t radius)
+{
+	int f = 1 - radius;
+	int ddF_x = 1;
+	int ddF_y = -2 * radius;
+	int x = 0;
+	int y = radius;
+	uint8_t pyy = y, pyx = x;
+
+	//there is a fill color
+	if (bgColor != HAL_GFX_NOTACOLOR) {
+		_setColor(bgColor);
+		SDL_RenderDrawLine(renderer, x0 - radius, y0, x0 + radius, y0);
+	}
+
+	_setColor(fgColor);
+	SDL_RenderDrawPoint(renderer, x0, y0 + radius);
+	SDL_RenderDrawPoint(renderer, x0, y0 - radius);
+	SDL_RenderDrawPoint(renderer, x0 + radius, y0);
+	SDL_RenderDrawPoint(renderer, x0 - radius, y0);
+
+	while (x < y) {
+		if (f >= 0) {
+			y--;
+			ddF_y += 2;
+			f += ddF_y;
+		}
+		x++;
+		ddF_x += 2;
+		f += ddF_x;
+
+		//there is a fill color
+		if (bgColor != HAL_GFX_NOTACOLOR) {
+			//prevent double draws on the same rows
+			_setColor(bgColor);
+			if (pyy != y) {
+				SDL_RenderDrawLine(renderer, x0 - x, y0 + y, x0 + x, y0 + y);
+				SDL_RenderDrawLine(renderer, x0 - x, y0 - y, x0 + x, y0 - y);
+			}
+			if (pyx != x && x != y) {
+				SDL_RenderDrawLine(renderer, x0 - y, y0 + x, x0 + y, y0 + x);
+				SDL_RenderDrawLine(renderer, x0 - y, y0 - x, x0 + y, y0 - x);
+			}
+			pyy = y;
+			pyx = x;
+		}
+		_setColor(fgColor);
+		SDL_RenderDrawPoint(renderer, x0 + x, y0 + y);
+		SDL_RenderDrawPoint(renderer, x0 - x, y0 + y);
+		SDL_RenderDrawPoint(renderer, x0 + x, y0 - y);
+		SDL_RenderDrawPoint(renderer, x0 - x, y0 - y);
+		SDL_RenderDrawPoint(renderer, x0 + y, y0 + x);
+		SDL_RenderDrawPoint(renderer, x0 - y, y0 + x);
+		SDL_RenderDrawPoint(renderer, x0 + y, y0 - x);
+		SDL_RenderDrawPoint(renderer, x0 - y, y0 - x);
+	}
+	SDL_RenderPresent(renderer);
 }
 #endif /* HAL_GFX */
 

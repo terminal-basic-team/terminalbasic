@@ -10,3 +10,4 @@ syntax: glob
 */build/*
 *.bash
 autotools/*
+sketch/*

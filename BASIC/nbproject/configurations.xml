@@ -2,6 +2,8 @@
 <configurationDescriptor version="100">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="include" displayName="include" projectFiles="true">
+      <itemPath>include/HAL_arduino.h</itemPath>
+      <itemPath>include/HAL_sdl.h</itemPath>
       <itemPath>include/basic.hpp</itemPath>
       <itemPath>include/basic_arduinoio.hpp</itemPath>
       <itemPath>include/basic_dataparser.hpp</itemPath>
@@ -212,6 +214,10 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
+      <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
@@ -309,6 +315,7 @@
         <cTool>
           <incDir>
             <pElem>../libbasic/include</pElem>
+            <pElem>include</pElem>
           </incDir>
           <commandLine>`pkg-config --cflags sdl2`</commandLine>
           <preprocessorList>
@@ -427,6 +434,10 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
+      <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
@@ -619,6 +630,10 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
+      <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
@@ -858,6 +873,10 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
+      <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
@@ -897,16 +916,6 @@
       <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_avr8.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HAL_linux.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HAL_sdl.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1112,6 +1121,10 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
+      <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
@@ -1301,6 +1314,10 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
+      <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
@@ -1488,6 +1505,10 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
+      <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
@@ -1665,6 +1686,10 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
+      <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
@@ -1873,6 +1898,10 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
+      <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
@@ -2093,6 +2122,10 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
+      <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
@@ -2302,6 +2335,10 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
+      <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
@@ -2484,6 +2521,10 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
+      <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
@@ -2663,6 +2704,10 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
+      <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
@@ -2893,6 +2938,10 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
+      <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">

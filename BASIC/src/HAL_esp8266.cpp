@@ -94,6 +94,8 @@ HAL_nvram_write(HAL_nvram_address_t addr, uint8_t b)
 	f.close();
 }
 
+#if HAL_EXTMEM
+
 HAL_extmem_file_t
 HAL_extmem_openfile(const char fname[13])
 {
@@ -235,5 +237,7 @@ HAL_extmem_fileExists(const char fname[13])
 {
 	return SPIFFS.exists(fname);
 }
+
+#endif // HAL_EXTMEM
 
 #endif // ARDUINO_ARCH_ESP8266

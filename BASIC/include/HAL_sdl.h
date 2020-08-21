@@ -19,37 +19,36 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef HAL_CONFIG_H
-#define HAL_CONFIG_H
+/**
+ * @brief Configuration for the SDL2 HAL implementation
+ */
 
-/*
- * Number of available terminals
- */
-#define HAL_TERMINAL_NUM 1
+#ifndef HAL_SDL_H
+#define HAL_SDL_H
 
-/*
- * Enable NVRAM read/write functions
- */
-#define HAL_NVRAM 1
+#include "HAL.h"
 
-/*
- * Enable external memory interface functions
- */
-#define HAL_EXTMEM 0
-#if HAL_EXTMEM
-/*
- * Maximal number of simulteniously opened files
- */
-#define EXTMEM_NUM_FILES 2
-#endif /* HAL_EXTMEM */
-
-/*
- * Enable GFX interface functions
- */
-#define HAL_GFX 0
 #if HAL_GFX
-/* Default implementation of the explicit color setting commands */
-#define HAL_GFX_EXPCOLOR_SIMPL 1
+
+/*
+ * SDL2 HAL_GFX implementation
+ */
+#define HAL_SDL_GFX 1
+
+#if HAL_SDL_GFX
+
+/**
+ * Width of the SDL window
+ */
+#define HAL_SDL_WIDTH 640
+/**
+ * Height of the SDL window
+ */
+#define HAL_SDL_HEIGHT 480
+
+#endif /* HAL_SDL_GFX */
+
 #endif /* HAL_GFX */
 
-#endif /* HAL_CONFIG_H */
+#endif /* HAL_SDL_H */
+
