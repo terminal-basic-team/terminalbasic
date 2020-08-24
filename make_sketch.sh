@@ -13,6 +13,7 @@ SRC="	./libbasic/include/basic.h \
 	./libbasic/include/config.h \
 	./libbasic/include/HAL.h \
 	./libbasic/include/HAL_config.h \
+	./libbasic/include/HAL_config.h \
 	./libbasic/include/tools.h \
 	./libbasic/include/_tokens_en.h \
 	./libbasic/include/_tokens_fr.h \

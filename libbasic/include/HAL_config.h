@@ -35,7 +35,7 @@
 /*
  * Enable external memory interface functions
  */
-#define HAL_EXTMEM 1
+#define HAL_EXTMEM 0
 #if HAL_EXTMEM
 /*
  * Maximal number of simulteniously opened files
@@ -46,7 +46,7 @@
 /*
  * Enable GFX interface functions
  */
-#define HAL_GFX 1
+#define HAL_GFX 0
 #if HAL_GFX
 /* Default implementation of the explicit color setting commands */
 #define HAL_GFX_EXPCOLOR_SIMPL 1

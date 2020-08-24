@@ -51,4 +51,3 @@
 #endif /* HAL_GFX */
 
 #endif /* HAL_SDL_H */
-

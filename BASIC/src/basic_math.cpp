@@ -52,12 +52,18 @@ static const uint8_t mathTokens[] PROGMEM = {
 	'C', 'O', 'S', ASCII_NUL,
 	'C', 'O', 'T', ASCII_NUL,
 #endif // M_TRIGONOMETRIC
+#if USE_LONG_REALS
+	'E', 'X', 'P', '!', ASCII_NUL,
+#endif
 	'E', 'X', 'P', ASCII_NUL,
 #if M_ADDITIONAL
 	'H', 'Y', 'P', ASCII_NUL,
 	'L', 'O', 'G', '1', '0', ASCII_NUL,
 #endif
 	'L', 'O', 'G', ASCII_NUL,
+#if USE_LONG_REALS
+	'P', 'I', '!', ASCII_NUL,
+#endif
 	'P', 'I', ASCII_NUL,
 #if M_HYPERBOLIC
 	'S', 'I', 'N', 'H', ASCII_NUL,
@@ -91,12 +97,18 @@ const FunctionBlock::function Math::funcs[] PROGMEM = {
 	Math::func_cos,
 	Math::func_cot,
 #endif
+#if USE_LONG_REALS
+	Math::func_exp_lr,
+#endif
 	Math::func_exp,
 #if M_ADDITIONAL
 	Math::func_hyp,
 	Math::func_log10,
 #endif
 	Math::func_log,
+#if USE_LONG_REALS
+	Math::func_pi_lr,
+#endif
 	Math::func_pi,
 #if M_HYPERBOLIC
 	Math::func_sinh,        
@@ -162,6 +174,14 @@ Math::func_exp(Interpreter &i)
 {
 	return general_func(i, &exp_r);
 }
+
+#if USE_LONG_REALS
+bool
+Math::func_exp_lr(Interpreter &i)
+{
+	return general_func(i, &exp_lr);
+}
+#endif
 
 bool
 Math::func_log(Interpreter &i)
@@ -270,6 +290,15 @@ Math::func_pi(Interpreter &i)
 	return i.pushValue(v);
 }
 
+#if USE_LONG_REALS
+bool
+Math::func_pi_lr(Interpreter &i)
+{
+	Parser::Value v(LongReal(M_PIl));
+	return i.pushValue(v);
+}
+#endif // USE_LONG_REALS
+
 #if M_ADDITIONAL
 bool
 Math::func_cbr(Interpreter &i)
@@ -335,6 +364,14 @@ Math::sqr_r(Real v)
 {
 	return sqrt(v);
 }
+
+#if USE_LONG_REALS
+LongReal
+Math::exp_lr(LongReal v)
+{
+	return expl(v);
+}
+#endif
 
 #if M_ADDITIONAL
 Real

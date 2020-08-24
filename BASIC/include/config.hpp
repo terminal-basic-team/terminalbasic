@@ -122,7 +122,7 @@ namespace BASIC
 /*
  * External memory filesystem module
  */
-#define CONF_USE_EXTMEMFS         1
+#define CONF_USE_EXTMEMFS         0
 #if CONF_USE_EXTMEMFS
 	// Unix-like file operations
 	#define USE_FILEOP 1
