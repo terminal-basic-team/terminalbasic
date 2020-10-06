@@ -434,10 +434,10 @@ ExtmemFSModule::getFileName(Interpreter &i, char ss[])
 	const char *s;
 	if (!i.popString(s))
 		return false;
-	ss[0] = '/';
+
 	const uint8_t len = strlen(s);
-	strcpy(ss + 1, s);
-	strcpy_P(ss + len + 1, (PGM_P)strBAS);
+	strcpy(ss, s);
+	strcpy_P(ss + len, (PGM_P)strBAS);
 
 	return HAL_extmem_fileExists(ss);
 }

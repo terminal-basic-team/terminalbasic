@@ -3,6 +3,7 @@
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="include" displayName="include" projectFiles="true">
       <itemPath>include/HAL_arduino.h</itemPath>
+      <itemPath>include/HAL_avr8.h</itemPath>
       <itemPath>include/HAL_sdl.h</itemPath>
       <itemPath>include/basic.hpp</itemPath>
       <itemPath>include/basic_arduinoio.hpp</itemPath>
@@ -28,7 +29,7 @@
     </logicalFolder>
     <logicalFolder name="src" displayName="src" projectFiles="true">
       <itemPath>src/HAL_arduino.cpp</itemPath>
-      <itemPath>src/HAL_avr8.c</itemPath>
+      <itemPath>src/HAL_avr8.cpp</itemPath>
       <itemPath>src/HAL_esp32.cpp</itemPath>
       <itemPath>src/HAL_esp8266.cpp</itemPath>
       <itemPath>src/HAL_linux.c</itemPath>
@@ -216,6 +217,8 @@
       </folder>
       <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -254,7 +257,7 @@
       </item>
       <item path="include/tvoutprint.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/HAL_avr8.c" ex="false" tool="0" flavor2="0">
+      <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -446,6 +449,8 @@
       </folder>
       <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -483,6 +488,8 @@
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/tvoutprint.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_sdl.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -642,6 +649,8 @@
       </folder>
       <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -682,7 +691,7 @@
       </item>
       <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/HAL_avr8.c" ex="false" tool="0" flavor2="0">
+      <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -885,6 +894,8 @@
       </folder>
       <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -925,7 +936,7 @@
       </item>
       <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/HAL_avr8.c" ex="false" tool="0" flavor2="0">
+      <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1133,6 +1144,8 @@
       </folder>
       <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -1173,7 +1186,7 @@
       </item>
       <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/HAL_avr8.c" ex="false" tool="0" flavor2="0">
+      <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1316,6 +1329,8 @@
       </folder>
       <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -1356,7 +1371,7 @@
       </item>
       <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/HAL_avr8.c" ex="false" tool="0" flavor2="0">
+      <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1507,6 +1522,8 @@
       </folder>
       <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -1547,7 +1564,7 @@
       </item>
       <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/HAL_avr8.c" ex="false" tool="0" flavor2="0">
+      <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1688,6 +1705,8 @@
       </folder>
       <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -1728,7 +1747,7 @@
       </item>
       <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/HAL_avr8.c" ex="false" tool="0" flavor2="0">
+      <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1900,6 +1919,8 @@
       </folder>
       <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -1940,7 +1961,7 @@
       </item>
       <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/HAL_avr8.c" ex="false" tool="0" flavor2="0">
+      <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -2124,6 +2145,8 @@
       </folder>
       <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -2164,7 +2187,7 @@
       </item>
       <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/HAL_avr8.c" ex="false" tool="0" flavor2="0">
+      <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -2337,6 +2360,8 @@
       </folder>
       <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -2377,7 +2402,7 @@
       </item>
       <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/HAL_avr8.c" ex="false" tool="0" flavor2="0">
+      <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -2523,6 +2548,8 @@
       </folder>
       <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -2563,7 +2590,7 @@
       </item>
       <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/HAL_avr8.c" ex="false" tool="0" flavor2="0">
+      <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -2706,6 +2733,8 @@
       </folder>
       <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -2746,7 +2775,7 @@
       </item>
       <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/HAL_avr8.c" ex="false" tool="0" flavor2="0">
+      <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -2940,6 +2969,8 @@
       </folder>
       <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -2980,7 +3011,7 @@
       </item>
       <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/HAL_avr8.c" ex="false" tool="0" flavor2="0">
+      <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
       </item>

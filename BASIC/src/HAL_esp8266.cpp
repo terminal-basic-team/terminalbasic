@@ -24,11 +24,14 @@
 #include "HAL.h"
 #include "FS.h"
 
+#if HAL_NVRAM
 #define NVRAMSIZE 32768
-#define EXTMEM_NUM_FILES 4
-
 static File f;
+#endif
+
+#if HAL_EXTMEM
 static File extmem_files[EXTMEM_NUM_FILES];
+#endif
 
 __BEGIN_DECLS
 
@@ -37,7 +40,7 @@ HAL_initialize_concrete()
 {
 	if (!SPIFFS.begin())
 		exit(1);
-
+#if HAL_NVRAM
 	f = SPIFFS.open("nvram.bin", "r+");
 	if (!f) {
 		f = SPIFFS.open("nvram.bin", "w");
@@ -45,6 +48,7 @@ HAL_initialize_concrete()
 			exit(4);
 		f.close();
 	}
+#endif // HAL_NVRAM
 }
 
 __END_DECLS
@@ -53,6 +57,8 @@ void
 HAL_finalize()
 {
 }
+
+#if HAL_NVRAM
 
 HAL_nvram_address_t
 HAL_nvram_getsize()
@@ -93,6 +99,8 @@ HAL_nvram_write(HAL_nvram_address_t addr, uint8_t b)
 	f.write(b);
 	f.close();
 }
+
+#endif // HAL_NVRAM
 
 #if HAL_EXTMEM
 

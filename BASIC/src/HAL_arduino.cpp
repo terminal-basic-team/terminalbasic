@@ -26,10 +26,6 @@
 #include "HAL_arduino.h"
 #include "Arduino.h"
 
-#if HAL_ARDUINO_TERMINAL == HAL_ARDUINO_TERMINAL_SERIALLIGHT
-#include "seriallight.hpp"
-#endif
-
 #if HAL_EXTMEM && (HAL_ARDUINO_EXTMEM == HAL_ARDUINO_EXTMEM_SDFS)
 #include "sd.hpp"
 #endif
@@ -56,17 +52,6 @@ HAL_initialize()
 #endif
 #if defined(HAVE_HWSERIAL3) && (HAL_TERMINAL_NUM > 2)
 	Serial3.begin(HAL_ARDUINO_TERMINAL_SERIAL_3_BR);
-#endif
-#elif HAL_ARDUINO_TERMINAL == HAL_ARDUINO_TERMINAL_SERIALLIGHT
-	SerialL.begin(HAL_ARDUINO_TERMINAL_SERIAL_0_BR);
-#if defined(HAVE_HWSERIAL1) && (HAL_TERMINAL_NUM > 0)
-	SerialL1.begin(HAL_ARDUINO_TERMINAL_SERIAL_1_BR);
-#endif
-#if defined(HAVE_HWSERIAL2) && (HAL_TERMINAL_NUM > 1)
-	SerialL2.begin(HAL_ARDUINO_TERMINAL_SERIAL_2_BR);
-#endif
-#if defined(HAVE_HWSERIAL3) && (HAL_TERMINAL_NUM > 2)
-	SerialL3.begin(HAL_ARDUINO_TERMINAL_SERIAL_3_BR);
 #endif
 #endif // HAL_ARDUINO_TERMINAL
 
@@ -122,7 +107,7 @@ HAL_terminal_isdataready(HAL_terminal_t t)
 		return Serial.available();
 #if defined(HAVE_HWSERIAL1) && (HAL_TERMINAL_NUM > 0)
 	else if (t == 1)
-		return Serial1.read();
+		return Serial1.available();
 #endif
 	return FALSE;
 }

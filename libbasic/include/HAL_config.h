@@ -35,7 +35,7 @@
 /*
  * Enable external memory interface functions
  */
-#define HAL_EXTMEM 0
+#define HAL_EXTMEM 1
 #if HAL_EXTMEM
 /*
  * Maximal number of simulteniously opened files

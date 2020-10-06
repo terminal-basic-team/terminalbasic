@@ -13,7 +13,6 @@ SRC="	./libbasic/include/basic.h \
 	./libbasic/include/config.h \
 	./libbasic/include/HAL.h \
 	./libbasic/include/HAL_config.h \
-	./libbasic/include/HAL_config.h \
 	./libbasic/include/tools.h \
 	./libbasic/include/_tokens_en.h \
 	./libbasic/include/_tokens_fr.h \
@@ -61,7 +60,7 @@ SRC="	./libbasic/include/basic.h \
 	./BASIC/src/tvoutprint.cpp \
 	./BASIC/include/tvoutprint.hpp \
 	./BASIC/src/HAL_arduino.cpp \
-	./BASIC/src/HAL_avr8.c \
+	./BASIC/src/HAL_avr8.cpp \
 	./BASIC/src/HAL_esp8266.cpp \
 	./BASIC/src/HAL_esp32.cpp \
 	./BASIC/src/HAL_sam.cpp \

@@ -19,36 +19,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifdef ARDUINO_ARCH_AVR
+/**
+ * @brief Configuration for the Arduino core AVR8 HAL implementation
+ */
 
-#include <avr/io.h>
-#include <avr/eeprom.h>
+#ifndef HAL_AVR8_H
+#define HAL_AVR8_H
 
 #include "HAL.h"
 
-void
-HAL_initialize_concrete()
-{
-}
+#define HAL_ARDUINO_AVR8_TERMINAL_NONE 0
+/* Use SerialL[N] objects for terminal */
+#define HAL_ARDUINO_AVR8_TERMINAL_SERIALLIGHT 1
 
-void
-HAL_finalize()
-{
-}
+#define HAL_ARDUINO_AVR8_TERMINAL HAL_ARDUINO_AVR8_TERMINAL_SERIALLIGHT
 
-HAL_nvram_address_t HAL_nvram_getsize()
-{
-	return (HAL_nvram_address_t)(E2END+1);
-}
+#if HAL_ARDUINO_AVR8_TERMINAL == HAL_ARDUINO_AVR8_TERMINAL_SERIALLIGHT
+#define HAL_ARDUINO_AVR8_TERMINAL_SERIAL_0_BR 115200
+#if HAL_TERMINAL_NUM > 0
+#define HAL_ARDUINO_AVR8_TERMINAL_SERIAL_1_BR 115200
+#endif /* HAL_TERMINAL_NUM */
+#if HAL_TERMINAL_NUM > 1
+#define HAL_ARDUINO_AVR8_TERMINAL_SERIAL_2_BR 115200
+#endif /* HAL_TERMINAL_NUM */
+#if HAL_TERMINAL_NUM > 2
+#define HAL_ARDUINO_AVR8_TERMINAL_SERIAL_3_BR 115200
+#endif /* HAL_TERMINAL_NUM */
+#endif /* HAL_ARDUINO_AVR8_TERMINAL */
 
-uint8_t HAL_nvram_read(HAL_nvram_address_t addr)
-{
-	return eeprom_read_byte((uint8_t*)addr);
-}
+#endif /* HAL_ARDUINO_H */
 
-void HAL_nvram_write(HAL_nvram_address_t addr, uint8_t byte)
-{
-	return eeprom_update_byte((uint8_t*)addr, byte);
-}
-
-#endif /* ARDUINO_ARCH_AVR */
