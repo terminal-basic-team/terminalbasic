@@ -24,7 +24,7 @@
 #if USEMATH
 
 #include "basic_math.hpp"
-#include <math.h>
+#include "math.hpp"
 #include <string.h>
 
 #include "ascii.hpp"
@@ -71,6 +71,9 @@ static const uint8_t mathTokens[] PROGMEM = {
 #if M_TRIGONOMETRIC
 	'S', 'I', 'N', ASCII_NUL,
 #endif
+#if USE_LONG_REALS
+	'S', 'Q', 'R', '!', ASCII_NUL,
+#endif
 	'S', 'Q', 'R', ASCII_NUL,
 #if M_TRIGONOMETRIC
 	'T', 'A', 'N', ASCII_NUL,
@@ -115,6 +118,9 @@ const FunctionBlock::function Math::funcs[] PROGMEM = {
 #endif
 #if M_TRIGONOMETRIC
 	Math::func_sin,
+#endif
+#if USE_LONG_REALS
+	Math::func_sqr_lr,
 #endif
 	Math::func_sqr
 #if M_HYPERBOLIC
@@ -286,17 +292,25 @@ Math::func_sqr(Interpreter &i)
 bool
 Math::func_pi(Interpreter &i)
 {
-	Parser::Value v(Real(M_PI));
+	Parser::Value v(Real(M_PIf));
 	return i.pushValue(v);
 }
 
 #if USE_LONG_REALS
+
+bool
+Math::func_sqr_lr(Interpreter &i)
+{
+	return general_func(i, &sqr_lr);
+}
+
 bool
 Math::func_pi_lr(Interpreter &i)
 {
-	Parser::Value v(LongReal(M_PIl));
+	Parser::Value v(LongReal(M_PI));
 	return i.pushValue(v);
 }
+
 #endif // USE_LONG_REALS
 
 #if M_ADDITIONAL
@@ -366,12 +380,20 @@ Math::sqr_r(Real v)
 }
 
 #if USE_LONG_REALS
+
 LongReal
 Math::exp_lr(LongReal v)
 {
 	return expl(v);
 }
-#endif
+
+LongReal
+Math::sqr_lr(LongReal v)
+{
+  return sqrtl(v);
+}
+
+#endif // USE_LONG_REALS
 
 #if M_ADDITIONAL
 Real
