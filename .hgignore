@@ -9,3 +9,5 @@ syntax: glob
 */dist/*
 */build/*
 *.bash
+autotools/*
+sketch/*

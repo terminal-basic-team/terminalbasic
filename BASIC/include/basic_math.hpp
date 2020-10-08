@@ -49,7 +49,7 @@ private:
 	static bool func_cot(Interpreter&);
 	static bool func_sin(Interpreter&);
 	static bool func_tan(Interpreter&);
-#endif
+#endif // M_TRIGONOMETRIC
 #if M_REVERSE_TRIGONOMETRIC
 	static bool func_acs(Interpreter&);
 	static bool func_asn(Interpreter&);
@@ -66,21 +66,26 @@ private:
 	static Real cosh_r(Real);
 	static Real sinh_r(Real);
 	static Real tanh_r(Real);
-#endif
+#endif // M_HYPERBOLIC
 	static bool func_exp(Interpreter&);
 	static bool func_log(Interpreter&);
 	static bool func_sqr(Interpreter&);
 	static bool func_pi(Interpreter&);
+#if USE_LONG_REALS
+	static bool func_exp_lr(Interpreter&);
+	static bool func_sqr_lr(Interpreter&);
+	static bool func_pi_lr(Interpreter&);
+#endif // USE_LONG_REALS
 #if M_ADDITIONAL
 	static bool func_cbr(Interpreter&);
 	static bool func_hyp(Interpreter&);
 	static bool func_log10(Interpreter&);
-#endif
+#endif // M_ADDITIONAL
 #if M_REVERSE_TRIGONOMETRIC
 	static Real acs_r(Real);
 	static Real asn_r(Real);
 	static Real atn_r(Real);
-#endif
+#endif // M_REVERSE_TRIGONOMETRIC
 #if M_TRIGONOMETRIC
 	static Real cos_r(Real);
 	static Real cot_r(Real);
@@ -93,11 +98,14 @@ private:
 	static Real exp_r(Real);
 	static Real log_r(Real);
 	static Real sqr_r(Real);
+#if USE_LONG_REALS
+	static LongReal exp_lr(LongReal);
+	static LongReal sqr_lr(LongReal);
+#endif // USE_LONG_REALS
 #if M_ADDITIONAL
 	static Real cbr_r(Real);
 	static Real log10_r(Real);
-#endif
-	
+#endif // M_ADDITIONAL
 	static const FunctionBlock::function funcs[] PROGMEM;;
 };
 

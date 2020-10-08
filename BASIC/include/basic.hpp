@@ -149,9 +149,6 @@ enum class ProgMemStrings : uint8_t
 	S_ARRAYS,
 	S_STACK,
 #endif // USE_DUMP
-#if USESD
-	S_DIR,
-#endif // USESD
 	S_REALLY,
 	S_END,
 #if USE_TEXTATTRIBUTES
