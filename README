@@ -7,10 +7,10 @@ standards ISO/IEC 6373:1984 and USSR/Russian ГОСТ 27787-88.
 
 1. Build from sources
 
-Full source code is available at https://bitbucket.org/terminalbasicteam/terminal-basic
-and https://sourceforge.net/p/terminal-basic/ repositories.
+Full source code is available at https://github.com/starling13/terminalbasic repository.
+
 It depends on the libarduino, libarduinoext, libutft, libsdcard, tvoutex  and
-libarduinoemulator libraries, which are being hosted at
+libarduinoemulator libraries, which are hosted at:
     https://bitbucket.org/terminalbasicteam/libarduino.git
     https://bitbucket.org/terminalbasicte	am/libarduinoext.git
     https://bitbucket.org/terminalbasicteam/libutft.git
