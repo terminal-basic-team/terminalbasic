@@ -41,9 +41,9 @@ HAL_initialize_concrete()
 	if (!SPIFFS.begin())
 		exit(1);
 #if HAL_NVRAM
-	f = SPIFFS.open("nvram.bin", "r+");
+	f = SPIFFS.open("/nvram.bin", "r+");
 	if (!f) {
-		f = SPIFFS.open("nvram.bin", "w");
+		f = SPIFFS.open("/nvram.bin", "w");
 		if (!f)
 			exit(4);
 		f.close();
@@ -69,7 +69,7 @@ HAL_nvram_getsize()
 uint8_t
 HAL_nvram_read(HAL_nvram_address_t addr)
 {
-	f = SPIFFS.open("nvram.bin", "r");
+	f = SPIFFS.open("/nvram.bin", "r");
 	if (!f)
 		exit(2);
 	if (!f.seek(uint32_t(addr)))
@@ -82,7 +82,7 @@ HAL_nvram_read(HAL_nvram_address_t addr)
 void
 HAL_nvram_write(HAL_nvram_address_t addr, uint8_t b)
 {
-	f = SPIFFS.open("nvram.bin", "r+");
+	f = SPIFFS.open("/nvram.bin", "r+");
 	if (!f)
 		exit(5);
 
@@ -116,9 +116,12 @@ HAL_extmem_openfile(const char fname[13])
 	if (i == EXTMEM_NUM_FILES)
 		return 0;
 
-	extmem_files[i] = SPIFFS.open(fname, "r+");
+	char fname_[14];
+	fname_[0] = '/';
+	strncpy(fname_ + 1, fname, 12);
+	extmem_files[i] = SPIFFS.open(fname_, "r+");
 	if (!extmem_files[i]) {
-		extmem_files[i] = SPIFFS.open(fname, "w");
+		extmem_files[i] = SPIFFS.open(fname_, "w");
 		if (!extmem_files[i])
 			return 0;
 	}
@@ -151,8 +154,8 @@ _seek(HAL_extmem_file_t file, uint32_t pos, SeekMode whence)
 
 void
 HAL_extmem_setfileposition(
-    HAL_extmem_file_t file,
-    HAL_extmem_fileposition_t pos)
+   HAL_extmem_file_t file,
+   HAL_extmem_fileposition_t pos)
 {
 	_seek(file, pos, SeekSet);
 }
@@ -192,7 +195,8 @@ HAL_extmem_getfilename(uint16_t num, char fname[13])
 	fname[0] = '\0';
 	while (d.next()) {
 		if (num == 0) {
-			strncpy(fname, d.fileName().c_str(), 12);
+			strncpy(fname, d.fileName().c_str() + 1, 12);
+			fname[12] = '\0';
 			break;
 		}
 		num--;
@@ -202,17 +206,19 @@ HAL_extmem_getfilename(uint16_t num, char fname[13])
 void
 HAL_extmem_deletefile(const char fname[13])
 {
-	if (!SPIFFS.remove(fname))
-		return;
-	Serial.println("DEBUG: SPIFFS.remove");
+	char fname_[14];
+	fname_[0] = '/';
+	strncpy(fname_ + 1, fname, 12);
+	if (!SPIFFS.remove(fname_))
+		Serial.println("ERROR: SPIFFS.remove");
 }
 
 uint8_t
 HAL_extmem_readfromfile(HAL_extmem_file_t file)
 {
 	if ((file == 0)
-	    || (file > EXTMEM_NUM_FILES)
-	    || !extmem_files[file - 1])
+	|| (file > EXTMEM_NUM_FILES)
+	|| !extmem_files[file - 1])
 		return 0;
 
 	return extmem_files[file - 1].read();
@@ -222,8 +228,8 @@ void
 HAL_extmem_writetofile(HAL_extmem_file_t file, uint8_t b)
 {
 	if ((file == 0)
-	    || (file > EXTMEM_NUM_FILES)
-	    || !extmem_files[file - 1])
+	|| (file > EXTMEM_NUM_FILES)
+	|| !extmem_files[file - 1])
 		return;
 
 	extmem_files[file - 1].write(b);
@@ -233,8 +239,8 @@ HAL_extmem_fileposition_t
 HAL_extmem_getfileposition(HAL_extmem_file_t file)
 {
 	if ((file == 0)
-	    || (file > EXTMEM_NUM_FILES)
-	    || !extmem_files[file - 1])
+	|| (file > EXTMEM_NUM_FILES)
+	|| !extmem_files[file - 1])
 		return 0;
 
 	return extmem_files[file - 1].position();
@@ -243,7 +249,10 @@ HAL_extmem_getfileposition(HAL_extmem_file_t file)
 BOOLEAN
 HAL_extmem_fileExists(const char fname[13])
 {
-	return SPIFFS.exists(fname);
+	char fname_[14];
+	fname_[0] = '/';
+	strncpy(fname_ + 1, fname, 12);
+	return SPIFFS.exists(fname_);
 }
 
 #endif // HAL_EXTMEM

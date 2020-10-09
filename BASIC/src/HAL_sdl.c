@@ -103,6 +103,7 @@ HAL_initialize()
 	for (size_t i=0; i<EXTMEM_NUM_FILES; ++i)
 		extmemFiles[i] = NULL;
 	
+#if HAL_GFX
 	window = SDL_CreateWindow("Terminal-BASIC", 0,0, HAL_SDL_WIDTH,
 	    HAL_SDL_HEIGHT, 0);
 	if (window == NULL) {
@@ -125,6 +126,7 @@ HAL_initialize()
 	}
 	
 	SDL_RenderPresent(renderer);
+#endif // HAL_GFX
 }
 
 void
