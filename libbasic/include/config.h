@@ -132,7 +132,7 @@
 /**
  * PEEK FUNCTION, POKE command support
  */
-#define USE_PEEK_POKE 1
+#define USE_PEEK_POKE 0
 
 #define LANG_EN 0
 #define LANG_RU 1

@@ -4,12 +4,12 @@
  * Copyright (C) 2016-2018 Andrey V. Skvortsov <starling13@mail.ru>
  * Copyright (C) 2019,2020 Terminal-BASIC team
  *     <https://bitbucket.org/%7Bf50d6fee-8627-4ce4-848d-829168eedae5%7D/>
- *
+ * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
+ * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -126,9 +126,6 @@ namespace BASIC
 #if CONF_USE_EXTMEMFS
 	// Unix-like file operations
 	#define USE_FILEOP 1
-	#if USE_FILEOP
-		#define FILE_NUMBER 3
-	#endif
 #endif
 
 // Use text error strings
@@ -238,10 +235,10 @@ namespace BASIC
 	#define LIQCR_D3 2
 
 // Input select
-#define S_INPUT SERIALL_I
+#define S_INPUT SERIAL_I
 
 // Output select
-#define S_OUTPUT SERIALL_O
+#define S_OUTPUT SERIAL_O
 
 #if USE_EXTEEPROM
 	#define USE_WIRE 1

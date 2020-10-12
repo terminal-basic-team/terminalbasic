@@ -44,7 +44,7 @@
 #define EXTMEM_DIR_PATH "extmem/"
 
 //static int extmem_files[EXTMEM_NUM_FILES];
-static SDL_RWops* extmemFiles[EXTMEM_NUM_FILES];
+static SDL_RWops* extmemFiles[HAL_EXTMEM_NUM_FILES];
 static SDL_Window* window = NULL;
 static SDL_Renderer* renderer = NULL;
 
@@ -100,7 +100,7 @@ HAL_initialize()
 		exit(EXIT_FAILURE);
 	}
 	
-	for (size_t i=0; i<EXTMEM_NUM_FILES; ++i)
+	for (size_t i=0; i<HAL_EXTMEM_NUM_FILES; ++i)
 		extmemFiles[i] = NULL;
 	
 	window = SDL_CreateWindow("Terminal-BASIC", 0,0, HAL_SDL_WIDTH,
@@ -237,7 +237,7 @@ HAL_extmem_openfile(const char str[13])
 		}
 	}
 	
-	for (size_t i=0; i<EXTMEM_NUM_FILES; ++i) {
+	for (size_t i=0; i<HAL_EXTMEM_NUM_FILES; ++i) {
 		if (extmemFiles[i] == NULL) {
 			extmemFiles[i] = fp;
 			return i+1;
@@ -257,7 +257,7 @@ void
 HAL_extmem_closefile(HAL_extmem_file_t file)
 {
 	if ((file == 0)
-	 || (file > EXTMEM_NUM_FILES)
+	 || (file > HAL_EXTMEM_NUM_FILES)
 	 || (extmemFiles[file-1] == NULL))
 		return;
 	
@@ -273,7 +273,7 @@ off_t
 _seek(HAL_extmem_file_t file, Sint64 pos, int whence)
 {
 	if ((file == 0)
-	 || (file > EXTMEM_NUM_FILES)
+	 || (file > HAL_EXTMEM_NUM_FILES)
 	 || (extmemFiles[file-1] == NULL))
 		return 0;
 	
@@ -314,7 +314,7 @@ uint8_t
 HAL_extmem_readfromfile(HAL_extmem_file_t file)
 {
 	if ((file == 0)
-	 || (file > EXTMEM_NUM_FILES)
+	 || (file > HAL_EXTMEM_NUM_FILES)
 	 || (extmemFiles[file-1] == NULL))
 		return 0;
 	
@@ -331,7 +331,7 @@ void
 HAL_extmem_writetofile(HAL_extmem_file_t file, uint8_t byte)
 {
 	if ((file == 0)
-	 || (file > EXTMEM_NUM_FILES)
+	 || (file > HAL_EXTMEM_NUM_FILES)
 	 || (extmemFiles[file-1] == NULL))
 		return;
 	

@@ -54,7 +54,7 @@ FunctionBlock::function
 FunctionBlock::getFunction(const char *name) const
 {
 	function result;
-	if (((result = _getFunction(name)) == NULL) &&
+	if (((result = _getFunction(name)) == nullptr) &&
 	    _next != nullptr)
 		result = _next->getFunction(name);
 	return result;

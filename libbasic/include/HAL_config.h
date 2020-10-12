@@ -40,7 +40,7 @@
 /*
  * Maximal number of simulteniously opened files
  */
-#define EXTMEM_NUM_FILES 2
+#define HAL_EXTMEM_NUM_FILES 2
 #endif /* HAL_EXTMEM */
 
 /*
