@@ -43,7 +43,7 @@ HAL_initialize_concrete()
 		exit(1);
 	}
 
-	Serial.println("Format? [y/n]");
+	/*Serial.println("Format? [y/n]");
 	while (true) {
 		while (Serial.available() < 1) delay(100);
 		auto r = Serial.read();
@@ -55,7 +55,7 @@ HAL_initialize_concrete()
 			break;
 		} else if (r == 'n')
 			break;
-	}
+	}*/
 
 	if (SPIFFS.exists("/nvram.bin"))
 		f = SPIFFS.open("/nvram.bin", "r+");
