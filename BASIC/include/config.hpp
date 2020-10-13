@@ -233,6 +233,7 @@ namespace BASIC
 	#define LIQCR_D1 4
 	#define LIQCR_D2 3
 	#define LIQCR_D3 2
+#define SDL_O       12
 
 // Input select
 #define S_INPUT SERIAL_I

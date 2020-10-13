@@ -27,6 +27,9 @@
 #define HAL_SDL_H
 
 #include "HAL.h"
+#include <sys/cdefs.h>
+
+__BEGIN_DECLS
 
 #if HAL_GFX
 
@@ -36,6 +39,10 @@
 #define HAL_SDL_GFX 1
 
 #if HAL_SDL_GFX
+
+#include <SDL.h>
+
+extern SDL_Renderer* hal_sdl_renderer;
 
 /**
  * Width of the SDL window
@@ -49,5 +56,7 @@
 #endif /* HAL_SDL_GFX */
 
 #endif /* HAL_GFX */
+
+__END_DECLS
 
 #endif /* HAL_SDL_H */

@@ -86,7 +86,9 @@
 #elif S_OUTPUT == LIQCR_O
 #undef USELIQUIDCRYSTAL
 #define USELIQUIDCRYSTAL   1
-#endif
+#elif S_OUTPUT == SDL_O
+    #define USE_SDL_OSTREAM 1
+#endif // S_OUTPUT
 
 #ifdef true
 #undef true

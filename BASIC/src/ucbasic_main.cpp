@@ -74,6 +74,11 @@
 #include "sdlstream.hpp"
 #endif
 
+#if USE_SDL_OSTREAM
+#include "sdlvt100print.hpp"
+#include "HAL_sdl.h"
+#endif
+
 /**
  * Instantiating modules
  */
@@ -117,6 +122,12 @@ static BASIC::GFXModule gfxModule;
 
 #if USE_SDL_ISTREAM
 static SDLStream sdlStream;
+#define INPUT_STREAM sdlStream
+#endif
+
+#if USE_SDL_OSTREAM
+static SDL2vt100Print sdlPrint(*hal_sdl_renderer);
+#define OUTPUT_PRINT sdlPrint
 #endif
 
 #if BASIC_MULTITERMINAL
@@ -146,7 +157,11 @@ static BASIC::Interpreter basic(SERIAL_PORT_I, tvoutPrint, BASIC::SINGLE_PROGSIZ
 #elif USELIQUIDCRYSTAL
 static BASIC::Interpreter basic(SERIAL_PORT_I, lsvt100, BASIC::SINGLE_PROGSIZE);
 #else
+#if USE_SDL_ISTREAM
+static BASIC::Interpreter basic(INPUT_STREAM, OUTPUT_PRINT, BASIC::SINGLE_PROGSIZE);
+#else
 static BASIC::Interpreter basic(SERIAL_PORT_I, SERIAL_PORT_O, BASIC::SINGLE_PROGSIZE);
+#endif
 #endif // USEUTFT
 #endif // BASIC_MULTITERMINAL
 

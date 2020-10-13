@@ -46,7 +46,7 @@
 //static int extmem_files[EXTMEM_NUM_FILES];
 static SDL_RWops* extmemFiles[HAL_EXTMEM_NUM_FILES];
 static SDL_Window* window = NULL;
-static SDL_Renderer* renderer = NULL;
+SDL_Renderer* hal_sdl_renderer = NULL;
 
 //static char ext_root[256];
 
@@ -63,7 +63,7 @@ static const struct {Uint8 r,g,b,a;} colors[HAL_GFX_NUMCOLORS] = {
 	{255,255,0,255}, /*HAL_GFX_COLOR_YELLOW,*/
 	{127,127,127,255} /*HAL_GFX_COLOR_GRAY,*/
 };
-static HAL_gfx_color_t fgColor = HAL_GFX_NOTACOLOR;
+static HAL_gfx_color_t fgColor = HAL_GFX_COLOR_WHITE;
 static HAL_gfx_color_t bgColor = HAL_GFX_NOTACOLOR;
 #endif /* HAL_GFX */
 
@@ -93,7 +93,7 @@ HAL_initialize()
 		    SDL_GetError());
 		exit(EXIT_FAILURE);
 	}
-#endif
+#endif // HAL_NVRAM
 
 	if (atexit(&HAL_finalize) != 0) {
 		perror("atexit");
@@ -112,27 +112,27 @@ HAL_initialize()
 		exit(EXIT_FAILURE);
 	}
 	
-	renderer = SDL_CreateRenderer(window, -1, 0);
-	if (renderer == NULL) {
+	hal_sdl_renderer = SDL_CreateRenderer(window, -1, 0);
+	if (hal_sdl_renderer == NULL) {
 		SDL_LogError(SDL_LOG_CATEGORY_SYSTEM, "SDL_CreateRenderer: %s",
 		    SDL_GetError());
 		exit(EXIT_FAILURE);
 	}
 	
-	if (SDL_RenderClear(renderer) != 0) {
+	if (SDL_RenderClear(hal_sdl_renderer) != 0) {
 		SDL_LogError(SDL_LOG_CATEGORY_SYSTEM, "SDL_RenderClear: %s",
 		    SDL_GetError());
 		exit(EXIT_FAILURE);
 	}
 	
-	SDL_RenderPresent(renderer);
+	SDL_RenderPresent(hal_sdl_renderer);
 #endif // HAL_GFX
 }
 
 void
 HAL_finalize()
 {
-	SDL_DestroyRenderer(renderer);
+	SDL_DestroyRenderer(hal_sdl_renderer);
 	SDL_DestroyWindow(window);
 	
 	SDL_Quit();
@@ -404,7 +404,7 @@ HAL_extmem_fileExists(const char fname[13])
 void
 _setColor(HAL_gfx_color_t color)
 {
-	SDL_SetRenderDrawColor(renderer, colors[color].r, colors[color].g,
+	SDL_SetRenderDrawColor(hal_sdl_renderer, colors[color].r, colors[color].g,
 	    colors[color].b, colors[color].a);
 }
 
@@ -424,15 +424,15 @@ HAL_gfx_setBgColor(HAL_gfx_color_t color)
 void
 HAL_gfx_point(uint16_t x, uint16_t y)
 {
-	SDL_RenderDrawPoint(renderer, x, y);
-	SDL_RenderPresent(renderer);
+	SDL_RenderDrawPoint(hal_sdl_renderer, x, y);
+	SDL_RenderPresent(hal_sdl_renderer);
 }
 
 void
 HAL_gfx_line(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2)
 {
-	SDL_RenderDrawLine(renderer, x1, y1, x2, y2);
-	SDL_RenderPresent(renderer);
+	SDL_RenderDrawLine(hal_sdl_renderer, x1, y1, x2, y2);
+	SDL_RenderPresent(hal_sdl_renderer);
 }
 
 void
@@ -441,11 +441,11 @@ HAL_gfx_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h)
 	SDL_Rect rect = { .x = x, .y = y, .w = w, .h = h };
 	if (bgColor != HAL_GFX_NOTACOLOR) {
 		_setColor(bgColor);
-		SDL_RenderFillRect(renderer, &rect);
+		SDL_RenderFillRect(hal_sdl_renderer, &rect);
 	}
 	_setColor(fgColor);
-	SDL_RenderDrawRect(renderer, &rect);
-	SDL_RenderPresent(renderer);
+	SDL_RenderDrawRect(hal_sdl_renderer, &rect);
+	SDL_RenderPresent(hal_sdl_renderer);
 }
 
 void
@@ -461,14 +461,14 @@ HAL_gfx_circle(uint16_t x0, uint16_t y0, uint16_t radius)
 	//there is a fill color
 	if (bgColor != HAL_GFX_NOTACOLOR) {
 		_setColor(bgColor);
-		SDL_RenderDrawLine(renderer, x0 - radius, y0, x0 + radius, y0);
+		SDL_RenderDrawLine(hal_sdl_renderer, x0 - radius, y0, x0 + radius, y0);
 	}
 
 	_setColor(fgColor);
-	SDL_RenderDrawPoint(renderer, x0, y0 + radius);
-	SDL_RenderDrawPoint(renderer, x0, y0 - radius);
-	SDL_RenderDrawPoint(renderer, x0 + radius, y0);
-	SDL_RenderDrawPoint(renderer, x0 - radius, y0);
+	SDL_RenderDrawPoint(hal_sdl_renderer, x0, y0 + radius);
+	SDL_RenderDrawPoint(hal_sdl_renderer, x0, y0 - radius);
+	SDL_RenderDrawPoint(hal_sdl_renderer, x0 + radius, y0);
+	SDL_RenderDrawPoint(hal_sdl_renderer, x0 - radius, y0);
 
 	while (x < y) {
 		if (f >= 0) {
@@ -485,28 +485,51 @@ HAL_gfx_circle(uint16_t x0, uint16_t y0, uint16_t radius)
 			//prevent double draws on the same rows
 			_setColor(bgColor);
 			if (pyy != y) {
-				SDL_RenderDrawLine(renderer, x0 - x, y0 + y, x0 + x, y0 + y);
-				SDL_RenderDrawLine(renderer, x0 - x, y0 - y, x0 + x, y0 - y);
+				SDL_RenderDrawLine(hal_sdl_renderer, x0 - x, y0 + y, x0 + x, y0 + y);
+				SDL_RenderDrawLine(hal_sdl_renderer, x0 - x, y0 - y, x0 + x, y0 - y);
 			}
 			if (pyx != x && x != y) {
-				SDL_RenderDrawLine(renderer, x0 - y, y0 + x, x0 + y, y0 + x);
-				SDL_RenderDrawLine(renderer, x0 - y, y0 - x, x0 + y, y0 - x);
+				SDL_RenderDrawLine(hal_sdl_renderer, x0 - y, y0 + x, x0 + y, y0 + x);
+				SDL_RenderDrawLine(hal_sdl_renderer, x0 - y, y0 - x, x0 + y, y0 - x);
 			}
 			pyy = y;
 			pyx = x;
 		}
 		_setColor(fgColor);
-		SDL_RenderDrawPoint(renderer, x0 + x, y0 + y);
-		SDL_RenderDrawPoint(renderer, x0 - x, y0 + y);
-		SDL_RenderDrawPoint(renderer, x0 + x, y0 - y);
-		SDL_RenderDrawPoint(renderer, x0 - x, y0 - y);
-		SDL_RenderDrawPoint(renderer, x0 + y, y0 + x);
-		SDL_RenderDrawPoint(renderer, x0 - y, y0 + x);
-		SDL_RenderDrawPoint(renderer, x0 + y, y0 - x);
-		SDL_RenderDrawPoint(renderer, x0 - y, y0 - x);
+		SDL_RenderDrawPoint(hal_sdl_renderer, x0 + x, y0 + y);
+		SDL_RenderDrawPoint(hal_sdl_renderer, x0 - x, y0 + y);
+		SDL_RenderDrawPoint(hal_sdl_renderer, x0 + x, y0 - y);
+		SDL_RenderDrawPoint(hal_sdl_renderer, x0 - x, y0 - y);
+		SDL_RenderDrawPoint(hal_sdl_renderer, x0 + y, y0 + x);
+		SDL_RenderDrawPoint(hal_sdl_renderer, x0 - y, y0 + x);
+		SDL_RenderDrawPoint(hal_sdl_renderer, x0 + y, y0 - x);
+		SDL_RenderDrawPoint(hal_sdl_renderer, x0 - y, y0 - x);
 	}
-	SDL_RenderPresent(renderer);
+	SDL_RenderPresent(hal_sdl_renderer);
 }
 #endif /* HAL_GFX */
+
+void HAL_terminal_write(HAL_terminal_t term, uint8_t c)
+{
+	putchar(c);
+}
+
+/**
+ * @param termno
+ * @return byte
+ */
+uint8_t HAL_terminal_read(HAL_terminal_t term)
+{
+	return getchar();
+}
+
+/**
+ * @parram termno
+ * @return number of bytes, ready to read
+ */
+BOOLEAN HAL_terminal_isdataready(HAL_terminal_t term)
+{
+	return FALSE;
+}
 
 #endif /* HAL_SDL */
