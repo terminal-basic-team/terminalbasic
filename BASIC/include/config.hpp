@@ -207,6 +207,7 @@ namespace BASIC
 	#define SERIAL_I_BR 115200
 #define PS2UARTKB_I 9  // PS/2 keyboard through USART
 #define SDL_I       10  // SDL input on PC
+#define HAL_I       11
 
 // Output variants
 #define SERIAL_O   1 // Serial output
@@ -234,12 +235,13 @@ namespace BASIC
 	#define LIQCR_D2 3
 	#define LIQCR_D3 2
 #define SDL_O       12
+#define HAL_O         13
 
 // Input select
-#define S_INPUT SERIAL_I
+#define S_INPUT SERIALL_I
 
 // Output select
-#define S_OUTPUT SERIAL_O
+#define S_OUTPUT SERIALL_O
 
 #if USE_EXTEEPROM
 	#define USE_WIRE 1
