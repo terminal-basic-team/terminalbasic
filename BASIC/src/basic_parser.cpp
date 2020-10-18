@@ -1302,7 +1302,7 @@ Parser::fFactor(Value &v)
 
 /* FINAL =
  *     C_INTEGER | C_REAL | C_STRING | VAR | VAR ARRAY |
- *     LPAREN EXPRESfFinalSION RPAREN
+ *     LPAREN EXPRESSION RPAREN
  */
 bool
 Parser::fFinal(Value &v)
