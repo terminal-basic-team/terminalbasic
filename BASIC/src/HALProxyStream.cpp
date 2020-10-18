@@ -19,44 +19,56 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * @brief Configuration for the SDL2 HAL implementation
- */
+#include "HALProxyStream.hpp"
 
-#ifndef HAL_SDL_H
-#define HAL_SDL_H
+namespace BASIC
+{
 
-#include "HAL.h"
-#include <sys/cdefs.h>
+HALProxyStream::HALProxyStream(uint8_t term) :
+    m_term(term), m_hasByte(false)
+{
+}
 
-__BEGIN_DECLS
+int
+HALProxyStream::available()
+{
+	return HAL_terminal_isdataready(m_term) ? 1 : 0;
+}
 
-#if HAL_GFX
+size_t
+HALProxyStream::write(uint8_t byte)
+{
+	HAL_terminal_write(m_term, byte);
+}
 
-/*
- * SDL2 HAL_GFX implementation
- */
-#define HAL_SDL_GFX 1
+void
+HALProxyStream::flush()
+{
+}
 
-#if HAL_SDL_GFX
+int
+HALProxyStream::peek()
+{
+	if (m_hasByte) {
+		m_hasByte = false;
+	} else if (HAL_terminal_isdataready(m_term)) {
+		m_byte = HAL_terminal_read(m_term);
+		m_hasByte = true;
+	} else
+		return -1;
+	return m_byte;
+}
 
-#include <SDL.h>
+int
+HALProxyStream::read()
+{
+	if (m_hasByte)
+		return  m_byte;
+	else if (HAL_terminal_isdataready(m_term))
+		return HAL_terminal_read(m_term);
+	else
+		return -1;
+		
+}
 
-extern SDL_Renderer* hal_sdl_renderer;
-
-/**
- * Width of the SDL window
- */
-#define HAL_SDL_WIDTH 640
-/**
- * Height of the SDL window
- */
-#define HAL_SDL_HEIGHT 480
-
-#endif /* HAL_SDL_GFX */
-
-#endif /* HAL_GFX */
-
-__END_DECLS
-
-#endif /* HAL_SDL_H */
+} // namespace BASIC

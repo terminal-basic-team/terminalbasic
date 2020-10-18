@@ -19,44 +19,46 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * @brief Configuration for the SDL2 HAL implementation
- */
-
-#ifndef HAL_SDL_H
-#define HAL_SDL_H
+#ifndef HALPROXYSTREAM_HPP
+#define HALPROXYSTREAM_HPP
 
 #include "HAL.h"
-#include <sys/cdefs.h>
+#include <Stream.h>
 
-__BEGIN_DECLS
+namespace BASIC
+{
 
-#if HAL_GFX
+class HALProxyStream : public Stream
+{
+public:
+	
+	HALProxyStream(uint8_t);
+	
+	void begin(int) {}
+	
+private:
+	
+	const uint8_t m_term;
+	
+	bool m_hasByte;
+	
+	uint8_t m_byte;
+	
+// Stream interface
+public:
+	
+	int available() override;
+	
+	size_t write(uint8_t) override;
+	
+	void flush() override;
+	
+	int peek() override;
+	
+	int read() override;
+};
 
-/*
- * SDL2 HAL_GFX implementation
- */
-#define HAL_SDL_GFX 1
+} // namespace BASIC
 
-#if HAL_SDL_GFX
+#endif // HALPROXYSTREAM_HPP
 
-#include <SDL.h>
-
-extern SDL_Renderer* hal_sdl_renderer;
-
-/**
- * Width of the SDL window
- */
-#define HAL_SDL_WIDTH 640
-/**
- * Height of the SDL window
- */
-#define HAL_SDL_HEIGHT 480
-
-#endif /* HAL_SDL_GFX */
-
-#endif /* HAL_GFX */
-
-__END_DECLS
-
-#endif /* HAL_SDL_H */

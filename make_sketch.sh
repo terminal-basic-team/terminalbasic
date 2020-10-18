@@ -26,6 +26,7 @@ SRC="	./libbasic/include/basic.h \
 	./libbasic/src/basic_value.c \
 	./libbasic/src/basic_lexer.c \
 	./libbasic/src/basic_parser.c \
+	./BASIC/include/HALProxyStream.hpp \
 	./BASIC/include/basic.hpp \
 	./BASIC/include/basic_arduinoio.hpp \
 	./BASIC/include/basic_dataparser.hpp \
@@ -36,6 +37,7 @@ SRC="	./libbasic/include/basic.h \
 	./BASIC/include/config.hpp \
 	./BASIC/include/config_arduino.hpp \
 	./BASIC/include/HAL_arduino.h \
+	./BASIC/src/HALProxyStream.cpp \
 	./BASIC/src/basic.cpp \
 	./BASIC/src/basic_lexer.cpp  \
 	./BASIC/include/version.h \

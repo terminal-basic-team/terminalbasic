@@ -417,6 +417,9 @@ Interpreter::list(uint16_t start, uint16_t stop)
 			}
 		}
 		newline();
+#ifdef ARDUINO_ARCH_ESP8266
+	ESP.wdtFeed();
+#endif
 	}
 }
 

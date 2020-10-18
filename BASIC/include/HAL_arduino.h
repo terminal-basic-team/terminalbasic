@@ -50,10 +50,12 @@
 #if HAL_EXTMEM
 
 #define HAL_ARDUINO_EXTMEM_NONE 0
+/* Standart SD library implementation */
+#define HAL_ARDUINO_EXTMEM_SD 1
 /* SDFS HAL extmem implementation */
-#define HAL_ARDUINO_EXTMEM_SDFS 1
+#define HAL_ARDUINO_EXTMEM_SDFS 2
 /* I2C eeprom HAL extmem implementation */
-#define HAL_ARDUINO_EXTMEM_I2CEEPROM 2
+#define HAL_ARDUINO_EXTMEM_I2CEEPROM 3
 
 /*
  * Used HAL extmem omplementation
