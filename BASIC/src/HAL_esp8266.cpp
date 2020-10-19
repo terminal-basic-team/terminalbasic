@@ -30,8 +30,19 @@ static File f;
 #endif
 
 #if HAL_EXTMEM
-static File extmem_files[EXTMEM_NUM_FILES];
+
+#define HAL_ESP8266_EXTEM_SPIFFS 1
+#define HAL_ESP8266_EXTEM_SD 2
+
+#define HAL_ESP8266 HAL_ESP8266_EXTEM_SD
+
+#if HAL_ESP8266 == HAL_ESP8266_EXTEM_SD
+#include <SD.h>
 #endif
+
+static File extmem_files[EXTMEM_NUM_FILES];
+
+#endif // HAL_EXTMEM
 
 __BEGIN_DECLS
 
@@ -49,6 +60,10 @@ HAL_initialize_concrete()
 		f.close();
 	}
 #endif // HAL_NVRAM
+#if HAL_ESP8266 == HAL_ESP8266_EXTEM_SD
+	if (!SD.begin(SS))
+		exit(3);
+#endif
 }
 
 __END_DECLS
@@ -116,15 +131,27 @@ HAL_extmem_openfile(const char fname[13])
 	if (i == EXTMEM_NUM_FILES)
 		return 0;
 
+#if HAL_ESP8266 == HAL_ESP8266_EXTEM_SPIFFS
+
 	char fname_[14];
 	fname_[0] = '/';
 	strncpy(fname_ + 1, fname, 12);
+
 	extmem_files[i] = SPIFFS.open(fname_, "r+");
 	if (!extmem_files[i]) {
 		extmem_files[i] = SPIFFS.open(fname_, "w");
 		if (!extmem_files[i])
 			return 0;
 	}
+#elif HAL_ESP8266 == HAL_ESP8266_EXTEM_SD
+
+	extmem_files[i] = SD.open(fname, "r+");
+	if (!extmem_files[i]) {
+		extmem_files[i] = SD.open(fname, "w+");
+		if (!extmem_files[i])
+			return 0;
+	}
+#endif
 
 	return i + 1;
 }
@@ -175,19 +202,34 @@ uint16_t
 HAL_extmem_getnumfiles()
 {
 	uint16_t result = 0;
+#if HAL_ESP8266 == HAL_ESP8266_EXTEM_SPIFFS
 	Dir d = SPIFFS.openDir("");
 	if (!d.rewind())
 		return 0;
 
 	while (d.next())
 		++result;
+#elif HAL_ESP8266 == HAL_ESP8266_EXTEM_SD
+	File d = SD.open("/");
+	if (!d.isDirectory())
+		return 0;
 
+	while (true) {
+		File f = d.openNextFile();
+		if (!f)
+			break;
+		++result;
+		f.close();
+	}
+	d.close();
+#endif
 	return result;
 }
 
 void
 HAL_extmem_getfilename(uint16_t num, char fname[13])
 {
+#if HAL_ESP8266 == HAL_ESP8266_EXTEM_SPIFFS
 	Dir d = SPIFFS.openDir("");
 	if (!d.rewind())
 		return;
@@ -201,16 +243,44 @@ HAL_extmem_getfilename(uint16_t num, char fname[13])
 		}
 		num--;
 	}
+#elif HAL_ESP8266 == HAL_ESP8266_EXTEM_SD
+	File d = SD.open("/");
+	if (!d.isDirectory())
+		return;
+
+	fname[0] = '\0';
+	while (true) {
+		File f = d.openNextFile();
+		if (!f)
+			break;
+		if (num == 0) {
+			strncpy(fname, f.name(), 12);
+			fname[12] = '\0';
+			f.close();
+			break;
+		}
+		num--;
+		f.close();
+	}
+	d.close();
+#endif
 }
 
 void
 HAL_extmem_deletefile(const char fname[13])
 {
+#if HAL_ESP8266 == HAL_ESP8266_EXTEM_SPIFFS
+
 	char fname_[14];
 	fname_[0] = '/';
 	strncpy(fname_ + 1, fname, 12);
+
 	if (!SPIFFS.remove(fname_))
 		Serial.println("ERROR: SPIFFS.remove");
+#elif HAL_ESP8266 == HAL_ESP8266_EXTEM_SPIFFS
+	if (!SD.remove(fname))
+		Serial.println("ERROR: SD.remove");
+#endif
 }
 
 uint8_t
@@ -218,10 +288,13 @@ HAL_extmem_readfromfile(HAL_extmem_file_t file)
 {
 	if ((file == 0)
 	|| (file > EXTMEM_NUM_FILES)
-	|| !extmem_files[file - 1])
+	|| !extmem_files[file - 1]) {
+		Serial.println(" err");
 		return 0;
+	}
 
-	return extmem_files[file - 1].read();
+	const auto res = extmem_files[file - 1].read();
+	return res;
 }
 
 void
@@ -229,10 +302,12 @@ HAL_extmem_writetofile(HAL_extmem_file_t file, uint8_t b)
 {
 	if ((file == 0)
 	|| (file > EXTMEM_NUM_FILES)
-	|| !extmem_files[file - 1])
+	|| !extmem_files[file - 1]) {
+		Serial.println(" err");
 		return;
+	}
 
-	extmem_files[file - 1].write(b);
+	const auto res = extmem_files[file - 1].write(b);
 }
 
 HAL_extmem_fileposition_t
@@ -240,19 +315,28 @@ HAL_extmem_getfileposition(HAL_extmem_file_t file)
 {
 	if ((file == 0)
 	|| (file > EXTMEM_NUM_FILES)
-	|| !extmem_files[file - 1])
+	|| !extmem_files[file - 1]) {
+		Serial.println(" err");
 		return 0;
+	}
 
-	return extmem_files[file - 1].position();
+	const auto res = extmem_files[file - 1].position();
+	return res;
 }
 
 BOOLEAN
 HAL_extmem_fileExists(const char fname[13])
 {
+#if HAL_ESP8266 == HAL_ESP8266_EXTEM_SPIFFS
+
 	char fname_[14];
 	fname_[0] = '/';
 	strncpy(fname_ + 1, fname, 12);
+
 	return SPIFFS.exists(fname_);
+#elif HAL_ESP8266 == HAL_ESP8266_EXTEM_SD
+	return SD.exists(fname);
+#endif
 }
 
 #endif // HAL_EXTMEM
