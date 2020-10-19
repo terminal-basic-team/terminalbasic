@@ -3,7 +3,11 @@ microcontroller-based systems.  It was inspired by the TinyBASIC port
 for popular 8-bit AVR uc boards.
 
 This project aimed to create interpreter, partially compliant to the
-standards ISO/IEC 6373:1984 and USSR/Russian ГОСТ 27787-88.	
+standards ISO/IEC 6373:1984 and USSR/Russian ГОСТ 27787-88.
+
+The source code for Terminal-BASIC itself and supporting libraries is hosted at
+[https://github.com/users/starling13/projects/1]
+
 
 1. Build from sources
 
