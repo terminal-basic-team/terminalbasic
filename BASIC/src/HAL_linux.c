@@ -27,32 +27,32 @@
 
 #include "HAL.h"
 
-#include <stdlib.h>
-#include <stdio.h>
 #include <pwd.h>
 #include <string.h>
 #include <fcntl.h>
 #include <dirent.h>
 #include <unistd.h>
+#include <termios.h>
+#include <signal.h>
+
+#include <stdlib.h>
 #include <stdio.h>
 
 #include <sys/stat.h>
 #include <time.h>
 
-#define FILES_PATH "/terminal_basic_HAL/"
+#include "HAL_linux.h"
+
 #if HAL_NVRAM
-#define NVRAM_FILE "nvram.img"
 static int nvram_file = -1;
 #endif
 
 #if HAL_EXTMEM
-#define EXTMEM_NUM_FILES 8
-#define EXTMEM_DIR_PATH "extmem/"
 
-static int extmem_files[EXTMEM_NUM_FILES];
+static int extmem_files[HAL_EXTMEM_NUM_FILES];
 
 static char ext_root[256];
-#endif
+#endif /* HAL_EXTMEM */
 
 void
 HAL_initialize()
@@ -68,10 +68,10 @@ HAL_initialize()
 	
 	char root[256], fpath[256];
 	strncpy(root, homedir, 256);
-	strncat(root, FILES_PATH, strlen(FILES_PATH));
+	strncat(root, FILES_PATH, strlen(FILES_PATH)+1);
 	
 	strncpy(fpath, root, 256);
-	strncat(fpath, NVRAM_FILE, strlen(NVRAM_FILE));
+	strncat(fpath, NVRAM_FILE, strlen(NVRAM_FILE)+1);
 	
 	DIR *ucbasicHome = opendir(root);
 	if (ucbasicHome == NULL)
@@ -90,11 +90,11 @@ HAL_initialize()
 		perror("atexit");
 		exit(EXIT_FAILURE);
 	}
-#endif // HAL_NVRAM
+#endif /* HAL_NVRAM */
 
 #if HAL_EXTMEM
 	strncpy(ext_root, root, 256);
-	strncat(ext_root, EXTMEM_DIR_PATH, strlen(EXTMEM_DIR_PATH));
+	strncat(ext_root, EXTMEM_DIR_PATH, strlen(EXTMEM_DIR_PATH)+1);
 	DIR *ucbasicExtmem = opendir(ext_root);
 	if (ucbasicExtmem == NULL)
 		if (mkdir(ext_root, 0770) == -1) {
@@ -102,9 +102,17 @@ HAL_initialize()
 			exit(EXIT_FAILURE);
 		}
 	
-	for (size_t i=0; i<EXTMEM_NUM_FILES; ++i)
+	for (size_t i=0; i<HAL_EXTMEM_NUM_FILES; ++i)
 		extmem_files[i] = -1;
-#endif // HAL_EXTMEM
+#endif /* HAL_EXTMEM */
+	
+	struct termios TermConf;
+
+	tcgetattr(STDIN_FILENO, &TermConf);
+	TermConf.c_lflag &= ~(ICANON | ECHO);
+	TermConf.c_cc[VMIN] = 1;
+        TermConf.c_cc[VTIME] = 0;
+	tcsetattr(STDIN_FILENO, TCSANOW, &TermConf);
 }
 
 void
@@ -116,6 +124,12 @@ HAL_finalize()
 		exit(EXIT_FAILURE);
 	}
 #endif // HAL_NVRAM
+	
+	struct termios TermConf;
+	
+	tcgetattr(STDIN_FILENO, &TermConf);
+	TermConf.c_lflag |= (ICANON | ECHO);
+	tcsetattr(STDIN_FILENO, TCSANOW, &TermConf);
 }
 
 #if HAL_NVRAM
@@ -175,7 +189,7 @@ HAL_extmem_openfile(const char str[13])
 		exit(EXIT_FAILURE);
 	}
 	
-	for (size_t i=0; i<EXTMEM_NUM_FILES; ++i) {
+	for (size_t i=0; i<HAL_EXTMEM_NUM_FILES; ++i) {
 		if (extmem_files[i] == -1) {
 			extmem_files[i] = fp;
 			return i+1;
@@ -199,7 +213,7 @@ void
 HAL_extmem_closefile(HAL_extmem_file_t file)
 {
 	if ((file == 0)
-	 || (file > EXTMEM_NUM_FILES)
+	 || (file > HAL_EXTMEM_NUM_FILES)
 	 || (extmem_files[file-1] == -1))
 		return;
 	
@@ -214,7 +228,7 @@ off_t
 _seek(HAL_extmem_file_t file, off_t pos, int whence)
 {
 	if ((file == 0)
-	 || (file > EXTMEM_NUM_FILES)
+	 || (file > HAL_EXTMEM_NUM_FILES)
 	 || (extmem_files[file-1] == -1))
 		return 0;
 	
@@ -335,6 +349,69 @@ HAL_extmem_fileExists(const char fname[13])
 	return FALSE;
 }
 
-#endif // HAL_EXTMEM
+#endif /* HAL_EXTMEM */
+
+void
+HAL_terminal_write(HAL_terminal_t t, uint8_t b)
+{
+	if (t == 0) {
+		putchar(b);
+		fflush(stdout);
+	}
+}
+
+uint8_t
+HAL_terminal_read(HAL_terminal_t t)
+{
+	if (t == 0) {
+		if (HAL_terminal_isdataready(t)) {
+			uint8_t c = getchar();
+			if (c == '\n')
+				c = '\r';
+			return c;
+		}
+	}
+	return -1;
+}
+
+BOOLEAN
+HAL_terminal_isdataready(HAL_terminal_t t)
+{
+	if (t == 0) {
+		struct timeval tv;
+		fd_set fds;
+		tv.tv_sec = 0;
+		tv.tv_usec = 0;
+		FD_ZERO(&fds);
+		FD_SET(STDIN_FILENO, &fds);
+		select(STDIN_FILENO + 1, &fds, NULL, NULL, &tv);
+		return FD_ISSET(0, &fds);
+	}
+	return FALSE;
+}
+
+static BOOLEAN exitflag = FALSE;
+
+static void sighandler(int signum)
+{
+	exitflag = TRUE;
+}
+
+void setup();
+
+void loop();
+
+int
+main(int argc, char **argv)
+{
+	signal(SIGINT, &sighandler);
+	srand(time(NULL));
+	
+	setup();
+	while (!exitflag)
+		loop();
+        
+	return EXIT_SUCCESS;
+}
 
 #endif /* HAL_LINUX */

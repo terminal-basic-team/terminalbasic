@@ -56,6 +56,7 @@ SRC="	./libbasic/include/basic.h \
 	./BASIC/include/basic_parser_value.hpp \
 	./BASIC/src/basic_parser_value.cpp \
 	./BASIC/include/basic_extmemfs.hpp \
+	./BASIC/include/basic_extmemfs.cpp \
 	./BASIC/include/basic_internalfuncs.hpp \
 	./BASIC/src/basic_internalfuncs.cpp \
 	./BASIC/include/basic_gfx.hpp \
@@ -70,7 +71,6 @@ SRC="	./libbasic/include/basic.h \
 	./BASIC/src/basic_gfx_tvout.cpp \
 	./BASIC/src/basic_gfx_utft.cpp \
 	./BASIC/src/basic_gfx_serial.cpp \
-	./BASIC/src/basic_extmemfs.cpp \
 	./BASIC/src/strings_en.hpp \
 	./BASIC/src/strings_fr.hpp \
 	./BASIC/src/strings_ru.hpp \

@@ -8,28 +8,23 @@ terminalbasic_SOURCES=arduinoext.hpp \
 	tools.h \
 	tools.c \
 	emuserial.hpp \
-	Stdiostream.hpp \
 	arduino_logger.hpp \
 	ascii.hpp \
 	basic.h \
 	basic.hpp \
 	basic.c \
+	HAL_linux.h \
 	HAL_linux.c \
-	basic_arduinoio.cpp \
-	basic_arduinoio.hpp \
-	basic.cpp \
-	basic_exteeprom.cpp \
-	basic_exteeprom.hpp \
+	HALProxyStream.cpp \
+	HALProxyStream.hpp \
 	basic_functionblock.cpp \
 	basic_functionblock.hpp \
 	basic_gfx.cpp \
 	basic_gfx.hpp \
-	basic_gfx_tvout.cpp \
 	basic_gfx_serial.cpp \
-	basic_gfx_utft.cpp \
 	basic_internalfuncs.cpp \
 	basic_internalfuncs.hpp \
-	basic_interpreter.cpp \
+	basic_interpreterw.cpp \
 	basic_interpreter_matrix.cpp \
 	basic_interpreter.hpp \
 	basic_lexer_ru.c \
@@ -37,22 +32,24 @@ terminalbasic_SOURCES=arduinoext.hpp \
 	basic_lexer_en.c \
 	basic_lexer.c \
 	basic_lexer.h \
-	basic_lexer.cpp \
+	basic_lexerw.cpp \
 	basic_lexer.hpp \
 	basic_math.cpp \
 	basic_math.hpp \
-	basic_parser.cpp \
+	basic_parserw.cpp \
 	basic_parser.hpp \
 	basic_parser_value.cpp \
 	basic_parser_value.hpp \
 	basic_program.cpp \
 	basic_program.hpp \
-	basic_sdfs.cpp \
-	basic_sdfs.hpp \
+	basic_extmemfs.cpp \
+	basic_extmemfs.hpp \
 	basic_dataparser.cpp \
 	basic_dataparser.hpp \
 	basic_value.h \
 	basic_value.c \
+	basic_parser.h \
+	basic_parser.c \
 	strings_en.hpp \
 	strings_fr.hpp \
 	strings_ru.hpp \
@@ -62,35 +59,17 @@ terminalbasic_SOURCES=arduinoext.hpp \
 	config.hpp \
 	config_linux.hpp \
 	HAL.h \
+	HAL_config.h \
 	helper.hpp \
-	i2ceeprom.hpp \
 	math.hpp \
 	matrix.hpp \
-	seriallight.cpp \
-	seriallight.hpp \
 	ucbasic_main.cpp \
 	types.hpp \
 	Stream.cpp \
 	Print.cpp \
-	sd.cpp \
-	sd.hpp \
-	SD.h \
-	TVoutEx.h \
 	EEPROM.h \
-	arduino.cpp \
 	version.h \
-	main.cpp \
-	sdlstream.cpp \
 	Stream.h \
-	TVoutEx.cpp \
-	VideoGen.cpp \
-	VideoGen.h \
-	tvoutprint.cpp \
-	tvoutprint.hpp \
-	sdlstream.hpp \
-	tvoutex_sdlem.cpp \
-	Stdiostream.cpp \
-	Font6x8_cyr_cue13.cpp \
 	vt100.hpp \
 	vt100.cpp \
 	_tokens_en.h \
@@ -99,19 +78,10 @@ terminalbasic_SOURCES=arduinoext.hpp \
 	avr/io.h \
 	avr/pgmspace.h \
 	avr/sfr_defs.h \
-	spec/AsmMacros.h \
-	spec/HardwareSetup.h \
-	spec/VideoProperties.h \
-	util/crc16.h \
-	utility/Font4x6.h \
-	utility/Font6x8_cyr_koe13.hpp \
-	utility/Font6x8.h \
-	utility/Font8x8ext.h \
-	utility/Font8x8.h \
-	utility/Font8x8zx80.hpp \
-	utility/FontALL.h
+	util/crc16.h
 
-terminalbasic_CXXFLAGS=${posixcpp_CFLAGS} ${sdl2_CFLAGS} -I../ -Iutility -std=gnu++11 \
-	-DF_CPU=16000000 -D__AVR_ATmega2560__ -DSDL_DEBUG
+terminalbasic_CXXFLAGS=${sdl2_CFLAGS} -I../ -Iutility -std=gnu++11 -DHAL_LINUX
 
-terminalbasic_LDADD=${posixcpp_LIBS} ${sdl2_LIBS}
+terminalbasic_CFLAGS=${sdl2_CFLAGS} -I../ -Iutility -std=gnu11 -DHAL_LINUX
+
+terminalbasic_LDADD=${sdl2_LIBS}

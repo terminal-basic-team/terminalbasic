@@ -1,4 +1,4 @@
-AC_INIT([terminalbasic],[2.2.1],[starling13mail.ru],[terminalbasic],[https://sourceforge.net/projects/terminal-basic])
+AC_INIT([terminalbasic],[2.3-a1],[starling13mail.ru],[terminalbasic],[https://sourceforge.net/projects/terminal-basic])
 AM_INIT_AUTOMAKE([foreign])
 AC_PREREQ(2.57)
 AC_CONFIG_HEADER(config.h)
@@ -41,7 +41,7 @@ AC_TYPE_INTPTR_T
 AC_HEADER_TIME
 AC_STRUCT_TM
 AC_CHECK_TYPES(unsigned long long)
-PKG_CHECK_MODULES(posixcpp, posixcpp)
+#PKG_CHECK_MODULES(posixcpp, posixcpp)
 PKG_CHECK_MODULES(sdl2, sdl2)
 
 #############################################################################
