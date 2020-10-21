@@ -22,15 +22,36 @@
 #ifdef ARDUINO_ARCH_ESP32
 
 #include "HAL.h"
-#include "FS.h"
-#include "SPIFFS.h"
 
+#if HAL_NVRAM
 #define NVRAMSIZE 65536
-
-static File f;
+#endif
 
 #if HAL_EXTMEM
-static File extmem_files[EXTMEM_NUM_FILES];
+
+// SPIFFS external memory implementation
+#define HAL_ESP32_EXTEM_SPIFFS 1
+// SD card external memory implementation
+#define HAL_ESP32_EXTEM_SD 2
+
+#define HAL_ESP32_EXTMEM HAL_ESP32_EXTEM_SPIFFS
+
+#endif // HAL_EXTMEM
+
+#if HAL_ESP32_EXTMEM == HAL_ESP32_EXTEM_SD
+#include <SD.h>
+#endif
+
+#if HAL_NVRAM || HAL_ESP32_EXTMEM == HAL_ESP32_EXTEM_SPIFFS
+#include "SPIFFS.h"
+#endif
+
+#if HAL_NVRAM
+static File f;
+#endif
+
+#if HAL_EXTMEM
+static File extmem_files[HAL_EXTMEM_NUM_FILES];
 #endif
 
 __BEGIN_DECLS
@@ -57,6 +78,8 @@ HAL_initialize_concrete()
 			break;
 	}*/
 
+#if HAL_NVRAM
+
 	if (SPIFFS.exists("/nvram.bin"))
 		f = SPIFFS.open("/nvram.bin", "r+");
 	else
@@ -66,6 +89,17 @@ HAL_initialize_concrete()
 		exit(4);
 	}
 	f.close();
+
+#endif // HAL_NVRAM
+
+#if HAL_ESP32_EXTMEM == HAL_ESP32_EXTEM_SD
+
+	if (!SD.begin(SS)) {
+		Serial.println("ERROR: SD.begin");
+		exit(3);
+	}
+
+#endif // HAL_ESP32_EXTMEM
 }
 
 __END_DECLS
@@ -124,8 +158,7 @@ HAL_nvram_write(HAL_nvram_address_t addr, uint8_t b)
 		}
 	}
 
-	auto s = f.write(b);
-	Serial.println(s, DEC);
+	f.write(b);
 	f.close();
 }
 
@@ -137,16 +170,17 @@ HAL_extmem_file_t
 HAL_extmem_openfile(const char fname[13])
 {
 	size_t i = 0;
-	for (; i < EXTMEM_NUM_FILES; ++i) {
+	for (; i < HAL_EXTMEM_NUM_FILES; ++i) {
 		if (!extmem_files[i])
 			break;
 	}
 
-	if (i == EXTMEM_NUM_FILES) {
+	if (i == HAL_EXTMEM_NUM_FILES) {
 		Serial.println("ERROR: Maximum opened files reached");
 		return 0;
 	}
 
+#if HAL_ESP32_EXTMEM == HAL_ESP32_EXTEM_SPIFFS
 	char fname_[14];
 	fname_[0] = '/';
 	strncpy(fname_ + 1, fname, 12);
@@ -158,6 +192,18 @@ HAL_extmem_openfile(const char fname[13])
 		Serial.println("ERROR: SPIFFS.open");
 		return 0;
 	}
+#elif HAL_ESP32_EXTMEM == HAL_ESP32_EXTEM_SD
+
+	extmem_files[i] = SD.open(fname, "r+");
+	if (!extmem_files[i]) {
+		extmem_files[i] = SD.open(fname, "w+");
+		if (!extmem_files[i]) {
+			Serial.println("ERROR: SD.open");
+			return 0;
+		}
+	}
+	
+#endif // HAL_ESP32_EXTMEM
 
 	return i + 1;
 }
@@ -166,7 +212,7 @@ void
 HAL_extmem_closefile(HAL_extmem_file_t file)
 {
 	if ((file == 0)
-	|| (file > EXTMEM_NUM_FILES)
+	|| (file > HAL_EXTMEM_NUM_FILES)
 	|| (!extmem_files[file - 1])) {
 		Serial.println("ERROR: HAL_extmem_closefile");
 		return;
@@ -179,7 +225,7 @@ uint32_t
 _seek(HAL_extmem_file_t file, uint32_t pos, SeekMode whence)
 {
 	if ((file == 0)
-	|| (file > EXTMEM_NUM_FILES)
+	|| (file > HAL_EXTMEM_NUM_FILES)
 	|| (!extmem_files[file - 1]))
 		return 0;
 
@@ -189,8 +235,8 @@ _seek(HAL_extmem_file_t file, uint32_t pos, SeekMode whence)
 
 void
 HAL_extmem_setfileposition(
-			   HAL_extmem_file_t file,
-			   HAL_extmem_fileposition_t pos)
+   HAL_extmem_file_t file,
+   HAL_extmem_fileposition_t pos)
 {
 	_seek(file, pos, SeekSet);
 }
@@ -199,7 +245,7 @@ HAL_extmem_fileposition_t
 HAL_extmem_getfilesize(HAL_extmem_file_t file)
 {
 	if ((file == 0)
-	|| (file > EXTMEM_NUM_FILES)
+	|| (file > HAL_EXTMEM_NUM_FILES)
 	|| (!extmem_files[file - 1]))
 		return 0;
 
@@ -210,6 +256,7 @@ uint16_t
 HAL_extmem_getnumfiles()
 {
 	uint16_t result = 0;
+#if HAL_ESP32_EXTMEM == HAL_ESP32_EXTEM_SPIFFS
 	File d = SPIFFS.open("/");
 	if (!d.isDirectory())
 		return 0;
@@ -220,9 +267,21 @@ HAL_extmem_getnumfiles()
 		++result;
 		f = d.openNextFile();
 	}
+#elif HAL_ESP32_EXTMEM == HAL_ESP32_EXTEM_SD
+	File d = SD.open("/");
+	if (!d.isDirectory())
+		return 0;
 
-	Serial.print("Numfiles ");
-	Serial.println(result);
+	while (true) {
+		File f = d.openNextFile();
+		if (!f)
+			break;
+		++result;
+		f.close();
+	}
+	d.close();
+#endif // HAL_ESP32_EXTMEM
+
 	return result;
 }
 
@@ -231,6 +290,7 @@ HAL_extmem_getfilename(uint16_t num, char fname[13])
 {
 	fname[0] = '\0';
 
+#if HAL_ESP32_EXTMEM == HAL_ESP32_EXTEM_SPIFFS
 	File d = SPIFFS.open("/");
 	if (!d || !d.isDirectory())
 		return;
@@ -245,25 +305,52 @@ HAL_extmem_getfilename(uint16_t num, char fname[13])
 		f = d.openNextFile();
 		num--;
 	}
+#elif HAL_ESP8266 == HAL_ESP8266_EXTEM_SD
+	File d = SD.open("/");
+	if (!d.isDirectory())
+		return;
+
+	fname[0] = '\0';
+	while (true) {
+		File f = d.openNextFile();
+		if (!f)
+			break;
+		if (num == 0) {
+			strncpy(fname, f.name(), 12);
+			fname[12] = '\0';
+			f.close();
+			break;
+		}
+		num--;
+		f.close();
+	}
+	d.close();
+#endif // HAL_ESP32_EXTMEM
 }
 
 void
 HAL_extmem_deletefile(const char fname[13])
 {
+#if HAL_ESP32_EXTMEM == HAL_ESP32_EXTEM_SPIFFS
+
 	char fname_[14];
 	fname_[0] = '/';
 	strncpy(fname_ + 1, fname, 12);
+
 	if (!SPIFFS.remove(fname_)) {
 		Serial.println("ERROR: SPIFFS.remove");
-		return;
 	}
+#elif HAL_ESP32_EXTMEM == HAL_ESP32_EXTEM_SD
+	if (!SD.remove(fname))
+		Serial.println("ERROR: SD.remove");
+#endif // HAL_ESP32_EXTMEM
 }
 
 uint8_t
 HAL_extmem_readfromfile(HAL_extmem_file_t file)
 {
 	if ((file == 0)
-	|| (file > EXTMEM_NUM_FILES)
+	|| (file > HAL_EXTMEM_NUM_FILES)
 	|| !extmem_files[file - 1])
 		return 0;
 
@@ -274,7 +361,7 @@ void
 HAL_extmem_writetofile(HAL_extmem_file_t file, uint8_t b)
 {
 	if ((file == 0)
-	|| (file > EXTMEM_NUM_FILES)
+	|| (file > HAL_EXTMEM_NUM_FILES)
 	|| !extmem_files[file - 1])
 		return;
 
@@ -285,7 +372,7 @@ HAL_extmem_fileposition_t
 HAL_extmem_getfileposition(HAL_extmem_file_t file)
 {
 	if ((file == 0)
-	|| (file > EXTMEM_NUM_FILES)
+	|| (file > HAL_EXTMEM_NUM_FILES)
 	|| !extmem_files[file - 1])
 		return 0;
 
@@ -295,10 +382,14 @@ HAL_extmem_getfileposition(HAL_extmem_file_t file)
 BOOLEAN
 HAL_extmem_fileExists(const char fname[13])
 {
+#if HAL_ESP32_EXTMEM == HAL_ESP32_EXTEM_SPIFFS
 	char fname_[14];
 	fname_[0] = '/';
 	strncpy(fname_ + 1, fname, 12);
 	return SPIFFS.exists(fname_);
+#elif HAL_ESP32_EXTMEM == HAL_ESP32_EXTEM_SD
+	return SD.exists(fname);
+#endif
 }
 
 #endif // HAL_EXTMEM
