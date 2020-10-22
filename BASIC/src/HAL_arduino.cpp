@@ -345,4 +345,16 @@ HAL_gfx_circlec(uint16_t x, uint16_t y, uint16_t r, HAL_gfx_color_t color)
 
 #endif // HAL_ARDUINO_GFX
 
+void
+HAL_random_seed(uint32_t seed)
+{
+	randomSeed(seed);
+}
+
+uint32_t
+HAL_random_generate(uint32_t max)
+{
+	random(max);
+}
+
 #endif // ARDUINO

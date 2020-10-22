@@ -5,6 +5,7 @@
       <itemPath>include/HALProxyStream.hpp</itemPath>
       <itemPath>include/HAL_arduino.h</itemPath>
       <itemPath>include/HAL_avr8.h</itemPath>
+      <itemPath>include/HAL_linux.h</itemPath>
       <itemPath>include/HAL_sdl.h</itemPath>
       <itemPath>include/basic.hpp</itemPath>
       <itemPath>include/basic_arduinoio.hpp</itemPath>
@@ -37,7 +38,6 @@
       <itemPath>src/HAL_linux.c</itemPath>
       <itemPath>src/HAL_sam.cpp</itemPath>
       <itemPath>src/HAL_sdl.c</itemPath>
-      <itemPath>src/basic.cpp</itemPath>
       <itemPath>src/basic_arduinoio.cpp</itemPath>
       <itemPath>src/basic_dataparser.cpp</itemPath>
       <itemPath>src/basic_exteeprom.cpp</itemPath>
@@ -48,12 +48,12 @@
       <itemPath>src/basic_gfx_tvout.cpp</itemPath>
       <itemPath>src/basic_gfx_utft.cpp</itemPath>
       <itemPath>src/basic_internalfuncs.cpp</itemPath>
-      <itemPath>src/basic_interpreter.cpp</itemPath>
       <itemPath>src/basic_interpreter_matrix.cpp</itemPath>
-      <itemPath>src/basic_lexer.cpp</itemPath>
+      <itemPath>src/basic_interpreterw.cpp</itemPath>
+      <itemPath>src/basic_lexerw.cpp</itemPath>
       <itemPath>src/basic_math.cpp</itemPath>
-      <itemPath>src/basic_parser.cpp</itemPath>
       <itemPath>src/basic_parser_value.cpp</itemPath>
+      <itemPath>src/basic_parserw.cpp</itemPath>
       <itemPath>src/basic_program.cpp</itemPath>
       <itemPath>src/tvoutprint.cpp</itemPath>
       <itemPath>src/ucbasic_main.cpp</itemPath>
@@ -100,6 +100,7 @@
         <cTool>
           <incDir>
             <pElem>../libbasic/include</pElem>
+            <pElem>include</pElem>
           </incDir>
           <commandLine>-std=gnu11</commandLine>
           <preprocessorList>
@@ -162,7 +163,6 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinoext.a">
               </makeArtifact>
             </linkerLibProjectItem>
-            <linkerLibFileItem>/usr/local/lib/libposixcpp.a</linkerLibFileItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../libbasic/libbasic_nb"
                             CT="3"
@@ -223,6 +223,8 @@
       </item>
       <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_linux.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -275,8 +277,6 @@
       </item>
       <item path="src/HAL_sdl.c" ex="false" tool="0" flavor2="0">
       </item>
-      <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
@@ -297,17 +297,17 @@
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_interpreter_matrix.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/basic_interpreterw.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_lexerw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_math.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_parserw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -459,6 +459,8 @@
       </item>
       <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_linux.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -503,8 +505,6 @@
       </item>
       <item path="src/HAL_sdl.c" ex="false" tool="0" flavor2="0">
       </item>
-      <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
@@ -525,17 +525,17 @@
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_interpreter_matrix.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/basic_interpreterw.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_lexerw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_math.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_parserw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -606,11 +606,11 @@
               <makeArtifact PL="../../libarduinoext"
                             CT="3"
                             CN="Arduino_nano328"
-                            AC="false"
+                            AC="true"
                             BL="true"
                             WD="../../libarduinoext"
-                            BC="${MAKE} -j4 -f Makefile CONF=Arduino_nano328"
-                            CC="${MAKE} -j4 -f Makefile CONF=Arduino_nano328 clean"
+                            BC="${MAKE}  -f Makefile CONF=Arduino_nano328"
+                            CC="${MAKE}  -f Makefile CONF=Arduino_nano328 clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinoext.a">
               </makeArtifact>
             </linkerLibProjectItem>
@@ -618,11 +618,11 @@
               <makeArtifact PL="../../libarduino"
                             CT="3"
                             CN="Nano328"
-                            AC="true"
+                            AC="false"
                             BL="true"
                             WD="../../libarduino"
-                            BC="${MAKE} -j4 -f Makefile CONF=Nano328"
-                            CC="${MAKE} -j4 -f Makefile CONF=Nano328 clean"
+                            BC="${MAKE}  -f Makefile CONF=Nano328"
+                            CC="${MAKE}  -f Makefile CONF=Nano328 clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/libarduino.a">
               </makeArtifact>
             </linkerLibProjectItem>
@@ -630,11 +630,11 @@
               <makeArtifact PL="../libbasic/libbasic_nb"
                             CT="3"
                             CN="Arduino_nano328"
-                            AC="false"
+                            AC="true"
                             BL="true"
                             WD="../libbasic/libbasic_nb"
-                            BC="${MAKE} -j4 -f Makefile CONF=Arduino_nano328"
-                            CC="${MAKE} -j4 -f Makefile CONF=Arduino_nano328 clean"
+                            BC="${MAKE}  -f Makefile CONF=Arduino_nano328"
+                            CC="${MAKE}  -f Makefile CONF=Arduino_nano328 clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibbasic_nb.a">
               </makeArtifact>
             </linkerLibProjectItem>
@@ -662,6 +662,8 @@
       <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/HAL_linux.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -715,8 +717,6 @@
       </item>
       <item path="src/HAL_sdl.c" ex="false" tool="0" flavor2="0">
       </item>
-      <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
@@ -737,17 +737,17 @@
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_interpreter_matrix.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/basic_interpreterw.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_lexerw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_math.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_parserw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -912,6 +912,8 @@
       </item>
       <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_linux.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -956,8 +958,6 @@
       </item>
       <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
@@ -978,17 +978,17 @@
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
-      </item>
       <item path="src/basic_interpreter_matrix.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="8">
+      <item path="src/basic_interpreterw.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_lexerw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_math.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="8">
-      </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_parserw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1166,6 +1166,8 @@
       </item>
       <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_linux.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -1210,8 +1212,6 @@
       </item>
       <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
@@ -1232,17 +1232,17 @@
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
-      </item>
       <item path="src/basic_interpreter_matrix.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="8">
+      <item path="src/basic_interpreterw.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_lexerw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_math.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="8">
-      </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_parserw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -1355,6 +1355,8 @@
       </item>
       <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_linux.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -1409,8 +1411,6 @@
       </item>
       <item path="src/HAL_sdl.c" ex="false" tool="0" flavor2="0">
       </item>
-      <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
@@ -1431,17 +1431,17 @@
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
-      </item>
       <item path="src/basic_interpreter_matrix.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="8">
+      <item path="src/basic_interpreterw.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_lexerw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_math.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="8">
-      </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_parserw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -1552,6 +1552,8 @@
       </item>
       <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_linux.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -1606,8 +1608,6 @@
       </item>
       <item path="src/HAL_sdl.c" ex="false" tool="0" flavor2="0">
       </item>
-      <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
@@ -1628,17 +1628,17 @@
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
-      </item>
       <item path="src/basic_interpreter_matrix.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="8">
+      <item path="src/basic_interpreterw.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_lexerw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_math.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="8">
-      </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_parserw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -1739,6 +1739,8 @@
       </item>
       <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_linux.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -1793,8 +1795,6 @@
       </item>
       <item path="src/HAL_sdl.c" ex="false" tool="0" flavor2="0">
       </item>
-      <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
@@ -1815,17 +1815,17 @@
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
-      </item>
       <item path="src/basic_interpreter_matrix.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="8">
+      <item path="src/basic_interpreterw.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_lexerw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_math.cpp" ex="false" tool="1" flavor2="8">
       </item>
-      <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="8">
-      </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_parserw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -1957,6 +1957,8 @@
       </item>
       <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_linux.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -2011,8 +2013,6 @@
       </item>
       <item path="src/HAL_sdl.c" ex="false" tool="0" flavor2="0">
       </item>
-      <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
@@ -2031,17 +2031,17 @@
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_interpreter_matrix.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/basic_interpreterw.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_lexerw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_math.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_parserw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -2187,6 +2187,8 @@
       </item>
       <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_linux.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -2241,8 +2243,6 @@
       </item>
       <item path="src/HAL_sdl.c" ex="false" tool="0" flavor2="0">
       </item>
-      <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
@@ -2263,17 +2263,17 @@
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="8">
       </item>
-      <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
-      </item>
       <item path="src/basic_interpreter_matrix.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="8">
+      <item path="src/basic_interpreterw.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_lexerw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_math.cpp" ex="false" tool="1" flavor2="8">
       </item>
-      <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="8">
-      </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_parserw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -2406,6 +2406,8 @@
       </item>
       <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_linux.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -2460,8 +2462,6 @@
       </item>
       <item path="src/HAL_sdl.c" ex="false" tool="0" flavor2="0">
       </item>
-      <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
@@ -2482,17 +2482,17 @@
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="8">
       </item>
-      <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
-      </item>
       <item path="src/basic_interpreter_matrix.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="8">
+      <item path="src/basic_interpreterw.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_lexerw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_math.cpp" ex="false" tool="1" flavor2="8">
       </item>
-      <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="8">
-      </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_parserw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -2598,6 +2598,8 @@
       </item>
       <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_linux.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -2652,8 +2654,6 @@
       </item>
       <item path="src/HAL_sdl.c" ex="false" tool="0" flavor2="0">
       </item>
-      <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
@@ -2674,17 +2674,17 @@
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="8">
       </item>
-      <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
-      </item>
       <item path="src/basic_interpreter_matrix.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="8">
+      <item path="src/basic_interpreterw.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_lexerw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_math.cpp" ex="false" tool="1" flavor2="8">
       </item>
-      <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="8">
-      </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_parserw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -2787,6 +2787,8 @@
       </item>
       <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_linux.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -2841,8 +2843,6 @@
       </item>
       <item path="src/HAL_sdl.c" ex="false" tool="0" flavor2="0">
       </item>
-      <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
@@ -2863,17 +2863,17 @@
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="8">
       </item>
-      <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
-      </item>
       <item path="src/basic_interpreter_matrix.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="8">
+      <item path="src/basic_interpreterw.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_lexerw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_math.cpp" ex="false" tool="1" flavor2="8">
       </item>
-      <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="8">
-      </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_parserw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -3027,6 +3027,8 @@
       </item>
       <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_linux.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
@@ -3081,8 +3083,6 @@
       </item>
       <item path="src/HAL_sdl.c" ex="false" tool="0" flavor2="0">
       </item>
-      <item path="src/basic.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_dataparser.cpp" ex="false" tool="1" flavor2="0">
@@ -3103,17 +3103,17 @@
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="8">
       </item>
-      <item path="src/basic_interpreter.cpp" ex="false" tool="1" flavor2="8">
-      </item>
       <item path="src/basic_interpreter_matrix.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/basic_lexer.cpp" ex="false" tool="1" flavor2="8">
+      <item path="src/basic_interpreterw.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/basic_lexerw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_math.cpp" ex="false" tool="1" flavor2="8">
       </item>
-      <item path="src/basic_parser.cpp" ex="false" tool="1" flavor2="8">
-      </item>
       <item path="src/basic_parser_value.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="src/basic_parserw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
       </item>

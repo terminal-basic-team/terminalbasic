@@ -541,7 +541,7 @@
     </conf>
     <conf name="Arduino_nano328" type="3">
       <toolsSet>
-        <compilerSet>Arduino-1.8.6|GNU</compilerSet>
+        <compilerSet>Arduino-1.8.10|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>

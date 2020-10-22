@@ -802,7 +802,7 @@ Interpreter::popString(const char *&str)
 void
 Interpreter::randomize()
 {
-	::randomSeed(HAL_time_gettime_ms());
+	::HAL_random_seed(::HAL_time_gettime_ms());
 }
 
 #if USE_DEFFN

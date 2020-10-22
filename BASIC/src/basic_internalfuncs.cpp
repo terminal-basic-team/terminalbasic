@@ -515,9 +515,9 @@ InternalFunctions::func_rnd(Interpreter &i)
 	INT val;
 	getIntegerFromStack(i, val);
 #if USE_REALS
-	Parser::Value v(Real(random(0x7FFFFFFF)) / Real(0x7FFFFFFF));
+	Parser::Value v(Real(HAL_random_generate(-1)) / Real(uint32_t(-1)));
 #else
-	Parser::Value v(Integer(random(0x7FFFFFFF)));
+	Parser::Value v(Integer(random(-1)));
 #endif
 	return i.pushValue(v);
 }

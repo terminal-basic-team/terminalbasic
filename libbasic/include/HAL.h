@@ -221,6 +221,11 @@ void HAL_time_sleep_ms(uint32_t);
  */
 uint32_t HAL_time_gettime_ms();
 
+/*** Random number interface ***/
+void HAL_random_seed(uint32_t);
+
+uint32_t HAL_random_generate(uint32_t);
+
 #if HAL_GFX
 
 typedef enum {

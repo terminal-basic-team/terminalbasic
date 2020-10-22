@@ -390,9 +390,22 @@ HAL_terminal_isdataready(HAL_terminal_t t)
 	return FALSE;
 }
 
+void
+HAL_random_seed(uint32_t seed)
+{
+	srand(seed);
+}
+
+uint32_t
+HAL_random_generate(uint32_t max)
+{
+	return rand() % max;
+}
+
 static BOOLEAN exitflag = FALSE;
 
-static void sighandler(int signum)
+static void
+sighandler(int signum)
 {
 	exitflag = TRUE;
 }

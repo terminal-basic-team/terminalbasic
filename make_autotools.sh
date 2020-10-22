@@ -15,6 +15,7 @@ SRC="	./libbasic/include/basic.h
 	./libbasic/src/tools.c
 	./libbasic/include/config.h
 	./libbasic/include/HAL.h
+	./libbasic/src/HAL.c
 	./libbasic/include/HAL_config.h
 	./libbasic/include/_tokens_en.h
 	./libbasic/include/_tokens_fr.h
@@ -99,6 +100,7 @@ cp ./Makefile.am.terminal-basic "${SRC_PATH}/Makefile.am"
 rsync -r ../libarduinoemulator/include/ ${SRC_PATH}
 cp ../libarduinoemulator/src/Print.cpp ${SRC_PATH}
 cp ../libarduinoemulator/src/Stream.cpp ${SRC_PATH}
+cp ../libarduinoemulator/src/arduino.cpp ${SRC_PATH}
 
 #cp ../libtvoutex/TVoutEx/src/*.cpp ${SRC_PATH}
 #cp ../libtvoutex/TVoutEx/src/*.h ${SRC_PATH}

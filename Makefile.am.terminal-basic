@@ -13,6 +13,7 @@ terminalbasic_SOURCES=arduinoext.hpp \
 	basic.h \
 	basic.hpp \
 	basic.c \
+	HAL.c \
 	HAL_linux.h \
 	HAL_linux.c \
 	HALProxyStream.cpp \
@@ -67,6 +68,7 @@ terminalbasic_SOURCES=arduinoext.hpp \
 	types.hpp \
 	Stream.cpp \
 	Print.cpp \
+	arduino.cpp \
 	EEPROM.h \
 	version.h \
 	Stream.h \
