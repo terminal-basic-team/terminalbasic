@@ -38,11 +38,10 @@ SRC="	./libbasic/include/basic.h \
 	./BASIC/include/config_arduino.hpp \
 	./BASIC/include/HAL_arduino.h \
 	./BASIC/src/HALProxyStream.cpp \
-	./BASIC/src/basic.cpp \
-	./BASIC/src/basic_lexer.cpp  \
+	./BASIC/src/basic_lexerw.cpp  \
 	./BASIC/include/version.h \
-	./BASIC/src/basic_parser.cpp \
-	./BASIC/src/basic_interpreter.cpp \
+	./BASIC/src/basic_parserw.cpp \
+	./BASIC/src/basic_interpreterw.cpp \
 	./BASIC/src/basic_interpreter_matrix.cpp \
 	./BASIC/src/basic_dataparser.cpp \
 	./BASIC/src/basic_program.cpp \
@@ -56,7 +55,7 @@ SRC="	./libbasic/include/basic.h \
 	./BASIC/include/basic_parser_value.hpp \
 	./BASIC/src/basic_parser_value.cpp \
 	./BASIC/include/basic_extmemfs.hpp \
-	./BASIC/include/basic_extmemfs.cpp \
+	./BASIC/src/basic_extmemfs.cpp \
 	./BASIC/include/basic_internalfuncs.hpp \
 	./BASIC/src/basic_internalfuncs.cpp \
 	./BASIC/include/basic_gfx.hpp \
