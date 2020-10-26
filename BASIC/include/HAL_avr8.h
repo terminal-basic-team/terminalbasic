@@ -47,5 +47,7 @@
 #endif /* HAL_TERMINAL_NUM */
 #endif /* HAL_ARDUINO_AVR8_TERMINAL */
 
-#endif /* HAL_ARDUINO_H */
+// Use ATMega128/2560 external memory interface
+#define HAL_ARDUINO_AVR8_EXTMEM 1
 
+#endif /* HAL_ARDUINO_H */
