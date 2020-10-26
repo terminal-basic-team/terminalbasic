@@ -183,11 +183,7 @@ setup()
 #if USE_WIRE
 	Wire.begin();
 	Wire.setClock(400000);
-#endif
-#if USE_EXTMEM
-	XMCRA |= 1ul<<7; // Switch ext mem iface on
-	XMCRB = 0;
-#endif
+#endif // USE_WIRE
 #ifdef SERIAL_PORT_I
 	SERIAL_PORT_I.begin(SERIAL_I_BR);
 #endif

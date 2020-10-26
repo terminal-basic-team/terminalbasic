@@ -24,6 +24,7 @@
 
 #include "Arduino.h"
 #include "config.hpp"
+#include "basic.h"
 
 #if BASIC_MULTITERMINAL
 #define NUM_TERMINALS 1

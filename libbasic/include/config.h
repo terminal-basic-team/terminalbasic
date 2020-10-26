@@ -26,8 +26,6 @@
 #ifndef BASIC_CONFIG_H
 #define BASIC_CONFIG_H
 
-#include <stdint.h>
-
 /*
  * Real arithmetics
  * 
@@ -159,7 +157,5 @@
 #define OPT_SPEED     1 // Extensive use of switch/case constructs
 #define OPT_SIZE      2 // Use cascade of if/else if instead of switch/case
 #define OPT           OPT_SIZE // Selected mode
-
-typedef uintptr_t pointer_t;
 
 #endif /* BASIC_CONFIG_H */

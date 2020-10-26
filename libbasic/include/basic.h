@@ -30,6 +30,8 @@
 
 __BEGIN_DECLS
 
+typedef uintptr_t pointer_t;
+
 /**
  * @brief ASCII characters
  */
