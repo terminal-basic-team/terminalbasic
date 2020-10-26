@@ -21,6 +21,7 @@
       <itemPath>include/basic_parser.hpp</itemPath>
       <itemPath>include/basic_parser_value.hpp</itemPath>
       <itemPath>include/basic_program.hpp</itemPath>
+      <itemPath>include/basic_task.hpp</itemPath>
       <itemPath>include/config.hpp</itemPath>
       <itemPath>include/config_arduino.hpp</itemPath>
       <itemPath>include/config_linux.hpp</itemPath>
@@ -55,6 +56,8 @@
       <itemPath>src/basic_parser_value.cpp</itemPath>
       <itemPath>src/basic_parserw.cpp</itemPath>
       <itemPath>src/basic_program.cpp</itemPath>
+      <itemPath>src/basic_task.cpp</itemPath>
+      <itemPath>src/taskmain.cpp</itemPath>
       <itemPath>src/tvoutprint.cpp</itemPath>
       <itemPath>src/ucbasic_main.cpp</itemPath>
     </logicalFolder>
@@ -109,7 +112,6 @@
           <warningLevel>2</warningLevel>
         </cTool>
         <ccTool>
-          <standard>8</standard>
           <incDir>
             <pElem>include</pElem>
             <pElem>../../libarduinoemulator/include</pElem>
@@ -118,7 +120,7 @@
             <pElem>../libbasic/include</pElem>
             <pElem>../../libtvoutex/TVoutEx/src</pElem>
           </incDir>
-          <commandLine>`pkg-config --cflags posixcpp`</commandLine>
+          <commandLine>`pkg-config --cflags posixcpp` -std=gnu++11</commandLine>
           <preprocessorList>
             <Elem>HAL_LINUX</Elem>
           </preprocessorList>
@@ -127,18 +129,6 @@
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/basic</output>
           <linkerLibItems>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../../libtvoutex/netbenas"
-                            CT="3"
-                            CN="Debug_PC"
-                            AC="true"
-                            BL="true"
-                            WD="../../libtvoutex/netbenas"
-                            BC="${MAKE}  -f Makefile CONF=Debug_PC"
-                            CC="${MAKE}  -f Makefile CONF=Debug_PC clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnetbenas.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../../libarduinoemulator"
                             CT="3"
@@ -200,6 +190,12 @@
                             perm="755"
                             owner="root"
                             group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
         </packFileList>
       </packaging>
       <folder path="TestFiles/f1">
@@ -254,6 +250,8 @@
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_task.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -311,15 +309,17 @@
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/basic_task.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_fr.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/tvoutprint.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/taskmain.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/tvoutprint.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/TableTest.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -490,6 +490,8 @@
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_task.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
