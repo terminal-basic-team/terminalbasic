@@ -54,7 +54,7 @@
       <toolsSet>
         <compilerSet>default</compilerSet>
         <dependencyChecking>true</dependencyChecking>
-        <rebuildPropChanged>false</rebuildPropChanged>
+        <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
         <cTool>
@@ -66,9 +66,7 @@
           <warningLevel>2</warningLevel>
         </cTool>
         <ccTool>
-          <incDir>
-            <pElem>../include</pElem>
-          </incDir>
+          <warningLevel>0</warningLevel>
         </ccTool>
         <archiverTool>
         </archiverTool>
@@ -126,23 +124,20 @@
       <toolsSet>
         <compilerSet>default</compilerSet>
         <dependencyChecking>true</dependencyChecking>
-        <rebuildPropChanged>false</rebuildPropChanged>
+        <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
         <cTool>
           <developmentMode>5</developmentMode>
-          <standard>10</standard>
           <incDir>
             <pElem>../include</pElem>
             <pElem>../../../libarduinoemulator/include</pElem>
           </incDir>
+          <commandLine>-std=gnu11</commandLine>
           <warningLevel>2</warningLevel>
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
-          <incDir>
-            <pElem>../include</pElem>
-          </incDir>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -199,8 +194,6 @@
       </item>
       <item path="../src/math/math_private.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../src/test.c" ex="false" tool="0" flavor2="0">
-      </item>
       <item path="../src/tools.c" ex="false" tool="0" flavor2="0">
       </item>
     </conf>
@@ -208,7 +201,7 @@
       <toolsSet>
         <compilerSet>default</compilerSet>
         <dependencyChecking>true</dependencyChecking>
-        <rebuildPropChanged>false</rebuildPropChanged>
+        <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
         <cTool>
@@ -216,17 +209,12 @@
             <pElem>../include</pElem>
             <pElem>../../../libarduinoemulator/include</pElem>
           </incDir>
-          <commandLine>-std=gnu99</commandLine>
+          <commandLine>-std=gnu11</commandLine>
           <preprocessorList>
             <Elem>INTERNAL_MATH=1</Elem>
           </preprocessorList>
           <warningLevel>2</warningLevel>
         </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>../include</pElem>
-          </incDir>
-        </ccTool>
         <linkerTool>
           <linkerLibItems>
             <linkerLibStdlibItem>Mathematics</linkerLibStdlibItem>
@@ -288,7 +276,7 @@
       <toolsSet>
         <compilerSet>Arduino-1.8.10|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
-        <rebuildPropChanged>false</rebuildPropChanged>
+        <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
         <cTool>
@@ -308,11 +296,6 @@
           </preprocessorList>
           <warningLevel>2</warningLevel>
         </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>../include</pElem>
-          </incDir>
-        </ccTool>
         <archiverTool>
           <commandlineTool>avr-gcc-ar</commandlineTool>
           <ranlibTool>avr-gcc-ranlib</ranlibTool>
@@ -373,7 +356,7 @@
       <toolsSet>
         <compilerSet>Arduino-1.8.10|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
-        <rebuildPropChanged>false</rebuildPropChanged>
+        <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
         <cTool>
@@ -384,7 +367,7 @@
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/variants/mega</pElem>
             <pElem>../../../libarduinoext/include</pElem>
           </incDir>
-          <commandLine>-O2 -Wextra -std=gnu11 -ffunction-sections -fdata-sections -MMD -mmcu=atmega2560 -flto -fno-fat-lto-objects</commandLine>
+          <commandLine>-Os -Wextra -std=gnu11 -ffunction-sections -fdata-sections -MMD -mmcu=atmega2560 -flto -fno-fat-lto-objects -mcall-prologues</commandLine>
           <preprocessorList>
             <Elem>ARDUINO=10810</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
@@ -393,11 +376,6 @@
           </preprocessorList>
           <warningLevel>2</warningLevel>
         </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>../include</pElem>
-          </incDir>
-        </ccTool>
         <archiverTool>
           <commandlineTool>avr-gcc-ar</commandlineTool>
           <ranlibTool>avr-gcc-ranlib</ranlibTool>
@@ -458,7 +436,7 @@
       <toolsSet>
         <compilerSet>Arduino-1.8.10|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
-        <rebuildPropChanged>false</rebuildPropChanged>
+        <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
         <cTool>
@@ -478,11 +456,6 @@
           </preprocessorList>
           <warningLevel>2</warningLevel>
         </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>../include</pElem>
-          </incDir>
-        </ccTool>
         <archiverTool>
           <commandlineTool>avr-gcc-ar</commandlineTool>
           <ranlibTool>avr-gcc-ranlib</ranlibTool>
@@ -543,7 +516,7 @@
       <toolsSet>
         <compilerSet>Arduino-1.8.10|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
-        <rebuildPropChanged>false</rebuildPropChanged>
+        <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
         <cTool>
@@ -561,13 +534,8 @@
             <Elem>ARDUINO_AVR_NANO</Elem>
             <Elem>F_CPU=16000000L</Elem>
           </preprocessorList>
-          <warningLevel>2</warningLevel>
+          <warningLevel>0</warningLevel>
         </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>../include</pElem>
-          </incDir>
-        </ccTool>
         <archiverTool>
           <commandlineTool>avr-gcc-ar</commandlineTool>
           <ranlibTool>avr-gcc-ranlib</ranlibTool>

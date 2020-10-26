@@ -23,6 +23,7 @@
 
 #include "basic_lexer.h"
 #include "tools.h"
+#include "HAL.h"
 
 static BOOLEAN
 lexer_test_keywords()
@@ -30,7 +31,9 @@ lexer_test_keywords()
 	const uint8_t s[] = "ANDINV(LET A = 3";
 	basic_token_t tokens[] = {
 		BASIC_TOKEN_OP_AND,
+#if USE_MATRIX
 		BASIC_TOKEN_KW_INV,
+#endif
 		BASIC_TOKEN_LPAREN,
 		BASIC_TOKEN_KW_LET,
 		BASIC_TOKEN_REAL_IDENT,
@@ -84,6 +87,18 @@ lexer_test_tokenization()
 	return TRUE;
 }
 
+uint8_t
+HAL_nvram_read(HAL_nvram_address_t a)
+{
+    return 0;
+}
+
+void
+HAL_nvram_write(HAL_nvram_address_t a, uint8_t b)
+{
+    
+}
+
 int
 main(int argc, char** argv)
 {
@@ -96,7 +111,6 @@ main(int argc, char** argv)
 		printf("success\n");
 	else
 		fprintf(stderr, "lexer_test_keywords\n");
-	
 	
 	fflush(stdout);
 	return EXIT_SUCCESS;
