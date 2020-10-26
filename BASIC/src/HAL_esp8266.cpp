@@ -34,13 +34,13 @@ static File f;
 #define HAL_ESP8266_EXTEM_SPIFFS 1
 #define HAL_ESP8266_EXTEM_SD 2
 
-#define HAL_ESP8266 HAL_ESP8266_EXTEM_SD
+#define HAL_ESP8266 HAL_ESP8266_EXTEM_SPIFFS
 
 #if HAL_ESP8266 == HAL_ESP8266_EXTEM_SD
 #include <SD.h>
 #endif
 
-static File extmem_files[EXTMEM_NUM_FILES];
+static File extmem_files[HAL_EXTMEM_NUM_FILES];
 
 #endif // HAL_EXTMEM
 
@@ -123,12 +123,12 @@ HAL_extmem_file_t
 HAL_extmem_openfile(const char fname[13])
 {
 	size_t i = 0;
-	for (; i < EXTMEM_NUM_FILES; ++i) {
+	for (; i < HAL_EXTMEM_NUM_FILES; ++i) {
 		if (!extmem_files[i])
 			break;
 	}
 
-	if (i == EXTMEM_NUM_FILES)
+	if (i == HAL_EXTMEM_NUM_FILES)
 		return 0;
 
 #if HAL_ESP8266_EXTEM == HAL_ESP8266_EXTEM_SPIFFS
@@ -160,7 +160,7 @@ void
 HAL_extmem_closefile(HAL_extmem_file_t file)
 {
 	if ((file == 0)
-	|| (file > EXTMEM_NUM_FILES)
+	|| (file > HAL_EXTMEM_NUM_FILES)
 	|| (!extmem_files[file - 1]))
 		return;
 
@@ -171,7 +171,7 @@ uint32_t
 _seek(HAL_extmem_file_t file, uint32_t pos, SeekMode whence)
 {
 	if ((file == 0)
-	|| (file > EXTMEM_NUM_FILES)
+	|| (file > HAL_EXTMEM_NUM_FILES)
 	|| (!extmem_files[file - 1]))
 		return 0;
 
@@ -191,7 +191,7 @@ HAL_extmem_fileposition_t
 HAL_extmem_getfilesize(HAL_extmem_file_t file)
 {
 	if ((file == 0)
-	|| (file > EXTMEM_NUM_FILES)
+	|| (file > HAL_EXTMEM_NUM_FILES)
 	|| (!extmem_files[file - 1]))
 		return 0;
 

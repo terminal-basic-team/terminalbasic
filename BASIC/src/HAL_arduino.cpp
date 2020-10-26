@@ -354,7 +354,7 @@ HAL_random_seed(uint32_t seed)
 uint32_t
 HAL_random_generate(uint32_t max)
 {
-	random(max);
+	return random(max);
 }
 
 #endif // ARDUINO
