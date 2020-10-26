@@ -47,7 +47,6 @@
 
 #if CONF_USE_EXTMEMFS
 #include "basic_extmemfs.hpp"
-extern BASIC::ExtmemFSModule sdfs;
 #endif
 
 namespace BASIC
@@ -214,10 +213,13 @@ Interpreter::Interpreter(Stream &stream, Print &output, Pointer progSize) :
 _program(progSize), _state(SHELL), _input(stream), _output(output),
 _parser(_lexer, *this)
 #if BASIC_MULTITERMINAL
-,_termno(++_termnoGen)
+, _termno(++_termnoGen)
 #endif
 #if USE_DATA
-,_dataParserContinue(false)
+, _dataParserContinue(false)
+#endif
+#if CONF_USE_EXTMEMFS
+, m_sdfs(nullptr)
 #endif
 {
 	_input.setTimeout(10000L);
@@ -256,7 +258,8 @@ Interpreter::init()
 	print(ProgMemStrings::S_BYTES), print(ProgMemStrings::AVAILABLE), newline();
 	_state = SHELL;
 #if CONF_USE_EXTMEMFS
-	sdfs.loadAutorun(*this);
+	if (m_sdfs != nullptr)
+		m_sdfs->loadAutorun(*this);
 #endif
 }
 
