@@ -189,6 +189,12 @@ HAL_extmem_openfile(const char fname[13])
 	char fname_[14];
 	fname_[0] = '/';
 	strncpy(fname_ + 1, fname, 12);
+	fname_[13] = '\0';
+
+	//Serial.print("Opening file ");
+	//Serial.print(fname);
+	//Serial.print(' ');
+	//Serial.println(fname_);
 
 #if HAL_ESP32_EXTMEM == HAL_ESP32_EXTEM_SPIFFS
 
@@ -310,7 +316,7 @@ HAL_extmem_getfilename(uint16_t num, char fname[13])
 		num--;
 	}
 
-#elif HAL_ESP8266 == HAL_ESP8266_EXTEM_SD
+#elif HAL_ESP32_EXTMEM == HAL_ESP32_EXTEM_SD
 
 	while (true) {
 		File f = d.openNextFile();
@@ -328,6 +334,9 @@ HAL_extmem_getfilename(uint16_t num, char fname[13])
 #endif // HAL_ESP32_EXTMEM
 	d.close();
 	fname[12] = '\0';
+
+	//Serial.print("HAL_extmem_getfilename: ");
+	//Serial.println(fname);
 }
 
 void
@@ -336,6 +345,13 @@ HAL_extmem_deletefile(const char fname[13])
 	char fname_[14];
 	fname_[0] = '/';
 	strncpy(fname_ + 1, fname, 12);
+	fname_[13] = '\0';
+
+	//Serial.print("HAL_extmem_deletefile: ");
+	//Serial.print(fname);
+	//Serial.print(' ');
+	//Serial.println(fname_);
+
 	if (!gfs.remove(fname_))
 		Serial.println("ERROR: FS.remove");
 }
@@ -379,6 +395,12 @@ HAL_extmem_fileExists(const char fname[13])
 	char fname_[14];
 	fname_[0] = '/';
 	strncpy(fname_ + 1, fname, 12);
+	fname_[13] = '\0';
+
+	//Serial.print("HAL_extmem_fileExists: ");
+	//Serial.print(fname);
+	//Serial.print(' ');
+	//Serial.println(fname_);
 
 	return gfs.exists(fname_);
 }
