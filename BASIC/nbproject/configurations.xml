@@ -541,15 +541,17 @@
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/basic_task.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_fr.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/tvoutprint.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/taskmain.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/tvoutprint.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/TableTest.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -697,6 +699,8 @@
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_task.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
@@ -753,11 +757,15 @@
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/basic_task.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_fr.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/taskmain.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/tvoutprint.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -827,18 +835,6 @@
                             BC="${MAKE}  -f Makefile CONF=Arduino_uno"
                             CC="${MAKE}  -f Makefile CONF=Arduino_uno clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinoext.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../../libps2uart/libps2uart"
-                            CT="3"
-                            CN="Arduino_UNO"
-                            AC="true"
-                            BL="true"
-                            WD="../../libps2uart/libps2uart"
-                            BC="${MAKE}  -f Makefile CONF=Arduino_UNO"
-                            CC="${MAKE}  -f Makefile CONF=Arduino_UNO clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibps2uart.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -945,6 +941,8 @@
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_task.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1084,18 +1082,6 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../../libutft"
-                            CT="3"
-                            CN="Arduino_mega2560"
-                            AC="true"
-                            BL="true"
-                            WD="../../libutft"
-                            BC="${MAKE}  -f Makefile CONF=Arduino_mega2560"
-                            CC="${MAKE}  -f Makefile CONF=Arduino_mega2560 clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibutft.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
               <makeArtifact PL="../../libarduinoext"
                             CT="3"
                             CN="Arduino_mega2560"
@@ -1105,30 +1091,6 @@
                             BC="${MAKE}  -f Makefile CONF=Arduino_mega2560"
                             CC="${MAKE}  -f Makefile CONF=Arduino_mega2560 clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinoext.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../../libtvoutex/netbenas"
-                            CT="3"
-                            CN="Arduino_MEGA2560"
-                            AC="false"
-                            BL="true"
-                            WD="../../libtvoutex/netbenas"
-                            BC="${MAKE}  -f Makefile CONF=Arduino_MEGA2560"
-                            CC="${MAKE}  -f Makefile CONF=Arduino_MEGA2560 clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnetbenas.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../../libsdcard/libsdcard"
-                            CT="3"
-                            CN="Arduino_MEGA2560"
-                            AC="true"
-                            BL="true"
-                            WD="../../libsdcard/libsdcard"
-                            BC="${MAKE}  -f Makefile CONF=Arduino_MEGA2560"
-                            CC="${MAKE}  -f Makefile CONF=Arduino_MEGA2560 clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibsdcard.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -1199,6 +1161,8 @@
       <item path="include/basic_parser_value.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_task.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1389,6 +1353,8 @@
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_task.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
@@ -1447,11 +1413,15 @@
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
+      <item path="src/basic_task.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_fr.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/taskmain.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/tvoutprint.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1586,6 +1556,8 @@
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_task.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
@@ -1644,11 +1616,15 @@
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
+      <item path="src/basic_task.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_fr.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/taskmain.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/tvoutprint.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1773,6 +1749,8 @@
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_task.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
@@ -1831,11 +1809,15 @@
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
+      <item path="src/basic_task.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_fr.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/taskmain.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/tvoutprint.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1991,6 +1973,8 @@
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_task.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
@@ -2047,11 +2031,15 @@
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/basic_task.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_fr.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/taskmain.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/tvoutprint.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -2221,6 +2209,8 @@
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_task.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
@@ -2279,11 +2269,15 @@
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
+      <item path="src/basic_task.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_fr.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/taskmain.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/tvoutprint.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -2440,6 +2434,8 @@
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_task.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
@@ -2498,11 +2494,15 @@
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
+      <item path="src/basic_task.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_fr.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/taskmain.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/tvoutprint.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -2632,6 +2632,8 @@
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_task.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
@@ -2690,11 +2692,15 @@
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
+      <item path="src/basic_task.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_fr.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/taskmain.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/tvoutprint.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -2821,6 +2827,8 @@
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_task.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
@@ -2879,11 +2887,15 @@
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
+      <item path="src/basic_task.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_fr.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/taskmain.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/tvoutprint.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -3061,6 +3073,8 @@
       </item>
       <item path="include/basic_program.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/basic_task.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
@@ -3119,11 +3133,15 @@
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
+      <item path="src/basic_task.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_fr.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/taskmain.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/tvoutprint.cpp" ex="false" tool="1" flavor2="0">
       </item>

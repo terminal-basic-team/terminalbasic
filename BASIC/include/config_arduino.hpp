@@ -29,6 +29,7 @@
 
 #include "config.hpp"
 #include "seriallight.hpp"
+#include "basic.h"
 
 /**
  * Parameters

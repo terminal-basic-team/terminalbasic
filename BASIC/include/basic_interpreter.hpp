@@ -32,6 +32,10 @@
 namespace BASIC
 {
 
+#if CONF_USE_EXTMEMFS
+class ExtmemFSModule;
+#endif
+
 /**
  * @brief variable memory frame
  */
