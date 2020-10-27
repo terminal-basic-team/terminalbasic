@@ -32,6 +32,8 @@
 #define STR_VARIABLES_LIST_EXPECTED   "Ž†ˆ„€…’‘Ÿ ‘ˆ‘ŽŠ ……Œ…›•"
 #define STR_STRING_OVERFLOW           "……Ž‹…ˆ… ‘’ŽŠˆ"
 
+#define STR_OUTTA_MEMORY              "…„Ž‘’€’Ž—Ž €ŒŸ’ˆ"
+
 #define STR_ERROR      "Ž˜ˆŠ€"
 #define STR_BYTES      "€‰’"
 #define STR_VERSION    "‚…‘ˆŸ"

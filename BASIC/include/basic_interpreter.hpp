@@ -495,6 +495,11 @@ public:
 	Program _program;
 	
 	Parser& parser() { return _parser; }
+	
+#if CONF_USE_EXTMEMFS
+	void setSDFSModule(BASIC::ExtmemFSModule* newVal) { m_sdfs = newVal; }
+#endif
+	
 private:
 	
 	class AttrKeeper;
@@ -608,6 +613,12 @@ private:
 #if USE_DATA
 	// Data statement parser continue flag
 	bool			_dataParserContinue;
+#endif
+#if CONF_USE_EXTMEMFS
+	BASIC::ExtmemFSModule*	m_sdfs;
+#endif
+#if CONF_ERROR_STRINGS
+	static PGM_P const errorStrings[] PROGMEM;
 #endif
 };
 

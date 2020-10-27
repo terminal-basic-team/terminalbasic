@@ -150,6 +150,44 @@ static PGM_P const progmemStrings[uint8_t(ProgMemStrings::NUM_STRINGS)] PROGMEM 
 #endif // USE_TEXTATTRIBUTES
 };
 
+#if CONF_ERROR_STRINGS
+
+static const char noerror[] PROGMEM = STR_NO_ERROR;
+static const char outtamemerror[] PROGMEM = STR_OUTTA_MEMORY;
+/*	
+		REDIMED_ARRAY = 2,		// Attempt to define existing array
+		STACK_FRAME_ALLOCATION = 3,	// Unable to allocate stack frame
+		ARRAY_DECLARATION = 4,		// 
+		STRING_FRAME_SEARCH = 5,	// Missing string frame
+		INVALID_NEXT = 6,		// 
+		RETURN_WO_GOSUB = 7,
+		NO_SUCH_STRING = 8,
+		INVALID_VALUE_TYPE = 9,
+		NO_SUCH_ARRAY = 10,
+		INTEGER_EXPRESSION_EXPECTED = 11,// Integer expression expected
+#if SAVE_LOAD_CHECKSUM
+		BAD_CHECKSUM = 12,		// Bad program checksum
+#endif
+		INVALID_TAB_VALUE = 13,
+		INVALID_ELEMENT_INDEX = 14,
+#if USE_MATRIX
+		SQUARE_MATRIX_EXPECTED = 15,
+#endif
+		DIMENSIONS_MISMATCH = 16,
+		COMMAND_FAILED = 17,
+#if USE_DEFFN
+		VAR_DUPLICATE = 18,
+		FUNCTION_DUPLICATE = 19,
+		NO_SUCH_FUNCION = 20,
+#endif
+		INTERNAL_ERROR = 255*/
+
+PGM_P const Interpreter::errorStrings[] PROGMEM = {
+	noerror,
+	outtamemerror
+};
+#endif // CONF_ERROR_STRINGS
+
 PGM_P
 progmemString(ProgMemStrings index)
 {
@@ -324,7 +362,6 @@ Interpreter::step()
 		// fall through
 		// waiting for user input next program line
 	case PROGRAM_INPUT:
-		//_state = COLLECT_INPUT;
 		_inputPosition = 0;
 		memset(_inputBuffer, 0xFF, PROGSTRINGSIZE);
 		while (!readInput());
@@ -626,7 +663,9 @@ Interpreter::dump(DumpMode mode)
 void
 Interpreter::print(const Parser::Value &v, VT100::TextAttr attr)
 {
+#if USE_TEXTATTRIBUTES
 	AttrKeeper keeper(*this, attr);
+#endif
 
 	switch (v.type()) {
 	case Parser::Value::LOGICAL:
@@ -842,7 +881,7 @@ Interpreter::pushForLoop(const char *varName, uint8_t textPosition,
     const Parser::Value &v, const Parser::Value &vStep)
 {
 	// push new FOR .. NEXT stack frame
-	auto f = _program.push(Program::StackFrame::FOR_NEXT);
+	const auto f = _program.push(Program::StackFrame::FOR_NEXT);
 	if (f != nullptr) {
 	    	auto &fBody = f->body.forFrame;
 		WRITE_VALUE(fBody.calleeIndex, _program._current.index);
@@ -860,7 +899,7 @@ Interpreter::pushForLoop(const char *varName, uint8_t textPosition,
 bool
 Interpreter::pushValue(const Parser::Value &v)
 {
-	auto f = _program.push(Program::StackFrame::VALUE);
+	const auto f = _program.push(Program::StackFrame::VALUE);
 	if (f != nullptr) {
 		WRITE_VALUE(f->body.value, v);
 		return true;
@@ -1210,23 +1249,33 @@ Interpreter::nextInput()
 void
 Interpreter::doInput()
 {
+	// Initialize lexer with just inputed string
 	Lexer l;
 	l.init(_inputBuffer, false);
 	Parser::Value v(Integer(0));
-	bool neg = false;
+	bool neg = false; // Negative value flag
 
+	// input parsing cycle
 	do {
 		if (l.getNext()) {
 			switch (l.getToken()) {
+			////////// Prefix signs /////////////
 			case Token::MINUS:
 				neg = !neg;
 				continue;
 			case Token::PLUS:
 				continue;
+			////////////////////////////////////
+			
+			///////// Numeric constants /////////
 			case Token::C_INTEGER:
 			case Token::C_REAL:
 				v = l.getValue();
 				break;
+			/////////////////////////////////////
+			
+			///////// String constants //////////
+			// Constant w/o quotes is parsed as identifier
 			case Token::C_STRING:
 			case Token::REAL_IDENT:
 			case Token::INTEGER_IDENT:
@@ -1240,6 +1289,7 @@ Interpreter::doInput()
 				pushString(l.id());
 			}
 				break;
+			/////////////////////////////////////
 			default:
 				raiseError(DYNAMIC_ERROR, INVALID_VALUE_TYPE);
 				return;
@@ -1646,11 +1696,15 @@ Interpreter::raiseError(ErrorType type, ErrorCodes errorCode, bool fatal)
 		print(ProgMemStrings::S_SEMANTIC);
 	else // STATIC_ERROR
 		print(ProgMemStrings::S_SYNTAX);
-	//print(ProgMemStrings::S_SEMANTIC);
+	
 	print(ProgMemStrings::S_ERROR, VT100::C_RED);
-	if (type == DYNAMIC_ERROR)
+	if (type == DYNAMIC_ERROR) {
 		print(Integer(errorCode));
-	else {// STATIC_ERROR
+#if CONF_ERROR_STRINGS
+		writePgm((PGM_P)pgm_read_ptr(
+		    &errorStrings[Integer(_parser.getError())] ));
+#endif
+	} else {// STATIC_ERROR
 		print(Integer(_parser.getError()));
 #if CONF_ERROR_STRINGS
 		writePgm((PGM_P)pgm_read_ptr(
