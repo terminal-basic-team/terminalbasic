@@ -13,9 +13,10 @@ Resulting interpreter is partially compliant to the standards ISO/IEC 6373:1984 
 supports many features, allowing to use many BASIC utilities and games from old BASIC books and magazines.
 
 The main features of the TB inteerpreter:
-- number of datatypes (integer, long integer, real, long real, boolean and string) using variables and function suffixes
-- multidimensional arrays of arbitrary size and dimensions
-- Darthmouth-BASIC-like matrix operations
+- supports number of datatypes (integer (2 bytes signed), long integer (4 bytes signed), real (4 bytes binary floating point), long real (8 bytes binary floating point), boolean and string) using variables and function suffixes;
+- multidimensional arrays of arbitrary size and dimensions;
+- Darthmouth-BASIC-like matrix operations;
+- optional time-sharing system mode with round-robin scheduling using multiple I/O devices for each user (i.e. USART);
 - configuration headers provide the number of options, which enable inclusion of the language parts and features thus allowing
 to adjust the code size.
 
