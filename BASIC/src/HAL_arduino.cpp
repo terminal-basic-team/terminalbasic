@@ -34,6 +34,245 @@
 #include "gfxterm.hpp"
 #endif
 
+#if HAL_ARDUINO_TERMINAL_OUTPUT == HAL_ARDUINO_TERMINAL_OUTPUT_ILI9341
+
+#include "Adafruit_ILI9341.h"
+
+class ESPI : public VT100::Print
+{
+public:
+
+#define CURSOR_BLINK_PERIOD 2
+
+	ESPI(uint8_t cs, uint8_t dc, uint8_t rs) :
+	tft(cs, dc, rs)
+	{
+		m_row = m_column = m_scroll = 0;
+		m_attr = VT100::TextAttr::NO_ATTR;
+		m_lockCursor = false;
+		m_cursorCounter = CURSOR_BLINK_PERIOD;
+	}
+	
+	void begin()
+	{
+		tft.begin();
+		tft.setTextColor(ILI9341_LIGHTGREY);
+		tft.setTextSize(1);
+	}
+	
+	void clear() override
+	{
+		tft.fillScreen(ILI9341_BLACK);
+		m_scroll = 0;
+		tft.scrollTo(m_scroll);
+		setCursor(0, 0);
+		drawCursor(true);
+	}
+	
+	void onTimer()
+	{
+		// If cursor is locked by the non-interrupt code - return
+		if (m_lockCursor)
+			return;
+
+		// Count down cursor blank interrupt counter
+		if (--m_cursorCounter == 0)
+			m_cursorCounter = CURSOR_BLINK_PERIOD;
+		else
+			return;
+
+		m_cursorState = !m_cursorState;
+		uint16_t color;
+		if (m_cursorState)
+			color = ILI9341_WHITE;
+		else
+			color = ILI9341_BLACK;
+		tft.fillRect(tft.getCursorX(), tft.getCursorY(), 6, 8, color);
+	}
+
+protected:
+	
+	void drawCursor(bool v)
+	{
+		tft.fillRect(tft.getCursorX(), tft.getCursorY(), 6, 8,
+		    v ? ILI9341_WHITE : ILI9341_BLACK);
+	}
+	
+	void scrollLine()
+	{
+		//Serial.print("scroll ");
+		//Serial.println(tft.getCursorY());
+		if (m_row > 38) {
+			m_scroll += 8;
+			if (m_scroll >= tft.height())
+				m_scroll -= tft.height();
+			tft.scrollTo(m_scroll);
+			tft.fillRect(0, (tft.height() - 8 + m_scroll) % tft.height(), tft.width(), 8, ILI9341_BLACK);
+			/*Serial.print(m_scroll);
+			Serial.print(' ');
+			Serial.println(tft.getCursorY());*/
+		} else
+			++m_row;
+		/*Serial.print(m_column);
+		Serial.print(" ");
+		Serial.println(m_row);*/
+		setCursor(m_column, m_row);
+	}
+	
+	void writeChar(uint8_t c) override
+	{
+		/*Serial.print(m_row, DEC);
+		Serial.print(' ');
+		Serial.print(m_column, DEC);
+		Serial.print(' ');
+		Serial.println(c, HEX);*/
+		m_lockCursor = true;
+		drawCursor(false);
+		switch (c) {
+		case '\n':
+			if (m_row < 39)
+				tft.write('\n');
+			scrollLine();
+			break;
+		case '\r':
+			m_column = 0;
+			break;
+		case 8: //backspace
+			if (m_column > 0)
+				setCursor(--m_column, m_row);
+			else if (m_row > 0) {
+				m_column = 38;
+				setCursor(m_column, --m_row);
+			}
+			break;
+		default:
+			if (m_column > 38) {
+				m_column = 0;
+				scrollLine();
+			}
+			++m_column;
+			tft.write(c);
+		}
+		drawCursor(true);
+		m_lockCursor = false;
+		/*Serial.print(m_column);
+		Serial.print(" ");
+		Serial.println(m_row);*/
+	}
+	
+	uint8_t getCursorX() override
+	{
+		tft.getCursorX();
+		return 0;
+	}
+
+	void setCursorX(uint8_t x) override
+	{
+		drawCursor(false);
+		setCursor(x, m_row);
+		drawCursor(true);
+	}
+
+	void setCursor(uint8_t x, uint8_t y) override
+	{
+		m_row = y;
+		m_column = x;
+		tft.setCursor(m_column * 6, (y * 8 + m_scroll) % tft.height());
+	}
+    
+	void addAttribute(VT100::TextAttr ta) override
+	{
+		switch (ta) {
+		case VT100::TextAttr::BRIGHT:
+			m_attr |= VT100::TextAttr::BRIGHT;
+			break;
+		case VT100::TextAttr::C_GREEN:
+		case VT100::TextAttr::C_YELLOW:
+		case VT100::TextAttr::C_BLUE:
+		case VT100::TextAttr::C_CYAN:
+		case VT100::TextAttr::C_MAGENTA:
+		case VT100::TextAttr::C_RED:
+		case VT100::TextAttr::C_WHITE:
+		case VT100::TextAttr::C_BLACK:
+			m_attr &= VT100::TextAttr(0x0F);
+			m_attr |= ta;
+			break;
+		default:
+			break;
+		}
+
+		VT100::Color color = VT100::Color::COLOR_BLACK;
+		switch (m_attr & 0xF0) {
+		case VT100::TextAttr::C_GREEN:
+			color = VT100::Color::COLOR_GREEN;
+			break;
+		case VT100::TextAttr::C_YELLOW:
+			color = VT100::Color::COLOR_YELLOW;
+			break;
+		case VT100::TextAttr::C_BLUE:
+			color = VT100::Color::COLOR_BLUE;
+			break;
+		case VT100::TextAttr::C_CYAN:
+			color = VT100::Color::COLOR_CYAN;
+			break;
+		case VT100::TextAttr::C_MAGENTA:
+			color = VT100::Color::COLOR_MAGENTA;
+			break;
+		case VT100::TextAttr::C_RED:
+			color = VT100::Color::COLOR_RED;
+			break;
+		case VT100::TextAttr::C_WHITE:
+			color = VT100::Color::COLOR_WHITE;
+			break;
+		}
+
+		if (m_attr & VT100::TextAttr::BRIGHT)
+			tft.setTextColor(s_colors[color][1]);
+		else
+			tft.setTextColor(s_colors[color][0]);
+	}
+
+	void resetAttributes() override
+	{
+		tft.setTextColor(ILI9341_LIGHTGREY);
+		m_attr = VT100::TextAttr::NO_ATTR;
+	}
+
+private:
+
+	Adafruit_ILI9341 tft;
+
+	uint8_t m_row, m_column;
+
+	uint16_t m_scroll;
+
+	VT100::TextAttr m_attr;
+
+	static uint16_t s_colors[uint8_t(VT100::Color::NUM_COLORS)][2];
+
+	bool m_lockCursor, m_cursorState;
+
+	uint8_t m_cursorCounter;
+};
+
+#define ILI9341_DARKYELLOW 0x7BE0
+#define ILI9341_DARKMAGENTA 0x780F
+
+uint16_t ESPI::s_colors[uint8_t(VT100::Color::NUM_COLORS)][2] = {
+    { ILI9341_BLACK, ILI9341_DARKGREY }, // COLOR_BLACK
+  { ILI9341_RED, ILI9341_PINK }, // COLOR_RED
+  { ILI9341_DARKGREEN, ILI9341_GREEN }, // COLOR_GREEN
+  { ILI9341_DARKYELLOW, ILI9341_YELLOW },  // COLOR_YELLOW
+  { ILI9341_NAVY, ILI9341_BLUE },  // COLOR_BLUE
+  { ILI9341_DARKMAGENTA, ILI9341_MAGENTA },  // COLOR_MAGENTA
+  { ILI9341_DARKCYAN, ILI9341_CYAN },  // COLOR_CYAN
+  { ILI9341_LIGHTGREY, ILI9341_WHITE } // COLOR_WHITE
+};
+
+#endif // HAL_ARDUINO_TERMINAL
+
+static ESPI espi(TFT_CS, TFT_DC, TFT_RS);
+
 __BEGIN_DECLS
 void
 HAL_initialize_concrete();
@@ -42,7 +281,8 @@ __END_DECLS
 void
 HAL_initialize()
 {
-#if HAL_ARDUINO_TERMINAL == HAL_ARDUINO_TERMINAL_SERIAL
+#if (HAL_ARDUINO_TERMINAL_OUTPUT == HAL_ARDUINO_TERMINAL_OUTPUT_SERIAL) ||
+    (HAL_ARDUINO_TERMINAL_INPUT == HAL_ARDUINO_TERMINAL_INPUT_SERIAL)
 	Serial.begin(HAL_ARDUINO_TERMINAL_SERIAL_0_BR);
 #if defined(HAVE_HWSERIAL1) && (HAL_TERMINAL_NUM > 0)
 	Serial1.begin(HAL_ARDUINO_TERMINAL_SERIAL_1_BR);
@@ -53,8 +293,9 @@ HAL_initialize()
 #if defined(HAVE_HWSERIAL3) && (HAL_TERMINAL_NUM > 2)
 	Serial3.begin(HAL_ARDUINO_TERMINAL_SERIAL_3_BR);
 #endif
+#elif HAL_ARDUINO_TERMINAL_OUTPUT == HAL_ARDUINO_TERMINAL_OUTPUT_ILI9341
+	espi.begin();
 #endif // HAL_ARDUINO_TERMINAL
-
 
 #if HAL_EXTMEM && (HAL_ARDUINO_EXTMEM == HAL_ARDUINO_EXTMEM_SDFS)
 	if (!SDCard::SDFS.begin())
@@ -80,22 +321,29 @@ HAL_time_gettime_ms()
 void
 HAL_terminal_write(HAL_terminal_t t, uint8_t b)
 {
+#if HAL_ARDUINO_TERMINAL_OUTPUT == HAL_ARDUINO_TERMINAL_OUTPUT_SERIAL
 	if (t == 0)
 		Serial.write(b);
 #if defined(HAVE_HWSERIAL1) && (HAL_TERMINAL_NUM > 0)
 	else if (t == 1)
 		Serial1.write(b);
 #endif
+#elif HAL_ARDUINO_TERMINAL_OUTPUT == HAL_ARDUINO_TERMINAL_OUTPUT_ILI9341
+	if (t == 0)
+		espi.write(b);
+#endif
 }
 
 uint8_t
 HAL_terminal_read(HAL_terminal_t t)
 {
+#if HAL_ARDUINO_TERMINAL_INPUT == HAL_ARDUINO_TERMINAL_INPUT_SERIAL
 	if (t == 0)
 		return Serial.read();
 #if defined(HAVE_HWSERIAL1) && (HAL_TERMINAL_NUM > 0)
 	else if (t == 1)
 		return Serial1.read();
+#endif
 #endif
 	return 0;
 }
@@ -103,11 +351,13 @@ HAL_terminal_read(HAL_terminal_t t)
 BOOLEAN
 HAL_terminal_isdataready(HAL_terminal_t t)
 {
+#if HAL_ARDUINO_TERMINAL_INPUT == HAL_ARDUINO_TERMINAL_INPUT_SERIAL
 	if (t == 0)
 		return Serial.available();
 #if defined(HAVE_HWSERIAL1) && (HAL_TERMINAL_NUM > 0)
 	else if (t == 1)
 		return Serial1.available();
+#endif
 #endif
 	return FALSE;
 }

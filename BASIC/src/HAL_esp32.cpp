@@ -34,7 +34,7 @@
 // SD card external memory implementation
 #define HAL_ESP32_EXTEM_SD 2
 
-#define HAL_ESP32_EXTMEM HAL_ESP32_EXTEM_SPIFFS
+#define HAL_ESP32_EXTMEM HAL_ESP32_EXTEM_SD
 
 #endif // HAL_EXTMEM
 
