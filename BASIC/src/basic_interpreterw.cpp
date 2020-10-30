@@ -154,6 +154,7 @@ static PGM_P const progmemStrings[uint8_t(ProgMemStrings::NUM_STRINGS)] PROGMEM 
 
 static const char noerror[] PROGMEM = STR_NO_ERROR;
 static const char outtamemerror[] PROGMEM = STR_OUTTA_MEMORY;
+static const char strRedimedArray[] PROGMEM = STR_REDIMED_ARRAY;
 /*	
 		REDIMED_ARRAY = 2,		// Attempt to define existing array
 		STACK_FRAME_ALLOCATION = 3,	// Unable to allocate stack frame
@@ -184,7 +185,8 @@ static const char outtamemerror[] PROGMEM = STR_OUTTA_MEMORY;
 
 PGM_P const Interpreter::errorStrings[] PROGMEM = {
 	noerror,
-	outtamemerror
+	outtamemerror,
+	strRedimedArray
 };
 #endif // CONF_ERROR_STRINGS
 
@@ -1704,7 +1706,7 @@ Interpreter::raiseError(ErrorType type, ErrorCodes errorCode, bool fatal)
 		writePgm((PGM_P)pgm_read_ptr(
 		    &errorStrings[Integer(_parser.getError())] ));
 #endif
-	} else {// STATIC_ERROR
+	} else { // STATIC_ERROR
 		print(Integer(_parser.getError()));
 #if CONF_ERROR_STRINGS
 		writePgm((PGM_P)pgm_read_ptr(
