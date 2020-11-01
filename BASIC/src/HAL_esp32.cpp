@@ -21,22 +21,7 @@
 
 #ifdef ARDUINO_ARCH_ESP32
 
-#include "HAL.h"
-
-#if HAL_NVRAM
-#define NVRAMSIZE 65536
-#endif
-
-#if HAL_EXTMEM
-
-// SPIFFS external memory implementation
-#define HAL_ESP32_EXTEM_SPIFFS 1
-// SD card external memory implementation
-#define HAL_ESP32_EXTEM_SD 2
-
-#define HAL_ESP32_EXTMEM HAL_ESP32_EXTEM_SD
-
-#endif // HAL_EXTMEM
+#include "HAL_esp32.h"
 
 #if HAL_ESP32_EXTMEM == HAL_ESP32_EXTEM_SD
 #include <SD.h>
