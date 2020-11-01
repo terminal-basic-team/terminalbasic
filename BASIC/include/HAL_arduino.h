@@ -98,4 +98,3 @@
 #endif /* HAL_GFX */
 
 #endif /* HAL_ARDUINO_H */
-
