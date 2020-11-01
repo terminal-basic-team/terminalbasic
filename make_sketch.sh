@@ -64,6 +64,7 @@ SRC="	./libbasic/include/basic.h \
 	./BASIC/src/HAL_arduino.cpp \
 	./BASIC/src/HAL_avr8.cpp \
 	./BASIC/src/HAL_esp8266.cpp \
+	./BASIC/include/HAL_esp32.h \
 	./BASIC/src/HAL_esp32.cpp \
 	./BASIC/src/HAL_sam.cpp \
 	./BASIC/src/basic_gfx.cpp \
