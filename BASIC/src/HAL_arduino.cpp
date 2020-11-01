@@ -158,8 +158,8 @@ protected:
 	void setCursor(uint8_t x, uint8_t y) override
 	{
 		drawCursor(false);
-		m_row = y % 39;
-		m_column = x % 39;
+		m_row = y % 40;
+		m_column = x % 40;
 		tft.setCursor(m_column * 6, (y * 8 + m_scroll) % tft.height());
 		drawCursor(true);
 	}
