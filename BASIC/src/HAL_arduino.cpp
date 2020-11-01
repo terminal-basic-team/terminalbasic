@@ -36,6 +36,7 @@
 
 #if HAL_ARDUINO_TERMINAL_OUTPUT == HAL_ARDUINO_TERMINAL_OUTPUT_ILI9341
 
+#include "vt100.hpp"
 #include "Adafruit_ILI9341.h"
 
 class ESPI : public VT100::Print
@@ -100,32 +101,19 @@ protected:
 	
 	void scrollLine()
 	{
-		//Serial.print("scroll ");
-		//Serial.println(tft.getCursorY());
 		if (m_row > 38) {
 			m_scroll += 8;
 			if (m_scroll >= tft.height())
 				m_scroll -= tft.height();
 			tft.scrollTo(m_scroll);
 			tft.fillRect(0, (tft.height() - 8 + m_scroll) % tft.height(), tft.width(), 8, ILI9341_BLACK);
-			/*Serial.print(m_scroll);
-			Serial.print(' ');
-			Serial.println(tft.getCursorY());*/
 		} else
 			++m_row;
-		/*Serial.print(m_column);
-		Serial.print(" ");
-		Serial.println(m_row);*/
 		setCursor(m_column, m_row);
 	}
 	
 	void writeChar(uint8_t c) override
 	{
-		/*Serial.print(m_row, DEC);
-		Serial.print(' ');
-		Serial.print(m_column, DEC);
-		Serial.print(' ');
-		Serial.println(c, HEX);*/
 		m_lockCursor = true;
 		drawCursor(false);
 		switch (c) {
@@ -141,43 +129,39 @@ protected:
 			if (m_column > 0)
 				setCursor(--m_column, m_row);
 			else if (m_row > 0) {
-				m_column = 38;
+				m_column = 39;
 				setCursor(m_column, --m_row);
 			}
 			break;
 		default:
+			tft.write(c);
 			if (m_column > 38) {
 				m_column = 0;
 				scrollLine();
-			}
-			++m_column;
-			tft.write(c);
+			} else
+				++m_column;
 		}
 		drawCursor(true);
 		m_lockCursor = false;
-		/*Serial.print(m_column);
-		Serial.print(" ");
-		Serial.println(m_row);*/
 	}
 	
 	uint8_t getCursorX() override
 	{
-		tft.getCursorX();
-		return 0;
+		return m_column;
 	}
 
 	void setCursorX(uint8_t x) override
 	{
-		drawCursor(false);
 		setCursor(x, m_row);
-		drawCursor(true);
 	}
 
 	void setCursor(uint8_t x, uint8_t y) override
 	{
-		m_row = y;
-		m_column = x;
+		drawCursor(false);
+		m_row = y % 39;
+		m_column = x % 39;
 		tft.setCursor(m_column * 6, (y * 8 + m_scroll) % tft.height());
+		drawCursor(true);
 	}
     
 	void addAttribute(VT100::TextAttr ta) override
@@ -269,9 +253,9 @@ uint16_t ESPI::s_colors[uint8_t(VT100::Color::NUM_COLORS)][2] = {
   { ILI9341_LIGHTGREY, ILI9341_WHITE } // COLOR_WHITE
 };
 
-#endif // HAL_ARDUINO_TERMINAL
-
 static ESPI espi(TFT_CS, TFT_DC, TFT_RS);
+
+#endif // HAL_ARDUINO_TERMINAL_OUTPUT == HAL_ARDUINO_TERMINAL_OUTPUT_ILI9341
 
 __BEGIN_DECLS
 void
@@ -281,7 +265,7 @@ __END_DECLS
 void
 HAL_initialize()
 {
-#if (HAL_ARDUINO_TERMINAL_OUTPUT == HAL_ARDUINO_TERMINAL_OUTPUT_SERIAL) ||
+#if (HAL_ARDUINO_TERMINAL_OUTPUT == HAL_ARDUINO_TERMINAL_OUTPUT_SERIAL) || \
     (HAL_ARDUINO_TERMINAL_INPUT == HAL_ARDUINO_TERMINAL_INPUT_SERIAL)
 	Serial.begin(HAL_ARDUINO_TERMINAL_SERIAL_0_BR);
 #if defined(HAVE_HWSERIAL1) && (HAL_TERMINAL_NUM > 0)
@@ -293,7 +277,9 @@ HAL_initialize()
 #if defined(HAVE_HWSERIAL3) && (HAL_TERMINAL_NUM > 2)
 	Serial3.begin(HAL_ARDUINO_TERMINAL_SERIAL_3_BR);
 #endif
-#elif HAL_ARDUINO_TERMINAL_OUTPUT == HAL_ARDUINO_TERMINAL_OUTPUT_ILI9341
+#endif // HAL_ARDUINO_TERMINAL
+
+#if HAL_ARDUINO_TERMINAL_OUTPUT == HAL_ARDUINO_TERMINAL_OUTPUT_ILI9341
 	espi.begin();
 #endif // HAL_ARDUINO_TERMINAL
 
@@ -316,7 +302,7 @@ HAL_time_gettime_ms()
 	return millis();
 }
 
-#if HAL_ARDUINO_TERMINAL == HAL_ARDUINO_TERMINAL_SERIAL
+#if HAL_ARDUINO_TERMINAL_OUTPUT != HAL_ARDUINO_TERMINAL_OUTPUT_NONE
 
 void
 HAL_terminal_write(HAL_terminal_t t, uint8_t b)
@@ -333,6 +319,10 @@ HAL_terminal_write(HAL_terminal_t t, uint8_t b)
 		espi.write(b);
 #endif
 }
+
+#endif // #if HAL_ARDUINO_TERMINAL_OUTPUT
+
+#if HAL_ARDUINO_TERMINAL_INPUT != HAL_ARDUINO_TERMINAL_INPUT_NONE
 
 uint8_t
 HAL_terminal_read(HAL_terminal_t t)
