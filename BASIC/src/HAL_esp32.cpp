@@ -52,10 +52,12 @@ __BEGIN_DECLS
 void
 HAL_initialize_concrete()
 {
+#if HAL_NVRAM || (HAL_ESP32_EXTMEM == HAL_ESP32_EXTEM_SPIFFS)
 	if (!SPIFFS.begin(true)) {
 		Serial.println("ERROR: SPIFFS.begin");
 		exit(1);
 	}
+#endif
 
 	/*Serial.println("Format? [y/n]");
 	while (true) {
@@ -98,6 +100,12 @@ __END_DECLS
 void
 HAL_finalize()
 {
+#if HAL_NVRAM || (HAL_ESP32_EXTMEM == HAL_ESP32_EXTEM_SPIFFS)
+	SPIFFS.end();
+#endif
+#if HAL_ESP32_EXTMEM == HAL_ESP32_EXTEM_SD
+	SD.end();
+#endif // HAL_ESP32_EXTMEM
 }
 
 #if HAL_NVRAM
@@ -175,11 +183,6 @@ HAL_extmem_openfile(const char fname[13])
 	fname_[0] = '/';
 	strncpy(fname_ + 1, fname, 12);
 	fname_[13] = '\0';
-
-	//Serial.print("Opening file ");
-	//Serial.print(fname);
-	//Serial.print(' ');
-	//Serial.println(fname_);
 
 #if HAL_ESP32_EXTMEM == HAL_ESP32_EXTEM_SPIFFS
 
@@ -319,9 +322,6 @@ HAL_extmem_getfilename(uint16_t num, char fname[13])
 #endif // HAL_ESP32_EXTMEM
 	d.close();
 	fname[12] = '\0';
-
-	//Serial.print("HAL_extmem_getfilename: ");
-	//Serial.println(fname);
 }
 
 void
@@ -331,11 +331,6 @@ HAL_extmem_deletefile(const char fname[13])
 	fname_[0] = '/';
 	strncpy(fname_ + 1, fname, 12);
 	fname_[13] = '\0';
-
-	//Serial.print("HAL_extmem_deletefile: ");
-	//Serial.print(fname);
-	//Serial.print(' ');
-	//Serial.println(fname_);
 
 	if (!gfs.remove(fname_))
 		Serial.println("ERROR: FS.remove");
@@ -381,11 +376,6 @@ HAL_extmem_fileExists(const char fname[13])
 	fname_[0] = '/';
 	strncpy(fname_ + 1, fname, 12);
 	fname_[13] = '\0';
-
-	//Serial.print("HAL_extmem_fileExists: ");
-	//Serial.print(fname);
-	//Serial.print(' ');
-	//Serial.println(fname_);
 
 	return gfs.exists(fname_);
 }
