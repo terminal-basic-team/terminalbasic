@@ -1704,7 +1704,7 @@ Interpreter::raiseError(ErrorType type, ErrorCodes errorCode, bool fatal)
 		print(Integer(errorCode));
 #if CONF_ERROR_STRINGS
 		writePgm((PGM_P)pgm_read_ptr(
-		    &errorStrings[Integer(_parser.getError())] ));
+		    &errorStrings[Integer(errorCode)] ));
 #endif
 	} else { // STATIC_ERROR
 		print(Integer(_parser.getError()));
