@@ -27,12 +27,7 @@
 #ifndef CONFIG_HPP
 #define CONFIG_HPP
 
-#include <stdint.h>
-
 #include "config.h"
-
-namespace BASIC
-{
 
 /*
  * Allow '_' symbol in identifiers
@@ -160,12 +155,17 @@ namespace BASIC
  * Indention of the loop bodies
  */
 #define LOOP_INDENT      1
+
 /*
  * Indention of the line numbers in LIST output
  */
 #define LINE_NUM_INDENT  1
 
+/**
+ * Aligned memory access. A bit slower, but necessary on ESP8266, MC68k, etc.
+ */
 #define CONF_USE_ALIGN 0
+
 /*
  * GFX module
  */
@@ -181,6 +181,7 @@ namespace BASIC
  * Prompt on new line
  */
 #define CLI_PROMPT_NEWLINE 1
+
 /*
  * LF character processing
  */
@@ -255,11 +256,9 @@ namespace BASIC
 /*
  * Max size of the program line
  */
-const uint8_t PROGSTRINGSIZE = 80;
+#define PROGSTRINGSIZE 80
 
 // Number of characters in variable name
-const uint8_t VARSIZE = 5;
-
-} // namespace BASIC
+#define VARSIZE 5
 
 #endif // CONFIG_HPP

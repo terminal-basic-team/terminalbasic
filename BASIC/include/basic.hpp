@@ -40,6 +40,12 @@
 
 #include "basic.h"
 
+#if USE_EXTEEPROM
+	#define USE_WIRE 1
+#else
+	#define USE_WIRE 0
+#endif
+
 #if S_INPUT == SERIAL_I
 	#define SERIAL_PORT_I Serial
 #elif S_INPUT == SERIAL1_I

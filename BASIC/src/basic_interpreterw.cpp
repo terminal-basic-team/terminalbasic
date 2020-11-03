@@ -155,14 +155,12 @@ static PGM_P const progmemStrings[uint8_t(ProgMemStrings::NUM_STRINGS)] PROGMEM 
 static const char noerror[] PROGMEM = STR_NO_ERROR;
 static const char outtamemerror[] PROGMEM = STR_OUTTA_MEMORY;
 static const char strRedimedArray[] PROGMEM = STR_REDIMED_ARRAY;
-/*	
-		REDIMED_ARRAY = 2,		// Attempt to define existing array
-		STACK_FRAME_ALLOCATION = 3,	// Unable to allocate stack frame
-		ARRAY_DECLARATION = 4,		// 
-		STRING_FRAME_SEARCH = 5,	// Missing string frame
-		INVALID_NEXT = 6,		// 
-		RETURN_WO_GOSUB = 7,
-		NO_SUCH_STRING = 8,
+static const char stackFrameAlloc[] PROGMEM = STR_STACK_FRAME_ALLOC;
+static const char strStringFrameMiss[] PROGMEM = STR_MISING_STRING_FRAME;
+static const char strInvalidNext[] PROGMEM = STR_INVALID_NEXT;
+static const char strReturnWOGosub[] PROGMEM = STR_RETURN_WO_GOSUB;
+static const char strNoSuchLine[] PROGMEM = STR_NO_SUCH_LINE;
+/*
 		INVALID_VALUE_TYPE = 9,
 		NO_SUCH_ARRAY = 10,
 		INTEGER_EXPRESSION_EXPECTED = 11,// Integer expression expected
@@ -186,8 +184,14 @@ static const char strRedimedArray[] PROGMEM = STR_REDIMED_ARRAY;
 PGM_P const Interpreter::errorStrings[] PROGMEM = {
 	noerror,
 	outtamemerror,
-	strRedimedArray
+	strRedimedArray,
+	stackFrameAlloc,
+	strStringFrameMiss,
+	strInvalidNext,
+	strReturnWOGosub,
+	strNoSuchLine
 };
+
 #endif // CONF_ERROR_STRINGS
 
 PGM_P
@@ -838,7 +842,7 @@ Interpreter::gotoLine(const Parser::Value &l)
 	if (s != nullptr)
 		_program.jump(_program.objectIndex(s));
 	else
-		raiseError(DYNAMIC_ERROR, NO_SUCH_STRING);
+		raiseError(DYNAMIC_ERROR, NO_SUCH_LINE);
 }
 
 void
