@@ -358,12 +358,16 @@ BOOLEAN HAL_gpio_readPin(uint8_t);
 /**
  * @brief
  * 
+ * @param ch channel
  * @param freq Frequency (HZ)
  * @param dur duration (ms) 0 - endless
  */
-void HAL_buzzer_tone(uint16_t, uint16_t);
+void HAL_buzzer_tone(uint8_t, uint16_t, uint16_t);
 
-void HAL_buzzer_notone();
+/**
+ * 
+ */
+void HAL_buzzer_notone(uint8_t);
 
 #endif /* HAL_BUZZER */
 

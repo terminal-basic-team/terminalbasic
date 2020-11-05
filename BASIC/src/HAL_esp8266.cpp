@@ -341,4 +341,9 @@ HAL_extmem_fileExists(const char fname[13])
 
 #endif // HAL_EXTMEM
 
+void
+HAL_update_concrete()
+{
+}
+
 #endif // ARDUINO_ARCH_ESP8266

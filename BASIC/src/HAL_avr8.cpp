@@ -116,4 +116,9 @@ HAL_terminal_isdataready(HAL_terminal_t t)
 
 #endif // HAL_ARDUINO_AVR8_TERMINAL
 
+void
+HAL_update_concrete()
+{
+}
+
 #endif // ARDUINO_ARCH_AVR

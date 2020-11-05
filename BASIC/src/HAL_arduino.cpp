@@ -43,7 +43,7 @@ class ESPI : public VT100::Print
 {
 public:
 
-#define CURSOR_BLINK_PERIOD 2
+#define CURSOR_BLINK_PERIOD 20
 
 	ESPI(uint8_t cs, uint8_t dc, uint8_t rs) :
 	tft(cs, dc, rs)
@@ -57,7 +57,7 @@ public:
 	
 	void begin()
 	{
-		tft.begin();
+		tft.begin(40000000ul);
 		tft.setTextColor(ILI9341_LIGHTGREY);
 		tft.setTextSize(1);
 	}
@@ -84,12 +84,7 @@ public:
 			return;
 
 		m_cursorState = !m_cursorState;
-		uint16_t color;
-		if (m_cursorState)
-			color = ILI9341_WHITE;
-		else
-			color = ILI9341_BLACK;
-		tft.fillRect(tft.getCursorX(), tft.getCursorY(), 6, 8, color);
+		drawCursor(m_cursorState);
 	}
  
 	Adafruit_ILI9341 tft;
@@ -715,14 +710,14 @@ HAL_gpio_readPin(uint8_t pin)
 #if HAL_BUZZER_ARDUINO == HAL_BUZZER_ARDUINO_TONE
 
 void
-HAL_buzzer_tone(uint16_t freq, uint16_t dur)
+HAL_buzzer_tone(uint8_t channel, uint16_t freq, uint16_t dur)
 {
-	pinMode(HAL_BUZZER_ARDUINO_PIN, OUTPUT);
-	tone(HAL_BUZZER_ARDUINO_PIN, freq, dur);
+	pinMode(channel, OUTPUT);
+	tone(channel, freq, dur);
 }
 
 void
-HAL_buzzer_notone()
+HAL_buzzer_notone(uint8_t channel)
 {
 	noTone(HAL_BUZZER_ARDUINO_PIN);
 }
@@ -730,5 +725,20 @@ HAL_buzzer_notone()
 #endif // HAL_BUZZER_ARDUINO
 
 #endif // HAL_BUZZER
+
+__BEGIN_DECLS
+void
+HAL_update_concrete();
+__END_DECLS
+
+void
+HAL_update()
+{
+#if HAL_ARDUINO_TERMINAL_OUTPUT == HAL_ARDUINO_TERMINAL_OUTPUT_ILI9341
+  espi.onTimer();
+#endif
+  
+  HAL_update_concrete();
+}
 
 #endif // ARDUINO

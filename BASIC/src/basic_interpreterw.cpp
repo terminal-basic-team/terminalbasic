@@ -370,8 +370,10 @@ Interpreter::step()
 	case PROGRAM_INPUT:
 		_inputPosition = 0;
 		memset(_inputBuffer, 0xFF, PROGSTRINGSIZE);
-		while (!readInput())
+		while (!readInput()) {
 			HAL_update();
+			HAL_time_sleep_ms(10);
+		}
 		exec();
 		break;
 	case VAR_INPUT:
@@ -379,8 +381,10 @@ Interpreter::step()
 			_output.print('?');
 			_inputPosition = 0;
 			memset(_inputBuffer, 0xFF, PROGSTRINGSIZE);
-			while (!readInput())
+			while (!readInput()) {
 				HAL_update();
+				HAL_time_sleep_ms(10);
+			}
 			doInput();
 		}
 		_state = EXECUTE;

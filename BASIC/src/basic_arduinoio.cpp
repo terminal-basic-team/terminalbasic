@@ -24,6 +24,9 @@
 #if CONF_MODULE_ARDUINOIO
 
 #include "Arduino.h"
+#ifdef ARDUINO_ARCH_ESP32
+#include "HAL_esp32.h"
+#endif
 #include <assert.h>
 
 namespace BASIC
@@ -149,7 +152,7 @@ ArduinoIO::comm_tone(Interpreter &i)
 	if (getIntegerFromStack(i, dur)) {
 		if (getIntegerFromStack(i, freq)) {
 			if (getIntegerFromStack(i, pin)) {
-				HAL_buzzer_tone(freq, dur);
+				HAL_buzzer_tone(pin, freq, dur);
 				return true;
 			}
 		}
@@ -162,7 +165,7 @@ ArduinoIO::comm_notone(Interpreter &i)
 {
 	INT pin;
 	if (getIntegerFromStack(i, pin)) {
-		noTone(pin);
+		HAL_buzzer_notone(pin);
 		return true;
 	}
 	return false;
@@ -192,7 +195,7 @@ ArduinoIO::aread_i(INT v)
 bool
 ArduinoIO::comm_beep(Interpreter &)
 {
-	HAL_buzzer_tone(BEEP_FREQ, BEEP_DURATION);
+	HAL_buzzer_tone(BEEP_PIN, BEEP_FREQ, BEEP_DURATION);
 	return true;
 }
 #endif // CONF_BEEP
