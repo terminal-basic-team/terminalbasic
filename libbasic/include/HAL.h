@@ -42,6 +42,11 @@ void HAL_initialize();
  */
 void HAL_finalize();
 
+/**
+ * @brief Regular update platform state
+ */
+void HAL_update();
+
 /*** Non volatile RAM interface ***/
 
 #if HAL_NVRAM
@@ -336,6 +341,31 @@ void HAL_gfx_circle(uint16_t, uint16_t, uint16_t);
 void HAL_gfx_circlec(uint16_t, uint16_t, uint16_t, HAL_gfx_color_t);
 
 #endif /* HAL_GFX */
+
+#if HAL_GPIO
+/**
+ * @brief write pin value
+ */
+void HAL_gpio_writePin(uint8_t, BOOLEAN);
+/**
+ * @brief read pin value
+ */
+BOOLEAN HAL_gpio_readPin(uint8_t);
+
+#endif /* HAL_GPIO */
+
+#if HAL_BUZZER
+/**
+ * @brief
+ * 
+ * @param freq Frequency (HZ)
+ * @param dur duration (ms) 0 - endless
+ */
+void HAL_buzzer_tone(uint16_t, uint16_t);
+
+void HAL_buzzer_notone();
+
+#endif /* HAL_BUZZER */
 
 __END_DECLS
 

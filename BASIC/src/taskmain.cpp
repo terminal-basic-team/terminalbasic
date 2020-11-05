@@ -57,5 +57,6 @@ setup()
 void
 loop()
 {
+	HAL_update();
 	activeTask->step();
 }

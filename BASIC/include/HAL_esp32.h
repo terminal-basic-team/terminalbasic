@@ -48,5 +48,16 @@
 
 #endif /* HAL_EXTMEM */
 
+#if HAL_BUZZER
+
+#define HAL_BUZZER_ESP32_NONE 0
+#define HAL_BUZZER_ESP32_PWM 1
+
+#define HAL_BUZZER_ESP32 HAL_BUZZER_ESP32_PWM
+
+#define HAL_BUZZER_ESP32_PIN 6
+
+#endif /* HAL_BUZZER */
+
 #endif /* HAL_ESP32_H */
 

@@ -271,6 +271,8 @@ loop()
 {
 	LOG_TRACE;
 	
+	HAL_update();
+	
 	basic.step();
 #if BASIC_MULTITERMINAL
 #ifdef HAVE_HWSERIAL1

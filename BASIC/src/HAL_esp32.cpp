@@ -47,6 +47,10 @@ static FS& gfs = SD;
 
 #endif // HAL_EXTMEM
 
+#if HAL_BUZZER
+#define BUZZER_CHANNEL 0
+#endif
+
 __BEGIN_DECLS
 
 void
@@ -381,5 +385,38 @@ HAL_extmem_fileExists(const char fname[13])
 }
 
 #endif // HAL_EXTMEM
+
+#if HAL_BUZZER
+
+#if HAL_BUZZER_ESP32 == HAL_BUZZER_ESP32_PWM
+
+static uint32_t tone_stop = 0;
+
+void
+HAL_buzzer_tone(uint16_t freq, uint16_t dur)
+{
+	ledcAttachPin(HAL_BUZZER_ESP32_PIN, BUZZER_CHANNEL);
+	ledcWriteTone(BUZZER_CHANNEL, freq);
+	tone_stop = millis() + dur;
+}
+
+void
+HAL_buzzer_notone()
+{
+	ledcDetachPin(HAL_BUZZER_ESP32_PIN);
+	ledcWrite(BUZZER_CHANNEL, 0);
+	tone_stop = 0;
+}
+
+#endif // HAL_BUZZER_ESP32
+
+#endif // HAL_BUZZER
+
+void
+HAL_update()
+{
+	if ((tone_stop > 0) && (tone_stop < millis()))
+		HAL_buzzer_notone();
+}
 
 #endif // ARDUINO_ARCH_ESP32

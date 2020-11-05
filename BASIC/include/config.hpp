@@ -127,7 +127,7 @@
 #define CONF_ERROR_STRINGS 0
 
 // Arduino IO module
-#define CONF_MODULE_ARDUINOIO      1
+#define CONF_MODULE_ARDUINOIO      0
 #if CONF_MODULE_ARDUINOIO
 	// TONE command support
 	#define CONF_MODULE_ARDUINOIO_TONE 0
@@ -139,6 +139,7 @@
 	#if CONF_BEEP
 		#define BEEP_PIN 5
 		#define BEEP_FREQ 440
+		#define BEEP_DURATION 300
 	#endif // CONF_BEEP
 #endif // CONF_MODULE_ARDUINOIO_TONE
 
@@ -239,10 +240,10 @@
 #define HAL_O         13
 
 // Input select
-#define S_INPUT SERIALL_I
+#define S_INPUT HAL_I
 
 // Output select
-#define S_OUTPUT SERIALL_O
+#define S_OUTPUT HAL_O
 
 #if USE_EXTEEPROM
 	#define USE_WIRE 1

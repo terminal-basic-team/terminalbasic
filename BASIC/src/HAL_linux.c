@@ -55,6 +55,12 @@ static char ext_root[256];
 #endif /* HAL_EXTMEM */
 
 void
+HAL_update()
+{
+	puts(__PRETTY_FUNCTION__);
+}
+
+void
 HAL_initialize()
 {
 #if HAL_NVRAM

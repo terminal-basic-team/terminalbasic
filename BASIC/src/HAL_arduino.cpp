@@ -229,6 +229,8 @@ protected:
 private:
 
 	uint8_t m_row, m_column;
+	
+	uint8_t m_rows, m_columns;
 
 	uint16_t m_scroll;
 
@@ -685,5 +687,48 @@ HAL_random_generate(uint32_t max)
 {
 	return random(max);
 }
+
+#if HAL_GPIO
+
+#if HAL_GPIO_ARDUINO == HAL_GPIO_ARDUINO_CORE
+
+void
+HAL_gpio_writePin(uint8_t pin, BOOLEAN val)
+{
+	pinMode(pin, OUTPUT);
+	digitalWrite(pin, val ? HIGH : LOW);
+}
+
+BOOLEAN
+HAL_gpio_readPin(uint8_t pin)
+{
+	pinMode(pin, INPUT);
+	return digitalRead(pin) == HIGH;
+}
+
+#endif // HAL_GPIO_ARDUINO
+
+#endif // HAL_GPIO
+
+#if HAL_BUZZER
+
+#if HAL_BUZZER_ARDUINO == HAL_BUZZER_ARDUINO_TONE
+
+void
+HAL_buzzer_tone(uint16_t freq, uint16_t dur)
+{
+	pinMode(HAL_BUZZER_ARDUINO_PIN, OUTPUT);
+	tone(HAL_BUZZER_ARDUINO_PIN, freq, dur);
+}
+
+void
+HAL_buzzer_notone()
+{
+	noTone(HAL_BUZZER_ARDUINO_PIN);
+}
+
+#endif // HAL_BUZZER_ARDUINO
+
+#endif // HAL_BUZZER
 
 #endif // ARDUINO
