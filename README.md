@@ -13,13 +13,18 @@ Resulting interpreter is partially compliant to the standards ISO/IEC 6373:1984 
 supports some non-standard features, allowing to use many type-in utilities and games from old BASIC books and magazines.
 
 Some features of the TB interpreter:
-- supports number of datatypes (integer (2 bytes signed), long integer (4 bytes signed), real (4 bytes binary floating point), long real (8 bytes binary floating point), boolean and string) using variables and function suffixes;
+- supports number of datatypes (integer (2 bytes signed), long integer (4 bytes signed), real (4 bytes binary floating point),
+long real (8 bytes binary floating point), boolean and string) using variables and function suffixes;
 - multidimensional arrays of arbitrary size and dimensions;
 - Darthmouth-BASIC-like matrix operations;
 - optional time-sharing system mode with round-robin scheduling using multiple I/O devices for each user (i.e. USART);
 - configuration headers provide the number of options, which enable inclusion of the language parts and features thus allowing
 to adjust the code size.
 
-Sources of the TB and supporting libraries are hosted on Github, but the main project page for downloads and support is
-at [SourceForge](https://sourceforge.net/projects/terminal-basic/). Project blog with news and discussion is placed at
+Sources of the TB and supporting libraries are hosted at [bitbucket.org](https://bitbucket.org/terminalbasicteam/)
+with  [Github mirrors](https://github.com/users/starling13/projects/1). Main project page for downloads and support placed
+at [SourceForge](https://sourceforge.net/projects/terminal-basic/). Project blog with news and discussion is hosted at
 [hackaday.io](https://hackaday.io/project/22036-terminal-basic).
+
+There are manual documents, describing the process of ackuiring different versions of TB, configuration and setup questions, language syntax
+and developing extensions and TB itself.
