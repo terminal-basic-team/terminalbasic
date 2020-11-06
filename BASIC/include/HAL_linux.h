@@ -26,8 +26,6 @@
 #ifndef HAL_LINUX_H
 #define HAL_LINUX_H
 
-#include <sys/cdefs.h>
-
 #define FILES_PATH "/terminal_basic_HAL/"
 
 #if HAL_NVRAM

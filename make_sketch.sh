@@ -92,7 +92,7 @@ SRC="	./libbasic/include/basic.h \
 	../libarduinoext/src/liquidcrystalprint.cpp \
 	../libarduinoext/src/seriallight.cpp"
 
-COPY_FILES="README ChangeLog COPYING"
+COPY_FILES="README.md ChangeLog COPYING"
 
 rm -rf $SKETCH
 mkdir -p $SKETCH
