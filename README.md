@@ -13,6 +13,7 @@ Resulting interpreter is partially compliant to the standards ISO/IEC 6373:1984 
 supports some non-standard features, allowing to use many type-in utilities and games from old BASIC books and magazines.
 
 Some features of the TB interpreter:
+
 - supports number of datatypes (integer (2 bytes signed), long integer (4 bytes signed), real (4 bytes binary floating point),
 long real (8 bytes binary floating point), boolean and string) using variables and function suffixes;
 - multidimensional arrays of arbitrary size and dimensions;
