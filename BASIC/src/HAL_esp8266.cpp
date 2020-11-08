@@ -34,7 +34,7 @@ static File f;
 #define HAL_ESP8266_EXTEM_SPIFFS 1
 #define HAL_ESP8266_EXTEM_SD 2
 
-#define HAL_ESP8266 HAL_ESP8266_EXTEM_SPIFFS
+#define HAL_ESP8266_EXTEM HAL_ESP8266_EXTEM_SPIFFS
 
 #if HAL_ESP8266 == HAL_ESP8266_EXTEM_SD
 #include <SD.h>
@@ -128,20 +128,25 @@ HAL_extmem_openfile(const char fname[13])
 			break;
 	}
 
-	if (i == HAL_EXTMEM_NUM_FILES)
+	if (i == HAL_EXTMEM_NUM_FILES) {
+		Serial.println("Exceed number of opened fils");
 		return 0;
+	}
 
 #if HAL_ESP8266_EXTEM == HAL_ESP8266_EXTEM_SPIFFS
 
 	char fname_[14];
 	fname_[0] = '/';
 	strncpy(fname_ + 1, fname, 12);
+	fname_[13] = '\0';
 
 	extmem_files[i] = SPIFFS.open(fname_, "r+");
 	if (!extmem_files[i]) {
 		extmem_files[i] = SPIFFS.open(fname_, "w");
-		if (!extmem_files[i])
+		if (!extmem_files[i]) {
+			Serial.println("SPIFFS.open");
 			return 0;
+		}
 	}
 #elif HAL_ESP8266_EXTEM == HAL_ESP8266_EXTEM_SD
 
@@ -274,6 +279,7 @@ HAL_extmem_deletefile(const char fname[13])
 	char fname_[14];
 	fname_[0] = '/';
 	strncpy(fname_ + 1, fname, 12);
+	fname_[13] = '\0';
 
 	if (!SPIFFS.remove(fname_))
 		Serial.println("ERROR: SPIFFS.remove");
@@ -332,6 +338,7 @@ HAL_extmem_fileExists(const char fname[13])
 	char fname_[14];
 	fname_[0] = '/';
 	strncpy(fname_ + 1, fname, 12);
+	fname_[13] = '\0';
 
 	return SPIFFS.exists(fname_);
 #elif HAL_ESP8266_EXTEM == HAL_ESP8266_EXTEM_SD
@@ -341,9 +348,13 @@ HAL_extmem_fileExists(const char fname[13])
 
 #endif // HAL_EXTMEM
 
+__BEGIN_DECLS
+
 void
 HAL_update_concrete()
 {
 }
+
+__END_DECLS
 
 #endif // ARDUINO_ARCH_ESP8266
