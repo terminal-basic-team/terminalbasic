@@ -58,7 +58,6 @@ static char ext_root[256];
 void
 HAL_update()
 {
-	puts(__PRETTY_FUNCTION__);
 }
 
 void
@@ -285,7 +284,7 @@ uint8_t
 HAL_extmem_readfromfile(HAL_extmem_file_t file)
 {
 	if ((file == 0)
-	 || (file > EXTMEM_NUM_FILES)
+	 || (file > HAL_EXTMEM_NUM_FILES)
 	 || (extmem_files[file-1] == -1))
 		return 0;
 	
@@ -300,7 +299,7 @@ void
 HAL_extmem_writetofile(HAL_extmem_file_t file, uint8_t byte)
 {
 	if ((file == 0)
-	 || (file > EXTMEM_NUM_FILES)
+	 || (file > HAL_EXTMEM_NUM_FILES)
 	 || (extmem_files[file-1] == -1))
 		return;
 	
