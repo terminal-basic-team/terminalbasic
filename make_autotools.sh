@@ -90,7 +90,7 @@ SRC="	./libbasic/include/basic.h
 	../libarduinoext/src/seriallight.cpp
 	../libarduinoext/include/ascii.hpp"
 
-COPY_FILES="README README.pc ChangeLog COPYING configure.ac Makefile.am"
+COPY_FILES="ChangeLog COPYING configure.ac Makefile.am"
 
 rm -rf $SKETCH
 mkdir -p $SKETCH
@@ -122,6 +122,7 @@ for file in $COPY_FILES
 do
 	cp ${file} ${SKETCH}
 done
+cp README.md ${SKETCH}/README
 
 cd $SKETCH
 autoreconf

@@ -13,4 +13,4 @@ SUBDIRS = terminalbasic
 #
 # List of common documentation files
 #
-dist_doc_DATA = README COPYING ChangeLog README.pc
+dist_doc_DATA = README COPYING ChangeLog

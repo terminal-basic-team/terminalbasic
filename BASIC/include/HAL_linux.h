@@ -33,7 +33,6 @@
 #endif
 
 #if HAL_EXTMEM
-#define EXTMEM_NUM_FILES 8
 #define EXTMEM_DIR_PATH "extmem/"
 #endif /* HAL_EXTMEM */
 

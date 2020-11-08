@@ -42,7 +42,7 @@ AC_HEADER_TIME
 AC_STRUCT_TM
 AC_CHECK_TYPES(unsigned long long)
 #PKG_CHECK_MODULES(posixcpp, posixcpp)
-PKG_CHECK_MODULES(sdl2, sdl2)
+#PKG_CHECK_MODULES(sdl2, sdl2)
 
 #############################################################################
 #

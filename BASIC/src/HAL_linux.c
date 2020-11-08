@@ -181,6 +181,16 @@ HAL_time_gettime_ms()
 	return ts.tv_sec * 1000l + ts.tv_nsec / 1000000l;
 }
 
+void
+HAL_time_sleep_ms(uint32_t ms)
+{
+	struct timespec ts, rem;
+	ts.tv_sec = ms / 1000;
+	ts.tv_nsec = ms % 1000;
+	if (clock_nanosleep(CLOCK_MONOTONIC, 0, &ts, &rem) != 0)
+		perror("clock_nanosleep");
+}
+
 #if HAL_EXTMEM
 
 HAL_extmem_file_t

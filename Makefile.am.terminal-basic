@@ -82,8 +82,8 @@ terminalbasic_SOURCES=arduinoext.hpp \
 	avr/sfr_defs.h \
 	util/crc16.h
 
-terminalbasic_CXXFLAGS=${sdl2_CFLAGS} -I../ -Iutility -std=gnu++11 -DHAL_LINUX
+terminalbasic_CXXFLAGS=-I../ -Iutility -std=gnu++11 -DHAL_LINUX
 
-terminalbasic_CFLAGS=${sdl2_CFLAGS} -I../ -Iutility -std=gnu11 -DHAL_LINUX
+terminalbasic_CFLAGS=-I../ -Iutility -std=gnu11 -DHAL_LINUX
 
 terminalbasic_LDADD=${sdl2_LIBS}
