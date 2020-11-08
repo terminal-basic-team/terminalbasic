@@ -34,9 +34,16 @@
 #include "gfxterm.hpp"
 #endif
 
-#if HAL_ARDUINO_TERMINAL_OUTPUT == HAL_ARDUINO_TERMINAL_OUTPUT_ILI9341
+#if (HAL_ARDUINO_TERMINAL_OUTPUT == HAL_ARDUINO_TERMINAL_OUTPUT_ILI9341) || \
+    (HAL_ARDUINO_TERMINAL_OUTPUT == HAL_ARDUINO_TERMINAL_OUTPUT_TFTeSPI)
 
 #include "vt100.hpp"
+
+#endif
+
+
+#if HAL_ARDUINO_TERMINAL_OUTPUT == HAL_ARDUINO_TERMINAL_OUTPUT_ILI9341
+
 #include "Adafruit_ILI9341.h"
 
 class ESPI : public VT100::Print
@@ -254,7 +261,265 @@ uint16_t ESPI::s_colors[uint8_t(VT100::Color::NUM_COLORS)][2] PROGMEM = {
 
 static ESPI espi(TFT_CS, TFT_DC, TFT_RS);
 
-#endif // HAL_ARDUINO_TERMINAL_OUTPUT == HAL_ARDUINO_TERMINAL_OUTPUT_ILI9341
+#elif HAL_ARDUINO_TERMINAL_OUTPUT == HAL_ARDUINO_TERMINAL_OUTPUT_TFTeSPI
+
+#include "TFT_eSPI.h"
+
+#define TFT_ROWS 16
+#define TFT_COLS 21
+
+class ESPI : public VT100::Print
+{
+public:
+
+#define CURSOR_BLINK_PERIOD 20
+
+  ESPI()
+  {
+    m_row = m_column = m_scroll = 0;
+    m_rows = TFT_ROWS, m_columns = TFT_COLS;
+    m_attr = VT100::TextAttr::NO_ATTR;
+    m_lockCursor = false;
+    m_cursorCounter = CURSOR_BLINK_PERIOD;
+    memset(m_screenBuffer[0], ' ', m_rows*m_columns);
+    memset(m_screenBuffer[1], VT100::TextAttr::NO_ATTR, m_rows*m_columns);
+  }
+  
+  void begin()
+  {
+    tft.begin();
+    tft.setTextColor(TFT_LIGHTGREY);
+    tft.setTextSize(1);
+  }
+  
+  void clear() override
+  {
+    memset(m_screenBuffer[0], ' ', m_rows*m_columns);
+    memset(m_screenBuffer[1], ' ', m_rows*m_columns);
+    tft.fillScreen(TFT_BLACK);
+    m_scroll = 0;
+    //tft.scrollTo(m_scroll);
+    setCursor(0, 0);
+    drawCursor(true);
+  }
+  
+  void onTimer()
+  {
+    // If cursor is locked by the non-interrupt code - return
+    if (m_lockCursor)
+      return;
+
+    // Count down cursor blank interrupt counter
+    if (--m_cursorCounter == 0)
+      m_cursorCounter = CURSOR_BLINK_PERIOD;
+    else
+      return;
+
+    m_cursorState = !m_cursorState;
+    drawCursor(m_cursorState);
+  }
+ 
+  TFT_eSPI tft;
+
+protected:
+  
+  void drawCursor(bool v)
+  {
+    tft.fillRect(tft.getCursorX(), tft.getCursorY(), 6, 8,
+        v ? TFT_WHITE : TFT_BLACK);
+  }
+  
+  void scrollLine()
+  {
+    if (m_row >= m_rows-1) {
+      //m_scroll += 8;
+      //if (m_scroll >= tft.height())
+      //  m_scroll -= tft.height();
+      //tft.scrollTo(m_scroll);
+      memmove(m_screenBuffer[0], m_screenBuffer[0]+m_columns, m_columns*(m_rows-1));
+      memmove(m_screenBuffer[1], m_screenBuffer[1]+m_columns, m_columns*(m_rows-1));
+      
+      memset(m_screenBuffer[0]+m_columns*(m_rows-1), ' ', m_columns);
+      memset(m_screenBuffer[1]+m_columns*(m_rows-1), VT100::TextAttr::NO_ATTR, m_columns);
+      
+      tft.setCursor(0, 0);
+      tft.fillScreen(TFT_BLACK);
+
+      VT100::TextAttr attr = VT100::TextAttr::NO_ATTR;
+      // Save current attributes
+      VT100::TextAttr oldAttr = m_attr;
+      for (uint8_t row=0; row<m_rows-1; ++row)
+        for (uint8_t col=0; col<m_columns; ++col) {
+          if (m_screenBuffer[1][row*m_columns + col] != attr) {
+            attr = m_attr = VT100::TextAttr(m_screenBuffer[1][row*m_columns + col]);
+            setTextAttrs();
+          }
+          tft.write(m_screenBuffer[0][row*m_columns + col]);
+        }
+      // Restore current attributes
+      m_attr = oldAttr;
+      tft.fillRect(0, (tft.height() - 8 + m_scroll) %
+          tft.height(), tft.width(), 8, TFT_BLACK);
+    } else
+      ++m_row;
+    setCursor(m_column, m_row);
+  }
+  
+  void writeChar(uint8_t c) override
+  {
+    m_lockCursor = true;
+    drawCursor(false);
+    switch (c) {
+    case '\n':
+      if (m_row < m_rows-1)
+        tft.write('\n');
+      scrollLine();
+      break;
+    case '\r':
+      m_column = 0;
+      break;
+    case 8: //backspace
+      if (m_column > 0)
+        setCursor(--m_column, m_row);
+      else if (m_row > 0) {
+        m_column = m_columns-1;
+        setCursor(m_column, --m_row);
+      }
+      break;
+    default:
+      tft.write(c);
+      m_screenBuffer[0][m_row*m_columns+m_column] = c;
+      m_screenBuffer[1][m_row*m_columns+m_column] = m_attr;
+      if (m_column >= m_columns-1) {
+        m_column = 0;
+        scrollLine();
+      } else
+        ++m_column;
+    }
+    drawCursor(true);
+    m_lockCursor = false;
+  }
+  
+  uint8_t getCursorX() override
+  {
+    return m_column;
+  }
+
+  void setCursorX(uint8_t x) override
+  {
+    setCursor(x, m_row);
+  }
+
+  void setCursor(uint8_t x, uint8_t y) override
+  {
+    drawCursor(false);
+    m_row = y % m_rows;
+    m_column = x % m_columns;
+    tft.setCursor(m_column * 6, (y * 8 + m_scroll) % tft.height());
+    drawCursor(true);
+  }
+    
+  void addAttribute(VT100::TextAttr ta) override
+  {
+    switch (ta) {
+    case VT100::TextAttr::BRIGHT:
+      m_attr |= VT100::TextAttr::BRIGHT;
+      break;
+    case VT100::TextAttr::C_GREEN:
+    case VT100::TextAttr::C_YELLOW:
+    case VT100::TextAttr::C_BLUE:
+    case VT100::TextAttr::C_CYAN:
+    case VT100::TextAttr::C_MAGENTA:
+    case VT100::TextAttr::C_RED:
+    case VT100::TextAttr::C_WHITE:
+    case VT100::TextAttr::C_BLACK:
+      m_attr &= VT100::TextAttr(0x0F);
+      m_attr |= ta;
+      break;
+    default:
+      break;
+    }
+    setTextAttrs();
+  }
+
+  void resetAttributes() override
+  {
+    tft.setTextColor(TFT_LIGHTGREY);
+    m_attr = VT100::TextAttr::NO_ATTR;
+  }
+
+private:
+
+  void setTextAttrs()
+  {
+    VT100::Color color = VT100::Color::COLOR_BLACK;
+    switch (m_attr & 0xF0) {
+    case VT100::TextAttr::C_GREEN:
+      color = VT100::Color::COLOR_GREEN;
+      break;
+    case VT100::TextAttr::C_YELLOW:
+      color = VT100::Color::COLOR_YELLOW;
+      break;
+    case VT100::TextAttr::C_BLUE:
+      color = VT100::Color::COLOR_BLUE;
+      break;
+    case VT100::TextAttr::C_CYAN:
+      color = VT100::Color::COLOR_CYAN;
+      break;
+    case VT100::TextAttr::C_MAGENTA:
+      color = VT100::Color::COLOR_MAGENTA;
+      break;
+    case VT100::TextAttr::C_RED:
+      color = VT100::Color::COLOR_RED;
+      break;
+    case VT100::TextAttr::C_WHITE:
+      color = VT100::Color::COLOR_WHITE;
+      break;
+    case VT100::TextAttr::C_BLACK:
+      color = VT100::Color::COLOR_BLACK;
+      break;
+    }
+
+    if (m_attr & VT100::TextAttr::BRIGHT)
+      tft.setTextColor(pgm_read_word(&s_colors[color][1]));
+    else
+      tft.setTextColor(pgm_read_word(&s_colors[color][0]));
+  }
+
+  uint8_t m_row, m_column;
+  
+  uint8_t m_rows, m_columns;
+
+  uint16_t m_scroll;
+
+  VT100::TextAttr m_attr;
+
+  static uint16_t s_colors[uint8_t(VT100::Color::NUM_COLORS)][2] PROGMEM;
+
+  bool m_lockCursor, m_cursorState;
+
+  uint8_t m_cursorCounter;
+
+  uint8_t m_screenBuffer[2][TFT_COLS*TFT_ROWS];
+};
+
+#define TFT_DARKYELLOW 0x7BE0
+#define TFT_DARKMAGENTA 0x780F
+
+uint16_t ESPI::s_colors[uint8_t(VT100::Color::NUM_COLORS)][2] PROGMEM = {
+  { TFT_BLACK,       TFT_DARKGREY }, // COLOR_BLACK
+  { TFT_RED,         TFT_PINK }, // COLOR_RED
+  { TFT_DARKGREEN,   TFT_GREEN }, // COLOR_GREEN
+  { TFT_DARKYELLOW,  TFT_YELLOW },  // COLOR_YELLOW
+  { TFT_NAVY,        TFT_BLUE },  // COLOR_BLUE
+  { TFT_DARKMAGENTA, TFT_MAGENTA },  // COLOR_MAGENTA
+  { TFT_DARKCYAN,    TFT_CYAN },  // COLOR_CYAN
+  { TFT_LIGHTGREY,   TFT_WHITE } // COLOR_WHITE
+};
+
+static ESPI espi;
+
+#endif // HAL_ARDUINO_TERMINAL_OUTPUT
 
 __BEGIN_DECLS
 void
@@ -278,7 +543,8 @@ HAL_initialize()
 #endif
 #endif // HAL_ARDUINO_TERMINAL
 
-#if HAL_ARDUINO_TERMINAL_OUTPUT == HAL_ARDUINO_TERMINAL_OUTPUT_ILI9341
+#if HAL_ARDUINO_TERMINAL_OUTPUT == HAL_ARDUINO_TERMINAL_OUTPUT_ILI9341 || \
+    HAL_ARDUINO_TERMINAL_OUTPUT == HAL_ARDUINO_TERMINAL_OUTPUT_TFTeSPI
 	espi.begin();
 #endif // HAL_ARDUINO_TERMINAL
 
@@ -313,7 +579,8 @@ HAL_terminal_write(HAL_terminal_t t, uint8_t b)
 	else if (t == 1)
 		Serial1.write(b);
 #endif
-#elif HAL_ARDUINO_TERMINAL_OUTPUT == HAL_ARDUINO_TERMINAL_OUTPUT_ILI9341
+#elif HAL_ARDUINO_TERMINAL_OUTPUT == HAL_ARDUINO_TERMINAL_OUTPUT_ILI9341 || \
+      HAL_ARDUINO_TERMINAL_OUTPUT == HAL_ARDUINO_TERMINAL_OUTPUT_TFTeSPI
 	if (t == 0)
 		espi.write(b);
 #endif
@@ -516,6 +783,20 @@ static const uint16_t ilicolors[] PROGMEM = {
 
 static uint16_t ilicolor[2] = { ILI9341_WHITE, ILI9341_BLACK };
 
+#elif HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_TFTeSPI
+static const uint16_t ilicolors[] PROGMEM = {
+  TFT_BLACK,   // 0
+  TFT_WHITE,   // 1
+  TFT_RED,     // 2
+  TFT_GREEN,   // 3
+  TFT_BLUE,    // 4
+  TFT_CYAN,    // 5
+  TFT_MAGENTA, // 6
+  TFT_YELLOW   // 7
+};
+
+static uint16_t ilicolor[2] = { TFT_WHITE, TFT_BLACK };
+
 #endif // HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_ILI9341
 
 void
@@ -527,7 +808,8 @@ HAL_gfx_setColor(HAL_gfx_color_t color)
 
 	_setColors();
  
-#elif HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_ILI9341
+#elif HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_ILI9341 || \
+      HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_TFTeSPI
 
   if (color != HAL_GFX_NOTACOLOR)
     ilicolor[0] = pgm_read_word(&ilicolors[uint8_t(color)-1]);
@@ -544,7 +826,8 @@ HAL_gfx_setBgColor(HAL_gfx_color_t color)
 
 	_setColors();
 
-#elif HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_ILI9341
+#elif HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_ILI9341 || \
+      HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_TFTeSPI
 
   if (color != HAL_GFX_NOTACOLOR)
     ilicolor[1] = pgm_read_word(&ilicolors[uint8_t(color)-1]);
@@ -560,7 +843,8 @@ HAL_gfx_point(uint16_t x, uint16_t y)
 	_writeCommand(GFXTERM::Command::POINT);
 	_write16(x); _write16(y);
  
-#elif HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_ILI9341
+#elif HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_ILI9341 || \
+      HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_TFTeSPI
 
   if (_colors[0] != HAL_GFX_NOTACOLOR)
     espi.tft.drawPixel(x, y, ilicolor[0]);
@@ -578,7 +862,8 @@ HAL_gfx_line(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2)
 	_writeCommand(GFXTERM::Command::LINE);
 	_write16(x1); _write16(y1); _write16(x2); _write16(y2);
 
-#elif HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_ILI9341
+#elif HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_ILI9341 || \
+      HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_TFTeSPI
 
   if (_colors[0] != HAL_GFX_NOTACOLOR)
     espi.tft.drawLine(x1, y1, x2, y2, ilicolor[0]);
@@ -595,7 +880,8 @@ HAL_gfx_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h)
 	_writeCommand(GFXTERM::Command::BOX);
 	_write16(x); _write16(y); _write16(w); _write16(h);
 
-#elif HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_ILI9341
+#elif HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_ILI9341 || \
+      HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_TFTeSPI
 
   if (_colors[1] != HAL_GFX_NOTACOLOR)
     espi.tft.fillRect(x, y, w, h, ilicolor[1]);
@@ -608,7 +894,8 @@ HAL_gfx_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h)
 void
 HAL_gfx_lineto(uint16_t x, uint16_t y)
 {
-#if HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_ILI9341
+#if HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_ILI9341 || \
+    HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_TFTeSPI
 
   if (_colors[0] != HAL_GFX_NOTACOLOR)
     espi.tft.drawLine(linex, liney, x, y, ilicolor[0]);
@@ -625,7 +912,8 @@ HAL_gfx_circle(uint16_t x, uint16_t y, uint16_t r)
 	_writeCommand(GFXTERM::Command::CIRCLEC);
 	_write16(x); _write16(y); _write16(r);
 
-#elif HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_ILI9341
+#elif HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_ILI9341 || \
+      HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_TFTeSPI
 
   if (_colors[1] != HAL_GFX_NOTACOLOR)
     espi.tft.fillCircle(x, y, r, ilicolor[1]);
@@ -734,8 +1022,9 @@ __END_DECLS
 void
 HAL_update()
 {
-#if HAL_ARDUINO_TERMINAL_OUTPUT == HAL_ARDUINO_TERMINAL_OUTPUT_ILI9341
-  espi.onTimer();
+#if HAL_ARDUINO_TERMINAL_OUTPUT == HAL_ARDUINO_TERMINAL_OUTPUT_ILI9341 || \
+    HAL_ARDUINO_TERMINAL_OUTPUT == HAL_ARDUINO_TERMINAL_OUTPUT_TFTeSPI
+	espi.onTimer();
 #endif
   
   HAL_update_concrete();
