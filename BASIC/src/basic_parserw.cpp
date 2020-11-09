@@ -1952,7 +1952,7 @@ Parser::fMatrixExpression(const char *buf)
 			default:
 				return false;
 			}
-			char second[VARSIZE];
+			char second[IDSIZE];
 			if (_lexer.getNext() && fIdentifier(second)) {
 				if (getMode() == EXECUTE)
 					_interpreter.assignMatrix(buf, first,
