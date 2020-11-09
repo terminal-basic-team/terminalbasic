@@ -13,7 +13,7 @@ SRC="	./libbasic/include/basic.h
 	./libbasic/src/basic.c
 	./libbasic/include/tools.h
 	./libbasic/src/tools.c
-	./libbasic/include/config.h
+	./libbasic/include/basic_config.h
 	./libbasic/include/HAL.h
 	./libbasic/src/HAL.c
 	./libbasic/include/HAL_config.h
@@ -35,12 +35,15 @@ SRC="	./libbasic/include/basic.h
 	./BASIC/include/basic.hpp
 	./BASIC/include/basic_lexer.hpp
 	./BASIC/src/basic_lexerw.cpp
-	./BASIC/include/config.hpp
+	./BASIC/include/basic_config.hpp
 	./BASIC/include/config_linux.hpp
 	./BASIC/include/version.h
 	./BASIC/src/basic.cpp
-	./BASIC/include/HAL_linux.h
-	./BASIC/src/HAL_linux.c
+	./BASIC/include/HAL_pc.h
+	./BASIC/include/_HAL_pc.h
+	./BASIC/src/HAL_pc.c
+	./BASIC/src/HAL_posix.c
+	./BASIC/src/HAL_mingw32.c
 	./BASIC/include/HALProxyStream.hpp
 	./BASIC/src/HALProxyStream.cpp
 	./BASIC/include/basic_interpreter.hpp

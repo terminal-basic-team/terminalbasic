@@ -14,8 +14,11 @@ terminalbasic_SOURCES=arduinoext.hpp \
 	basic.hpp \
 	basic.c \
 	HAL.c \
-	HAL_linux.h \
-	HAL_linux.c \
+	HAL_pc.h \
+	_HAL_pc.h \
+	HAL_pc.c \
+	HAL_posix.c \
+	HAL_mingw32.c \
 	HALProxyStream.cpp \
 	HALProxyStream.hpp \
 	basic_functionblock.cpp \
@@ -56,8 +59,8 @@ terminalbasic_SOURCES=arduinoext.hpp \
 	strings_ru.hpp \
 	bytearray.cpp \
 	bytearray.hpp \
-	config.h \
-	config.hpp \
+	basic_config.h \
+	basic_config.hpp \
 	config_linux.hpp \
 	HAL.h \
 	HAL_config.h \
@@ -82,8 +85,8 @@ terminalbasic_SOURCES=arduinoext.hpp \
 	avr/sfr_defs.h \
 	util/crc16.h
 
-terminalbasic_CXXFLAGS=-I../ -Iutility -std=gnu++11 -DHAL_LINUX
+terminalbasic_CXXFLAGS=-I../ -Iutility -std=gnu++11 -DHAL_PC_TERMINAL
 
-terminalbasic_CFLAGS=-I../ -Iutility -std=gnu11 -DHAL_LINUX
+terminalbasic_CFLAGS=-I../ -Iutility -std=gnu11 -DHAL_PC_TERMINAL
 
-terminalbasic_LDADD=${sdl2_LIBS}
+terminalbasic_LDADD=${sdl2_LIBS} -lpthread

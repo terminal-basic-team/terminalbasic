@@ -39,7 +39,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "config.hpp"
+#include "basic_config.hpp"
 #include "basic.hpp"
 #include "basic_task.hpp"
 

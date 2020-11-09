@@ -6,10 +6,12 @@
       <itemPath>include/HAL_arduino.h</itemPath>
       <itemPath>include/HAL_avr8.h</itemPath>
       <itemPath>include/HAL_esp32.h</itemPath>
-      <itemPath>include/HAL_linux.h</itemPath>
+      <itemPath>include/HAL_pc.h</itemPath>
       <itemPath>include/HAL_sdl.h</itemPath>
+      <itemPath>include/_HAL_pc.h</itemPath>
       <itemPath>include/basic.hpp</itemPath>
       <itemPath>include/basic_arduinoio.hpp</itemPath>
+      <itemPath>include/basic_config.hpp</itemPath>
       <itemPath>include/basic_dataparser.hpp</itemPath>
       <itemPath>include/basic_exteeprom.hpp</itemPath>
       <itemPath>include/basic_extmemfs.hpp</itemPath>
@@ -23,7 +25,6 @@
       <itemPath>include/basic_parser_value.hpp</itemPath>
       <itemPath>include/basic_program.hpp</itemPath>
       <itemPath>include/basic_task.hpp</itemPath>
-      <itemPath>include/config.hpp</itemPath>
       <itemPath>include/config_arduino.hpp</itemPath>
       <itemPath>include/config_linux.hpp</itemPath>
       <itemPath>src/strings_en.hpp</itemPath>
@@ -37,7 +38,9 @@
       <itemPath>src/HAL_avr8.cpp</itemPath>
       <itemPath>src/HAL_esp32.cpp</itemPath>
       <itemPath>src/HAL_esp8266.cpp</itemPath>
-      <itemPath>src/HAL_linux.c</itemPath>
+      <itemPath>src/HAL_mingw32.c</itemPath>
+      <itemPath>src/HAL_pc.c</itemPath>
+      <itemPath>src/HAL_posix.c</itemPath>
       <itemPath>src/HAL_sam.cpp</itemPath>
       <itemPath>src/HAL_sdl.c</itemPath>
       <itemPath>src/basic_arduinoio.cpp</itemPath>
@@ -108,7 +111,7 @@
           </incDir>
           <commandLine>-std=gnu11</commandLine>
           <preprocessorList>
-            <Elem>HAL_LINUX</Elem>
+            <Elem>HAL_PC_TERMINAL</Elem>
           </preprocessorList>
           <warningLevel>2</warningLevel>
         </cTool>
@@ -123,7 +126,7 @@
           </incDir>
           <commandLine>`pkg-config --cflags posixcpp` -std=gnu++11</commandLine>
           <preprocessorList>
-            <Elem>HAL_LINUX</Elem>
+            <Elem>HAL_PC_TERMINAL</Elem>
           </preprocessorList>
           <warningLevel>2</warningLevel>
         </ccTool>
@@ -222,13 +225,17 @@
       </item>
       <item path="include/HAL_esp32.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/HAL_linux.h" ex="false" tool="3" flavor2="0">
+      <item path="include/HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/_HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_config.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_dataparser.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -256,8 +263,6 @@
       </item>
       <item path="include/basic_task.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
@@ -272,7 +277,11 @@
       </item>
       <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/HAL_linux.c" ex="false" tool="0" flavor2="0">
+      <item path="src/HAL_mingw32.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_pc.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_posix.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -464,13 +473,17 @@
       </item>
       <item path="include/HAL_esp32.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/HAL_linux.h" ex="false" tool="3" flavor2="0">
+      <item path="include/HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/_HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_config.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_dataparser.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -498,8 +511,6 @@
       </item>
       <item path="include/basic_task.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
@@ -509,6 +520,10 @@
       <item path="src/HALProxyStream.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HAL_mingw32.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_pc.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="src/HAL_sdl.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -674,13 +689,17 @@
       </item>
       <item path="include/HAL_esp32.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/HAL_linux.h" ex="false" tool="3" flavor2="0">
+      <item path="include/HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/_HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_config.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_dataparser.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -708,8 +727,6 @@
       </item>
       <item path="include/basic_task.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
@@ -725,6 +742,10 @@
       <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HAL_mingw32.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_pc.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -919,13 +940,17 @@
       </item>
       <item path="include/HAL_esp32.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/HAL_linux.h" ex="false" tool="3" flavor2="0">
+      <item path="include/HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/_HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_config.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_dataparser.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -953,8 +978,6 @@
       </item>
       <item path="include/basic_task.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
@@ -966,6 +989,10 @@
       <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HAL_mingw32.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_pc.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1141,13 +1168,17 @@
       </item>
       <item path="include/HAL_esp32.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/HAL_linux.h" ex="false" tool="3" flavor2="0">
+      <item path="include/HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/_HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_config.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_dataparser.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1175,8 +1206,6 @@
       </item>
       <item path="include/basic_task.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
@@ -1188,6 +1217,10 @@
       <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HAL_mingw32.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_pc.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1334,13 +1367,17 @@
       </item>
       <item path="include/HAL_esp32.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/HAL_linux.h" ex="false" tool="3" flavor2="0">
+      <item path="include/HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/_HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_config.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_dataparser.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1368,8 +1405,6 @@
       </item>
       <item path="include/basic_task.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
@@ -1386,7 +1421,11 @@
       </item>
       <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/HAL_linux.c" ex="false" tool="0" flavor2="0">
+      <item path="src/HAL_mingw32.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_pc.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_posix.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1539,13 +1578,17 @@
       </item>
       <item path="include/HAL_esp32.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/HAL_linux.h" ex="false" tool="3" flavor2="0">
+      <item path="include/HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/_HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_config.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_dataparser.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1573,8 +1616,6 @@
       </item>
       <item path="include/basic_task.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
@@ -1591,7 +1632,11 @@
       </item>
       <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/HAL_linux.c" ex="false" tool="0" flavor2="0">
+      <item path="src/HAL_mingw32.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_pc.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_posix.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1734,13 +1779,17 @@
       </item>
       <item path="include/HAL_esp32.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/HAL_linux.h" ex="false" tool="3" flavor2="0">
+      <item path="include/HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/_HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_config.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_dataparser.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1768,8 +1817,6 @@
       </item>
       <item path="include/basic_task.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
@@ -1786,7 +1833,11 @@
       </item>
       <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/HAL_linux.c" ex="false" tool="0" flavor2="0">
+      <item path="src/HAL_mingw32.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_pc.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_posix.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1960,13 +2011,17 @@
       </item>
       <item path="include/HAL_esp32.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/HAL_linux.h" ex="false" tool="3" flavor2="0">
+      <item path="include/HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/_HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_config.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_dataparser.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -1994,8 +2049,6 @@
       </item>
       <item path="include/basic_task.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
@@ -2012,7 +2065,11 @@
       </item>
       <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/HAL_linux.c" ex="false" tool="0" flavor2="0">
+      <item path="src/HAL_mingw32.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_pc.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_posix.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -2198,13 +2255,17 @@
       </item>
       <item path="include/HAL_esp32.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/HAL_linux.h" ex="false" tool="3" flavor2="0">
+      <item path="include/HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/_HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_config.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_dataparser.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -2232,8 +2293,6 @@
       </item>
       <item path="include/basic_task.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
@@ -2250,7 +2309,11 @@
       </item>
       <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/HAL_linux.c" ex="false" tool="0" flavor2="0">
+      <item path="src/HAL_mingw32.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_pc.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_posix.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -2425,13 +2488,17 @@
       </item>
       <item path="include/HAL_esp32.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/HAL_linux.h" ex="false" tool="3" flavor2="0">
+      <item path="include/HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/_HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_config.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_dataparser.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -2459,8 +2526,6 @@
       </item>
       <item path="include/basic_task.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
@@ -2477,7 +2542,11 @@
       </item>
       <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/HAL_linux.c" ex="false" tool="0" flavor2="0">
+      <item path="src/HAL_mingw32.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_pc.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_posix.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -2625,13 +2694,17 @@
       </item>
       <item path="include/HAL_esp32.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/HAL_linux.h" ex="false" tool="3" flavor2="0">
+      <item path="include/HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/_HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_config.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_dataparser.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -2659,8 +2732,6 @@
       </item>
       <item path="include/basic_task.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
@@ -2677,7 +2748,11 @@
       </item>
       <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/HAL_linux.c" ex="false" tool="0" flavor2="0">
+      <item path="src/HAL_mingw32.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_pc.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_posix.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -2822,13 +2897,17 @@
       </item>
       <item path="include/HAL_esp32.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/HAL_linux.h" ex="false" tool="3" flavor2="0">
+      <item path="include/HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/_HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_config.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_dataparser.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -2856,8 +2935,6 @@
       </item>
       <item path="include/basic_task.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
@@ -2874,7 +2951,11 @@
       </item>
       <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/HAL_linux.c" ex="false" tool="0" flavor2="0">
+      <item path="src/HAL_mingw32.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_pc.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_posix.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -3051,6 +3132,12 @@
                             perm="755"
                             owner="root"
                             group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
         </packFileList>
       </packaging>
       <folder path="TestFiles/f1">
@@ -3076,13 +3163,17 @@
       </item>
       <item path="include/HAL_esp32.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/HAL_linux.h" ex="false" tool="3" flavor2="0">
+      <item path="include/HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/_HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_arduinoio.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/basic_config.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/basic_dataparser.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -3110,8 +3201,6 @@
       </item>
       <item path="include/basic_task.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/config.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/config_arduino.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/config_linux.hpp" ex="false" tool="3" flavor2="0">
@@ -3128,7 +3217,11 @@
       </item>
       <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/HAL_linux.c" ex="false" tool="0" flavor2="0">
+      <item path="src/HAL_mingw32.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_pc.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/HAL_posix.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
       </item>
