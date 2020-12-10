@@ -160,14 +160,16 @@ static const char strStringFrameMiss[] PROGMEM = STR_MISING_STRING_FRAME;
 static const char strInvalidNext[] PROGMEM = STR_INVALID_NEXT;
 static const char strReturnWOGosub[] PROGMEM = STR_RETURN_WO_GOSUB;
 static const char strNoSuchLine[] PROGMEM = STR_NO_SUCH_LINE;
-/*
-		INVALID_VALUE_TYPE = 9,
-		NO_SUCH_ARRAY = 10,
-		INTEGER_EXPRESSION_EXPECTED = 11,// Integer expression expected
+static const char strInvalidVal[] PROGMEM = STR_INVALID_VALUE_TYPE;
+static const char strNoSuchArray[] PROGMEM = STR_NO_SUCH_ARRAY;
+static const char strInegerExpExpected[] PROGMEM = STR_INTEGER_EXP_EXPECTED;
 #if SAVE_LOAD_CHECKSUM
-		BAD_CHECKSUM = 12,		// Bad program checksum
+static const char strBadChecksum[] PROGMEM = STR_BAD_CHECKSUM;
 #endif
-		INVALID_TAB_VALUE = 13,
+#if USE_TEXTATTRIBUTES
+static const char strInvalidTab[] PROGMEM = STR_INVALID_TAB;
+#endif
+/*
 		INVALID_ELEMENT_INDEX = 14,
 #if USE_MATRIX
 		SQUARE_MATRIX_EXPECTED = 15,
@@ -189,7 +191,16 @@ PGM_P const Interpreter::errorStrings[] PROGMEM = {
 	strStringFrameMiss,
 	strInvalidNext,
 	strReturnWOGosub,
-	strNoSuchLine
+	strNoSuchLine,
+	strInvalidVal,
+	strNoSuchArray,
+	strInegerExpExpected,
+#if SAVE_LOAD_CHECKSUM
+	strBadChecksum,
+#endif
+#if USE_TEXTATTRIBUTES
+	strInvalidTab
+#endif
 };
 
 #endif // CONF_ERROR_STRINGS
@@ -707,7 +718,6 @@ Interpreter::print(const Parser::Value &v, VT100::TextAttr attr)
 	}
 	default:
 		raiseError(DYNAMIC_ERROR, INVALID_VALUE_TYPE);
-		break;
 	}
 }
 

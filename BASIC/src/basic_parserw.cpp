@@ -1916,9 +1916,9 @@ Parser::fMatrixExpression(const char *buf)
 	}
 		break;
 	case Token::KW_TRN:
-		mo = Interpreter::MO_TRANSPOSE;
 	case Token::KW_INV:
-		mo = Interpreter::MO_INVERT;
+		mo = t == Token::KW_TRN ? Interpreter::MO_TRANSPOSE :
+			Interpreter::MO_INVERT;
 	{
 		char first[IDSIZE];
 		if (_lexer.getNext() && _lexer.getToken() == Token::LPAREN &&

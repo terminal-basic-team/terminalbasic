@@ -42,6 +42,11 @@
 #define STR_INVALID_NEXT              "MISPLACED FOR ... NEXT"
 #define STR_RETURN_WO_GOSUB           "RETURN WITHOUT GOSUB"
 #define STR_NO_SUCH_LINE              "NO SUCH PROGRAM LINE"
+#define STR_INVALID_VALUE_TYPE        "INVALID TYPE"
+#define STR_NO_SUCH_ARRAY             "NO SUCH ARRAY"
+#define STR_INTEGER_EXP_EXPECTED      "INTEGER EXPECTED"
+#define STR_BAD_CHECKSUM              "BAD CHECKSUM"
+#define STR_INVALID_TAB               "INVALID TAB VALUE"
 
 #define STR_ERROR      "ERREUR"
 #define STR_BYTES      "BYTES"
