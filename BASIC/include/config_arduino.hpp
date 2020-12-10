@@ -27,7 +27,7 @@
 #ifndef CONFIG_ARDUINO_HPP
 #define CONFIG_ARDUINO_HPP
 
-#include "config.hpp"
+#include "basic_config.hpp"
 #include "seriallight.hpp"
 #include "basic.h"
 

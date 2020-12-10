@@ -8,10 +8,10 @@
       <itemPath>../include/_tokens_fr.h</itemPath>
       <itemPath>../include/_tokens_ru.h</itemPath>
       <itemPath>../include/basic.h</itemPath>
+      <itemPath>../include/basic_config.h</itemPath>
       <itemPath>../include/basic_lexer.h</itemPath>
       <itemPath>../include/basic_parser.h</itemPath>
       <itemPath>../include/basic_value.h</itemPath>
-      <itemPath>../include/config.h</itemPath>
       <itemPath>../include/terminal.h</itemPath>
       <itemPath>../include/tools.h</itemPath>
     </logicalFolder>
@@ -83,13 +83,13 @@
       </item>
       <item path="../include/basic.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../include/basic_config.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../include/basic_lexer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/basic_parser.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/basic_value.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../include/config.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/terminal.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -160,13 +160,13 @@
       </item>
       <item path="../include/basic.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../include/basic_config.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../include/basic_lexer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/basic_parser.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/basic_value.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../include/config.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/terminal.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -233,13 +233,13 @@
       </item>
       <item path="../include/basic.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../include/basic_config.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../include/basic_lexer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/basic_parser.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/basic_value.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../include/config.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/terminal.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -313,13 +313,13 @@
       </item>
       <item path="../include/basic.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../include/basic_config.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../include/basic_lexer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/basic_parser.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/basic_value.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../include/config.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/terminal.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -393,13 +393,13 @@
       </item>
       <item path="../include/basic.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../include/basic_config.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../include/basic_lexer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/basic_parser.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/basic_value.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../include/config.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/terminal.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -473,13 +473,13 @@
       </item>
       <item path="../include/basic.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../include/basic_config.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../include/basic_lexer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/basic_parser.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/basic_value.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../include/config.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/terminal.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -553,13 +553,13 @@
       </item>
       <item path="../include/basic.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../include/basic_config.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../include/basic_lexer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/basic_parser.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/basic_value.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../include/config.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../include/terminal.h" ex="false" tool="3" flavor2="0">
       </item>

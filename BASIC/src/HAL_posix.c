@@ -19,11 +19,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifdef HAL_LINUX
+#ifdef __unix__
 
-#ifndef __linux__
-#error "__linux__ macro not defined"
-#endif
+#ifdef HAL_PC_TERMINAL
 
 #include "HAL.h"
 
@@ -33,7 +31,6 @@
 #include <dirent.h>
 #include <unistd.h>
 #include <termios.h>
-#include <signal.h>
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -42,23 +39,8 @@
 #include <sys/cdefs.h>
 #include <time.h>
 
-#include "HAL_linux.h"
-
-#if HAL_NVRAM
-static int nvram_file = -1;
-#endif
-
-#if HAL_EXTMEM
-
-static int extmem_files[HAL_EXTMEM_NUM_FILES];
-
-static char ext_root[256];
-#endif /* HAL_EXTMEM */
-
-void
-HAL_update()
-{
-}
+#include "HAL_pc.h"
+#include "_HAL_pc.h"
 
 void
 HAL_initialize()
@@ -73,10 +55,10 @@ HAL_initialize()
 	}
 	
 	char root[256], fpath[256];
-	strncpy(root, homedir, 256);
+	strncpy(root, homedir, 255);
 	strncat(root, FILES_PATH, strlen(FILES_PATH)+1);
 	
-	strncpy(fpath, root, 256);
+	strncpy(fpath, root, 255);
 	strncat(fpath, NVRAM_FILE, strlen(NVRAM_FILE)+1);
 	
 	DIR *ucbasicHome = opendir(root);
@@ -99,7 +81,7 @@ HAL_initialize()
 #endif /* HAL_NVRAM */
 
 #if HAL_EXTMEM
-	strncpy(ext_root, root, 256);
+	strncpy(ext_root, root, 255);
 	strncat(ext_root, EXTMEM_DIR_PATH, strlen(EXTMEM_DIR_PATH)+1);
 	DIR *ucbasicExtmem = opendir(ext_root);
 	if (ucbasicExtmem == NULL)
@@ -192,121 +174,6 @@ HAL_time_sleep_ms(uint32_t ms)
 
 #if HAL_EXTMEM
 
-HAL_extmem_file_t
-HAL_extmem_openfile(const char str[13])
-{
-	char fpath[256];
-	strncpy(fpath, ext_root, 256);
-	strncat(fpath, str, 256);
-	
-	int fp = open(fpath, O_CREAT|O_RDWR, S_IRUSR|S_IWUSR);
-	if (fp == -1) {
-		perror("open");
-		exit(EXIT_FAILURE);
-	}
-	
-	for (size_t i=0; i<HAL_EXTMEM_NUM_FILES; ++i) {
-		if (extmem_files[i] == -1) {
-			extmem_files[i] = fp;
-			return i+1;
-		}
-	}
-	
-	return 0;
-}
-
-void
-HAL_extmem_deletefile(const char fname[13])
-{
-	char fpath[256];
-	strncpy(fpath, ext_root, 256);
-	strncat(fpath, fname, 256);
-	
-	unlink(fpath);
-}
-
-void
-HAL_extmem_closefile(HAL_extmem_file_t file)
-{
-	if ((file == 0)
-	 || (file > HAL_EXTMEM_NUM_FILES)
-	 || (extmem_files[file-1] == -1))
-		return;
-	
-	if (close(extmem_files[file-1]) != 0) {
-		perror("close");
-		exit(EXIT_FAILURE);
-	}
-	extmem_files[file-1] = -1;
-}
-
-off_t
-_seek(HAL_extmem_file_t file, off_t pos, int whence)
-{
-	if ((file == 0)
-	 || (file > HAL_EXTMEM_NUM_FILES)
-	 || (extmem_files[file-1] == -1))
-		return 0;
-	
-	off_t res = lseek(extmem_files[file-1], pos, whence);
-	if (res == -1) {
-		perror("lseek");
-		exit(EXIT_FAILURE);
-	}
-	
-	return res;
-}
-
-HAL_extmem_fileposition_t
-HAL_extmem_getfileposition(HAL_extmem_file_t file)
-{
-	return _seek(file, 0, SEEK_CUR);
-}
-
-void
-HAL_extmem_setfileposition(HAL_extmem_file_t file,
-    HAL_extmem_fileposition_t pos)
-{
-	_seek(file, pos, SEEK_SET);
-}
-
-HAL_extmem_fileposition_t
-HAL_extmem_getfilesize(HAL_extmem_file_t file)
-{
-	off_t current = _seek(file, 0, SEEK_CUR);
-	off_t result =  _seek(file, 0, SEEK_END);
-	_seek(file, current, SEEK_SET);
-	
-	return result;
-}
-
-uint8_t
-HAL_extmem_readfromfile(HAL_extmem_file_t file)
-{
-	if ((file == 0)
-	 || (file > HAL_EXTMEM_NUM_FILES)
-	 || (extmem_files[file-1] == -1))
-		return 0;
-	
-	char result = '\0';
-	if (read(extmem_files[file-1], &result, 1) != 1)
-		fputs("HAL error \"read\": Can't read from file", stderr);
-	
-	return result;
-}
-
-void
-HAL_extmem_writetofile(HAL_extmem_file_t file, uint8_t byte)
-{
-	if ((file == 0)
-	 || (file > HAL_EXTMEM_NUM_FILES)
-	 || (extmem_files[file-1] == -1))
-		return;
-	
-	if (write(extmem_files[file-1], &byte, 1) != 1)
-		fputs("HAL error \"write\": Can't write to file", stderr);
-}
-
 uint16_t
 HAL_extmem_getnumfiles()
 {
@@ -351,18 +218,6 @@ HAL_extmem_getfilename(uint16_t num, char name[13])
 		name[0] = '\0';
 		return;
 	}
-}
-
-BOOLEAN
-HAL_extmem_fileExists(const char fname[13])
-{
-	char fpath[256];
-	strncpy(fpath, ext_root, 256);
-	strncat(fpath, fname, 256);
-	
-	if (access(fpath, F_OK) == 0)
-		return TRUE;
-	return FALSE;
 }
 
 #endif /* HAL_EXTMEM */
@@ -418,29 +273,5 @@ HAL_random_generate(uint32_t max)
 	return rand() % max;
 }
 
-static BOOLEAN exitflag = FALSE;
-
-static void
-sighandler(int signum)
-{
-	exitflag = TRUE;
-}
-
-void setup();
-
-void loop();
-
-int
-main(int argc, char **argv)
-{
-	signal(SIGINT, &sighandler);
-	srand(time(NULL));
-	
-	setup();
-	while (!exitflag)
-		loop();
-        
-	return EXIT_SUCCESS;
-}
-
 #endif /* HAL_LINUX */
+#endif /* __unix__ */

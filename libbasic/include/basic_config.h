@@ -60,7 +60,7 @@
  * Functions, variables and arrays of long integer type ends with double "%!"
  * symbols
  */
-#define USE_LONGINT          0
+#define USE_LONGINT          1
 
 /**
  * DUMP command support
@@ -76,17 +76,17 @@
 /*
  * Support of Darthmouth BASIC-style matrix operations
  */
-#define USE_MATRIX           0
+#define USE_MATRIX           1
 
 /**
  * Support of DATA/READ statements
  */
-#define USE_DATA             0
+#define USE_DATA             1
 
 /*
  * Support of DEF FN construct
  */
-#define USE_DEFFN            0
+#define USE_DEFFN            1
 
 /*
  * DELAY command, suspends execution for N ms
@@ -96,7 +96,7 @@
 /*
  * Allow ON ... GOTO ... statements
  */
-#define CONF_USE_ON_GOTO    0
+#define CONF_USE_ON_GOTO    01
 
 /*
  * Allow GO TO OPERATOR in addition to GOTO

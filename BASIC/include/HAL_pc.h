@@ -20,11 +20,11 @@
  */
 
 /**
- * @brief Configuration for the Linux HAL implementation
+ * @brief Configuration for the PC terminal HAL implementation
  */
 
-#ifndef HAL_LINUX_H
-#define HAL_LINUX_H
+#ifndef HAL_PC_H
+#define HAL_PC_H
 
 #define FILES_PATH "/terminal_basic_HAL/"
 

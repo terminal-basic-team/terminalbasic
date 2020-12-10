@@ -23,7 +23,7 @@
 #define CONFIG_LINUX_HPP
 
 #include "Arduino.h"
-#include "config.hpp"
+#include "basic_config.hpp"
 #include "basic.h"
 
 #if BASIC_MULTITERMINAL

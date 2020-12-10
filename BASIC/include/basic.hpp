@@ -34,7 +34,8 @@
 
 #ifdef ARDUINO
 #include "config_arduino.hpp"
-#elif defined __linux__
+#elif (defined __linux__) || \
+      (defined __MINGW32__)
 #include "config_linux.hpp"
 #endif
 
