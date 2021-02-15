@@ -19,51 +19,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <signal.h>
-#include <time.h>
+/**
+ * @file _HAL_pc.h
+ * @brief private header of HAL PC implementations (POSIX/Win32)
+ */
 
-#include "basic_config.hpp"
-#include "basic.hpp"
-#include "basic_task.hpp"
+#ifndef _HAL_PC_H
+#define _HAL_PC_H
 
-static Task* activeTask;
+#include "HAL.h"
 
-void
-setup()
-{
-	HAL_initialize();
-	
-	activeTask->init();
-}
+#if HAL_NVRAM
+extern int nvram_file;
+#endif
 
-void
-loop()
-{
-	HAL_update();
-	activeTask->step();
-}
+#if HAL_EXTMEM
+extern int extmem_files[HAL_EXTMEM_NUM_FILES];
 
+extern char ext_root[256];
+#endif /* HAL_EXTMEM */
 
-static BOOLEAN exitflag = FALSE;
-
-static void
-sighandler(int signum)
-{
-	exitflag = TRUE;
-}
-
-int
-main(int argc, char **argv)
-{
-	signal(SIGINT, &sighandler);
-	srand(time(NULL));
-	
-	const char *filePath = argc > 1 ? argv[1] : nullptr;
-	activeTask = new BASIC::Task(filePath);
-	
-	setup();
-	while (!exitflag)
-		loop();
-        
-	return EXIT_SUCCESS;
-}
+#endif /* _HAL_PC_H */

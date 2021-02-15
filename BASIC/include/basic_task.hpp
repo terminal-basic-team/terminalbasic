@@ -65,7 +65,7 @@ class Task : public ::Task
 {
 public:
 	
-	explicit Task();
+	explicit Task(const char*);
 	
 	void init() override;
 	
