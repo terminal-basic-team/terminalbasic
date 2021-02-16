@@ -54,6 +54,8 @@ terminalbasic_SOURCES=arduinoext.hpp \
 	basic_value.c \
 	basic_parser.h \
 	basic_parser.c \
+	basic_task.hpp \
+	basic_task.cpp \
 	strings_en.hpp \
 	strings_fr.hpp \
 	strings_ru.hpp \
@@ -67,7 +69,7 @@ terminalbasic_SOURCES=arduinoext.hpp \
 	helper.hpp \
 	math.hpp \
 	matrix.hpp \
-	ucbasic_main.cpp \
+	taskmain.cpp \
 	types.hpp \
 	Stream.cpp \
 	Print.cpp \

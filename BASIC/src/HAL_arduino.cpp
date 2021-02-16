@@ -802,7 +802,7 @@ static uint16_t ilicolor[2] = { TFT_WHITE, TFT_BLACK };
 void
 HAL_gfx_setColor(HAL_gfx_color_t color)
 {
-    _colors[0] = color;
+	_colors[0] = color;
     
 #if HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_SERIAL
 
@@ -811,8 +811,8 @@ HAL_gfx_setColor(HAL_gfx_color_t color)
 #elif HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_ILI9341 || \
       HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_TFTeSPI
 
-  if (color != HAL_GFX_NOTACOLOR)
-    ilicolor[0] = pgm_read_word(&ilicolors[uint8_t(color)-1]);
+	if (color != HAL_GFX_NOTACOLOR)
+		ilicolor[0] = pgm_read_word(&ilicolors[uint8_t(color)-1]);
   
 #endif // HAL_ARDUINO_GFX
 }
@@ -829,8 +829,8 @@ HAL_gfx_setBgColor(HAL_gfx_color_t color)
 #elif HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_ILI9341 || \
       HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_TFTeSPI
 
-  if (color != HAL_GFX_NOTACOLOR)
-    ilicolor[1] = pgm_read_word(&ilicolors[uint8_t(color)-1]);
+	if (color != HAL_GFX_NOTACOLOR)
+		ilicolor[1] = pgm_read_word(&ilicolors[uint8_t(color)-1]);
   
 #endif // HAL_ARDUINO_GFX
 }
@@ -846,8 +846,8 @@ HAL_gfx_point(uint16_t x, uint16_t y)
 #elif HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_ILI9341 || \
       HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_TFTeSPI
 
-  if (_colors[0] != HAL_GFX_NOTACOLOR)
-    espi.tft.drawPixel(x, y, ilicolor[0]);
+	if (_colors[0] != HAL_GFX_NOTACOLOR)
+		espi.tft.drawPixel(x, y, ilicolor[0]);
 
 #endif // HAL_ARDUINO_GFX
 }
@@ -865,9 +865,9 @@ HAL_gfx_line(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2)
 #elif HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_ILI9341 || \
       HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_TFTeSPI
 
-  if (_colors[0] != HAL_GFX_NOTACOLOR)
-    espi.tft.drawLine(x1, y1, x2, y2, ilicolor[0]);
-  linex = x2, liney = y2;
+	if (_colors[0] != HAL_GFX_NOTACOLOR)
+		espi.tft.drawLine(x1, y1, x2, y2, ilicolor[0]);
+	linex = x2, liney = y2;
 
 #endif // HAL_ARDUINO_GFX
 }
@@ -883,10 +883,10 @@ HAL_gfx_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h)
 #elif HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_ILI9341 || \
       HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_TFTeSPI
 
-  if (_colors[1] != HAL_GFX_NOTACOLOR)
-    espi.tft.fillRect(x, y, w, h, ilicolor[1]);
-  if (_colors[0] != HAL_GFX_NOTACOLOR)
-    espi.tft.drawRect(x, y, w, h, ilicolor[0]);
+	if (_colors[1] != HAL_GFX_NOTACOLOR)
+		espi.tft.fillRect(x, y, w, h, ilicolor[1]);
+	if (_colors[0] != HAL_GFX_NOTACOLOR)
+		espi.tft.drawRect(x, y, w, h, ilicolor[0]);
 
 #endif // HAL_ARDUINO_GFX
 }
@@ -897,9 +897,9 @@ HAL_gfx_lineto(uint16_t x, uint16_t y)
 #if HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_ILI9341 || \
     HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_TFTeSPI
 
-  if (_colors[0] != HAL_GFX_NOTACOLOR)
-    espi.tft.drawLine(linex, liney, x, y, ilicolor[0]);
-  linex = x, liney = y;
+	if (_colors[0] != HAL_GFX_NOTACOLOR)
+		espi.tft.drawLine(linex, liney, x, y, ilicolor[0]);
+	linex = x, liney = y;
 
 #endif // HAL_ARDUINO_GFX
 }
@@ -915,10 +915,10 @@ HAL_gfx_circle(uint16_t x, uint16_t y, uint16_t r)
 #elif HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_ILI9341 || \
       HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_TFTeSPI
 
-  if (_colors[1] != HAL_GFX_NOTACOLOR)
-    espi.tft.fillCircle(x, y, r, ilicolor[1]);
-  if (_colors[0] != HAL_GFX_NOTACOLOR)
-    espi.tft.drawCircle(x, y, r, ilicolor[0]);
+	if (_colors[1] != HAL_GFX_NOTACOLOR)
+		espi.tft.fillCircle(x, y, r, ilicolor[1]);
+	if (_colors[0] != HAL_GFX_NOTACOLOR)
+		espi.tft.drawCircle(x, y, r, ilicolor[0]);
 
 #endif // HAL_ARDUINO_GFX
 }
@@ -1027,7 +1027,7 @@ HAL_update()
 	espi.onTimer();
 #endif
   
-  HAL_update_concrete();
+	HAL_update_concrete();
 }
 
 #endif // ARDUINO

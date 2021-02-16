@@ -24,7 +24,7 @@
 namespace BASIC
 {
 
-Task::Task() :
+Task::Task(const char*) :
     m_halproxyStream(0),
     m_interpreter(m_halproxyStream, m_halproxyStream, BASIC::SINGLE_PROGSIZE)
 {
@@ -44,6 +44,7 @@ Task::Task() :
 #if CONF_USE_EXTMEMFS
 	m_interpreter.setSDFSModule(&m_sdfs);
 	m_interpreter.addModule(&m_sdfs);
+	
 #endif
 }
 

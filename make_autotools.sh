@@ -49,6 +49,8 @@ SRC="	./libbasic/include/basic.h
 	./BASIC/include/basic_interpreter.hpp
 	./BASIC/include/basic_program.hpp
 	./BASIC/include/basic_parser.hpp
+	./BASIC/include/basic_task.hpp
+	./BASIC/src/basic_task.cpp
 	./BASIC/src/basic_parserw.cpp
 	./BASIC/include/basic_dataparser.hpp
 	./BASIC/src/basic_dataparser.cpp
@@ -74,7 +76,7 @@ SRC="	./libbasic/include/basic.h
 	./BASIC/src/basic_gfx_serial.cpp
 	./BASIC/src/basic_parser_value.cpp
 	./BASIC/src/basic_extmemfs.cpp
-	./BASIC/src/ucbasic_main.cpp
+	./BASIC/src/taskmain.cpp
 	./BASIC/src/strings_en.hpp
 	./BASIC/src/strings_fr.hpp
 	./BASIC/src/strings_ru.hpp
@@ -133,4 +135,3 @@ automake --add-missing
 autoreconf
 ./configure
 make dist
-
