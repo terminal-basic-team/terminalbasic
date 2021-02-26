@@ -130,18 +130,17 @@
 #define CONF_MODULE_ARDUINOIO      0
 #if CONF_MODULE_ARDUINOIO
 	// TONE command support
-	#define CONF_MODULE_ARDUINOIO_TONE 0
+	#define CONF_MODULE_ARDUINOIO_TONE 1
+	// BEEP command
+	#if CONF_MODULE_ARDUINOIO_TONE
+		#define CONF_BEEP     1
+		#if CONF_BEEP
+			#define BEEP_PIN 32
+			#define BEEP_FREQ 440
+			#define BEEP_DURATION 300
+		#endif // CONF_BEEP
+	#endif // CONF_MODULE_ARDUINOIO_TONE
 #endif // CONF_MODULE_ARDUINOIO
-
-// BEEP command
-#if CONF_MODULE_ARDUINOIO_TONE
-	#define CONF_BEEP     1
-	#if CONF_BEEP
-		#define BEEP_PIN 5
-		#define BEEP_FREQ 440
-		#define BEEP_DURATION 300
-	#endif // CONF_BEEP
-#endif // CONF_MODULE_ARDUINOIO_TONE
 
 // External EEPROM functions module
 #define USE_EXTEEPROM    0

@@ -741,6 +741,8 @@ HAL_extmem_fileExists(const char path[13])
 
 #if HAL_GFX
 
+static HAL_gfx_color_t _colors[2] = {HAL_GFX_NOTACOLOR, HAL_GFX_NOTACOLOR};
+
 #if HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_SERIAL
 
 static void
@@ -766,8 +768,6 @@ _setColors()
 }
 
 #endif // HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_SERIAL
-
-static HAL_gfx_color_t _colors[2] = {HAL_GFX_NOTACOLOR, HAL_GFX_NOTACOLOR};
 
 #if HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_ILI9341
 static const uint16_t ilicolors[] PROGMEM = {
