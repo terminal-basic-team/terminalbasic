@@ -113,12 +113,13 @@ HAL_terminal_isdataready(HAL_terminal_t t)
 #endif
 	return FALSE;
 }
-
 #endif // HAL_ARDUINO_AVR8_TERMINAL
 
+__BEGIN_DECLS
 void
 HAL_update_concrete()
 {
 }
+__END_DECLS
 
 #endif // ARDUINO_ARCH_AVR

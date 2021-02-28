@@ -62,6 +62,7 @@ SRC="	./libbasic/include/basic.h \
 	./BASIC/src/tvoutprint.cpp \
 	./BASIC/include/tvoutprint.hpp \
 	./BASIC/src/HAL_arduino.cpp \
+	./BASIC/include/HAL_avr8.h \
 	./BASIC/src/HAL_avr8.cpp \
 	./BASIC/src/HAL_esp8266.cpp \
 	./BASIC/include/HAL_esp32.h \

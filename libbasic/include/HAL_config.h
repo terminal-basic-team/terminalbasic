@@ -35,7 +35,7 @@
 /*
  * Enable external memory interface functions
  */
-#define HAL_EXTMEM 1
+#define HAL_EXTMEM 0
 #if HAL_EXTMEM
 /*
  * Maximal number of simulteniously opened files
@@ -54,6 +54,6 @@
 
 #define HAL_GPIO 1
 
-#define HAL_BUZZER 1
+#define HAL_BUZZER 0
 
 #endif /* HAL_CONFIG_H */
