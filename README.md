@@ -23,7 +23,7 @@ long real (8 bytes binary floating point), boolean and string) using variables a
 to adjust the code size.
 
 Sources of the TB and supporting libraries are hosted at [bitbucket.org](https://bitbucket.org/terminalbasicteam/)
-with  [Github mirrors](https://github.com/users/starling13/projects/1). Main project page for downloads and support placed
+with  [Github mirrors](https://github.com/users/starling13/projects/1). There is a dedicated repository of TB sources in the form of arduino sketch: https://github.com/starling13/terminalbasic-arduino. Main project page for downloads and support placed
 at [SourceForge](https://sourceforge.net/projects/terminal-basic/). Project blog with news and discussion is hosted at
 [hackaday.io](https://hackaday.io/project/22036-terminal-basic).
 
