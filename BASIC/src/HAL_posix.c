@@ -45,7 +45,7 @@
 void
 HAL_initialize()
 {
-#if HAL_NVRAM
+#if HAL_NVRAM || HAL_EXTMEM
 	/* Initialize nvram and external memory directories */
 	const char *homedir = NULL;
 	if ((homedir = getenv("HOME")) == NULL) {
@@ -56,10 +56,9 @@ HAL_initialize()
 	
 	char root[256], fpath[256];
 	strncpy(root, homedir, 255);
-	strncat(root, FILES_PATH, strlen(FILES_PATH)+1);
+	strncat(root, HAL_PC_FILES_PATH, strlen(HAL_PC_FILES_PATH)+1);
 	
 	strncpy(fpath, root, 255);
-	strncat(fpath, NVRAM_FILE, strlen(NVRAM_FILE)+1);
 	
 	DIR *ucbasicHome = opendir(root);
 	if (ucbasicHome == NULL)
@@ -68,21 +67,19 @@ HAL_initialize()
 			exit(EXIT_FAILURE);
 		}
 	
+#endif /* HAL_NVRAM || HAL_EXTMEM */
+#if HAL_NVRAM
+	strcat(fpath, "/nvram.bin");
+	
 	nvram_file = open(fpath, O_CREAT|O_RDWR, S_IRUSR|S_IWUSR);
 	if (nvram_file == -1) {
 		perror("open");
 		exit(EXIT_FAILURE);
 	}
-	
-	if (atexit(&HAL_finalize) != 0) {
-		perror("atexit");
-		exit(EXIT_FAILURE);
-	}
 #endif /* HAL_NVRAM */
-
 #if HAL_EXTMEM
 	strncpy(ext_root, root, 255);
-	strncat(ext_root, EXTMEM_DIR_PATH, strlen(EXTMEM_DIR_PATH)+1);
+	strncat(ext_root, HAL_PC_EXTMEM_DIR_PATH, strlen(HAL_PC_EXTMEM_DIR_PATH)+1);
 	DIR *ucbasicExtmem = opendir(ext_root);
 	if (ucbasicExtmem == NULL)
 		if (mkdir(ext_root, 0770) == -1) {
@@ -101,6 +98,11 @@ HAL_initialize()
 	TermConf.c_cc[VMIN] = 1;
         TermConf.c_cc[VTIME] = 0;
 	tcsetattr(STDIN_FILENO, TCSANOW, &TermConf);
+	
+	if (atexit(&HAL_finalize) != 0) {
+		perror("atexit");
+		exit(EXIT_FAILURE);
+	}
 }
 
 void

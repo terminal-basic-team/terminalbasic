@@ -26,14 +26,12 @@
 #ifndef HAL_PC_H
 #define HAL_PC_H
 
-#define FILES_PATH "/terminal_basic_HAL/"
-
 #if HAL_NVRAM
-#define NVRAM_FILE "nvram.img"
+#define HAL_PC_FILES_PATH "/terminal_basic_HAL"
 #endif
 
 #if HAL_EXTMEM
-#define EXTMEM_DIR_PATH "extmem/"
+#define HAL_PC_EXTMEM_DIR_PATH "extmem"
 #endif /* HAL_EXTMEM */
 
 #endif /* HAL_LINUX_H */
