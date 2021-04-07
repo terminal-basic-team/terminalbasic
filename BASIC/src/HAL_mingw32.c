@@ -53,10 +53,10 @@ HAL_initialize()
 	char root[256],  // root HAL directory
 	     fpath[256]; // NVRAM file full path
 	strncpy(root, homedir, 255);
-	strncat(root, FILES_PATH, strlen(FILES_PATH));
+	strncat(root, HAL_PC_FILES_PATH, strlen(HAL_PC_FILES_PATH));
 	
 	strncpy(fpath, root, 255);
-	strncat(fpath, NVRAM_FILE, strlen(NVRAM_FILE));
+	strcat(fpath, "/nvram.bin");
 	
 	// Open or create root HAL directory
 	DIR *ucbasicHome = opendir(root);
@@ -80,7 +80,7 @@ HAL_initialize()
 
 #if HAL_EXTMEM
 	strncpy(ext_root, root, 255);
-	strncat(ext_root, EXTMEM_DIR_PATH, strlen(EXTMEM_DIR_PATH)+1);
+	strncat(ext_root, HAL_PC_EXTMEM_DIR_PATH, strlen(HAL_PC_EXTMEM_DIR_PATH)+1);
 	// Open or create extmem files directory
 	DIR *ucbasicExtmem = opendir(ext_root);
 	if (ucbasicExtmem == NULL)
