@@ -41,10 +41,20 @@
 
 #endif
 
+#if HAL_ARDUINO_TERMINAL_INPUT == HAL_ARDUINO_TERMINAL_INPUT_PS2KBD
+#include "ps2_keyboardstream.hpp"
+#endif
 
 #if HAL_ARDUINO_TERMINAL_OUTPUT == HAL_ARDUINO_TERMINAL_OUTPUT_ILI9341
-
 #include "Adafruit_ILI9341.h"
+#endif
+
+#if HAL_ARDUINO_TERMINAL_INPUT == HAL_ARDUINO_TERMINAL_INPUT_PS2KBD
+static PS2::Keyboard kbd;
+static PS2::KeyboardStream kstream(kbd);
+#endif
+
+#if HAL_ARDUINO_TERMINAL_OUTPUT == HAL_ARDUINO_TERMINAL_OUTPUT_ILI9341
 
 class ESPI : public VT100::Print
 {
@@ -552,6 +562,11 @@ HAL_initialize()
 	if (!SDCard::SDFS.begin())
 		abort();
 #endif
+
+#if HAL_ARDUINO_TERMINAL_INPUT == HAL_ARDUINO_TERMINAL_INPUT_PS2KBD
+kbd.begin(HAL_ARDUINO_TERMINAL_INPUT_PS2KBD_DATAPIN, HAL_ARDUINO_TERMINAL_INPUT_PS2KBD_CLKPIN);
+#endif
+
 	HAL_initialize_concrete();
 }
 
@@ -599,8 +614,11 @@ HAL_terminal_read(HAL_terminal_t t)
 #if defined(HAVE_HWSERIAL1) && (HAL_TERMINAL_NUM > 0)
 	else if (t == 1)
 		return Serial1.read();
-#endif
-#endif
+#endif // defined(HAVE_HWSERIAL1) && (HAL_TERMINAL_NUM > 0)
+#elif HAL_ARDUINO_TERMINAL_INPUT == HAL_ARDUINO_TERMINAL_INPUT_PS2KBD
+  if (t == 0)
+    return kstream.read();
+#endif // HAL_ARDUINO_TERMINAL_INPUT
 	return 0;
 }
 
@@ -613,8 +631,11 @@ HAL_terminal_isdataready(HAL_terminal_t t)
 #if defined(HAVE_HWSERIAL1) && (HAL_TERMINAL_NUM > 0)
 	else if (t == 1)
 		return Serial1.available();
-#endif
-#endif
+#endif // defined(HAVE_HWSERIAL1) && (HAL_TERMINAL_NUM > 0)
+#elif HAL_ARDUINO_TERMINAL_INPUT == HAL_ARDUINO_TERMINAL_INPUT_PS2KBD
+  if (t == 0)
+    return kstream.available();
+#endif // HAL_ARDUINO_TERMINAL_INPUT
 	return FALSE;
 }
 
