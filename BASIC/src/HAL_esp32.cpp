@@ -122,7 +122,7 @@ protected:
 			GO.lcd.setCursor(0, 0);
 			//GO.lcd.fillScreen(TFT_BLACK);
 
-			VT100::TextAttr attr = VT100::TextAttr::NO_ATTR;
+			VT100::TextAttr attr = VT100::TextAttr(-1);
 			// Save current attributes
 			VT100::TextAttr oldAttr = m_attr;
 			for (uint16_t row = 0; row < m_rows - 1; ++row) {
@@ -347,7 +347,7 @@ HAL_initialize_concrete()
 #endif // HAL_NVRAM
 
 #if HAL_EXTMEM && (HAL_ESP32_EXTMEM == HAL_ESP32_EXTEM_SD)
-	if (!SD.begin(22)) {
+	if (!SD.begin()) {
 		Serial.println("ERROR: SD.begin");
 		exit(3);
 	}
