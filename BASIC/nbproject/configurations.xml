@@ -374,18 +374,6 @@
           <output>${CND_DISTDIR}/${CND_CONF}/basic</output>
           <linkerLibItems>
             <linkerLibProjectItem>
-              <makeArtifact PL="../../libtvoutex/netbenas"
-                            CT="3"
-                            CN="Debug_PC"
-                            AC="true"
-                            BL="true"
-                            WD="../../libtvoutex/netbenas"
-                            BC="${MAKE}  -f Makefile CONF=Debug_PC"
-                            CC="${MAKE}  -f Makefile CONF=Debug_PC clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnetbenas.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
               <makeArtifact PL="../../libarduinoemulator"
                             CT="3"
                             CN="Debug"
@@ -410,7 +398,6 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerOptionItem>`pkg-config --libs sdl2`</linkerOptionItem>
-            <linkerLibFileItem>/usr/local/lib/libposixcpp.a</linkerLibFileItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../libbasic/libbasic_nb"
                             CT="3"
@@ -518,12 +505,6 @@
       <item path="include/tvoutprint.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/HALProxyStream.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HAL_mingw32.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="src/HAL_pc.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="src/HAL_sdl.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -840,7 +821,7 @@
           <incFile>
             <pElem>Arduino.h</pElem>
           </incFile>
-          <commandLine>-Os -w -Wextra -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -flto -mcall-prologues -mmcu=atmega328p</commandLine>
+          <commandLine>-Os -w -Wextra -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -flto -mcall-prologues -mmcu=atmega328p -flto</commandLine>
           <preprocessorList>
             <Elem>ARDUINO=10810</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
@@ -902,7 +883,7 @@
               </makeArtifact>
             </linkerLibProjectItem>
           </linkerLibItems>
-          <commandLine>-w -Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega328p</commandLine>
+          <commandLine>-w -Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega328p -flto</commandLine>
         </linkerTool>
         <requiredProjects>
           <makeArtifact PL="../libbasic/libbasic_nb"
@@ -991,8 +972,6 @@
       <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_mingw32.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="src/HAL_pc.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
       </item>

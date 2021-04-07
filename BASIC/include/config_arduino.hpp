@@ -28,7 +28,6 @@
 #define CONFIG_ARDUINO_HPP
 
 #include "basic_config.hpp"
-#include "seriallight.hpp"
 #include "basic.h"
 
 /**

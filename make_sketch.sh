@@ -77,6 +77,7 @@ SRC="	./libbasic/include/basic.h \
 	./BASIC/src/strings_ru.hpp \
 	../libarduinoext/include/ascii.hpp \
 	../libarduinoext/include/vt100.hpp \
+	../libarduinoext/include/buffered_terminal.hpp \
 	../libarduinoext/include/gfxterm.hpp \
 	../libarduinoext/include/liquidcrystalprint.hpp \
 	../libarduinoext/include/seriallight.hpp \
@@ -90,6 +91,7 @@ SRC="	./libbasic/include/basic.h \
 	../libarduinoext/include/bytearray.hpp \
 	../libarduinoext/src/bytearray.cpp \
 	../libarduinoext/src/vt100.cpp \
+	../libarduinoext/src/buffered_terminal.cpp \
 	../libarduinoext/src/liquidcrystalprint.cpp \
 	../libarduinoext/src/seriallight.cpp"
 

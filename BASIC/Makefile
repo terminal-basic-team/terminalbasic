@@ -60,7 +60,7 @@ OBJCOPY_ARM=/opt/Arduino/gcc-arm-none-eabi-4.8.3-2014q1/bin/arm-none-eabi-objcop
 SIZE_ARM=/opt/Arduino/gcc-arm-none-eabi-4.8.3-2014q1/bin/arm-none-eabi-size
 
 BUILD:=$(shell cat "./build-${CONF}")
-VERSION:=2.3-a2-${BUILD}
+VERSION:=2.3-b1-${BUILD}
 
 # build
 build: .build-post
@@ -70,8 +70,8 @@ build: .build-post
 	echo ${VERSION} > ./version
 
 .build-post: .build-impl copy_${CONF}
-	#echo $(shell expr ${BUILD} + 1) ; \
-	#echo $(shell expr ${BUILD} + 1) > "./build-${CONF}"
+	echo $(shell expr ${BUILD} + 1) ; \
+	echo $(shell expr ${BUILD} + 1) > "./build-${CONF}"
 
 # clean
 clean: .clean-post
