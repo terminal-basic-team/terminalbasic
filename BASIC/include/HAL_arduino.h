@@ -2,7 +2,7 @@
  * Terminal-BASIC is a lightweight BASIC-like language interpreter
  * 
  * Copyright (C) 2016-2018 Andrey V. Skvortsov <starling13@mail.ru>
- * Copyright (C) 2019,2020 Terminal-BASIC team
+ * Copyright (C) 2019-2021 Terminal-BASIC team
  *     <https://bitbucket.org/%7Bf50d6fee-8627-4ce4-848d-829168eedae5%7D/>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -93,9 +93,10 @@
 #define HAL_ARDUINO_GFX_TFTeSPI 4
 
 /*
- * SDL2 HAL_GFX implementation
+ * Used GFX implementation
  */
-#define HAL_ARDUINO_GFX HAL_ARDUINO_GFX_SERIAL
+#define HAL_ARDUINO_GFX HAL_ARDUINO_GFX_NONE
+
 #if HAL_ARDUINO_GFX == HAL_ARDUINO_GFX_SERIAL
 #define HAL_ARDUINO_GFX_SERIAL_TERMNO 0
 #endif
