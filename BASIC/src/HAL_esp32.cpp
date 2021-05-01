@@ -68,10 +68,10 @@ static ODROIDGO::OKeyboardStream* kbdStream = nullptr;
 
 class OdroidGoScreen : public BufferedTerminal
 {
-#define TERMINAL_ROWS 30
-#define TERMINAL_COLS 53
-#define FONT_WIDTH 6
-#define FONT_HEIGHT 8
+#define TERMINAL_ROWS 24
+#define TERMINAL_COLS 40
+#define FONT_WIDTH 8
+#define FONT_HEIGHT 10
 public:
 
 	OdroidGoScreen()
@@ -92,6 +92,7 @@ public:
 	begin()
 	{
 		GO.lcd.setTextColor(TFT_LIGHTGREY);
+    GO.lcd.setTextFont(4);
 		GO.lcd.setTextSize(1);
 		GO.lcd.clearDisplay();
 
@@ -314,9 +315,9 @@ HAL_initialize_concrete()
 {
 #if HAL_ESP32_ODROIDGO
 	GO.begin();
-	delay(1000);
 	GOScreen = new OdroidGoScreen();
 	GOScreen->begin();
+  GO.Speaker.beep();
 
 #if HAL_ESP32_ODROIDGO_QWERTY
 	kbd = new ODROIDGO::OKeyboard;
