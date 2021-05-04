@@ -623,7 +623,7 @@ basic_lexer_tokenize(basic_lexer_context_t *self, uint8_t *dst, uint8_t dstlen,
 				if (remaining + position >= dstlen)
 					break;
 				memcpy(dst + position, src + lexerPosition,
-				remaining);
+				    remaining);
 				position += remaining;
 				break;
 			}
