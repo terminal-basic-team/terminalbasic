@@ -759,7 +759,7 @@ HAL_extmem_fileExists(const char path[13])
 
 #endif // HAL_ARDUINO_EXTMEM
 
-#if HAL_GFX
+#if HAL_ARDUINO_GFX != HAL_ARDUINO_GFX_NONE
 
 static HAL_gfx_color_t _colors[2] = {HAL_GFX_NOTACOLOR, HAL_GFX_NOTACOLOR};
 

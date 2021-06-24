@@ -2,7 +2,7 @@
  * Terminal-BASIC is a lightweight BASIC-like language interpreter
  * 
  * Copyright (C) 2016-2018 Andrey V. Skvortsov <starling13@mail.ru>
- * Copyright (C) 2019,2020 Terminal-BASIC team
+ * Copyright (C) 2019-2021 Terminal-BASIC team
  *     <https://bitbucket.org/%7Bf50d6fee-8627-4ce4-848d-829168eedae5%7D/>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -21,14 +21,15 @@
 
 #ifdef ARDUINO_ARCH_ESP32
 
+#ifdef ODROID_ESP32
+#error 1
+#endif
+
 #include "HAL_esp32.h"
 
 #if HAL_ESP32_ODROIDGO
-#include "odroid_go.h"
-#include "buffered_terminal.hpp"
-#if HAL_ESP32_ODROIDGO_QWERTY
-#include "utility/KeyboardStream.h"
-#endif // HAL_ESP32_ODROIDGO_QWERTY
+void HAL_esp32_odroidgo_init();
+void HAL_esp32_odroidgo_update();
 #endif // HAL_ESP32_ODROIDGO
 
 #if HAL_ESP32_EXTMEM == HAL_ESP32_EXTEM_SD
@@ -59,271 +60,13 @@ static FS& gfs = SD;
 #define BUZZER_CHANNEL 0
 #endif
 
-#if HAL_ESP32_ODROIDGO
-
-#if HAL_ESP32_ODROIDGO_QWERTY
-static ODROIDGO::OKeyboard* kbd = nullptr;
-static ODROIDGO::OKeyboardStream* kbdStream = nullptr;
-#endif // HAL_ESP32_ODROIDGO_QWERTY
-
-class OdroidGoScreen : public BufferedTerminal
-{
-#define TERMINAL_ROWS 24
-#define TERMINAL_COLS 40
-#define FONT_WIDTH 8
-#define FONT_HEIGHT 10
-public:
-
-	OdroidGoScreen()
-	{
-	}
-
-	void
-	clear() override
-	{
-		memset(m_screenBuffer[0], ' ', m_rows * m_columns);
-		memset(m_screenBuffer[1], char(VT100::TextAttr::NO_ATTR), m_rows * m_columns);
-		GO.lcd.fillScreen(TFT_BLACK);
-		setCursor(0, 0);
-		drawCursor(true);
-	}
-
-	void
-	begin()
-	{
-		GO.lcd.setTextColor(TFT_LIGHTGREY);
-    GO.lcd.setTextFont(4);
-		GO.lcd.setTextSize(1);
-		GO.lcd.clearDisplay();
-
-		BufferedTerminal::begin(TERMINAL_ROWS, TERMINAL_COLS);
-
-		clear();
-	}
-
-protected:
-
-	void drawCursor(bool v) override
-	{
-		GO.lcd.fillRect(GO.lcd.getCursorX(), GO.lcd.getCursorY(), FONT_WIDTH, FONT_HEIGHT,
-		    v ? TFT_WHITE : TFT_BLACK);
-	}
-
-	void scrollLine()
-	{
-		m_lockCursor = true;
-		if (m_row >= m_rows - 1) {
-
-			memmove(m_screenBuffer[0], m_screenBuffer[0] + m_columns, uint16_t(m_columns)*(m_rows - 1));
-			memmove(m_screenBuffer[1], m_screenBuffer[1] + m_columns, uint16_t(m_columns)*(m_rows - 1));
-
-			memset(m_screenBuffer[0] + uint16_t(m_columns)*(m_rows - 1), ' ', m_columns);
-			memset(m_screenBuffer[1] + uint16_t(m_columns)*(m_rows - 1), VT100::TextAttr::NO_ATTR, m_columns);
-
-			GO.lcd.setCursor(0, 0);
-			//GO.lcd.fillScreen(TFT_BLACK);
-
-			VT100::TextAttr attr = VT100::TextAttr(-1);
-			// Save current attributes
-			VT100::TextAttr oldAttr = m_attr;
-			for (uint16_t row = 0; row < m_rows - 1; ++row) {
-				GO.lcd.fillRect(0, row*FONT_HEIGHT, m_columns*FONT_WIDTH, FONT_HEIGHT, TFT_BLACK);
-				for (uint16_t col = 0; col < m_columns; ++col) {
-					if (m_screenBuffer[1][row * m_columns + col] != attr) {
-						attr = m_attr = VT100::TextAttr(m_screenBuffer[1][row * m_columns + col]);
-						setTextAttrs();
-					}
-					GO.lcd.write(m_screenBuffer[0][row * m_columns + col]);
-				}
-			}
-			// Restore current attributes
-			m_attr = oldAttr;
-			GO.lcd.fillRect(0, (GO.lcd.height() - FONT_HEIGHT) %
-					GO.lcd.height(), GO.lcd.width(), FONT_HEIGHT, TFT_BLACK);
-		} else
-			++m_row;
-		setCursor(m_column, m_row);
-		m_lockCursor = false;
-	}
-
-private:
-
-	void setTextAttrs()
-	{
-		VT100::Color color = VT100::Color::COLOR_BLACK;
-		switch (m_attr & 0xF0) {
-		case VT100::TextAttr::C_GREEN:
-			color = VT100::Color::COLOR_GREEN;
-			break;
-		case VT100::TextAttr::C_YELLOW:
-			color = VT100::Color::COLOR_YELLOW;
-			break;
-		case VT100::TextAttr::C_BLUE:
-			color = VT100::Color::COLOR_BLUE;
-			break;
-		case VT100::TextAttr::C_CYAN:
-			color = VT100::Color::COLOR_CYAN;
-			break;
-		case VT100::TextAttr::C_MAGENTA:
-			color = VT100::Color::COLOR_MAGENTA;
-			break;
-		case VT100::TextAttr::C_RED:
-			color = VT100::Color::COLOR_RED;
-			break;
-		case VT100::TextAttr::C_WHITE:
-			color = VT100::Color::COLOR_WHITE;
-			break;
-		case VT100::TextAttr::C_BLACK:
-			color = VT100::Color::COLOR_BLACK;
-			break;
-		}
-
-		if (m_attr & VT100::TextAttr::BRIGHT)
-			GO.lcd.setTextColor(s_colors[color][1]);
-		else
-			GO.lcd.setTextColor(s_colors[color][0]);
-	}
-
-	static uint16_t s_colors[uint8_t(VT100::Color::NUM_COLORS)][2];
-
-	uint8_t m_screenBuffer[2][TERMINAL_COLS*TERMINAL_ROWS];
-
-	// VT100::Print interface
-protected:
-
-	void writeChar(uint8_t c) override
-	{
-		m_lockCursor = true;
-		drawCursor(false);
-		switch (c) {
-		case '\n':
-			if (m_row < m_rows - 1)
-				GO.lcd.write('\n');
-			scrollLine();
-			break;
-		case '\r':
-			m_column = 0;
-			break;
-		case 8: //backspace
-			if (m_column > 0)
-				setCursor(--m_column, m_row);
-			else if (m_row > 0) {
-				m_column = m_columns - 1;
-				setCursor(m_column, --m_row);
-			}
-			break;
-		default:
-			GO.lcd.write(c);
-			m_screenBuffer[0][m_row * m_columns + m_column] = c;
-			m_screenBuffer[1][m_row * m_columns + m_column] = m_attr;
-			if (m_column >= m_columns - 1) {
-				m_column = 0;
-				scrollLine();
-			} else
-				++m_column;
-		}
-		drawCursor(true);
-		m_lockCursor = false;
-	}
-
-	void setCursor(uint8_t x, uint8_t y) override
-	{
-		drawCursor(false);
-		m_row = y % m_rows;
-		m_column = x % m_columns;
-		GO.lcd.setCursor(m_column * FONT_WIDTH, m_row * FONT_HEIGHT);
-		drawCursor(true);
-	}
-
-	void addAttribute(VT100::TextAttr ta) override
-	{
-		switch (ta) {
-		case VT100::TextAttr::BRIGHT:
-			m_attr |= VT100::TextAttr::BRIGHT;
-			break;
-		case VT100::TextAttr::C_GREEN:
-		case VT100::TextAttr::C_YELLOW:
-		case VT100::TextAttr::C_BLUE:
-		case VT100::TextAttr::C_CYAN:
-		case VT100::TextAttr::C_MAGENTA:
-		case VT100::TextAttr::C_RED:
-		case VT100::TextAttr::C_WHITE:
-		case VT100::TextAttr::C_BLACK:
-			m_attr &= VT100::TextAttr(0x0F);
-			m_attr |= ta;
-			break;
-		default:
-			break;
-		}
-		setTextAttrs();
-	}
-
-	void resetAttributes() override
-	{
-		GO.lcd.setTextColor(TFT_LIGHTGREY);
-		m_attr = VT100::TextAttr::NO_ATTR;
-	}
-};
-
-#define TFT_DARKYELLOW 0x7BE0
-#define TFT_DARKMAGENTA 0x780F
-
-uint16_t OdroidGoScreen::s_colors[
-uint8_t(VT100::Color::NUM_COLORS)][2] = {
-	{ TFT_BLACK, TFT_DARKGREY}, // COLOR_BLACK
-	{ TFT_RED, TFT_PINK}, // COLOR_RED
-	{ TFT_DARKGREEN, TFT_GREEN}, // COLOR_GREEN
-	{ TFT_DARKYELLOW, TFT_YELLOW}, // COLOR_YELLOW
-	{ TFT_NAVY, TFT_BLUE}, // COLOR_BLUE
-	{ TFT_DARKMAGENTA, TFT_MAGENTA}, // COLOR_MAGENTA
-	{ TFT_DARKCYAN, TFT_CYAN}, // COLOR_CYAN
-	{ TFT_LIGHTGREY, TFT_WHITE} // COLOR_WHITE
-};
-
-static OdroidGoScreen* GOScreen;
-
-void
-HAL_terminal_write(HAL_terminal_t t, uint8_t b)
-{
-	if (t == 0)
-		GOScreen->write(b);
-}
-
-#if HAL_ESP32_ODROIDGO_QWERTY
-uint8_t
-HAL_terminal_read(HAL_terminal_t t)
-{
-	if (t == 0)
-		return kbdStream->read();
-	return 0;
-}
-
-BOOLEAN
-HAL_terminal_isdataready(HAL_terminal_t t)
-{
-	if (t == 0)
-		return kbdStream->available();
-	return FALSE;
-}
-#endif // HAL_ESP32_ODROIDGO_QWERTY
-#endif // HAL_ESP32_ODROIDGO
-
 __BEGIN_DECLS
 
 void
 HAL_initialize_concrete()
 {
 #if HAL_ESP32_ODROIDGO
-	GO.begin();
-	GOScreen = new OdroidGoScreen();
-	GOScreen->begin();
-  GO.Speaker.beep();
-
-#if HAL_ESP32_ODROIDGO_QWERTY
-	kbd = new ODROIDGO::OKeyboard;
-	kbd->begin();
-	kbdStream = new ODROIDGO::OKeyboardStream(*kbd);
-#endif // HAL_ESP32_ODROIDGO_QWERTY
+  HAL_esp32_odroidgo_init();
 #endif // HAL_ESP32_ODROIDGO
   
 #if HAL_NVRAM || (HAL_ESP32_EXTMEM == HAL_ESP32_EXTEM_SPIFFS)
@@ -366,9 +109,6 @@ HAL_finalize()
 #if HAL_ESP32_EXTMEM == HAL_ESP32_EXTEM_SD
 	SD.end();
 #endif // HAL_ESP32_EXTMEM
-#if HAL_ESP32_ODROIDGO
-	delete GOScreen;
-#endif // HAL_ESP32_ODROIDGO
 }
 
 #if HAL_NVRAM
@@ -679,8 +419,7 @@ void
 HAL_update_concrete()
 {
 #if HAL_ESP32_ODROIDGO
-	GO.update();
-	GOScreen->update();
+  HAL_esp32_odroidgo_update();
 #endif // HAL_ESP32_ODROIDGO
 }
 
