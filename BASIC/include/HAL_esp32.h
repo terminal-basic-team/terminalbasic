@@ -60,10 +60,13 @@ void analogWrite(uint8_t, uint8_t);
 #endif /* HAL_BUZZER */
 
 /* ODROID-GO Hardware support */
-#define HAL_ESP32_ODROIDGO 1
+#define HAL_ESP32_ODROIDGO 0
 #if HAL_ESP32_ODROIDGO
 /* Use ODROID-GO qwerty keyboard for input */
 #define HAL_ESP32_ODROIDGO_QWERTY 1
+#if HAL_GFX
+#define HAL_ESP32_ODROIDGO_GFX 1
 #endif
+#endif /* HAL_ESP32_ODROIDGO */
 
 #endif /* HAL_ESP32_H */
