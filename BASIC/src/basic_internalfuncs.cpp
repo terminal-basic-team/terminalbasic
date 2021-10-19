@@ -74,6 +74,9 @@ static const char intFuncs[] PROGMEM = {
 	'S', 'G', 'N', ASCII_NUL,
 	'S', 'T', 'R', '$', ASCII_NUL,
 	'T', 'I', 'M', 'E', ASCII_NUL,
+#if USE_VAL
+	'V', 'A', 'L', ASCII_NUL,
+#endif
 #elif CONF_LEXER_LANG == LANG_RU
 	'A', 'B', 'S', ASCII_NUL,
 #if USE_ASC
@@ -103,19 +106,22 @@ static const char intFuncs[] PROGMEM = {
 #endif
 	'S', 'G', 'N', ASCII_NUL,
 	'T', 'I', 'M', 'E', ASCII_NUL,
+#if USE_VAL
+	'V', 'A', 'L', ASCII_NUL,
+#endif
 #if USE_LEN
-	'ÔøΩ', 'ÔøΩ', 'ÔøΩ', 'ÔøΩ', 'ÔøΩ', ASCII_NUL,
+	'Ñ', 'ã', 'à', 'ç', 'Ä', ASCII_NUL,
 #endif
 #if USE_LEFT
-	'ÔøΩ', 'ÔøΩ', 'ÔøΩ', '$', ASCII_NUL,
+	'ã', 'Ö', 'Ç', '$', ASCII_NUL,
 #endif
 #if USE_RIGHT
-	'ÔøΩ', 'ÔøΩ', 'ÔøΩ', 'ÔøΩ', '$', ASCII_NUL,
+	'è', 'ê', 'Ä', 'Ç', '$', ASCII_NUL,
 #endif
 #if USE_MID
-	'ÔøΩ', 'ÔøΩ', 'ÔøΩ', 'ÔøΩ', '$', ASCII_NUL,
+	'ë', 'ê', 'Ö', 'Ñ', '$', ASCII_NUL,
 #endif
-	'ÔøΩ', 'ÔøΩ', 'ÔøΩ', '$', ASCII_NUL,
+	'ë', 'í', 'ê', '$', ASCII_NUL,
 #endif // CONF_LANG
 	ASCII_ETX
 };
@@ -163,6 +169,9 @@ const FunctionBlock::function InternalFunctions::funcs[] PROGMEM = {
 	InternalFunctions::func_sgn,
 	InternalFunctions::func_str,
 	InternalFunctions::func_tim,
+#if USE_VAL
+	InternalFunctions::func_val,
+#endif
 #elif CONF_LEXER_LANG == LANG_RU
 	InternalFunctions::func_abs,
 #if USE_ASC
@@ -192,7 +201,10 @@ const FunctionBlock::function InternalFunctions::funcs[] PROGMEM = {
 #endif
 	InternalFunctions::func_sgn,
 	InternalFunctions::func_tim,
-	
+#if USE_VAL
+	InternalFunctions::func_val,
+#endif
+
 #if USE_LEN
 	InternalFunctions::func_len,
 #endif
@@ -252,6 +264,21 @@ InternalFunctions::func_asc(Interpreter &i)
 	return false;
 }
 #endif // USE_ASC
+
+#if USE_VAL
+bool
+InternalFunctions::func_val(Interpreter &i)
+{
+	const char *str;
+	if (i.popString(str)) {
+		Lexer lex;
+		lex.init((const uint8_t*)str, false);
+		if (lex.getNext() && i.pushValue(lex.getValue()))
+			return true;
+	}
+	return false;
+}
+#endif // USE_VAL
 
 #if USE_CHR
 bool

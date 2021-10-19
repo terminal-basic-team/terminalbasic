@@ -71,6 +71,9 @@ private:
 	static bool func_sgn(Interpreter&);
         static bool func_str(Interpreter&);
 	static bool func_tim(Interpreter&);
+#if USE_VAL
+	static bool func_val(Interpreter&);
+#endif
 #if USE_REALS
 #define ___TYP Real
 #else
