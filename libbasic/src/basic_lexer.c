@@ -296,6 +296,7 @@ _basic_lexer_decimalint(basic_lexer_context_t *self)
 static void
 _basic_lexer_stringConst(basic_lexer_context_t *self)
 {
+	self->value.type = BASIC_VALUE_TYPE_STRING;
 	while (SYM != ASCII_NUL) {
 		if (SYM == '"') {
 			self->token = BASIC_TOKEN_C_STRING;

@@ -69,6 +69,11 @@ DataParser::readValue(Parser::Value &value)
 		if (_lexer.getToken() == Token::C_STRING)
 			_interpreter.pushString(_lexer.id());
 		return true;
+	} else if ((_lexer.getToken() >= Token::INTEGER_IDENT)
+		&& (_lexer.getToken() <= Token::BOOL_IDENT)) {
+		value.setType(Parser::Value::Type::STRING);
+		_interpreter.pushString(_lexer.id());
+		return true;
 	}
 	return false;
 }
