@@ -1,6 +1,9 @@
 /*
  * Terminal-BASIC is a lightweight BASIC-like language interpreter
- * Copyright (C) 2017-2019 Andrey V. Skvortsov <starling13@mail.ru>
+ *
+ * Copyright (C) 2016-2018 Andrey V. Skvortsov <starling13@mail.ru>
+ * Copyright (C) 2019,2021 Terminal-BASIC team
+ *     <https://github.com/terminal-basic-team>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +25,7 @@
 
 #if CONF_LEXER_LANG == LANG_RU
 
-const uint8_t _basic_lexer_symbolsShift PROGMEM = (uint8_t)('€')-'A';
+const uint8_t _basic_lexer_symbolsShift PROGMEM = (uint8_t)('ï¿½')-'A';
 
 const uint8_t _basic_lexer_tokenTable[] PROGMEM = {
 	ASCII_NUL,
@@ -97,50 +100,50 @@ const uint8_t _basic_lexer_tokenTable[] PROGMEM = {
 #if USE_MATRIX
 	'Z', 'E', 'R',ASCII_NUL,
 #endif
-	'‚', '‚', 'Ž', '„', ASCII_NUL,
+	'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
 #if USE_DATA
-	'‚', '‡', 'Ÿ', '’', 'œ', ASCII_NUL,
+	'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
 #endif
-	'‚', 'Ž', '‡', '‚', '', '€', '’', ASCII_NUL,
-	'‚', '›', '‚', 'Ž', '„', ASCII_NUL,
+	'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
+	'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
 #if USE_DATA
-	'„', '€', '', '', '›', '…', ASCII_NUL,
+	'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
 #endif
-	'„', '‹', 'Ÿ', ASCII_NUL,
-	'„', 'Ž', ASCII_NUL,
-	'…', '‘', '‹', 'ˆ', ASCII_NUL,
-	'ˆ', '‹', 'ˆ', ASCII_NUL,
-        'ˆ', ASCII_NUL,
-	'Š', 'Ž', 'Œ', ASCII_NUL,
-	'Š', 'Ž', '', '…', '–', ASCII_NUL,
-	'‹', 'ˆ', '‘', '’', '€', '’', 'œ',  ASCII_NUL,
+	'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
+	'ï¿½', 'ï¿½', ASCII_NUL,
+	'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
+	'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
+        'ï¿½', ASCII_NUL,
+	'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
+	'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
+	'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½',  ASCII_NUL,
 #if USE_MATRIX
-	'Œ', '€', '’', ASCII_NUL,                // 23
+	'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,                // 23
 #endif
-	'', '€', ASCII_NUL,
-	'', '…', ASCII_NUL,
-	'', 'Ž', '‚', '€', 'Ÿ', ASCII_NUL,      // 21
+	'ï¿½', 'ï¿½', ASCII_NUL,
+	'ï¿½', 'ï¿½', ASCII_NUL,
+	'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,      // 21
 #if USE_DEFFN
-	'Ž', '', '', ASCII_NUL,
+	'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
 #endif
 #if CONF_USE_ON_GOTO
-	'', '', 'ˆ', ASCII_NUL,
+	'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
 #endif
-	'', '“', '‘', 'Š', ASCII_NUL,
-	'', '“', '‘', '’', 'œ', ASCII_NUL,
-	'', '€', '‡', 'Œ', '…', '', ASCII_NUL,
+	'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
+	'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
+	'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
 #if USE_DATA
-	'‘', '', 'Ž', '‚', '€', ASCII_NUL,
+	'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
 #endif
 #if USESTOPCONT
-	'‘', '’', 'Ž', '', ASCII_NUL,
+	'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
 #endif
-	'’', 'Ž', ASCII_NUL,
+	'ï¿½', 'ï¿½', ASCII_NUL,
 #if USE_DEFFN
-	'”', '“', '', 'Š', ASCII_NUL,
+	'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
 #endif
-	'–', 'ˆ', 'Š', '‹', ASCII_NUL,
-	'˜', '€', 'ƒ', ASCII_NUL,
+	'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
+	'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
 	ASCII_ETX
 };
 
