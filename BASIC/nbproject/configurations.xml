@@ -37,6 +37,7 @@
       <itemPath>src/HAL_arduino.cpp</itemPath>
       <itemPath>src/HAL_avr8.cpp</itemPath>
       <itemPath>src/HAL_esp32.cpp</itemPath>
+      <itemPath>src/HAL_esp32_odroidgo.cpp</itemPath>
       <itemPath>src/HAL_esp8266.cpp</itemPath>
       <itemPath>src/HAL_mingw32.c</itemPath>
       <itemPath>src/HAL_pc.c</itemPath>
@@ -293,6 +294,8 @@
       </item>
       <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/HAL_esp32_odroidgo.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_mingw32.c" ex="false" tool="0" flavor2="0">
@@ -542,6 +545,8 @@
       </item>
       <item path="src/HALProxyStream.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/HAL_esp32_odroidgo.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/HAL_sdl.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="0">
@@ -757,6 +762,8 @@
       <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HAL_esp32_odroidgo.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1044,7 +1051,7 @@
     </conf>
     <conf name="Arduino_mega2560" type="1">
       <toolsSet>
-        <compilerSet>Arduino-1.8.10|GNU</compilerSet>
+        <compilerSet>Arduino-1.8.13|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
@@ -1057,7 +1064,7 @@
           </incDir>
           <commandLine>-Os -Wextra -std=gnu11 -ffunction-sections -fdata-sections -MMD -mmcu=atmega2560 -flto -fno-fat-lto-objects -mcall-prologues</commandLine>
           <preprocessorList>
-            <Elem>ARDUINO=10810</Elem>
+            <Elem>ARDUINO=10813</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_MEGA2560</Elem>
             <Elem>F_CPU=16000000L</Elem>
@@ -1092,7 +1099,7 @@
           </incFile>
           <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -fno-threadsafe-statics -MMD -mmcu=atmega2560 -ffunction-sections -fdata-sections -flto -fno-rtti</commandLine>
           <preprocessorList>
-            <Elem>ARDUINO=10810</Elem>
+            <Elem>ARDUINO=10813</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_MEGA2560</Elem>
             <Elem>F_CPU=16000000L</Elem>
@@ -1218,6 +1225,8 @@
       <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HAL_esp32_odroidgo.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_mingw32.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -1419,6 +1428,8 @@
       <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HAL_esp32_odroidgo.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1631,6 +1642,8 @@
       </item>
       <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/HAL_esp32_odroidgo.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_mingw32.c" ex="false" tool="0" flavor2="0">
@@ -1831,6 +1844,8 @@
       <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HAL_esp32_odroidgo.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -2063,6 +2078,8 @@
       <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HAL_esp32_odroidgo.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -2308,6 +2325,8 @@
       </item>
       <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/HAL_esp32_odroidgo.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_mingw32.c" ex="false" tool="0" flavor2="0">
@@ -2541,6 +2560,8 @@
       </item>
       <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/HAL_esp32_odroidgo.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_mingw32.c" ex="false" tool="0" flavor2="0">
@@ -2747,6 +2768,8 @@
       </item>
       <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/HAL_esp32_odroidgo.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_mingw32.c" ex="false" tool="0" flavor2="0">
@@ -2949,6 +2972,8 @@
       <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HAL_esp32_odroidgo.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -3233,6 +3258,8 @@
       <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HAL_esp32_odroidgo.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
       </item>
