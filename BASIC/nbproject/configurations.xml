@@ -200,6 +200,24 @@
                             perm="755"
                             owner="root"
                             group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
         </packFileList>
       </packaging>
       <folder path="TestFiles/f1">
@@ -435,6 +453,24 @@
                             perm="755"
                             owner="root"
                             group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
         </packFileList>
       </packaging>
       <folder path="TestFiles/f1">
@@ -559,7 +595,7 @@
     </conf>
     <conf name="Arduino_nano328" type="1">
       <toolsSet>
-        <compilerSet>Arduino-1.8.10|GNU</compilerSet>
+        <compilerSet>Arduino-1.8.13|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
@@ -572,7 +608,7 @@
           </incDir>
           <commandLine>-Os -w -Wextra -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects -mcall-prologues -mmcu=atmega328p</commandLine>
           <preprocessorList>
-            <Elem>ARDUINO=10810</Elem>
+            <Elem>ARDUINO=10813</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_NANO</Elem>
             <Elem>F_CPU=16000000L</Elem>
@@ -596,7 +632,7 @@
           </incFile>
           <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -fno-threadsafe-statics -MMD -mmcu=atmega328p -ffunction-sections -fdata-sections -flto -fno-rtti -mcall-prologues</commandLine>
           <preprocessorList>
-            <Elem>ARDUINO=10810</Elem>
+            <Elem>ARDUINO=10813</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_NANO</Elem>
             <Elem>F_CPU=16000000L</Elem>
@@ -774,8 +810,6 @@
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/taskmain.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/tvoutprint.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="0">
@@ -785,7 +819,7 @@
     </conf>
     <conf name="Arduino_UNO" type="1">
       <toolsSet>
-        <compilerSet>Arduino-1.8.10|GNU</compilerSet>
+        <compilerSet>Arduino-1.8.13|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
@@ -798,7 +832,7 @@
           </incDir>
           <commandLine>-Os -w -Wextra -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects -mcall-prologues -mmcu=atmega328p</commandLine>
           <preprocessorList>
-            <Elem>ARDUINO=10810</Elem>
+            <Elem>ARDUINO=10813</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_UNO</Elem>
             <Elem>F_CPU=16000000L</Elem>
@@ -823,7 +857,7 @@
           </incFile>
           <commandLine>-Os -w -Wextra -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD -flto -mcall-prologues -mmcu=atmega328p -flto</commandLine>
           <preprocessorList>
-            <Elem>ARDUINO=10810</Elem>
+            <Elem>ARDUINO=10813</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_UNO</Elem>
             <Elem>F_CPU=16000000L</Elem>
@@ -844,18 +878,6 @@
                             BC="${MAKE}  -f Makefile CONF=Arduino_uno"
                             CC="${MAKE}  -f Makefile CONF=Arduino_uno clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinoext.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../../libsdcard/libsdcard"
-                            CT="3"
-                            CN="Arduino_UNO"
-                            AC="true"
-                            BL="true"
-                            WD="../../libsdcard/libsdcard"
-                            BC="${MAKE}  -f Makefile CONF=Arduino_UNO"
-                            CC="${MAKE}  -f Makefile CONF=Arduino_UNO clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibsdcard.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -3099,6 +3121,24 @@
         <packType>Tar</packType>
         <output>${CND_DISTDIR}/${CND_CONF}/package/basic.tar</output>
         <packFileList>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
           <packFileListElem type="File"
                             to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
                             from="${OUTPUT_PATH}"

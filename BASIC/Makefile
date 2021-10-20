@@ -48,7 +48,7 @@ MKDIR=mkdir
 CP=cp
 CCADMIN=CCadmin
 
-ARDUINO_PATH=/opt/arduino-1.8.10
+ARDUINO_PATH=/opt/arduino-1.8.13
 TOOLS = ${ARDUINO_PATH}/hardware/tools/avr
 AVRDUDE=${TOOLS}/bin/avrdude
 OBJCOPY=${TOOLS}/bin/avr-objcopy
@@ -60,7 +60,7 @@ OBJCOPY_ARM=/opt/Arduino/gcc-arm-none-eabi-4.8.3-2014q1/bin/arm-none-eabi-objcop
 SIZE_ARM=/opt/Arduino/gcc-arm-none-eabi-4.8.3-2014q1/bin/arm-none-eabi-size
 
 BUILD:=$(shell cat "./build-${CONF}")
-VERSION:=2.3-b1-${BUILD}
+VERSION:=2.3-b2-${BUILD}
 
 # build
 build: .build-post
