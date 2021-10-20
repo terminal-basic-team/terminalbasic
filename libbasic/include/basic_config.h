@@ -81,7 +81,7 @@
 /**
  * Support of DATA/READ statements
  */
-#define USE_DATA             1
+#define USE_DATA             0
 
 /*
  * Support of DEF FN construct
@@ -106,7 +106,7 @@
 /*
  * Fast command call using C-function address
  */
-#define FAST_MODULE_CALL    0
+#define FAST_MODULE_CALL    1
 
 /*
  * Support of integer division and modulo operation

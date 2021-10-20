@@ -110,18 +110,18 @@ static const char intFuncs[] PROGMEM = {
 	'V', 'A', 'L', ASCII_NUL,
 #endif
 #if USE_LEN
-	'ÔøΩ', 'ÔøΩ', 'ÔøΩ', 'ÔøΩ', 'ÔøΩ', ASCII_NUL,
+	'Ñ', 'ã', 'à', 'ç', 'Ä', ASCII_NUL,
 #endif
 #if USE_LEFT
-	'ÔøΩ', 'ÔøΩ', 'ÔøΩ', '$', ASCII_NUL,
+	'ã', 'Ö', 'Ç', '$', ASCII_NUL,
 #endif
 #if USE_RIGHT
-	'ÔøΩ', 'ÔøΩ', 'ÔøΩ', 'ÔøΩ', '$', ASCII_NUL,
+	'è', 'ê', 'Ä', 'Ç', '$', ASCII_NUL,
 #endif
 #if USE_MID
-	'ÔøΩ', 'ÔøΩ', 'ÔøΩ', 'ÔøΩ', '$', ASCII_NUL,
+	'ë', 'ê', 'Ö', 'Ñ', '$', ASCII_NUL,
 #endif
-	'ÔøΩ', 'ÔøΩ', 'ÔøΩ', '$', ASCII_NUL,
+	'ë', 'í', 'ê', '$', ASCII_NUL,
 #endif // CONF_LANG
 	ASCII_ETX
 };

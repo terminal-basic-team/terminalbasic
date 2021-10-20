@@ -67,16 +67,18 @@
 	#define USE_ASC     1
 	// LEN function, returns length of the string
 	#define USE_LEN     1
-	// LEFT$ function, return leftmost part of the string
+	// LEFT$ function, returns leftmost part of the string
 	#define USE_LEFT    1
-	// RIGHT$ function, return rightmost part of the string
+	// RIGHT$ function, returns rightmost part of the string
 	#define USE_RIGHT   1
-	// MID$ function, return middle part of the string
+	// MID$ function, returns middle part of the string
 	#define USE_MID     1
-	// A variant of MID$ equivalent
+	// An alias for MID$
 	#define USE_SEG     1
-	// HEX$ function, return string with hexsadecimal representation of the expression value
+	// HEX$ function, returns string with hexsadecimal representation of the expression value
 	#define USE_HEX     1
+	// VAL function, returns numeric value from string
+	#define USE_VAL     1
 #endif // USE_STRINGOPS
 /*
  * Clear program memory on NEW command
@@ -127,10 +129,10 @@
 #define CONF_ERROR_STRINGS 0
 
 // Arduino IO module
-#define CONF_MODULE_ARDUINOIO      0
+#define CONF_MODULE_ARDUINOIO      1
 #if CONF_MODULE_ARDUINOIO
 	// TONE command support
-	#define CONF_MODULE_ARDUINOIO_TONE 1
+	#define CONF_MODULE_ARDUINOIO_TONE 0
 	// BEEP command
 	#if CONF_MODULE_ARDUINOIO_TONE
 		#define CONF_BEEP     1

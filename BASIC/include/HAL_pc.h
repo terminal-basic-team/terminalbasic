@@ -27,11 +27,11 @@
 #define HAL_PC_H
 
 #if HAL_NVRAM
-#define HAL_PC_FILES_PATH "/terminal_basic_HAL"
+#define HAL_PC_FILES_PATH "/terminal_basic_HAL/"
 #endif
 
 #if HAL_EXTMEM
-#define HAL_PC_EXTMEM_DIR_PATH "extmem"
+#define HAL_PC_EXTMEM_DIR_PATH "extmem/"
 #endif /* HAL_EXTMEM */
 
 #endif /* HAL_LINUX_H */

@@ -64,7 +64,7 @@ int
 HALProxyStream::read()
 {
 	if (m_hasByte)
-		return  m_byte;
+		return m_byte;
 	else if (HAL_terminal_isdataready(m_term))
 		return HAL_terminal_read(m_term);
 	else
