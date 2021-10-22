@@ -169,38 +169,45 @@ static const char strBadChecksum[] PROGMEM = STR_BAD_CHECKSUM;
 #if USE_TEXTATTRIBUTES
 static const char strInvalidTab[] PROGMEM = STR_INVALID_TAB;
 #endif
-/*
-		INVALID_ELEMENT_INDEX = 14,
+static const char strInvElmIndex[] PROGMEM = STR_INVALID_ELEMENT_INDEX;
 #if USE_MATRIX
-		SQUARE_MATRIX_EXPECTED = 15,
+static const char strSqrMatExp[] PROGMEM = STR_SQUARE_MATRIX_EXPECTED;
+static const char strDimMismatch[] PROGMEM = STR_DIMENSIONS_MISMATCH;
 #endif
-		DIMENSIONS_MISMATCH = 16,
-		COMMAND_FAILED = 17,
+static const char strCommandFailed[] PROGMEM = STR_COMMAND_FAILED;
 #if USE_DEFFN
-		VAR_DUPLICATE = 18,
-		FUNCTION_DUPLICATE = 19,
-		NO_SUCH_FUNCION = 20,
+static const char strVarDuplicate[] PROGMEM = STR_VAR_DUPLICATE;
+static const char strFunctionDuplicate[] PROGMEM = STR_FUNCTION_DUPLICATE;
+static const char strNoSuchFunction[] PROGMEM = STR_NO_SUCH_FUNCION;
 #endif
-		INTERNAL_ERROR = 255*/
 
 PGM_P const Interpreter::errorStrings[] PROGMEM = {
-	noerror,
-	outtamemerror,
-	strRedimedArray,
-	stackFrameAlloc,
-	strStringFrameMiss,
-	strInvalidNext,
-	strReturnWOGosub,
-	strNoSuchLine,
-	strInvalidVal,
-	strNoSuchArray,
-	strInegerExpExpected,
+	noerror,              // 0
+	outtamemerror,        // 1
+	strRedimedArray,      // 2
+	stackFrameAlloc,      // 3
+	strStringFrameMiss,   // 4
+	strInvalidNext,       // 5
+	strReturnWOGosub,     // 6
+	strNoSuchLine,        // 7
+	strInvalidVal,        // 8
+	strNoSuchArray,       // 9
+	strInegerExpExpected, // 10
 #if SAVE_LOAD_CHECKSUM
-	strBadChecksum,
+	strBadChecksum,       // 11
 #endif
 #if USE_TEXTATTRIBUTES
-	strInvalidTab
+	strInvalidTab,        // 12
 #endif
+	strInvElmIndex,       // 13
+#if USE_MATRIX
+	strSqrMatExp,         // 14
+	strDimMismatch,       // 15
+#endif
+	strCommandFailed,     // 16
+	strVarDuplicate,      // 17
+	strFunctionDuplicate, // 18
+	strNoSuchFunction     // 19
 };
 
 #endif // CONF_ERROR_STRINGS

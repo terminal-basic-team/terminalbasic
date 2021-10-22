@@ -47,6 +47,13 @@
 #define STR_INTEGER_EXP_EXPECTED      "Ž†ˆ„€‹Ž‘œ –…‹Ž—ˆ‘‹…Ž… ‡€—…ˆ…"
 #define STR_BAD_CHECKSUM              "…‚…€Ÿ ŠŽ’Ž‹œ€Ÿ ‘“ŒŒ€"
 #define STR_INVALID_TAB               "…‚…Ž… ‡€—…ˆ… ’€“‹Ÿ–ˆˆ"
+#define STR_INVALID_ELEMENT_INDEX     "…‚…›‰ ˆ„…Š‘ ‹…Œ…’€"
+#define STR_SQUARE_MATRIX_EXPECTED    "Ž†ˆ„€‹€‘œ Š‚€„€’€Ÿ Œ€’ˆ–€"
+#define STR_DIMENSIONS_MISMATCH       "…‘ŽŽ’‚…’‘’‚ˆ… €‡Œ…Ž‘’ˆ"
+#define STR_COMMAND_FAILED            "Ž˜ˆŠ€ ‚›Ž‹…ˆŸ ŠŽŒ€„›"
+#define STR_VAR_DUPLICATE             "„“‹ˆ“ž™€Ÿ‘Ÿ ……Œ…€Ÿ"
+#define STR_FUNCTION_DUPLICATE        "„“‹ˆ“ž™€Ÿ‘Ÿ ”“Š–ˆŸ"
+#define STR_NO_SUCH_FUNCION           "…’ ’€ŠŽ‰ ”“Š–ˆˆ"
 
 #define STR_ERROR      "Ž˜ˆŠ€"
 #define STR_BYTES      "€‰’"

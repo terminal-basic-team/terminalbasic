@@ -1,4 +1,4 @@
-AC_INIT([terminalbasic],[2.3-a2],[starling13mail.ru],[terminalbasic],[https://sourceforge.net/projects/terminal-basic])
+AC_INIT([terminalbasic],[2.3-b2],[starling13mail.ru],[terminalbasic],[https://sourceforge.net/projects/terminal-basic])
 AM_INIT_AUTOMAKE([foreign])
 AC_PREREQ(2.57)
 AC_CONFIG_HEADER(config.h)
