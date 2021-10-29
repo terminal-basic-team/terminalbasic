@@ -175,11 +175,15 @@ static const char strSqrMatExp[] PROGMEM = STR_SQUARE_MATRIX_EXPECTED;
 static const char strDimMismatch[] PROGMEM = STR_DIMENSIONS_MISMATCH;
 #endif
 static const char strCommandFailed[] PROGMEM = STR_COMMAND_FAILED;
-#if USE_DEFFN
 static const char strVarDuplicate[] PROGMEM = STR_VAR_DUPLICATE;
+#if USE_DEFFN
 static const char strFunctionDuplicate[] PROGMEM = STR_FUNCTION_DUPLICATE;
 static const char strNoSuchFunction[] PROGMEM = STR_NO_SUCH_FUNCION;
 #endif
+#if USE_DATA
+static const char strInsufficientData[] PROGMEM = STR_INSUFFICIENT_DATA;
+#endif
+
 
 PGM_P const Interpreter::errorStrings[] PROGMEM = {
 	noerror,              // 0
@@ -206,8 +210,16 @@ PGM_P const Interpreter::errorStrings[] PROGMEM = {
 #endif
 	strCommandFailed,     // 16
 	strVarDuplicate,      // 17
+#if USE_DEFFN
 	strFunctionDuplicate, // 18
-	strNoSuchFunction     // 19
+	strNoSuchFunction,    // 19
+#else
+	nullptr,
+	nullptr,
+#endif
+#if USE_DATA
+	strInsufficientData   // 20
+#endif
 };
 
 #endif // CONF_ERROR_STRINGS
@@ -1653,6 +1665,7 @@ Interpreter::read(Parser::Value &value)
 			_program.getNextLine(_program._dataCurrent);
 			
 	}
+	raiseError(ErrorType::DYNAMIC_ERROR, ErrorCodes::INSUFFICIENT_DATA);
 	return false;
 }
 #endif // USE_DATA
