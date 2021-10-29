@@ -622,7 +622,7 @@ Parser::fDataStatement()
 			_lexer.getNext();
 			t = _lexer.getToken();
 		}
-		if ((t >= Token::C_INTEGER && t <= Token::C_STRING)
+		if ((t >= Token::INTEGER_IDENT && t <= Token::C_STRING)
 		 || (t == Token::KW_TRUE)
 		 || (t == Token::KW_FALSE)) {
 			if (_lexer.getNext()) {
