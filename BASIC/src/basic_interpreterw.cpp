@@ -199,14 +199,21 @@ PGM_P const Interpreter::errorStrings[] PROGMEM = {
 	strInegerExpExpected, // 10
 #if SAVE_LOAD_CHECKSUM
 	strBadChecksum,       // 11
+#else
+	nullptr,
 #endif
 #if USE_TEXTATTRIBUTES
 	strInvalidTab,        // 12
+#else
+	nullptr,
 #endif
 	strInvElmIndex,       // 13
 #if USE_MATRIX
 	strSqrMatExp,         // 14
 	strDimMismatch,       // 15
+#else
+	nullptr,
+	nullptr,
 #endif
 	strCommandFailed,     // 16
 	strVarDuplicate,      // 17

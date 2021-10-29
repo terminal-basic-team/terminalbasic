@@ -119,6 +119,8 @@ PGM_P const Parser::errorStrings[] PROGMEM = {
 	strMissParen,     // 10
 #if CONF_USE_ON_GOTO
 	strInvalidOnGoto  // 11
+#else
+	nullptr
 #endif
 };
 #endif // CONF_ERROR_STRINGS
