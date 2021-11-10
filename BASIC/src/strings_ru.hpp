@@ -56,6 +56,18 @@
 #define STR_NO_SUCH_FUNCION           "��� ����� �������"
 #define STR_INSUFFICIENT_DATA         "������������ ������ ��� ������"
 
+#define STR_LICENSE_MESSAGE \
+"Copyright (C) 2016-2018 Andrey V. Skvortsov <starling13@mail.ru>\n" \
+"Copyright (C) 2019-2021 Terminal-BASIC team\n" \
+"    <https://github.com/terminal-basic-team>\n" \
+"�� �ணࠬ�� ���⠢����� ���� ������ ��������.\n" \
+"�� ᢮������ �ணࠬ��, � �� ����� ��������࠭���\n" \
+"�� �/��� �������� �� �� �᫮���� �⠭���⭮� ����⢥����\n" \
+"��業��� GNU � ⮬ ����, � ����� ��� �뫠 ��㡫�������\n" \
+"������ ᢮������� �ணࠬ����� ���ᯥ祭��; ���� ���ᨨ 3\n" \
+"��業���, ���� (�� ��襬� �롮��) �� ����� ������� ���ᨨ."
+
+
 #define STR_ERROR      "������"
 #define STR_BYTES      "����"
 #define STR_VERSION    "������"

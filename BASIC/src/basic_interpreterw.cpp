@@ -74,6 +74,11 @@ static const char strucBASIC[] PROGMEM = "BASIC";
 static const char strVERSION[] PROGMEM = STR_VERSION;
 static const char strTEXT[] PROGMEM = "TEXT";
 static const char strOF[] PROGMEM = "OF";
+
+#if LICENSE_TEXT_ON_START
+static const char strLicenseMessage[] = STR_LICENSE_MESSAGE;
+#endif
+
 #if USE_DUMP
 static const char strVARS[] PROGMEM = "VARS";
 static const char strARRAYS[] PROGMEM = "ARRAYS";
@@ -148,10 +153,10 @@ static PGM_P const progmemStrings[uint8_t(ProgMemStrings::NUM_STRINGS)] PROGMEM 
 	strVT100_WHITE
 #endif // USE_COLORATTRIBUTES
 #endif // USE_TEXTATTRIBUTES
+	    
 };
 
 #if CONF_ERROR_STRINGS
-
 static const char noerror[] PROGMEM = STR_NO_ERROR;
 static const char outtamemerror[] PROGMEM = STR_OUTTA_MEMORY;
 static const char strRedimedArray[] PROGMEM = STR_REDIMED_ARRAY;
@@ -179,11 +184,10 @@ static const char strVarDuplicate[] PROGMEM = STR_VAR_DUPLICATE;
 #if USE_DEFFN
 static const char strFunctionDuplicate[] PROGMEM = STR_FUNCTION_DUPLICATE;
 static const char strNoSuchFunction[] PROGMEM = STR_NO_SUCH_FUNCION;
-#endif
+#endif // USE_DEFFN
 #if USE_DATA
 static const char strInsufficientData[] PROGMEM = STR_INSUFFICIENT_DATA;
 #endif
-
 
 PGM_P const Interpreter::errorStrings[] PROGMEM = {
 	noerror,              // 0
@@ -330,6 +334,10 @@ Interpreter::init()
 	newline();
 	print(ProgMemStrings::S_VERSION);
 	print(VERSION, VT100::BRIGHT), newline();
+#if LICENSE_TEXT_ON_START
+	print(strLicenseMessage);
+	newline();
+#endif
 #if BASIC_MULTITERMINAL
 	print(ProgMemStrings::TERMINAL, VT100::NO_ATTR),
 	    print(Integer(_termno), VT100::BRIGHT),

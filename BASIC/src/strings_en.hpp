@@ -2,7 +2,7 @@
  * Terminal-BASIC is a lightweight BASIC-like language interpreter
  * 
  * Copyright (C) 2016-2018 Andrey V. Skvortsov <starling13@mail.ru>
- * Copyright (C) 2019,2021 Terminal-BASIC team
+ * Copyright (C) 2019-2021 Terminal-BASIC team
  *     <https://github.com/terminal-basic-team>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -55,6 +55,16 @@
 #define STR_FUNCTION_DUPLICATE        "DUPLICATE FUNCTION"
 #define STR_NO_SUCH_FUNCION           "NO SUCH FUNCTION"
 #define STR_INSUFFICIENT_DATA         "INSUFFICIENT DATA FOR READ"
+
+#define STR_LICENSE_MESSAGE \
+"Copyright (C) 2016-2018 Andrey V. Skvortsov <starling13@mail.ru>\n" \
+"Copyright (C) 2019-2021 Terminal-BASIC team\n" \
+"    <https://github.com/terminal-basic-team>\n" \
+"This program comes with ABSOLUTELY NO WARRANTY.\n" \
+"This is free software, and you are welcome to redistribute it\n" \
+"under the terms of the GNU General Public License as published by\n" \
+"the Free Software Foundation, either version 3 of the License, or\n" \
+"(at your option) any later version."
 
 #define STR_ERROR      "ERROR"
 #define STR_BYTES      "BYTES"
