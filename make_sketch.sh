@@ -67,6 +67,7 @@ SRC="	./libbasic/include/basic.h \
 	./BASIC/src/HAL_esp8266.cpp \
 	./BASIC/include/HAL_esp32.h \
 	./BASIC/src/HAL_esp32.cpp \
+	./BASIC/src/HAL_esp32_odroidgo.cpp \
 	./BASIC/src/HAL_sam.cpp \
 	./BASIC/src/basic_gfx.cpp \
 	./BASIC/src/basic_gfx_tvout.cpp \
