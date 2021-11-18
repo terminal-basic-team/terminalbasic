@@ -190,7 +190,6 @@ ArduinoIO::aread_i(INT v)
 	return analogRead(v);
 }
 
-
 #if CONF_BEEP
 
 bool

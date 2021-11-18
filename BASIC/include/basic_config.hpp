@@ -198,48 +198,10 @@
  */
 
 // Input variants
-#define SERIAL_I    1  // Serial input
-#define SERIAL1_I   2  // Serial1 input
-#define SERIAL2_I   3  // Serial2 input
-#define SERIAL3_I   4  // Serial3 input
-#ifdef ARDUINO_ARCH_AVR
-#define SERIALL_I   5  // SerialL input (non-buffering, interrupt-free)
-#define SERIALL1_I  6  // SerialL1 input (non-buffering, interrupt-free)
-#define SERIALL2_I  7  // SerialL2 input (non-buffering, interrupt-free)
-#define SERIALL3_I  8  // SerialL3 input (non-buffering, interrupt-free)
-#endif // ARDUINO_ARCH_AVR
-	#define SERIAL_I_BR 115200
-#define PS2UARTKB_I 9  // PS/2 keyboard through USART
-#define SDL_I       10  // SDL input on PC
 #define HAL_I       11
 
 // Output variants
-#define SERIAL_O   1 // Serial output
-#define SERIAL1_O  2 // Serial1 output
-#define SERIAL2_O  3 // Serial2 output
-#define SERIAL3_O  4 // Serial3 output
-#ifdef ARDUINO_ARCH_AVR
-#define SERIALL_O  5 // SerialL output (non-buffering, interrupt-free)
-#define SERIALL1_O 6 // SerialL1 output (non-buffering, interrupt-free)
-#define SERIALL2_O 7 // SerialL2 output (non-buffering, interrupt-free)
-#define SERIALL3_O 8 // SerialL3 output (non-buffering, interrupt-free)
-#endif // ARDUINO_ARCH_AVR
-	#define SERIAL_O_BR 115200
-#define UTFT_O     9 // UTFT library output
-#define TVOUT_O    10 // TVoutEx library output
-	#define TVOUT_HORIZ 240
-	#define TVOUT_VERT 192
-#define LIQCR_O    11 // LiquidCrystal library output
-	#define LIQCR_HORIZ 20
-	#define LIQCR_VERT 4
-	#define LIQCR_RS 12
-	#define LIQCR_E 11
-	#define LIQCR_D0 5
-	#define LIQCR_D1 4
-	#define LIQCR_D2 3
-	#define LIQCR_D3 2
-#define SDL_O       12
-#define HAL_O         13
+#define HAL_O       13
 
 // Input select
 #define S_INPUT HAL_I
@@ -263,5 +225,8 @@
 
 // Number of characters in variable name
 #define VARSIZE 5
+
+// Show license message on start
+#define LICENSE_TEXT_ON_START 0
 
 #endif // CONFIG_HPP

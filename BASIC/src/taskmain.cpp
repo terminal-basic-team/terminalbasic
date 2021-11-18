@@ -33,7 +33,6 @@ void
 setup()
 {
 	HAL_initialize();
-	
 	activeTask->init();
 }
 

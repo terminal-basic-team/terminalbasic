@@ -1,7 +1,7 @@
 /*
  * This file is part of Terminal-BASIC: a lightweight BASIC-like language
  * interpreter.
- * 
+ *
  * Copyright (C) 2016-2018 Andrey V. Skvortsov <starling13@mail.ru>
  * Copyright (C) 2019-2021 Terminal-BASIC team
  *     <https://github.com/terminal-basic-team>
@@ -40,14 +40,16 @@
 /* Use Use TFT_eSPI library */
 #define HAL_ARDUINO_TERMINAL_OUTPUT_TFTeSPI 3
 
+/* Active output device */
+#define HAL_ARDUINO_TERMINAL_OUTPUT HAL_ARDUINO_TERMINAL_OUTPUT_NONE
+
 /** Input devices **/
 
 #define HAL_ARDUINO_TERMINAL_INPUT_NONE 0
 #define HAL_ARDUINO_TERMINAL_INPUT_SERIAL 1
 #define HAL_ARDUINO_TERMINAL_INPUT_PS2KBD 2
 
-#define HAL_ARDUINO_TERMINAL_OUTPUT HAL_ARDUINO_TERMINAL_OUTPUT_SERIAL
-#define HAL_ARDUINO_TERMINAL_INPUT HAL_ARDUINO_TERMINAL_INPUT_SERIAL
+#define HAL_ARDUINO_TERMINAL_INPUT HAL_ARDUINO_TERMINAL_INPUT_NONE
 
 #if (HAL_ARDUINO_TERMINAL_OUTPUT == HAL_ARDUINO_TERMINAL_OUTPUT_SERIAL) || \
     (HAL_ARDUINO_TERMINAL_INPUT == HAL_ARDUINO_TERMINAL_INPUT_SERIAL)

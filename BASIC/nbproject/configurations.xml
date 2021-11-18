@@ -84,6 +84,10 @@
       <itemPath>../ChangeLog</itemPath>
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <itemPath>../COPYING</itemPath>
+    <itemPath>../README.md</itemPath>
+    <itemPath>../README.pc</itemPath>
+    <itemPath>../README.sketch</itemPath>
   </logicalFolder>
   <sourceRootList>
     <Elem>include</Elem>
@@ -125,7 +129,7 @@
             <pElem>../libbasic/include</pElem>
             <pElem>../../libtvoutex/TVoutEx/src</pElem>
           </incDir>
-          <commandLine>`pkg-config --cflags posixcpp` -std=gnu++11</commandLine>
+          <commandLine>-std=gnu++11</commandLine>
           <preprocessorList>
             <Elem>HAL_PC_TERMINAL</Elem>
           </preprocessorList>
@@ -221,6 +225,14 @@
                             group="bin"/>
         </packFileList>
       </packaging>
+      <item path="../COPYING" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.md" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.pc" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.sketch" ex="false" tool="3" flavor2="0">
+      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -476,6 +488,14 @@
                             group="bin"/>
         </packFileList>
       </packaging>
+      <item path="../COPYING" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.md" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.pc" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.sketch" ex="false" tool="3" flavor2="0">
+      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -688,6 +708,14 @@
           <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega328p</commandLine>
         </linkerTool>
       </compileType>
+      <item path="../COPYING" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.md" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.pc" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.sketch" ex="false" tool="3" flavor2="0">
+      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -927,6 +955,14 @@
           </makeArtifact>
         </requiredProjects>
       </compileType>
+      <item path="../COPYING" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.md" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.pc" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.sketch" ex="false" tool="3" flavor2="0">
+      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -1153,6 +1189,14 @@
           <commandLine>-Wall -Wextra -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega2560</commandLine>
         </linkerTool>
       </compileType>
+      <item path="../COPYING" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.md" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.pc" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.sketch" ex="false" tool="3" flavor2="0">
+      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -1354,6 +1398,14 @@
           <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega128a</commandLine>
         </linkerTool>
       </compileType>
+      <item path="../COPYING" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.md" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.pc" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.sketch" ex="false" tool="3" flavor2="0">
+      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -1567,6 +1619,14 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="../COPYING" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.md" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.pc" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.sketch" ex="false" tool="3" flavor2="0">
+      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -1770,6 +1830,14 @@
           <commandLine>-Os -Wall -Wextra -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega2560</commandLine>
         </linkerTool>
       </compileType>
+      <item path="../COPYING" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.md" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.pc" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.sketch" ex="false" tool="3" flavor2="0">
+      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -2004,6 +2072,14 @@
           <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega168 -Wl,-Map,${CND_ARTIFACT_PATH_${CONF}}.map</commandLine>
         </linkerTool>
       </compileType>
+      <item path="../COPYING" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.md" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.pc" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.sketch" ex="false" tool="3" flavor2="0">
+      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -2250,6 +2326,14 @@
           <commandLine>-Os -Wall -Wextra -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega1284p</commandLine>
         </linkerTool>
       </compileType>
+      <item path="../COPYING" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.md" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.pc" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.sketch" ex="false" tool="3" flavor2="0">
+      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -2485,6 +2569,14 @@
           <commandLine>-Os -Wall -Wextra -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega2560</commandLine>
         </linkerTool>
       </compileType>
+      <item path="../COPYING" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.md" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.pc" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.sketch" ex="false" tool="3" flavor2="0">
+      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -2693,6 +2785,14 @@
           <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega328p</commandLine>
         </linkerTool>
       </compileType>
+      <item path="../COPYING" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.md" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.pc" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.sketch" ex="false" tool="3" flavor2="0">
+      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -2898,6 +2998,14 @@
           <commandLine>-Wall -Wextra -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega168p -Wl,-Map,${CND_ARTIFACT_PATH_${CONF}}.map</commandLine>
         </linkerTool>
       </compileType>
+      <item path="../COPYING" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.md" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.pc" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.sketch" ex="false" tool="3" flavor2="0">
+      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -3184,6 +3292,14 @@
                             group="bin"/>
         </packFileList>
       </packaging>
+      <item path="../COPYING" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.md" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.pc" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../README.sketch" ex="false" tool="3" flavor2="0">
+      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>

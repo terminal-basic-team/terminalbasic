@@ -44,15 +44,15 @@ static const uint8_t mathTokens[] PROGMEM = {
 	'A', 'S', 'N', '!', ASCII_NUL,
 #endif
 	'A', 'S', 'N', ASCII_NUL,
-#if M_ADDITIONAL
 #if USE_LONG_REALS
 	'A', 'T', 'N', '!', ASCII_NUL,
 #endif
+#if M_ADDITIONAL
 #if USE_LONG_REALS
 	'A', 'T', 'N', '2', '!', ASCII_NUL,
 #endif
 	'A', 'T', 'N', '2', ASCII_NUL,
-#endif
+#endif // M_ADDITIONAL
 	'A', 'T', 'N', ASCII_NUL,
 #endif // M_REVERSE_TRIGONOMETRIC
 #if M_ADDITIONAL
@@ -65,13 +65,13 @@ static const uint8_t mathTokens[] PROGMEM = {
 #if USE_LONG_REALS
 	'C', 'O', 'S', '!', ASCII_NUL,
 #endif
-#endif
+#endif // M_TRIGONOMETRIC
 #if M_HYPERBOLIC
 #if USE_LONG_REALS
 	'C', 'O', 'S', 'H', '!', ASCII_NUL,
 #endif
         'C', 'O', 'S', 'H', ASCII_NUL,
-#endif
+#endif // M_HYPERBOLIC
 #if M_TRIGONOMETRIC
 	'C', 'O', 'S', ASCII_NUL,
 #if USE_LONG_REALS

@@ -1,7 +1,7 @@
 /*
  * This file is part of Terminal-BASIC: a lightweight BASIC-like language
  * interpreter.
- * 
+ *
  * Copyright (C) 2016-2018 Andrey V. Skvortsov <starling13@mail.ru>
  * Copyright (C) 2019-2021 Terminal-BASIC team
  *     <https://github.com/terminal-basic-team>
@@ -20,44 +20,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "basic_task.hpp"
+#ifndef _BASIC_CONFIG_H
+#define _BASIC_CONFIG_H
 
-namespace BASIC
-{
+/*
+ * Language constants for later usage
+ */
+#define LANG_EN 0 /* English */
+#define LANG_RU 1 /* Russian */
+#define LANG_FR 3 /* French */
 
-Task::Task(const char*) :
-    m_halproxyStream(0),
-    m_interpreter(m_halproxyStream, m_halproxyStream, BASIC::SINGLE_PROGSIZE)
-{
+#define OPT_SPEED 1 /* Extensive usage of switch/case constructs */
+#define OPT_SIZE  2 /* Use cascade of if/else if instead of switch/case */
 
-#if CONF_MODULE_ARDUINOIO
-	m_interpreter.addModule(&m_arduinoio);
-#endif
-	
-#if USE_GFX
-	m_interpreter.addModule(&m_gfx);
-#endif
-	
-#if USEMATH
-	m_interpreter.addModule(&m_math);
-#endif
-	
-#if CONF_USE_EXTMEMFS
-	m_interpreter.setSDFSModule(&m_sdfs);
-	m_interpreter.addModule(&m_sdfs);	
-#endif
-}
+#endif /* _BASIC_CONFIG_H */
 
-void
-Task::init()
-{
-	m_interpreter.init();
-}
-
-void
-Task::step()
-{
-	m_interpreter.step();
-}
-
-} // namespace BASIC

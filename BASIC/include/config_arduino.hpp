@@ -117,7 +117,6 @@ const pointer_t SINGLE_PROGSIZE = PROGRAMSIZE;
 
 #define USEUTFT            0
 #define USETVOUT           0
-#define USEPS2USARTKB      0
 #define USELIQUIDCRYSTAL   0
 
 // END PRIVATE

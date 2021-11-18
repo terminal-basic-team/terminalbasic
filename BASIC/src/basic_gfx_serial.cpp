@@ -120,10 +120,7 @@ GFXModule::command_cursor(Interpreter &i)
 	Parser::Value v(false);
 	if (i.popValue(v)) {
 		if (v.type() == Parser::Value::LOGICAL) {
-			/*i.print(char(ASCII::DLE));
-			i.print(char(GFXTERM::Command::CURSOR));
-			i.print(bool(v) ? char(1) : char(0));*/
-      HAL_gfx_setCursor(BOOLEAN(bool(v)));
+			HAL_gfx_setCursor(BOOLEAN(bool(v)));
 			return true;
 		}
 	}

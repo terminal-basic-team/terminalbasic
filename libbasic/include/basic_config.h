@@ -28,6 +28,8 @@
 #ifndef BASIC_CONFIG_H
 #define BASIC_CONFIG_H
 
+#include "_basic_config.h"
+
 /*
  * 1. Real arithmetics
  * 
@@ -59,7 +61,7 @@
  * Default integer constants are 2-byte signed [-32768 .. 32768), but this 
  * option enables 4-byte signed type.
  * Functions, variables and arrays of long integer type ends with double "%!"
- * symbols
+ * symbols will be treated as long integers
  */
 #define USE_LONGINT          0
 
@@ -151,15 +153,11 @@
  */
 #define USE_PEEK_POKE 0
 
-/**
- * Language constants for later usage
- */
-#define LANG_EN 0 /* English */
-#define LANG_RU 1 /* Russian */
-#define LANG_FR 3 /* French */
-
-/**
+/*
  * Messages and errors localization
+ *   LANG_EN: English
+ *   LANG_RU: Russian
+ *   LANG_FR: French
  */
 #define CONF_LANG LANG_EN
 
@@ -171,17 +169,17 @@
 /* Size of the string identifiers */
 #define STRING_SIZE 72
 
-/**
+/*
  * Enabling packed structures reduces BASIC memory usage, but results to
- * unaligned memory acces. It should be desabled on ESP8266, Motorola 68k, etc.
+ * unaligned memory acces. It should be disabled on ESP8266, Motorola 68k, etc.
  */
 #define USE_PACKED_STRUCT 1
 
 /*
  * High-level code optimisation mode
+ *   OPT_SPEED Extensive usage of switch/case constructs
+ *   OPT_SIZE  Use cascade of if/else if instead of switch/case
  */
-#define OPT_SPEED     1 /* Extensive use of switch/case constructs */
-#define OPT_SIZE      2 /* Use cascade of if/else if instead of switch/case */
 #define OPT           OPT_SIZE /* Selected mode */
 
 #endif /* BASIC_CONFIG_H */

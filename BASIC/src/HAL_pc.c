@@ -183,4 +183,16 @@ HAL_extmem_fileExists(const char fname[13])
 
 #endif /* HAL_EXTMEM */
 
+uint32_t
+HAL_time_gettime_ms()
+{
+	struct timespec ts;
+	if (clock_gettime(CLOCK_MONOTONIC, &ts) != 0) {
+		perror("clock_gettime");
+		exit(EXIT_FAILURE);
+	}
+	
+	return ts.tv_sec * 1000l + ts.tv_nsec / 1000000l;
+}
+
 #endif /* HAL_PC_TERMINAL */
