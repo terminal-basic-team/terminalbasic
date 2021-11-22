@@ -92,7 +92,7 @@
 /**
  * Implicit arrays without DIM statement
  */
-#define OPT_IMPLICIT_ARRAYS  1
+#define OPT_IMPLICIT_ARRAYS  0
 
 #if USE_TEXTATTRIBUTES
 	/*
@@ -111,7 +111,7 @@
 
 #if USE_SAVE_LOAD
 	// Compute checksums while SAVE, LOAD and CHAIN
-	#define SAVE_LOAD_CHECKSUM   0
+	#define SAVE_LOAD_CHECKSUM   1
 #endif // USE_SAVE_LOAD
 
 // Convert all input to upper register
@@ -130,7 +130,7 @@
 #define CONF_ERROR_STRINGS 0
 
 // Arduino IO module
-#define CONF_MODULE_ARDUINOIO      1
+#define CONF_MODULE_ARDUINOIO      0
 #if CONF_MODULE_ARDUINOIO
 	// TONE command support
 	#define CONF_MODULE_ARDUINOIO_TONE 0

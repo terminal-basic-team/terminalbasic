@@ -92,7 +92,7 @@
 #define USE_DEFFN            0
 
 /*
- * DELAY command, suspends execution for N ms
+ * DELAY command, suspending execution for N ms
  */
 #define USE_DELAY           1
 
@@ -104,7 +104,7 @@
 /*
  * Allow GO TO OPERATOR in addition to GOTO
  */
-#define CONF_SEPARATE_GO_TO 1
+#define CONF_SEPARATE_GO_TO 0
 
 /*
  * Fast command call using C-function address
@@ -148,7 +148,7 @@
  */
 #define USESTOPCONT       1
 
-/**
+/*
  * PEEK FUNCTION, POKE command support
  */
 #define USE_PEEK_POKE 0
@@ -161,7 +161,7 @@
  */
 #define CONF_LANG LANG_EN
 
-/**
+/*
  * Lexer localization
  */
 #define CONF_LEXER_LANG LANG_EN
