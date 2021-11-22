@@ -123,11 +123,10 @@
         <ccTool>
           <incDir>
             <pElem>include</pElem>
-            <pElem>../../libarduinoemulator/include</pElem>
-            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
-            <pElem>../../libarduinoext/include</pElem>
             <pElem>../libbasic/include</pElem>
-            <pElem>../../libtvoutex/TVoutEx/src</pElem>
+            <pElem>../../libarduinoemulator/include</pElem>
+            <pElem>../../libarduinoext/include</pElem>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
           </incDir>
           <commandLine>-std=gnu++11</commandLine>
           <preprocessorList>
@@ -1555,10 +1554,14 @@
       <compileType>
         <cTool>
           <developmentMode>5</developmentMode>
-          <standard>10</standard>
           <incDir>
             <pElem>../libbasic/include</pElem>
+            <pElem>include</pElem>
           </incDir>
+          <commandLine>-std=gnu11</commandLine>
+          <preprocessorList>
+            <Elem>HAL_PC_TERMINAL</Elem>
+          </preprocessorList>
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
@@ -1566,30 +1569,20 @@
           <standard>8</standard>
           <incDir>
             <pElem>include</pElem>
-            <pElem>../../libarduinoext/include</pElem>
-            <pElem>../../libarduinoemulator/include</pElem>
-            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
-            <pElem>../../libtvoutex/TVoutEx/src</pElem>
             <pElem>../libbasic/include</pElem>
+            <pElem>../../libarduinoemulator/include</pElem>
+            <pElem>../../libarduinoext/include</pElem>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino</pElem>
           </incDir>
           <commandLine>`pkg-config --cflags posixcpp` `pkg-config --cflags sdl2`</commandLine>
+          <preprocessorList>
+            <Elem>HAL_PC_TERMINAL</Elem>
+          </preprocessorList>
           <warningLevel>2</warningLevel>
         </ccTool>
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/terminal-basic</output>
           <linkerLibItems>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../../libtvoutex/netbenas"
-                            CT="3"
-                            CN="Release_PC"
-                            AC="false"
-                            BL="true"
-                            WD="../../libtvoutex/netbenas"
-                            BC="${MAKE} -j8 -f Makefile CONF=Release_PC"
-                            CC="${MAKE} -j8 -f Makefile CONF=Release_PC clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnetbenas.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../../libarduinoemulator"
                             CT="3"
@@ -1612,6 +1605,18 @@
                             BC="${MAKE}  -f Makefile CONF=Release"
                             CC="${MAKE}  -f Makefile CONF=Release clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibarduinoext.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../libbasic/libbasic_nb"
+                            CT="3"
+                            CN="Release"
+                            AC="true"
+                            BL="true"
+                            WD="../libbasic/libbasic_nb"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibbasic_nb.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerOptionItem>`pkg-config --libs posixcpp`</linkerOptionItem>
@@ -1762,7 +1767,7 @@
       </item>
       <item path="src/tvoutprint.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/ucbasic_main.cpp" ex="false" tool="1" flavor2="8">
+      <item path="src/ucbasic_main.cpp" ex="true" tool="1" flavor2="8">
       </item>
       <item path="tests/TableTest.cpp" ex="false" tool="1" flavor2="0">
       </item>

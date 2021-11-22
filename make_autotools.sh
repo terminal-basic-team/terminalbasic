@@ -14,6 +14,7 @@ SRC="	./libbasic/include/basic.h
 	./libbasic/include/tools.h
 	./libbasic/src/tools.c
 	./libbasic/include/basic_config.h
+	./libbasic/include/_basic_config.h
 	./libbasic/include/HAL.h
 	./libbasic/src/HAL.c
 	./libbasic/include/HAL_config.h

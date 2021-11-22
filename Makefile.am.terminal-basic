@@ -62,6 +62,7 @@ terminalbasic_SOURCES=arduinoext.hpp \
 	bytearray.cpp \
 	bytearray.hpp \
 	basic_config.h \
+	_basic_config.h \
 	basic_config.hpp \
 	config_linux.hpp \
 	HAL.h \

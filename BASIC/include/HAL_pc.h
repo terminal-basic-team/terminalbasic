@@ -27,6 +27,8 @@
 #ifndef HAL_PC_H
 #define HAL_PC_H
 
+#include "HAL_config.h"
+
 #if HAL_NVRAM
 #define HAL_PC_FILES_PATH "/terminal_basic_HAL/"
 #endif

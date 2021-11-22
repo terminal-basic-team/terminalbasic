@@ -11,6 +11,7 @@ SRC="	./libbasic/include/basic.h \
 	./libbasic/include/basic_parser.h \
 	./libbasic/include/basic_value.h \
 	./libbasic/include/basic_config.h \
+	./libbasic/include/_basic_config.h \
 	./libbasic/include/HAL.h \
 	./libbasic/include/HAL_config.h \
 	./libbasic/include/tools.h \
@@ -120,4 +121,4 @@ do
 done
 
 cd ./sketch
-tar -czvf ./terminal-basic-${VER}-arduino-sketch.tar.gz ./README ./terminal-basic-${VER} ../../libtvoutex/TVoutEx ../../libsdcard/SDCard ../../libutft/UTFT ../../libps2uart/ps2uartKeyboard
+tar -czvf ./terminal-basic-${VER}-arduino-sketch.tar.gz ./README ./terminal-basic-${VER} ../../libtvoutex/TVoutEx ../../libsdcard/SDCard ../../libutft/UTFT ../../libps2uart/ps2uartKeyboard ../../libps2kbddup/ps2kbd
