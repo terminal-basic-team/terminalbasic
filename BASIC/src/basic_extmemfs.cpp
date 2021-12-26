@@ -403,9 +403,7 @@ ExtmemFSModule::dload(Interpreter &i)
 	char ss[16];
 	if (!getFileName(i, ss))
 		return false;
-	
-	if (!HAL_extmem_fileExists(ss))
-		return false;
+  
 	HAL_extmem_file_t f = HAL_extmem_openfile(ss);
 	if (f == 0)
 		return false;
