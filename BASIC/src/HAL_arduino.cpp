@@ -643,7 +643,7 @@ HAL_terminal_isdataready(HAL_terminal_t t)
 
 #if HAL_EXTMEM && (HAL_ARDUINO_EXTMEM == HAL_ARDUINO_EXTMEM_SDFS)
 
-static SDCard::File files[EXTMEM_NUM_FILES];
+static SDCard::File files[HAL_EXTMEM_NUM_FILES];
 
 static SDCard::File
 getRootDir()
@@ -652,18 +652,21 @@ getRootDir()
 	    SDCard::Mode::WRITE | SDCard::Mode::READ | SDCard::Mode::CREAT);
 	if (!root || !root.isDirectory())
 		abort();
+	return root;
 }
 
 HAL_extmem_file_t
 HAL_extmem_openfile(const char path[13])
 {
 	uint8_t i=0;
-	for (; i<EXTMEM_NUM_FILES; ++i) {
+	for (; i<HAL_EXTMEM_NUM_FILES; ++i) {
 		if (!files[i]) {
 			files[i] = SDCard::SDFS.open(path, SDCard::Mode::CREAT|SDCard::Mode::WRITE|
 			    SDCard::Mode::READ);
-			if (files[i])
+			if (files[i]) {
+				files[i].seek(0);
 				return i+1;
+			}
 		}
 	}
 	return 0;
@@ -755,7 +758,7 @@ HAL_extmem_deletefile(const char path[13])
 BOOLEAN
 HAL_extmem_fileExists(const char path[13])
 {
-	SDCard::SDFS.exists(path);
+	return SDCard::SDFS.exists(path);
 }
 
 #endif // HAL_ARDUINO_EXTMEM
