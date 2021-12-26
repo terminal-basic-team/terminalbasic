@@ -1031,7 +1031,7 @@ HAL_buzzer_tone(uint8_t channel, uint16_t freq, uint16_t dur)
 void
 HAL_buzzer_notone(uint8_t channel)
 {
-	noTone(HAL_BUZZER_ARDUINO_PIN);
+	noTone(channel);
 }
 
 #endif // HAL_BUZZER_ARDUINO
