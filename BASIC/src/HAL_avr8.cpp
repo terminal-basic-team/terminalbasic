@@ -47,10 +47,10 @@ HAL_initialize_concrete()
 	SerialL3.begin(HAL_ARDUINO_AVR8_TERMINAL_SERIAL_3_BR);
 #endif
 #endif // HAL_ARDUINO_AVR8_TERMINAL
-#if USE_EXTMEM
+#if HAL_ARDUINO_AVR8_EXTMEM
 	XMCRA |= 1ul<<7; // Switch ext mem iface on
 	XMCRB = 0;
-#endif // USE_EXTMEM
+#endif // HAL_ARDUINO_AVR8_EXTMEM
 }
 __END_DECLS
 
