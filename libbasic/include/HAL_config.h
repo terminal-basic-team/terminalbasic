@@ -54,7 +54,14 @@
 #define HAL_GFX 0
 #if HAL_GFX
 /* Default implementation of the explicit color setting commands */
-#define HAL_GFX_EXPCOLOR_SIMPL 1
+#define HAL_GFX_EXPCOLOR_SIMPL 0
+
+#define HAL_GFX_COLOR_MONO 0
+#define HAL_GFX_COLOR_1BITPERC 1
+#define HAL_GFX_COLOR_2BITPERC 2
+
+#define HAL_GFX_COLOR HAL_GFX_COLOR_2BITPERC
+
 #endif /* HAL_GFX */
 
 #define HAL_GPIO 1
