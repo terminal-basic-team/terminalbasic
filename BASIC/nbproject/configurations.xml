@@ -4,10 +4,12 @@
     <logicalFolder name="include" displayName="include" projectFiles="true">
       <itemPath>include/HALProxyStream.hpp</itemPath>
       <itemPath>include/HAL_arduino.h</itemPath>
+      <itemPath>include/HAL_arduino_gfx.hpp</itemPath>
       <itemPath>include/HAL_avr8.h</itemPath>
       <itemPath>include/HAL_esp32.h</itemPath>
       <itemPath>include/HAL_pc.h</itemPath>
       <itemPath>include/HAL_sdl.h</itemPath>
+      <itemPath>include/_HAL_arduino.h</itemPath>
       <itemPath>include/_HAL_pc.h</itemPath>
       <itemPath>include/basic.hpp</itemPath>
       <itemPath>include/basic_arduinoio.hpp</itemPath>
@@ -35,6 +37,7 @@
     <logicalFolder name="src" displayName="src" projectFiles="true">
       <itemPath>src/HALProxyStream.cpp</itemPath>
       <itemPath>src/HAL_arduino.cpp</itemPath>
+      <itemPath>src/HAL_arduino_gfx.cpp</itemPath>
       <itemPath>src/HAL_avr8.cpp</itemPath>
       <itemPath>src/HAL_esp32.cpp</itemPath>
       <itemPath>src/HAL_esp32_odroidgo.cpp</itemPath>
@@ -50,9 +53,6 @@
       <itemPath>src/basic_extmemfs.cpp</itemPath>
       <itemPath>src/basic_functionblock.cpp</itemPath>
       <itemPath>src/basic_gfx.cpp</itemPath>
-      <itemPath>src/basic_gfx_serial.cpp</itemPath>
-      <itemPath>src/basic_gfx_tvout.cpp</itemPath>
-      <itemPath>src/basic_gfx_utft.cpp</itemPath>
       <itemPath>src/basic_internalfuncs.cpp</itemPath>
       <itemPath>src/basic_interpreter_matrix.cpp</itemPath>
       <itemPath>src/basic_interpreterw.cpp</itemPath>
@@ -251,6 +251,8 @@
       </item>
       <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_arduino_gfx.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_esp32.h" ex="false" tool="3" flavor2="0">
@@ -258,6 +260,8 @@
       <item path="include/HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/_HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/_HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -301,6 +305,8 @@
       </item>
       <item path="src/HALProxyStream.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/HAL_arduino_gfx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
@@ -330,12 +336,6 @@
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_serial.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -514,6 +514,8 @@
       </item>
       <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_arduino_gfx.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_esp32.h" ex="false" tool="3" flavor2="0">
@@ -521,6 +523,8 @@
       <item path="include/HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/_HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/_HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -564,6 +568,8 @@
       </item>
       <item path="src/HALProxyStream.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/HAL_arduino_gfx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/HAL_esp32_odroidgo.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_sdl.c" ex="false" tool="0" flavor2="0">
@@ -579,12 +585,6 @@
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_serial.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -734,6 +734,8 @@
       </item>
       <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_arduino_gfx.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_esp32.h" ex="false" tool="3" flavor2="0">
@@ -741,6 +743,8 @@
       <item path="include/HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/_HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/_HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -786,6 +790,8 @@
       </item>
       <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/HAL_arduino_gfx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
@@ -813,12 +819,6 @@
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_serial.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -981,6 +981,8 @@
       </item>
       <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_arduino_gfx.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_esp32.h" ex="false" tool="3" flavor2="0">
@@ -988,6 +990,8 @@
       <item path="include/HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/_HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/_HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1033,6 +1037,8 @@
       </item>
       <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/HAL_arduino_gfx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_mingw32.c" ex="false" tool="0" flavor2="0">
@@ -1048,12 +1054,6 @@
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_serial.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1215,6 +1215,8 @@
       </item>
       <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_arduino_gfx.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_esp32.h" ex="false" tool="3" flavor2="0">
@@ -1222,6 +1224,8 @@
       <item path="include/HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/_HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/_HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1267,6 +1271,8 @@
       </item>
       <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/HAL_arduino_gfx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_esp32_odroidgo.cpp" ex="false" tool="1" flavor2="0">
@@ -1286,12 +1292,6 @@
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_serial.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1424,6 +1424,8 @@
       </item>
       <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_arduino_gfx.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_esp32.h" ex="false" tool="3" flavor2="0">
@@ -1431,6 +1433,8 @@
       <item path="include/HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/_HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/_HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1476,6 +1480,8 @@
       </item>
       <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/HAL_arduino_gfx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
@@ -1505,12 +1511,6 @@
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_serial.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1651,6 +1651,8 @@
       </item>
       <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_arduino_gfx.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_esp32.h" ex="false" tool="3" flavor2="0">
@@ -1658,6 +1660,8 @@
       <item path="include/HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/_HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/_HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1703,6 +1707,8 @@
       </item>
       <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/HAL_arduino_gfx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
@@ -1732,12 +1738,6 @@
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_serial.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1862,6 +1862,8 @@
       </item>
       <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_arduino_gfx.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_esp32.h" ex="false" tool="3" flavor2="0">
@@ -1869,6 +1871,8 @@
       <item path="include/HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/_HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/_HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1914,6 +1918,8 @@
       </item>
       <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/HAL_arduino_gfx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
@@ -1943,12 +1949,6 @@
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_serial.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -2104,6 +2104,8 @@
       </item>
       <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_arduino_gfx.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_esp32.h" ex="false" tool="3" flavor2="0">
@@ -2111,6 +2113,8 @@
       <item path="include/HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/_HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/_HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -2156,6 +2160,8 @@
       </item>
       <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/HAL_arduino_gfx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
@@ -2183,12 +2189,6 @@
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_serial.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -2358,6 +2358,8 @@
       </item>
       <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_arduino_gfx.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_esp32.h" ex="false" tool="3" flavor2="0">
@@ -2365,6 +2367,8 @@
       <item path="include/HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/_HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/_HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -2410,6 +2414,8 @@
       </item>
       <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/HAL_arduino_gfx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
@@ -2439,12 +2445,6 @@
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_serial.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -2481,11 +2481,25 @@
     </conf>
     <conf name="Arduino_mega2560_tvout" type="1">
       <toolsSet>
-        <compilerSet>Arduino-1.8.10|GNU</compilerSet>
+        <compilerSet>Arduino-1.8.13|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <cTool>
+          <incDir>
+            <pElem>../libbasic/include</pElem>
+            <pElem>../../libarduinoext/include</pElem>
+          </incDir>
+          <commandLine>-Os -Wextra -std=gnu11 -ffunction-sections -fdata-sections -MMD -mmcu=atmega2560 -flto -fno-fat-lto-objects -mcall-prologues</commandLine>
+          <preprocessorList>
+            <Elem>ARDUINO=10813</Elem>
+            <Elem>ARDUINO_ARCH_AVR</Elem>
+            <Elem>ARDUINO_AVR_MEGA2560</Elem>
+            <Elem>F_CPU=16000000L</Elem>
+          </preprocessorList>
+          <warningLevel>2</warningLevel>
+        </cTool>
         <ccTool>
           <developmentMode>0</developmentMode>
           <standard>8</standard>
@@ -2495,13 +2509,18 @@
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/EEPROM/src</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/SoftwareSerial/src</pElem>
             <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/SPI/src</pElem>
-            <pElem>${ARDUINO_PATH}/libraries/PS2Keyboard</pElem>
             <pElem>${ARDUINO_PATH}/libraries/TVoutfonts</pElem>
-            <pElem>${ARDUINO_PATH}/libraries/UTFT</pElem>
+            <pElem>${ARDUINO_PATH}/libraries/TVout</pElem>
             <pElem>${ARDUINO_PATH}/libraries/SD/src</pElem>
+            <pElem>${ARDUINO_PATH}/libraries/PS2Keyboard</pElem>
+            <pElem>${ARDUINO_PATH}/hardware/arduino/avr/libraries/Wire/src</pElem>
             <pElem>include</pElem>
             <pElem>../../libarduinoext/include</pElem>
-            <pElem>../../libsdcard/SDCard</pElem>
+            <pElem>../TVoutEx</pElem>
+            <pElem>../UTFT/include</pElem>
+            <pElem>../../libsdcard/SDCard/src</pElem>
+            <pElem>../../libutft/UTFT</pElem>
+            <pElem>../libbasic/include</pElem>
             <pElem>../../libtvoutex/TVoutEx/src</pElem>
           </incDir>
           <incFile>
@@ -2509,7 +2528,7 @@
           </incFile>
           <commandLine>-Os -Wextra -std=gnu++11 -fpermissive -fno-exceptions -fno-threadsafe-statics -MMD -mmcu=atmega2560 -ffunction-sections -fdata-sections -fno-rtti -mcall-prologues</commandLine>
           <preprocessorList>
-            <Elem>ARDUINO=10810</Elem>
+            <Elem>ARDUINO=10813</Elem>
             <Elem>ARDUINO_ARCH_AVR</Elem>
             <Elem>ARDUINO_AVR_MEGA2560</Elem>
             <Elem>F_CPU=16000000L</Elem>
@@ -2570,6 +2589,18 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/libarduino.a">
               </makeArtifact>
             </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../libbasic/libbasic_nb"
+                            CT="3"
+                            CN="Arduino_MEGA"
+                            AC="true"
+                            BL="true"
+                            WD="../libbasic/libbasic_nb"
+                            BC="${MAKE}  -f Makefile CONF=Arduino_MEGA"
+                            CC="${MAKE}  -f Makefile CONF=Arduino_MEGA clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibbasic_nb.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
           </linkerLibItems>
           <commandLine>-Os -Wall -Wextra -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega2560</commandLine>
         </linkerTool>
@@ -2601,6 +2632,8 @@
       </item>
       <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_arduino_gfx.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_esp32.h" ex="false" tool="3" flavor2="0">
@@ -2608,6 +2641,8 @@
       <item path="include/HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/_HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/_HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -2653,23 +2688,9 @@
       </item>
       <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/HAL_arduino_gfx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HAL_esp32_odroidgo.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HAL_esp8266.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HAL_mingw32.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="src/HAL_pc.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="src/HAL_posix.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="src/HAL_sam.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HAL_sdl.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="src/basic_arduinoio.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -2682,12 +2703,6 @@
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_serial.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -2705,15 +2720,11 @@
       </item>
       <item path="src/basic_program.cpp" ex="false" tool="1" flavor2="8">
       </item>
-      <item path="src/basic_task.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/strings_en.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_fr.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/strings_ru.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/taskmain.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/tvoutprint.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -2817,6 +2828,8 @@
       </item>
       <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_arduino_gfx.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_esp32.h" ex="false" tool="3" flavor2="0">
@@ -2824,6 +2837,8 @@
       <item path="include/HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/_HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/_HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -2869,6 +2884,8 @@
       </item>
       <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/HAL_arduino_gfx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
@@ -2898,12 +2915,6 @@
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_serial.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -3030,6 +3041,8 @@
       </item>
       <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_arduino_gfx.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_esp32.h" ex="false" tool="3" flavor2="0">
@@ -3037,6 +3050,8 @@
       <item path="include/HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/_HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/_HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -3082,6 +3097,8 @@
       </item>
       <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/HAL_arduino_gfx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
@@ -3111,12 +3128,6 @@
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_gfx_serial.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="8">
       </item>
@@ -3324,6 +3335,8 @@
       </item>
       <item path="include/HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/HAL_arduino_gfx.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/HAL_avr8.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_esp32.h" ex="false" tool="3" flavor2="0">
@@ -3331,6 +3344,8 @@
       <item path="include/HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/HAL_sdl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/_HAL_arduino.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/_HAL_pc.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -3376,6 +3391,8 @@
       </item>
       <item path="src/HAL_arduino.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/HAL_arduino_gfx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
@@ -3405,12 +3422,6 @@
       <item path="src/basic_functionblock.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_gfx.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_gfx_serial.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_gfx_tvout.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/basic_gfx_utft.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/basic_internalfuncs.cpp" ex="false" tool="1" flavor2="8">
       </item>
