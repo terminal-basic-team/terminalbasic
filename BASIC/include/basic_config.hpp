@@ -172,12 +172,10 @@
 /*
  * GFX module
  */
-#define USE_GFX          0
+#define USE_GFX        1
 #if USE_GFX
 // Use drawing functions with explisit color setting
 #define GFX_EXP_COLOR 1
-// Serial binary graphics protocol
-#define SERIAL_GFX    0
 #endif
 
 /*

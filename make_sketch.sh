@@ -38,6 +38,8 @@ SRC="	./libbasic/include/basic.h \
 	./BASIC/include/basic_config.hpp \
 	./BASIC/include/config_arduino.hpp \
 	./BASIC/include/HAL_arduino.h \
+	./BASIC/include/_HAL_arduino.h \
+	./BASIC/include/HAL_arduino_gfx.hpp \
 	./BASIC/src/HALProxyStream.cpp \
 	./BASIC/src/basic_lexerw.cpp  \
 	./BASIC/include/version.h \
@@ -63,6 +65,7 @@ SRC="	./libbasic/include/basic.h \
 	./BASIC/src/tvoutprint.cpp \
 	./BASIC/include/tvoutprint.hpp \
 	./BASIC/src/HAL_arduino.cpp \
+	./BASIC/src/HAL_arduino_gfx.cpp \
 	./BASIC/include/HAL_avr8.h \
 	./BASIC/src/HAL_avr8.cpp \
 	./BASIC/src/HAL_esp8266.cpp \
@@ -71,9 +74,6 @@ SRC="	./libbasic/include/basic.h \
 	./BASIC/src/HAL_esp32_odroidgo.cpp \
 	./BASIC/src/HAL_sam.cpp \
 	./BASIC/src/basic_gfx.cpp \
-	./BASIC/src/basic_gfx_tvout.cpp \
-	./BASIC/src/basic_gfx_utft.cpp \
-	./BASIC/src/basic_gfx_serial.cpp \
 	./BASIC/src/strings_en.hpp \
 	./BASIC/src/strings_fr.hpp \
 	./BASIC/src/strings_ru.hpp \
