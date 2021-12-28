@@ -1,7 +1,7 @@
 /*
  * This file is part of Terminal-BASIC: a lightweight BASIC-like language
  * interpreter.
- * 
+ *
  * Copyright (C) 2016-2018 Andrey V. Skvortsov <starling13@mail.ru>
  * Copyright (C) 2019-2021 Terminal-BASIC team
  *     <https://github.com/terminal-basic-team>
@@ -30,14 +30,14 @@
 
 /*
  * Enable NVRAM read/write functions
- * 
+ *
  * NVRAM provides a single storage space, preserved between software runs
  */
 #define HAL_NVRAM 1
 
 /*
  * Enable external memory interface
- * 
+ *
  * External memory is a simple filesystem model
  */
 #define HAL_EXTMEM 0

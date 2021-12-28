@@ -1,7 +1,7 @@
 /*
  * This file is part of Terminal-BASIC: a lightweight BASIC-like language
  * interpreter.
- * 
+ *
  * Copyright (C) 2016-2018 Andrey V. Skvortsov <starling13@mail.ru>
  * Copyright (C) 2019-2021 Terminal-BASIC team
  *     <https://github.com/terminal-basic-team>
@@ -295,14 +295,14 @@ public:
     memset(m_screenBuffer[0], ' ', m_rows*m_columns);
     memset(m_screenBuffer[1], VT100::TextAttr::NO_ATTR, m_rows*m_columns);
   }
-  
+
   void begin()
   {
     tft.begin();
     tft.setTextColor(TFT_LIGHTGREY);
     tft.setTextSize(1);
   }
-  
+
   void clear() override
   {
     memset(m_screenBuffer[0], ' ', m_rows*m_columns);
@@ -313,7 +313,7 @@ public:
     setCursor(0, 0);
     drawCursor(true);
   }
-  
+
   void onTimer()
   {
     // If cursor is locked by the non-interrupt code - return
@@ -329,17 +329,17 @@ public:
     m_cursorState = !m_cursorState;
     drawCursor(m_cursorState);
   }
- 
+
   TFT_eSPI tft;
 
 protected:
-  
+
   void drawCursor(bool v)
   {
     tft.fillRect(tft.getCursorX(), tft.getCursorY(), 6, 8,
         v ? TFT_WHITE : TFT_BLACK);
   }
-  
+
   void scrollLine()
   {
     if (m_row >= m_rows-1) {
@@ -349,10 +349,10 @@ protected:
       //tft.scrollTo(m_scroll);
       memmove(m_screenBuffer[0], m_screenBuffer[0]+m_columns, m_columns*(m_rows-1));
       memmove(m_screenBuffer[1], m_screenBuffer[1]+m_columns, m_columns*(m_rows-1));
-      
+
       memset(m_screenBuffer[0]+m_columns*(m_rows-1), ' ', m_columns);
       memset(m_screenBuffer[1]+m_columns*(m_rows-1), VT100::TextAttr::NO_ATTR, m_columns);
-      
+
       tft.setCursor(0, 0);
       tft.fillScreen(TFT_BLACK);
 
@@ -375,7 +375,7 @@ protected:
       ++m_row;
     setCursor(m_column, m_row);
   }
-  
+
   void writeChar(uint8_t c) override
   {
     m_lockCursor = true;
@@ -410,7 +410,7 @@ protected:
     drawCursor(true);
     m_lockCursor = false;
   }
-  
+
   uint8_t getCursorX() override
   {
     return m_column;
@@ -429,7 +429,7 @@ protected:
     tft.setCursor(m_column * 6, (y * 8 + m_scroll) % tft.height());
     drawCursor(true);
   }
-    
+
   void addAttribute(VT100::TextAttr ta) override
   {
     switch (ta) {
@@ -498,7 +498,7 @@ private:
   }
 
   uint8_t m_row, m_column;
-  
+
   uint8_t m_rows, m_columns;
 
   uint16_t m_scroll;
@@ -1050,7 +1050,7 @@ HAL_update()
     HAL_ARDUINO_TERMINAL_OUTPUT == HAL_ARDUINO_TERMINAL_OUTPUT_TFTeSPI
 	espi.onTimer();
 #endif
-  
+
 	HAL_update_concrete();
 }
 
