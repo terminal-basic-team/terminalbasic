@@ -1,7 +1,7 @@
 /*
  * This file is part of Terminal-BASIC: a lightweight BASIC-like language
  * interpreter.
- * 
+ *
  * Copyright (C) 2016-2018 Andrey V. Skvortsov <starling13@mail.ru>
  * Copyright (C) 2019-2021 Terminal-BASIC team
  *     <https://github.com/terminal-basic-team>
@@ -172,12 +172,10 @@
 /*
  * GFX module
  */
-#define USE_GFX          0
+#define USE_GFX        1
 #if USE_GFX
 // Use drawing functions with explisit color setting
 #define GFX_EXP_COLOR 1
-// Serial binary graphics protocol
-#define SERIAL_GFX    0
 #endif
 
 /*

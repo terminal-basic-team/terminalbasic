@@ -1,7 +1,7 @@
 #
-#  There exist several targets which are by default empty and which can be 
-#  used for execution of your targets. These targets are usually executed 
-#  before and after some main targets. They are: 
+#  There exist several targets which are by default empty and which can be
+#  used for execution of your targets. These targets are usually executed
+#  before and after some main targets. They are:
 #
 #     .build-pre:              called before 'build' target
 #     .build-post:             called after 'build' target
@@ -17,13 +17,13 @@
 #  Targets beginning with '.' are not intended to be called on their own.
 #
 #  Main targets can be executed directly, and they are:
-#  
+#
 #     build                    build a specific configuration
 #     clean                    remove built files from a configuration
 #     clobber                  remove all built files
 #     all                      build all configurations
 #     help                     print help mesage
-#  
+#
 #  Targets .build-impl, .clean-impl, .clobber-impl, .all-impl, and
 #  .help-impl are implemented in nbproject/makefile-impl.mk.
 #
@@ -60,7 +60,7 @@ OBJCOPY_ARM=/opt/Arduino/gcc-arm-none-eabi-4.8.3-2014q1/bin/arm-none-eabi-objcop
 SIZE_ARM=/opt/Arduino/gcc-arm-none-eabi-4.8.3-2014q1/bin/arm-none-eabi-size
 
 BUILD:=$(shell cat "./build-${CONF}")
-VERSION:=2.3-b3-${BUILD}
+VERSION:=2.3-rc1-${BUILD}
 
 # build
 build: .build-post
@@ -136,7 +136,7 @@ ARCH=""
 
 copy_Debug : ARCH=i686-linux-dbg
 copy_Debug : copy-pc
-	
+
 copy_Debug_SDL : ARCH=i686-sdl2-dbg
 copy_Debug_SDL : copy-pc
 
@@ -153,7 +153,7 @@ copy_Arduino_nano328 : copy
 copy_Arduino_pro328 : ARCH=arduinoPRO
 copy_Arduino_pro328 : UCARCH=atmega328p
 copy_Arduino_pro328 : copy
-	
+
 copy_Atmega_128a : ARCH=arduino
 copy_Atmega_128a : UCARCH=atmega128a
 copy_Atmega_128a : copy
@@ -161,7 +161,7 @@ copy_Atmega_128a : copy
 copy_Arduino_nano168 : ARCH=arduinoNANO
 copy_Arduino_nano168 : UCARCH=atmega168
 copy_Arduino_nano168 : copy
-	
+
 copy_Arduino_nano168p : ARCH=arduinoNANO
 copy_Arduino_nano168p : UCARCH=atmega168p
 copy_Arduino_nano168p : copy
@@ -181,7 +181,7 @@ copy_Atmega1284 : copy
 copy_Arduino_UNO : ARCH=arduinoUNO
 copy_Arduino_UNO : UCARCH=atmega328p
 copy_Arduino_UNO : copy
-	
+
 copy_Arduino_DUE:
 	${OBJCOPY_ARM} "${CND_ARTIFACT_PATH_${CONF}}" \
 	    "${CND_ARTIFACT_PATH_${CONF}}_${VERSION}.bin"
@@ -193,12 +193,12 @@ program_Arduino_UNO : ARCH=arduinoUNO
 program_Arduino_UNO : UCARCH=atmega328p
 program_Arduino_UNO : PROGRAMMER=arduino
 program_Arduino_UNO : program_common
-	
+
 program_Arduino_nano168 : ARCH=arduinoNANO
 program_Arduino_nano168 : UCARCH=atmega168
 program_Arduino_nano168 : PROGRAMMER=usbasp
 program_Arduino_nano168 : program_common
-	
+
 program_Arduino_nano168p : ARCH=arduinoNANO
 program_Arduino_nano168p : UCARCH=atmega168p
 program_Arduino_nano168p : PROGRAMMER=usbasp
@@ -208,12 +208,12 @@ program_Arduino_mega2560 : ARCH=arduinoMEGA
 program_Arduino_mega2560 : UCARCH=atmega2560
 program_Arduino_mega2560 : PROGRAMMER=wiring
 program_Arduino_mega2560 : program_common
-	
+
 program_Arduino_mega2560_tvout : ARCH=arduinoMEGA
 program_Arduino_mega2560_tvout : UCARCH=atmega2560
 program_Arduino_mega2560_tvout : PROGRAMMER=wiring
 program_Arduino_mega2560_tvout : program_common
-	
+
 program_Atmega1284 : ARCH=mighty1284
 program_Atmega1284 : UCARCH=atmega1284p
 program_Atmega1284 : PROGRAMMER=usbasp
