@@ -33,18 +33,18 @@ Task::Task(const char*) :
 #if CONF_MODULE_ARDUINOIO
 	m_interpreter.addModule(&m_arduinoio);
 #endif
-	
+
 #if USE_GFX
 	m_interpreter.addModule(&m_gfx);
 #endif
-	
+
 #if USEMATH
 	m_interpreter.addModule(&m_math);
 #endif
-	
+
 #if CONF_USE_EXTMEMFS
 	m_interpreter.setSDFSModule(&m_sdfs);
-	m_interpreter.addModule(&m_sdfs);	
+	m_interpreter.addModule(&m_sdfs);
 #endif
 }
 
