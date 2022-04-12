@@ -317,7 +317,7 @@ Interpreter::init()
 	_parser.init();
 	_program.newProg();
 #if USE_TEXTATTRIBUTES
-        cls();
+	cls();
 #if SET_PRINTZNES
 	printEsc(ProgMemStrings::VT100_CLEARZONES);
 	char buf[PRINT_ZONE_WIDTH];

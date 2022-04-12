@@ -26,7 +26,7 @@
 
 #if CONF_LEXER_LANG == LANG_RU
 
-const uint8_t _basic_lexer_symbolsShift PROGMEM = (uint8_t)('ï¿½')-'A';
+const uint8_t _basic_lexer_symbolsShift PROGMEM = (uint8_t)('€')-'A';
 
 const uint8_t _basic_lexer_tokenTable[] PROGMEM = {
 	ASCII_NUL,
@@ -101,50 +101,50 @@ const uint8_t _basic_lexer_tokenTable[] PROGMEM = {
 #if USE_MATRIX
 	'Z', 'E', 'R',ASCII_NUL,
 #endif
-	'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
+	'‚', '‚', 'Ž', '„', ASCII_NUL,
 #if USE_DATA
-	'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
+	'‚', '‡', 'Ÿ', '’', 'œ', ASCII_NUL,
 #endif
-	'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
-	'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
+	'‚', 'Ž', '‡', '‚', '', '€', '’', ASCII_NUL,
+	'‚', '›', '‚', 'Ž', '„', ASCII_NUL,
 #if USE_DATA
-	'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
+	'„', '€', '', '', '›', '…', ASCII_NUL,
 #endif
-	'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
-	'ï¿½', 'ï¿½', ASCII_NUL,
-	'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
-	'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
-        'ï¿½', ASCII_NUL,
-	'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
-	'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
-	'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½',  ASCII_NUL,
+	'„', '‹', 'Ÿ', ASCII_NUL,
+	'„', 'Ž', ASCII_NUL,
+	'…', '‘', '‹', 'ˆ', ASCII_NUL,
+	'ˆ', '‹', 'ˆ', ASCII_NUL,
+        'ˆ', ASCII_NUL,
+	'Š', 'Ž', 'Œ', ASCII_NUL,
+	'Š', 'Ž', '', '…', '–', ASCII_NUL,
+	'‹', 'ˆ', '‘', '’', '€', '’', 'œ',  ASCII_NUL,
 #if USE_MATRIX
-	'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,                // 23
+	'Œ', '€', '’', ASCII_NUL,                // 23
 #endif
-	'ï¿½', 'ï¿½', ASCII_NUL,
-	'ï¿½', 'ï¿½', ASCII_NUL,
-	'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,      // 21
+	'', '€', ASCII_NUL,
+	'', '…', ASCII_NUL,
+	'', 'Ž', '‚', '€', 'Ÿ', ASCII_NUL,      // 21
 #if USE_DEFFN
-	'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
+	'Ž', '', '', ASCII_NUL,
 #endif
 #if CONF_USE_ON_GOTO
-	'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
+	'', '', 'ˆ', ASCII_NUL,
 #endif
-	'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
-	'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
-	'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
+	'', '“', '‘', 'Š', ASCII_NUL,
+	'', '“', '‘', '’', 'œ', ASCII_NUL,
+	'', '€', '‡', 'Œ', '…', '', ASCII_NUL,
 #if USE_DATA
-	'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
+	'‘', '', 'Ž', '‚', '€', ASCII_NUL,
 #endif
 #if USESTOPCONT
-	'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
+	'‘', '’', 'Ž', '', ASCII_NUL,
 #endif
-	'ï¿½', 'ï¿½', ASCII_NUL,
+	'’', 'Ž', ASCII_NUL,
 #if USE_DEFFN
-	'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
+	'”', '“', '', 'Š', ASCII_NUL,
 #endif
-	'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
-	'ï¿½', 'ï¿½', 'ï¿½', ASCII_NUL,
+	'–', 'ˆ', 'Š', '‹', ASCII_NUL,
+	'˜', '€', 'ƒ', ASCII_NUL,
 	ASCII_ETX
 };
 

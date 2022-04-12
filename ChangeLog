@@ -1,3 +1,8 @@
+r.2.3-b3 (01.04.2022)
+
+  * Fix AVR8 external memory support
+  * Fix support of the SD-card on Arduino platforms
+
 r2.3-b2 (22.11.2021)
 
   * Add VAL function
