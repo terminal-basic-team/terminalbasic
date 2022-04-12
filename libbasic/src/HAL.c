@@ -22,6 +22,10 @@
 
 #include "HAL.h"
 
+#if HAL_TERMINAL_STDIO >= HAL_TERMINAL_NUM
+#error STDIO terminal index is greater then number of terminals
+#endif
+
 #if HAL_NVRAM
 
 void
