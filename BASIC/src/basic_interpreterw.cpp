@@ -1,7 +1,7 @@
 /*
  * This file is part of Terminal-BASIC: a lightweight BASIC-like language
  * interpreter.
- * 
+ *
  * Copyright (C) 2016-2018 Andrey V. Skvortsov <starling13@mail.ru>
  * Copyright (C) 2019-2021 Terminal-BASIC team
  *     <https://github.com/terminal-basic-team>
@@ -154,7 +154,7 @@ static PGM_P const progmemStrings[uint8_t(ProgMemStrings::NUM_STRINGS)] PROGMEM 
 	strVT100_WHITE
 #endif // USE_COLORATTRIBUTES
 #endif // USE_TEXTATTRIBUTES
-	    
+
 };
 
 #if CONF_ERROR_STRINGS
@@ -551,7 +551,7 @@ Interpreter::list(uint16_t start, uint16_t stop)
 			order = 1;
 	}
 #endif // LINE_NUM_INDENT
-	
+
 	_program.reset();
 #if LOOP_INDENT
 	_loopIndent = 0;
@@ -578,12 +578,12 @@ Interpreter::list(uint16_t start, uint16_t stop)
 			indent = order - 1;
 		else
 			indent = order;
-		
+
 		while (indent-- > 0)
 			_output.print(char(ASCII::SPACE));
 #endif // LINE_NUM_INDENT
 		print(long(snumber), VT100::C_YELLOW);
-		
+
 		Lexer lex;
 #if LOOP_INDENT
 		lex.init(s->text, true);
@@ -709,7 +709,7 @@ Interpreter::dump(DumpMode mode)
 			_output.print(')');
 			_output.print(":\t");
 			_output.println();
-			
+
 			index += f->size();
 		}
 	}
@@ -846,7 +846,7 @@ Interpreter::print(Lexer &l)
 			_output.print(char(ASCII::QUMARK));
 			_output.print(l.id());
 			_output.print(char(ASCII::QUMARK));
-                        _output.print(char(ASCII::SPACE));
+                        //_output.print(char(ASCII::SPACE));
 		} else if (t >= Token::INTEGER_IDENT && t <= Token::BOOL_IDENT)
 			print(l.id(), VT100::C_BLUE);
 #if FAST_MODULE_CALL
@@ -949,7 +949,7 @@ Interpreter::pushForLoop(const char *varName, uint8_t textPosition,
 		strcpy(fBody.varName, varName);
 	} else
 		raiseError(DYNAMIC_ERROR, STACK_FRAME_ALLOCATION);
-	
+
 	return f;
 }
 
@@ -1017,7 +1017,7 @@ Interpreter::execFn(const char *name)
 		raiseError(DYNAMIC_ERROR, NO_SUCH_FUNCION);
 		return;
 	}
-	
+
 	auto ff = reinterpret_cast<FunctionFrame*>(vf+1);
 	_program._current.index = ff->lineNumber;
 	_program._current.position = ff->linePosition;
@@ -1098,7 +1098,7 @@ Interpreter::returnFromFn()
 		} else
 			break;
 	}
-	
+
 	const auto f = _program.currentStackFrame();
 	if ((f != nullptr) && (f->_type == Program::StackFrame::SUBPROGRAM_RETURN)) {
 		_program._current.index = READ_VALUE(f->body.gosubReturn.calleeIndex);
@@ -1153,7 +1153,7 @@ bool
 Interpreter::testFor(Program::StackFrame &f)
 {
 	assert(f._type == Program::StackFrame::FOR_NEXT);
-	
+
 	auto &fBody = f.body.forFrame;
 	Parser::Value v;
 	valueFromVar(v, fBody.varName);
@@ -1323,14 +1323,14 @@ Interpreter::doInput()
 			case Token::PLUS:
 				continue;
 			////////////////////////////////////
-			
+
 			///////// Numeric constants /////////
 			case Token::C_INTEGER:
 			case Token::C_REAL:
 				v = l.getValue();
 				break;
 			/////////////////////////////////////
-			
+
 			///////// String constants //////////
 			// Constant w/o quotes is parsed as identifier
 			case Token::C_STRING:
@@ -1399,7 +1399,7 @@ VariableFrame::size(Parser::Value::Type t)
 	}
 #else // OPT != OPT_SPEED
 	uint8_t res = sizeof(VariableFrame);
-	
+
 #if USE_LONGINT
 	if (t == Parser::Value::LONG_INTEGER)
 		res += sizeof(LongInteger);
@@ -1486,7 +1486,7 @@ Interpreter::set(VariableFrame &f, const Parser::Value &v)
 		U.b = f.bytes;
 		*U.r = LongReal(v);
 	}
-		break;	
+		break;
 #endif
 #endif // USE_REALS
 	case Parser::Value::STRING:
@@ -1639,7 +1639,7 @@ void
 Interpreter::print(Token t)
 {
 	char buf[10];
-	
+
 	const bool res = Lexer::getTokenString(t,
 	    reinterpret_cast<uint8_t*>(buf));
 	if (res)
@@ -1679,7 +1679,7 @@ Interpreter::read(Parser::Value &value)
 			return true;
 		} else
 			_program.getNextLine(_program._dataCurrent);
-			
+
 	}
 	raiseError(ErrorType::DYNAMIC_ERROR, ErrorCodes::INSUFFICIENT_DATA);
 	return false;
@@ -1754,7 +1754,7 @@ Interpreter::raiseError(ErrorType type, ErrorCodes errorCode, bool fatal)
 		print(ProgMemStrings::S_SEMANTIC);
 	else // STATIC_ERROR
 		print(ProgMemStrings::S_SYNTAX);
-	
+
 	print(ProgMemStrings::S_ERROR, VT100::C_RED);
 	if (type == DYNAMIC_ERROR) {
 		print(Integer(errorCode));
@@ -1770,7 +1770,7 @@ Interpreter::raiseError(ErrorType type, ErrorCodes errorCode, bool fatal)
 #endif
 	}
 	newline();
-	
+
 	if (fatal)
 		_state = SHELL;
 }
@@ -1842,7 +1842,7 @@ Interpreter::setVariable(const char *name, const Parser::Value &v)
 		f = reinterpret_cast<VariableFrame*> (_program._text + index);
 	}
 #endif
-	
+
 	if (_program._arraysEnd+dist >= _program._sp) {
 		raiseError(DYNAMIC_ERROR, OUTTA_MEMORY);
 		return nullptr;
@@ -1895,7 +1895,7 @@ Interpreter::setArrayElement(const char *name, const Parser::Value &v)
 		}
 #endif
 	}
-	
+
 	if (f->type == Parser::Value::STRING) {
 		auto fr = _program.currentStackFrame();
 		if (fr == nullptr || fr->_type != Program::StackFrame::STRING) {
@@ -2081,7 +2081,7 @@ ArrayFrame::size() const
 	// Header with dimensions vector
 	uint16_t result = sizeof (ArrayFrame) + numDimensions *
 	    sizeof(uint16_t);
-	
+
 	uint16_t mul = dataSize();
 	result += mul;
 
@@ -2106,7 +2106,7 @@ ArrayFrame::dataSize() const
 #if USE_LONG_REALS
 	case Parser::Value::LONG_REAL:
 		mul *= sizeof (LongReal);
-		break;	
+		break;
 #endif // USE_LONG_REALS
 	case Parser::Value::REAL:
 		mul *= sizeof (Real);
@@ -2147,7 +2147,7 @@ ArrayFrame::get(uint16_t index, Parser::Value& v) const
 #if USE_LONG_REALS
 		case Parser::Value::LONG_REAL:
 			v = get<LongReal>(index);
-			return true;	
+			return true;
 #endif // USE_LONG_REALS
 		case Parser::Value::REAL:
 			v = get<Real>(index);
@@ -2187,7 +2187,7 @@ ArrayFrame::set(uint16_t index, const Parser::Value &v)
 #if USE_LONG_REALS
 		case Parser::Value::LONG_REAL:
 			set(index, LongReal(v));
-			return true;	
+			return true;
 #endif
 		case Parser::Value::REAL:
 			set(index, Real(v));
@@ -2216,12 +2216,12 @@ uint16_t
 ArrayFrame::numElements() const
 {
 	uint16_t mul = 1;
-	
-	// Every dimension is from 0 to dimension[i], thats why 
+
+	// Every dimension is from 0 to dimension[i], thats why
 	// it is increased by 1
 	for (uint8_t i=0u; i<numDimensions; ++i)
 		mul *= dimension[i] + 1;
-	
+
 	return mul;
 }
 
@@ -2243,7 +2243,7 @@ Interpreter::addArray(const char *name, uint8_t dim, uint16_t num)
 			return nullptr;
 		} else if (res < 0)
 			break;
-		
+
 		index += f->size();
 	}
 

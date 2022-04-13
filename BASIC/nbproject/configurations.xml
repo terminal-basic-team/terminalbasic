@@ -305,8 +305,6 @@
       </item>
       <item path="src/HALProxyStream.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/HAL_arduino_gfx.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/HAL_avr8.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HAL_esp32.cpp" ex="false" tool="1" flavor2="0">
