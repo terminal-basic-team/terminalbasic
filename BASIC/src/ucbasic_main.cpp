@@ -94,7 +94,7 @@ namespace BASIC
 
 } // namespace BASIC
 
-static BASIC::HALProxyStream halproxy1(0);
+static BASIC::HALProxyStream halproxy1(HAL_TERMINAL_STDIO);
 
 /**
  * Instantiating modules
