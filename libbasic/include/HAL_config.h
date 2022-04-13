@@ -23,10 +23,16 @@
 #ifndef HAL_CONFIG_H
 #define HAL_CONFIG_H
 
-/*
+/**
  * Number of available terminals
  */
 #define HAL_TERMINAL_NUM 1
+
+/**
+ * Zero-baszed index of active terminal for standard input/output
+ * (not greater then HAL_TERMINAL_NUM-1)
+ */
+#define HAL_TERMINAL_STDIO 0
 
 /*
  * Enable NVRAM read/write functions
