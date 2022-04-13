@@ -719,7 +719,10 @@ Interpreter::dump(DumpMode mode)
 #endif // USE_DUMP
 
 void
-Interpreter::print(const Parser::Value &v, VT100::TextAttr attr)
+Interpreter::print(
+    const Parser::Value &v,
+    VT100::TextAttr attr,
+    bool trspace)
 {
 #if USE_TEXTATTRIBUTES
 	AttrKeeper keeper(*this, attr);
@@ -737,7 +740,9 @@ Interpreter::print(const Parser::Value &v, VT100::TextAttr attr)
 	case Parser::Value::LONG_INTEGER:
 #endif
 	case Parser::Value::INTEGER:
-		v.printTo(_output), _output.write(' ');
+		v.printTo(_output);
+		if (trspace)
+			_output.write(' ');
 		break;
 	case Parser::Value::STRING:
 	{
@@ -840,7 +845,7 @@ Interpreter::print(Lexer &l)
 		}
 #else
 		if (t >= Token::C_INTEGER && t <= Token::C_BOOLEAN)
-			print(l.getValue(), VT100::C_CYAN);
+			print(l.getValue(), VT100::C_CYAN, false);
 		else if (t == Token::C_STRING) {
 			AttrKeeper a(*this, VT100::C_MAGENTA);
 			_output.print(char(ASCII::QUMARK));
@@ -1563,11 +1568,16 @@ Interpreter::readInput()
 }
 
 void
-Interpreter::print(const char *text, VT100::TextAttr attr)
+Interpreter::print(
+    const char *text,
+    VT100::TextAttr attr,
+    bool trsp)
 {
 	AttrKeeper _a(*this, attr);
 
-	_output.print(text), _output.print(char(ASCII::SPACE));
+	_output.print(text);
+	if (trsp)
+		_output.print(char(ASCII::SPACE));
 }
 
 void
@@ -1644,7 +1654,7 @@ Interpreter::print(Token t)
 	    reinterpret_cast<uint8_t*>(buf));
 	if (res)
 		print(buf, VT100::TextAttr(uint8_t(VT100::BRIGHT) |
-		    uint8_t(VT100::C_GREEN)));
+		    uint8_t(VT100::C_GREEN)), t<Token::STAR);
 	else
 		print(ProgMemStrings::S_ERROR, VT100::TextAttr(uint8_t(VT100::BRIGHT) |
 		    uint8_t(VT100::C_RED)));

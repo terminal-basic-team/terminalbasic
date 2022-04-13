@@ -352,9 +352,21 @@ public:
 	void writePgm(ProgMemStrings);
 	void writePgm(PGM_P);
 	void print(Token);
-	void print(const char *, VT100::TextAttr = VT100::NO_ATTR);
+	void print(
+	    const char*,
+	    VT100::TextAttr = VT100::NO_ATTR,
+	    bool = true);
 	// print value
-	void print(const Parser::Value&, VT100::TextAttr = VT100::NO_ATTR);
+	/**
+	 * @brief Print Value polymorphic object
+	 * @param value -- object to print
+	 * @param attr -- text attributes
+	 * @param trspace -- trailing space
+	 */
+	void print(
+	    const Parser::Value&,
+	    VT100::TextAttr = VT100::NO_ATTR,
+	    bool = true);
 
 	void printEsc(const char*);
 	void printEsc(ProgMemStrings);
